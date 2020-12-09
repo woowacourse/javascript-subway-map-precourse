@@ -30,8 +30,20 @@ const makeResultBlock = (idx) => {
 btnStationManager.onclick = () => {
   makeResultBlock(0);
 };
+const setStationList = (stationList) => {
+  const startOptions = document.getElementById("line-start-station-selector");
+  const endOptions = document.getElementById("line-end-station-selector");
+  for (let idx in stationList) {
+    const newOption = document.createElement("option");
+    newOption.innerHTML = stationList[idx].name;
+    const copyOption = newOption.cloneNode(true);
+    startOptions.appendChild(newOption);
+    endOptions.appendChild(copyOption);
+  }
+};
 btnLineManager.onclick = () => {
   makeResultBlock(1);
+  setStationList(stationList);
 };
 btnSectionManager.onclick = () => {
   makeResultBlock(2);
