@@ -14,12 +14,18 @@ export const makeText = (tag, innerText) => {
 	return text;
 };
 
+export const makeInput = (placeholder="", type="text") => {
+    const input = document.createElement("input");
+    input.placeholder = placeholder;
+    input.type= type;
+    return input;
+}
+
 export const makeNameInputArea = (name, placeholder, hasBtn = false) => {
 	const mainArea = document.createElement('div');
 	const titleArea = makeText('p', name);
-	const inputArea = document.createElement('input');
+	const inputArea = makeInput(placeholder);
 	const btnArea = makeBtn(words.STATION_ADD_BTN);
-	inputArea.placeholder = placeholder;
 	appendChilds(
 		mainArea,
 		hasBtn ? [titleArea, inputArea, btnArea] : [titleArea, inputArea]

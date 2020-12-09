@@ -20,8 +20,9 @@ const words = {
     LINE_TABLE_COL4: "설정",
 
     // 구간 관리
-    SECTION_SELECT_TEXT: "구간을 설정할 노선을 선택해주세요.",
-    SECTION_HANDLE_WORD: "관리",
+    SECTION_TITLE: "구간을 설정할 노선을 선택해주세요.",
+    SECTION_HANDLE_TEXT: "관리",
+    SECTION_REGISTER_TEXT: "구간 등록",
     SECTION_PLACEHOLDER: "순서",
     SECTION_ADD_BTN: "등록",
     SECTION_TABLE_COL1: "순서",

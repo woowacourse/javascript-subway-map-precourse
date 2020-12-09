@@ -14,8 +14,8 @@ const lineContainer = (container) => {
 		words.LINE_PLACEHOLDER
 	);
 
-	const ascendingEndPointText = makeText('p', words.LINE_ASC_ENDPOINT_NAME);
-	const descendingEndPointText = makeText('p', words.LINE_DESC_ENDPOINT_NAME);
+	const ascendingEndPointText = makeText('p', words.LINE_ASC_ENDPOINT);
+	const descendingEndPointText = makeText('p', words.LINE_DESC_ENDPOINT);
 	const ascendingEndPointSelectBox = makeSelectBox(['인천', '동인천']);
 	const descendingEndPointSelectBox = makeSelectBox(['인천','동인천']);
 
