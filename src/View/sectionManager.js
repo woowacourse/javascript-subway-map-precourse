@@ -9,7 +9,6 @@ import {
 } from './template.js';
 
 const appendUnderBtns = (data) => {
-	// data는 임시데이터
 	const subContainer = document.querySelector(".sub-container");
 	const handleText = makeText('p', `${data} ${words.SECTION_HANDLE_TEXT}`);
 	const registerText = makeText('p', words.SECTION_REGISTER_TEXT);
@@ -30,6 +29,7 @@ const appendUnderBtns = (data) => {
 		registerBtn,
 		tableArea,
 	]);
+	
 };
 
 const sectionContainer = (container) => {
