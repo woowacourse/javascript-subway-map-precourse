@@ -29,4 +29,17 @@ export default function Line(name) {
     stationList.push(current.name);
     return stationList;
   };
+
+  Line.prototype.addStationToIdx = (station, idx) => {
+    const addStation = station;
+    let currentIdx = 0;
+    let currentStation = this.head;
+    while (currentIdx < idx - 1) {
+      currentStation = currentStation.next;
+      currentIdx++;
+    }
+    addStation.next = currentStation.next;
+    currentStation.next = addStation;
+    this.length += 1;
+  };
 }

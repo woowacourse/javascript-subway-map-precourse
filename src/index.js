@@ -7,6 +7,10 @@ import { showLineList } from "./section-manager.js";
 export function ManageStationLine(lineList, stationList) {
   this.lineList = lineList;
   this.stationList = stationList;
+  this.selectedLine = null;
+  this.setSelectedLine = (selectedLine) => {
+    this.selectedLine = selectedLine;
+  };
 }
 const btnStationManager = document.getElementById("station-manager-button");
 const btnLineManager = document.getElementById("line-manager-button");

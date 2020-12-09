@@ -30,6 +30,7 @@ export const onClickedLine = (lineName) => {
       selectedLine = line;
     }
   });
+  manageStationLine.setSelectedLine(selectedLine);
   console.log(selectedLine);
   showStationList(selectedLine.getAllStation());
 };
@@ -47,4 +48,21 @@ export const showLineList = (lineList) => {
     lineMenuButton.innerHTML = line.name;
     lineMenu.appendChild(lineMenuButton);
   });
+};
+const btnAddSection = document.getElementById("section-add-button");
+btnAddSection.onclick = () => {
+  const addSectionIdx = document.getElementById("section-order-input").value;
+  const addStationName = document.getElementById("section-station-selector")
+    .value;
+  console.log(manageStationLine.selectedLine);
+  manageStationLine.stationList.forEach((station) => {
+    if (station.name === addStationName) {
+      console.log(station);
+      manageStationLine.selectedLine.addStationToIdx(station, addSectionIdx);
+    }
+  });
+  const stationList = document.getElementById("station-in-selected-line");
+  stationList.innerHTML = "";
+  showStationList(manageStationLine.selectedLine.getAllStation());
+  console.log(manageStationLine.selectedLine);
 };
