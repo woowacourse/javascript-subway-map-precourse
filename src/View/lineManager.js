@@ -1,14 +1,46 @@
-import { makeBtn, makeNameInputArea, makeSelectBox } from './template.js';
+import {
+	makeBtn,
+	makeNameInputArea,
+	makeSelectBox,
+	makeTable,
+	makeText,
+} from './template.js';
 import words from '../key/words.js';
+import { appendChilds, clearAllContents } from '../Controller/utils.js';
 
 const lineContainer = (container) => {
 	const nameInputArea = makeNameInputArea(
 		words.LINE_NAME,
 		words.LINE_PLACEHOLDER
 	);
+
+	const ascendingEndPointText = makeText('p', words.LINE_ASC_ENDPOINT_NAME);
+	const descendingEndPointText = makeText('p', words.LINE_DESC_ENDPOINT_NAME);
+	const ascendingEndPointSelectBox = makeSelectBox(['인천', '동인천']);
+	const descendingEndPointSelectBox = makeSelectBox(['인천','동인천']);
+
 	const lineAddBtn = makeBtn(words.LINE_ADD_BTN);
-	const ascendingEndPointselectBox = makeSelectBox(["인천, 동인천"]);
-	const descendingEndPointselectBox = makeSelectBox(["인천, 동인천"]);
+
+	const tableTitle = makeText('p', words.LINE_TABLE_TITLE);
+	const tableArea = makeTable([
+		words.LINE_NAME,
+		words.LINE_ASC_ENDPOINT_NAME,
+		words.LINE_DESC_ENDPOINT_NAME,
+		words.SETTING,
+	]);
+
+	clearAllContents(container);
+
+	appendChilds(container, [
+		nameInputArea,
+		ascendingEndPointText,
+		descendingEndPointText,
+		ascendingEndPointSelectBox,
+		descendingEndPointSelectBox,
+		lineAddBtn,
+		tableTitle,
+		tableArea,
+	]);
 };
 
 export default lineContainer;

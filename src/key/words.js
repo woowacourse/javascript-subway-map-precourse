@@ -13,8 +13,8 @@ const words = {
     LINE_ADD_BTN: "노선 추가",
     LINE_TABLE_TITLE: "🚉 지하철 노선 목록",
     LINE_ASC_ENDPOINT_NAME: "상행 종점역",
-    LINE_DESC_ENDPOINT_NAME: "상행 종점역",
-    
+    LINE_DESC_ENDPOINT_NAME: "하행 종점역",
+
     // 구간 관리
 
     // 노선도 출력
