@@ -21,14 +21,14 @@
 - 역과 역 사이에 새로운 역이 추가 될 수 있다.
 - 노선에서 갈래길은 생길 수 없다.
 
-<img width="500" src="/images/section1.png">
+<img width="500" src="./images/section1.png">
 
 ### 지하철 구간 삭제 기능
 - 노선에 등록된 역을 제거할 수 있다.
 - 종점을 제거할 경우 다음 역이 종점이 된다.
 - 노선에 포함된 역이 두개 이하일 때는 역을 제거할 수 없다.
 
-<img width="500" src="/images/section2.png">
+<img width="500" src="./images/section2.png">
 
 ### 지하철 노선에 등록된 역 조회 기능
 - 노선의 상행 종점부터 하행 종점까지 연결된 순서대로 역 목록을 조회할 수 있다.
@@ -38,16 +38,16 @@
 ## 💻 프로그램 실행 결과
 
 ### 역관리
-<img width="100%" src="/images/station_manager.gif">
+<img width="100%" src="./images/station_manager.gif">
 
 ### 노선관리
-<img width="100%" src="/images/line_manager.gif">
+<img width="100%" src="./images/line_manager.gif">
 
 ### 구간관리
-<img width="100%" src="/images/section_manager.gif">
+<img width="100%" src="./images/section_manager.gif">
 
 ### 노선도 출력
-<img width="100%" src="/images/map_print_manager.gif">
+<img width="100%" src="./images/map_print_manager.gif">
 
 
 ## ✅ 프로그래밍 요구사항
