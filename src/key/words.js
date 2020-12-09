@@ -34,6 +34,10 @@ const words = {
     
     // Line Model
     LINE: "Lines",
+
+    // etc
+    DELETE: "삭제",
+    DELETE_STATION_FROM_LINE: "노선에서 제거",
 }
 
 export default words;

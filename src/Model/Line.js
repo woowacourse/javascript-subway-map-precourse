@@ -26,11 +26,11 @@ Line.isValidLineName = (lineName) => {
 };
 
 Line.saveAllLines = (lines) => {
-	localStorage.setItem(words.LINE, lines); // 정렬기능 추가하기
+	localStorage.setItem(words.LINE, JSON.stringify(lines)); // 정렬기능 추가하기
 };
 
 Line.readAllLines = () => {
-	return localStorage.getItem(words.LINE);
+	return JSON.parse(localStorage.getItem(words.LINE));
 };
 
 Line.removeAllLines = () => {
@@ -38,19 +38,19 @@ Line.removeAllLines = () => {
 };
 
 Line.addOneLine = (line) => {
-	const allLines = readAllLines();
+	const allLines = Line.readAllLines();
 	allLines.push(line);
-	saveAllLines(allLines);
+	Line.saveAllLines(allLines);
 };
 
 Line.removeOneLine = (targetLine) => {
-	const allLines = readAllLines();
+	const allLines = Line.readAllLines();
 	const targetIndex = allLines.findIndex((line) => {
 		return targetLine.name === line.name;
 	});
 	if (targetIndex !== -1) {
 		allLines.splice(targetIndex, 1);
-		saveAllLines(allLines);
+		Line.saveAllLines(allLines);
 	}
 };
 

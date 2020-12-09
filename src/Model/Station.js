@@ -18,11 +18,11 @@ Station.isValidStationName = (stationName) => {
 };
 
 Station.saveAllStations = (stations) => {
-	localStorage.setItem(words.STATION, stations);
+	localStorage.setItem(words.STATION, JSON.stringify(stations));
 };
 
 Station.readAllStations = () => {
-	return localStorage.getItem(words.STATION);
+	return JSON.parse(localStorage.getItem(words.STATION));
 };
 
 Station.removeAllStations = () => {
@@ -30,19 +30,20 @@ Station.removeAllStations = () => {
 };
 
 Station.addOneStation = (station) => {
-	const allStations = readAllStations();
+    const allStations = Station.readAllStations();
+    console.log(allStations)
 	allStations.push(station);
-	saveAllStations(allStations);
+	Station.saveAllStations(allStations);
 };
 
 Station.removeOneStation = (targetStation) => {
-	const allStations = readAllStations();
+	const allStations = Station.readAllStations();
 	const targetIndex = allStations.findIndex((station) => {
 		return targetStation.name === station.name;
 	});
 	if (targetIndex !== -1) {
 		allStations.splice(targetIndex, 1);
-		saveAllStations(allStations);
+		Station.saveAllStations(allStations);
 	}
 };
 

@@ -1,6 +1,8 @@
 import { appendChilds } from '../Controller/utils.js';
 import words from '../key/words.js';
 
+// Btn모두 Button으로 바꾸기
+
 export const makeBtn = (innerText, className = '') => {
 	const btn = document.createElement('button');
 	if (className.length > 0) btn.className = className;
@@ -14,12 +16,25 @@ export const makeText = (tag, innerText) => {
 	return text;
 };
 
-export const makeInput = (placeholder="", type="text") => {
-    const input = document.createElement("input");
-    input.placeholder = placeholder;
-    input.type= type;
-    return input;
-}
+export const makeInput = (placeholder = '', type = 'text') => {
+	const input = document.createElement('input');
+	input.placeholder = placeholder;
+	input.type = type;
+	return input;
+};
+
+export const makeTableRow = (rows, btnText) => {
+	const tableRow = document.createElement('tr');
+	const tableData = rows.map((row) => {
+		const tdElem = document.createElement('td');
+		tdElem.innerText = row;
+		return tdElem;
+    });
+    const deleteBtn = document.createElement('td');
+    appendChilds(deleteBtn,[makeBtn(btnText)]);
+	appendChilds(tableRow, [...tableData, deleteBtn]);
+	return tableRow;
+};
 
 export const makeTable = (columns) => {
 	const mainTable = document.createElement('table');
@@ -47,16 +62,16 @@ export const makeSelectBox = (list) => {
 	return selectBox;
 };
 
-export const makeListElem = (title, elements=[]) => {
-    const ulContainer = document.createElement("div");
-    const ulTitle = makeText('p', title)
-    const ulElem = document.createElement("ul");
-    const liElems = elements.map(elem=>{
-        const liElem = document.createElement("li");
-        liElem.innerText = elem;
-        return liElem;
-    });
-    appendChilds(ulElem, liElems);
-    appendChilds(ulContainer, [ulTitle, ulElem]);
-    return ulContainer;
-}
+export const makeListElem = (title, elements = []) => {
+	const ulContainer = document.createElement('div');
+	const ulTitle = makeText('p', title);
+	const ulElem = document.createElement('ul');
+	const liElems = elements.map((elem) => {
+		const liElem = document.createElement('li');
+		liElem.innerText = elem;
+		return liElem;
+	});
+	appendChilds(ulElem, liElems);
+	appendChilds(ulContainer, [ulTitle, ulElem]);
+	return ulContainer;
+};

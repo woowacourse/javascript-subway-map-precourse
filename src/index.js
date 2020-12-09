@@ -16,8 +16,8 @@ const SubwayStationInit = () => {
 	sectionManagerBtn.addEventListener(CLICK, ()=>viewContainers.SECTION_CONTAINER(container));
 	mapPrintManagerBtn.addEventListener(CLICK, ()=>viewContainers.MAP_PRINT_CONTAINER(container));
     
-    Station.saveAllStations([]);
-    Line.saveAllLines([]);
+    // Station.saveAllStations([]);
+    // Line.saveAllLines([]);
 
 	viewContainers.STATION_CONTAINER(container);
 };
