@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,8 +19,11 @@
   "homepage": "https://github.com/jho2301/javascript-subway-map-precourse#readme",
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.15.0",
+    "jest": "^26.6.3",
     "prettier": "^2.2.1"
   }
 }
