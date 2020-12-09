@@ -1,0 +1,7 @@
+.change-cursor-hover:hover {
+  cursor: pointer;
+}
+
+#main-contents-container {
+  margin-top: 20px;
+}
