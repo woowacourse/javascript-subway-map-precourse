@@ -1,7 +1,8 @@
 export class Data {
 
     static getStationNameData = () => {
-        return localStorage.getItem("allStation")
+        let stationNameData = localStorage.getItem("allStation")
+        return JSON.parse(stationNameData);
     }
 
     static addStation = (stationName) => {
@@ -10,20 +11,27 @@ export class Data {
         if (stationNameData !== null) {
             stationNameData.push(stationName);
 
-            return;
+            return localStorage.setItem("allStation", JSON.stringify(stationNameData));
         }
 
-        localStorage.setItem("allStation", stationNameData);
+        return localStorage.setItem("allStation", JSON.stringify([stationName]));
     }
 
     static removeStation = (stationName) => {
         let stationNameData = this.getStationNameData();
+
         stationNameData.splice(stationNameData.indexOf(stationName), 1);
-        localStorage.setItem("allStation", stationNameData);
+
+        if (stationNameData.length === 0) {
+            return localStorage.setItem("allStation", null)
+        }
+
+        return localStorage.setItem("allStation", JSON.stringify(stationNameData));
     }
 
     static getLineData = () => {
-        return localStorage.getItem("allLine")
+        let lineData = localStorage.getItem("allLine")
+        return JSON.parse(lineData);
     }
 
     static addLine = (line) => {
@@ -32,32 +40,52 @@ export class Data {
         if (lineData !== null) {
             lineData.push(line);
 
-            return;
+            return localStorage.setItem("allLine", JSON.stringify(lineData));
         }
 
-        localStorage.setItem("allStation", lineData);
+        return localStorage.setItem("allLine", JSON.stringify([line]));
     }
 
     static removeLine = (line) => {
         let lineData = this.getLineData();
+
         lineData.splice(lineData.indexOf(line), 1);
-        localStorage.setItem("allStation", lineData);
+
+        if (lineData.length === 0) {
+            return localStorage.setItem("allLine", null);
+        }
+
+        return localStorage.setItem("allLine", JSON.stringify(lineData));
     }
 
     static getLineSectionData = (lineName) => {
-        return localStorage.getItem(lineName);
+        let lineSectionData = localStorage.getItem(lineName);
+
+        return JSON.parse(lineSectionData);
     }
 
     static addLineSection = (lineName, stationName, order) => {
         let lineSectionData = this.getLineSectionData(lineName);
-        lineSectionData.splice(order, 0, stationName);
-        localStorage.setItem(lineName, lineSectionData);
+
+        if (lineSectionData !== null) {
+            lineSectionData.splice(order, 0, stationName);
+
+            return localStorage.setItem(lineName, JSON.stringify(lineSectionData));
+        }
+
+        return localStorage.setItem(lineName, JSON.stringify[lineSectionData]);
     }
 
     static removeLineSection = (lineName, stationName) => {
         let lineSectionData = this.getLineSectionData(lineName);
+
         lineSectionData.splice(lineSectionData.indexOf(stationName), 1);
-        localStorage.setItem(lineName, lineSectionData);
+
+        if (lineSectionData.length === 0) {
+            return localStorage.setItem(lineName, null);
+        }
+
+        localStorage.setItem(lineName, JSON.stringify(lineSectionData));
     }
 
 
