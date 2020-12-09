@@ -61,7 +61,7 @@ export default class MenuView {
         <option value='soyosan'>소요산</option>
       </select>
     </p>
-    <button id='station-manager-button'>노선 추가</button>
+    <button>노선 추가</button>
     <h2>🚉 지하철 노선 목록</h2>
     <table border='1px solid black'>
       <tr>
