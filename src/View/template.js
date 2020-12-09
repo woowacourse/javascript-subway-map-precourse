@@ -21,18 +21,6 @@ export const makeInput = (placeholder="", type="text") => {
     return input;
 }
 
-export const makeNameInputArea = (name, placeholder, hasBtn = false) => {
-	const mainArea = document.createElement('div');
-	const titleArea = makeText('p', name);
-	const inputArea = makeInput(placeholder);
-	const btnArea = makeBtn(words.STATION_ADD_BTN);
-	appendChilds(
-		mainArea,
-		hasBtn ? [titleArea, inputArea, btnArea] : [titleArea, inputArea]
-	);
-	return mainArea;
-};
-
 export const makeTable = (columns) => {
 	const mainTable = document.createElement('table');
 	const tableThead = document.createElement('thead');
