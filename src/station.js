@@ -1,4 +1,4 @@
 export default function Station(name) {
   this.name = name;
-  this.includedLine = [];
+  this.next = null;
 }
