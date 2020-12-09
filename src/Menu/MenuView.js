@@ -64,9 +64,42 @@ export default class MenuView {
     </table>
     `;
   }
-  SectionManagerView() {
 
+  static SectionManagerView() {
+    document.getElementById('sub-view-container').innerHTML = `
+    <h3>구간을 수정할 노선을 선택해주세요.</h3>
+    <button id='line1'>1호선</button>
+    <button id='line2'>2호선</button>
+    <button id='line3'>3호선</button>
+    <div id='each-line-manager' hidden='true'>
+      <h3>1호선 관리</h3>
+      <h4>구간 등록</h4>
+      <select>
+        <option value='incheon'>인천</option>
+        <option value='seoul'>서울역</option>
+        <option value='soyosan'>소요산</option> 
+      </select>
+      <input type='number' min='0' placeholder='순서'/>
+      <button id='add'>등록</button>
+      <br/>
+      <br/>
+      <br/>
+      <table border='1px solid black'>
+      <tr>
+        <th align='center'>순서</th>
+        <th align='center'>이름</th>
+        <th algin='center'>설정</th>
+      </tr>
+      <tr>
+        <td align="center">1</td>
+        <td align="center">인천</td>
+        <td align="center"><button id='delete'>노선에서 제거</button></td>
+      </tr>
+    </table>
+    </div>
+    `;
   }
+
   MapPrintManagerView() {
 
   }
