@@ -14,7 +14,25 @@
         <button id="map-print-manager-button">4. 지하철 노선도 출력</button>
       </div>
       <div class="result">
-        <div id="station-manager-result" style="display: None">역 관리</div>
+        <div id="station-manager-result" style="display: block">
+          <div>
+            <div>역 이름</div>
+            <div>
+              <input id="station-name-input" />
+              <button id="station-add-button">역 추가</button>
+            </div>
+          </div>
+          <div>
+            <div>지하철 역 목록</div>
+            <table id="staion-list-table">
+              <thead>
+                <th>역 이름</th>
+                <th>설정</th>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
         <div id="line-manager-result" style="display: None">노선 관리</div>
         <div id="section-manager-result" style="display: None">구간 관리</div>
         <div id="map-print-manager-result" style="display: None">

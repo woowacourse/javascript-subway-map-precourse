@@ -1,3 +1,6 @@
+import Station from "./station.js";
+import { addStationtoList } from "./station-manager.js";
+
 const btnStationManager = document.getElementById("station-manager-button");
 const btnLineManager = document.getElementById("line-manager-button");
 const btnSectionManager = document.getElementById("section-manager-button");
@@ -14,7 +17,7 @@ const resultList = [
   resultSectionManager,
   resultMapPrintManager,
 ];
-function makeResultBlock(idx) {
+const makeResultBlock = (idx) => {
   for (let i in resultList) {
     if (i == idx) {
       resultList[i].style.display = "Block";
@@ -22,16 +25,25 @@ function makeResultBlock(idx) {
       resultList[i].style.display = "None";
     }
   }
-}
-btnStationManager.onclick = function () {
+};
+btnStationManager.onclick = () => {
   makeResultBlock(0);
 };
-btnLineManager.onclick = function () {
+btnLineManager.onclick = () => {
   makeResultBlock(1);
 };
-btnSectionManager.onclick = function () {
+btnSectionManager.onclick = () => {
   makeResultBlock(2);
 };
-btnMapPrintManager.onclick = function () {
+btnMapPrintManager.onclick = () => {
   makeResultBlock(3);
+};
+const btnAddStation = document.getElementById("station-add-button");
+let stationList = [];
+btnAddStation.onclick = () => {
+  const newStationName = document.getElementById("station-name-input").value;
+  const station = new Station(newStationName);
+  stationList.push(station);
+  addStationtoList(newStationName);
+  console.log(stationList);
 };
