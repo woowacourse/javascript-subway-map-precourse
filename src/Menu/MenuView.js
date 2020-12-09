@@ -13,7 +13,7 @@ export default class MenuView {
     document.getElementById('sub-view-container').innerHTML = `
     <h4>역 이름</h4>
     <form>
-      <input type='text' place-holder='역 이름을 입력해주세요.'/>
+      <input type='text' placeholder='역 이름을 입력해주세요.'/>
       <button id='station-manager-button'>역 추가</button>
     </form>
     <h2>🚉 지하철 역 목록</h2>
