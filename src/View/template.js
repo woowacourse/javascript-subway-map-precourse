@@ -58,3 +58,17 @@ export const makeSelectBox = (list) => {
 	appendChilds(selectBox, options);
 	return selectBox;
 };
+
+export const makeListElem = (title, elements=[]) => {
+    const ulContainer = document.createElement("div");
+    const ulTitle = makeText('p', title)
+    const ulElem = document.createElement("ul");
+    const liElems = elements.map(elem=>{
+        const liElem = document.createElement("li");
+        liElem.innerText = elem;
+        return liElem;
+    });
+    appendChilds(ulElem, liElems);
+    appendChilds(ulContainer, [ulTitle, ulElem]);
+    return ulContainer;
+}

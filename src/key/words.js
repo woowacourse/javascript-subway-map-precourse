@@ -28,9 +28,6 @@ const words = {
     SECTION_TABLE_COL1: "순서",
     SECTION_TABLE_COL2: "이름",
     SECTION_TABLE_COL3: "설정",
-
-    // 노선도 출력
-
 }
 
 export default words;
