@@ -1,10 +1,9 @@
-const STATION_NAME_INPUT_FORM = `
-    <label>
-      역 이름<br />
-      <input type="text" id="station-name-input placeholder="역 이름을 입력해주세요" />
-    </label>
-    <button id="station-add-button">역 추가</button>
-  `;
+const MANAGERS_ID = [
+  "station-manager",
+  "line-manager",
+  "section-manager",
+  "map-print-manager",
+];
 
 const getChildById = (parentElement, id) => {
   const childrenList = parentElement.children;
@@ -17,16 +16,18 @@ const getChildById = (parentElement, id) => {
   return null;
 };
 
-const showStationManagerPage = (e) => {
-  const $mainContentsContainer = getChildById(
-    e.target.closest("#app"),
-    "main-contents-container"
-  );
-  $mainContentsContainer.innerHTML = STATION_NAME_INPUT_FORM;
+const showManagerPageById = (container, id) => {
+  MANAGERS_ID.forEach((_managersId) => {
+    if (_managersId === id) {
+      getChildById(container, _managersId).style.display = "block";
+    } else {
+      getChildById(container, _managersId).style.display = "none";
+    }
+  });
 };
 
 export default function routeDocumentClickEvent(e) {
   if (e.target.id === "station-manager-button") {
-    showStationManagerPage(e);
+    showManagerPageById(e.target.closest("#app"), "station-manager");
   }
 }
