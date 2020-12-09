@@ -27,7 +27,16 @@ const showManagerPageById = (container, id) => {
 };
 
 export function menuButtonHandler(e) {
+  const app = e.target.closest("#app");
+  const id = e.target.id;
+
   if (e.target.id === "station-manager-button") {
-    showManagerPageById(e.target.closest("#app"), "station-manager");
+    showManagerPageById(app, "station-manager");
+  } else if (id === "line-manager-button") {
+    showManagerPageById(app, "line-manager");
+  } else if (id === "section-manager-button") {
+    showManagerPageById(app, "section-manager");
+  } else if (id === "map-print-manager-button") {
+    showManagerPageById(app, "map-print-manager");
   }
 }
