@@ -19,4 +19,14 @@ export default function Line(name) {
 
     return current.name;
   };
+  Line.prototype.getAllStation = () => {
+    let stationList = [];
+    let current = this.head;
+    while (current.next) {
+      stationList.push(current.name);
+      current = current.next;
+    }
+    stationList.push(current.name);
+    return stationList;
+  };
 }
