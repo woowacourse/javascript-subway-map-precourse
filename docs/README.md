@@ -4,13 +4,12 @@
 지하철 역, 노선, 구간을 관리 하고 조회하는 서비스
 
 ## ⚙️ 실행 방법
-1. `git clone https://github.com/sunhpark42/javascript-subway-map-precourse.git`
-2. `git checkout sunhpark42`
-3. `npx http-server`
+```git clone https://github.com/sunhpark42/javascript-subway-map-precourse.git; cd javascript-subway-map-precourse; git checkout sunhpark42; npx http-server```
+* 만약 http-server 가 없다면 `npm install http-server`를 설치하고 재 시행.
 
 ## 💻 개발
 ### 개발기간
-  * 2020.12.02 - 2020.12.08
+  * 2020.12.09 - 2020.12.15
 ### 사용 언어
 <p align="left">
   <img src="https://img.shields.io/badge/html-HTML5-orange?logo=HTML5"/>
