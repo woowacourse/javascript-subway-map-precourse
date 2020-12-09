@@ -4,6 +4,10 @@ import Line from "./line.js";
 import { addLineToList } from "./line-manager.js";
 import { showLineList } from "./section-manager.js";
 
+export function ManageStationLine(lineList, stationList) {
+  this.lineList = lineList;
+  this.stationList = stationList;
+}
 const btnStationManager = document.getElementById("station-manager-button");
 const btnLineManager = document.getElementById("line-manager-button");
 const btnSectionManager = document.getElementById("section-manager-button");
@@ -32,20 +36,18 @@ const makeResultBlock = (idx) => {
 btnStationManager.onclick = () => {
   makeResultBlock(0);
 };
-const setStationList = (stationList) => {
-  const startOptions = document.getElementById("line-start-station-selector");
-  const endOptions = document.getElementById("line-end-station-selector");
+export const makeStationOption = (stationList, optionName) => {
+  const optionList = document.getElementById(optionName);
   for (let idx in stationList) {
     const newOption = document.createElement("option");
     newOption.innerHTML = stationList[idx].name;
-    const copyOption = newOption.cloneNode(true);
-    startOptions.appendChild(newOption);
-    endOptions.appendChild(copyOption);
+    optionList.appendChild(newOption);
   }
 };
 btnLineManager.onclick = () => {
   makeResultBlock(1);
-  setStationList(stationList);
+  makeStationOption(stationList, "line-start-station-selector");
+  makeStationOption(stationList, "line-end-station-selector");
 };
 btnSectionManager.onclick = () => {
   makeResultBlock(2);
@@ -87,3 +89,4 @@ btnAddLine.onclick = () => {
   addLineToList(line);
   console.log(lineList);
 };
+export const manageStationLine = new ManageStationLine(lineList, stationList);
