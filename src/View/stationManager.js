@@ -9,7 +9,7 @@ const stationContainer = (container) => {
 		true
 	);
 	const talbeTitle = makeText('p', words.STATION_TABLE_TITLE);
-	const tableArea = makeTable([words.STATION_NAME, words.SETTING]);
+	const tableArea = makeTable([words.STATION_TALLE_COL1, words.STATION_TALLE_COL2]);
 	clearAllContents(container);
 	appendChilds(container, [nameInputArea, talbeTitle, tableArea]);
 };

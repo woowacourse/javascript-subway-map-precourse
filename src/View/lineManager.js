@@ -23,10 +23,10 @@ const lineContainer = (container) => {
 
 	const tableTitle = makeText('p', words.LINE_TABLE_TITLE);
 	const tableArea = makeTable([
-		words.LINE_NAME,
-		words.LINE_ASC_ENDPOINT_NAME,
-		words.LINE_DESC_ENDPOINT_NAME,
-		words.SETTING,
+		words.LINE_TABLE_COL1,
+		words.LINE_TABLE_COL2,
+		words.LINE_TABLE_COL3,
+		words.LINE_TABLE_COL4,
 	]);
 
 	clearAllContents(container);
