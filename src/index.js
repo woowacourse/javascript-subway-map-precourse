@@ -1,3 +1,3 @@
-import routeDocumentClickEvent from "./click-event-handler.js";
+import { menuButtonHandler } from "./menu-button-handler.js";
 
-document.addEventListener("click", routeDocumentClickEvent);
+document.addEventListener("click", menuButtonHandler);

@@ -26,7 +26,7 @@ const showManagerPageById = (container, id) => {
   });
 };
 
-export default function routeDocumentClickEvent(e) {
+export function menuButtonHandler(e) {
   if (e.target.id === "station-manager-button") {
     showManagerPageById(e.target.closest("#app"), "station-manager");
   }
