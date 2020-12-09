@@ -12,12 +12,10 @@ export default class MenuView {
   static StationManagerView() {
     document.getElementById('sub-view-container').innerHTML = `
     <h4>역 이름</h4>
-    <form>
-      <input type='text' placeholder='역 이름을 입력해주세요.'/>
-      <button id='station-manager-button'>역 추가</button>
-    </form>
+    <input type='text' placeholder='역 이름을 입력해주세요.'/>
+    <button id='station-manager-button'>역 추가</button>
     <h2>🚉 지하철 역 목록</h2>
-    <table border='1px solid black' width='30%'>
+    <table border='1px solid black'>
       <tr>
         <th align='center'>역 이름</th>
         <th align='center'>설정</th>
@@ -34,6 +32,20 @@ export default class MenuView {
     document.getElementById('sub-view-container').innerHTML = `
     <h4>노선 이름</h4>
     <input type='text' placeholder='노선 이름을 입력해주세요.'/>
+    <p>상행 종점
+      <select>
+        <option value='incheon'>인천</option>
+        <option value='seoul'>서울역</option>
+        <option value='soyosan'>소요산</option>
+      </select>
+    </p>
+    <p>하행 종점
+      <select>
+        <option value='incheon'>인천</option>
+        <option value='seoul'>서울역</option>
+        <option value='soyosan'>소요산</option>
+      </select>
+    </p>
     <button id='station-manager-button'>노선 추가</button>
     <h2>🚉 지하철 노선 목록</h2>
     <table border='1px solid black'>
