@@ -30,8 +30,27 @@ export default class MenuView {
     `;
   }
 
-  LineManagerView() {
-
+  static LineManagerView() {
+    document.getElementById('sub-view-container').innerHTML = `
+    <h4>노선 이름</h4>
+    <input type='text' placeholder='노선 이름을 입력해주세요.'/>
+    <button id='station-manager-button'>노선 추가</button>
+    <h2>🚉 지하철 노선 목록</h2>
+    <table border='1px solid black'>
+      <tr>
+        <th align='center'>노선 이름</th>
+        <th align='center'>상행 종점역</th>
+        <th align='center'>하행 종점역</th>
+        <th algin='center'>설정</th>
+      </tr>
+      <tr>
+        <td align="center">1호선</td>
+        <td align="center">인천</td>
+        <td align="center">소요산</td>
+        <td align="center"><button id='delete'>삭제</button></td>
+      </tr>
+    </table>
+    `;
   }
   SectionManagerView() {
 
