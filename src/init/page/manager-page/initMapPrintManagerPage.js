@@ -3,7 +3,7 @@ function mapPrintManagerPage() {
 }
 
 export default function initMapPrintManagerPage() {
-  const $managementContainer = document.querySelector('.management-container');
+  const $managementContainer = document.querySelector('.manager-container');
 
   $managementContainer.insertAdjacentHTML('beforeend', mapPrintManagerPage());
 }

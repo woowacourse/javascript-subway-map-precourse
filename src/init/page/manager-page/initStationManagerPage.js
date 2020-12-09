@@ -3,7 +3,7 @@ function stationManagerPage() {
 }
 
 export default function initStationManagerPage() {
-  const $managementContainer = document.querySelector('.management-container');
+  const $managementContainer = document.querySelector('.manager-container');
 
   $managementContainer.insertAdjacentHTML('beforeend', stationManagerPage());
 }

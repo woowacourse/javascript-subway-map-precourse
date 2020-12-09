@@ -7,7 +7,7 @@ function menuButton() {
           </div>`;
 }
 
-export default function addMenuButton() {
+export default function initMenuButton() {
   const $app = document.querySelector('#app');
 
   $app.insertAdjacentHTML('beforeend', menuButton());

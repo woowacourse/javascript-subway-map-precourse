@@ -3,7 +3,7 @@ function lineManagementPage() {
 }
 
 export default function initLineManagertPage() {
-  const $managementContainer = document.querySelector('.management-container');
+  const $managementContainer = document.querySelector('.manager-container');
 
   $managementContainer.insertAdjacentHTML('beforeend', lineManagementPage());
 }

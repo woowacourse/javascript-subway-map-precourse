@@ -1,11 +1,7 @@
-import initLineManagertPage from './initLineManagerPage.js';
-import initMapPrintManagerPage from './initMapPrintManagerPage.js';
-import initSectionManagerPage from './initSectionManagerPage.js';
-import initStationManagerPage from './initStationManagerPage.js';
+import initMenuButton from './initMenuButton.js';
+import initSubwayManagerContainer from './manager-page/initSubwayMangagerContainer.js';
 
 export default function initPages() {
-  initStationManagerPage();
-  initLineManagertPage();
-  initSectionManagerPage();
-  initMapPrintManagerPage();
+  initMenuButton();
+  initSubwayManagerContainer();
 }
