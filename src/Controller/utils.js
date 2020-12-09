@@ -3,3 +3,7 @@ export const appendChilds = (parent, childs) => {
 		parent.appendChild(child);
 	});
 };
+
+export const clearAllContents = (parents) => {
+	parents.textContent = '';
+};

@@ -8,12 +8,14 @@ const lineManagerBtn = document.getElementById('line-manager-button');
 const sectionManagerBtn = document.getElementById('section-manager-button');
 const mapPrintManagerBtn = document.getElementById('map-print-manager-button');
 
+const container = document.querySelector('.container');
+
 const init = () => {
 	const CLICK = 'click';
-	stationManagerBtn.addEventListener(CLICK, stationContainer);
-	lineManagerBtn.addEventListener(CLICK, lineContainer);
-	sectionManagerBtn.addEventListener(CLICK, sectionContainer);
-	mapPrintManagerBtn.addEventListener(CLICK, mapPrintContainer);
+	stationManagerBtn.addEventListener(CLICK, ()=>stationContainer(container));
+	lineManagerBtn.addEventListener(CLICK, ()=>lineContainer(container));
+	sectionManagerBtn.addEventListener(CLICK, ()=>sectionContainer(container));
+	mapPrintManagerBtn.addEventListener(CLICK, ()=>mapPrintContainer(container));
 };
 
 export default init;

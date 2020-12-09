@@ -1,10 +1,8 @@
 import { makeNameInputArea, makeTable } from './template.js';
 import words from '../key/words.js';
-import { appendChilds } from '../Controller/utils.js';
+import { appendChilds, clearAllContents } from '../Controller/utils.js';
 
-const container = document.querySelector('.container');
-
-const stationContainer = () => {
+const stationContainer = (container) => {
 	const nameInputArea = makeNameInputArea(
 		words.STATION_NAME,
 		words.STATION_NAME_PLACEHOLDER,
@@ -13,6 +11,7 @@ const stationContainer = () => {
 	const tableArea = makeTable(
 		words.STATION_TABLE_TITLE, [words.STATION_NAME, words.SETTING]
 	);
+	clearAllContents(container);
 	appendChilds(container, [nameInputArea, tableArea]);
 };
 
