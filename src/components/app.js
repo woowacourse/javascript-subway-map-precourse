@@ -3,11 +3,13 @@ import lineManagerPage from "./views/lineManagerPage.js";
 import sectionManagerPage from "./views/sectionManagerPage.js";
 import mapPrintManagerPage from "./views/mapPrintManagerPage.js";
 
-export default function app(pageName) {
+export default function app(pageName, stationNames) {
   let app = ``;
 
+  // console.log("app", stationNames);
+
   if (pageName === "station") {
-    app = stationManagerPage();
+    app = stationManagerPage(stationNames);
   } else if (pageName === "line") {
     app = lineManagerPage();
   } else if (pageName === "section") {

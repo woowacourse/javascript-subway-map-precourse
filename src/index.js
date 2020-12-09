@@ -15,17 +15,47 @@ export default function init() {
 init();
 
 function onStationHandler() {
-  render(app(`station`));
+  render(app("station"));
+  document.getElementById("station-add-button").addEventListener("click", onAddStationHandler);
+
+  let stations = [];
+
+  function onAddStationHandler() {
+    let stationName = document.getElementById("station-add-input").value;
+    stations.push(stationName);
+    render(app("station", stations));
+    document.getElementById("station-add-button").addEventListener("click", onAddStationHandler);
+
+    let deleteBtns = document.getElementsByClassName("station-delete-button");
+    for (let i = 0; i < deleteBtns.length; i++) {
+      deleteBtns[i].addEventListener("click", onDeleteStationHandler);
+    }
+  }
+
+  function onDeleteStationHandler() {
+    let tr = event.target.parentNode.parentNode;
+    let deleteIdx = stations.indexOf(tr.childNodes[1].outerText);
+    if (deleteIdx > -1) stations.splice(deleteIdx, 1);
+    tr.parentNode.removeChild(tr);
+
+    render(app("station", stations));
+    document.getElementById("station-add-button").addEventListener("click", onAddStationHandler);
+
+    let deleteBtns = document.getElementsByClassName("station-delete-button");
+    for (let i = 0; i < deleteBtns.length; i++) {
+      deleteBtns[i].addEventListener("click", onDeleteStationHandler);
+    }
+  }
 }
 
 function onLineHandler() {
-  render(app(`line`));
+  render(app("line"));
 }
 
 function onSectionHandler() {
-  render(app(`section`));
+  render(app("section"));
 }
 
 function onMapPrintHandler() {
-  render(app(`map`));
+  render(app("map"));
 }
