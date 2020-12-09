@@ -100,7 +100,18 @@ export default class MenuView {
     `;
   }
 
-  MapPrintManagerView() {
-
+  static MapPrintManagerView() {
+    document.getElementById('sub-view-container').innerHTML = `
+    <h3>1호선</h3>
+    <ul>
+      <li>인천</li>
+      <li>소요산</li> 
+    </ul>
+    <h3>2호선</h3>
+    <ul>
+      <li>시청</li>
+      <li>신도림</li> 
+    </ul>
+    `;
   }
 }
