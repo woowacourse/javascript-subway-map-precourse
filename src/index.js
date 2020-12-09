@@ -1,5 +1,5 @@
 import Station from "./station.js";
-import { addStationtoList } from "./station-manager.js";
+import { addStationToList, isCorrectStationName } from "./station-manager.js";
 
 const btnStationManager = document.getElementById("station-manager-button");
 const btnLineManager = document.getElementById("line-manager-button");
@@ -42,8 +42,10 @@ const btnAddStation = document.getElementById("station-add-button");
 let stationList = [];
 btnAddStation.onclick = () => {
   const newStationName = document.getElementById("station-name-input").value;
-  const station = new Station(newStationName);
-  stationList.push(station);
-  addStationtoList(newStationName);
+  if (isCorrectStationName(newStationName)) {
+    const station = new Station(newStationName);
+    stationList.push(station);
+    addStationToList(newStationName);
+  }
   console.log(stationList);
 };
