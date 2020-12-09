@@ -1,6 +1,7 @@
 import Station from "./station.js";
 import { addStationToList, isCorrectStationName } from "./station-manager.js";
 import Line from "./line.js";
+import { addLineToList } from "./line-manager.js";
 
 const btnStationManager = document.getElementById("station-manager-button");
 const btnLineManager = document.getElementById("line-manager-button");
@@ -44,6 +45,7 @@ const setStationList = (stationList) => {
 btnLineManager.onclick = () => {
   makeResultBlock(1);
   setStationList(stationList);
+  // showLineList(lineList);
 };
 btnSectionManager.onclick = () => {
   makeResultBlock(2);
@@ -52,7 +54,11 @@ btnMapPrintManager.onclick = () => {
   makeResultBlock(3);
 };
 const btnAddStation = document.getElementById("station-add-button");
-let stationList = [];
+let stationList = [
+  new Station("길음"),
+  new Station("혜화"),
+  new Station("성신"),
+];
 btnAddStation.onclick = () => {
   const newStationName = document.getElementById("station-name-input").value;
   if (isCorrectStationName(newStationName)) {
@@ -69,9 +75,9 @@ btnAddLine.onclick = () => {
   const startStation = document.getElementById("line-start-station-selector")
     .value;
   const endStation = document.getElementById("line-end-station-selector").value;
-
   const line = new Line(newLineName);
   line.addLine(new Station(startStation), new Station(endStation));
   lineList.push(line);
+  addLineToList(line);
   console.log(lineList);
 };

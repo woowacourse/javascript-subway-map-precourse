@@ -8,4 +8,15 @@ export default function Line(name) {
     this.head.next = endStation;
     this.length += 2;
   };
+  Line.prototype.getStartStation = () => {
+    return this.head.name;
+  };
+  Line.prototype.getEndStation = () => {
+    let current = this.head;
+    while (current.next) {
+      current = current.next;
+    }
+
+    return current.name;
+  };
 }
