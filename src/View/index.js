@@ -1,13 +1,13 @@
-import lineContainer from './lineManager';
-import mapPrintContainer from './mapPrintManager';
-import sectionContainer from './sectionManager';
-import stationContainer from './stationManager';
+import lineContainer from './lineManager.js';
+import mapPrintContainer from './mapPrintManager.js';
+import sectionContainer from './sectionManager.js';
+import stationContainer from './stationManager.js';
 
-const containers = {
+const viewContainers = {
 	LINE_CONTAINER: lineContainer,
 	MAP_PRINT_CONTAINER: mapPrintContainer,
 	SECTION_CONTAINER: sectionContainer,
 	STATION_CONTAINER: stationContainer,
 };
 
-export default containers;
+export default viewContainers;

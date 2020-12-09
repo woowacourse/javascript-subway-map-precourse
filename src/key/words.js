@@ -1,5 +1,5 @@
 const words = {
-    // 역 관리
+    // 역 관리 View
     STATION_NAME: "역 이름",
     STATION_NAME_PLACEHOLDER : "역 이름을 입력해주세요.",
     STATION_ADD_BTN: "역 추가",
@@ -7,7 +7,7 @@ const words = {
     STATION_TALLE_COL1: "역 이름",
     STATION_TALLE_COL2: "설정",
 
-    // 노선 관리
+    // 노선 관리 View
     LINE_NAME: "노선 이름",
     LINE_PLACEHOLDER: "노선 이름을 입력해주세요.",
     LINE_ASC_ENDPOINT: "상행 종점",
@@ -19,7 +19,7 @@ const words = {
     LINE_TABLE_COL3: "하행 종점역",
     LINE_TABLE_COL4: "설정",
 
-    // 구간 관리
+    // 구간 관리 View
     SECTION_TITLE: "구간을 설정할 노선을 선택해주세요.",
     SECTION_HANDLE_TEXT: "관리",
     SECTION_REGISTER_TEXT: "구간 등록",
@@ -28,6 +28,12 @@ const words = {
     SECTION_TABLE_COL1: "순서",
     SECTION_TABLE_COL2: "이름",
     SECTION_TABLE_COL3: "설정",
+
+    // Station Model
+    STATION: "Stations",
+    
+    // Line Model
+    LINE: "Lines",
 }
 
 export default words;
