@@ -148,6 +148,9 @@ export default class SubwayMapView {
     this.renderStartStationSelector(
       Object.entries(this.subwayMapViewModel.getStations()),
     );
+    this.renderEndStationSelector(
+      Object.entries(this.subwayMapViewModel.getStations()),
+    );
   }
 
   renderStartStationSelector(stations) {
@@ -162,6 +165,23 @@ export default class SubwayMapView {
     this.managerContainer.innerHTML += `
     <div>
       <p>${message.START_STATION}</p>
+      <select>${selectorOptions}</select>
+    </div>
+  `;
+  }
+
+  renderEndStationSelector(stations) {
+    let selectorOptions = ``;
+
+    stations.forEach(stationId => {
+      selectorOptions += `
+        <option data-id="${stationId[0]}">${stationId[0]}</option>
+      `;
+    });
+
+    this.managerContainer.innerHTML += `
+    <div>
+      <p>${message.END_STATION}</p>
       <select>${selectorOptions}</select>
     </div>
   `;
