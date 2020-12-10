@@ -103,7 +103,8 @@ export default class SubwayMapView {
       ].dataset.id,
     };
 
-    this.subwayMapViewModel.addStation(stationId);
+    this.subwayMapViewModel.addLine(lineObject);
+    console.log(Object.entries(this.subwayMapViewModel.getLines()));
   }
 
   resetStationTable() {
@@ -127,20 +128,21 @@ export default class SubwayMapView {
     this.renderStationTable([]);
   }
 
-  renderStationThead(stationTable) {
-    stationTable.innerHTML += `
+  renderStationThead() {
+    const stationThead = `
       <tr>
         <th>${message.STATION_NAME}</th>
         <th>${message.OPTION}</th>
       </tr>
     `;
 
-    return stationTable;
+    return stationThead;
   }
 
-  renderStationTbody(stationTable, stations) {
+  renderStationTbody(stations) {
+    let stationTbody = ``;
     stations.forEach(stationId => {
-      stationTable.innerHTML += `
+      stationTbody += `
       <tr>
         <td>${stationId[0]}</td>
         <td>
@@ -150,18 +152,37 @@ export default class SubwayMapView {
     `;
     });
 
-    return stationTable;
+    return stationTbody;
   }
 
   renderStationTable(stations) {
-    let stationTable = document.createElement('table');
-    stationTable.setAttribute('id', '#station-name-table');
-    stationTable = this.renderStationThead(stationTable);
-    stationTable = this.renderStationTbody(stationTable, stations);
+    const stationThead = this.renderStationThead();
+    const stationTbody = this.renderStationTbody(stations);
 
-    document
-      .getElementById('#station-table-container')
-      .appendChild(stationTable);
+    const stationTable = `
+      <table id="#station-name-table">
+      ${stationThead}
+      ${stationTbody}
+      </table>
+    `;
+
+    document.getElementById(
+      '#station-table-container',
+    ).innerHTML += stationTable;
+  }
+
+  renderLineTable() {}
+
+  renderLineThead() {
+    const lineThead = `
+      <tr>
+        <th>${message.LINE_NAME}</th>
+        <th>${message.START_STATION}</th>
+        <th>${message.END_STATION}</th>
+      </tr>
+    `;
+
+    return lineThead;
   }
 
   renderLineManager() {

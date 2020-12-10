@@ -4,8 +4,8 @@ export default class Line {
   constructor(lineObject) {
     this._lineId = lineObject.lineId;
     this._stations = [];
-    this._upboundTerminalStation = lineObject.upboundTerminalStation;
-    this._downingTerminalStation = lineObject.downingTerminalStation;
+    this._startStation = lineObject.startStation;
+    this._endStation = lineObject.endStation;
   }
 
   getStations() {
