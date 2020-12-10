@@ -1,17 +1,29 @@
-import { menuButtonsId, tabTitles } from "../../common/IdAndClassNames.js";
+import {
+  TAB_CONTAINER_DIV,
+  menuButtonsId,
+  tabs,
+} from "../../common/IdAndClassNames.js";
 import { appTitle } from "../../common/constants.js";
-
+import createTabComponent from "../utils/createTabComponent.js";
 import Button from "../components/Button.js";
 
-export default tabTitles.map((tabTitle, idx) => {
-  const innerText = /출력/.test(tabTitle)
-    ? `${appTitle.substring(0, 7)} ${tabTitle}`
-    : `${tabTitle} 관리`;
+const renderContainer = (index) => {
+  const $tabContainer = document.querySelector(TAB_CONTAINER_DIV);
+  const $tabComponent = createTabComponent(index);
+  $tabContainer.innerHTML = "";
+  $tabContainer.appendChild($tabComponent);
+};
+
+export default tabs.map(({ title }, index) => {
+  const innerText = /출력/.test(title)
+    ? `${appTitle.substring(0, 7)} ${title}`
+    : `${title} 관리`;
   const $menuButton = new Button(
-    menuButtonsId[idx],
-    `${idx + 1}. ${innerText}`,
+    menuButtonsId[index],
+    `${index + 1}. ${innerText}`,
   );
-  $menuButton.addEventListener(() => console.log(tabTitle));
+
+  $menuButton.addEventListener(() => renderContainer(index));
   $menuButton.addRightSpace();
   return $menuButton.element;
 });
