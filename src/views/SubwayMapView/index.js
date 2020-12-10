@@ -16,12 +16,17 @@ export default class SubwayMapView {
     );
   }
 
-  // addEventListenerToStationAddButton(self) {
-  //   const StationAddButton = document.getElementById('#station-add-button');
-  //   StationAddButton.addEventListener('click')
-  // }
+  addEventListenerToStationAddButton(self) {
+    const StationAddButton = document.getElementById('#station-add-button');
+    StationAddButton.addEventListener(
+      'click',
+      this.handleStationAddButton.bind(self),
+    );
+  }
 
-  // handleStationAddButton() {}
+  handleStationAddButton() {
+    this.subwayMapViewModel['test'] = 'a';
+  }
 
   renderStationManager() {
     this.managerContainer.innerHTML += `
@@ -30,6 +35,7 @@ export default class SubwayMapView {
       <button id="#station-add-button">${message.ADD_STATION}</button>
       <h2>${message.LIST_OF_STATIONS}</h2>
     `;
+    this.addEventListenerToStationAddButton(this);
 
     this.renderStationTable();
   }

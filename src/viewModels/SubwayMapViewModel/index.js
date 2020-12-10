@@ -11,6 +11,8 @@ export default class SubwayMapViewModel {
         if (property === 'test') {
           console.log('call');
         }
+
+        return true;
       },
     });
   }
