@@ -1,17 +1,18 @@
+import { manager } from "./index.js";
+
 export default function Line(name) {
   this.name = name;
   this.length = 0;
   this.head = null;
-
-  Line.prototype.addLine = (startStation, endStation) => {
+  this.addLine = (startStation, endStation) => {
     this.head = startStation;
     this.head.next = endStation;
     this.length += 2;
   };
-  Line.prototype.getStartStation = () => {
+  this.getStartStation = () => {
     return this.head.name;
   };
-  Line.prototype.getEndStation = () => {
+  this.getEndStation = () => {
     let current = this.head;
     while (current.next) {
       current = current.next;
@@ -19,7 +20,7 @@ export default function Line(name) {
 
     return current.name;
   };
-  Line.prototype.getAllStation = () => {
+  this.getAllStationName = () => {
     let stationList = [];
     let current = this.head;
     while (current.next) {
@@ -30,7 +31,7 @@ export default function Line(name) {
     return stationList;
   };
 
-  Line.prototype.addStationToIdx = (station, idx) => {
+  this.addStationToIdx = (station, idx) => {
     const addStation = station;
     let currentIdx = 0;
     let currentStation = this.head;
@@ -41,5 +42,6 @@ export default function Line(name) {
     addStation.next = currentStation.next;
     currentStation.next = addStation;
     this.length += 1;
+    manager.setChangedLine(this);
   };
 }
