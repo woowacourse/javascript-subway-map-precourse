@@ -1,7 +1,7 @@
 import { manager } from "./index.js";
 
 export const isCorrectStationName = (newStationName) => {
-  const rHangel = /^[가-힣]*$/;
+  const rHangel = /^[a-b가-힣]*$/;
   if (newStationName.length >= 2 && rHangel.exec(newStationName) !== null) {
     return true;
   }
