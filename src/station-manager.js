@@ -63,7 +63,7 @@ export default class StationManager {
     const $tbody = document.getElementById("station-name-tbody");
     const lenOfStationList = this.stationList.length;
     const $noStationMessage = getChildById(
-      $tbody.parentElement,
+      $tbody.parentElement.parentElement,
       NO_DATA_MESSAGE_ID.noStation
     );
     if (lenOfStationList === 0) {
