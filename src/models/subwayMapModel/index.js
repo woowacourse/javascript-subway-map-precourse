@@ -24,10 +24,12 @@ export default class SubwayMapModel {
   }
 
   selectRoute(routeId) {
-    return this._routes[routeId]._stations;
+    return this._routes[routeId].getStations();
   }
 
   addStationToRoute(stationObject, routeId, order) {
     this._routes[routeId].addStation(stationObject, order);
   }
+
+  removeStationFromRoute(routeId, order) {}
 }

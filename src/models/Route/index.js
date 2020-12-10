@@ -19,4 +19,10 @@ export default class Route {
 
     this._stations = stations;
   }
+
+  removeStation(order) {
+    const stations = [...this._stations].splice(order, 1);
+
+    this._stations = stations;
+  }
 }
