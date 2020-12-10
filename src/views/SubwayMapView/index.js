@@ -17,11 +17,24 @@ export default class SubwayMapView {
   }
 
   addEventListenerToStationAddButton(self) {
-    const StationAddButton = document.getElementById('#station-add-button');
-    StationAddButton.addEventListener(
+    const stationAddButton = document.getElementById('#station-add-button');
+    stationAddButton.addEventListener(
       'click',
       this.handleStationAddButton.bind(self),
     );
+  }
+
+  addEventListenerToStationDeleteButtons(self) {
+    const stationDeleteButtons = document.getElementsByClassName(
+      '.station-delete-button',
+    );
+
+    for (let i = 0; i < stationDeleteButtons.length; i++) {
+      stationDeleteButtons[i].addEventListener(
+        'click',
+        this.handleStationDeleteButton.bind(self),
+      );
+    }
   }
 
   handleStationAddButton() {
@@ -31,6 +44,12 @@ export default class SubwayMapView {
     this.renderStationTable(
       Object.entries(this.subwayMapViewModel.getStations()),
     );
+
+    this.addEventListenerToStationDeleteButtons(this);
+  }
+
+  handleStationDeleteButton() {
+    console.log('call');
   }
 
   resetStationTable() {
@@ -67,7 +86,7 @@ export default class SubwayMapView {
       <tr>
         <td>${stationId[0]}</td>
         <td>
-          <button>${message.OPTION_REMOVE}</button>
+          <button data-id="${stationId[0]}" class=".station-delete-button">${message.OPTION_REMOVE}</button>
         </td>
       </tr>
     `;
