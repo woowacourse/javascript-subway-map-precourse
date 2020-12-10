@@ -8,12 +8,14 @@ import {
 } from "../handlers/custom-dom-handler.js";
 
 const isLineNameInputValid = (appContainer) => {
-  const lineNameInputValue = getLineNameInput(appContainer).value;
+  const $lineNameInput = getLineNameInput(appContainer);
+  const lineNameInputValue = $lineNameInput.value;
   if (lineNameInputValue.length === 0) {
     alert("노선 이름을 입력해주세요.");
     return false;
   } else if (new LineManager().hasLineName(lineNameInputValue)) {
     alert("해당 노선 이름이 이미 존재합니다.");
+    $lineNameInput.value = "";
     return false;
   }
   return true;
@@ -40,12 +42,14 @@ const isLineFormValid = (appContainer) => {
 
 const lineAddButtonHandler = (e) => {
   const app = e.target.closest("#app");
+  const $lineNameInput = getLineNameInput(app);
   if (isLineFormValid(app)) {
     new LineManager().addLine(
-      getLineNameInput(app).value,
+      $lineNameInput.value,
       getStartStationSelector(app).value,
       getEndStationSelector(app).value
     );
+    $lineNameInput.value = "";
   }
   console.log(new LineManager().lineList);
 };
