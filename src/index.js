@@ -3,6 +3,7 @@ import { addStationToList, isCorrectStationName } from "./station-manager.js";
 import Line from "./line.js";
 import { addLineToList } from "./line-manager.js";
 import { showLineList } from "./section-manager.js";
+import { showMapList } from "./map-print-manager.js";
 
 export function ManageStationLine(lineList, stationList) {
   this.lineList = lineList;
@@ -70,6 +71,7 @@ btnSectionManager.onclick = () => {
 };
 btnMapPrintManager.onclick = () => {
   makeResultBlock(3);
+  showMapList();
 };
 const btnAddStation = document.getElementById("station-add-button");
 let stationList = [
