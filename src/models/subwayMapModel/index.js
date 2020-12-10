@@ -1,8 +1,8 @@
-import { Route } from '../../models';
+import { Line } from '../../models';
 
 export default class SubwayMapModel {
   constructor() {
-    this._routes = {};
+    this._lines = {};
     this._stations = {};
   }
 
@@ -24,33 +24,33 @@ export default class SubwayMapModel {
     this._stations = stations;
   }
 
-  getRoutes() {
-    return { ...this._routes };
+  getLines() {
+    return { ...this._lines };
   }
 
-  addRoute(routeObject) {
-    const routes = { ...this._routes };
-    routes[routeId] = new Route(routeObject);
+  addLine(lineObject) {
+    const lines = { ...this._lines };
+    lines[lineObject.lineId] = new Line(lineObject);
 
-    this._routes = routes;
+    this._lines = lines;
   }
 
-  removeRoute(routeId) {
-    const routes = { ...this._routes };
-    delete routes[routeId];
+  removeLine(lineId) {
+    const lines = { ...this._lines };
+    delete lines[lineId];
 
-    this._routes = routes;
+    this._lines = lines;
   }
 
-  selectRoute(routeId) {
-    return this._routes[routeId].getStations();
+  selectline(lineId) {
+    return this._lines[lineId].getStations();
   }
 
-  addStationToRoute(stationObject, routeId, order) {
-    this._routes[routeId].addStation(stationObject, order);
+  addStationToline(stationObject, lineId, order) {
+    this._lines[lineId].addStation(stationObject, order);
   }
 
-  removeStationFromRoute(routeId, order) {
-    this._routes[routeId].removeStation(order);
+  removeStationFromline(lineId, order) {
+    this._lines[lineId].removeStation(order);
   }
 }

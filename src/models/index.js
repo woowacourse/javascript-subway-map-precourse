@@ -1,5 +1,5 @@
 import SubwayMapModel from './SubwayMapModel';
-import Route from './Route';
+import Line from './Line';
 import Station from './Station';
 
-export { SubwayMapModel, Route, Station };
+export { SubwayMapModel, Line, Station };

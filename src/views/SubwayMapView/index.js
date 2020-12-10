@@ -38,6 +38,14 @@ export default class SubwayMapView {
     );
   }
 
+  addEventListenerToLineAddButton(self) {
+    const lineAddbutton = document.getElementById('#line-add-button');
+    lineAddbutton.addEventListener(
+      'click',
+      this.handleLineAddButton.bind(self),
+    );
+  }
+
   addEventListenerToStationDeleteButtons(self) {
     const stationDeleteButtons = document.getElementsByClassName(
       '.station-delete-button',
@@ -54,11 +62,6 @@ export default class SubwayMapView {
   handleStationManagerButton() {
     this.resetManagerContainer();
     this.renderStationManager();
-  }
-
-  handleLineManagerButton() {
-    this.resetManagerContainer();
-    this.renderLineManager();
   }
 
   handleStationAddButton() {
@@ -82,12 +85,32 @@ export default class SubwayMapView {
     this.addEventListenerToStationDeleteButtons(this);
   }
 
+  handleLineManagerButton() {
+    this.resetManagerContainer();
+    this.renderLineManager();
+
+    this.addEventListenerToLineAddButton(this);
+  }
+
+  handleLineAddButton() {
+    const lineObject = {
+      lineId: document.getElementById('#line-name-input').value,
+      startStation: document.getElementById('#line-start-station-selector')[
+        document.getElementById('#line-start-station-selector').selectedIndex
+      ].dataset.id,
+      endStation: document.getElementById('#line-end-station-selector')[
+        document.getElementById('#line-end-station-selector').selectedIndex
+      ].dataset.id,
+    };
+
+    this.subwayMapViewModel.addStation(stationId);
+  }
+
   resetStationTable() {
     document.getElementById('#station-table-container').innerHTML = '';
   }
 
   resetManagerContainer() {
-    console.log('call');
     this.managerContainer.innerHTML = '';
   }
 
@@ -142,15 +165,21 @@ export default class SubwayMapView {
   }
 
   renderLineManager() {
-    this.managerContainer.innerHTML = `
-      <p>${message.LINE_NAME}</p>
-    `;
+    this.renderLineNameInput();
     this.renderStartStationSelector(
       Object.entries(this.subwayMapViewModel.getStations()),
     );
     this.renderEndStationSelector(
       Object.entries(this.subwayMapViewModel.getStations()),
     );
+    this.renderLineAddButton();
+  }
+
+  renderLineNameInput() {
+    this.managerContainer.innerHTML = `
+      <p>${message.LINE_NAME}</p>
+      <input id="#line-name-input"></input>
+    `;
   }
 
   renderStartStationSelector(stations) {
@@ -165,7 +194,7 @@ export default class SubwayMapView {
     this.managerContainer.innerHTML += `
     <div>
       <p>${message.START_STATION}</p>
-      <select>${selectorOptions}</select>
+      <select id="#line-start-station-selector">${selectorOptions}</select>
     </div>
   `;
   }
@@ -182,8 +211,13 @@ export default class SubwayMapView {
     this.managerContainer.innerHTML += `
     <div>
       <p>${message.END_STATION}</p>
-      <select>${selectorOptions}</select>
+      <select id="#line-end-station-selector">${selectorOptions}</select>
     </div>
   `;
+  }
+  renderLineAddButton() {
+    this.managerContainer.innerHTML += `
+      <button id="#line-add-button">${message.LINE_ADD_BUTTON}</button>
+    `;
   }
 }

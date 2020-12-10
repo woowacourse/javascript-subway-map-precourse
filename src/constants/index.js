@@ -7,6 +7,7 @@ const message = {
   OPTION_REMOVE: '삭제',
   START_STATION: '상행 종점',
   END_STATION: '하행 종점',
+  LINE_ADD_BUTTON: '노선 추가',
 };
 
 export { message };

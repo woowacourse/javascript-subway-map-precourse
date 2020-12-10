@@ -15,7 +15,11 @@ export default class SubwayMapViewModel {
     this.subwayMapModel.deleteStation(stationId);
   }
 
-  getRoutes() {
-    return this.subwayMapModel.getRoutes();
+  getlines() {
+    return this.subwayMapModel.getlines();
+  }
+
+  addLine(lineObject) {
+    this.subwayMapModel.addLine(lineObject);
   }
 }

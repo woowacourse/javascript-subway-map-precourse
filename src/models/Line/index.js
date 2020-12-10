@@ -1,11 +1,11 @@
-import { Station } from '../../models';
+import { Station } from '..';
 
-export default class Route {
-  constructor(routeObject) {
-    this._routeId = routeObject.routeId;
+export default class Line {
+  constructor(lineObject) {
+    this._lineId = lineObject.lineId;
     this._stations = [];
-    this._upboundTerminalStation = routeObject.upboundTerminalStation;
-    this._downingTerminalStation = routeObject.downingTerminalStation;
+    this._upboundTerminalStation = lineObject.upboundTerminalStation;
+    this._downingTerminalStation = lineObject.downingTerminalStation;
   }
 
   getStations() {
