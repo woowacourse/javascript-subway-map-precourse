@@ -1,3 +1,5 @@
+import { Route } from '../../models';
+
 export default class SubwayMapModel {
   constructor() {
     this._routes = [];
@@ -7,8 +9,10 @@ export default class SubwayMapModel {
     return [...this._routes];
   }
 
-  // addRoute(route) {
-  //   const routes = [...this._routes]
-  //   routes.push(route)
-  // }
+  addRoute(routeObj) {
+    const routes = [...this._routes];
+    routes.push(new Route(routeObj));
+
+    this._routes = routes;
+  }
 }
