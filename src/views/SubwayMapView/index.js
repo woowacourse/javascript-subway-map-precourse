@@ -171,7 +171,10 @@ export default class SubwayMapView {
     ).innerHTML += stationTable;
   }
 
-  renderLineTable() {}
+  renderLineTable(lines) {
+    const lineThead = this.renderLineThead();
+    const lineTbody = this.renderLineTbody(lines);
+  }
 
   renderLineThead() {
     const lineThead = `
@@ -179,10 +182,29 @@ export default class SubwayMapView {
         <th>${message.LINE_NAME}</th>
         <th>${message.START_STATION}</th>
         <th>${message.END_STATION}</th>
+        <th>${message.OPTION}</th>
       </tr>
     `;
 
     return lineThead;
+  }
+
+  renderLineTbody(lines) {
+    let lineTbody = ``;
+    lines.forEach(stationId => {
+      lineTbody += `
+      <tr>
+        <td>${stationId[0]}</td>
+        <td>${stationId[1].startStation}</td>
+        <td>${stationId[1].endStation}
+        <td>
+          <button data-id="${stationId[0]}" class=".line-delete-button">${message.OPTION_REMOVE}</button>
+        </td>
+      </tr>
+    `;
+    });
+
+    return lineTbody;
   }
 
   renderLineManager() {
