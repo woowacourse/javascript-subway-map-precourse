@@ -7,5 +7,6 @@ export const WORDS = {
     LIST_TITLE: "🚉 지하철 역 목록",
     LIST_COL1: "역 이름",
     LIST_COL2: "설정",
+    DELETE_BUTTON: "삭제",
   },
 };
