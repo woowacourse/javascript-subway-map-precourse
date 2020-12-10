@@ -1,25 +1,19 @@
-// import { appendChilds, clearAllContents } from '../Controller/utils.js';
-// import { makeListElem, makeText } from './template.js';
+import { getAllLines } from "../Controller/lineManager.js";
+import { appendChilds, clearAllContents, makeElement } from "../Controller/utils.js";
+import words from '../key/words.js';
 
-// const data = [
-// 	{
-// 		title: '1호선',
-// 		path: ['인천', '소요산'],
-// 	},
-// 	{
-// 		title: '2호선',
-// 		path: ['시청', '신도림'],
-// 	},
-// 	{
-// 		title: '3호선',
-// 		path: ['대화', '오금'],
-// 	},
-// ];
 
 const mapPrintContainer = (container) => {
-	// const dataElems = data.map((elem) => makeListElem(elem.title, elem.path));
-	// clearAllContents(container);
-	// appendChilds(container, dataElems);
+	const allLines = getAllLines();
+	const mapContainer = makeElement({ tag: 'div', classes:[words.MAP_CONTAINER_CLASS] })
+	allLines.forEach(line => {
+		const lineNameElement = makeElement({ tag: "b", innerText: line.name });
+		const ulElement = makeElement({ tag: "ul" });
+		appendChilds(ulElement, line.stations.map(stationName => makeElement({ tag: "li", innerText: stationName })));
+		appendChilds(mapContainer,[lineNameElement, ulElement]);
+	});
+	clearAllContents(container);
+	appendChilds(container, [mapContainer]);
 };
 
 export default mapPrintContainer;
