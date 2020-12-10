@@ -1,3 +1,4 @@
 import Tab from "./Tab.js";
+import stationView from "./views/station.js";
 
-new Tab('main');
+new Tab('main', [stationView]);

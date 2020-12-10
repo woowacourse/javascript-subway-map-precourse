@@ -1,3 +1,13 @@
 .tab-page {
   display: none;
+  padding: 20px 0;
+}
+
+table {
+  border: 1px solid gray;
+}
+
+table th,
+table td {
+  border: 1px solid gray;
 }

@@ -2,11 +2,13 @@ export default class Tab {
   #el
   #buttons
   #pages
+  #views
 
-  constructor(id) {
+  constructor(id, views) {
     this.#el = document.querySelector(`#tab-${id}`);
     this.#buttons = this.#el.querySelector('.tab-buttons');
     this.#pages = this.#el.querySelectorAll('.tab-page');
+    this.#views = views
 
     this.#hideAll()
     if (this.#el.dataset.tabIndex) {
@@ -24,8 +26,11 @@ export default class Tab {
   }
 
   show(tabNumber) {
+    const page = this.#pages[tabNumber];
+
     this.#hideAll();
-    this.#pages[tabNumber].style.display = 'block';
+    page.style.display = 'block';
+    this.#views[tabNumber].init(page);
   }
 
 }
