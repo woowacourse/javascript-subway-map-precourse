@@ -1,4 +1,5 @@
 import { NO_DATA_MESSAGE_ID } from "./html-constants/no-data-message.js";
+import { DELETE_BUTTONS_CLASS } from "./html-constants/html-classnames.js";
 import {
   getChildById,
   turnOnNoDataMessage,
@@ -21,6 +22,16 @@ export default class StationManager {
   addStation(station) {
     this.stationList.push(station);
     localStorage.stationList = JSON.stringify(this.stationList);
+    this.renderStationNameTable();
+  }
+
+  removeStation(stationIndex) {
+    for (let i = stationIndex + 1; i < this.stationList.length; i++) {
+      this.stationList[i - 1] = this.stationList[i];
+    }
+    this.stationList.pop();
+    localStorage.stationList = JSON.stringify(this.stationList);
+    this.renderStationNameTable();
   }
 
   hasName(name) {
@@ -34,11 +45,15 @@ export default class StationManager {
 
   fillStationNameTable($tbody) {
     $tbody.innerHTML = "";
-    new StationManager().stationList.forEach((_station, _index) => {
+    this.stationList.forEach((_station, _index) => {
       $tbody.innerHTML += `
         <tr>
           <td>${_station}</td>
-          <td><button data-station-index=${_index}>삭제</button></td>
+          <td><button 
+            class=${DELETE_BUTTONS_CLASS.stationDeleteButton}
+            data-station-index=${_index}>
+            삭제
+          </button></td>
         </tr>
       `;
     });

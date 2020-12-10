@@ -1,5 +1,6 @@
 import StationManager from "./station-manager.js";
 import { getChildById } from "./custom-dom-handler.js";
+import { DELETE_BUTTONS_CLASS } from "./html-constants/html-classnames.js";
 import {
   ADD_BUTTONS_ID,
   INPUT_FORM_ID,
@@ -37,12 +38,22 @@ const stationAddButtonHandler = (e) => {
   if (isValidStationName(stationNameInputValue)) {
     const stationManager = new StationManager();
     stationManager.addStation(stationNameInputValue);
-    stationManager.renderStationNameTable();
+  }
+};
+
+const stationRemoveButtonHandler = (e) => {
+  const stationManager = new StationManager();
+  const stationIndex = e.target.dataset.stationIndex * 1;
+  const selectedStation = stationManager.stationList[stationIndex];
+  if (confirm(`${selectedStation}역을 제거하시겠습니까?`)) {
+    stationManager.removeStation(stationIndex);
   }
 };
 
 export default function stationManagerClickHandler(e) {
   if (e.target.id === ADD_BUTTONS_ID.stationAddButton) {
     stationAddButtonHandler(e);
+  } else if (e.target.className === DELETE_BUTTONS_CLASS.stationDeleteButton) {
+    stationRemoveButtonHandler(e);
   }
 }
