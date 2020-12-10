@@ -13,7 +13,8 @@
     "sourceType": "module"
   },
   "plugins": [
-    "prettier"
+    "prettier",
+    "import"
   ],
   "rules": {
     "max-depth": [

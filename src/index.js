@@ -1,7 +1,7 @@
-import renderMenu from "./lib/views/renderMenu.js";
+import App from "./lib/App.js";
 
 const startSubwayManagement = () => {
-  renderMenu();
+  App();
 }
 
 startSubwayManagement();
