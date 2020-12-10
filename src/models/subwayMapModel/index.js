@@ -2,16 +2,16 @@ import { Route } from '../../models';
 
 export default class SubwayMapModel {
   constructor() {
-    this._routes = [];
+    this._routes = {};
   }
 
   getRoutes() {
-    return [...this._routes];
+    return { ...this._routes };
   }
 
-  addRoute(routeObj) {
-    const routes = [...this._routes];
-    routes.push(new Route(routeObj));
+  addRoute(routeObject) {
+    const routes = { ...this._routes };
+    routes.routeObj.name = new Route(routeObject);
 
     this._routes = routes;
   }
@@ -20,5 +20,9 @@ export default class SubwayMapModel {
     const routes = this._routes.splice(routeId, 1);
 
     this._routes = routes;
+  }
+
+  selectRoute(routeId) {
+    return this._routes[routeId]._stations;
   }
 }
