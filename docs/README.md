@@ -1,19 +1,17 @@
 # 🚇 지하철 노선도 미션
 
 ## 📝 구현할 기능 목록
-- 웹 실행 초기 세팅을 담당하는 index.js 생성
 
-- htmlUiManager.js: Html과의 IO를 총괄
-    - navigationBarUi.js: 상단의 변하지 않는 네비게이션 바를 관리
-        - 4가지 기능에 대한 버튼을 만들어 htmlUiManager.js와 통신, bodyUi를 수정함
-    - 변수 bodyUi: 4가지 기능을 위한 Ui 객체가 할당될 수 있음
-        1. 역관리: manageStationUi.js
-        2. 노선관리: manageLineUi.js
-        3. 구간관리: manageSectionUi.js
-        4. 노선도 출력: printLineInfoUi.js          
-- 지하철 모든 역의 정보를 관리하는 allStationInfoManager.js 생성
-    - 호선 별로 지하철 역들을 관리
-    - 필요할 때 bodyUi와 통신하며 필요한 정보를 줄 수 있어야 함
+- 4가지 페이지를 전환하기 위한 Navigation 버튼을 만들고 페이지 전환 확인하기
+- 역 관리, 노선 관리, 구간 관리, 노선도 출력 html string 작성
+- 역 관리, 역 추가 기능 구현
+- 역 관리, 역 삭제 기능 구현 
+- 노선 관리, 노선 추가 기능 구현
+- 노선 관리, 노선 삭제 기능 구현
+- 구간 관리, 수정 구간 선택 기능 구현
+- 구간 관리, 구간 등록 기능 구현
+- 구간 관리, 노선 제거 기능 구현 
+- 노선도 출력 기능 구현
 
 ## 😵 고민해야할 사항들
 
