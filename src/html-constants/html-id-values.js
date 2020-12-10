@@ -1,0 +1,25 @@
+export const MENU_BUTTONS_ID = {
+  stationManagerButton: "station-manager-button",
+  lineManagerButton: "line-manager-button",
+  sectionManagerButton: "section-manager-button",
+  mapPrintManagerButton: "map-print-manager-button",
+};
+
+export const MANAGER_PAGES_ID = {
+  stationManager: "station-manager",
+  lineManager: "line-manager",
+  sectionManager: "section-manager",
+  mapPrintManager: "map-print-manager",
+};
+
+export const ADD_BUTTONS_ID = {
+  stationAddButton: "station-add-button",
+  lineAddButton: "line-add-button",
+  sectionAddButton: "section-add-button",
+};
+
+export const INPUT_FORM_ID = {
+  stationNameInput: "station-name-input",
+  lineNameInput: "line-name-input",
+  sectionOrderInput: "section-order-input",
+};
