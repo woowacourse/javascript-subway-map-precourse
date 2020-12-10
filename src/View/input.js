@@ -8,5 +8,8 @@ export const $sectionContainer = document.body.querySelector('#subway-section');
 export const $mapContainer = document.body.querySelector('#map-section');
 
 Array.from($screenButton).forEach((button) =>
-  button.addEventListener('click', showScreen),
+  button.addEventListener('click', (e) => {
+    hideScreen();
+    showScreen(e);
+  }),
 );
