@@ -37,3 +37,16 @@ export const displayAddedStation = (stationName) => {
 
   table.appendChild(tr);
 };
+
+export const removeDisplayStation = (event) => {
+  const {
+    target: {
+      parentNode: {
+        parentNode: target,
+        parentNode: { parentNode: parent },
+      },
+    },
+  } = event;
+
+  parent.removeChild(target);
+};

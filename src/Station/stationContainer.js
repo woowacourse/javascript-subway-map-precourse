@@ -1,4 +1,7 @@
-import { displayAddedStation } from "./stationPresenter.js";
+import {
+  displayAddedStation,
+  removeDisplayStation,
+} from "./stationPresenter.js";
 import { checkEmpty, checkLength } from "../validation/index.js";
 import { checkTheList } from "../utils/message.js";
 import { KEY } from "../constants/index.js";
@@ -16,6 +19,20 @@ const addStation = (stationName) => {
   saveStations(stations);
 };
 
+const removeStation = (event) => {
+  removeDisplayStation(event);
+};
+
+const activateRemoveStation = () => {
+  const stationRemoveButton = document.getElementsByClassName(
+    "station-delete-button"
+  );
+
+  for (let i = 0; i < stationRemoveButton.length; i++) {
+    stationRemoveButton[i].addEventListener("click", removeStation);
+  }
+};
+
 const stationAddClicked = () => {
   const stationInput = document.getElementById("station-name-input");
   const stationInputValue = stationInput.value;
@@ -28,6 +45,7 @@ const stationAddClicked = () => {
   if (isValid) {
     displayAddedStation(stationInputValue);
     addStation(stationInputValue);
+    activateRemoveStation();
   }
 };
 
@@ -36,6 +54,7 @@ const initialTable = () => {
 
   if (stations) {
     stations.forEach((station) => displayAddedStation(station));
+    activateRemoveStation();
   }
 };
 
