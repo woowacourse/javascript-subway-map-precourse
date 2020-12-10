@@ -4,7 +4,7 @@ import {
   getChildById,
   turnOnNoDataMessage,
   turnOffNoDataMessage,
-} from "./custom-dom-handler.js";
+} from "./handlers/custom-dom-handler.js";
 
 export default class StationManager {
   constructor() {
