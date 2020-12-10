@@ -5,6 +5,7 @@
 
 table {
   border: 1px solid gray;
+  margin-top: 10px;
 }
 
 table th,
@@ -17,4 +18,8 @@ table td {
 }
 .line-end {
   margin-bottom: 20px;
+}
+
+.manage-section {
+  display: none;
 }

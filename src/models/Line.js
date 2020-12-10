@@ -1,8 +1,13 @@
 class Line {
+  stations = [];
+
   constructor(name, start, end) {
     this.name = name;
-    this.start = start;
-    this.end = end;
+    this.stations = [start, end];
+  }
+
+  addSectionTo(stationName, idx) {
+    this.stations = [...this.stations].splice(idx, 0, stationName);
   }
 }
 
@@ -16,8 +21,8 @@ export default {
 
     return this.data.map(line => {
       const name = line.name;
-      const start = line.start;
-      const end = line.end;
+      const start = line.stations[0];
+      const end = line.stations[line.stations.length - 1];
 
       return { name, start, end }
     })
@@ -35,5 +40,9 @@ export default {
 
   remove(name) {
     this.data = this.data.filter(line => line.name !== name);
+  },
+
+  get(name) {
+    return this.data.find(line => line.name === name);
   }
 }
