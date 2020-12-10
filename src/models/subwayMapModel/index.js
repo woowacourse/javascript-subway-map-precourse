@@ -17,7 +17,7 @@ export default class SubwayMapModel {
     this._stations = stations;
   }
 
-  removeStation() {
+  deleteStation() {
     const routes = { ...this._routes };
     delete routes[routeId];
 

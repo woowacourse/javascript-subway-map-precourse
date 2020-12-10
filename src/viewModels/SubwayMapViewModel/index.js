@@ -23,4 +23,8 @@ export default class SubwayMapViewModel {
   addStation(stationId) {
     this.subwayMapModel.addStation(stationId);
   }
+
+  deleteStation(stationId) {
+    this.subwayMapModel.deleteStation(stationId);
+  }
 }

@@ -48,7 +48,7 @@ export default class SubwayMapView {
     this.addEventListenerToStationDeleteButtons(this);
   }
 
-  handleStationDeleteButton() {
+  handleStationDeleteButton(event) {
     console.log('call');
   }
 
