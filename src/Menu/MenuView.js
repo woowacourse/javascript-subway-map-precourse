@@ -1,3 +1,5 @@
+import StationManagerView from '../StationManger/StationManagerView.js'
+
 export default class MenuView {
   static MenuButtonListView() {
     document.getElementById('app').innerHTML += `
@@ -10,37 +12,7 @@ export default class MenuView {
   }
 
   static StationManagerView() {
-    document.getElementById('sub-view-container').innerHTML = `
-    <h4>역 이름</h4>
-    <div id="station-input-view"></div>
-    <h2>🚉 지하철 역 목록</h2>
-    <div id="station-table-view"></div>
-    `;
-    this.StationInputView();
-    this.StationTableView();
-  }
-
-  static StationInputView() {
-    document.getElementById('station-input-view').innerHTML = `
-    <input type='text' placeholder='역 이름을 입력해주세요.'/>
-    <button id='station-manager-button'>역 추가</button>
-    `;
-  }
-
-  static StationTableView() {
-    const stations = localStorage.getItem('Stations').split(',');
-    document.getElementById('station-table-view').innerHTML = `
-    <table border='1px solid black'>
-      <tr>
-        <th align="center">역 이름</th>
-        <th align="center">설정</th>
-      </tr>
-      ${stations.map((station) => `
-      <tr>
-        <td aligh="center">${station}</td>
-        <td><button id="delete">삭제</button></td>
-      </tr>`).join('')}
-    </table>`;
+    StationManagerView.View();
   }
 
   static LineManagerView() {
