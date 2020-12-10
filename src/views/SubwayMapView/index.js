@@ -16,6 +16,13 @@ export default class SubwayMapView {
     );
   }
 
+  // addEventListenerToStationAddButton(self) {
+  //   const StationAddButton = document.getElementById('#station-add-button');
+  //   StationAddButton.addEventListener('click')
+  // }
+
+  // handleStationAddButton() {}
+
   renderStationManager() {
     this.managerContainer.innerHTML += `
       <p>${message.STATION_NAME}</p>
@@ -27,6 +34,17 @@ export default class SubwayMapView {
     this.renderStationTable();
   }
 
+  renderStationThead(stationTable) {
+    stationTable.innerHTML += `
+      <tr>
+        <th>${message.STATION_NAME}</th>
+        <th>${message.OPTION}</th>
+      </tr>
+    `;
+
+    return stationTable;
+  }
+
   renderStationTbody(stationTable) {
     stationTable.innerHTML += `
       <tr>
@@ -34,16 +52,14 @@ export default class SubwayMapView {
         <td>${message.OPTION}</td>
       </tr>
     `;
+
+    return stationTable;
   }
 
   renderStationTable() {
     let stationTable = document.createElement('table');
-    stationTable.innerHTML += `
-      <tr>
-        <th>${message.STATION_NAME}</th>
-        <th>${message.OPTION}</th>
-      </tr>
-    `;
+    stationTable = this.renderStationThead(stationTable);
+    stationTable = this.renderStationTbody(stationTable);
 
     this.managerContainer.appendChild(stationTable);
   }
