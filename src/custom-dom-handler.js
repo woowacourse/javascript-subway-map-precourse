@@ -15,6 +15,6 @@ export const turnOnNoDataMessage = ($table, $noDataMessage) => {
 };
 
 export const turnOffNoDataMessage = ($table, $noDataMessage) => {
-  $table.style.display = "block";
+  $table.style.display = "";
   $noDataMessage.style.display = "none";
 };
