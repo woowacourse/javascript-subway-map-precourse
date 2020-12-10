@@ -10,6 +10,10 @@ class Line {
     this.stations = [...this.stations]
     this.stations.splice(idx, 0, stationName);
   }
+
+  removeSection(name) {
+    this.stations = this.stations.filter(station => station !== name);
+  }
 }
 
 export default {

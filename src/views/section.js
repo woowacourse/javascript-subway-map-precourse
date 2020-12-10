@@ -49,6 +49,9 @@ export default {
     this.query('.title').innerText = `${name} 관리`;
     this.query('#section-station-selector').innerHTML = stationOptionsHTML;
     this.query('tbody').innerHTML = tbodyHTML;
+    this.query('#section-order-input').min = 0;
+    this.query('#section-order-input').max = stationsOfLine.length;
+    this.clearForm();
   },
 
   onClickLineBtn(e) {
@@ -78,7 +81,21 @@ export default {
   },
 
   onClickRemove(e) {
-    const name = e.target.dataset.name;
+    const lineName = this.currentLineName;
+    const station = e.target.dataset.name;
     if (e.target.tagName !== 'BUTTON') return;
+
+    if(!confirm('정말로 노선에서 제거할까요?')) return;
+
+    if(Line.get(lineName).stations.length === 2) {
+      return alert('노선에는 최소 2개의 역이 필요합니다.');
+    }
+
+    Line.get(lineName).removeSection(station);
+    this.renderLine(lineName);
+  },
+
+  clearForm() {
+    this.query('#section-order-input').value = 0;
   }
 }
