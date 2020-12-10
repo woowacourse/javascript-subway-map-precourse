@@ -11,6 +11,17 @@ export function ManageStationLine(lineList, stationList) {
   this.setSelectedLine = (selectedLine) => {
     this.selectedLine = selectedLine;
   };
+  this.getSelectedLine = () => {
+    return this.selectedLine;
+  };
+  this.setChangedLine = (changedLine) => {
+    this.lineList.forEach((line) => {
+      console.log(line.name, changedLine.name);
+      if (line.name === changedLine.name) {
+        line = changedLine;
+      }
+    });
+  };
 }
 const btnStationManager = document.getElementById("station-manager-button");
 const btnLineManager = document.getElementById("line-manager-button");
@@ -93,4 +104,4 @@ btnAddLine.onclick = () => {
   addLineToList(line);
   console.log(lineList);
 };
-export const manageStationLine = new ManageStationLine(lineList, stationList);
+export const manager = new ManageStationLine(lineList, stationList);
