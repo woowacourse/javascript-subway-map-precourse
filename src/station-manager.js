@@ -15,4 +15,13 @@ export default class StationManager {
     this.stationList.push(station);
     localStorage.stationList = JSON.stringify(this.stationList);
   }
+
+  hasName(name) {
+    for (let i = 0; i < this.stationList.length; i++) {
+      if (this.stationList[i] === name) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

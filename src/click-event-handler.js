@@ -1,3 +1,5 @@
+import StationManager from "./station-manager.js";
+
 const MENU_BUTTONS_ID = {
   stationManagerButton: "station-manager-button",
   lineManagerButton: "line-manager-button",
@@ -54,12 +56,21 @@ const isInputStringLengthTwoOrGreater = (input) => {
     alert("두 글자 이상 입력해주세요.");
     return false;
   }
-
   return true;
 };
 
+const isStationNameInputDuplicate = (input) => {
+  if (new StationManager().hasName(input)) {
+    alert("해당 역이 이미 존재합니다.");
+    return true;
+  }
+  return false;
+};
+
 const isValidStationName = (name) => {
-  return isInputStringLengthTwoOrGreater(name);
+  return (
+    isInputStringLengthTwoOrGreater(name) && !isStationNameInputDuplicate(name)
+  );
 };
 
 // const addNewStationName = (name) => {};
@@ -84,7 +95,6 @@ export const menuButtonHandler = (e) => {
 
 export const addButtonHandler = (e) => {
   if (e.target.id === ADD_BUTTONS_ID.stationAddButton) {
-    console.log("station name button");
     stationAddButtonHandler(e);
   }
 };
