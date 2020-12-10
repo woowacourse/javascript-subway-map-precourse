@@ -11,3 +11,10 @@ table th,
 table td {
   border: 1px solid gray;
 }
+
+.line-start {
+  margin-top: 20px;
+}
+.line-end {
+  margin-bottom: 20px;
+}

@@ -20,7 +20,7 @@
             <div>
               <label for="station-name-input">역 이름</label>
             </div>
-            <input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요.">
+            <input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요." />
             <button id="station-add-button">역 추가</button>
 
             <h3>🚂 지하철 역 목록</h3>
@@ -34,7 +34,36 @@
               <tbody></tbody>
             </table>
           </div>
-          <div class="tab-page">2</div>
+          <div class="tab-page">
+            <div><label for="line-name-input">노선 이름</label></div>
+            <input type="text" id="line-name-input" placeholder="노선 이름을 입력해주세요." />
+            <div class="line-start">
+              <label for="line-start-station-selector">상행 종점</label>
+              <select id="line-start-station-selector">
+                <option value="인천">인천</option>
+              </select>
+            </div>
+            <div class="line-end">
+              <label for="line-end-station-selector">하행 종점</label>
+              <select id="line-end-station-selector">
+                <option value="인천">인천</option>
+              </select>
+            </div>
+            <button id="line-add-button">노선 추가</button>
+
+            <h3>🚂 지하철 노선 목록</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>노선 이름</th>
+                  <th>상행 종점역</th>
+                  <th>하행 종점역</th>
+                  <th>설정</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
           <div class="tab-page">3</div>
           <div class="tab-page">4</div>
         </div>
