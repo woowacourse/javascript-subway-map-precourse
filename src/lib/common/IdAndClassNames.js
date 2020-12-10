@@ -1,9 +1,11 @@
 export const MENU_DIV = "#menu";
+export const STATION_DIV = "#station";
 export const LINE_DIV = "#line";
 export const SECTION_DIV = "#section";
+export const MAP_DIV = "#map";
 
-//menu
 export const menuButtonsId = ["#station-manager-button", "#line-manager-button", "#section-manager-button", "#map-print-manager-button"]
+export const tabTitles = ["역", "노선", "구간", "출력"];
 
 //station
 export const STATION_NAME_INPUT = "#station-name-input";
