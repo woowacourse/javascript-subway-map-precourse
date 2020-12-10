@@ -1,9 +1,12 @@
 import StationManager from "../station-manager.js";
-import { getChildById } from "./custom-dom-handler.js";
+import {
+  getChildById,
+  getStartStationSelector,
+  getEndStationSelector,
+} from "./custom-dom-handler.js";
 import {
   MENU_BUTTONS_ID,
   MANAGER_PAGES_ID,
-  SELECTORS_ID,
 } from "../html-constants/html-id-values.js";
 
 const showManagerPageById = (container, id) => {
@@ -14,24 +17,6 @@ const showManagerPageById = (container, id) => {
       getChildById(container, _pageId).style.display = "none";
     }
   });
-};
-
-const getStartStationSelector = (appContainer) => {
-  const $startSationLabel = getChildById(
-    appContainer,
-    MANAGER_PAGES_ID.lineManager
-  ).getElementsByTagName("label")[1];
-
-  return getChildById($startSationLabel, SELECTORS_ID.lineStartStation);
-};
-
-const getEndStationSelector = (appContainer) => {
-  const $endSationLabel = getChildById(
-    appContainer,
-    MANAGER_PAGES_ID.lineManager
-  ).getElementsByTagName("label")[2];
-
-  return getChildById($endSationLabel, SELECTORS_ID.lineEndStation);
 };
 
 const setSelectorOptions = ($selector, exceptionalOption = "") => {
