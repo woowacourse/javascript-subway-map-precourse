@@ -49,7 +49,7 @@ export default class SubwayMapView {
   }
 
   handleStationDeleteButton(event) {
-    console.log('call');
+    this.subwayMapViewModel.deleteStation(event.target.dataset.id);
   }
 
   resetStationTable() {

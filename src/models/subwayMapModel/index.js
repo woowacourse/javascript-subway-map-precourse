@@ -17,11 +17,11 @@ export default class SubwayMapModel {
     this._stations = stations;
   }
 
-  deleteStation() {
-    const routes = { ...this._routes };
-    delete routes[routeId];
+  deleteStation(stationId) {
+    const stations = { ...this._stations };
+    delete stations[stationId];
 
-    this._routes = routes;
+    this._stations = stations;
   }
 
   getRoutes() {
