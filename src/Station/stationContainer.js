@@ -31,8 +31,18 @@ const stationAddClicked = () => {
   }
 };
 
+const initialTable = () => {
+  const stations = loadStations();
+
+  if (stations) {
+    stations.forEach((station) => displayAddedStation(station));
+  }
+};
+
 export const stationStart = () => {
   const stationAddButton = document.getElementById("station-add-button");
 
   stationAddButton.addEventListener("click", stationAddClicked);
+
+  initialTable();
 };
