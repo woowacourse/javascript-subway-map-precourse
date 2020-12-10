@@ -1,15 +1,29 @@
 import { manager, makeStationOption } from "./index.js";
 
+export const deleteSectionInList = (idx) => {
+  const stationInSelecteLine = document.getElementById(
+    "station-in-selected-line"
+  );
+  stationInSelecteLine.innerHTML = "";
+  manager.selectedLine.deleteStationInIdx(idx);
+  manager.setSelectedLine(manager.selectedLine);
+  showStationList(manager.getSelectedLine().getAllStationName());
+};
 export const showStationList = (allStationName) => {
   const table = document.getElementById("station-in-selected-line-list-table");
   allStationName.forEach((station, idx) => {
     const oneStation = document.createElement("tr");
+    oneStation.setAttribute("id", `${idx}`);
     const stationIdx = document.createElement("td");
     const stationName = document.createElement("td");
     const deleteButton = document.createElement("td");
     stationIdx.innerHTML = idx;
     stationName.innerHTML = station;
-    deleteButton.innerHTML = `<button class="select-delete-button">삭제</button>`;
+    deleteButton.innerHTML = "삭제";
+    deleteButton.setAttribute("class", "section-delete-button");
+    deleteButton.onclick = () => {
+      deleteSectionInList(`${idx}`);
+    };
     oneStation.appendChild(stationIdx);
     oneStation.appendChild(stationName);
     oneStation.appendChild(deleteButton);
@@ -59,7 +73,7 @@ btnAddSection.onclick = () => {
     if (station.name === addStationName) {
       const selectedLine = manager.getSelectedLine();
       console.log(selectedLine);
-      selectedLine.addStationToIdx(station, addSectionIdx);
+      selectedLine.addStationInIdx(station, addSectionIdx);
     }
   });
   const stationList = document.getElementById("station-in-selected-line");
