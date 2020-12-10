@@ -7,7 +7,7 @@ export default class SubwayMapModel {
   }
 
   getStation() {
-    return { ...this._routes };
+    return { ...this.stations };
   }
 
   addStation(stationId) {
@@ -15,6 +15,13 @@ export default class SubwayMapModel {
     stations[stationId] = stationId;
 
     this.stations = stations;
+  }
+
+  removeStation() {
+    const routes = { ...this._routes };
+    delete routes[routeId];
+
+    this._routes = routes;
   }
 
   getRoutes() {
