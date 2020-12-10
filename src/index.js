@@ -1,7 +1,7 @@
-import initializeSite from './init/initializeSite.js';
+import initEvent from './event/initEvent.js';
 
 export default function SubwayMapManagement() {
-  initializeSite();
+  initEvent();
 }
 
 new SubwayMapManagement();
