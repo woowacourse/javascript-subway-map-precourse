@@ -1,15 +1,12 @@
 import { DOMs, DOMCtrl } from './doms.js';
-
-const MIN_LENGTH = 2;
-const ERROR_DUPLICATE_STATION = '중복된 역 이름이 존재합니다.';
-const ERROR_UNDER_MINUMUM_LENGTH = `역 이름은 ${MIN_LENGTH}글자 이상이어야 합니다.`;
-const ERROR_EMPTY_STRING = '값을 입력해야 합니다.';
+import { isValidStationName } from './valid.js';
 
 export default class SubwayManager {
   constructor() {
     this.stations = [];
 
     this.setEventListeners();
+    this.loadData();
   }
 
   setEventListeners() {
@@ -20,13 +17,17 @@ export default class SubwayManager {
     DOMs.managerContainer.addEventListener('click', this.addStation.bind(this));
   }
 
+  loadData() {
+    this.stations = JSON.parse(localStorage.getItem('stations')) || [];
+  }
+
   openStationManager() {
     const stationManager = `
       <div id="station-manager">
         <br><span>역 이름</span><br>
         <input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요."/>
         <button id="station-add-button">역 추가</button>
-        <h1>🚉지하철 역 목록</h1>
+        <h1>🚉 지하철 역 목록</h1>
         <table id="station-list">
           <tr>
             <th><b>역 이름</b></th>
@@ -59,7 +60,7 @@ export default class SubwayManager {
           <!-- 추가된 역 목록 -->
         <br>
         <button id="line-add-button">노선 추가</button>
-        <h1>🚉지하철 노선 목록</h1>
+        <h1>🚉 지하철 노선 목록</h1>
         <table id="line-list"></table>
       </div>
     `;
@@ -96,38 +97,12 @@ export default class SubwayManager {
     } = event;
     if (id === 'station-add-button') {
       const station = document.getElementById('station-name-input').value;
-      if (this.isValidStationName(station)) {
+      if (isValidStationName(this.stations, station)) {
         this.stations.push(station);
+        localStorage.setItem('stations', JSON.stringify(this.stations));
         this.openStationManager();
       }
     }
-  }
-
-  isValidStationName(input) {
-    if (this.isDuplicateStationName(input)) {
-      alert(ERROR_DUPLICATE_STATION);
-      return false;
-    } else if (this.isUnderMinLength(input)) {
-      alert(ERROR_UNDER_MINUMUM_LENGTH);
-      return false;
-    } else if (this.isEmptyString(input)) {
-      alert(ERROR_EMPTY_STRING);
-      return false;
-    }
-
-    return true;
-  }
-
-  isDuplicateStationName(input) {
-    return this.stations.indexOf(input) !== -1;
-  }
-
-  isUnderMinLength(input) {
-    return input.length < MIN_LENGTH;
-  }
-
-  isEmptyString(input) {
-    return !input;
   }
 }
 
