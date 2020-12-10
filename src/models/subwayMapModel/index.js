@@ -15,4 +15,10 @@ export default class SubwayMapModel {
 
     this._routes = routes;
   }
+
+  removeRoute(routeId) {
+    const routes = this._routes.splice(routeId, 1);
+
+    this._routes = routes;
+  }
 }
