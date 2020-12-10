@@ -1,0 +1,16 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.manager-button-group li {
+  display: inline-block;
+}
+
+.contents-container {
+  display: none;
+}
+
+.contents-container.active {
+  display: block;
+}
