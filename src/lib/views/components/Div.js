@@ -1,22 +1,18 @@
-import { getComponentQuerySelectorName } from "../utils/utils.js";
+import { getComponentIdOrClassQuerySelectorName } from "../utils/utils.js";
 
 export default class Div {
   constructor(id) {
     this.element = document.createElement("div");
-    this.element.id = getComponentQuerySelectorName(id);
-  }
-
-  getElement() {
-    return this.element;
+    this.element.id = getComponentIdOrClassQuerySelectorName(id);
   }
 
   addToParentNode($parentNode) {
-    $parentNode.appendChild(this.getElement());
+    $parentNode.appendChild(this.element);
   }
 
   addChildNodes($childNodes) {
     $childNodes.forEach(($childNode) => {
-      this.getElement().append($childNode);
+      this.element.append($childNode);
     });
   }
 }

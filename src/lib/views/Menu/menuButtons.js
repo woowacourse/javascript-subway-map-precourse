@@ -5,6 +5,7 @@ import {
 } from "../../common/IdAndClassNames.js";
 import { appTitle } from "../../common/constants.js";
 import createTabComponent from "../utils/createTabComponent.js";
+import { isPrintMapTab } from "../utils/utils.js";
 import Button from "../components/Button.js";
 
 const renderContainer = (index) => {
@@ -15,7 +16,7 @@ const renderContainer = (index) => {
 };
 
 export default tabs.map(({ title }, index) => {
-  const innerText = /출력/.test(title)
+  const innerText = isPrintMapTab(title)
     ? `${appTitle.substring(0, 7)} ${title}`
     : `${title} 관리`;
   const $menuButton = new Button(
