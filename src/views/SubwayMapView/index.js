@@ -13,6 +13,7 @@ export default class SubwayMapView {
     this.lineManagerButton = lineManagerButton;
 
     this.addEventListenerToStationManagerButton(this);
+    this.addEventListenerToLineManagerButton(this);
   }
 
   addEventListenerToStationManagerButton(self) {
@@ -22,9 +23,12 @@ export default class SubwayMapView {
     );
   }
 
-  // addEventListenerToStationManagerButton(self) {
-  //   this.lineManagerButton.addEventListener('click')
-  // }
+  addEventListenerToLineManagerButton(self) {
+    this.lineManagerButton.addEventListener(
+      'click',
+      this.handleLineManagerButton.bind(self),
+    );
+  }
 
   addEventListenerToStationAddButton(self) {
     const stationAddButton = document.getElementById('#station-add-button');
@@ -48,7 +52,7 @@ export default class SubwayMapView {
   }
 
   handleStationManagerButton() {
-    this.resetManagerContainer();
+    // this.resetManagerContainer();
     this.renderStationManager();
   }
 
@@ -83,6 +87,7 @@ export default class SubwayMapView {
   }
 
   resetManagerContainer() {
+    console.log('call');
     this.managerContainer.innerHTML = '';
   }
 
