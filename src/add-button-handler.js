@@ -28,10 +28,12 @@ const isValidStationName = (name) => {
 };
 
 const stationAddButtonHandler = (e) => {
-  const stationNameInputValue = getChildById(
+  const stationNameInputElement = getChildById(
     e.target.parentNode.children[0],
     INPUT_FORM_ID.stationNameInput
-  ).value;
+  );
+  const stationNameInputValue = stationNameInputElement.value;
+  stationNameInputElement.value = "";
   if (isValidStationName(stationNameInputValue)) {
     new StationManager().addStation(stationNameInputValue);
     renderStationNameTable();
