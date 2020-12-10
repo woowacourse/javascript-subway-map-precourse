@@ -1,10 +1,16 @@
 import { message } from '../../constants';
 
 export default class SubwayMapView {
-  constructor(subwayMapViewModel, managerContainer, stationManagerButton) {
+  constructor(
+    subwayMapViewModel,
+    managerContainer,
+    stationManagerButton,
+    lineManagerButton,
+  ) {
     this.managerContainer = managerContainer;
     this.subwayMapViewModel = subwayMapViewModel;
     this.stationManagerButton = stationManagerButton;
+    this.lineManagerButton = lineManagerButton;
 
     this.addEventListenerToStationManagerButton(this);
   }
@@ -12,9 +18,13 @@ export default class SubwayMapView {
   addEventListenerToStationManagerButton(self) {
     this.stationManagerButton.addEventListener(
       'click',
-      this.renderStationManager.bind(self),
+      this.handleStationManagerButton.bind(self),
     );
   }
+
+  // addEventListenerToStationManagerButton(self) {
+  //   this.lineManagerButton.addEventListener('click')
+  // }
 
   addEventListenerToStationAddButton(self) {
     const stationAddButton = document.getElementById('#station-add-button');
@@ -35,6 +45,11 @@ export default class SubwayMapView {
         this.handleStationDeleteButton.bind(self),
       );
     }
+  }
+
+  handleStationManagerButton() {
+    this.resetManagerContainer();
+    this.renderStationManager();
   }
 
   handleStationAddButton() {

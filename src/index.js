@@ -7,6 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const stationManagerButton = document.getElementById(
     '#station-manager-button',
   );
+  const lineManagerButton = document.getElementById('#line-manager-button');
 
   const subwayMapModel = new SubwayMapModel();
   const subwayMapViewModel = new SubwayMapViewModel(subwayMapModel);
@@ -14,5 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
     subwayMapViewModel,
     managerContainer,
     stationManagerButton,
+    lineManagerButton,
   );
 });
