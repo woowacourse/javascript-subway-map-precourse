@@ -4,7 +4,6 @@ import EventHandler from './util/handler/event_handler/event_handler.js';
 export default class App {
   constructor() {
     this.appRenderer = new AppRenderer();
-    this.eventHandler = new EventHandler();
     this.activateApp();
   }
 
@@ -13,11 +12,10 @@ export default class App {
   }
 
   activateFunctionRenderer(functionRenderers) {
+    const eventHandler = new EventHandler();
+
     functionRenderers.forEach(renderer => {
-      this.eventHandler.handleClickEvent(
-        renderer.buttonId,
-        renderer.renderFunction
-      );
+      eventHandler.handleClickEvent(renderer.buttonId, renderer.renderFunction);
     });
   }
 }

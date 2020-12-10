@@ -1,6 +1,6 @@
 import NodeGenerator from '../../generator/node_generator.js';
+import NodeSelector from '../../selector/node_selector.js';
 import {
-  NODES,
   FUNCTION_CONTENTS,
   BUTTON_SUFFIX,
 } from '../../../library/constant/constant.js';
@@ -14,6 +14,7 @@ export default class FuctionRenderer {
 
   renderFuctionButton() {
     const nodeGenerator = new NodeGenerator();
+    const nodeSelector = new NodeSelector();
     const index = this.getIndex();
     const functionButton = nodeGenerator.getButton(
       'button',
@@ -21,7 +22,7 @@ export default class FuctionRenderer {
     );
 
     functionButton.id = this.buttonId;
-    NODES.app.appendChild(functionButton);
+    nodeSelector.selectApp().appendChild(functionButton);
   }
 
   getIndex() {

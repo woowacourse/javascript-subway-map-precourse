@@ -1,8 +1,3 @@
-// DOM
-export const NODES = {
-  app: document.querySelector('#app'),
-};
-
 // suffix
 export const BUTTON_SUFFIX = '-button';
 
