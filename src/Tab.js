@@ -10,7 +10,6 @@ export default class Tab {
     this.#pages = this.#el.querySelectorAll('.tab-page');
     this.#views = views
 
-    this.#hideAll()
     if (this.#el.dataset.tabIndex) {
       this.show(this.#el.dataset.tabIndex);
     }
@@ -22,15 +21,17 @@ export default class Tab {
   }
 
   #hideAll() {
+    const idx = this.#el.dataset.tabIndex;
     this.#pages.forEach(page => page.style.display = 'none');
   }
 
   show(tabNumber) {
     const page = this.#pages[tabNumber];
+    const view = this.#views[tabNumber];
 
     this.#hideAll();
     page.style.display = 'block';
-    this.#views[tabNumber].init(page);
+    view.el ? view.render() : view.init(page);
   }
 
 }

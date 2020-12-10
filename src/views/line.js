@@ -69,5 +69,4 @@ export default {
     this.query("#line-start-station-selector").value = '';
     this.query("#line-end-station-selector").value = '';
   },
-
 }

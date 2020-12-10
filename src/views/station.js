@@ -1,10 +1,13 @@
 import Station from "../models/Station.js";
 
 export default {
+  eventBinded: false,
+
   init(element) {
     this.el = element;
     this.render();
-    this.bindEvents();
+    this.eventBinded || this.bindEvents.call(this);
+    this.eventBinded = true;
   },
 
   query(selector) {
@@ -29,6 +32,12 @@ export default {
     this.query('#station-add-button').addEventListener('click', this.onClickAdd.bind(this));
     this.query('tbody').addEventListener('click', this.onClickRemove.bind(this));
   },
+
+  // clearEvents() {
+  //   if(!this.el) return false;
+  //   this.query('#station-add-button').removeEventListener('click', this.onClickAdd.bind(this));
+  //   this.query('tbody').removeEventListener('click', this.onClickRemove.bind(this));
+  // },
 
   onClickAdd() {
     const input = document.querySelector("#station-name-input");
