@@ -5,8 +5,12 @@ import { addTableRow } from '../View/template.js';
 import { makeElement } from './utils.js';
 
 export const getAllLines = () => {
-	return Line.readAllLines();
+	return Line.readAllLines(); 
 };
+
+export const saveAllLines = (lines) => {
+    Line.saveAllLines(lines);
+}
 
 export const addLine = (lineName, startStation, endStation) => {
 	if (Line.isValidLineName(lineName)) {

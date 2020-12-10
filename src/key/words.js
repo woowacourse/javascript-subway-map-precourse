@@ -31,7 +31,6 @@ const words = {
 	],
 
 	LINE_DELETE_BUTTON: '삭제',
-	STATION_DELETE_FROM_LINE: '노선에서 제거',
 
 	LINE_MANGER_BUTTON_ID: 'line-manager-button',
 	LINE_NAME_INPUT_ID: 'line-name-input',
@@ -51,7 +50,8 @@ const words = {
 		'순서',
 		'이름',
 		'설정',
-	],
+    ],
+    SECTION_DELETE_FOR_STATION: '노선에서 제거',
 
 	SECTION_MANAGER_BUTTON_ID: 'section-manager-button',
 	SECTION_STATION_SELECTOR_ID: 'section-station-selector',

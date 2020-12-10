@@ -28,8 +28,8 @@ export const addTableRow = (tableElement, values = []) => {
 	appendChilds(tableTBodyElement, [tableRowElement]);
 };
 
-export const makeSelectBox = (list) => {
-	const selectBoxElement = makeElement({ tag: 'select' });
+export const makeSelectBox = (list, {classes, id}) => {
+	const selectBoxElement = makeElement({ tag: 'select', classes, id});
 	const optionElements = list.map((item) =>
 		makeElement({ tag: 'option', value: item, innerText: item })
 	);

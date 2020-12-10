@@ -11,13 +11,21 @@ const container = document.querySelector('.container');
 
 const SubwayStationInit = () => {
 	const CLICK = 'click';
-	stationManagerBtn.addEventListener(CLICK, ()=>viewContainers.STATION_CONTAINER(container));
-	lineManagerBtn.addEventListener(CLICK, ()=>viewContainers.LINE_CONTAINER(container));
-	sectionManagerBtn.addEventListener(CLICK, ()=>viewContainers.SECTION_CONTAINER(container));
-	mapPrintManagerBtn.addEventListener(CLICK, ()=>viewContainers.MAP_PRINT_CONTAINER(container));
-    
-    // Station.saveAllStations([]);
-    // Line.saveAllLines([]);
+	stationManagerBtn.addEventListener(CLICK, () =>
+		viewContainers.STATION_CONTAINER(container)
+	);
+	lineManagerBtn.addEventListener(CLICK, () =>
+		viewContainers.LINE_CONTAINER(container)
+	);
+	sectionManagerBtn.addEventListener(CLICK, () =>
+		viewContainers.SECTION_CONTAINER(container)
+	);
+	mapPrintManagerBtn.addEventListener(CLICK, (e) =>
+		viewContainers.MAP_PRINT_CONTAINER(container)
+	);
+
+	// Station.saveAllStations([]);
+	// Line.saveAllLines([]);
 
 	viewContainers.STATION_CONTAINER(container);
 };

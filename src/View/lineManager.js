@@ -13,20 +13,21 @@ const lineContainer = (container) => {
 	const inputElement = makeElement({
 		tag: 'input',
 		placeholder: words.LINE_PLACEHOLDER,
+		id: words.STATION_NAME_INPUT_ID
 	});
 	const startPointTextElement = makeElement({
 		tag: 'p',
 		innerText: words.LINE_START_POINT,
 	});
 	const startPointSelectBoxElement = makeSelectBox(
-		getAllStation().map((item) => item.name)
+		getAllStation().map((item) => item.name), {classes:[words.LINE_START_STATION_SELECTOR_ID]}
 	);
 	const endPointTextElement = makeElement({
 		tag: 'p',
 		innerText: words.LINE_END_POINT,
 	});
 	const endPointSelectBoxElement = makeSelectBox(
-		getAllStation().map((item) => item.name)
+		getAllStation().map((item) => item.name), {classes:[words.LINE_END_STATION_SELECTOR_ID]}
 	);
 
 	const lineAddButtonElement = makeElement({
@@ -47,12 +48,14 @@ const lineContainer = (container) => {
 			endPointSelectBoxElement.options[endPointSelectBoxElement.selectedIndex]
 				.text;
 		addLine(lineName, lineStartStation, lineEndStation);
-		addTableRow(tableElement, [
-			lineName,
-			lineStartStation,
-			lineEndStation,
-			makeNewLineDeleteButtonElement(lineName),
-		]);
+		clearAllContents(tableElement.querySelector('tbody'));
+		tableSynchronizer(tableElement);
+		// addTableRow(tableElement, [
+		// 	lineName,
+		// 	lineStartStation,
+		// 	lineEndStation,
+		// 	makeNewLineDeleteButtonElement(lineName),
+		// ]);
 	});
 
 	clearAllContents(container);
