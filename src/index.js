@@ -1,7 +1,16 @@
 class ManageSubwayLine {
   constructor() {
+    this.resetDisplay();
     this.handleMenuClick();
   }
+
+  resetDisplay = () => {
+    const container = document.getElementsByClassName("content");
+
+    for (let i = 0; i < container.length; i++) {
+      container[i].style.display = "none";
+    }
+  };
 
   displayMenu = e => {
     const container = document.getElementsByClassName("content");
