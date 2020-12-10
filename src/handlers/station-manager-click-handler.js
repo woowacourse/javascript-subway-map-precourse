@@ -1,4 +1,5 @@
 import StationManager from "../station-manager.js";
+import LineManager from "../line-manager.js";
 import { getChildById } from "./custom-dom-handler.js";
 import { DELETE_BUTTONS_CLASS } from "../html-constants/html-classnames.js";
 import {
@@ -28,6 +29,18 @@ const isStationNameValid = (name) => {
   );
 };
 
+const isStationInLine = (station) => {
+  const lineList = new LineManager().lineList;
+  for (let i = 0; i < lineList.length; i++) {
+    const inLine = lineList[i].section.find((_station) => _station === station);
+    if (inLine !== undefined) {
+      alert("노선에 포함된 역은 제거할 수 없습니다.");
+      return true;
+    }
+  }
+  return false;
+};
+
 const stationAddButtonHandler = (e) => {
   const stationNameInputElement = getChildById(
     e.target.parentElement.children[0],
@@ -45,7 +58,10 @@ const stationRemoveButtonHandler = (e) => {
   const stationManager = new StationManager();
   const stationIndex = e.target.dataset.stationIndex * 1;
   const selectedStation = stationManager.stationList[stationIndex];
-  if (confirm(`${selectedStation}역을 제거하시겠습니까?`)) {
+  if (
+    !isStationInLine(selectedStation) &&
+    confirm(`${selectedStation}역을 제거하시겠습니까?`)
+  ) {
     stationManager.removeStation(stationIndex);
   }
 };
