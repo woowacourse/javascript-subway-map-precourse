@@ -33,12 +33,6 @@ export default {
     this.query('tbody').addEventListener('click', this.onClickRemove.bind(this));
   },
 
-  // clearEvents() {
-  //   if(!this.el) return false;
-  //   this.query('#station-add-button').removeEventListener('click', this.onClickAdd.bind(this));
-  //   this.query('tbody').removeEventListener('click', this.onClickRemove.bind(this));
-  // },
-
   onClickAdd() {
     const input = document.querySelector("#station-name-input");
     const name = input.value;

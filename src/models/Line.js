@@ -28,8 +28,9 @@ export default {
       const name = line.name;
       const start = line.stations[0];
       const end = line.stations[line.stations.length - 1];
+      const stations = line.stations;
 
-      return { name, start, end }
+      return { name, start, end, stations }
     })
   },
 
