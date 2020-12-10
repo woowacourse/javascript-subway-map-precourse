@@ -1,5 +1,9 @@
 export default class subwayMapModel {
   constructor() {
-    this.routes = [];
+    this._routes = [];
+  }
+
+  getRoutes() {
+    return [...this._routes];
   }
 }
