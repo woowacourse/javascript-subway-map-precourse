@@ -1,10 +1,10 @@
-import StationManager from "./station-manager.js";
+import StationManager from "../station-manager.js";
 import { getChildById } from "./custom-dom-handler.js";
-import { DELETE_BUTTONS_CLASS } from "./html-constants/html-classnames.js";
+import { DELETE_BUTTONS_CLASS } from "../html-constants/html-classnames.js";
 import {
   ADD_BUTTONS_ID,
   INPUT_FORM_ID,
-} from "./html-constants/html-id-values.js";
+} from "../html-constants/html-id-values.js";
 
 const isInputStringLengthTwoOrGreater = (input) => {
   if (input.length < 2) {
