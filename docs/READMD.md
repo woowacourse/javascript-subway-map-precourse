@@ -21,7 +21,7 @@
 #### Station - 역 관련 기능
 
 - [x] 지하철 역 등록
-  - [ ] 추가 시 localStorage 사용
+  - [x] 추가 시 localStorage 사용
 - [ ] 지하철 역 삭제
 - [ ] 지하철 역 목록 조회
 
