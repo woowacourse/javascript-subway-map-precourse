@@ -1,7 +1,6 @@
 function stationManagerPage(stationNames) {
   let table = ``;
 
-  // console.log(stationNames);
   stationNames &&
     stationNames.map((name) => {
       table += `<tr>
