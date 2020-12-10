@@ -23,3 +23,8 @@ export const INPUT_FORM_ID = {
   lineNameInput: "line-name-input",
   sectionOrderInput: "section-order-input",
 };
+
+export const SELECTORS_ID = {
+  lineStartStation: "line-start-station-selector",
+  lineEndStation: "line-end-station-selector",
+};
