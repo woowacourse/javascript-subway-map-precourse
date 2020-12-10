@@ -1,6 +1,6 @@
 import LineManager from "../line-manager.js";
 import { ADD_BUTTONS_ID } from "../html-constants/html-id-values.js";
-// import { DELETE_BUTTONS_CLASS } from "../html-constants/html-classnames.js";
+import { DELETE_BUTTONS_CLASS } from "../html-constants/html-classnames.js";
 import {
   getLineNameInput,
   getStartStationSelector,
@@ -55,8 +55,19 @@ const lineAddButtonHandler = (e) => {
   lineManager.renderLineNameTable();
 };
 
+const lineRemoveButtonHandler = (e) => {
+  const lineManager = new LineManager();
+  const lineIndex = e.target.dataset.lineIndex * 1;
+  const selectedLine = lineManager.lineList[lineIndex];
+  if (confirm(`${selectedLine.name}역을 제거하시겠습니까?`)) {
+    lineManager.removeLine(lineIndex);
+  }
+};
+
 export default function lineManagerClickHandler(e) {
   if (e.target.id === ADD_BUTTONS_ID.lineAddButton) {
     lineAddButtonHandler(e);
+  } else if (e.target.className === DELETE_BUTTONS_CLASS.lineDeleteButton) {
+    lineRemoveButtonHandler(e);
   }
 }

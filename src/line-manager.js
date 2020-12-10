@@ -39,6 +39,15 @@ export default class LineManager {
     localStorage.lineList = JSON.stringify(convertedLineObject);
   }
 
+  removeLine(lineIndex) {
+    for (let i = lineIndex + 1; i < this.lineList.length; i++) {
+      this.lineList[i - 1] = this.lineList[i];
+    }
+    this.lineList.pop();
+    localStorage.lineList = JSON.stringify(this.convertLineListToObject());
+    this.renderLineNameTable();
+  }
+
   hasLineName(lineName) {
     for (let i = 0; i < this.lineList.length; i++) {
       if (this.lineList[i].name === lineName) {
@@ -58,7 +67,7 @@ export default class LineManager {
           <td>${_line.section[_line.section.length - 1]}</td>
           <td><button 
             class=${DELETE_BUTTONS_CLASS.lineDeleteButton}
-            data-station-index=${_index}>삭제</button></td>
+            data-line-index=${_index}>삭제</button></td>
         </tr>
       `;
     });
