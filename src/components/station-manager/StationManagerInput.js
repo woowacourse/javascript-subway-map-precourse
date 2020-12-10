@@ -18,11 +18,16 @@ export class StationManagerInput {
 
   handleStationInput = () => {
     let stationName = this.stationNameInput.value;
-    if (!isValid(stationName)) {
+    let stations = this.getStationNames();
+
+    this.removeInputs();
+    if (!isValid(stationName, stations)) {
       return;
     }
-    this.setStationNames();
-    console.log(this.getStationNames());
-    //add name in local storage
+    this.setStationNames(stations);
+  };
+
+  removeInputs = () => {
+    this.stationNameInput.value = "";
   };
 }

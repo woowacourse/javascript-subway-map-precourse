@@ -4,7 +4,7 @@ import { StationManager } from "./station-manager/StationManager.js";
 export class SubwayMap {
   constructor() {
     this.initiateDOM();
-    localStorage.setItem("stations", []);
+    localStorage.setItem("stations", JSON.stringify([]));
   }
 
   initiateDOM = () => {
@@ -21,10 +21,10 @@ export class SubwayMap {
   };
 
   setStationNames = (names) => {
-    localStorage.setItem("stations", names);
+    localStorage.setItem("stations", JSON.stringify(names));
   };
 
   getStationNames = () => {
-    return localStorage.getItem("stations");
+    return JSON.parse(localStorage.getItem("stations"));
   };
 }
