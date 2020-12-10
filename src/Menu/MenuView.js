@@ -93,37 +93,52 @@ export default class MenuView {
 
   static SectionManagerView() {
     document.getElementById('sub-view-container').innerHTML = `
-    <h3>구간을 수정할 노선을 선택해주세요.</h3>
-    <button id='line1'>1호선</button>
-    <button id='line2'>2호선</button>
-    <button id='line3'>3호선</button>
-    <div id='each-line-manager' hidden='true'>
-      <h3>1호선 관리</h3>
+    <div id='section-select'></div>
+    <div id='section-input'></div>
+    <br/>
+    <div id='section-table'></div>
+    `;
+    this.SectionSelectView();
+    this.SectionInputView(0);
+    this.SectionTableView();
+  }
+
+  static SectionSelectView() {
+    const lines = localStorage.getItem('Lines').split(',');
+    document.getElementById('section-select').innerHTML = `
+      <h3>구간을 수정할 노선을 선택해주세요.</h3>
+      ${lines.map((line) => `<button id='line${lines.indexOf(line) + 1}'>${line}</button> `).join('')}
+    `;
+  }
+
+  static SectionInputView(index) {
+    const lines = localStorage.getItem('Lines').split(',');
+    const stations = localStorage.getItem('Stations').split(',');
+    document.getElementById('section-input').innerHTML = `
+      <h3>${lines[index]} 관리</h3>
       <h4>구간 등록</h4>
       <select>
-        <option value='incheon'>인천</option>
-        <option value='seoul'>서울역</option>
-        <option value='soyosan'>소요산</option> 
+        ${stations.map((station) => `<option value='${station}'>${station}</option>`)}
       </select>
       <input type='number' min='0' placeholder='순서'/>
-      <button id='add'>등록</button>
-      <br/>
-      <br/>
-      <br/>
-      <table border='1px solid black'>
-      <tr>
-        <th align='center'>순서</th>
-        <th align='center'>이름</th>
-        <th algin='center'>설정</th>
-      </tr>
-      <tr>
-        <td align="center">1</td>
-        <td align="center">인천</td>
-        <td align="center"><button id='delete'>노선에서 제거</button></td>
-      </tr>
-    </table>
-    </div>
-    `;
+      <button id='add'>등록</button>`;
+  }
+
+  static SectionTableView() {
+    const stations = localStorage.getItem('Stations').split(',');
+    document.getElementById('section-table').innerHTML = `<table border='1px solid black'>
+    <tr>
+      <th align='center'>순서</th>
+      <th align='center'>이름</th>
+      <th algin='center'>설정</th>
+    </tr>
+    ${stations.map((station) => `
+    <tr>
+      <td align="center">${stations.indexOf(station)}</td>
+      <td align="center">${station}</td>
+      <td align="center"><button id='delete'>노선에서 제거</button></td>
+    </tr>`).join('')}
+  </table>`;
   }
 
   static MapPrintManagerView() {
