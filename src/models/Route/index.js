@@ -3,4 +3,8 @@ export default class Route {
     this.name = routeObj.name;
     this._stations = [];
   }
+
+  getStations() {
+    return [...this._stations];
+  }
 }
