@@ -1,3 +1,4 @@
 import SubwayMapView from './SubwayMapView';
+import SubwayMapStationView from './SubwayMapStationView';
 
-export { SubwayMapView };
+export { SubwayMapView, SubwayMapStationView };
