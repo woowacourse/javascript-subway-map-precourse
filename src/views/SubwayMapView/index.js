@@ -1,3 +1,5 @@
 export default class SubwayMapView {
-  constructor() {}
+  constructor(subwayMapViewModel) {
+    this.subwayMapViewModel = subwayMapViewModel;
+  }
 }
