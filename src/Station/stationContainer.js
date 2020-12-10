@@ -1,12 +1,19 @@
 import { displayAddedStation } from "./stationPresenter.js";
-import { checkEmpty } from "../validation/index.js";
+import { checkEmpty, checkLength } from "../validation/index.js";
+import { checkTheList } from "../utils/message.js";
 
 const stationAddClicked = () => {
-  const stationInputValue = document.getElementById("station-name-input").value;
+  const stationInput = document.getElementById("station-name-input");
+  const stationInputValue = stationInput.value;
 
   const isEmpty = checkEmpty(stationInputValue);
+  const isTooShort = checkLength(stationInputValue);
+  const checkList = { isEmpty, isTooShort };
+  const isValid = checkTheList(checkList, stationInput);
 
-  displayAddedStation(stationInputValue);
+  if (isValid) {
+    displayAddedStation(stationInputValue);
+  }
 };
 
 export const stationStart = () => {
