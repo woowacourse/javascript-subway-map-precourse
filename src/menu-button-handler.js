@@ -1,4 +1,5 @@
-import { getChildById, renderStationNameTable } from "./custom-dom-handler.js";
+import StationManager from "./station-manager.js";
+import { getChildById } from "./custom-dom-handler.js";
 import {
   MENU_BUTTONS_ID,
   MANAGER_PAGES_ID,
@@ -16,7 +17,7 @@ const showManagerPageById = (container, id) => {
 
 const showStationManagerPage = (appContainer) => {
   showManagerPageById(appContainer, MANAGER_PAGES_ID.stationManager);
-  renderStationNameTable();
+  new StationManager().renderStationNameTable();
 };
 
 export default function menuButtonHandler(e) {

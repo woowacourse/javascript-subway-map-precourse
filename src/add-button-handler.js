@@ -1,5 +1,5 @@
 import StationManager from "./station-manager.js";
-import { getChildById, renderStationNameTable } from "./custom-dom-handler.js";
+import { getChildById } from "./custom-dom-handler.js";
 import {
   ADD_BUTTONS_ID,
   INPUT_FORM_ID,
@@ -29,14 +29,15 @@ const isValidStationName = (name) => {
 
 const stationAddButtonHandler = (e) => {
   const stationNameInputElement = getChildById(
-    e.target.parentNode.children[0],
+    e.target.parentElement.children[0],
     INPUT_FORM_ID.stationNameInput
   );
   const stationNameInputValue = stationNameInputElement.value;
   stationNameInputElement.value = "";
   if (isValidStationName(stationNameInputValue)) {
-    new StationManager().addStation(stationNameInputValue);
-    renderStationNameTable();
+    const stationManager = new StationManager();
+    stationManager.addStation(stationNameInputValue);
+    stationManager.renderStationNameTable();
   }
 };
 
