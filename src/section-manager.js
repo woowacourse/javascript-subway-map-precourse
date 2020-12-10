@@ -9,21 +9,30 @@ export const deleteSectionInList = (idx) => {
   manager.setSelectedLine(manager.selectedLine);
   showStationList(manager.getSelectedLine().getAllStationName());
 };
+export const makeStationBox = (station, idx) => {
+  const oneStation = document.createElement("tr");
+  oneStation.setAttribute("id", `${idx}`);
+  const stationIdx = document.createElement("td");
+  const stationName = document.createElement("td");
+  const deleteButton = document.createElement("td");
+  stationIdx.innerHTML = idx;
+  stationName.innerHTML = station;
+  deleteButton.innerHTML = "삭제";
+  deleteButton.setAttribute("class", "section-delete-button");
+  deleteButton.onclick = () => {
+    deleteSectionInList(`${idx}`);
+  };
+
+  return [stationIdx, stationName, deleteButton];
+};
 export const showStationList = (allStationName) => {
   const table = document.getElementById("station-in-selected-line-list-table");
   allStationName.forEach((station, idx) => {
+    const stationIdx = makeStationBox(station, idx)[0];
+    const stationName = makeStationBox(station, idx)[1];
+    const deleteButton = makeStationBox(station, idx)[2];
     const oneStation = document.createElement("tr");
     oneStation.setAttribute("id", `${idx}`);
-    const stationIdx = document.createElement("td");
-    const stationName = document.createElement("td");
-    const deleteButton = document.createElement("td");
-    stationIdx.innerHTML = idx;
-    stationName.innerHTML = station;
-    deleteButton.innerHTML = "삭제";
-    deleteButton.setAttribute("class", "section-delete-button");
-    deleteButton.onclick = () => {
-      deleteSectionInList(`${idx}`);
-    };
     oneStation.appendChild(stationIdx);
     oneStation.appendChild(stationName);
     oneStation.appendChild(deleteButton);
