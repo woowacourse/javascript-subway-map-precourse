@@ -3,6 +3,11 @@ import { Route } from '../../models';
 export default class SubwayMapModel {
   constructor() {
     this._routes = {};
+    this.stations = {};
+  }
+
+  getStation() {
+    return { ...this._routes };
   }
 
   getRoutes() {
