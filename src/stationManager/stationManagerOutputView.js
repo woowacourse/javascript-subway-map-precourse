@@ -1,16 +1,20 @@
 import { Data } from "../data.js";
 
+export const removeStationManagerHTML = () => {
+    const stationHTML = document.querySelector("#station-manager-div")
+    document.querySelector("body").removeChild(stationHTML)
+}
+
 export const addResultToBody = (HTML) => {
     document.querySelector("body").appendChild(HTML)
     addEventToDeleteButton();
 }
 
-export const makeStationHTML = (stationNameData) => {
+export const makeStationHTML = (stationRepository) => {
     let stationHTML = document.createElement("div")
-    stationHTML.setAttribute("id", "station-manager-div")
-    stationHTML.style.display = "none";
+    stationHTML.setAttribute("id", "station-manager-div");
     stationHTML.innerHTML = getHTMLAboutStationAdd();
-    stationHTML.innerHTML += getHTMLAboutStationTable(stationNameData);
+    stationHTML.innerHTML += getHTMLAboutStationTable(stationRepository);
     return stationHTML;
 }
 
@@ -22,11 +26,11 @@ const getHTMLAboutStationAdd = () => {
             </div>`;
 }
 
-const getHTMLAboutStationTable = (stationNameData) => {
+const getHTMLAboutStationTable = (stationRepository) => {
     let HTMLAboutStations = "<div> <h2>🚉 지하철 역 목록</h2>";
 
     HTMLAboutStations += "<table border=1px id=station-name-table> <th>역 이름</th><th>설정</th>";
-    stationNameData.forEach((stationName) => {
+    Object.keys(stationRepository).forEach(stationName => {
         HTMLAboutStations += `<tr data-station-name = ${stationName}>
                                     <td>${stationName}</td>
                                     <td><button class="station-delete-button" >삭제</button></td>
@@ -41,8 +45,10 @@ const addEventToDeleteButton = () => {
 
     Array.prototype.forEach.call(deleteButtons, function (button) {
         button.addEventListener("click", function (button) {
-            Data.removeStation(button.target.parentNode.parentNode.dataset.stationName);
-            document.querySelector("#station-name-table tbody").removeChild(this.parentElement.parentElement);
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                Data.removeStation(button.target.parentNode.parentNode.dataset.stationName);
+                document.querySelector("#station-name-table tbody").removeChild(this.parentElement.parentElement);
+            }
         })
     })
 }
