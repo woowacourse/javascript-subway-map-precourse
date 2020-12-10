@@ -23,5 +23,28 @@ export default class SubwayMapView {
       <button id="#station-add-button">${message.ADD_STATION}</button>
       <h2>${message.LIST_OF_STATIONS}</h2>
     `;
+
+    this.renderStationTable();
+  }
+
+  renderStationTbody(stationTable) {
+    stationTable.innerHTML += `
+      <tr>
+        <td>${message.STATION_NAME}</td>
+        <td>${message.OPTION}</td>
+      </tr>
+    `;
+  }
+
+  renderStationTable() {
+    let stationTable = document.createElement('table');
+    stationTable.innerHTML += `
+      <tr>
+        <th>${message.STATION_NAME}</th>
+        <th>${message.OPTION}</th>
+      </tr>
+    `;
+
+    this.managerContainer.appendChild(stationTable);
   }
 }
