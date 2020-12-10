@@ -73,18 +73,19 @@ const isValidStationName = (name) => {
   );
 };
 
-// const addNewStationName = (name) => {};
+const addNewStationName = (name) => {
+  new StationManager().addStation(name);
+  console.log(new StationManager().stationList);
+};
 
 const stationAddButtonHandler = (e) => {
   const stationNameInputValue = getChildById(
     e.target.parentNode.children[0],
     INPUT_FORM_ID.stationNameInput
   ).value;
-  console.log(stationNameInputValue);
-  console.log(isValidStationName(stationNameInputValue));
-  // if (isValidStationName(stationNameInputValue)) {
-  //   addNewStationName(stationNameInputValue);
-  // }
+  if (isValidStationName(stationNameInputValue)) {
+    addNewStationName(stationNameInputValue);
+  }
 };
 
 export const menuButtonHandler = (e) => {
