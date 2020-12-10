@@ -31,5 +31,7 @@ export default class SubwayMapModel {
     this._routes[routeId].addStation(stationObject, order);
   }
 
-  removeStationFromRoute(routeId, order) {}
+  removeStationFromRoute(routeId, order) {
+    this._routes[routeId].removeStation(order);
+  }
 }
