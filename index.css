@@ -1,0 +1,12 @@
+#station-manager-container{
+    display: none;
+}
+#line-manager-container{
+    display: block;
+}
+#section-manager-container{
+    display: none;
+}
+#map-print-manager-container{
+    display: none;
+}

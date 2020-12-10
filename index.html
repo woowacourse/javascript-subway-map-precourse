@@ -38,8 +38,9 @@
         <div id="line-manager-container">
           <div id="line-manager-input-container">
             <div>
-            <p>노선 이름</p>
-            <input id="line-name-input" placeholder="노선 이름을 입력해주세요">
+              <p>노선 이름</p>
+              <input id="line-name-input" placeholder="노선 이름을 입력해주세요">
+            </div>
             <div>
               <span>상행종점</span>
               <select id="line-start-station-selector" name="upward-terminal">
@@ -73,21 +74,20 @@
           </div>
         </div>
         <div id="section-manager-container">
-          <div id="section-manager-input-container">
             <h3> 구간을 수정할 노선을 선택해주세요. </h3>
             <div id="section-header-container">
               <button class="section-line-menu-button">1호선</button>
               <button class="section-line-menu-button">2호선</button>
             </div>
-            <div id="section-inputs-container-by-lines"></div>
-            <h3>1호선 관리</h3>
-            <h4>구간 등록</h4>
-            <select id="section-station-selector">
-              <option>인천</option>
-            </select>
-            <input id="section-order-input" placeholder="순서">
-            <button id="section-add-button">등록</button>
-          </div>
+            <div id="section-inputs-container-by-lines">
+              <h3>1호선 관리</h3>
+              <h4>구간 등록</h4>
+              <select id="section-station-selector">
+                <option>인천</option>
+              </select>
+              <input id="section-order-input" placeholder="순서">
+              <button id="section-add-button">등록</button>
+            </div>
           <div id="section-manager-list-container">
             <table border="1">
               <th>순서</th>
@@ -102,15 +102,13 @@
               </tr>
             </table>
           </div>
-        </div>
+        </div>  
         <div id="map-print-manager-container">
-          <div id="map-print-manager-list-container">
             <div class="map">
               <h3>1호선</h3>
               <li>인천</li>
               <li>소요산</li>
-          </div>
-          </div>
+            </div>
         </div>
       </div>
     </div>
