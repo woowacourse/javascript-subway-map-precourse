@@ -52,6 +52,11 @@ export default class SubwayMapView {
     this.renderStationManager();
   }
 
+  handleLineManagerButton() {
+    this.resetManagerContainer();
+    this.renderLineManager();
+  }
+
   handleStationAddButton() {
     const stationId = document.getElementById('#station-name-input').value;
     this.subwayMapViewModel.addStation(stationId);
@@ -93,6 +98,8 @@ export default class SubwayMapView {
 
     this.renderStationTable([]);
   }
+
+  renderLineManager() {}
 
   renderStationThead(stationTable) {
     stationTable.innerHTML += `
