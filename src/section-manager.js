@@ -32,17 +32,22 @@ export const onClickedLine = (lineName) => {
   });
   showStationList(manager.getSelectedLine().getAllStationName());
 };
+export const makeLineButton = (line) => {
+  const lineMenuButton = document.createElement("button");
+  lineMenuButton.setAttribute("class", "section-line-menu-button");
+  lineMenuButton.setAttribute("id", `${line.name}`);
+  lineMenuButton.onclick = () => {
+    onClickedLine(`${line.name}`);
+  };
+  lineMenuButton.innerHTML = line.name;
+
+  return lineMenuButton;
+};
 export const showLineList = (lineList) => {
   const lineMenu = document.getElementById("section-line-list");
   lineMenu.innerHTML = "";
   lineList.forEach((line) => {
-    const lineMenuButton = document.createElement("button");
-    lineMenuButton.setAttribute("class", "section-line-menu-button");
-    lineMenuButton.setAttribute("id", `${line.name}`);
-    lineMenuButton.onclick = () => {
-      onClickedLine(`${line.name}`);
-    };
-    lineMenuButton.innerHTML = line.name;
+    const lineMenuButton = makeLineButton(line);
     lineMenu.appendChild(lineMenuButton);
   });
 };
