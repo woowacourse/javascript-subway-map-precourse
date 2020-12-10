@@ -1,4 +1,5 @@
 import StationManager from "../station-manager.js";
+import LineManager from "../line-manager.js";
 import {
   getChildById,
   getStartStationSelector,
@@ -57,6 +58,7 @@ const showStationManagerPage = (appContainer) => {
 const showLineManagerPage = (appContainer) => {
   showManagerPageById(appContainer, MANAGER_PAGES_ID.lineManager);
   setStartStationSelector(appContainer);
+  new LineManager().renderLineNameTable();
 };
 
 export default function menuButtonHandler(e) {

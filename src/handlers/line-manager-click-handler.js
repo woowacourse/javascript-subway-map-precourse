@@ -43,15 +43,16 @@ const isLineFormValid = (appContainer) => {
 const lineAddButtonHandler = (e) => {
   const app = e.target.closest("#app");
   const $lineNameInput = getLineNameInput(app);
+  const lineManager = new LineManager();
   if (isLineFormValid(app)) {
-    new LineManager().addLine(
+    lineManager.addLine(
       $lineNameInput.value,
       getStartStationSelector(app).value,
       getEndStationSelector(app).value
     );
     $lineNameInput.value = "";
   }
-  console.log(new LineManager().lineList);
+  lineManager.renderLineNameTable();
 };
 
 export default function lineManagerClickHandler(e) {
