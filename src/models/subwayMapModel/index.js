@@ -10,13 +10,20 @@ export default class SubwayMapModel {
     return { ...this._routes };
   }
 
+  addStation(stationId) {
+    const stations = { ...this._routes };
+    stations[stationId] = stationId;
+
+    this.stations = stations;
+  }
+
   getRoutes() {
     return { ...this._routes };
   }
 
   addRoute(routeObject) {
     const routes = { ...this._routes };
-    routes.routeObj.routeId = new Route(routeObject);
+    routes[routeId] = new Route(routeObject);
 
     this._routes = routes;
   }
