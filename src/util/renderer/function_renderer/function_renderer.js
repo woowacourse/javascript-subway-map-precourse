@@ -1,15 +1,15 @@
-import NodeGenerator from '../generator/node_generator.js';
-import { NODES, FUNCTION_CONTENTS } from '../../library/constant/constant.js';
+import NodeGenerator from '../../generator/node_generator.js';
+import {
+  NODES,
+  FUNCTION_CONTENTS,
+  BUTTON_SUFFIX,
+} from '../../../library/constant/constant.js';
 
 export default class FuctionRenderer {
   constructor(id, content) {
     this.id = id;
+    this.buttonId = id + BUTTON_SUFFIX;
     this._content = content;
-    this.renderFuctionButton();
-  }
-
-  getIndex() {
-    return FUNCTION_CONTENTS.indexOf(this._content);
   }
 
   renderFuctionButton() {
@@ -20,11 +20,13 @@ export default class FuctionRenderer {
       `${index}. ${this._content}`
     );
 
-    functionButton.id = this.id;
+    functionButton.id = this.buttonId;
     NODES.app.appendChild(functionButton);
   }
 
-  renderFunction() {
-    console.log('hi');
+  getIndex() {
+    return FUNCTION_CONTENTS.indexOf(this._content);
   }
+
+  renderFunction() {}
 }
