@@ -13,6 +13,7 @@ export const getChildById = (parentElement, id) => {
 
 export const renderStationNameTable = () => {
   const tbody = document.getElementById("station-name-tbody");
+  tbody.innerHTML = "";
   new StationManager().stationList.forEach((_station, _index) => {
     tbody.innerHTML += `
       <tr>
