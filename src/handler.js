@@ -1,0 +1,1 @@
+const Handler = function () {};
