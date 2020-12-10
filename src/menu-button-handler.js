@@ -1,4 +1,3 @@
-// import StationManager from "./station-manager.js";
 import { getChildById } from "./custom-dom-handler.js";
 
 const MENU_BUTTONS_ID = {
@@ -8,29 +7,36 @@ const MENU_BUTTONS_ID = {
   mapPrintManagerButton: "map-print-manager-button",
 };
 
-const renderStationAddForm = (container) => {
-  container.innerHTML += `
-  <div>
-    <label for="station-name-input">
-      역 이름<br />
-      <input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요." />
-    </label>
-    <button id="station-add-button">역 추가</button>
-  </div>
-  `;
+const MANAGER_PAGES_ID = {
+  stationManager: "station-manager",
+  lineManager: "line-manager",
+  sectionManager: "section-manager",
+  mapPrintManager: "map-print-manager",
 };
 
-const showStationManagerPage = (e) => {
-  const $mainContentsContainer = getChildById(
-    e.target.closest("#app"),
-    "main-contents-container"
-  );
-  $mainContentsContainer.innerHTML = "";
-  renderStationAddForm($mainContentsContainer);
+const showManagerPageById = (container, id) => {
+  Object.values(MANAGER_PAGES_ID).forEach((_pageId) => {
+    if (_pageId === id) {
+      getChildById(container, _pageId).style.display = "block";
+    } else {
+      getChildById(container, _pageId).style.display = "none";
+    }
+  });
 };
 
 export default function menuButtonHandler(e) {
-  if (e.target.id === MENU_BUTTONS_ID.stationManagerButton) {
-    showStationManagerPage(e);
+  const app = e.target.closest("#app");
+  const id = e.target.id;
+  if (id === MENU_BUTTONS_ID.stationManagerButton) {
+    showManagerPageById(app, MANAGER_PAGES_ID.stationManager);
+  }
+  if (id === MENU_BUTTONS_ID.lineManagerButton) {
+    showManagerPageById(app, MANAGER_PAGES_ID.lineManager);
+  }
+  if (id === MENU_BUTTONS_ID.sectionManagerButton) {
+    showManagerPageById(app, MANAGER_PAGES_ID.sectionManager);
+  }
+  if (id === MENU_BUTTONS_ID.mapPrintManagerButton) {
+    showManagerPageById(app, MANAGER_PAGES_ID.mapPrintManager);
   }
 }
