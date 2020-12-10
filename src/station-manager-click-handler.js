@@ -41,7 +41,7 @@ const stationAddButtonHandler = (e) => {
   }
 };
 
-export default function addButtonHandler(e) {
+export default function stationManagerClickHandler(e) {
   if (e.target.id === ADD_BUTTONS_ID.stationAddButton) {
     stationAddButtonHandler(e);
   }
