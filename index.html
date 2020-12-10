@@ -7,7 +7,7 @@
   <body>
     <div id="app">
       <h1>🚇 지하철 노선도 관리</h1>
-      <div class="menu">
+      <div class="menu-button">
         <button id="station-manager-button">1. 역 관리</button>
         <button id="line-manager-button">2. 노선 관리</button>
         <button id="section-manager-button">3. 구간 관리</button>
@@ -15,7 +15,7 @@
       </div>
       <br />
       <div class="manager-container">
-        <div class="station-manager-page">
+        <div class="station-manager-page" hidden>
           <div>
             역 이름
             <div class="station-input-container">
@@ -34,8 +34,46 @@
             </tr>
           </table>
         </div>
+        <div class="line-manager-container" hidden>
+          <div class="line-manager-page">
+            <div>
+              노선 이름
+              <div class="station-input-container">
+                <input
+                  id="line-name-input"
+                  placeholder="노선 이름을 입력해주세요."
+                />
+                <br />
+                <br />
+                <div class="line-start-select-container">
+                  상행 종점
+                  <select name="상행" id="line-start-station-selector">
+                    <option value="">상행</option>
+                  </select>
+                </div>
+                <div class="line-end-select-container">
+                  하행 종점
+                  <select name="하행" id="line-end-station-selector">
+                    <option value="">하행</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <br />
+            <button id="line-add-button">노선 추가</button>
+          </div>
+          <h3>🚉 지하철 노선 목록</h3>
+          <table border="1">
+            <tr>
+              <th>노선 이름</th>
+              <th>상행 종점역</th>
+              <th>하행 종점역 종점역</th>
+              <th>설정</th>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <!-- <script type="module" src="src/index.js"></script> -->
+    <script type="module" src="src/index.js"></script>
   </body>
 </html>
