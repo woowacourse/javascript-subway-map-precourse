@@ -73,18 +73,13 @@ const isValidStationName = (name) => {
   );
 };
 
-const addNewStationName = (name) => {
-  new StationManager().addStation(name);
-  console.log(new StationManager().stationList);
-};
-
 const stationAddButtonHandler = (e) => {
   const stationNameInputValue = getChildById(
     e.target.parentNode.children[0],
     INPUT_FORM_ID.stationNameInput
   ).value;
   if (isValidStationName(stationNameInputValue)) {
-    addNewStationName(stationNameInputValue);
+    new StationManager().addStation(stationNameInputValue);
   }
 };
 
