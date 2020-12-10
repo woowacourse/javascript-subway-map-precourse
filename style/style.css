@@ -7,6 +7,10 @@ tr {
   height: 25px;
 }
 
+td {
+  padding: 0 5px;
+}
+
 .hidden {
   overflow: hidden;
   position: absolute;
