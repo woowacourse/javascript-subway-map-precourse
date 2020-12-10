@@ -16,7 +16,7 @@ export default class StationManagerView {
     document.getElementById('station-input-view').innerHTML = `
     <h4>역 이름</h4>
     <input type='text' placeholder='역 이름을 입력해주세요.'/>
-    <button id='station-manager-button'>역 추가</button>
+    <button id='add'>역 추가</button>
     `;
   }
 
