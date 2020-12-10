@@ -1,8 +1,9 @@
+import { isOnlySpaceString } from '../Controller/utils.js';
 import words from '../key/words.js';
 
 const Line = function (lineName) {
 	this.name = lineName;
-	this.stations = [];
+    this.stations = [];
 	this.hasStation = (targetStation) => {
 		return this.stations.indexOf(targetStation.name) !== -1;
 	};
@@ -53,5 +54,10 @@ Line.removeOneLine = (targetLine) => {
 		Line.saveAllLines(allLines);
 	}
 };
+
+Line.searchLinesByName = (lineName) => {
+    const targetIndex = Line.readAllLines().indexOf(lineName);
+    return targetIndex;
+}
 
 export default Line;

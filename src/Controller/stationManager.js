@@ -1,9 +1,32 @@
+import words from '../key/words.js';
 import Station from '../Model/Station.js';
-import { makeTableRow } from '../View/template.js';
+import { addTableRow } from '../View/template.js';
+import { makeElement } from './utils.js';
 
-export const addStation = (inputArea) => {
-	const stationName = inputArea.value;
-	if (Station.isValidStationName(stationName)) {
-		Station.addOneStation(new Station(stationName));
+export const addStation = (text) => {
+	if (Station.isValidStationName(text)) {
+		Station.addOneStation(new Station(text));
 	}
 };
+
+export const getAllStation = () => {
+	return Station.readAllStations();
+};
+
+export const tableSynchronizer = (tableElement) => {
+	const allStations = getAllStation();
+	allStations.forEach((station) => {
+		addTableRow(tableElement, [
+			station.name,
+			makeNewStationDeleteButtonElement(station.name),
+		]);
+	});
+};
+
+export const makeNewStationDeleteButtonElement = (id) =>
+	makeElement({
+		tag: 'button',
+		innerText: words.STATION_DELETE_BUTTON,
+		classes: [words.STATION_DELETE_CLASS],
+		id,
+	});

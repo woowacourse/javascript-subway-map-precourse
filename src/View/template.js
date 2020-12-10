@@ -1,77 +1,47 @@
-import { appendChilds } from '../Controller/utils.js';
-import words from '../key/words.js';
-
-// Btn모두 Button으로 바꾸기
-
-export const makeBtn = (innerText, className = '') => {
-	const btn = document.createElement('button');
-	if (className.length > 0) btn.className = className;
-	if (innerText.length > 0) btn.innerText = innerText;
-	return btn;
-};
-
-export const makeText = (tag, innerText) => {
-	const text = document.createElement(tag);
-	text.innerText = innerText;
-	return text;
-};
-
-export const makeInput = (placeholder = '', type = 'text') => {
-	const input = document.createElement('input');
-	input.placeholder = placeholder;
-	input.type = type;
-	return input;
-};
-
-export const makeTableRow = (rows, btnText) => {
-	const tableRow = document.createElement('tr');
-	const tableData = rows.map((row) => {
-		const tdElem = document.createElement('td');
-		tdElem.innerText = row;
-		return tdElem;
-    });
-    const deleteBtn = document.createElement('td');
-    appendChilds(deleteBtn,[makeBtn(btnText)]);
-	appendChilds(tableRow, [...tableData, deleteBtn]);
-	return tableRow;
-};
+import { appendChilds, makeElement } from '../Controller/utils.js';
 
 export const makeTable = (columns) => {
-	const mainTable = document.createElement('table');
-	const tableThead = document.createElement('thead');
-	const tableTbody = document.createElement('tbody');
-	columns = columns.map((name) => {
-		const column = document.createElement('th');
-		column.innerText = name;
-		return column;
+	const tableElement = makeElement({ tag: 'table' });
+	const tableHeadElement = makeElement({ tag: 'thead' });
+	const tableBodyElement = makeElement({ tag: 'tbody' });
+	appendChilds(
+		tableHeadElement,
+		columns.map((column) => makeElement({ tag: 'th', innerText: column }))
+	);
+	appendChilds(tableElement, [tableHeadElement, tableBodyElement]);
+	return tableElement;
+};
+
+export const addTableRow = (tableElement, values = []) => {
+	const tableTBodyElement = tableElement.querySelector('tbody');
+	const tableRowElement = makeElement({ tag: 'tr' });
+	const tableCells = values.map((value, index) => {
+		if (index === values.length - 1) {
+            const tdElement = makeElement({ tag: 'td' });
+            appendChilds(tdElement, [value]);
+            return tdElement;
+		} else {
+			return makeElement({ tag: 'td', innerText: value });
+		}
 	});
-	appendChilds(tableThead, columns);
-	appendChilds(mainTable, [tableThead, tableTbody]);
-	return mainTable;
+	appendChilds(tableRowElement, tableCells);
+	appendChilds(tableTBodyElement, [tableRowElement]);
 };
 
 export const makeSelectBox = (list) => {
-	const selectBox = document.createElement('select');
-	const options = list.map((item) => {
-		const option = document.createElement('option');
-		option.value = item;
-		option.innerText = item;
-		return option;
-	});
-	appendChilds(selectBox, options);
-	return selectBox;
+	const selectBoxElement = makeElement({ tag: 'select' });
+	const optionElements = list.map((item) =>
+		makeElement({ tag: 'option', value: item, innerText: item })
+	);
+	appendChilds(selectBoxElement, optionElements);
+	return selectBoxElement;
 };
 
 export const makeListElem = (title, elements = []) => {
-	const ulContainer = document.createElement('div');
-	const ulTitle = makeText('p', title);
-	const ulElem = document.createElement('ul');
-	const liElems = elements.map((elem) => {
-		const liElem = document.createElement('li');
-		liElem.innerText = elem;
-		return liElem;
-	});
-	appendChilds(ulElem, liElems);
-	appendChilds(ulContainer, [ulTitle, ulElem]);
-	return ulContainer;
+	const ulElement = makeElement({ tag: 'ul', innerText: title });
+	const liElements = elements.map((element) =>
+		makeElement({ tag: 'li', innerText: element })
+	);
+	appendChilds(ulElement, liElements);
+	return ulElement;
 };

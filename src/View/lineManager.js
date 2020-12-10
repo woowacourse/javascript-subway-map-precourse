@@ -1,39 +1,73 @@
-import { makeBtn, makeInput, makeSelectBox, makeTable, makeText } from './template.js';
+import { addLine, makeNewLineDeleteButtonElement, tableSynchronizer } from '../Controller/lineManager.js';
+import { getAllStation } from '../Controller/stationManager.js';
+import {
+	appendChilds,
+	clearAllContents,
+	makeElement,
+} from '../Controller/utils.js';
 import words from '../key/words.js';
-import { appendChilds, clearAllContents } from '../Controller/utils.js';
+import { addTableRow, makeSelectBox, makeTable } from './template.js';
 
 const lineContainer = (container) => {
-	const titleArea = makeText('p', words.LINE_NAME);
-	const inputArea = makeInput(words.LINE_PLACEHOLDER);
+	const titleElement = makeElement({ tag: 'p', innerText: words.LINE_NAME });
+	const inputElement = makeElement({
+		tag: 'input',
+		placeholder: words.LINE_PLACEHOLDER,
+	});
+	const startPointTextElement = makeElement({
+		tag: 'p',
+		innerText: words.LINE_START_POINT,
+	});
+	const startPointSelectBoxElement = makeSelectBox(
+		getAllStation().map((item) => item.name)
+	);
+	const endPointTextElement = makeElement({
+		tag: 'p',
+		innerText: words.LINE_END_POINT,
+	});
+	const endPointSelectBoxElement = makeSelectBox(
+		getAllStation().map((item) => item.name)
+	);
 
-	const ascendingEndPointText = makeText('p', words.LINE_ASC_ENDPOINT);
-	const descendingEndPointText = makeText('p', words.LINE_DESC_ENDPOINT);
-	const ascendingEndPointSelectBox = makeSelectBox(['인천', '동인천']);
-	const descendingEndPointSelectBox = makeSelectBox(['인천', '동인천']);
+	const lineAddButtonElement = makeElement({
+		tag: 'button',
+		innerText: words.LINE_ADD_BUTTON,
+		id: words.LINE_ADD_BUTTON_ID,
+	});
 
-	const lineAddBtn = makeBtn(words.LINE_ADD_BTN);
+	const tableElement = makeTable(words.LINE_TABLE_COLUMNS);
 
-	const tableTitle = makeText('p', words.LINE_TABLE_TITLE);
-	const tableArea = makeTable([
-		words.LINE_TABLE_COL1,
-		words.LINE_TABLE_COL2,
-		words.LINE_TABLE_COL3,
-		words.LINE_TABLE_COL4,
-	]);
+	lineAddButtonElement.addEventListener('click', () => {
+		const lineName = inputElement.value;
+		const lineStartStation =
+			startPointSelectBoxElement.options[
+				startPointSelectBoxElement.selectedIndex
+			].text;
+		const lineEndStation =
+			endPointSelectBoxElement.options[endPointSelectBoxElement.selectedIndex]
+				.text;
+		addLine(lineName, lineStartStation, lineEndStation);
+		addTableRow(tableElement, [
+			lineName,
+			lineStartStation,
+			lineEndStation,
+			makeNewLineDeleteButtonElement(lineName),
+		]);
+	});
 
 	clearAllContents(container);
-
 	appendChilds(container, [
-		titleArea,
-		inputArea,
-		ascendingEndPointText,
-		descendingEndPointText,
-		ascendingEndPointSelectBox,
-		descendingEndPointSelectBox,
-		lineAddBtn,
-		tableTitle,
-		tableArea,
+		titleElement,
+		inputElement,
+		startPointTextElement,
+		startPointSelectBoxElement,
+		endPointTextElement,
+		endPointSelectBoxElement,
+		lineAddButtonElement,
+		tableElement,
 	]);
+
+	tableSynchronizer(tableElement);
 };
 
 export default lineContainer;

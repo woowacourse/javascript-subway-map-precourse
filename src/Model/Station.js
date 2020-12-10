@@ -3,7 +3,6 @@ import words from '../key/words.js';
 
 const Station = function (stationName) {
 	this.name = stationName;
-	this.onLine = [];
 };
 
 Station.isValidStationName = (stationName) => {
@@ -30,8 +29,8 @@ Station.removeAllStations = () => {
 };
 
 Station.addOneStation = (station) => {
-    const allStations = Station.readAllStations();
-    console.log(allStations)
+	const allStations = Station.readAllStations();
+	console.log(allStations);
 	allStations.push(station);
 	Station.saveAllStations(allStations);
 };
