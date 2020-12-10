@@ -3,4 +3,14 @@ export default class SubwayMapSectionView {
     this.subwayMapViewModel = subwayMapViewModel;
     this.managerContainer = managerContainer;
   }
+
+  addEventListenerToSectionManagerButton() {}
+
+  handleSectionManagerButton() {
+    this.resetManagerContainer();
+  }
+
+  resetManagerContainer() {
+    this.managerContainer.innerHTML = '';
+  }
 }
