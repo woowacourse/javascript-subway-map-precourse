@@ -1,4 +1,11 @@
 import StationLine from "./station-line.js";
+import { NO_DATA_MESSAGE_ID } from "./html-constants/no-data-message.js";
+import { DELETE_BUTTONS_CLASS } from "./html-constants/html-classnames.js";
+import {
+  getChildById,
+  turnOnNoDataMessage,
+  turnOffNoDataMessage,
+} from "./handlers/custom-dom-handler.js";
 
 export default class LineManager {
   constructor() {
@@ -40,8 +47,36 @@ export default class LineManager {
     }
     return false;
   }
+
+  fillLineNameTable($tbody) {
+    $tbody.innerHTML = "";
+    this.lineList.forEach((_line, _index) => {
+      $tbody.innerHTML += `
+        <tr>
+          <td>${_line.name}</td>
+          <td>${_line.section[0]}</td>
+          <td>${_line.section[_line.section.length - 1]}</td>
+          <td><button 
+            class=${DELETE_BUTTONS_CLASS.lineDeleteButton}
+            data-station-index=${_index}>삭제</button></td>
+        </tr>
+      `;
+    });
+  }
+
+  renderLineNameTable() {
+    const $tbody = document.getElementById("line-name-tbody");
+    const $noLineMessage = getChildById(
+      $tbody.parentElement.parentElement,
+      NO_DATA_MESSAGE_ID.noLine
+    );
+    if (this.lineList.length === 0) {
+      turnOnNoDataMessage($tbody.parentElement, $noLineMessage);
+    } else {
+      if (this.lineList.length === 1) {
+        turnOffNoDataMessage($tbody.parentElement, $noLineMessage);
+      }
+      this.fillLineNameTable($tbody);
+    }
+  }
 }
-// localStorage.lineList = {
-//   lineName: [],
-//    ...
-// }
