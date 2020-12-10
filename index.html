@@ -6,7 +6,100 @@
   </head>
   <body>
     <div id="app">
-      <h1>🚇 지하철 노선도 관리 </h1>
+      <h1>🚇 지하철 노선도 관리</h1>
+      <div class="menu">
+        <button id="station-manager-button">1. 역 관리</button>
+        <button id="line-manager-button">2. 노선 관리</button>
+        <button id="section-manager-button">3. 구간 관리</button>
+        <button id="map-print-manager-button">4. 지하철 노선도 관리</button>
+      </div>
+      <div class="contents">
+        <div class="content" data-content="1">
+          <div class="station">
+            <div class="station-input">
+              <h4>역 이름</h4>
+              <input
+                type="text"
+                id="station-name-input"
+                placeholder="역 이름을 입력해주세요."
+              />
+              <button id="station-add-button">역 추가</button>
+            </div>
+            <div class="station-list">
+              <h2>지하철 역 목록</h2>
+              <table border="2">
+                <th>역 이름</th>
+                <th>설정</th>
+                <tr></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="content" data-content="2">
+          <div class="line">
+            <div class="line-input">
+              <h4>노선 이름</h4>
+              <input
+                type="text"
+                id="line-name-input"
+                placeholder="노선 이름을 입력해주세요"
+              />
+              <div class="line-input__up">
+                상행 종점
+                <select id="line-start-station-selector"></select>
+              </div>
+              <div class="line-input__down">
+                하행 종점
+                <select id="line-end-station-selector"></select>
+              </div>
+              <button id="line-add-button">노선 추가</button>
+            </div>
+            <div class="line-list">
+              <h2>지하철 노선 목록</h2>
+              <table border="2">
+                <th>노선 이름</th>
+                <th>상행 종점역</th>
+                <th>하행 종점역</th>
+                <th>설정</th>
+                <tr></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="content" data-content="3">
+          <div class="sect">
+            <div class="sect-nav">
+              <h2>구간을 수정할 노선을 선택해주세요.</h2>
+              <button class="section-line-menu-button">1호선</button>
+              <button class="section-line-menu-button">2호선</button>
+              <button class="section-line-menu-button">3호선</button>
+            </div>
+            <div class="sect-main">
+              <div class="sect-main-input">
+                <h2>호선 관리</h2>
+                <select id="section-station-selecto"></select>
+                <input
+                  type="text"
+                  id="section-order-input"
+                  placeholder="순서"
+                />
+                <button id="section-add-button">등록</button>
+              </div>
+              <div class="sect-main-list">
+                <table border="2">
+                  <th>순서</th>
+                  <th>이름</th>
+                  <th>설정</th>
+                  <tr></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content" data-content="4">
+          <div class="station-line"></div>
+        </div>
+      </div>
     </div>
     <script type="module" src="src/index.js"></script>
   </body>
