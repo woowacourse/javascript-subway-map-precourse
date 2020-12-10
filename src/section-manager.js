@@ -46,7 +46,8 @@ export const onClickedLine = (lineName) => {
   selectedLineBox.style.display = "Block";
   const sectionManagerTitle = document.getElementById("section-line-name");
   sectionManagerTitle.innerHTML = `${selectedLineName} 관리`;
-
+  const stationListBox = document.getElementById("station-in-selected-line");
+  stationListBox.innerHTML = ""; // 선택 노선 변경 시 역 계속 나열 안되게 초기화
   makeStationOption(manager.stationList, "section-station-selector");
   const selectedLine = manager.lineList.find(
     (line) => line.name === selectedLineName
