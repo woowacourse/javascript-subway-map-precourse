@@ -1,4 +1,4 @@
-import { getComponentQuerySelectorName } from "../utils/domManipulationFunctions.js";
+import { getComponentQuerySelectorName } from "../utils/utils.js";
 
 export default class Div {
   constructor(id) {
@@ -8,6 +8,10 @@ export default class Div {
 
   getElement() {
     return this.element;
+  }
+
+  addToParentNode($parentNode) {
+    $parentNode.appendChild(this.getElement());
   }
 
   addChildNodes($childNodes) {

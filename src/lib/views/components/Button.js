@@ -1,4 +1,4 @@
-import { getComponentQuerySelectorName } from "../utils/domManipulationFunctions.js";
+import { getComponentQuerySelectorName } from "../utils/utils.js";
 
 export default class Button {
   constructor(querySelector, buttonInnerText) {
@@ -20,5 +20,9 @@ export default class Button {
 
   addRightSpace() {
     this.getElement().style = `margin-right: 3px;`;
+  }
+
+  addEventListener(callbackFunction) {
+    this.getElement().addEventListener('click', callbackFunction);
   }
 }

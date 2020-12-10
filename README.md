@@ -46,7 +46,7 @@
 
 ### day 1
 1. 디렉토리 구조 설계
-  - 데이터 모델링은 models, 인풋/삭제 유효성 체크는 controllers, 공통 변수는 common
+  - 데이터 모델링은 models, **인풋/삭제 유효성 체크는 controllers**, 공통 변수는 common
   - ui는 views, 그리고 user 인풋 처리는 action / 데이터 저장은 reducer에서 함
 
 ### day 2
@@ -54,6 +54,8 @@
   - [참고, insert adjacent html](https://developer.mozilla.org/ko/docs/Web/API/Element/insertAdjacentHTML)
 
 2. document.createElement를 변수로 저장할 때 조심하자
+
+3. 매뉴에 해당하는 tab부터 렌더링하는 이벤트 만든 후, 데이터 모델링 하자
 
 ### 초기 회고
 - 저번에 기능 목록 구현을 지나치게 상세하게 썼는데 이번엔 간략화해서 기능별로 정리함

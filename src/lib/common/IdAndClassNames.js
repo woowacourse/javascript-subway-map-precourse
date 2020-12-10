@@ -1,4 +1,5 @@
 export const MENU_DIV = "#menu";
+export const TAB_CONTAINER_DIV = "#tab-container";
 export const STATION_DIV = "#station";
 export const LINE_DIV = "#line";
 export const SECTION_DIV = "#section";
