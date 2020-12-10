@@ -1,7 +1,7 @@
 import initEvent from './event/initEvent.js';
 
-export default function SubwayMapManagement() {
+export default function SubwayMapManagerApp() {
   initEvent();
 }
 
-new SubwayMapManagement();
+new SubwayMapManagerApp();

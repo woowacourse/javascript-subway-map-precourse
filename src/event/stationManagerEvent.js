@@ -1,5 +1,7 @@
-export default function stationManagerEvent() {
-  const $stationAddButton = document.querySelector('.station-add-button');
+import setState from '../setState.js';
 
-  $stationAddButton.addEventListener('click', () => console.log('123'));
+export default function stationManagerEvent() {
+  const $stationAddButton = document.querySelector('#station-add-button');
+
+  $stationAddButton.addEventListener('click', () => setState('addStation'));
 }

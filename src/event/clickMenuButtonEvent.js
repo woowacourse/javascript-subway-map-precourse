@@ -1,11 +1,11 @@
-function hidePage() {
+function setAttributeHiddenPages() {
   const $managerPages = document.querySelectorAll('.manager-container > div');
 
   $managerPages.forEach((page) => page.setAttribute('hidden', true));
 }
 
 function changeManagerContainer({ target }) {
-  hidePage();
+  setAttributeHiddenPages();
   if (target.id === 'station-manager-button') {
     document.querySelector('.station-manager-page').removeAttribute('hidden');
   }
