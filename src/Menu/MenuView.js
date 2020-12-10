@@ -46,23 +46,34 @@ export default class MenuView {
   static LineManagerView() {
     document.getElementById('sub-view-container').innerHTML = `
     <h4>노선 이름</h4>
-    <input type='text' placeholder='노선 이름을 입력해주세요.'/>
+    <h2>🚉 지하철 노선 목록</h2>
+    <div id='line-input'></div>
+    <br/>
+    <div id='line-table'></div>
+    `;
+    this.LineInputView();
+    this.LineTableView();
+  }
+
+  static LineInputView() {
+    const stations = localStorage.getItem('Stations').split(',');
+    document.getElementById('line-input').innerHTML = `<input type='text' placeholder='노선 이름을 입력해주세요.'/>
     <p>상행 종점
       <select>
-        <option value='incheon'>인천</option>
-        <option value='seoul'>서울역</option>
-        <option value='soyosan'>소요산</option>
+      ${stations.map((station) => `<option value='${station}'>${station}</option>`)}
       </select>
     </p>
     <p>하행 종점
       <select>
-        <option value='incheon'>인천</option>
-        <option value='seoul'>서울역</option>
-        <option value='soyosan'>소요산</option>
+      ${stations.map((station) => `<option value='${station}'>${station}</option>`)}
       </select>
     </p>
-    <button>노선 추가</button>
-    <h2>🚉 지하철 노선 목록</h2>
+    <button id='add'>노선 추가</button>`;
+  }
+
+  static LineTableView() {
+    const lines = localStorage.getItem('Lines').split(',');
+    document.getElementById('line-table').innerHTML = `
     <table border='1px solid black'>
       <tr>
         <th align='center'>노선 이름</th>
@@ -70,14 +81,14 @@ export default class MenuView {
         <th align='center'>하행 종점역</th>
         <th algin='center'>설정</th>
       </tr>
+      ${lines.map((line) => `
       <tr>
-        <td align="center">1호선</td>
+        <td align="center">${line}</td>
         <td align="center">인천</td>
         <td align="center">소요산</td>
         <td align="center"><button id='delete'>삭제</button></td>
-      </tr>
-    </table>
-    `;
+      </tr>`).join('')}
+    </table>`;
   }
 
   static SectionManagerView() {
