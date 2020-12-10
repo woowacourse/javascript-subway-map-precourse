@@ -1,8 +1,8 @@
-import { manageStationLine, makeStationOption } from "./index.js";
-export const showStationList = (selectedLine) => {
-  console.log(selectedLine);
+import { manager, makeStationOption } from "./index.js";
+
+export const showStationList = (allStationName) => {
   const table = document.getElementById("station-in-selected-line-list-table");
-  selectedLine.forEach((station, idx) => {
+  allStationName.forEach((station, idx) => {
     const oneStation = document.createElement("tr");
     const stationIdx = document.createElement("td");
     const stationName = document.createElement("td");
@@ -18,24 +18,21 @@ export const showStationList = (selectedLine) => {
   });
 };
 export const onClickedLine = (lineName) => {
-  const targetLine = lineName;
-  const targetLineElement = document.getElementById("section-line");
-  targetLineElement.style.display = "Block";
+  const targetLineName = lineName;
+  const selectedLineElement = document.getElementById("selected-section-line");
+  selectedLineElement.style.display = "Block";
   const sectionManagerTitle = document.getElementById("section-line-name");
-  sectionManagerTitle.innerHTML = `${targetLine} 관리`;
-  makeStationOption(manageStationLine.stationList, "section-station-selector");
-  let selectedLine = null;
-  manageStationLine.lineList.forEach((line) => {
-    if (line.name === targetLine) {
-      selectedLine = line;
+  sectionManagerTitle.innerHTML = `${targetLineName} 관리`;
+
+  makeStationOption(manager.stationList, "section-station-selector");
+  manager.lineList.forEach((line) => {
+    if (line.name === targetLineName) {
+      manager.setSelectedLine(line);
     }
   });
-  manageStationLine.setSelectedLine(selectedLine);
-  console.log(selectedLine);
-  showStationList(selectedLine.getAllStation());
+  showStationList(manager.getSelectedLine().getAllStationName());
 };
 export const showLineList = (lineList) => {
-  console.log(lineList);
   const lineMenu = document.getElementById("section-line-list");
   lineMenu.innerHTML = "";
   lineList.forEach((line) => {
@@ -54,15 +51,14 @@ btnAddSection.onclick = () => {
   const addSectionIdx = document.getElementById("section-order-input").value;
   const addStationName = document.getElementById("section-station-selector")
     .value;
-  console.log(manageStationLine.selectedLine);
-  manageStationLine.stationList.forEach((station) => {
+  manager.stationList.forEach((station) => {
     if (station.name === addStationName) {
-      console.log(station);
-      manageStationLine.selectedLine.addStationToIdx(station, addSectionIdx);
+      const selectedLine = manager.getSelectedLine();
+      console.log(selectedLine);
+      selectedLine.addStationToIdx(station, addSectionIdx);
     }
   });
   const stationList = document.getElementById("station-in-selected-line");
   stationList.innerHTML = "";
-  showStationList(manageStationLine.selectedLine.getAllStation());
-  console.log(manageStationLine.selectedLine);
+  showStationList(manager.getSelectedLine().getAllStationName());
 };
