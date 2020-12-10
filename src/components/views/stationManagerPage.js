@@ -11,14 +11,13 @@ function stationManagerPage(stationNames) {
     </tr>`;
     });
 
-  let stationManager = `<br />
-  <p>역 이름<p>
-  <input id = "station-add-input" value="역 이름을 입력해주세요."></input>
+  let stationManager = `
+  <h4>역 이름<h4>
+  <input id = "station-add-input"></input>
   <button id = "station-add-button">역 추가</button>
   <h3>🚉지하철 역 목록</h3>
   
-  <table
-border = 1px solid black>
+  <table border = 1px solid black>
     <thead>
       <tr>
         <th>역 이름</th>
