@@ -1,94 +1,68 @@
+import DomUtils from './dom_utils.js';
+import StringUtils from './string_utils.js';
+
 export default class SubwayMap {
   constructor() {
-    this.createMenuButton();
+    this._privateDomUtils = new DomUtils();
+    this._privateStringUtils = new StringUtils();
+    this.setIdNAme();
+    this.managerButton()
+    this.createMenu();
   }
 
-  createMenuButton() {
+  setIdNAme() {
+    this.APP = 'app';
+    this.ARTICLE_AREA = 'articleArea';
+    this.DO_NOT_APPEND = false;
+  }
+
+  managerButton() {
     this._managerButton = {
       'station-manager-button': '1. 역 관리',
       'line-manager-button': '2. 노선 관리',
       'section-manager-button': '3. 구간 관리',
       'map-print-manager-button': '4. 지하철 노선도 출력',
     }
-    
-    for (const tagName in this._managerButton) {
-      let varName = this.getVarName(tagName);
-      
-      this[`_${varName}`] = this.createButton();
-      this.setAttribute(varName, tagName);
-      this.setInnerHtml(varName, tagName);
-      this.appendToApp(varName);
-      // this.addEventListenr(tagName);
-      let articleName = this.getArticleName(tagName);
-      this[`_${articleName}`] = this.createArticle();
-      // this.addEventListenr(type);
+  }
+
+  createMenu() {
+    for (const idName in this._managerButton) {
+      const varName = this.createMenuButton(idName);
+      const articleName = this.createMenuArticle(idName);
+      this.addEventToButton(varName, articleName);
     }
+    this.createArticleArea();
   }
 
-  getVarName(tagName) {
-    let tagParts = this.splitTagName(tagName);
-    let varNameParts = this.intoCamelCase(tagParts);
+  createMenuButton(idName) {
+    const varName = this._privateStringUtils.getVarName(idName);
 
-    return varNameParts.join('');
+    this[`_${varName}`] = this._privateDomUtils.createButton(idName, this._managerButton);
+
+    return varName;
   }
 
-  splitTagName(tagName) {
-    return tagName.split('-');
-  }
-
-  intoCamelCase(tagParts) {
-    let varNameParts = [];
-
-    tagParts.forEach((part) => {
-      varNameParts.push(this.capitalize(part, tagParts));
-    })
-
-    return varNameParts;
-  }
-
-  capitalize(string, tagParts) {
-    if (tagParts.indexOf(string) >= 1) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    }
+  createMenuArticle(idName) {
+    const articleName = this._privateStringUtils.getArticleName(idName);
     
-    return string
+    this[`_${articleName}`] = this._privateDomUtils.createArticle(this.DO_NOT_APPEND, articleName);
+
+    return articleName;
   }
 
-  createButton() {
-    return document.createElement('button');
+  addEventToButton(varName, articleName) {
+    this[`_${varName}`].addEventListener('click', () => {
+      this.showArticle(articleName);
+    });
   }
 
-  setAttribute(varName, tagName) {
-    this[`_${varName}`].setAttribute('id', tagName);
+  createArticleArea() {
+    this._articleArea = this._privateDomUtils.createArticle(this.APP, this.ARTICLE_AREA);
   }
 
-  setInnerHtml(varName, tagName) {
-    this[`_${varName}`].innerHTML = this._managerButton[tagName]
+  showArticle(articleName) {
+    this._articleArea.innerHTML = this[`_${articleName}`].innerHTML;
   }
-
-  appendToApp(varName) {
-    document.getElementById('app').appendChild(this[`_${varName}`]);
-  }
-
-  createArticle() {
-    return document.createElement('ARTICLE');
-  }
-
-  getArticleName(tagName) {
-    const tagParts = this.splitTagName(tagName);
-
-    return `${tagParts[0]}Article`;
-  }
-
-  // addEventListenr(type) {
-  //   this[`_${type}ManagerButton`].addEventListenr('click', () => {
-  //     this.getArticle(type);
-  //   })
-  // }
-
-  // getArticle(type) {
-
-  // }
 }
 
 new SubwayMap();
