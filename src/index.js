@@ -1,3 +1,7 @@
-import { TEST } from "./lib/models/subway.js";
+import renderMenu from "./lib/views/renderMenu.js";
 
-console.log(TEST);
+const startSubwayManagement = () => {
+  renderMenu();
+}
+
+startSubwayManagement();

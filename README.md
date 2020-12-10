@@ -38,3 +38,22 @@
 3. 비즈니스 로직과 UI로직 분리는 지난주엔 잘 했으나, 변수/메소드명이 명확하지 못했다.
 4. 주석은 왠만하면 함수 밖 혹은 코드 우측에 추가하라. (왠만하면 하지 말자)
 5. 커밋 메시지에 번호 추가하지 마라.
+
+## 참고
+[내가 정리한 객체를 배열로 변환하는 메소드](https://blog.naver.com/kodewithamy/222139550359)
+
+## 개발 과정
+
+### day 1
+1. 디렉토리 구조 설계
+  - 데이터 모델링은 models, 인풋/삭제 유효성 체크는 controllers, 공통 변수는 common
+  - ui는 views, 그리고 user 인풋 처리는 action / 데이터 저장은 reducer에서 함
+
+### day 2
+1. UI 로직 구현 part 1 => 매뉴 버튼 생성 
+  - [참고, insert adjacent html](https://developer.mozilla.org/ko/docs/Web/API/Element/insertAdjacentHTML)
+
+2. document.createElement를 변수로 저장할 때 조심하자
+
+### 초기 회고
+- 저번에 기능 목록 구현을 지나치게 상세하게 썼는데 이번엔 간략화해서 기능별로 정리함
