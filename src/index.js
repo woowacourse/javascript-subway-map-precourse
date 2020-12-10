@@ -3,6 +3,7 @@ import { SubwayMapViewModel } from './viewModels';
 import { SubwayMapModel } from './models';
 
 window.addEventListener('DOMContentLoaded', () => {
+  const managerContainer = document.getElementById('manager-container');
   const stationManagerButton = document.getElementById(
     '#station-manager-button',
   );
@@ -11,6 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const subwayMapViewModel = new SubwayMapViewModel(subwayMapModel);
   const subwayMapView = new SubwayMapView(
     subwayMapViewModel,
+    managerContainer,
     stationManagerButton,
   );
 });

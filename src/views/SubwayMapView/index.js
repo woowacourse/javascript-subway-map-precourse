@@ -1,5 +1,8 @@
+import { message } from '../../constants';
+
 export default class SubwayMapView {
-  constructor(subwayMapViewModel, stationManagerButton) {
+  constructor(subwayMapViewModel, managerContainer, stationManagerButton) {
+    this.managerContainer = managerContainer;
     this.subwayMapViewModel = subwayMapViewModel;
     this.stationManagerButton = stationManagerButton;
 
@@ -13,5 +16,12 @@ export default class SubwayMapView {
     );
   }
 
-  renderStationManager() {}
+  renderStationManager() {
+    this.managerContainer.innerHTML += `
+      <p>${message.STATION_NAME}</p>
+      <input id="#station-name-input "></input>
+      <button id="#station-add-button">${message.ADD_STATION}</button>
+      <h2>${message.LIST_OF_STATIONS}</h2>
+    `;
+  }
 }
