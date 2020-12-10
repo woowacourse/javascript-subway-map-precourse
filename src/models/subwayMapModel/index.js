@@ -6,7 +6,7 @@ export default class SubwayMapModel {
     this._stations = {};
   }
 
-  getStation() {
+  getStations() {
     return { ...this._stations };
   }
 

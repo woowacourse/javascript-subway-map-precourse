@@ -26,7 +26,15 @@ export default class SubwayMapView {
 
   handleStationAddButton() {
     const stationId = document.getElementById('#station-name-input').value;
-    this.subwayMapViewModel['stations'] = stationId;
+    this.subwayMapViewModel.addStation(stationId);
+    this.resetStationTable();
+    this.renderStationTable(
+      Object.entries(this.subwayMapViewModel.getStations()),
+    );
+  }
+
+  resetStationTable() {
+    document.getElementById('#station-table-container').innerHTML = '';
   }
 
   renderStationManager() {
@@ -35,10 +43,11 @@ export default class SubwayMapView {
       <input id="#station-name-input"></input>
       <button id="#station-add-button">${message.ADD_STATION}</button>
       <h2>${message.LIST_OF_STATIONS}</h2>
+      <div id="#station-table-container"></div>
     `;
     this.addEventListenerToStationAddButton(this);
 
-    this.renderStationTable();
+    this.renderStationTable([]);
   }
 
   renderStationThead(stationTable) {
@@ -52,22 +61,29 @@ export default class SubwayMapView {
     return stationTable;
   }
 
-  renderStationTbody(stationTable) {
-    stationTable.innerHTML += `
+  renderStationTbody(stationTable, stations) {
+    stations.forEach(stationId => {
+      stationTable.innerHTML += `
       <tr>
-        <td>${message.STATION_NAME}</td>
-        <td>${message.OPTION}</td>
+        <td>${stationId[0]}</td>
+        <td>
+          <button>${message.OPTION_REMOVE}</button>
+        </td>
       </tr>
     `;
+    });
 
     return stationTable;
   }
 
-  renderStationTable() {
+  renderStationTable(stations) {
     let stationTable = document.createElement('table');
+    stationTable.setAttribute('id', '#station-name-table');
     stationTable = this.renderStationThead(stationTable);
-    stationTable = this.renderStationTbody(stationTable);
+    stationTable = this.renderStationTbody(stationTable, stations);
 
-    this.managerContainer.appendChild(stationTable);
+    document
+      .getElementById('#station-table-container')
+      .appendChild(stationTable);
   }
 }

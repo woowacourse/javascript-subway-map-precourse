@@ -1,20 +1,26 @@
 export default class SubwayMapViewModel {
   constructor(subwayMapModel) {
     this.subwayMapModel = subwayMapModel;
-
-    return this.setProxy();
   }
 
-  setProxy() {
-    return new Proxy(this, {
-      set(target, property, value) {
-        if (property === 'stations') {
-          target.subwayMapModel.addStation(value);
-          console.log(target.subwayMapModel.getStation());
-        }
+  // setProxy() {
+  //   return new Proxy(this, {
+  //     set(target, property, value) {
+  //       if (property === 'stations') {
+  //         target.subwayMapModel.addStation(value);
+  //         console.log(target.subwayMapModel.getStation());
+  //       }
 
-        return true;
-      },
-    });
+  //       return true;
+  //     },
+  //   });
+  // }
+
+  getStations() {
+    return this.subwayMapModel.getStations();
+  }
+
+  addStation(stationId) {
+    this.subwayMapModel.addStation(stationId);
   }
 }
