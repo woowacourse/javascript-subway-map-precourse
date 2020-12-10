@@ -45,6 +45,7 @@ export default class SubwayMapStationView {
   handleStationAddButton() {
     const stationId = document.getElementById('#station-name-input').value;
     this.subwayMapViewModel.addStation(stationId);
+
     this.resetStationTable();
     this.renderStationTable(
       Object.entries(this.subwayMapViewModel.getStations()),
@@ -118,7 +119,7 @@ export default class SubwayMapStationView {
       <tr>
         <td>${stationId[0]}</td>
         <td>
-          <button data-id="${stationId[0]}" class=".station-delete-button">${message.OPTION_REMOVE}</button>
+          <button data-id="${stationId[0]}" class=".station-delete-button">${message.OPTION_DELETE}</button>
         </td>
       </tr>
     `;

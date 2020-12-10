@@ -43,54 +43,16 @@ export default class SubwayMapLineView {
     };
 
     this.subwayMapViewModel.addLine(lineObject);
-    console.log(Object.entries(this.subwayMapViewModel.getLines()));
+    this.resetLineTable();
+    this.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
   }
 
   resetManagerContainer() {
     this.managerContainer.innerHTML = '';
   }
 
-  renderLineTable(lines) {
-    const lineThead = this.renderLineThead();
-    const lineTbody = this.renderLineTbody(lines);
-
-    const lineTable = `
-      <table id="#line-name-table">
-        ${lineThead}
-        ${lineTbody}
-      </table>
-    `;
-  }
-
-  renderLineThead() {
-    const lineThead = `
-      <tr>
-        <th>${message.LINE_NAME}</th>
-        <th>${message.START_STATION}</th>
-        <th>${message.END_STATION}</th>
-        <th>${message.OPTION}</th>
-      </tr>
-    `;
-
-    return lineThead;
-  }
-
-  renderLineTbody(lines) {
-    let lineTbody = ``;
-    lines.forEach(stationId => {
-      lineTbody += `
-      <tr>
-        <td>${stationId[0]}</td>
-        <td>${stationId[1].startStation}</td>
-        <td>${stationId[1].endStation}
-        <td>
-          <button data-id="${stationId[0]}" class=".line-delete-button">${message.OPTION_REMOVE}</button>
-        </td>
-      </tr>
-    `;
-    });
-
-    return lineTbody;
+  resetLineTable() {
+    document.getElementById('#line-table-container').innerHTML = '';
   }
 
   renderLineManager() {
@@ -103,13 +65,7 @@ export default class SubwayMapLineView {
     );
     this.renderLineAddButton();
     this.renderLineTableContainer();
-  }
-
-  renderLineTableContainer() {
-    this.managerContainer.innerHTML += `
-      <h2>${message.LIST_OF_LINES}</h2>
-      <div id="#line-table-container"></div>
-    `;
+    this.renderLineTable([]);
   }
 
   renderLineNameInput() {
@@ -152,9 +108,63 @@ export default class SubwayMapLineView {
     </div>
   `;
   }
+
   renderLineAddButton() {
     this.managerContainer.innerHTML += `
       <button id="#line-add-button">${message.LINE_ADD_BUTTON}</button>
     `;
+  }
+
+  renderLineTableContainer() {
+    this.managerContainer.innerHTML += `
+      <h2>${message.LIST_OF_LINES}</h2>
+      <div id="#line-table-container"></div>
+    `;
+  }
+
+  renderLineTable(lines) {
+    const lineThead = this.renderLineThead();
+    const lineTbody = this.renderLineTbody(lines);
+
+    const lineTable = `
+      <table id="#line-name-table">
+        ${lineThead}
+        ${lineTbody}
+      </table>
+    `;
+
+    document.getElementById('#line-table-container').innerHTML += lineTable;
+  }
+
+  renderLineThead() {
+    const lineThead = `
+      <tr>
+        <th>${message.LINE_NAME}</th>
+        <th>${message.START_STATION}</th>
+        <th>${message.END_STATION}</th>
+        <th>${message.OPTION}</th>
+      </tr>
+    `;
+
+    return lineThead;
+  }
+
+  renderLineTbody(lines) {
+    console.log(lines);
+    let lineTbody = ``;
+    lines.forEach(line => {
+      lineTbody += `
+      <tr>
+        <td>${line[0]}</td>
+        <td>${line[1].startStation}</td>
+        <td>${line[1].endStation}
+        <td>
+          <button data-id="${line[0]}" class=".line-delete-button">${message.OPTION_DELETE}</button>
+        </td>
+      </tr>
+    `;
+    });
+
+    return lineTbody;
   }
 }

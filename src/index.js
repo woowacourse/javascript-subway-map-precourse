@@ -1,4 +1,8 @@
-import { SubwayMapLineView, SubwayMapStationView } from './views';
+import {
+  SubwayMapLineView,
+  SubwayMapStationView,
+  SubwayMapSectionView,
+} from './views';
 import { SubwayMapViewModel } from './viewModels';
 import { SubwayMapModel } from './models';
 
@@ -20,5 +24,10 @@ window.addEventListener('DOMContentLoaded', () => {
     subwayMapViewModel,
     managerContainer,
     lineManagerButton,
+  );
+
+  const subwayMapSectionView = new SubwayMapSectionView(
+    subwayMapViewModel,
+    managerContainer,
   );
 });
