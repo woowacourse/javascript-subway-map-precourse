@@ -3,9 +3,12 @@ export const NODES = {
   app: document.querySelector('#app'),
 };
 
-// used in Renderer classes.
-export const STAION_MANAGER_BUTTON_ID = 'station-manager-button';
+// suffix
+export const BUTTON_SUFFIX = '-button';
 
+// used in Renderer classes.
 export const STATION_MANAGER = '역 관리';
+
+export const STATION_MANAGER_ID = 'station-manager';
 
 export const FUNCTION_CONTENTS = ['', STATION_MANAGER];
