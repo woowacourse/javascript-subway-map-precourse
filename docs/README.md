@@ -3,15 +3,15 @@
 ## 📝 구현할 기능 목록
 - 웹 실행 초기 세팅을 담당하는 index.js 생성
 
-- HtmlUiManager.js: Html과의 IO를 총괄
-    - NavigationBarUi.js: 상단의 변하지 않는 네비게이션 바를 관리
-        - 4가지 기능에 대한 버튼을 만들어 HtmlUiManager.js와 통신, bodyUi를 수정함
+- htmlUiManager.js: Html과의 IO를 총괄
+    - navigationBarUi.js: 상단의 변하지 않는 네비게이션 바를 관리
+        - 4가지 기능에 대한 버튼을 만들어 htmlUiManager.js와 통신, bodyUi를 수정함
     - 변수 bodyUi: 4가지 기능을 위한 Ui 객체가 할당될 수 있음
-        1. 역관리: ManageStationUi.js
-        2. 노선관리: ManageLineUi.js
-        3. 구간관리: ManageSectionUi.js
-        4. 노선도 출력: PrintLineInfoUi.js          
-- 지하철 모든 역의 정보를 관리하는 AllStationInfoManager.js 생성
+        1. 역관리: manageStationUi.js
+        2. 노선관리: manageLineUi.js
+        3. 구간관리: manageSectionUi.js
+        4. 노선도 출력: printLineInfoUi.js          
+- 지하철 모든 역의 정보를 관리하는 allStationInfoManager.js 생성
     - 호선 별로 지하철 역들을 관리
     - 필요할 때 bodyUi와 통신하며 필요한 정보를 줄 수 있어야 함
 
