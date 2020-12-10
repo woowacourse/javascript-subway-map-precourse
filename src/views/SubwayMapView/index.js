@@ -174,6 +174,13 @@ export default class SubwayMapView {
   renderLineTable(lines) {
     const lineThead = this.renderLineThead();
     const lineTbody = this.renderLineTbody(lines);
+
+    const lineTable = `
+      <table id="#line-name-table">
+        ${lineThead}
+        ${lineTbody}
+      </table>
+    `;
   }
 
   renderLineThead() {
@@ -216,6 +223,14 @@ export default class SubwayMapView {
       Object.entries(this.subwayMapViewModel.getStations()),
     );
     this.renderLineAddButton();
+    this.renderLineTableContainer();
+  }
+
+  renderLineTableContainer() {
+    this.managerContainer.innerHTML += `
+      <h2>${message.LIST_OF_LINES}</h2>
+      <div id="#line-table-container"></div>
+    `;
   }
 
   renderLineNameInput() {
