@@ -1,5 +1,6 @@
 export default class StationLine {
-  constructor(startStation, endStation) {
-    this.stations = [startStation, endStation];
+  constructor(name, stationList) {
+    this.name = name;
+    this.section = stationList;
   }
 }
