@@ -3,6 +3,9 @@ const Utils = function () {
     const { stations, lines } = window.localStorage;
     return [stations, lines];
   };
+  this.setLocalStorageDataOf = (item, value) => {
+    window.localStorage.setItem(item, value);
+  };
 };
 
-export const { getLocalStorageData } = new Utils();
+export const { getLocalStorageData, setLocalStorageDataOf } = new Utils();
