@@ -3,18 +3,18 @@ import { Route } from '../../models';
 export default class SubwayMapModel {
   constructor() {
     this._routes = {};
-    this.stations = {};
+    this._stations = {};
   }
 
   getStation() {
-    return { ...this.stations };
+    return { ...this._stations };
   }
 
   addStation(stationId) {
-    const stations = { ...this._routes };
+    const stations = { ...this._stations };
     stations[stationId] = stationId;
 
-    this.stations = stations;
+    this._stations = stations;
   }
 
   removeStation() {

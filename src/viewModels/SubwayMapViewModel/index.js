@@ -8,8 +8,9 @@ export default class SubwayMapViewModel {
   setProxy() {
     return new Proxy(this, {
       set(target, property, value) {
-        if (property === 'test') {
-          console.log('call');
+        if (property === 'stations') {
+          target.subwayMapModel.addStation(value);
+          console.log(target.subwayMapModel.getStation());
         }
 
         return true;

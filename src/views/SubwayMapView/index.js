@@ -25,13 +25,14 @@ export default class SubwayMapView {
   }
 
   handleStationAddButton() {
-    this.subwayMapViewModel['test'] = 'a';
+    const stationId = document.getElementById('#station-name-input').value;
+    this.subwayMapViewModel['stations'] = stationId;
   }
 
   renderStationManager() {
     this.managerContainer.innerHTML += `
       <p>${message.STATION_NAME}</p>
-      <input id="#station-name-input "></input>
+      <input id="#station-name-input"></input>
       <button id="#station-add-button">${message.ADD_STATION}</button>
       <h2>${message.LIST_OF_STATIONS}</h2>
     `;
