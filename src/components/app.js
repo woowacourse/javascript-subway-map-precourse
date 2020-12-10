@@ -1,7 +1,7 @@
-import stationManagerPage from "./views/stationManagerPage.js";
-import lineManagerPage from "./views/lineManagerPage.js";
-import sectionManagerPage from "./views/sectionManagerPage.js";
-import mapPrintManagerPage from "./views/mapPrintManagerPage.js";
+import { stationManagerPage } from "./pages/stationPage.js";
+import lineManagerPage from "./pages/linePage.js";
+import sectionManagerPage from "./pages/sectionPage.js";
+import mapPrintManagerPage from "./pages/mapPrintPage.js";
 
 export default function app(pageName, stationNames) {
   let app = ``;
