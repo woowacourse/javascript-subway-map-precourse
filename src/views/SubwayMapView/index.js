@@ -50,10 +50,20 @@ export default class SubwayMapView {
 
   handleStationDeleteButton(event) {
     this.subwayMapViewModel.deleteStation(event.target.dataset.id);
+
+    this.resetStationTable();
+    this.renderStationTable(
+      Object.entries(this.subwayMapViewModel.getStations()),
+    );
+    this.addEventListenerToStationDeleteButtons(this);
   }
 
   resetStationTable() {
     document.getElementById('#station-table-container').innerHTML = '';
+  }
+
+  resetManagerContainer() {
+    this.managerContainer.innerHTML = '';
   }
 
   renderStationManager() {
