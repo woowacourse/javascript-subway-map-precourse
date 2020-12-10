@@ -4,6 +4,11 @@ class Station {
     this.handleAddNameClick();
   }
 
+  checkVaildName = name => {
+    // 주어진 역이름이 2글자이상이고 중복 아니면 true
+    return name.length >= 2 && !this.stations.includes(name);
+  };
+
   getNameInput = () => {
     const station = document.getElementById("station-name-input").value;
 
