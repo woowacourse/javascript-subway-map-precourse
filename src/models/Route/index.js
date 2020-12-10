@@ -2,8 +2,10 @@ import { Station } from '../../models';
 
 export default class Route {
   constructor(routeObject) {
-    this.routeId = routeObject.routeId;
+    this._routeId = routeObject.routeId;
     this._stations = [];
+    this._upboundTerminalStation = routeObject.upboundTerminalStation;
+    this._downingTerminalStation = routeObject.downingTerminalStation;
   }
 
   getStations() {

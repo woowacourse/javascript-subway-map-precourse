@@ -27,4 +27,8 @@ export default class SubwayMapViewModel {
   deleteStation(stationId) {
     this.subwayMapModel.deleteStation(stationId);
   }
+
+  getRoutes() {
+    return this.subwayMapModel.getRoutes();
+  }
 }
