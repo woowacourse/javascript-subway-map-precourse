@@ -11,6 +11,8 @@ import Button from "./components/Button.js";
 
 import { $appContainer } from "./utils/utils.js";
 
+import StationTab from "./tabs/StationTab.js";
+
 const getMenuButtons = tabTitles => tabTitles.map((tabTitle, idx) => {
   const innerText = /출력/.test(tabTitle)
     ? `${appTitle.substring(0, 7)} ${tabTitle}`
@@ -19,6 +21,7 @@ const getMenuButtons = tabTitles => tabTitles.map((tabTitle, idx) => {
     menuButtonsId[idx],
     `${idx + 1}. ${innerText}`,
   );
+  $menuButton.addEventListener(() => console.log(tabTitle));
   $menuButton.addRightSpace();
   return $menuButton.element;
 });
