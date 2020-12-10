@@ -1,19 +1,8 @@
-import {
-  TAB_CONTAINER_DIV,
-  menuButtonsId,
-  tabs,
-} from "../../common/IdAndClassNames.js";
+import { menuButtonsId, tabs } from "../../common/IdAndClassNames.js";
 import { appTitle } from "../../common/constants.js";
-import createTabComponent from "../utils/createTabComponent.js";
+import viewTabContainer from "../../_action/viewTabContainer.js";
 import { isPrintMapTab } from "../utils/utils.js";
 import Button from "../components/Button.js";
-
-const renderContainer = (index) => {
-  const $tabContainer = document.querySelector(TAB_CONTAINER_DIV);
-  const $tabComponent = createTabComponent(index);
-  $tabContainer.innerHTML = "";
-  $tabContainer.appendChild($tabComponent);
-};
 
 export default tabs.map(({ title }, index) => {
   const innerText = isPrintMapTab(title)
@@ -24,7 +13,7 @@ export default tabs.map(({ title }, index) => {
     `${index + 1}. ${innerText}`,
   );
 
-  $menuButton.addEventListener(() => renderContainer(index));
+  $menuButton.addEventListener(() => viewTabContainer(index));
   $menuButton.addRightSpace();
   return $menuButton.element;
 });

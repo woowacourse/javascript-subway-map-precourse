@@ -10,5 +10,5 @@ export default () => {
   $menu.addToParentNode($appContainer);
   $tabContainer.addToParentNode($appContainer);
 
-  MenuButtons.forEach(menuButton => $menu.element.appendChild(menuButton));
+  MenuButtons.forEach((menuButton) => $menu.element.appendChild(menuButton));
 };

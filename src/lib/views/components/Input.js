@@ -9,4 +9,8 @@ export default class Input {
   getValue() {
     return this.element.value;
   }
+
+  removeValue() {
+    this.element.value = "";
+  }
 }
