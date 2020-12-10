@@ -22,6 +22,11 @@ tr {
   cursor: pointer;
 }
 
-#main-contents-container {
+.managers {
+  margin-top: 20px;
+  display: none;
+}
+
+.station-list {
   margin-top: 20px;
 }
