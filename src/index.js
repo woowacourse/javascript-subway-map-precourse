@@ -58,6 +58,7 @@ btnStationManager.onclick = () => {
 };
 export const makeStationOption = (stationList, optionName) => {
   const optionList = document.getElementById(optionName);
+  optionList.innerHTML = ""; // 선택 노선 변경 시 지하철 역 새로 load
   for (let idx in stationList) {
     const newOption = document.createElement("option");
     newOption.innerHTML = stationList[idx].name;
