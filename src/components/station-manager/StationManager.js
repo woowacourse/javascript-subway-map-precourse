@@ -1,10 +1,10 @@
 import { StationManagerInput } from "./StationManagerInput.js";
 export class StationManager {
-  constructor() {
-    this.render();
+  constructor(props) {
+    this.render(props);
   }
 
-  render = () => {
-    new StationManager();
+  render = (props) => {
+    new StationManagerInput(props);
   };
 }

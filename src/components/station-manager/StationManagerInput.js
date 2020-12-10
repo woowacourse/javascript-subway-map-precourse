@@ -1,7 +1,10 @@
 import { isValid } from "../../utils/validation.js";
 export class StationManagerInput {
-  constructor() {
+  constructor({ setStationNames, getStationNames }) {
     this.initializeDom();
+    this.initializeEvents();
+    this.setStationNames = setStationNames;
+    this.getStationNames = getStationNames;
   }
 
   initializeDom = () => {
@@ -18,6 +21,8 @@ export class StationManagerInput {
     if (!isValid(stationName)) {
       return;
     }
+    this.setStationNames();
+    console.log(this.getStationNames());
     //add name in local storage
   };
 }
