@@ -27,5 +27,7 @@ export default class SubwayMapModel {
     return this._routes[routeId]._stations;
   }
 
-  addStationToRoute(stationObject, routeId, order) {}
+  addStationToRoute(stationObject, routeId, order) {
+    this._routes[routeId].addStation(stationObject, order);
+  }
 }
