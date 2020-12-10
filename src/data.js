@@ -1,92 +1,70 @@
 export class Data {
 
-    static getStationNameData = () => {
-        let stationNameData = localStorage.getItem("allStation")
-        return JSON.parse(stationNameData);
-    }
+    // stationRepository 접근 
+    static getStationRepository = () => {
+        let stationRepository = JSON.parse(localStorage.getItem("stationRepository"))
+        if (stationRepository === null) {
 
-    static addStation = (stationName) => {
-        let stationNameData = this.getStationNameData();
-
-        if (stationNameData !== null) {
-            stationNameData.push(stationName);
-
-            return localStorage.setItem("allStation", JSON.stringify(stationNameData));
+            return {}
         }
 
-        return localStorage.setItem("allStation", JSON.stringify([stationName]));
+        return stationRepository;
     }
 
+    // stationRepository에 새로운 역 추가
+    static addStation = (station) => {
+        let stationRepository = this.getStationRepository();
+        stationRepository[station.name] = station;
+
+        return localStorage.setItem("stationRepository", JSON.stringify(stationRepository));
+    }
+
+    // stationRepository에 기존 역 제거
     static removeStation = (stationName) => {
-        let stationNameData = this.getStationNameData();
+        let stationRepository = this.getStationRepository();
 
-        stationNameData.splice(stationNameData.indexOf(stationName), 1);
+        delete stationRepository[stationName]
 
-        if (stationNameData.length === 0) {
-            return localStorage.setItem("allStation", null)
+        if (stationRepository === {}) {
+            return localStorage.setItem("stationRepository", null)
         }
 
-        return localStorage.setItem("allStation", JSON.stringify(stationNameData));
+        return localStorage.setItem("stationRepository", JSON.stringify(stationRepository));
     }
 
-    static getLineData = () => {
-        let lineData = localStorage.getItem("allLine")
-        return JSON.parse(lineData);
+    // lineRepository에 대한 접근 
+    static getLineRepository = () => {
+        let lineRepository = localStorage.getItem("lineRepository");
+
+        if (lineRepository === null) {
+
+            return {};
+        }
+
+        return JSON.parse(lineRepository);
     }
 
+    // lineRepository에 새로운 line 추가  
     static addLine = (line) => {
-        let lineData = this.getLineData();
+        let lineRepository = this.getLineRepository();
 
-        if (lineData !== null) {
-            lineData.push(line);
+        lineRepository[line.name] = line;
 
-            return localStorage.setItem("allLine", JSON.stringify(lineData));
+        return localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
+    }
+
+    // lineRepository에 기존 line 제거
+    static removeLine = (lineName) => {
+
+        let lineRepository = this.getLineRepository();
+
+        delete lineRepository[lineName]
+
+        if (lineRepository === {}) {
+            return localStorage.setItem("lineRepository", null);
         }
 
-        return localStorage.setItem("allLine", JSON.stringify([line]));
+        return localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
     }
-
-    static removeLine = (line) => {
-        let lineData = this.getLineData();
-
-        lineData.splice(lineData.indexOf(line), 1);
-
-        if (lineData.length === 0) {
-            return localStorage.setItem("allLine", null);
-        }
-
-        return localStorage.setItem("allLine", JSON.stringify(lineData));
-    }
-
-    static getLineSectionData = (lineName) => {
-        let lineSectionData = localStorage.getItem(lineName);
-
-        return JSON.parse(lineSectionData);
-    }
-
-    static addLineSection = (lineName, stationName, order) => {
-        let lineSectionData = this.getLineSectionData(lineName);
-
-        if (lineSectionData !== null) {
-            lineSectionData.splice(order, 0, stationName);
-
-            return localStorage.setItem(lineName, JSON.stringify(lineSectionData));
-        }
-
-        return localStorage.setItem(lineName, JSON.stringify[lineSectionData]);
-    }
-
-    static removeLineSection = (lineName, stationName) => {
-        let lineSectionData = this.getLineSectionData(lineName);
-
-        lineSectionData.splice(lineSectionData.indexOf(stationName), 1);
-
-        if (lineSectionData.length === 0) {
-            return localStorage.setItem(lineName, null);
-        }
-
-        localStorage.setItem(lineName, JSON.stringify(lineSectionData));
-    }
-
 
 }
