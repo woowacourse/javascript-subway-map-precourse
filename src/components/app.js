@@ -12,11 +12,9 @@ import MapPrintManager from './map-print-manager/index.js';
 import SectionManager from './section-manager/index.js';
 
 class App extends Component {
-  _$navigator;
-  _$routerView;
-
   constructor($target) {
     super($target);
+<<<<<<< HEAD
     this.render();
     this.initializeComponents();
   }
@@ -29,22 +27,29 @@ class App extends Component {
     `;
   };
 
+=======
+    this.initializeComponents();
+  }
+
+>>>>>>> b6520b0 (feat: 컴포넌트 생성 시 기존 target요소의 이벤트리스너 제거)
   initializeComponents() {
-    new Navigator(this._$navigator, { routeTo: this.routeTo });
+    const $navigator = this._$target.querySelector('#navigator');
+    new Navigator($navigator, { routeTo: this.routeTo });
   }
 
   routeTo = destination => {
+    const $routerView = this._$target.querySelector('#router-view');
     if (destination === STATION_MANAGER) {
-      new StationManager(this._$routerView);
+      new StationManager($routerView);
     }
     if (destination === LINE_MANAGER) {
-      new LineManager(this._$routerView);
+      new LineManager($routerView);
     }
     if (destination === MAP_PRINT_MANAGER) {
-      new MapPrintManager(this._$routerView);
+      new MapPrintManager($routerView);
     }
     if (destination === SECTION_MANAGER) {
-      new SectionManager(this._routerView);
+      new SectionManager($routerView);
     }
   };
 }
