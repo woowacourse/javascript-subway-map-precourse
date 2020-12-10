@@ -61,15 +61,14 @@ export default class StationManager {
 
   renderStationNameTable() {
     const $tbody = document.getElementById("station-name-tbody");
-    const lenOfStationList = this.stationList.length;
     const $noStationMessage = getChildById(
       $tbody.parentElement.parentElement,
       NO_DATA_MESSAGE_ID.noStation
     );
-    if (lenOfStationList === 0) {
+    if (this.stationList.length === 0) {
       turnOnNoDataMessage($tbody.parentElement, $noStationMessage);
     } else {
-      if (lenOfStationList === 1) {
+      if (this.stationList.length === 1) {
         turnOffNoDataMessage($tbody.parentElement, $noStationMessage);
       }
       this.fillStationNameTable($tbody);
