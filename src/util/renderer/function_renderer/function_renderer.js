@@ -3,26 +3,30 @@ import NodeSelector from '../../selector/node_selector.js';
 import {
   FUNCTION_CONTENTS,
   BUTTON_SUFFIX,
+  FUNCTION_BUTTON_SECTION_CLASS,
 } from '../../../library/constant/constant.js';
 
 export default class FuctionRenderer {
   constructor(id, content) {
+    this.nodeGenerator = new NodeGenerator();
+    this.nodeSelector = new NodeSelector();
+
     this.id = id;
     this.buttonId = id + BUTTON_SUFFIX;
     this._content = content;
   }
 
   renderFuctionButton() {
-    const nodeGenerator = new NodeGenerator();
-    const nodeSelector = new NodeSelector();
     const index = this.getIndex();
-    const functionButton = nodeGenerator.getButton(
+    const functionButton = this.nodeGenerator.getButton(
       'button',
       `${index}. ${this._content}`
     );
 
     functionButton.id = this.buttonId;
-    nodeSelector.selectApp().appendChild(functionButton);
+    this.nodeSelector
+      .selectClass(FUNCTION_BUTTON_SECTION_CLASS)
+      .appendChild(functionButton);
   }
 
   getIndex() {

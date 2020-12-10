@@ -1,12 +1,13 @@
-// DOM
-// export const NODES = {
-//   app: document.querySelector('#app'),
-// };
-
 export default class NodeSelector {
-  selectApp() {
-    const app = document.querySelector('#app');
+  selectId(id) {
+    const selected = document.querySelector(`#${id}`);
 
-    return app;
+    return selected;
+  }
+
+  selectClass(className) {
+    const selected = document.querySelector(`.${className}`);
+
+    return selected;
   }
 }

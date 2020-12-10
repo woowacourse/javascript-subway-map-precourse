@@ -3,8 +3,14 @@ export default class NodeGenerator {
     const button = document.createElement('button');
 
     button.type = type;
-    button.innerText = content;
+    button.innerHTML = content;
 
     return button;
+  }
+
+  getSection() {
+    const section = document.createElement('section');
+
+    return section;
   }
 }
