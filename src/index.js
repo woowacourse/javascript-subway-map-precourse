@@ -1,3 +1,5 @@
+import Station from "./station.js";
+
 class ManageSubwayLine {
   constructor() {
     this.resetDisplay();
@@ -35,3 +37,4 @@ class ManageSubwayLine {
 }
 
 new ManageSubwayLine();
+new Station();
