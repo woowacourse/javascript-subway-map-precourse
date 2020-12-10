@@ -52,7 +52,7 @@ export default class SubwayMapView {
   }
 
   handleStationManagerButton() {
-    // this.resetManagerContainer();
+    this.resetManagerContainer();
     this.renderStationManager();
   }
 
@@ -104,8 +104,6 @@ export default class SubwayMapView {
     this.renderStationTable([]);
   }
 
-  renderLineManager() {}
-
   renderStationThead(stationTable) {
     stationTable.innerHTML += `
       <tr>
@@ -141,5 +139,31 @@ export default class SubwayMapView {
     document
       .getElementById('#station-table-container')
       .appendChild(stationTable);
+  }
+
+  renderLineManager() {
+    this.managerContainer.innerHTML = `
+      <p>${message.LINE_NAME}</p>
+    `;
+    this.renderStartStationSelector(
+      Object.entries(this.subwayMapViewModel.getStations()),
+    );
+  }
+
+  renderStartStationSelector(stations) {
+    let selectorOptions = ``;
+
+    stations.forEach(stationId => {
+      selectorOptions += `
+        <option data-id="${stationId[0]}">${stationId[0]}</option>
+      `;
+    });
+
+    this.managerContainer.innerHTML += `
+    <div>
+      <p>${message.START_STATION}</p>
+      <select>${selectorOptions}</select>
+    </div>
+  `;
   }
 }
