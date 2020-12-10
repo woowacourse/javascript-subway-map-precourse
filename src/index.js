@@ -1,5 +1,9 @@
 import Station from "./station.js";
-import { addStationToList, isCorrectStationName } from "./station-manager.js";
+import {
+  addStationToList,
+  isCorrectStationName,
+  isOverlappedStationName,
+} from "./station-manager.js";
 import Line from "./line.js";
 import { addLineToList } from "./line-manager.js";
 import { showLineList } from "./section-manager.js";
@@ -81,7 +85,10 @@ let stationList = [
 ];
 btnAddStation.onclick = () => {
   const newStationName = document.getElementById("station-name-input").value;
-  if (isCorrectStationName(newStationName)) {
+  if (
+    isCorrectStationName(newStationName) === true &&
+    isOverlappedStationName(newStationName) === false
+  ) {
     const station = new Station(newStationName);
     stationList.push(station);
     addStationToList(newStationName);

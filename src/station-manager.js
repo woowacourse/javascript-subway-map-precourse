@@ -1,13 +1,25 @@
 import { manager } from "./index.js";
 
 export const isCorrectStationName = (newStationName) => {
-  const rHangel = /^[a-b가-힣]*$/;
+  const rHangel = /^[0-9A-Za-z가-힣]*$/;
   if (newStationName.length >= 2 && rHangel.exec(newStationName) !== null) {
     return true;
   }
   alert("지하철 역 이름을 두 글자 이상 입력하세요.");
   document.getElementById("station-name-input").value = "";
 
+  return false;
+};
+export const isOverlappedStationName = (newStationName) => {
+  const overlappedName = manager.stationList.find(
+    (station) => station.name === newStationName
+  );
+  if (overlappedName) {
+    alert("중복된 역 이름 입니다.");
+    document.getElementById("station-name-input").value = "";
+
+    return true;
+  }
   return false;
 };
 export const deleteStationInList = (stationName) => {
