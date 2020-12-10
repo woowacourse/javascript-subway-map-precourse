@@ -19,7 +19,7 @@ const addStation = (stationName) => {
   saveStations(stations);
 };
 
-const removeStation = (event) => {
+const stationRemoveClicked = (event) => {
   removeDisplayStation(event);
 };
 
@@ -29,7 +29,7 @@ const activateRemoveStation = () => {
   );
 
   for (let i = 0; i < stationRemoveButton.length; i++) {
-    stationRemoveButton[i].addEventListener("click", removeStation);
+    stationRemoveButton[i].addEventListener("click", stationRemoveClicked);
   }
 };
 
