@@ -1,12 +1,132 @@
 <!DOCTYPE html>
-<html lang="kr">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <title>지하철 노선도 관리</title>
+    <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
     <div id="app">
-      <h1>🚇 지하철 노선도 관리 </h1>
+      <h1>🚇 지하철 노선도 관리</h1>
+      <ul class="manager-button-group">
+        <li>
+          <button id="station-manager-button" data-title="station">
+            1. 역 관리
+          </button>
+        </li>
+        <li>
+          <button id="line-manager-button" data-title="line">
+            2. 노선 관리
+          </button>
+        </li>
+        <li>
+          <button id="section-manager-button" data-title="section">
+            3. 구간 관리
+          </button>
+        </li>
+        <li>
+          <button id="map-print-manager-button" data-title="map-print">
+            4. 지하철 노선도 출력
+          </button>
+        </li>
+      </ul>
+
+      <section>
+        <article
+          id="station-container"
+          class="contents-container"
+          data-title="station"
+        >
+          <form>
+            <label for="station-name-input">역 이름</label>
+            <input
+              type="text"
+              id="station-name-input"
+              placeholder="역 이름을 입력해주세요."
+            />
+            <button type="submit" id="station-add-button">역 추가</button>
+          </form>
+
+          <h2>🚉 지하철 역 목록</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>역 이름</th>
+                <th>설정</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </article>
+
+        <article
+          id="line-container"
+          class="contents-container"
+          data-title="line"
+        >
+          <form>
+            <label for="line-name-input">역 이름</label>
+            <input
+              type="text"
+              id="line-name-input"
+              placeholder="노선 이름을 입력해주세요."
+            />
+
+            <label for="line-start-station-selector">상행 종점</label>
+            <select
+              name="line-start-station"
+              id="line-start-station-selector"
+            ></select>
+
+            <label for="line-end-station-selector">하행 종점</label>
+            <select
+              name="line-end-station"
+              id="line-end-station-selector"
+            ></select>
+
+            <button type="submit" id="line-add-button">노선 추가</button>
+          </form>
+
+          <h2>🚉 지하철 노선 목록</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>노선 이름</th>
+                <th>상행 종점역</th>
+                <th>하행 종점역</th>
+                <th>설정</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </article>
+
+        <article
+          id="section-container"
+          class="contents-container"
+          data-title="section"
+        >
+          <h2>구간을 수정할 노선을 선택해주세요.</h2>
+          <ul id="station-line-button-group"></ul>
+
+          <h2 class="station-line-name"></h2>
+          <h3>구간 등록</h3>
+          <form>
+            <select
+              name="section-station"
+              id="section-station-selector"
+            ></select>
+            <input type="number" id="section-order-input" placeholder="순서" />
+            <button type="submit" id="section-add-button">등록</button>
+          </form>
+        </article>
+
+        <article
+          id="map-print-container"
+          class="contents-container"
+          data-title="map-print"
+        ></article>
+      </section>
     </div>
     <script type="module" src="src/index.js"></script>
   </body>
