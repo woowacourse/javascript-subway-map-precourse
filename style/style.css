@@ -11,6 +11,10 @@ td {
   padding: 0 5px;
 }
 
+select {
+  width: 70px;
+}
+
 .hidden {
   overflow: hidden;
   position: absolute;
