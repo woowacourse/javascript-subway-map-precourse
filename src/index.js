@@ -1,4 +1,4 @@
-import { SubwayMapView } from './views';
+import { SubwayMapLineView, SubwayMapStationView } from './views';
 import { SubwayMapViewModel } from './viewModels';
 import { SubwayMapModel } from './models';
 
@@ -11,10 +11,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const subwayMapModel = new SubwayMapModel();
   const subwayMapViewModel = new SubwayMapViewModel(subwayMapModel);
-  const subwayMapView = new SubwayMapView(
+  const subwayMapStationView = new SubwayMapStationView(
     subwayMapViewModel,
     managerContainer,
     stationManagerButton,
+  );
+  const subwayMapLineView = new SubwayMapLineView(
+    subwayMapViewModel,
+    managerContainer,
     lineManagerButton,
   );
 });
