@@ -4,6 +4,12 @@ class Station {
     this.handleAddNameClick();
   }
 
+  getNameInput = () => {
+    const station = document.getElementById("station-name-input").value;
+
+    return station;
+  };
+
   addStation = () => {
     const name = this.getNameInput();
 
