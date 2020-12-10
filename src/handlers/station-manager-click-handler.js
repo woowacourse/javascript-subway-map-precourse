@@ -22,7 +22,7 @@ const isStationNameInputDuplicate = (input) => {
   return false;
 };
 
-const isValidStationName = (name) => {
+const isStationNameValid = (name) => {
   return (
     isInputStringLengthTwoOrGreater(name) && !isStationNameInputDuplicate(name)
   );
@@ -35,7 +35,7 @@ const stationAddButtonHandler = (e) => {
   );
   const stationNameInputValue = stationNameInputElement.value;
   stationNameInputElement.value = "";
-  if (isValidStationName(stationNameInputValue)) {
+  if (isStationNameValid(stationNameInputValue)) {
     const stationManager = new StationManager();
     stationManager.addStation(stationNameInputValue);
   }
