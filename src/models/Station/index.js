@@ -1,5 +1,5 @@
 export default class Station {
-  constructor(stationObj) {
-    this.name = stationObj.name;
+  constructor(stationObject) {
+    this.stationId = stationObject.stationId;
   }
 }

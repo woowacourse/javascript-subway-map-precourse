@@ -11,13 +11,14 @@ export default class SubwayMapModel {
 
   addRoute(routeObject) {
     const routes = { ...this._routes };
-    routes.routeObj.name = new Route(routeObject);
+    routes.routeObj.routeId = new Route(routeObject);
 
     this._routes = routes;
   }
 
   removeRoute(routeId) {
-    const routes = this._routes.splice(routeId, 1);
+    const routes = { ...this._routes };
+    delete routes[routeId];
 
     this._routes = routes;
   }
@@ -25,4 +26,6 @@ export default class SubwayMapModel {
   selectRoute(routeId) {
     return this._routes[routeId]._stations;
   }
+
+  addStationToRoute(stationObject, routeId, order) {}
 }

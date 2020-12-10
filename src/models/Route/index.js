@@ -1,6 +1,6 @@
 export default class Route {
-  constructor(routeObj) {
-    this.name = routeObj.name;
+  constructor(routeObject) {
+    this.routeId = routeObject.routeId;
     this._stations = [];
   }
 
