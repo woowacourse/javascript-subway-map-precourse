@@ -1,21 +1,18 @@
+import { DOMs, DOMCtrl } from './doms.js';
+
 export default class SubwayManager {
   constructor() {
     this.setEventListeners();
   }
 
   setEventListeners() {
-    const stationManagerButton = document.getElementById('station-manager-button');
-    stationManagerButton.addEventListener('click', this.openStationManager);
-    const lineManagerButton = document.getElementById('line-manager-button');
-    lineManagerButton.addEventListener('click', this.openLineManager);
-    const sectionManagerButton = document.getElementById('section-manager-button');
-    sectionManagerButton.addEventListener('click', this.openSectionManager);
-    const mapPrintManagerButton = document.getElementById('map-print-manager-button');
-    mapPrintManagerButton.addEventListener('click', this.openMapPrintManager);
+    DOMs.stationManagerButton.addEventListener('click', this.openStationManager);
+    DOMs.lineManagerButton.addEventListener('click', this.openLineManager);
+    DOMs.sectionManagerButton.addEventListener('click', this.openSectionManager);
+    DOMs.mapPrintManagerButton.addEventListener('click', this.openMapPrintManager);
   }
 
   openStationManager() {
-    const managerContainer = document.getElementById('manager-container');
     const stationManager = `
       <div id="station-manager">
         <p>역 이름</p>
@@ -25,12 +22,11 @@ export default class SubwayManager {
         <table id="station-list"></table>
       </div>
     `;
-    managerContainer.innerHTML = '';
-    managerContainer.innerHTML = stationManager;
+    DOMCtrl.clearManagerContainer();
+    DOMs.managerContainer.innerHTML = stationManager;
   }
 
   openLineManager() {
-    const managerContainer = document.getElementById('manager-container');
     const lineManager = `
       <div id="line-manager">
         <p>노선 이름</p>
@@ -49,12 +45,11 @@ export default class SubwayManager {
         <table id="line-list"></table>
       </div>
     `;
-    managerContainer.innerHTML = '';
-    managerContainer.innerHTML = lineManager;
+    DOMCtrl.clearManagerContainer();
+    DOMs.managerContainer.innerHTML = lineManager;
   }
 
   openSectionManager() {
-    const managerContainer = document.getElementById('manager-container');
     const sectionManager = `
       <div id="section-manager">
         <h2>구간을 수정할 노선을 선택해주세요.</h2>
@@ -65,17 +60,16 @@ export default class SubwayManager {
         -->
       </div>
     `;
-    managerContainer.innerHTML = '';
-    managerContainer.innerHTML = sectionManager;
+    DOMCtrl.clearManagerContainer();
+    DOMs.managerContainer.innerHTML = sectionManager;
   }
 
   openMapPrintManager() {
-    const managerContainer = document.getElementById('manager-container');
     const mapPrintManager = `
       <div id="map-print-manager"></div>
     `;
-    managerContainer.innerHTML = '';
-    managerContainer.innerHTML = mapPrintManager;
+    DOMCtrl.clearManagerContainer();
+    DOMs.managerContainer.innerHTML = mapPrintManager;
   }
 }
 
