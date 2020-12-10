@@ -1,9 +1,11 @@
+import SubwayLine from './line.js';
 import { DOMs, DOMCtrl } from './doms.js';
 import { isValidStationName } from './valid.js';
 
 export default class SubwayManager {
   constructor() {
     this.stations = [];
+    this.lines = [];
 
     this.setEventListeners();
     this.loadData();
@@ -11,11 +13,12 @@ export default class SubwayManager {
 
   setEventListeners() {
     DOMs.stationManagerButton.addEventListener('click', this.openStationManager.bind(this));
-    DOMs.lineManagerButton.addEventListener('click', this.openLineManager);
+    DOMs.lineManagerButton.addEventListener('click', this.openLineManager.bind(this));
     DOMs.sectionManagerButton.addEventListener('click', this.openSectionManager);
     DOMs.mapPrintManagerButton.addEventListener('click', this.openMapPrintManager);
     DOMs.managerContainer.addEventListener('click', this.addStation.bind(this));
     DOMs.managerContainer.addEventListener('click', this.deleteStation.bind(this));
+    DOMs.managerContainer.addEventListener('click', this.addLine.bind(this));
   }
 
   loadData() {
@@ -24,23 +27,15 @@ export default class SubwayManager {
 
   openStationManager() {
     const stationManager = `
-      <div id="station-manager">
-        <br><span>역 이름</span><br>
-        <input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요."/>
-        <button id="station-add-button">역 추가</button>
-        <h1>🚉 지하철 역 목록</h1>
-        <table id="station-list">
-          <tr>
-            <th><b>역 이름</b></th>
-            <th><b>설정</b></th>
-          </tr>
-          ${this.stations
-            .map(station => {
-              return `<tr><td>${station}</td><td><button class="station-delete-button" data-station="${station}">삭제</button></td></tr>`;
-            })
-            .join('')}
-        </table>
-      </div>
+      <div id="station-manager"><br><span>역 이름</span><br><input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요."/>
+      <button id="station-add-button">역 추가</button><h1>🚉 지하철 역 목록</h1><table id="station-list"><tr><th><b>역 이름</b></th>
+      <th><b>설정</b></th></tr>${this.stations
+        .map(
+          station =>
+            `<tr><td>${station}</td><td><button class="station-delete-button" data-station="${station}">삭제</button></td></tr>`
+        )
+        .join('')}
+        </table></div>
     `;
     DOMCtrl.clearManagerContainer();
     DOMs.managerContainer.innerHTML = stationManager;
@@ -49,18 +44,20 @@ export default class SubwayManager {
   openLineManager() {
     const lineManager = `
       <div id="line-manager">
-        <p>노선 이름</p>
+        <br><span>노선 이름</span><br>
         <input type="text" id="line-name-input" placeholder="노선 이름을 입력해주세요." />
-        <p>상행 종점
-          <select id="line-start-station-selector"></select>
-        </p>
-          <!-- 추가된 역 목록 -->
-        <p>하행 종점
-          <select id="line-end-station-selector"></select>
-        </p>
-          <!-- 추가된 역 목록 -->
-        <br>
-        <button id="line-add-button">노선 추가</button>
+        <br><br><span>상행 종점
+          <select id="line-start-station-selector">
+          ${this.stations.map(station => `<option>${station}</option>`).join('')}
+          </select>
+        </span><br>
+          
+        <span>하행 종점
+          <select id="line-end-station-selector">
+          ${this.stations.map(station => `<option>${station}</option>`).join('')}
+          </select>
+        </span><br>
+        <br><button id="line-add-button">노선 추가</button>
         <h1>🚉 지하철 노선 목록</h1>
         <table id="line-list"></table>
       </div>
@@ -107,6 +104,7 @@ export default class SubwayManager {
   }
 
   deleteStation(event) {
+    // 노선에 등록된 역은 삭제할 수 없음(구현 예정)
     const {
       target: { className },
     } = event;
@@ -116,6 +114,20 @@ export default class SubwayManager {
       this.stations.splice(index, 1);
       localStorage.setItem('stations', JSON.stringify(this.stations));
       this.openStationManager();
+    }
+  }
+
+  addLine(event) {
+    const {
+      target: { id },
+    } = event;
+    if (id === 'line-add-button') {
+      const lineName = document.getElementById('line-name-input').value;
+      const startStation = document.getElementById('line-start-station-selector').value;
+      const endStation = document.getElementById('line-end-station-selector').value;
+      this.lines.push(new SubwayLine(lineName, startStation, endStation));
+      localStorage.setItem('lines', JSON.stringify(this.lines));
+      this.openLineManager();
     }
   }
 }
