@@ -34,7 +34,7 @@ export default {
         <td>${line.start}</td>
         <td>${line.end}</td>
         <td>
-          <button>삭제</button>
+          <button data-name="${line.name}">삭제</button>
         </td>
       </tr>
     `, '');
@@ -43,6 +43,7 @@ export default {
 
   bindEvents() {
     this.query("#line-add-button").addEventListener('click', this.onClickAdd.bind(this));
+    this.query('tbody').addEventListener('click', this.onClickRemove.bind(this));
   },
 
   onClickAdd() {
@@ -60,6 +61,15 @@ export default {
       alert(error.message);
     }
 
+    this.clearForm();
+    this.renderList();
+  },
+
+  onClickRemove(e) {
+    if (e.target.tagName !== "BUTTON") return false;
+    const name = e.target.dataset.name;
+
+    Line.remove(name);
     this.clearForm();
     this.renderList();
   },

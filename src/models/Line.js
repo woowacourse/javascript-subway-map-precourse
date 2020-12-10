@@ -31,5 +31,9 @@ export default {
     }
 
     this.data = [...this.data, new Line(name, start, end)]
+  },
+
+  remove(name) {
+    this.data = this.data.filter(line => line.name !== name);
   }
 }
