@@ -18,18 +18,17 @@ export const showStationList = (allStationName) => {
   });
 };
 export const onClickedLine = (lineName) => {
-  const targetLineName = lineName;
-  const selectedLineElement = document.getElementById("selected-section-line");
-  selectedLineElement.style.display = "Block";
+  const selectedLineName = lineName;
+  const selectedLineBox = document.getElementById("selected-section-line");
+  selectedLineBox.style.display = "Block";
   const sectionManagerTitle = document.getElementById("section-line-name");
-  sectionManagerTitle.innerHTML = `${targetLineName} 관리`;
+  sectionManagerTitle.innerHTML = `${selectedLineName} 관리`;
 
   makeStationOption(manager.stationList, "section-station-selector");
-  manager.lineList.forEach((line) => {
-    if (line.name === targetLineName) {
-      manager.setSelectedLine(line);
-    }
-  });
+  const selectedLine = manager.lineList.find(
+    (line) => line.name === selectedLineName
+  );
+  manager.setSelectedLine(selectedLine);
   showStationList(manager.getSelectedLine().getAllStationName());
 };
 export const makeLineButton = (line) => {
