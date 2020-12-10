@@ -27,7 +27,7 @@ export default {
 
   bindEvents() {
     this.query('#station-add-button').addEventListener('click', this.onClickAdd.bind(this));
-    this.query('tbody').addEventListener('click', this.onClickRemove);
+    this.query('tbody').addEventListener('click', this.onClickRemove.bind(this));
   },
 
   onClickAdd() {
@@ -51,5 +51,9 @@ export default {
   onClickRemove(e) {
     if (e.target.tagName !== 'BUTTON') return false;
     if (!confirm('삭제하시겠습니까?')) return false;
+
+    const name = e.target.dataset.name;
+    Station.remove(name);
+    this.render();
   }
 }
