@@ -1,9 +1,9 @@
-import StationManager from "./station-manager.js";
+import StationManager from "../station-manager.js";
 import { getChildById } from "./custom-dom-handler.js";
 import {
   MENU_BUTTONS_ID,
   MANAGER_PAGES_ID,
-} from "./html-constants/html-id-values.js";
+} from "../html-constants/html-id-values.js";
 
 const showManagerPageById = (container, id) => {
   Object.values(MANAGER_PAGES_ID).forEach((_pageId) => {
