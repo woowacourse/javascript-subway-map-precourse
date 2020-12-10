@@ -7,7 +7,8 @@ class Line {
   }
 
   addSectionTo(stationName, idx) {
-    this.stations = [...this.stations].splice(idx, 0, stationName);
+    this.stations = [...this.stations]
+    this.stations.splice(idx, 0, stationName);
   }
 }
 
