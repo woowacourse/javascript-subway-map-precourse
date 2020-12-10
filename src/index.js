@@ -15,6 +15,7 @@ export default class SubwayManager {
     DOMs.sectionManagerButton.addEventListener('click', this.openSectionManager);
     DOMs.mapPrintManagerButton.addEventListener('click', this.openMapPrintManager);
     DOMs.managerContainer.addEventListener('click', this.addStation.bind(this));
+    DOMs.managerContainer.addEventListener('click', this.deleteStation.bind(this));
   }
 
   loadData() {
@@ -35,7 +36,7 @@ export default class SubwayManager {
           </tr>
           ${this.stations
             .map(station => {
-              return `<tr><td>${station}</td><td><button class="station-delete-button">삭제</button></td></tr>`;
+              return `<tr><td>${station}</td><td><button class="station-delete-button" data-station="${station}">삭제</button></td></tr>`;
             })
             .join('')}
         </table>
@@ -102,6 +103,19 @@ export default class SubwayManager {
         localStorage.setItem('stations', JSON.stringify(this.stations));
         this.openStationManager();
       }
+    }
+  }
+
+  deleteStation(event) {
+    const {
+      target: { className },
+    } = event;
+    if (className === 'station-delete-button') {
+      const stationName = event.target.dataset['station'];
+      const index = this.stations.indexOf(stationName);
+      this.stations.splice(index, 1);
+      localStorage.setItem('stations', JSON.stringify(this.stations));
+      this.openStationManager();
     }
   }
 }
