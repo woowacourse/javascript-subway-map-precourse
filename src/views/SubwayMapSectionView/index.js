@@ -1,10 +1,18 @@
 export default class SubwayMapSectionView {
-  constructor(subwayMapViewModel) {
+  constructor(subwayMapViewModel, managerContainer, sectionManagerButton) {
     this.subwayMapViewModel = subwayMapViewModel;
     this.managerContainer = managerContainer;
+    this.sectionManagerButton = sectionManagerButton;
+
+    this.addEventListenerToSectionManagerButton(this);
   }
 
-  addEventListenerToSectionManagerButton() {}
+  addEventListenerToSectionManagerButton(self) {
+    this.sectionManagerButton.addEventListener(
+      'click',
+      this.handleSectionManagerButton.bind(self),
+    );
+  }
 
   handleSectionManagerButton() {
     this.resetManagerContainer();
