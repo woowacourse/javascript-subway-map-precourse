@@ -1,46 +1,36 @@
-import NodeGenerator from '../../generator/node_generator.js';
-import NodeSelector from '../../selector/node_selector.js';
+import { nodeGenerator, nodeSelector } from '../../object/object.js';
 import StationManagerRenderer from '../function_renderer/station_manager_renderer.js';
-import {
-  FUNCTION_SECTION_CLASS,
-  FUNCTION_BUTTON_SECTION_CLASS,
-  APP_ID,
-} from '../../../library/constant/constant.js';
+import { NODES } from '../../../library/constant/constant.js';
+
+const functionRenderers = [new StationManagerRenderer()];
 
 export default class AppRenderer {
   constructor() {
-    this.nodeGenerator = new NodeGenerator();
-    this.NodeSelector = new NodeSelector();
-
+    this.functionRenderers = functionRenderers;
     this.renderApp();
   }
 
   renderApp() {
     this.renderFunctionSection();
+    this.renderFunctions();
   }
 
   renderFunctionSection() {
-    const functionSection = this.nodeGenerator.getSection();
-    const functionButtonSection = this.nodeGenerator.getSection();
+    const functionSection = nodeGenerator.getSection();
+    const functionButtonSection = nodeGenerator.getSection();
 
-    functionButtonSection.className = FUNCTION_BUTTON_SECTION_CLASS;
+    functionButtonSection.className = NODES.FUNCTION_BUTTON_SECTION;
     functionSection.appendChild(functionButtonSection);
-    functionSection.className = FUNCTION_SECTION_CLASS;
-    this.NodeSelector.selectId(APP_ID).appendChild(functionSection);
+    functionSection.className = NODES.FUNCTION_SECTION;
+    nodeSelector.selectId(NODES.APP).appendChild(functionSection);
     this.renderFunctionButtons();
   }
 
   renderFunctionButtons() {
-    const functionRenderers = this.getFunctionRenderers();
-
-    functionRenderers.forEach(renderer => renderer.renderFuctionButton());
+    this.functionRenderers.forEach(renderer => renderer.renderFuctionButton());
   }
 
-  getFunctionRenderers() {
-    const functionRenderers = [];
-
-    functionRenderers.push(new StationManagerRenderer());
-
-    return functionRenderers;
+  renderFunctions() {
+    this.functionRenderers.forEach(renderer => renderer.renderFunction());
   }
 }
