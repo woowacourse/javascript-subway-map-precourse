@@ -11,18 +11,26 @@ class SectionViewEventDelegation {
     let dataSet = event.target.dataset;
 
     if (dataSet.purpose) {
-      this[dataSet.purpose](dataSet.id);
+      this[dataSet.purpose](dataSet);
     }
   }
 
-  selectLine(id) {
+  selectLine(dataSet) {
     this.sectionView.renderSelectedLineSectionManager(
-      this.subwayMapViewModel.getLine(id),
+      this.subwayMapViewModel.getLine(dataSet.id),
     );
-    console.log(this.subwayMapViewModel.getLine(id));
   }
 
-  addSection() {}
+  addSection(dataSet) {
+    const sectionId = document.getElementById('#section-station-selector')[
+      document.getElementById('#section-station-selector').selectedIndex
+    ].dataset.id;
+    const sectionOrder = parseInt(
+      document.getElementById('#section-order-input').value,
+    );
+
+    this.subwayMapViewModel.addSection(sectionId, dataSet.lineid, sectionOrder);
+  }
 }
 
 export default class SubwayMapSectionView {
@@ -81,9 +89,11 @@ export default class SubwayMapSectionView {
   }
 
   renderSelectedLineSectionManager(line) {
-    const sectionSelector = this.renderSectionSelector(line.getStations());
+    const sectionSelector = this.renderSectionSelector(
+      Object.entries(this.subwayMapViewModel.getStations()),
+    );
     const sectionOrderInput = `<input id="#section-order-input"></input>`;
-    const sectionAddButton = `<button id="#section-add-button" data-purpose="addSection>${message.ADD}</button>`;
+    const sectionAddButton = `<button id="#section-add-button" data-lineid="${line.lineId}" data-purpose="addSection">${message.ADD}</button>`;
     this.managerContainer.innerHTML += `
       <div id="#section-selected-line-manager-container">
         <h3>${line.lineId} ${message.LINE_MANAGING}</h3>
@@ -93,6 +103,11 @@ export default class SubwayMapSectionView {
         ${sectionAddButton}
       </div>
     `;
+    new SectionViewEventDelegation(
+      document.getElementById('#section-selected-line-manager-container'),
+      this,
+      this.subwayMapViewModel,
+    );
   }
 
   renderSectionSelector(sections) {
@@ -100,7 +115,7 @@ export default class SubwayMapSectionView {
 
     sections.forEach(section => {
       selectorOptions += `
-        <option data-id="${section}">${section}</option>
+        <option data-id="${section[0]}">${section[0]}</option>
       `;
     });
 

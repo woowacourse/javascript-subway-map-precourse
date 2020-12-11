@@ -3,28 +3,28 @@ import { Station } from '..';
 export default class Line {
   constructor(lineObject) {
     this.lineId = lineObject.lineId;
-    this.stations = [lineObject.startStation, lineObject.endStation];
+    this.sections = [
+      new Station(lineObject.startStation),
+      new Station(lineObject.endStation),
+    ];
     this.startStation = lineObject.startStation;
     this.endStation = lineObject.endStation;
   }
 
-  getStations() {
-    return [...this.stations];
+  getsections() {
+    return [...this.sections];
   }
 
-  addSection(stationObject, order) {
-    const stations = [...this.stations].splice(
-      order,
-      0,
-      new Station(stationObject),
-    );
+  addSection(sectionId, order) {
+    const sections = [...this.sections];
+    sections.splice(order, 0, new Station(sectionId));
 
-    this.stations = stations;
+    this.sections = sections;
   }
 
-  removeStation(order) {
-    const stations = [...this.stations].splice(order, 1);
+  removeSection(order) {
+    const sections = [...this.sections].splice(order, 1);
 
-    this.stations = stations;
+    this.sections = sections;
   }
 }

@@ -150,7 +150,6 @@ export default class SubwayMapLineView {
   }
 
   renderLineTbody(lines) {
-    console.log(lines);
     let lineTbody = ``;
     lines.forEach(line => {
       lineTbody += `

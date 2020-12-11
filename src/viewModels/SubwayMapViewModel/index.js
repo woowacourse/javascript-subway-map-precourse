@@ -27,7 +27,11 @@ export default class SubwayMapViewModel {
     this.subwayMapModel.addLine(lineObject);
   }
 
-  addSection(sectionObject, lineId, order) {
-    this.subwayMapModel.addSectionToline(sectionObject, lineId, order);
+  addSection(sectionId, lineId, order) {
+    this.subwayMapModel.addSectionToLine(sectionId, lineId, order);
+  }
+
+  getSections(lineId) {
+    return this.subwayMapModel.getsectionsFromLine(lineId);
   }
 }

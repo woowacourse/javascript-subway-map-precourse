@@ -2,59 +2,63 @@ import { Line } from '../../models';
 
 export default class SubwayMapModel {
   constructor() {
-    this._lines = {};
-    this._stations = {};
+    this.lines = {};
+    this.stations = {};
   }
 
   getStations() {
-    return { ...this._stations };
+    return { ...this.stations };
   }
 
   addStation(stationId) {
-    const stations = { ...this._stations };
+    const stations = { ...this.stations };
     stations[stationId] = stationId;
 
-    this._stations = stations;
+    this.stations = stations;
   }
 
   deleteStation(stationId) {
-    const stations = { ...this._stations };
+    const stations = { ...this.stations };
     delete stations[stationId];
 
-    this._stations = stations;
+    this.stations = stations;
   }
 
   getLines() {
-    return { ...this._lines };
+    return { ...this.lines };
   }
 
   getLine(lineId) {
-    return this._lines[lineId];
+    return this.lines[lineId];
   }
 
   addLine(lineObject) {
-    const lines = { ...this._lines };
+    const lines = { ...this.lines };
     lines[lineObject.lineId] = new Line(lineObject);
 
-    this._lines = lines;
+    this.lines = lines;
   }
 
   removeLine(lineId) {
-    const lines = { ...this._lines };
+    const lines = { ...this.lines };
     delete lines[lineId];
 
-    this._lines = lines;
+    this.lines = lines;
   }
 
   selectline(lineId) {
-    return this._lines[lineId].getStations();
+    return this.lines[lineId].getsections();
   }
 
-  addSectionToline(sectionObject, lineId, order) {
-    this._lines[lineId].addSection(sectionObject, order);
+  addSectionToLine(sectionId, lineId, order) {
+    this.lines[lineId].addSection(sectionId, order);
   }
 
-  removeSectionFromline(lineId, order) {
-    this._lines[lineId].removeStation(order);
+  getsectionsFromLine(lineId) {
+    return this.lines[lineId].getsections();
+  }
+
+  removeSectionFromLine(lineId, order) {
+    this.lines[lineId].removeSection(order);
   }
 }
