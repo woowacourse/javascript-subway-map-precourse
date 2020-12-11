@@ -2,6 +2,7 @@ import { STATION_LIST, MIN_STATION_NAME_LENGTH } from "../constant/constant.js";
 import {
   INVALID_NAME_LENGTH_ALERT,
   SAVED_STATION_ALERT,
+  STATION_IN_LINE_ALERT,
 } from "../constant/message.js";
 
 export default class Station {
@@ -15,6 +16,14 @@ export default class Station {
     );
 
     return savedStation.length !== 0;
+  };
+
+  _isStationInLine = name => {
+    const station = this._stationList.filter(
+      station => station.name === name
+    )[0];
+
+    return station.line.length !== 0;
   };
 
   _setStationList = stationList => {
@@ -57,5 +66,19 @@ export default class Station {
 
   getStationList = () => {
     return this._stationList;
+  };
+
+  deleteStation = name => {
+    if (this._isStationInLine(name)) {
+      alert(STATION_IN_LINE_ALERT);
+
+      return;
+    }
+
+    const newStationList = this._stationList.filter(
+      station => station.name !== name
+    );
+    this._stationList = newStationList;
+    this._setStationList(newStationList);
   };
 }
