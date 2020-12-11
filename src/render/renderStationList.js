@@ -7,27 +7,39 @@ function stationListContainerTemplate() {
             </table>`;
 }
 
-function stationListTemplate(station) {
-  return `<tr class="station-table-child">
-              <td>${station}</td>
-              <td><button class="station-delete-button">삭제</button></td>
-          </tr>`;
-}
-
-function initStationList() {
+function initStationListContainer() {
   const $stationTableContainer = document.querySelector(
     '.station-table-container',
   );
   $stationTableContainer.innerHTML = stationListContainerTemplate();
 }
 
-export default function renderStationList() {
-  initStationList();
-  const $stationTable = document.querySelector('.station-table');
-  const stations = JSON.parse(localStorage.getItem('stations')).toString();
-  const stationList = stations.split(' ');
+function stationListTemplate(station) {
+  return `<tr class="station-table-child">
+            <td>${station}</td>
+            <td><button class="station-delete-button">삭제</button></td>
+          </tr>`;
+}
 
-  stationList.forEach((station) =>
-    $stationTable.insertAdjacentHTML('beforeend', stationListTemplate(station)),
-  );
+function initStationList(stations) {
+  const $stationTable = document.querySelector('.station-table');
+
+  stations
+    .split(' ')
+    .forEach((station) =>
+      $stationTable.insertAdjacentHTML(
+        'beforeend',
+        stationListTemplate(station),
+      ),
+    );
+}
+
+export default function renderStationList() {
+  initStationListContainer();
+
+  const stations = JSON.parse(String(localStorage.getItem('stations')));
+
+  if (stations !== null) {
+    initStationList(stations);
+  }
 }
