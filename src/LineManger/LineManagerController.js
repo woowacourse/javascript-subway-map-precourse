@@ -16,10 +16,14 @@ export default class LineManagerController {
   }
 
   static addButtonClicked() {
-
+    const line = document.getElementById('line-name-input').value;
+    if (!LineManagerModel.isValidName(line)) {
+      alert('error');
+      LineManagerView.lineInputView();
+    };
   }
 
   static deleteButtonClicked() {
-    
+
   }
 }
