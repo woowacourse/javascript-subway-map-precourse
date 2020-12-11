@@ -1,7 +1,7 @@
 import Subway from '../index.js';
 import UserException from '../../util/userException.js';
 import { ID, CLASS, NAME, ALERT } from '../../constants/index.js';
-import { stationManagerTemplate } from '../../view/template.js';
+import { stationManagerTemplate, stationTableTemplate } from '../../view/template.js';
 
 export default class Station {
   userException = new UserException();
@@ -26,10 +26,8 @@ export default class Station {
   init($target, $functionButtonContainer) {
     this.createStationManagerButton($functionButtonContainer);
     this.createStationManager($target);
-    this.render();
     this.handleStationManagerButton();
     this.handleStationAddButton();
-    this.handleStationDeleteButton();
   }
 
   createStationManagerButton($functionButtonContainer) {
@@ -43,14 +41,27 @@ export default class Station {
   createStationManager($target) {
     const stationManager = document.createElement('div');
 
-    stationManager.id = `${ID.STATION_MANAGER}`;
+    stationManager.id = ID.STATION_MANAGER;
     stationManager.style.display = 'none';
+    stationManager.innerHTML = stationManagerTemplate();
     $target.appendChild(stationManager);
+
+    this.createStationTable(stationManager);
+  }
+
+  createStationTable(stationManager) {
+    const stationTable = document.createElement('div');
+
+    stationTable.id = ID.STATION_TABLE;
+    stationManager.appendChild(stationTable);
+    this.render();
   }
 
   render() {
-    const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
-    stationManager.innerHTML = stationManagerTemplate(this.subways);
+    const stationManager = document.querySelector(`#${ID.STATION_TABLE}`);
+
+    stationManager.innerHTML = stationTableTemplate(this.subways);
+    this.handleStationDeleteButton();
   }
 
   handleStationManagerButton() {
@@ -83,7 +94,6 @@ export default class Station {
     } else {
       this.saveStation(stationName);
       this.render();
-      this.handleStationAddButton();
       this.handleStationDeleteButton();
     }
   }
@@ -102,6 +112,7 @@ export default class Station {
 
   handleStationDeleteButton() {
     const deleteStationButton = document.querySelectorAll(`.${CLASS.STATION_DELETE_BUTTON}`);
+
     deleteStationButton.forEach((button) => {
       button.addEventListener('click', (event) => {
         this.deleteStation(event);
@@ -111,9 +122,7 @@ export default class Station {
 
   deleteStation(event) {
     this.subways.splice(event.target.parentNode.dataset.index, 1);
-    this.render();
     localStorage.setItem(NAME.LOCALSTORAGE_KEY, JSON.stringify(this.subways));
+    this.render();
   }
 }
-
-// TODO: render template 바꾸기

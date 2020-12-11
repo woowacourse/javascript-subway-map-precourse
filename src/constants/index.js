@@ -1,6 +1,7 @@
 export const ID = {
   STATION_MANAGER_BUTTON: 'station-manager-button',
   STATION_MANAGER: 'station-manager',
+  STATION_TABLE: 'station-table',
   STATION_NAME_INPUT: 'station-name-input',
   STATION_ADD_BUTTON: 'station-add-button',
 };
