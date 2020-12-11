@@ -47,4 +47,8 @@ export default class LineManagerView {
       </tr>`).join('')}
     </table>`;
   }
+
+  static confirmDelete() {
+    return window.confirm('정말로 삭제 하시겠습니까?');
+  }
 }

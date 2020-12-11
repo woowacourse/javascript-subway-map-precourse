@@ -1,5 +1,6 @@
 import LineManagerView from './LineManagerView.js';
 import LineManagerModel from './LineManagerModel.js';
+import StationManagerView from '../StationManger/StationManagerView.js';
 
 export default class LineManagerController {
   static buttonEventController() {
@@ -33,7 +34,7 @@ export default class LineManagerController {
     const buttons = document.getElementsByClassName('line-delete-button');
     const buttonsArray = Array.from(buttons);
     const line = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
-    if (LineManagerModel.isInLines(line)) {
+    if (LineManagerModel.isInLines(line) && StationManagerView.confirmDelete()) {
       LineManagerModel.delete(line);
       LineManagerView.lineTableView();
     }
