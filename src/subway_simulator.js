@@ -1,7 +1,6 @@
-import { getLocalStorageData } from "./utils.js";
-const SubwaySimulator = function () {
-  const resultDIV = document.getElementById("result");
+import { getLocalStorageData, resultDIV } from "./utils.js";
 
+const SubwaySimulator = function () {
   const [stations, lines] = getLocalStorageData();
   this.stations = stations;
   this.lines = lines;
