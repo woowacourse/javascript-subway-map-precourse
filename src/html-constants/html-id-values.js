@@ -28,3 +28,8 @@ export const SELECTORS_ID = {
   lineStartStation: "line-start-station-selector",
   lineEndStation: "line-end-station-selector",
 };
+
+export const SECTION_MANAGER_CONTAINERS_ID = {
+  lineSelectButtons: "line-select-buttons",
+  selectedLineManager: "selected-line-manager",
+};
