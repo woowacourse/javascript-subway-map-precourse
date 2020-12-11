@@ -22,6 +22,7 @@ export default class StationManagerUI {
       innerHTMLOfTable += this.createNewTableRowHTML_(name);
     }
     tableContainer.innerHTML = innerHTMLOfTable;
+    this.addEventToAllTableDeleteButton_();
   }
 
   addEventToNameInputButton_() {
@@ -44,12 +45,23 @@ export default class StationManagerUI {
       this.updateStationsTable();
     });
   }
+  addEventToAllTableDeleteButton_() {
+    const deleteButtons = this.contentsContainer_.querySelectorAll(
+      "." + STATION_DELETE_BUTTON_CLASS
+    );
+    Array.prototype.forEach.call(deleteButtons, (deleteButton) => {
+      deleteButton.addEventListener("click", (e) => {
+        this.stationINFOManager_.deleteStation(e.target.dataset.name);
+        this.updateStationsTable();
+      });
+    });
+  }
   createNewTableRowHTML_(name) {
     const newTableRow = `
     <tr>
       <td>${name}</td>
       <td>
-        <button class="${STATION_DELETE_BUTTON_CLASS}">삭제</button>
+        <button class="${STATION_DELETE_BUTTON_CLASS}" data-name="${name}">삭제</button>
       </td>
     </tr>
     `;
