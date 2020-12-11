@@ -8,6 +8,7 @@ import {
 import {
   MENU_BUTTONS_ID,
   MANAGER_PAGES_ID,
+  SECTION_MANAGER_CONTAINERS_ID,
 } from "../html-constants/html-id-values.js";
 
 const showManagerPageById = (container, id) => {
@@ -50,6 +51,34 @@ const setStartStationSelector = (appContainer) => {
   $startStationSelector.onchange = () => setEndStationSelector(appContainer);
 };
 
+const fillLineSelectButtons = ($lineSelectButtons, lineList) => {
+  $lineSelectButtons.innerHTML = lineList
+    .map((_line, _index) => {
+      return `<button data-line-select-index=${_index}>${_line.name}</button>`;
+    })
+    .join("");
+};
+
+const renderLineSelectButtons = ($sectionManager) => {
+  const $lineSelectButtons = getChildById(
+    $sectionManager,
+    SECTION_MANAGER_CONTAINERS_ID.lineSelectButtons
+  );
+  const lineList = new LineManager().lineList;
+  if (lineList.length === 0) {
+    $lineSelectButtons.innerHTML = "노선이 존재하지 않습니다.";
+  } else {
+    fillLineSelectButtons($lineSelectButtons, lineList);
+  }
+};
+
+const emptySelectedLineManager = ($sectionManager) => {
+  getChildById(
+    $sectionManager,
+    SECTION_MANAGER_CONTAINERS_ID.selectedLineManager
+  ).innerHTML = "";
+};
+
 const showStationManagerPage = (appContainer) => {
   showManagerPageById(appContainer, MANAGER_PAGES_ID.stationManager);
   new StationManager().renderStationNameTable();
@@ -61,6 +90,16 @@ const showLineManagerPage = (appContainer) => {
   new LineManager().renderLineNameTable();
 };
 
+const showSectionManagerPage = (appContainer) => {
+  showManagerPageById(appContainer, MANAGER_PAGES_ID.sectionManager);
+  const $sectionManager = getChildById(
+    appContainer,
+    MANAGER_PAGES_ID.sectionManager
+  );
+  renderLineSelectButtons($sectionManager);
+  emptySelectedLineManager($sectionManager);
+};
+
 export default function menuButtonHandler(e) {
   const app = e.target.closest("#app");
   const id = e.target.id;
@@ -69,7 +108,7 @@ export default function menuButtonHandler(e) {
   } else if (id === MENU_BUTTONS_ID.lineManagerButton) {
     showLineManagerPage(app);
   } else if (id === MENU_BUTTONS_ID.sectionManagerButton) {
-    showManagerPageById(app, MANAGER_PAGES_ID.sectionManager);
+    showSectionManagerPage(app);
   } else if (id === MENU_BUTTONS_ID.mapPrintManagerButton) {
     showManagerPageById(app, MANAGER_PAGES_ID.mapPrintManager);
   }
