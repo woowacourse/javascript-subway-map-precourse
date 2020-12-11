@@ -36,4 +36,8 @@ export default class StationManagerView {
       </tr>`).join('')}
     </table>`;
   }
+
+  static alertNameError() {
+    alert('invalid Error');
+  }
 }
