@@ -6,7 +6,7 @@
 
 ### localStorage
 
-- localStorage를 사용해 새로고침하더라도 이전에 작업한 정보를 불러온다.
+- ✔ localStorage를 사용해 새로고침하더라도 이전에 작업한 정보를 불러온다.
 
 ### data
 
