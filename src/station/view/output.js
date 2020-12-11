@@ -1,14 +1,24 @@
+import Model from '/src/model/model.js';
+
 export default class StationOutput {
 	constructor() {
-		this.showStations();
+		this.showStationTable();
 	}
 
-	showStations = () => {
-		const stationData = JSON.parse(localStorage.getItem('station-data'));
+	showStationTable = () => {
+		this.clearStationTable();
+
+		const stationData = new Model().getStationStorageData();
 		const stationContainer = document.getElementById('station-container');
-		const stationTable = document.createElement('table');
+		const stationTable = this.createStationTable(stationData);
+
 		stationContainer.appendChild(stationTable);
-		stationTable.innerHTML += 
+	}
+
+	createStationTable = stationData => {
+		const stationTable = document.createElement('table');
+		stationTable.setAttribute('id', 'station-table');
+		stationTable.innerHTML = 
 		`
 		<tr>
 			<th>역 이름</th>
@@ -19,11 +29,20 @@ export default class StationOutput {
 		for (let data of stationData) {
 			stationTable.innerHTML += 
 			`
-			<tr>
+			<tr data-name="${data.stationName}">
 				<td>${data.stationName}</td>
 				<td><button class="station-delete-button">삭제</button>
 			</tr>
 			`;
+		}		
+		return stationTable;
+	}
+
+	clearStationTable = () => {
+		const stationTable = document.getElementById('station-table');
+		
+		if (stationTable != null) {
+			stationTable.remove();
 		}
 	}
 }
