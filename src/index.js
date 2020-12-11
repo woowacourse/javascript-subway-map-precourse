@@ -18,7 +18,7 @@ export function onChangeScreen(e) {
 }
 
 export function onAddStation() {
-  if (isInputValid($stationAddInput.value)) {
+  if (isInputValid($stationAddInput.value, stationInstance.stations)) {
     setLocalStorage('station', $stationAddInput.value);
     stationInstance.addStation($stationAddInput.value);
     addStationScreen($stationAddInput.value);
