@@ -12,6 +12,15 @@ class Navigator extends Component {
     this.render();
   }
 
+  render() {
+    this._$target.innerHTML = `
+      <button id="station-manager-button">1. 역 관리</button>
+      <button id="line-manager-button">2. 노선 관리</button>
+      <button id="section-manager-button">3. 구간 관리</button>
+      <button id="map-print-manager-button">4. 지하철 노선도 출력</button>
+    `;
+  }
+
   initializeEventListener() {
     this._$target.addEventListener('click', event => {
       if (event.target.id === 'station-manager-button') {
@@ -24,19 +33,6 @@ class Navigator extends Component {
         this._props.routeTo(MAP_PRINT_MANAGER);
       }
     });
-  }
-
-  render() {
-    this._$target.innerHTML = this.createTemplate();
-  }
-
-  createTemplate() {
-    return `
-			<button id="station-manager-button">1. 역 관리</button>
-			<button id="line-manager-button">2. 노선 관리</button>
-			<button id="section-manager-button">3. 구간 관리</button>
-			<button id="map-print-manager-button">4. 지하철 노선도 출력</button>
-		`;
   }
 }
 
