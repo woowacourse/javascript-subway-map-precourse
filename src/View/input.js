@@ -25,9 +25,14 @@ export const $downStream = document.body.querySelector(
 export const $lineAddButton = document.body.querySelector('#line-add-button');
 export const $lineNameInput = document.body.querySelector('#line-name-input');
 
-export const setStationButton = (value, button) => {
+export const setButtonOption = (value, button) => {
   button.dataset.station = value;
-  button.addEventListener('click', onRemoveStation);
+  if (button.className === 'station-delete-button') {
+    return button.addEventListener('click', onRemoveStation);
+  }
+  if (button.className === 'line-delete-button') {
+    return button.addEventListener('click', onRemoveLine);
+  }
 };
 
 $screenButton.forEach((button) =>

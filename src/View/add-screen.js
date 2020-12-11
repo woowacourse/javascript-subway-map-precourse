@@ -1,4 +1,4 @@
-import {$stationContainer, setStationButton} from './input.js';
+import {$stationContainer, $lineContainer, setButtonOption} from './input.js';
 
 export const addStationScreen = (value) => {
   const $stationTbody = $stationContainer.querySelector('table > tbody');
@@ -7,7 +7,7 @@ export const addStationScreen = (value) => {
     <td>${value}</td>
     <td><button class="station-delete-button">삭제</button></td>
   `;
-  setStationButton(value, $stationTr.querySelector('button'));
+  setButtonOption(value, $stationTr.querySelector('button'));
   $stationTbody.appendChild($stationTr);
 };
 
@@ -20,4 +20,17 @@ export const addLastStopScreen = (station) => {
   $optionDownStreamStation.textContent = station;
   $upStream.appendChild($optionUpStreamStation);
   $downStream.appendChild($optionDownStreamStation);
+};
+
+export const addLineScreen = (line) => {
+  const $lineTbody = $lineContainer.querySelector('table > tbody');
+  const $lineTr = document.createElement('tr');
+  $lineTr.innerHTML = `
+    <td>${line.lineName}</td>
+    <td>${line.upStream}</td>
+    <td>${line.downStream}</td>
+    <td><button class="line-delete-button">삭제</button></td>
+  `;
+  setButtonOption(line, $lineTr.querySelector('button'));
+  $lineTbody.appendChild($lineTr);
 };
