@@ -10,3 +10,14 @@ export const addStationScreen = (value) => {
   setStationButton(value, $stationTr.querySelector('button'));
   $stationTbody.appendChild($stationTr);
 };
+
+export const addLastStopScreen = (station) => {
+  const $upStream = document.body.querySelector('#line-start-station-selector');
+  const $downStream = document.body.querySelector('#line-end-station-selector');
+  const $optionUpStreamStation = document.createElement('option');
+  const $optionDownStreamStation = document.createElement('option');
+  $optionUpStreamStation.textContent = station;
+  $optionDownStreamStation.textContent = station;
+  $upStream.appendChild($optionUpStreamStation);
+  $downStream.appendChild($optionDownStreamStation);
+};

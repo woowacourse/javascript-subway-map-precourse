@@ -1,14 +1,13 @@
 import Station from './Model/station.js';
 import {hideScreen} from './View/hide-screen.js';
 import {showScreen} from './View/show-screen.js';
-import {addStationScreen} from './View/add-screen.js';
+import {addStationScreen, addLastStopScreen} from './View/add-screen.js';
 import {removeStationScreen} from './View/remove-screen.js';
 import {$stationAddInput} from './View/input.js';
 import {isInputValid} from './Controller/valid.js';
 import {
   setLocalStorage,
   removeLocalStorage,
-  getLocalStorage,
 } from './Controller/local-storage.js';
 
 const stationInstance = new Station();
@@ -38,7 +37,10 @@ export function onRemoveStation(e) {
 
 export const loadStation = () => {
   stationInstance.loadStation();
-  stationInstance.stations.forEach((station) => addStationScreen(station));
+  stationInstance.stations.forEach((station) => {
+    addStationScreen(station);
+    addLastStopScreen(station);
+  });
 };
 
 loadStation();
