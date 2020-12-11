@@ -1,4 +1,5 @@
 import { manager } from "./index.js";
+import Station from "./station.js";
 
 export const isCorrectStationName = (newStationName) => {
   const rHangel = /^[0-9A-Za-z가-힣]*$/;
@@ -49,6 +50,8 @@ export const makeStationBox = (newStationName) => {
   return newStation;
 };
 export const addStationToList = (newStationName) => {
+  const station = new Station(newStationName);
+  manager.addStationInList(station);
   const newStation = makeStationBox(newStationName);
   const table = document.getElementById("staion-list-table");
   table.children[1].appendChild(newStation);
