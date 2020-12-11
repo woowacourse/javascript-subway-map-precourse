@@ -26,6 +26,21 @@ class Table {
 
     return stationTd;
   };
+
+  createButtonTd = (btnName, className) => {
+    const button = document.createElement("button");
+    const td = document.createElement("td");
+    button.innerHTML = btnName;
+    button.className = className;
+    td.appendChild(button);
+
+    return td;
+  };
 }
 
-export const { createTable, createTr, createValueTd } = new Table();
+export const {
+  createTable,
+  createTr,
+  createValueTd,
+  createButtonTd,
+} = new Table();
