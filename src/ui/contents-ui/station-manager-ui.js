@@ -5,14 +5,26 @@ export default class StationManagerUI {
     this.contentsContainer_ = contentsContainer;
     this.stationINFOManager_ = stationINFOManager;
     this.setHTML();
-    this.addEventToNameInputButton();
     this.updateStationsTable();
   }
 
   setHTML() {
     this.contentsContainer_.innerHTML = TEMPLATE;
+    this.addEventToNameInputButton_();
   }
-  addEventToNameInputButton() {
+  updateStationsTable() {
+    const stationNames = this.stationINFOManager_.getStationsNames();
+    const tableContainer = this.contentsContainer_.querySelector(
+      "#" + STATION_NAME_TABLE_ID
+    );
+    let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
+    for (let name of stationNames) {
+      innerHTMLOfTable += this.createNewTableRowHTML_(name);
+    }
+    tableContainer.innerHTML = innerHTMLOfTable;
+  }
+
+  addEventToNameInputButton_() {
     const button = this.contentsContainer_.querySelector(
       "#" + STATION_ADD_BUTTON_ID
     );
@@ -32,18 +44,7 @@ export default class StationManagerUI {
       this.updateStationsTable();
     });
   }
-  updateStationsTable() {
-    const stationNames = this.stationINFOManager_.getStationsNames();
-    const tableContainer = this.contentsContainer_.querySelector(
-      "#" + STATION_NAME_TABLE_ID
-    );
-    let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
-    for (let name of stationNames) {
-      innerHTMLOfTable += this.createNewTableRowHTML(name);
-    }
-    tableContainer.innerHTML = innerHTMLOfTable;
-  }
-  createNewTableRowHTML(name) {
+  createNewTableRowHTML_(name) {
     const newTableRow = `
     <tr>
       <td>${name}</td>
