@@ -1,5 +1,6 @@
 import { manager } from "./manager.js";
 import Station from "./station.js";
+import { makeStationList } from "./index.js";
 
 export const isCorrectStationName = (newStationName) => {
   const rHangel = /^[0-9A-Za-z가-힣]*$/;
@@ -75,5 +76,5 @@ export const showAllStationInManager = (stationList) => {
 export const addStationToList = (newStationName) => {
   const station = new Station(newStationName);
   manager.setStationInManager(station);
-  showAllStationInManager(manager.stationList);
+  showAllStationInManager(makeStationList());
 };

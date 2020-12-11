@@ -55,21 +55,47 @@ const makeResultBlock = (idx) => {
 showAllStationInManager(manager.stationList);
 btnStationManager.onclick = () => {
   makeResultBlock(0);
-  showAllStationInManager(manager.stationList);
+  showAllStationInManager(makeStationList());
 };
-export const makeStationOption = (stationList, optionName) => {
+export const makeStationList = () => {
+  const finalStationList = [];
+  const nowStationList = manager.stationList;
+  const stationName = [];
+  nowStationList.forEach((station) => {
+    stationName.push(station.name);
+  });
+  const stationNameSet = Array.from(new Set(stationName));
+  stationNameSet.forEach((name) => {
+    const sameName = nowStationList.filter(
+      (station) => station.name === name && station.isIncluded !== null
+    );
+    if (sameName.length === 0) {
+      finalStationList.push(
+        nowStationList.filter(
+          (station) => station.name === name && station.isIncluded === null
+        )[0]
+      );
+    } else {
+      finalStationList.push(sameName[0]);
+    }
+  });
+  return finalStationList;
+};
+export const makeStationOption = (optionStationList, optionName) => {
   const optionList = document.getElementById(optionName);
   optionList.innerHTML = ""; // 선택 노선 변경 시 지하철 역 새로 load
-  for (let idx in stationList) {
+  console.log(optionStationList);
+  for (let idx in optionStationList) {
     const newOption = document.createElement("option");
-    newOption.innerHTML = stationList[idx].name;
+    newOption.innerHTML = optionStationList[idx].name;
     optionList.appendChild(newOption);
   }
 };
 btnLineManager.onclick = () => {
   makeResultBlock(1);
-  makeStationOption(manager.stationList, "line-start-station-selector");
-  makeStationOption(manager.stationList, "line-end-station-selector");
+  const optionStationList = makeStationList();
+  makeStationOption(optionStationList, "line-start-station-selector");
+  makeStationOption(optionStationList, "line-end-station-selector");
   showAllLineInLineManager(manager.lineList);
 };
 btnSectionManager.onclick = () => {
