@@ -49,9 +49,9 @@ export default class Station {
 
   _getStationListViewContainer() {
     const $stationListViewContainer = new Div(STATION_LIST_VIEW_CONTAINER_ID);
-    this._getStationListViewContainerChildNodes().forEach(({element}) => {
+    this._getStationListViewContainerChildNodes().forEach(({ element }) => {
       $stationListViewContainer.element.appendChild(element);
-    })
+    });
     this.element.appendChild($stationListViewContainer.element);
   }
 
