@@ -24,10 +24,13 @@ export default class Station {
       STATION_NAME_INPUT,
       "역 이름을 입력해주세요.",
     );
-    const $stationNameInputButton = new Button(ADD_STATION_INPUT, "역 추가", submitStationName("hi"));
-    $stationNameInput.addEventListener(submitStationName);
+    const $stationNameInputButton = new Button(
+      ADD_STATION_INPUT,
+      "역 추가",
+      submitStationName("hi"),
+    );
 
-    console.log($stationNameInputButton.element.onclick);
+    $stationNameInputButton.element.onclick = alert("hello");
 
     return (
       $inputHelperText.render() +
@@ -43,7 +46,6 @@ export default class Station {
   }
 
   render() {
-    console.log("render div");
     return `
       <div id="${this.inputContainerId}">
         ${this._getStationInputContainer()}

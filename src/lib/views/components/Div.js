@@ -6,13 +6,7 @@ export default class Div {
     this.element.id = getComponentIdOrClassQuerySelectorName(id);
   }
 
-  addToParentNode($parentNode) {
-    $parentNode.appendChild(this.element);
-  }
-
-  addChildNodes($childNodes) {
-    $childNodes.forEach(($childNode) => {
-      this.element.append($childNode);
-    });
+  render() {
+    return this.element.outerHTML;
   }
 }

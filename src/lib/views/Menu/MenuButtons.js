@@ -13,7 +13,5 @@ export default tabs.map(({ title }, index) => {
     `${index + 1}. ${innerText}`,
     () => viewTabContainer(index),
   );
-
-  $menuButton.addRightSpace();
   return $menuButton.element;
 });

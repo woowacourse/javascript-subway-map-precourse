@@ -8,9 +8,9 @@ export default () => {
   const $menu = new Div(MENU_DIV);
   const $tabContainer = new Div(TAB_CONTAINER_DIV);
 
-  setInitState();
-  $menu.addToParentNode($appContainer);
-  $tabContainer.addToParentNode($appContainer);
-
   MenuButtons.forEach((menuButton) => $menu.element.appendChild(menuButton));
+
+  setInitState();
+  $appContainer.appendChild($menu.element);
+  $appContainer.appendChild($tabContainer.element);
 };

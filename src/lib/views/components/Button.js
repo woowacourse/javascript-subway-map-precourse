@@ -8,10 +8,7 @@ export default class Button {
     this.element.class = querySelector.charAt(0) === "." ? identifier : null;
     this.element.innerText = buttonInnerText;
     this.element.onclick = callbackFunction;
-  }
-
-  addRightSpace() {
-    this.element.style = `margin-right: 3px;`;
+    this.element.style = `margin: 3px;`;
   }
 
   render() {

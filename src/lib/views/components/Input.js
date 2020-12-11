@@ -5,6 +5,7 @@ export default class Input {
     this.element = document.createElement("input");
     this.element.id = getComponentIdOrClassQuerySelectorName(id);
     this.element.placeholder = helperText;
+    this.element.type = "text";
   }
 
   getValue() {
