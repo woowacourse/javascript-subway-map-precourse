@@ -129,9 +129,25 @@ export default class SubwayMapSectionView {
     return sectionSelector;
   }
 
+  rendersectionTable(lines) {
+    const sectionThead = this.rendersectionThead();
+    const sectionTbody = this.rendersectionTbody(lines);
+
+    const sectionTable = `
+      <table id="#section-name-table">
+        ${sectionThead}
+        ${sectionTbody}
+      </table>
+    `;
+
+    document.getElementById(
+      '#section-table-container',
+    ).innerHTML += sectionTable;
+  }
+
   renderSectionTableContainer() {
     this.managerContainer.innerHTML += `
-      <div id="#line-table-container"></div>
+      <div id="#section-table-container"></div>
     `;
   }
 }
