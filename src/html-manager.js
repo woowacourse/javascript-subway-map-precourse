@@ -19,6 +19,7 @@ export default class HTMLManager {
   setContentsUIOnStationUI() {
     this.contentsUI_ = new StationManagerUI({
       contentsContainer: this.htmlOfBody.querySelector("#" + CONTENTS_ID),
+      stationINFOManager: this.stationINFOManager,
     });
   }
   setContentsUIOnSectionUI() {

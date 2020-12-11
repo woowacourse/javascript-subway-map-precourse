@@ -1,11 +1,30 @@
+import { getMessageToCheckStationName } from "../../utility/string-check-utility.js";
+
 export default class StationManagerUI {
-  constructor({ contentsContainer }) {
+  constructor({ contentsContainer, stationINFOManager }) {
     this.contentsContainer_ = contentsContainer;
+    this.stationINFOManager_ = stationINFOManager;
     this.setHTML();
+    this.addEventToNameInputButton();
   }
 
   setHTML() {
     this.contentsContainer_.innerHTML = TEMPLATE;
+  }
+  addEventToNameInputButton() {
+    const button = this.contentsContainer_.querySelector(
+      "#" + STATION_ADD_BUTTON_ID
+    );
+    const nameInput = this.contentsContainer_.querySelector(
+      "#" + STATION_NAME_INPUT_ID
+    );
+    button.addEventListener("click", () => {
+      const name = nameInput.value;
+      const message = getMessageToCheckStationName(name);
+      if (message !== "성공") {
+        alert(message);
+      }
+    });
   }
 }
 const STATION_NAME_INPUT_ID = "station-name-input";
