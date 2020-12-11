@@ -1,8 +1,9 @@
 import { message } from '../../constants';
 
 class SectionViewEventDelegation {
-  constructor(element, sectionView) {
+  constructor(element, sectionView, subwayMapViewModel) {
     this.sectionView = sectionView;
+    this.subwayMapViewModel = subwayMapViewModel;
     element.addEventListener('click', this.onClick.bind(this));
   }
 
@@ -15,8 +16,10 @@ class SectionViewEventDelegation {
   }
 
   selectLine(id) {
-    this.sectionView.renderSelectedLine();
-    console.log(id);
+    this.sectionView.renderSelectedLineSectionManager(
+      this.subwayMapViewModel.getLine(id),
+    );
+    console.log(this.subwayMapViewModel.getLine(id));
   }
 }
 
@@ -53,6 +56,7 @@ export default class SubwayMapSectionView {
     new SectionViewEventDelegation(
       document.getElementById('#section-line-menu-button-container'),
       this,
+      this.subwayMapViewModel,
     );
   }
 
@@ -74,9 +78,9 @@ export default class SubwayMapSectionView {
     `;
   }
 
-  renderSelectedLine() {
+  renderSelectedLineSectionManager(line) {
     this.managerContainer.innerHTML += `
-      <h3>${message.LINE_MANAGING}</h3>
+      <h3>${line.lineId} ${message.LINE_MANAGING}</h3>
       <p>${message.ADD_SECTION}</p>
     `;
   }

@@ -2,8 +2,8 @@ import { Station } from '..';
 
 export default class Line {
   constructor(lineObject) {
-    this._lineId = lineObject.lineId;
-    this._stations = [];
+    this.lineId = lineObject.lineId;
+    this.stations = [];
     this.startStation = lineObject.startStation;
     this.endStation = lineObject.endStation;
   }
