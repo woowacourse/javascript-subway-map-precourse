@@ -1,25 +1,38 @@
-import { addResultToBody, makeStationHTML, addStationNameToTable, stationNameInputClear } from "./stationManagerOutputView.js"
-import { getInputIfPossible } from "./stationNameInputUtil.js"
+import {
+    addResultToBody,
+    makeStationHTML,
+    addStationNameToTable,
+    stationNameInputClear,
+    removeStationManagerHTML
+} from "./stationManagerView.js"
+import { makeStationIfPossible } from "../stationFactory.js"
 import { Data } from "../data.js"
 
 export class StationManager {
-    constructor() {
-        this.HTML = makeStationHTML(Data.getStationNameData())
-        addResultToBody(this.HTML);
-        this.addEventToAddStationButton()
+
+    static show = () => {
+        addResultToBody(makeStationHTML(Data.getStationRepository()));
+        addEventToAddStationButton()
     }
 
-    addEventToAddStationButton = () => {
-        const addStationButton = document.querySelector("#station-add-button");
-        addStationButton.addEventListener("click", () => {
-            try {
-                const stationName = getInputIfPossible();
-                Data.addStation(stationName);
-                addStationNameToTable(stationName);
-                stationNameInputClear();
-            } catch (error) {
-                alert(error)
-            }
-        })
+    static hide = () => {
+        removeStationManagerHTML();
     }
+
+}
+
+const addEventToAddStationButton = () => {
+    const addStationButton = document.querySelector("#station-add-button");
+    const addStaitonInput = document.querySelector("#station-name-input");
+
+    addStationButton.addEventListener("click", () => {
+        try {
+            const station = makeStationIfPossible(addStaitonInput.value);
+            Data.addStation(station);
+            addStationNameToTable(station.name);
+            stationNameInputClear();
+        } catch (error) {
+            alert(error)
+        }
+    });
 }
