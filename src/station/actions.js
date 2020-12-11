@@ -2,6 +2,7 @@ import Station from "./model.js";
 import {
   stationInputForm,
   stationList,
+  stationListHeader,
   stationDeleteBtn,
 } from "./templates.js";
 
@@ -23,17 +24,21 @@ const printLayout = () => {
 
 const createStationList = (_stations) => {
   const stationNames = document.getElementById("station-names");
+  stationNames.innerHTML = stationListHeader;
 
   for (let i = 0; i < _stations.length; i++) {
-    stationNames.innerHTML += `<tr><td>${_stations[i].name}</td>${stationDeleteBtn}</tr>`;
+    stationNames.innerHTML += `<tr data-station-index="${i}"><td>${_stations[i].name}</td>${stationDeleteBtn}</tr>`;
   }
 };
 
 const updateStationList = (_stations, _newStation) => {
   if (_newStation) {
-    createStationList([_newStation]);
     saveStations([..._stations, _newStation]);
+  } else {
+    saveStations(_stations);
   }
+
+  createStationList(loadStations());
 };
 
 const isNull = (value) => {
@@ -54,13 +59,13 @@ const isDuplication = (value) => {
 
 const isValid = (_stationName) => {
   if (isNull(_stationName)) {
-    alert("지하철 이름을 입력해주세요.");
+    alert("역 이름을 입력해주세요.");
     return;
   } else if (isUnderTwo(_stationName)) {
     alert("두 글자 이상의 이름을 입력해주세요.");
     return;
   } else if (isDuplication(_stationName)) {
-    alert("중복된 지하철 이름입니다.");
+    alert("중복된 역 이름입니다.");
     return;
   }
 
@@ -86,13 +91,41 @@ const createStation = () => {
   }
 };
 
+const deleteStation = (_stationDeletebtn) => {
+  const stations = loadStations();
+  const stationIndex = _stationDeletebtn.path[2].dataset.stationIndex;
+
+  if (stations[stationIndex].used !== 0) {
+    alert("사용중인 역입니다.");
+  }
+
+  stations.splice(stationIndex, 1);
+
+  return stations;
+};
+
+const setStationDeleteBtn = () => {
+  const stationDeleteBtn = document.getElementsByClassName(
+    "station-delete-button"
+  );
+
+  for (let i = 0; i < stationDeleteBtn.length; i++) {
+    stationDeleteBtn[i].addEventListener("click", (e) => {
+      updateStationList(deleteStation(e));
+      setStationDeleteBtn();
+    });
+  }
+};
+
 export default function StationManager() {
   printLayout();
   createStationList(loadStations());
+  setStationDeleteBtn();
 
   const stationAddBtn = document.getElementById("station-add-button");
 
   stationAddBtn.addEventListener("click", () => {
     updateStationList(loadStations(), createStation());
+    setStationDeleteBtn();
   });
 }

@@ -16,15 +16,17 @@ const stationList = `
 <div id="station-list">
   <h2>🚉 지하철 역 목록</h2>
   <table id="station-names">
-    <tr>
-      <th>역 이름</th>
-      <th>설정</th>
-    </tr>
   </table>
 </div>
+`;
+const stationListHeader = `
+<tr>
+  <th>역 이름</th>
+  <th>설정</th>
+</tr>
 `;
 const stationDeleteBtn = `
 <td><button class="station-delete-button">삭제</button></td>
 `;
 
-export { stationInputForm, stationList, stationDeleteBtn };
+export { stationInputForm, stationList, stationListHeader, stationDeleteBtn };
