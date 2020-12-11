@@ -38,7 +38,6 @@ export default class StationManagerUI {
       "#" + STATION_NAME_TABLE_ID
     );
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
-    console.log(stationNames);
     for (let name of stationNames) {
       innerHTMLOfTable += this.createNewTableRowHTML(name);
     }
