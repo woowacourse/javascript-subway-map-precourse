@@ -17,7 +17,7 @@ class Component {
 
   initializeEventListener() {}
 
-  initializeDOMElements() {}
+  mountTemplate() {}
 
   initializeStates() {}
 

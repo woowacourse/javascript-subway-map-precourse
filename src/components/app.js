@@ -18,13 +18,17 @@ class App extends Component {
   }
 
   render = () => {
+    this.mountTemplate();
+    this.initializeComponents();
+  };
+
+  mountTemplate() {
     this._$target.innerHTML = `
       <h1>🚇 지하철 노선도 관리</h1>
       <nav id="navigator"></nav>
       <main id="router-view"></main>
     `;
-    this.initializeComponents();
-  };
+  }
 
   initializeComponents() {
     const $navigator = this._$target.querySelector('#navigator');

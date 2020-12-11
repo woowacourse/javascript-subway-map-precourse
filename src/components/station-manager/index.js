@@ -9,12 +9,16 @@ class StationManager extends Component {
   }
 
   render = () => {
+    this.mountTemplate();
+    this.initializeComponents();
+  };
+
+  mountTemplate() {
     this._$target.innerHTML = `
       <div id="station-input-container"></div>
       <div id="station-list"></div>
     `;
-    this.initializeComponents();
-  };
+  }
 
   initializeComponents() {
     const $stationInputContainer = this._$target.querySelector(
