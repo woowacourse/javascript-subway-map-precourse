@@ -17,10 +17,16 @@ export default class LineManagerController {
 
   static addButtonClicked() {
     const line = document.getElementById('line-name-input').value;
-    if (!LineManagerModel.isValidName(line)) {
+    const lineStart = document.getElementById('line-start-station-selector').value;
+    const lineEnd = document.getElementById('line-end-station-selector').value;
+    if (!LineManagerModel.isValidName(line) || LineManagerModel.isSame(lineStart, lineEnd)) {
       alert('error');
       LineManagerView.lineInputView();
-    };
+      return;
+    }
+    LineManagerModel.add(line, lineStart, lineEnd);
+    LineManagerView.lineInputView();
+    LineManagerView.lineTableView();
   }
 
   static deleteButtonClicked() {
