@@ -29,6 +29,16 @@ export const SECTION_STAION_SELECTOR = 'section_station_selector';
 export const MAP = 'map';
 export const MAP_PRINT_MANAGER_BUTTON = 'map-print-manager-button';
 
+// fetch url
+export const STATION_URL = 'http://openapi.seoul.go.kr:8088';
+export const STATION_KEY = '4b75656e576d6b69313236656b74766a';
+export const STATION_FORMAT = 'json';
+export const STATION_INFO = 'SearchSTNBySubwayLineInfo';
+export const STATION_ROW = 'row';
+export const STATION_ROW_START = '1';
+export const STATION_ROW_END = '730';
+export const STATION_FETCH_URL = `${STATION_URL}/${STATION_KEY}/${STATION_FORMAT}/${STATION_INFO}/${STATION_ROW_START}/${STATION_ROW_END}`;
+
 // constants (kor)
 export const DELETE_K = '삭제';
 export const STATION_MANAGER_K = '역 관리';
