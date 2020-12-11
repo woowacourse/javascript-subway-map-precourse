@@ -1,4 +1,4 @@
-import Table from "./table.js";
+import { createTable } from "./table.js";
 class Station {
   constructor() {
     this.stations = [];
@@ -6,11 +6,11 @@ class Station {
   }
 
   createStationTable = () => {
-    const stationTable = Table.createTable(["역 이름", "설정"]);
+    const stationTable = createTable(["역 이름", "설정"]);
     for (let i = 0; i < this.stations.length; i++) {
-      const tr = Table.createTr([
-        Table.createValueTd(this.stations[i]),
-        Table.createButtonTd("삭제", "station-delete-button"),
+      const tr = createTr([
+        createValueTd(this.stations[i]),
+        createButtonTd("삭제", "station-delete-button"),
       ]);
       tr.dataset.index = i;
       stationTable.appendChild(tr);
@@ -21,7 +21,7 @@ class Station {
 
   showStation = () => {
     const stationContainer = document.querySelector(".station-list");
-    const stationTable = createStationTable();
+    const stationTable = this.createStationTable();
     stationContainer.innerHTML = "";
     stationContainer.appendChild(stationTable);
 
