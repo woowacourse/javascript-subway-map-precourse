@@ -4,6 +4,9 @@ export const ID = {
   STATION_TABLE: 'station-table',
   STATION_NAME_INPUT: 'station-name-input',
   STATION_ADD_BUTTON: 'station-add-button',
+
+  LINE_MANAGER_BUTTON: 'line-manager-button',
+  LINE_MANAGER: 'line-manager',
 };
 
 export const CLASS = {
@@ -13,6 +16,7 @@ export const CLASS = {
 export const NAME = {
   LOCALSTORAGE_KEY: 'subway',
   STATION_MANAGER_BUTTON_NAME: '1. 역 관리',
+  LINE_MANAGER_BUTTON_NAME: '2. 노선 관리',
 };
 
 export const ALERT = {

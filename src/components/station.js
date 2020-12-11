@@ -2,6 +2,7 @@ import Subway from './subway.js';
 import UserException from '../util/userException.js';
 import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
 import { stationManagerTemplate, stationTableTemplate } from '../view/template.js';
+import { initialize } from '../util/initialize.js';
 
 export default class Station {
   userException = new UserException();
@@ -9,7 +10,7 @@ export default class Station {
   constructor($target, $functionButtonContainer) {
     this.subways = this.loadSubways();
 
-    this.init($target, $functionButtonContainer);
+    this.start($target, $functionButtonContainer);
   }
 
   loadSubways() {
@@ -23,7 +24,7 @@ export default class Station {
     return parsedSubways;
   }
 
-  init($target, $functionButtonContainer) {
+  start($target, $functionButtonContainer) {
     this.createStationManagerButton($functionButtonContainer);
     this.createStationManager($target);
     this.handleStationManagerButton();
@@ -68,6 +69,7 @@ export default class Station {
     const stationManagerButton = document.querySelector(`#${ID.STATION_MANAGER_BUTTON}`);
 
     stationManagerButton.addEventListener('click', () => {
+      initialize();
       this.showStationManager();
     });
   }

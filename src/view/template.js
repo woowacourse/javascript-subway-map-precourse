@@ -32,3 +32,9 @@ const stationTable = (subways) => {
     )
     .join('');
 };
+
+export const lineManagerTemplate = () => {
+  return `
+    <h1>TEST</h1>
+    `;
+};

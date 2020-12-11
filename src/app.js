@@ -1,4 +1,5 @@
 import Station from './components/station.js';
+import Line from './components/line.js';
 
 export default class App {
   constructor($target) {
@@ -6,6 +7,7 @@ export default class App {
     this.$functionButtonContainer = this.createFunctionButtonContainer();
 
     this.station = new Station($target, this.$functionButtonContainer);
+    this.line = new Line($target, this.$functionButtonContainer);
   }
 
   createFunctionButtonContainer() {
