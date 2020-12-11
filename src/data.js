@@ -1,11 +1,12 @@
 export class Data {
+    static EMPTY_REPOSITORY = {};
 
     // stationRepository 접근 
     static getStationRepository = () => {
         let stationRepository = JSON.parse(localStorage.getItem("stationRepository"))
         if (stationRepository === null) {
 
-            return {}
+            return this.EMPTY_REPOSITORY;
         }
 
         return stationRepository;
@@ -25,7 +26,7 @@ export class Data {
 
         delete stationRepository[stationName]
 
-        if (stationRepository === {}) {
+        if (stationRepository === this.EMPTY_REPOSITORY) {
             return localStorage.setItem("stationRepository", null)
         }
 
@@ -38,7 +39,7 @@ export class Data {
 
         if (lineRepository === null) {
 
-            return {};
+            return this.EMPTY_REPOSITORY;
         }
 
         return JSON.parse(lineRepository);
@@ -47,7 +48,6 @@ export class Data {
     // lineRepository에 새로운 line 추가  
     static addLine = (line) => {
         let lineRepository = this.getLineRepository();
-
         lineRepository[line.name] = line;
 
         return localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
@@ -60,7 +60,7 @@ export class Data {
 
         delete lineRepository[lineName]
 
-        if (lineRepository === {}) {
+        if (lineRepository === this.EMPTY_REPOSITORY) {
             return localStorage.setItem("lineRepository", null);
         }
 
