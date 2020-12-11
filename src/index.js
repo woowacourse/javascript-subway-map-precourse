@@ -3,6 +3,7 @@ import {showScreen} from './View/show-screen.js';
 import {addStationScreen} from './View/add-screen.js';
 import {removeStationScreen} from './View/remove-screen.js';
 import {$stationAddInput} from './View/input.js';
+import {isInputValid} from './Controller/valid.js';
 
 export function onChangeScreen(e) {
   hideScreen();
@@ -10,8 +11,11 @@ export function onChangeScreen(e) {
 }
 
 export function onAddStation() {
-  setLocalStorage('station');
-  addStationScreen($stationAddInput.value);
+  if (isInputValid($stationAddInput.value)) {
+    setLocalStorage('station');
+    addStationScreen($stationAddInput.value);
+  }
+  $stationAddInput.value = '';
 }
 
 export function onRemoveStation(e) {
@@ -19,7 +23,7 @@ export function onRemoveStation(e) {
   removeStationScreen(e.target);
 }
 
-const setLocalStorage = (key) => {
+export const setLocalStorage = (key) => {
   const localStorageValue = getLocalStorage(key);
   if (localStorageValue === null) {
     return localStorage.setItem(key, JSON.stringify([$stationAddInput.value]));
@@ -31,7 +35,7 @@ const setLocalStorage = (key) => {
   );
 };
 
-const removeLocalStorage = (key, value) => {
+export const removeLocalStorage = (key, value) => {
   const localStorageValue = getLocalStorage(key);
   const filteredStorage = localStorageValue.filter(
     (station) => station !== value,
@@ -40,7 +44,7 @@ const removeLocalStorage = (key, value) => {
   return localStorage.setItem(key, JSON.stringify(filteredStorage));
 };
 
-const getLocalStorage = (key) => {
+export const getLocalStorage = (key) => {
   const localStorageValue = JSON.parse(localStorage.getItem(key));
 
   return localStorageValue;
