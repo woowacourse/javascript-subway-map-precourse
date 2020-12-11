@@ -5,3 +5,5 @@ export const DELETE_BUTTONS_CLASS = {
 };
 
 export const LINE_SELECT_BUTTONS = "line-select-buttons";
+
+export const LINE_SELECT_HEADER = "line-select-header";
