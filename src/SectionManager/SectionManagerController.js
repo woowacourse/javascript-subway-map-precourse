@@ -1,24 +1,36 @@
 import SectionManagerView from './SectionManagerView.js';
+import SectionManagerModel from './SectionManagerModel.js';
 
 export default class SectionManagerController {
   static buttonEventController() {
+    let line = null;
     document.addEventListener('click', (event) => {
       const eventId = event.target.id;
       const eventClassName = event.target.className;
-      if (eventId === 'line-add-button') {
-        this.addButtonClicked();
-      } else if (eventClassName === 'line-delete-button') {
+      if (eventId === 'section-add-button') {
+        this.addButtonClicked(line);
+      } else if (eventClassName === 'section-delete-button') {
         const button = event.path[0];
         this.deleteButtonClicked(button);
       } else if (eventClassName === 'section-line-menu-button') {
         const button = event.path[0];
-        this.sectionLineMenuClicked(button);
+        line = this.sectionLineMenuClicked(button);
       }
     });
   }
 
-  static addButtonClicked() {
-
+  static addButtonClicked(line) {
+    const index = document.getElementById('section-order-input').value;
+    const station = document.getElementById('section-station-selector').value;
+    if (!SectionManagerModel.isValidNumber(line, index)
+        || SectionManagerModel.isInLines(line, station)) {
+      SectionManagerView.alertInputError();
+      SectionManagerView.sectionInputView(line);
+    } else {
+      SectionManagerModel.add(line, station, index);
+      SectionManagerView.sectionInputView(line);
+      SectionManagerView.sectionTableView(line);
+    }
   }
 
   static deleteButtonClicked() {
@@ -31,5 +43,6 @@ export default class SectionManagerController {
     const line = buttons[buttonsArray.indexOf(button)].dataset.menu;
     SectionManagerView.sectionInputView(line);
     SectionManagerView.sectionTableView(line);
+    return line;
   }
 }

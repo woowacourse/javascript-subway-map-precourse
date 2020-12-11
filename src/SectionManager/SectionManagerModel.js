@@ -1,14 +1,27 @@
 export default class SectionManagerModel {
-  static isValidNumber(number) {
-    return (number !== '') && this.isValidRange(number) && this.isNumber(number);
+  static isValidNumber(line, number) {
+    return (number !== '') && this.isValidRange(line, number) && this.isNumber(number);
   }
 
-  static isValidRange(number) {
-    const linesLength = Object.keys(JSON.parse(localStorage.getItem('Lines'))).length;
+  static isValidRange(line, number) {
+    const linesLength = JSON.parse(localStorage.getItem('Lines'))[line].length;
     return linesLength + 1 >= number && number >= 0;
   }
 
   static isNumber(number) {
     return !/[^0-9]/.test(`${number}`);
+  }
+
+  static isInLines(line, station) {
+    const lines = JSON.parse(localStorage.getItem('Lines'))[line];
+    return lines.indexOf(station) > -1;
+  }
+
+  static add(line, station, index) {
+    const linesJson = JSON.parse(localStorage.getItem('Lines'));
+    const lines = JSON.parse(localStorage.getItem('Lines'))[line];
+    lines.splice(index, 0, station);
+    linesJson[line] = lines;
+    localStorage.setItem('Lines', JSON.stringify(linesJson));
   }
 }

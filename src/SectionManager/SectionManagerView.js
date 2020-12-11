@@ -31,7 +31,7 @@ export default class SectionManagerView {
 
   static sectionTableView(line) {
     const lines = JSON.parse(localStorage.getItem('Lines'));
-    const stations = lines[line]; 
+    const stations = lines[line];
     document.getElementById('section-table').innerHTML = `<table border='1px solid black'>
     <tr>
       <th align='center'>순서</th>
