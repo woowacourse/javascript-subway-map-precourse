@@ -31,6 +31,7 @@ export const SELECTORS_ID = {
 };
 
 export const SECTION_MANAGER_CONTAINERS_ID = {
+  selectedLineManagerHeader: "selected-line-manager-header",
   sectionLineMenuButtons: "section-line-menu-buttons",
   selectedLineManager: "selected-line-manager",
 };

@@ -7,6 +7,15 @@ import {
 import { SECTION_LINE_MENU_BUTTON } from "../html-constants/html-classnames.js";
 import { getChildById } from "./custom-dom-handler.js";
 
+const renderSelectedLineManagerHeader = ($selectedLineManager, lineIndex) => {
+  const header = getChildById(
+    $selectedLineManager,
+    SECTION_MANAGER_CONTAINERS_ID.selectedLineManagerHeader
+  );
+  const lineName = new LineManager().lineList[lineIndex].name;
+  header.innerHTML = `${lineName} 관리`;
+};
+
 const renderStationSelectorOptions = ($select, lineIndex) => {
   const stationList = new StationManager().stationList;
   const section = new LineManager().lineList[lineIndex].section;
@@ -22,6 +31,7 @@ const renderStationSelectorOptions = ($select, lineIndex) => {
 
 const showSelectedLineManager = ($selectedLineManager, lineIndex) => {
   $selectedLineManager.style.display = "block";
+  renderSelectedLineManagerHeader($selectedLineManager, lineIndex);
   renderStationSelectorOptions(
     getChildById($selectedLineManager, SELECTORS_ID.sectionStationSelector),
     lineIndex
