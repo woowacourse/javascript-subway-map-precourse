@@ -43,7 +43,7 @@ export default class LineManagerView {
         <td align="center">${line}</td>
         <td align="center">${lines[line][0]}</td>
         <td align="center">${lines[line][(lines[line].length - 1)]}</td>
-        <td align="center"><button class='line-delete-button'>삭제</button></td>
+        <td align="center"><button class='line-delete-button' data-delete-target='${line}'>삭제</button></td>
       </tr>`).join('')}
     </table>`;
   }
