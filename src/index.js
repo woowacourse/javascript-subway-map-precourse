@@ -37,15 +37,8 @@ export function onRemoveStation(e) {
 }
 
 export const loadStation = () => {
-  if (!isStationLoaded()) {
-    stationInstance.loadStation();
-    stationInstance.stations.forEach((station) => addStationScreen(station));
-  }
+  stationInstance.loadStation();
+  stationInstance.stations.forEach((station) => addStationScreen(station));
 };
 
-const isStationLoaded = () => {
-  const localStation = JSON.stringify(getLocalStorage('station'));
-  const serverStation = JSON.stringify(stationInstance.stations);
-
-  return localStation === serverStation;
-};
+loadStation();
