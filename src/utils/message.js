@@ -7,12 +7,14 @@ const alertMessage = (input, text) => {
 };
 
 export const checkTheList = (checkList, input) => {
-  const { isEmpty, isTooShort } = checkList;
+  const { isEmpty, isTooShort, isDuplicate } = checkList;
 
   if (isEmpty) {
     alertMessage(input, MESSAGE.EMPTY);
   } else if (isTooShort) {
     alertMessage(input, MESSAGE.SHORT);
+  } else if (isDuplicate) {
+    alertMessage(input, MESSAGE.DUPLICATE);
   } else {
     return true;
   }

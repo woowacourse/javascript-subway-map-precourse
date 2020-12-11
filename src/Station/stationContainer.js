@@ -2,7 +2,11 @@ import {
   displayAddedStation,
   removeDisplayStation,
 } from "./stationPresenter.js";
-import { checkEmpty, checkLength } from "../validation/index.js";
+import {
+  checkDuplicateStation,
+  checkEmpty,
+  checkLength,
+} from "../validation/index.js";
 import { checkTheList } from "../utils/message.js";
 import { KEY } from "../constants/index.js";
 
@@ -11,7 +15,7 @@ const saveStations = (stationArray) =>
 
 const clearStations = () => localStorage.removeItem(KEY.STATION);
 
-const loadStations = () => JSON.parse(localStorage.getItem(KEY.STATION));
+export const loadStations = () => JSON.parse(localStorage.getItem(KEY.STATION));
 
 const addStation = (stationName) => {
   const stations = loadStations() || [];
@@ -58,7 +62,8 @@ const stationAddClicked = () => {
 
   const isEmpty = checkEmpty(stationInputValue);
   const isTooShort = checkLength(stationInputValue);
-  const checkList = { isEmpty, isTooShort };
+  const isDuplicate = checkDuplicateStation(stationInputValue);
+  const checkList = { isEmpty, isTooShort, isDuplicate };
   const isValid = checkTheList(checkList, stationInput);
 
   if (isValid) {

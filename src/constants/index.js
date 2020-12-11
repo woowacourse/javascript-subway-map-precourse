@@ -19,6 +19,7 @@ export const REFRENCE_STATION_LENGTH = 2;
 export const MESSAGE = {
   EMPTY: "공백 입력은 허용되지 않습니다.",
   SHORT: "2자 이상 이름을 입력해주세요.",
+  DUPLICATE: "중복된 이름은 허용되지 않습니다.",
 };
 
 export const KEY = {
