@@ -3,6 +3,7 @@ import {
   addStationToList,
   isCorrectStationName,
   isOverlappedStationName,
+  showAllStationInManager,
 } from "./station-manager.js";
 import Line from "./line.js";
 import { addLineToList, showAllLineInLineManager } from "./line-manager.js";
@@ -26,6 +27,22 @@ const resultList = [
   resultSectionManager,
   resultMapPrintManager,
 ];
+
+const tmp = new Line("2호선");
+const tmp2 = new Station("잠실");
+const tmp3 = new Station("신림");
+tmp.addLine(tmp2, tmp3);
+manager.setStationInManager(tmp2);
+manager.setStationInManager(tmp3);
+manager.setLineInManager(tmp);
+const tmp4 = new Line("3호선");
+const tmp5 = new Station("대화");
+const tmp6 = new Station("오금");
+tmp4.addLine(tmp5, tmp6);
+manager.setStationInManager(tmp5);
+manager.setStationInManager(tmp6);
+manager.setLineInManager(tmp4);
+
 const makeResultBlock = (idx) => {
   for (let i in resultList) {
     if (i == idx) {
@@ -35,8 +52,10 @@ const makeResultBlock = (idx) => {
     }
   }
 };
+showAllStationInManager(manager.stationList);
 btnStationManager.onclick = () => {
   makeResultBlock(0);
+  showAllStationInManager(manager.stationList);
 };
 export const makeStationOption = (stationList, optionName) => {
   const optionList = document.getElementById(optionName);
@@ -49,10 +68,8 @@ export const makeStationOption = (stationList, optionName) => {
 };
 btnLineManager.onclick = () => {
   makeResultBlock(1);
-  console.log(manager.stationList);
-  console.log(manager.lineList);
-  makeStationOption(stationList, "line-start-station-selector");
-  makeStationOption(stationList, "line-end-station-selector");
+  makeStationOption(manager.stationList, "line-start-station-selector");
+  makeStationOption(manager.stationList, "line-end-station-selector");
   showAllLineInLineManager(manager.lineList);
 };
 btnSectionManager.onclick = () => {
@@ -64,16 +81,6 @@ btnMapPrintManager.onclick = () => {
   showMapList();
 };
 const btnAddStation = document.getElementById("station-add-button");
-let stationList = [
-  new Station("잠실"),
-  new Station("혜화"),
-  new Station("성신"),
-  new Station("강남"),
-];
-for (let i in stationList) {
-  manager.setStationInManager(stationList[i]);
-}
-
 btnAddStation.onclick = () => {
   const newStationName = document.getElementById("station-name-input").value;
   if (
@@ -83,17 +90,6 @@ btnAddStation.onclick = () => {
     addStationToList(newStationName);
   }
 };
-
-const tmp = new Line("2호선");
-tmp.addLine(new Station("잠실"), new Station("신림"));
-manager.setLineInManager(tmp);
-const tmp2 = new Line("3호선");
-tmp2.addLine(new Station("오금"), new Station("대화"));
-manager.setLineInManager(tmp2);
-const tmp3 = new Line("4호선");
-tmp3.addLine(new Station("당고개"), new Station("오이도"));
-manager.setLineInManager(tmp3);
-
 const btnAddLine = document.getElementById("line-add-button");
 btnAddLine.onclick = () => {
   addLineToList();

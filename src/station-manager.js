@@ -61,12 +61,17 @@ export const makeStationBox = (newStationName) => {
 
   return newStation;
 };
+export const showAllStationInManager = (stationList) => {
+  const table = document.getElementById("station-list");
+  table.innerHTML = "";
+  stationList.forEach((station) => {
+    const newStation = makeStationBox(station.name);
+    table.appendChild(newStation);
+  });
+  document.getElementById("station-name-input").value = "";
+};
 export const addStationToList = (newStationName) => {
   const station = new Station(newStationName);
   manager.setStationInManager(station);
-  const newStation = makeStationBox(newStationName);
-  const table = document.getElementById("staion-list-table");
-  table.children[1].appendChild(newStation);
-  document.getElementById("station-name-input").value = "";
-  console.log(manager.stationList);
+  showAllStationInManager(manager.stationList);
 };

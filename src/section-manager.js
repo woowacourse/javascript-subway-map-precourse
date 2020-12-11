@@ -1,5 +1,6 @@
 import { makeStationOption } from "./index.js";
 import { manager } from "./manager.js";
+import Station from "./station.js";
 
 export const deleteSectionInList = (idx) => {
   const stationInSelecteLine = document.getElementById(
@@ -80,13 +81,12 @@ btnAddSection.onclick = () => {
   const addSectionIdx = document.getElementById("section-order-input").value;
   const addStationName = document.getElementById("section-station-selector")
     .value;
-  manager.stationList.forEach((station) => {
-    if (station.name === addStationName) {
-      const selectedLine = manager.getSelectedLine();
-      console.log(selectedLine);
-      selectedLine.addStationInIdx(station, addSectionIdx);
-    }
-  });
+  const selectedLine = manager.getSelectedLine();
+  const inputStation = new Station(addStationName);
+  inputStation.addIncludedLine(selectedLine.name);
+  manager.setStationInManager(inputStation);
+  selectedLine.addStationInIdx(inputStation, addSectionIdx);
+
   const stationList = document.getElementById("station-in-selected-line");
   stationList.innerHTML = "";
   showStationList(manager.getSelectedLine().getAllStationName());
