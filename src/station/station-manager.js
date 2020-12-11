@@ -34,6 +34,6 @@ export default class StationManager {
 	}
 
 	saveStations = station => {
-		localStorage.setItem('station-data', this.stations);
+		localStorage.setItem('station-data', JSON.stringify(this.stations));
 	}
 }
