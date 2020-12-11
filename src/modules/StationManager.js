@@ -1,5 +1,6 @@
 import Station from "./Station.js";
 import { DELETE_BUTTON } from "../constant/constant.js";
+import { DELETE_CONFIRM } from "../constant/message.js";
 
 export default class StationManager {
   constructor() {
@@ -25,6 +26,7 @@ export default class StationManager {
     deleteButton.classList.add("station-delete-button");
     deleteButton.dataset.name = name;
     deleteButton.textContent = DELETE_BUTTON;
+    deleteButton.addEventListener("click", this._deleteStation);
     deleteButtonTd.appendChild(deleteButton);
 
     return deleteButtonTd;
@@ -44,6 +46,18 @@ export default class StationManager {
       tr.appendChild(deleteButtonTd);
       this._tableBody.appendChild(tr);
     });
+  };
+
+  _deleteStation = e => {
+    const confirmDelete = confirm(DELETE_CONFIRM);
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    const stationName = e.target.dataset.name;
+    this._station.deleteStation(stationName);
+    this._printStationList();
   };
 
   _handleAddButton = e => {
