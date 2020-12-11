@@ -1,4 +1,8 @@
 import { appendAtEnd, emptyElement } from '../util/utilUI.js';
+import {
+  ALERT_MESSAGE,
+  STATION_NAME_LENGTH_LOW_LIMIT,
+} from '../configuration.js';
 
 // 1. 역 관리
 export const startStationManager = (e) => {
@@ -12,7 +16,6 @@ export const startStationManager = (e) => {
 
 const createManagerUI = (container) => {
   const table = makeTable(container.dataset.menu);
-  console.log(table);
 
   appendAtEnd('h3', container, '역 이름', 'station-manager-header');
   appendAtEnd('input', container, null, 'station-name-input');
@@ -54,17 +57,33 @@ const makeTableRow = (dataSetName) => {
 const addEventListeners = () => {
   document
     .getElementById('station-add-button')
-    .addEventListener('click', addStation);
+    .addEventListener('click', requestToAddStation);
   document
     .querySelectorAll('.station-delete-button')
     .forEach((element) => element.addEventListener('click', deleteStation));
 };
 
-const addStation = (e) => {
-  console.log('add');
-  //추가가능한지 일단 검증
-  //station에 추가
+const requestToAddStation = () => {
+  const stationNameInput = document.getElementById('station-name-input');
+  const nameError = isWrongStationName(stationNameInput.value);
+
+  if (nameError) {
+    alert(ALERT_MESSAGE[nameError]);
+    return;
+  }
+  addStation();
 };
+
+const isWrongStationName = (name) => {
+  if (name.length < STATION_NAME_LENGTH_LOW_LIMIT) {
+    return 'stationNameTooShort';
+  }
+  if (stationListDummy.map((v) => v.name).includes(name)) {
+    return 'stationNameAlreadyExist';
+  }
+};
+
+const addStation = () => {};
 
 const deleteStation = (e) => {
   console.log('delete');
