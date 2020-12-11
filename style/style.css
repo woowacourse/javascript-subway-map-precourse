@@ -38,3 +38,7 @@ select {
 .station-list {
   margin-top: 20px;
 }
+
+.line-select-header {
+  font-size:1.1rem;
+}
