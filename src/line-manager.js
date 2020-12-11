@@ -1,4 +1,5 @@
 import { manager } from "./index.js";
+import Line from "./line.js";
 
 export const deleteLineInList = (lineName) => {
   const parent = document.querySelector("table#line-list-table tbody");
@@ -26,7 +27,6 @@ export const makeChildInLine = (line) => {
     deleteLineInList(`${line.name}`);
   };
   deleteButton.innerHTML = "삭제";
-
   return [lineName, startStation, endStation, deleteButton];
 };
 export const makeLineBox = (line) => {
@@ -43,9 +43,39 @@ export const makeLineBox = (line) => {
 
   return newLine;
 };
-export const addLineToList = (line) => {
-  const newLine = makeLineBox(line);
-  const table = document.getElementById("line-list-table");
-  table.children[1].appendChild(newLine);
+export const showLineToList = (lineList) => {
+  const table = document.getElementById("line-list");
+  lineList.forEach((line) => {
+    const newLine = makeLineBox(line);
+    table.appendChild(newLine);
+  });
   document.getElementById("line-name-input").value = "";
+};
+export const isPossibleLine = (startName, endName) => {
+  if (startName === endName) {
+    alert("상행 종점과 다른 하행 종점을 선택 해주세요.");
+
+    return false;
+  }
+  return true;
+};
+export const addLineToList = () => {
+  const newLineName = document.getElementById("line-name-input").value;
+  const startStationName = document.getElementById(
+    "line-start-station-selector"
+  ).value;
+  const endStationName = document.getElementById("line-end-station-selector")
+    .value;
+  if (isPossibleLine(startStationName, endStationName)) {
+    const startStation = manager.stationList.find(
+      (station) => station.name === startStationName
+    );
+    const endStation = manager.stationList.find(
+      (station) => station.name === endStationName
+    );
+    const line = new Line(newLineName);
+    line.addLine(startStation, endStation);
+    manager.addLineInList(line);
+    showLineToList(manager.lineList);
+  }
 };
