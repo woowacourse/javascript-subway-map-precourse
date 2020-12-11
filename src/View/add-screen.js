@@ -1,4 +1,4 @@
-import {$stationContainer} from './input.js';
+import {$stationContainer, setStationButton} from './input.js';
 
 export const addStationScreen = (value) => {
   const $stationTbody = $stationContainer.querySelector('table > tbody');
@@ -7,5 +7,6 @@ export const addStationScreen = (value) => {
     <td>${value}</td>
     <td><button>삭제</button></td>
   `;
+  setStationButton(value, $stationTr.querySelector('button'));
   $stationTbody.appendChild($stationTr);
 };

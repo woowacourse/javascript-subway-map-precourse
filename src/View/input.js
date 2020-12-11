@@ -1,4 +1,4 @@
-import {onChangeScreen, onAddStation} from '../index.js';
+import {onChangeScreen, onAddStation, onRemoveStation} from '../index.js';
 
 export const $screenButton = document.body.querySelectorAll('#app > button');
 export const $stationContainer = document.body.querySelector('#station');
@@ -11,6 +11,11 @@ export const $stationAddInput = document.body.querySelector(
 export const $stationAddButton = document.body.querySelector(
   '#station-add-button',
 );
+
+export const setStationButton = (value, button) => {
+  button.dataset.station = value;
+  button.addEventListener('click', onRemoveStation);
+};
 
 $screenButton.forEach((button) =>
   button.addEventListener('click', onChangeScreen),

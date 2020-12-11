@@ -13,6 +13,10 @@ export function onAddStation() {
   addStationScreen($stationAddInput.value);
 }
 
+export function onRemoveStation(e) {
+  console.log(e.target.dataset.station);
+}
+
 const setLocalStorage = (key) => {
   const localStorageValue = getLocalStorage(key);
   if (localStorageValue === null) {
