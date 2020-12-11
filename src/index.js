@@ -1,5 +1,6 @@
 import {hideScreen} from './View/hide-screen.js';
 import {showScreen} from './View/show-screen.js';
+import {addStationScreen} from './View/add-screen.js';
 import {$stationAddInput} from './View/input.js';
 
 export function onChangeScreen(e) {
@@ -9,6 +10,7 @@ export function onChangeScreen(e) {
 
 export function onAddStation() {
   setLocalStorage('station');
+  addStationScreen($stationAddInput.value);
 }
 
 const setLocalStorage = (key) => {
