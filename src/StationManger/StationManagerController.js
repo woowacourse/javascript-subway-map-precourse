@@ -34,8 +34,6 @@ export default class StationManagerController {
     if (StationManagerView.confirmDelete()) {
       StationManagerModel.delete(station);
       StationManagerView.stationTableView();
-    } else {
-      StationManagerView.stationInputView();
     }
   }
 }
