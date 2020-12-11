@@ -11,7 +11,7 @@ export default class SectionManagerController {
         this.addButtonClicked(line);
       } else if (eventClassName === 'section-delete-button') {
         const button = event.path[0];
-        this.deleteButtonClicked(button);
+        this.deleteButtonClicked(line, button);
       } else if (eventClassName === 'section-line-menu-button') {
         const button = event.path[0];
         line = this.sectionLineMenuClicked(button);
@@ -33,8 +33,17 @@ export default class SectionManagerController {
     }
   }
 
-  static deleteButtonClicked() {
-
+  static deleteButtonClicked(line, button) {
+    const buttons = document.getElementsByClassName('section-delete-button');
+    const buttonsArray = Array.from(buttons);
+    const station = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
+    if (SectionManagerModel.checkNumOfStations(line, station)
+        && SectionManagerView.confirmDelete()) {
+      SectionManagerModel.delete(line, station);
+      SectionManagerView.sectionTableView(line);
+    } else {
+      alert('삭제할 수 없습니다.');
+    }
   }
 
   static sectionLineMenuClicked(button) {

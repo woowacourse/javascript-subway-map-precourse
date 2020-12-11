@@ -24,4 +24,16 @@ export default class SectionManagerModel {
     linesJson[line] = lines;
     localStorage.setItem('Lines', JSON.stringify(linesJson));
   }
+
+  static checkNumOfStations(line) {
+    return JSON.parse(localStorage.getItem('Lines'))[line].length > 2;
+  }
+
+  static delete(line, station) {
+    const linesJson = JSON.parse(localStorage.getItem('Lines'));
+    const lines = JSON.parse(localStorage.getItem('Lines'))[line];
+    lines.splice(lines.indexOf(station), 1);
+    linesJson[line] = lines;
+    localStorage.setItem('Lines', JSON.stringify(linesJson));
+  }
 }

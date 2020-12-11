@@ -42,7 +42,7 @@ export default class SectionManagerView {
     <tr>
       <td align="center">${stations.indexOf(station)}</td>
       <td align="center">${station}</td>
-      <td align="center"><button class='section-delete-button'>노선에서 제거</button></td>
+      <td align="center"><button class='section-delete-button' data-delete-target='${station}'>노선에서 제거</button></td>
     </tr>`).join('')}
   </table>`;
   }
