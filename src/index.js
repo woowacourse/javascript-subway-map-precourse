@@ -5,8 +5,8 @@ import {
   isOverlappedStationName,
 } from "./station-manager.js";
 import Line from "./line.js";
-import { addLineToList } from "./line-manager.js";
-import { showLineList } from "./section-manager.js";
+import { addLineToList, showAllLineInLineManager } from "./line-manager.js";
+import { showLineMenuInSectionManager } from "./section-manager.js";
 import { showMapList } from "./map-print-manager.js";
 
 export function ManageStationLine() {
@@ -35,7 +35,6 @@ export function ManageStationLine() {
   };
   this.setChangedLine = (changedLine) => {
     this.lineList.forEach((line) => {
-      console.log(line.name, changedLine.name);
       if (line.name === changedLine.name) {
         line = changedLine;
       }
@@ -83,12 +82,15 @@ export const makeStationOption = (stationList, optionName) => {
 };
 btnLineManager.onclick = () => {
   makeResultBlock(1);
+  console.log(manager.stationList);
+  console.log(manager.lineList);
   makeStationOption(stationList, "line-start-station-selector");
   makeStationOption(stationList, "line-end-station-selector");
+  showAllLineInLineManager(manager.lineList);
 };
 btnSectionManager.onclick = () => {
   makeResultBlock(2);
-  showLineList(manager.lineList);
+  showLineMenuInSectionManager(manager.lineList);
 };
 btnMapPrintManager.onclick = () => {
   makeResultBlock(3);
@@ -96,9 +98,10 @@ btnMapPrintManager.onclick = () => {
 };
 const btnAddStation = document.getElementById("station-add-button");
 let stationList = [
-  new Station("길음"),
+  new Station("잠실"),
   new Station("혜화"),
   new Station("성신"),
+  new Station("강남"),
 ];
 for (let i in stationList) {
   manager.addStationInList(stationList[i]);
@@ -114,11 +117,16 @@ btnAddStation.onclick = () => {
   }
 };
 
-for (let i = 0; i < 5; i++) {
-  const tmp = new Line(`${i}호선`);
-  tmp.addLine(new Station("오금"), new Station("길음"));
-  manager.addLineInList(tmp);
-}
+const tmp = new Line("2호선");
+tmp.addLine(new Station("잠실"), new Station("신림"));
+manager.addLineInList(tmp);
+const tmp2 = new Line("3호선");
+tmp2.addLine(new Station("오금"), new Station("대화"));
+manager.addLineInList(tmp2);
+const tmp3 = new Line("4호선");
+tmp3.addLine(new Station("당고개"), new Station("오이도"));
+manager.addLineInList(tmp3);
+
 const btnAddLine = document.getElementById("line-add-button");
 btnAddLine.onclick = () => {
   addLineToList();
