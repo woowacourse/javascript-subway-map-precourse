@@ -30,6 +30,20 @@ class SectionViewEventDelegation {
     );
 
     this.subwayMapViewModel.addSection(sectionId, dataSet.lineid, sectionOrder);
+    this.sectionView.resetSectionTable();
+    this.sectionView.renderSectionTable(
+      dataSet.lineid,
+      this.subwayMapViewModel.getSections(dataSet.lineid),
+    );
+  }
+
+  deleteSection(dataSet) {
+    this.subwayMapViewModel.deleteSection(dataSet.lineid, dataSet.sectionid);
+    this.sectionView.resetSectionTable();
+    this.sectionView.renderSectionTable(
+      dataSet.lineid,
+      this.subwayMapViewModel.getSections(dataSet.lineid),
+    );
   }
 }
 
@@ -104,9 +118,17 @@ export default class SubwayMapSectionView {
       </div>
     `;
     this.renderSectionTableContainer();
-    this.renderSectionTable(this.subwayMapViewModel.getSections(line.lineId));
+    this.renderSectionTable(
+      line.lineId,
+      this.subwayMapViewModel.getSections(line.lineId),
+    );
     new SectionViewEventDelegation(
       document.getElementById('#section-selected-line-manager-container'),
+      this,
+      this.subwayMapViewModel,
+    );
+    new SectionViewEventDelegation(
+      document.getElementById('#section-table-container'),
       this,
       this.subwayMapViewModel,
     );
@@ -136,13 +158,13 @@ export default class SubwayMapSectionView {
     `;
   }
 
-  resetLineTable() {
-    document.getElementById('#section-name-table').innerHTML = '';
+  resetSectionTable() {
+    document.getElementById('#section-table-container').innerHTML = '';
   }
 
-  renderSectionTable(sections) {
+  renderSectionTable(lineId, sections) {
     const sectionThead = this.renderSectionThead();
-    const sectionTbody = this.renderSectionTbody(sections);
+    const sectionTbody = this.renderSectionTbody(lineId, sections);
 
     const sectionTable = `
       <table id="#section-name-table">
@@ -168,7 +190,7 @@ export default class SubwayMapSectionView {
     return sectionThead;
   }
 
-  renderSectionTbody(sections) {
+  renderSectionTbody(lineId, sections) {
     let sectionTbody = ``;
     sections.forEach((section, index) => {
       sectionTbody += `
@@ -176,7 +198,7 @@ export default class SubwayMapSectionView {
         <td>${index}</td>
         <td>${section.stationId}</td>
         <td>
-          <button data-id="${index}" class=".line-delete-button">${message.OPTION_DELETE}</button>
+          <button data-lineid="${lineId}"data-sectionid="${index}" data-purpose="deleteSection" class=".section-delete-button">${message.OPTION_DELETE}</button>
         </td>
       </tr>
     `;

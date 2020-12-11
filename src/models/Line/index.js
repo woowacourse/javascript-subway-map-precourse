@@ -22,8 +22,9 @@ export default class Line {
     this.sections = sections;
   }
 
-  removeSection(order) {
-    const sections = [...this.sections].splice(order, 1);
+  deleteSection(order) {
+    const sections = [...this.sections];
+    sections.splice(order, 1);
 
     this.sections = sections;
   }

@@ -58,7 +58,7 @@ export default class SubwayMapModel {
     return this.lines[lineId].getsections();
   }
 
-  removeSectionFromLine(lineId, order) {
-    this.lines[lineId].removeSection(order);
+  deleteSectionFromLine(lineId, order) {
+    this.lines[lineId].deleteSection(order);
   }
 }

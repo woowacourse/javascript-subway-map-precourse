@@ -31,6 +31,10 @@ export default class SubwayMapViewModel {
     this.subwayMapModel.addSectionToLine(sectionId, lineId, order);
   }
 
+  deleteSection(lineId, order) {
+    this.subwayMapModel.deleteSectionFromLine(lineId, order);
+  }
+
   getSections(lineId) {
     return this.subwayMapModel.getsectionsFromLine(lineId);
   }
