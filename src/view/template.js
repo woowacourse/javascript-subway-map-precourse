@@ -15,12 +15,15 @@ export const stationManagerTemplate = (subways) => {
 };
 
 const stationTable = (subways) => {
+  let count = 0;
   return subways
     .map(
       (subway) =>
         `<tr>
         <td>${subway.station}</td>
-        <td><button class='${CLASS.STATION_DELETE_BUTTON}'>삭제</button></td>
+        <td data-index='${count++}'>
+          <button class='${CLASS.STATION_DELETE_BUTTON}'>삭제</button>
+        </td>
         </tr>`
     )
     .join('');

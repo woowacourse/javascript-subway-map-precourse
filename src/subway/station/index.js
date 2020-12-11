@@ -29,6 +29,7 @@ export default class Station {
     this.render();
     this.handleStationManagerButton();
     this.handleStationAddButton();
+    this.handleStationDeleteButton();
   }
 
   createStationManagerButton($functionButtonContainer) {
@@ -47,6 +48,11 @@ export default class Station {
     $target.appendChild(stationManager);
   }
 
+  render() {
+    const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
+    stationManager.innerHTML = stationManagerTemplate(this.subways);
+  }
+
   handleStationManagerButton() {
     const stationManagerButton = document.querySelector(`#${ID.STATION_MANAGER_BUTTON}`);
 
@@ -58,11 +64,6 @@ export default class Station {
   showStationManager() {
     const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
     stationManager.style.display = 'block';
-  }
-
-  render() {
-    const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
-    stationManager.innerHTML = stationManagerTemplate(this.subways);
   }
 
   handleStationAddButton() {
@@ -83,6 +84,7 @@ export default class Station {
       this.saveStation(stationName);
       this.render();
       this.handleStationAddButton();
+      this.handleStationDeleteButton();
     }
   }
 
@@ -97,4 +99,21 @@ export default class Station {
   addSubway() {
     return new Subway();
   }
+
+  handleStationDeleteButton() {
+    const deleteStationButton = document.querySelectorAll(`.${CLASS.STATION_DELETE_BUTTON}`);
+    deleteStationButton.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        this.deleteStation(event);
+      });
+    });
+  }
+
+  deleteStation(event) {
+    this.subways.splice(event.target.parentNode.dataset.index, 1);
+    this.render();
+    localStorage.setItem(NAME.LOCALSTORAGE_KEY, JSON.stringify(this.subways));
+  }
 }
+
+// TODO: render template 바꾸기
