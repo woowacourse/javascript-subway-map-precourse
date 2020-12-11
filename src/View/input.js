@@ -11,6 +11,12 @@ export const $stationAddInput = document.body.querySelector(
 export const $stationAddButton = document.body.querySelector(
   '#station-add-button',
 );
+export const $upStream = document.body.querySelector(
+  '#line-start-station-selector',
+);
+export const $downStream = document.body.querySelector(
+  '#line-end-station-selector',
+);
 
 export const setStationButton = (value, button) => {
   button.dataset.station = value;

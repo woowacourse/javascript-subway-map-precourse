@@ -1,7 +1,4 @@
-import {$stationContainer} from './input.js';
-
-const $upStream = document.body.querySelector('#line-start-station-selector');
-const $downStream = document.body.querySelector('#line-end-station-selector');
+import {$stationContainer, $downStream, $upStream} from './input.js';
 
 export const removeStationScreen = (button) => {
   const $stationTbody = $stationContainer.querySelector('table > tbody');
