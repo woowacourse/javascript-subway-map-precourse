@@ -1,4 +1,9 @@
-import {onChangeScreen, onAddStation, onRemoveStation} from '../index.js';
+import {
+  onChangeScreen,
+  onAddStation,
+  onRemoveStation,
+  onAddLine,
+} from '../index.js';
 
 export const $screenButton = document.body.querySelectorAll('#app > button');
 export const $stationContainer = document.body.querySelector('#station');
@@ -17,6 +22,8 @@ export const $upStream = document.body.querySelector(
 export const $downStream = document.body.querySelector(
   '#line-end-station-selector',
 );
+export const $lineAddButton = document.body.querySelector('#line-add-button');
+export const $lineNameInput = document.body.querySelector('#line-name-input');
 
 export const setStationButton = (value, button) => {
   button.dataset.station = value;
@@ -28,3 +35,5 @@ $screenButton.forEach((button) =>
 );
 
 $stationAddButton.addEventListener('click', onAddStation);
+
+$lineAddButton.addEventListener('click', onAddLine);

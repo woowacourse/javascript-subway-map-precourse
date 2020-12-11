@@ -6,7 +6,12 @@ import {
   removeLastStopScreen,
   removeStationScreen,
 } from './View/remove-screen.js';
-import {$stationAddInput} from './View/input.js';
+import {
+  $stationAddInput,
+  $upStream,
+  $downStream,
+  $lineNameInput,
+} from './View/input.js';
 import {isInputValid} from './Controller/valid.js';
 import {
   setLocalStorage,
@@ -40,12 +45,24 @@ export function onRemoveStation(e) {
   }
 }
 
+export function onAddLine() {
+  setLocalStorage('line', getLineValue());
+}
+
 export const loadStation = () => {
   stationInstance.loadStation();
   stationInstance.stations.forEach((station) => {
     addStationScreen(station);
     addLastStopScreen(station);
   });
+};
+
+const getLineValue = () => {
+  return {
+    lineName: $lineNameInput.value,
+    upStream: $upStream.value,
+    downStream: $downStream.value,
+  };
 };
 
 loadStation();
