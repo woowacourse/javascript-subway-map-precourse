@@ -104,7 +104,7 @@ export default class SubwayMapSectionView {
       </div>
     `;
     this.renderSectionTableContainer();
-    this.renderSectionTable();
+    this.renderSectionTable(this.subwayMapViewModel.getSections(line.lineId));
     new SectionViewEventDelegation(
       document.getElementById('#section-selected-line-manager-container'),
       this,
@@ -136,9 +136,9 @@ export default class SubwayMapSectionView {
     `;
   }
 
-  renderSectionTable(lines) {
+  renderSectionTable(sections) {
     const sectionThead = this.renderSectionThead();
-    const sectionTbody = this.rendersectionTbody(lines);
+    const sectionTbody = this.renderSectionTbody(sections);
 
     const sectionTable = `
       <table id="#section-name-table">
@@ -162,5 +162,22 @@ export default class SubwayMapSectionView {
     `;
 
     return sectionThead;
+  }
+
+  renderSectionTbody(sections) {
+    let sectionTbody = ``;
+    sections.forEach((section, index) => {
+      sectionTbody += `
+      <tr>
+        <td>${index}</td>
+        <td>${section.stationId}</td>
+        <td>
+          <button data-id="${index}" class=".line-delete-button">${message.OPTION_DELETE}</button>
+        </td>
+      </tr>
+    `;
+    });
+
+    return sectionTbody;
   }
 }
