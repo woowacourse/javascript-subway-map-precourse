@@ -1,5 +1,6 @@
 import DomUtils from './dom_utils.js';
 import StringUtils from './string_utils.js';
+import ManageStation from './manage_station.js';
 
 export default class SubwayMap {
   constructor() {
@@ -8,6 +9,7 @@ export default class SubwayMap {
     this.setIdNAme();
     this.managerButton()
     this.createMenu();
+    this.handleManager();
   }
 
   setIdNAme() {
@@ -26,18 +28,22 @@ export default class SubwayMap {
   }
 
   createMenu() {
+    this.createArticleArea();
     for (const idName in this._managerButton) {
       const varName = this.createMenuButton(idName);
       const articleName = this.createMenuArticle(idName);
       this.addEventToButton(varName, articleName);
     }
-    this.createArticleArea();
+  }
+
+  createArticleArea() {
+    this._articleArea = this._privateDomUtils.createArticle(this.APP, this.ARTICLE_AREA);
   }
 
   createMenuButton(idName) {
     const varName = this._privateStringUtils.getVarName(idName);
 
-    this[`_${varName}`] = this._privateDomUtils.createButton(idName, this._managerButton);
+    this[`_${varName}`] = this._privateDomUtils.createButton(idName, this._managerButton, this._articleArea);
 
     return varName;
   }
@@ -45,7 +51,9 @@ export default class SubwayMap {
   createMenuArticle(idName) {
     const articleName = this._privateStringUtils.getArticleName(idName);
     
-    this[`_${articleName}`] = this._privateDomUtils.createArticle(this.DO_NOT_APPEND, articleName);
+    this[`_${articleName}`] = this._privateDomUtils.createArticle(this.ARTICLE_AREA, articleName);
+    this[`_${articleName}`].innerHTML = articleName;
+    this._privateDomUtils.displayNone(this[`_${articleName}`]);
 
     return articleName;
   }
@@ -56,12 +64,23 @@ export default class SubwayMap {
     });
   }
 
-  createArticleArea() {
-    this._articleArea = this._privateDomUtils.createArticle(this.APP, this.ARTICLE_AREA);
+  showArticle(articleName) {
+    this.hideAllArticle();
+    this.showTheOne(articleName);
   }
 
-  showArticle(articleName) {
-    this._articleArea.innerHTML = this[`_${articleName}`].innerHTML;
+  hideAllArticle() {
+    for (let i = 0; i < 4; i++) {
+      this._articleArea.children[i].style.display = 'none'
+    }
+  }
+
+  showTheOne(articleName) {
+    this[`_${articleName}`].style.display = 'block';
+  }
+
+  handleManager() {
+    new ManageStation();
   }
 }
 

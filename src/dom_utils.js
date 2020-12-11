@@ -3,35 +3,63 @@ export default class DomUtils {
     this.DO_NOT_APPEND = false;
   }
 
-  createButton(idName, managerButton) {
+  createButton(idName, managerButton, before) {
     const button = document.createElement('button');
 
     this.setAttribute(button, idName);
     this.setInnerHtml(button, idName, managerButton);
-    this.appendTo('app', button);
+    this.appendBefore('app', button, before)
 
     return button;
   }
 
-  setAttribute(tag, idName) {
-    tag.setAttribute('id', idName);
+  setAttribute(varName, idName) {
+    varName.setAttribute('id', idName);
   }
 
-  setInnerHtml(tag, idName, managerButton) {
-    tag.innerHTML = managerButton[idName]
+  setInnerHtml(varName, idName, managerButton) {
+    varName.innerHTML = managerButton[idName]
   }
 
   appendTo(toIdName, varName) {
     document.getElementById(toIdName).appendChild(varName);
   }
 
+  appendBefore(toIdName, varName, before) {
+    const toVarName = document.getElementById(toIdName);
+
+    toVarName.insertBefore(varName, before);
+  }
+
   createArticle(toIdName, idName) {
     const article = document.createElement('ARTICLE');
 
     this.setAttribute(article, idName);
-    if (toIdName !== this.DO_NOT_APPEND)
-      this.appendTo(toIdName, article);
+    this.appendTo(toIdName, article);
 
     return article
+  }
+
+  displayNone(varName) {
+    varName.style.display = "none";
+  }
+
+  createInput(inputObject) {
+    const input = document.createElement('input');
+
+    this.setAttribute(input, inputObject['idName']);
+    this.setInputType(input, inputObject['type']);
+    this.setPlaceholder(input, inputObject['placeholder']);
+    this.appendTo(inputObject['toIdName'], input)
+
+    return input;
+  }
+
+  setInputType(input, type) {
+    input.setAttribute('type', type);
+  }
+
+  setPlaceholder(input, placeholder) {
+    input.placeholder = placeholder;
   }
 }
