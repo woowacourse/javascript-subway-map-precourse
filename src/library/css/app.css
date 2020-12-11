@@ -1,3 +1,4 @@
+/* tag */
 body {
   font-family: 'Noto Sans KR', sans-serif;
 }
@@ -6,12 +7,27 @@ button {
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.function {
-  display: none;
+input {
+  font-size: medium;
 }
 
 table,
 th,
 td {
   border: 1px solid #333;
+}
+
+/* role section */
+.role {
+  display: none;
+  margin-top: 30px;
+}
+
+.name-input-title {
+  margin: 0;
+}
+
+/* behavior */
+.active {
+  display: block;
 }

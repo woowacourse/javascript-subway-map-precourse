@@ -3,12 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <title>지하철 노선도 관리</title>
-    <link rel="stylesheet" href="./src/library/css/app.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/library/css/app.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="app">
-      <h1>🚇 지하철 노선도 관리 </h1>
+      <h1>🚇 지하철 노선도 관리</h1>
+      <section class="role-section">
+        <section class="role-button-section"></section>
+        <div id="station-manager" class="role">
+          <div id="station-input-container">
+            <h4 class="name-input-title">역 이름</h4>
+            <input
+              type="text"
+              id="station-name-input"
+              placeholder="역 이름을 입력해주세요."
+            />
+            <button type="submit" id="station-add-button">역 추가</button>
+          </div>
+          <div id="station-table-container">
+            <h2 class="table-title">🚊 지하철 역 목록</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>역 이름</th>
+                  <th>설정</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="line-manager" class="role"></div>
+        <div id="section-line-manager" class="role"></div>
+        <div id="map-printer-manager" class="role"></div>
+      </section>
     </div>
     <!-- <table>
       <thead>
