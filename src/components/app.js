@@ -14,9 +14,7 @@ import SectionManager from './section-manager/index.js';
 class App extends Component {
   constructor($target) {
     super($target);
-<<<<<<< HEAD
     this.render();
-    this.initializeComponents();
   }
 
   render = () => {
@@ -25,13 +23,9 @@ class App extends Component {
       <nav id="navigator"></nav>
       <main id="router-view"></main>
     `;
+    this.initializeComponents();
   };
 
-=======
-    this.initializeComponents();
-  }
-
->>>>>>> b6520b0 (feat: 컴포넌트 생성 시 기존 target요소의 이벤트리스너 제거)
   initializeComponents() {
     const $navigator = this._$target.querySelector('#navigator');
     new Navigator($navigator, { routeTo: this.routeTo });

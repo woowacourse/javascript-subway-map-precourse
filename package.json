@@ -1,9 +1,9 @@
 {
+  "type": "module",
   "name": "javascript-subway-map-precourse",
   "version": "1.0.0",
   "description": "## 🚀 기능 요구사항",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "jest"
   },
