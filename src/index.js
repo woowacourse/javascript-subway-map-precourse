@@ -7,6 +7,7 @@ import {isInputValid} from './Controller/valid.js';
 import {
   setLocalStorage,
   removeLocalStorage,
+  getLocalStorage,
 } from './Controller/local-storage.js';
 
 export function onChangeScreen(e) {
@@ -29,3 +30,12 @@ export function onRemoveStation(e) {
     removeStationScreen(e.target);
   }
 }
+
+const loadStation = () => {
+  const stations = getLocalStorage('station');
+  if (stations) {
+    stations.forEach((station) => addStationScreen(station));
+  }
+};
+
+loadStation();
