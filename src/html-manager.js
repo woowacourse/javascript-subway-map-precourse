@@ -5,8 +5,9 @@ import LineManagerUI from "./ui/contents-ui/line-manager-ui.js";
 import MapPrintManagerUI from "./ui/contents-ui/map-print-manager-ui.js";
 
 export default class HTMLManager {
-  constructor({ htmlOfBody }) {
+  constructor({ htmlOfBody, stationINFOManager }) {
     this.htmlOfBody = htmlOfBody;
+    this.stationINFOManager = stationINFOManager;
 
     this.menubarUI_ = new MenubarUI({
       htmlManager: this,

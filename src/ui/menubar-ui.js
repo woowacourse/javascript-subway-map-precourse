@@ -14,20 +14,20 @@ export default class MenubarUI {
   }
 
   addEventToStationButton_() {
-    const button_ = this.menubarContainer_.querySelector("#" + STATION_ID);
-    button_.addEventListener("click", () => {
+    const button = this.menubarContainer_.querySelector("#" + STATION_ID);
+    button.addEventListener("click", () => {
       this.htmlManager_.setContentsUIOnStationUI();
     });
   }
   addEventToLineButton_() {
-    const button_ = this.menubarContainer_.querySelector("#" + LINE_ID);
-    button_.addEventListener("click", () => {
+    const button = this.menubarContainer_.querySelector("#" + LINE_ID);
+    button.addEventListener("click", () => {
       this.htmlManager_.setContentsUIOnSectionUI();
     });
   }
   addEventToSectionButton_() {
-    const button_ = this.menubarContainer_.querySelector("#" + SECTION_ID);
-    button_.addEventListener("click", () => {
+    const button = this.menubarContainer_.querySelector("#" + SECTION_ID);
+    button.addEventListener("click", () => {
       this.htmlManager_.setContentsUIOnLineUI();
     });
   }
