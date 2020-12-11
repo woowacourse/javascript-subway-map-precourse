@@ -1,18 +1,18 @@
 export default class StationManagerView {
-  static View() {
-    this.StationInitView();
-    this.StationInputView();
-    this.StationTableView();
+  static view() {
+    this.stationInitView();
+    this.stationInputView();
+    this.stationTableView();
   }
 
-  static StationInitView() {
+  static stationInitView() {
     document.getElementById('sub-view-container').innerHTML = `
     <div id="station-input-view"></div>
     <div id="station-table-view"></div>
     `;
   }
 
-  static StationInputView() {
+  static stationInputView() {
     document.getElementById('station-input-view').innerHTML = `
     <h4>역 이름</h4>
     <input id='station-name-input' type='text' placeholder='역 이름을 입력해주세요.'/>
@@ -20,7 +20,7 @@ export default class StationManagerView {
     `;
   }
 
-  static StationTableView() {
+  static stationTableView() {
     const stations = localStorage.getItem('Stations').split(',');
     document.getElementById('station-table-view').innerHTML = `
     <h2>🚉 지하철 역 목록</h2>
@@ -37,11 +37,11 @@ export default class StationManagerView {
     </table>`;
   }
 
-  static AlertNameError() {
+  static alertNameError() {
     alert('invalid Error');
   }
 
-  static AlertDelete() {
+  static confirmDelete() {
     return window.confirm('정말로 삭제 하시겠습니까?');
   }
 }

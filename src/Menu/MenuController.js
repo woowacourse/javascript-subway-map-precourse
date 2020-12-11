@@ -1,20 +1,20 @@
 import MenuView from './MenuView.js';
 
 export default class MenuController {
-  static ButtonEventController() {
+  static buttonEventController() {
     document.addEventListener('click', (event) => {
       const eventId = event.target.id;
       if (eventId === 'station-manager-button') {
-        MenuView.StationManagerView();
+        MenuView.stationManagerView();
       }
       if (eventId === 'line-manager-button') {
-        MenuView.LineManagerView();
+        MenuView.lineManagerView();
       }
       if (eventId === 'section-manager-button') {
-        MenuView.SectionManagerView();
+        MenuView.sectionManagerView();
       }
       if (eventId === 'map-print-manager-button') {
-        MenuView.MapPrintManagerView();
+        MenuView.mapPrintManagerView();
       }
     });
   }

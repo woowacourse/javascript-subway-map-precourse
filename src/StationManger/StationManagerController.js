@@ -19,23 +19,23 @@ export default class StationManagerController {
     const station = document.getElementById('station-name-input').value;
     if (!StationManagerModel.isValidName(station)) {
       StationManagerView.alertNameError();
-      StationManagerView.StationInputView();
+      StationManagerView.stationInputView();
       return;
     }
     StationManagerModel.add(station);
-    StationManagerView.StationInputView();
-    StationManagerView.StationTableView();
+    StationManagerView.stationInputView();
+    StationManagerView.stationTableView();
   }
 
   static deleteButtonClicked(button) {
     const buttons = document.getElementsByClassName('station-delete-button');
     const buttonsArray = Array.from(buttons);
     const station = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
-    if (StationManagerView.AlertDelete()) {
+    if (StationManagerView.confirmDelete()) {
       StationManagerModel.delete(station);
-      StationManagerView.StationTableView();
+      StationManagerView.stationTableView();
     } else {
-      StationManagerView.StationInputView();
+      StationManagerView.stationInputView();
     }
   }
 }

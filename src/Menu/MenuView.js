@@ -1,7 +1,7 @@
 import StationManagerView from '../StationManger/StationManagerView.js'
 
 export default class MenuView {
-  static MenuButtonListView() {
+  static menuButtonListView() {
     document.getElementById('app').innerHTML += `
     <button id="station-manager-button">1.역 관리</button>
     <button id="line-manager-button">2. 노선 관리</button>
@@ -11,11 +11,11 @@ export default class MenuView {
     `;
   }
 
-  static StationManagerView() {
-    StationManagerView.View();
+  static stationManagerView() {
+    StationManagerView.view();
   }
 
-  static LineManagerView() {
+  static lineManagerView() {
     document.getElementById('sub-view-container').innerHTML = `
     <h4>노선 이름</h4>
     <h2>🚉 지하철 노선 목록</h2>
@@ -23,11 +23,11 @@ export default class MenuView {
     <br/>
     <div id='line-table'></div>
     `;
-    this.LineInputView();
-    this.LineTableView();
+    this.lineInputView();
+    this.lineTableView();
   }
 
-  static LineInputView() {
+  static lineInputView() {
     const stations = localStorage.getItem('Stations').split(',');
     document.getElementById('line-input').innerHTML = `<input type='text' placeholder='노선 이름을 입력해주세요.'/>
     <p>상행 종점
@@ -43,7 +43,7 @@ export default class MenuView {
     <button id='add'>노선 추가</button>`;
   }
 
-  static LineTableView() {
+  static lineTableView() {
     const lines = localStorage.getItem('Lines').split(',');
     document.getElementById('line-table').innerHTML = `
     <table border='1px solid black'>
@@ -63,19 +63,19 @@ export default class MenuView {
     </table>`;
   }
 
-  static SectionManagerView() {
+  static lectionManagerView() {
     document.getElementById('sub-view-container').innerHTML = `
     <div id='section-select'></div>
     <div id='section-input'></div>
     <br/>
     <div id='section-table'></div>
     `;
-    this.SectionSelectView();
-    this.SectionInputView(0);
-    this.SectionTableView();
+    this.sectionSelectView();
+    this.sectionInputView(0);
+    this.sectionTableView();
   }
 
-  static SectionSelectView() {
+  static sectionSelectView() {
     const lines = localStorage.getItem('Lines').split(',');
     document.getElementById('section-select').innerHTML = `
       <h3>구간을 수정할 노선을 선택해주세요.</h3>
@@ -83,7 +83,7 @@ export default class MenuView {
     `;
   }
 
-  static SectionInputView(index) {
+  static sectionInputView(index) {
     const lines = localStorage.getItem('Lines').split(',');
     const stations = localStorage.getItem('Stations').split(',');
     document.getElementById('section-input').innerHTML = `
@@ -96,7 +96,7 @@ export default class MenuView {
       <button id='add'>등록</button>`;
   }
 
-  static SectionTableView() {
+  static sectionTableView() {
     const stations = localStorage.getItem('Stations').split(',');
     document.getElementById('section-table').innerHTML = `<table border='1px solid black'>
     <tr>
@@ -113,7 +113,7 @@ export default class MenuView {
   </table>`;
   }
 
-  static MapPrintManagerView() {
+  static mapPrintManagerView() {
     const stations = localStorage.getItem('Stations').split(',');
     const lines = localStorage.getItem('Lines').split(',');
     document.getElementById('sub-view-container').innerHTML = `
