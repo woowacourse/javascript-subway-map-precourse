@@ -1,5 +1,9 @@
+import { save, load } from "../utils/storage.js";
+
+const STORAGE_KEY = 'stations';
+
 export default {
-  data: new Set(),
+  data: new Set(load(STORAGE_KEY)),
 
   list() {
     return [...this.data];
@@ -11,6 +15,7 @@ export default {
     }
 
     this.data.add(name);
+    this.save();
   },
 
   remove(name) {
@@ -19,5 +24,11 @@ export default {
     }
 
     this.data.delete(name);
+    this.save();
+  },
+
+  save() {
+    const data = Array.from(this.data);
+    save(STORAGE_KEY, data);
   }
 }
