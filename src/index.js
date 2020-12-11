@@ -110,8 +110,8 @@ const btnAddStation = document.getElementById("station-add-button");
 btnAddStation.onclick = () => {
   const newStationName = document.getElementById("station-name-input").value;
   if (
-    isCorrectStationName(newStationName) === true &&
-    isOverlappedStationName(newStationName) === false
+    isCorrectStationName(newStationName) &&
+    !isOverlappedStationName(newStationName)
   ) {
     addStationToList(newStationName);
   }

@@ -59,6 +59,18 @@ export const isPossibleLine = (startName, endName) => {
   }
   return true;
 };
+export const isOverlappedLineName = (newLineName) => {
+  const overlappedName = manager.lineList.find(
+    (line) => line.name === newLineName
+  );
+  if (overlappedName) {
+    alert("이미 등록된 노선입니다.");
+    document.getElementById("line-name-input").value = "";
+
+    return true;
+  }
+  return false;
+};
 export const addLineToList = () => {
   const newLineName = document.getElementById("line-name-input").value;
   const startStationName = document.getElementById(
@@ -66,7 +78,10 @@ export const addLineToList = () => {
   ).value;
   const endStationName = document.getElementById("line-end-station-selector")
     .value;
-  if (isPossibleLine(startStationName, endStationName)) {
+  if (
+    isPossibleLine(startStationName, endStationName) &&
+    !isOverlappedLineName(newLineName)
+  ) {
     const line = new Line(newLineName);
     const startStation = new Station(startStationName);
     const endStation = new Station(endStationName);
