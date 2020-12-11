@@ -1,4 +1,4 @@
-import {getLocalStorage} from '../index.js';
+import {getLocalStorage} from './local-storage.js';
 
 export const isInputValid = (value) => {
   const exValue = getLocalStorage('station');
