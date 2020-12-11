@@ -1,17 +1,15 @@
 import Subway from '../index.js';
 import UserException from '../../util/userException.js';
-import { ID, NAME, ALERT } from '../../constants/index.js';
+import { ID, CLASS, NAME, ALERT } from '../../constants/index.js';
 import { stationManagerTemplate } from '../../view/template.js';
 
 export default class Station {
   userException = new UserException();
 
   constructor($target, $functionButtonContainer) {
-    this.createStationManagerButton($functionButtonContainer);
-    this.createStationManager($target);
-    this.handleStationManagerButton();
-
     this.subways = this.loadSubways();
+
+    this.init($target, $functionButtonContainer);
   }
 
   loadSubways() {
@@ -25,6 +23,14 @@ export default class Station {
     return parsedSubways;
   }
 
+  init($target, $functionButtonContainer) {
+    this.createStationManagerButton($functionButtonContainer);
+    this.createStationManager($target);
+    this.render();
+    this.handleStationManagerButton();
+    this.handleStationAddButton();
+  }
+
   createStationManagerButton($functionButtonContainer) {
     const stationManagerButton = document.createElement('button');
 
@@ -34,19 +40,24 @@ export default class Station {
   }
 
   createStationManager($target) {
-    const $stationManager = document.createElement('div');
+    const stationManager = document.createElement('div');
 
-    $stationManager.id = `${ID.STATION_MANAGER}`;
-    $target.appendChild($stationManager);
+    stationManager.id = `${ID.STATION_MANAGER}`;
+    stationManager.style.display = 'none';
+    $target.appendChild(stationManager);
   }
 
   handleStationManagerButton() {
     const stationManagerButton = document.querySelector(`#${ID.STATION_MANAGER_BUTTON}`);
 
     stationManagerButton.addEventListener('click', () => {
-      this.render();
-      this.handleStationAddButton();
+      this.showStationManager();
     });
+  }
+
+  showStationManager() {
+    const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
+    stationManager.style.display = 'block';
   }
 
   render() {
@@ -71,7 +82,7 @@ export default class Station {
     } else {
       this.saveStation(stationName);
       this.render();
-      this.handleStationAddButton(); // style: none 방식으로 할지 고민
+      this.handleStationAddButton();
     }
   }
 
