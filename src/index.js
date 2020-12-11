@@ -8,6 +8,7 @@ import {isInputValid} from './Controller/valid.js';
 import {
   setLocalStorage,
   removeLocalStorage,
+  getLocalStorage,
 } from './Controller/local-storage.js';
 
 const stationInstance = new Station();
@@ -35,9 +36,16 @@ export function onRemoveStation(e) {
   }
 }
 
-const loadStation = () => {
-  stationInstance.loadStation();
-  stationInstance.stations.forEach((station) => addStationScreen(station));
+export const loadStation = () => {
+  if (!isStationLoaded()) {
+    stationInstance.loadStation();
+    stationInstance.stations.forEach((station) => addStationScreen(station));
+  }
 };
 
-loadStation();
+const isStationLoaded = () => {
+  const localStation = JSON.stringify(getLocalStorage('station'));
+  const serverStation = JSON.stringify(stationInstance.stations);
+
+  return localStation === serverStation;
+};
