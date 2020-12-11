@@ -31,6 +31,6 @@ export const addLineScreen = (line) => {
     <td>${line.downStream}</td>
     <td><button class="line-delete-button">삭제</button></td>
   `;
-  setButtonOption(line, $lineTr.querySelector('button'));
+  setButtonOption(line.lineName, $lineTr.querySelector('button'));
   $lineTbody.appendChild($lineTr);
 };

@@ -3,6 +3,7 @@ import {
   onAddStation,
   onRemoveStation,
   onAddLine,
+  onRemoveLine,
 } from '../index.js';
 
 export const $screenButton = document.body.querySelectorAll('#app > button');
@@ -26,11 +27,12 @@ export const $lineAddButton = document.body.querySelector('#line-add-button');
 export const $lineNameInput = document.body.querySelector('#line-name-input');
 
 export const setButtonOption = (value, button) => {
-  button.dataset.station = value;
   if (button.className === 'station-delete-button') {
+    button.dataset.station = value;
     return button.addEventListener('click', onRemoveStation);
   }
   if (button.className === 'line-delete-button') {
+    button.dataset.line = value;
     return button.addEventListener('click', onRemoveLine);
   }
 };

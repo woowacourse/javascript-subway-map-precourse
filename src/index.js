@@ -58,6 +58,10 @@ export function onAddLine() {
   addLineScreen(lineValue);
 }
 
+export function onRemoveLine(e) {
+  removeLocalStorage('line', e.target.dataset.line);
+}
+
 export const loadStation = () => {
   stationInstance.loadStation();
   stationInstance.stations.forEach((station) => {

@@ -18,9 +18,14 @@ export const getLocalStorage = (key) => {
 
 export const removeLocalStorage = (key, value) => {
   const localStorageValue = getLocalStorage(key);
-  const filteredStorage = localStorageValue.filter(
-    (station) => station !== value,
-  );
+  const filteredStorage = localStorageValue.filter((storage) => {
+    if (key === 'station') {
+      return storage !== value;
+    }
+    if (key === 'line') {
+      return storage.lineName !== value;
+    }
+  });
 
   return localStorage.setItem(key, JSON.stringify(filteredStorage));
 };
