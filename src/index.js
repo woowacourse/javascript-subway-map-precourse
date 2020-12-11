@@ -2,7 +2,10 @@ import Station from './Model/station.js';
 import {hideScreen} from './View/hide-screen.js';
 import {showScreen} from './View/show-screen.js';
 import {addStationScreen, addLastStopScreen} from './View/add-screen.js';
-import {removeStationScreen} from './View/remove-screen.js';
+import {
+  removeLastStopScreen,
+  removeStationScreen,
+} from './View/remove-screen.js';
 import {$stationAddInput} from './View/input.js';
 import {isInputValid} from './Controller/valid.js';
 import {
@@ -33,6 +36,7 @@ export function onRemoveStation(e) {
     removeLocalStorage('station', e.target.dataset.station);
     stationInstance.removeStation(e.target.dataset.station);
     removeStationScreen(e.target);
+    removeLastStopScreen(e.target.dataset.station);
   }
 }
 
