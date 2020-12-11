@@ -1,0 +1,17 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+button {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.function {
+  display: none;
+}
+
+table,
+th,
+td {
+  border: 1px solid #333;
+}
