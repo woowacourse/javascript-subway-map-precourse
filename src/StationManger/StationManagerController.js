@@ -5,10 +5,12 @@ export default class StationManagerController {
   static ButtonEventController() {
     document.addEventListener('click', (event) => {
       const eventId = event.target.id;
+      const eventClassName = event.target.className;
       if (eventId === 'station-add-button') {
         this.addButtonClicked();
-      } else if (eventId === 'station-delete-button') {
-        this.deleteButtonClicked();
+      } else if (eventClassName === 'station-delete-button') {
+        const button = event.path[0];
+        this.deleteButtonClicked(button);
       }
     });
   }
@@ -25,7 +27,13 @@ export default class StationManagerController {
     StationManagerView.StationTableView();
   }
 
-  static deleteButtonClicked() {
-    alert('delete');
+  static deleteButtonClicked(button) {
+    const buttons = document.getElementsByClassName('station-delete-button');
+    const buttonsArray = Array.from(buttons);
+    const station = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
+    console.log(station);
+    // alert('delete');
+    StationManagerModel.delete(station);
+    StationManagerView.StationTableView();
   }
 }

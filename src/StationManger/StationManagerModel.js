@@ -36,11 +36,15 @@ export default class StationManagerModel {
     return /[^가-힣]/.test(station);
   }
 
-  static delete() {
-
+  static delete(station) {
+    if (this.isInStations(station)) {
+      const stations = localStorage.getItem('Stations').split(',');
+      stations.splice(stations.indexOf(station), 1);
+      localStorage.setItem('Stations', stations);
+    }
   }
 
-  static IsInStations(station) {
-    return localStorage.getItem('Stations').join(',').indexOf(station) > -1;
+  static isInStations(station) {
+    return localStorage.getItem('Stations').split(',').indexOf(station) > -1;
   }
 }

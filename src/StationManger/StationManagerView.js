@@ -31,8 +31,8 @@ export default class StationManagerView {
       </tr>
       ${stations.map((station) => `
       <tr>
-        <td aligh="center">${station}</td>
-        <td><button class="station-delete-button">삭제</button></td>
+        <td align="center">${station}</td>
+        <td><button class="station-delete-button" data-delete-target="${station}">삭제</button></td>
       </tr>`).join('')}
     </table>`;
   }
