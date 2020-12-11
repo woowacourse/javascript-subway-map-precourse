@@ -65,7 +65,7 @@ export default class SubwayMapLineView {
     );
     this.renderLineAddButton();
     this.renderLineTableContainer();
-    this.renderLineTable([]);
+    this.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
   }
 
   renderLineNameInput() {

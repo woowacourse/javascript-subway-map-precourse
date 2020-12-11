@@ -82,7 +82,9 @@ export default class SubwayMapStationView {
       <div id="#station-table-container"></div>
     `;
 
-    this.renderStationTable([]);
+    this.renderStationTable(
+      Object.entries(this.subwayMapViewModel.getStations()),
+    );
   }
 
   renderStationTable(stations) {
