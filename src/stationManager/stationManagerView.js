@@ -2,7 +2,9 @@ import { Data } from "../data.js";
 
 export const removeStationManagerHTML = () => {
     const stationHTML = document.querySelector("#station-manager-div")
-    document.querySelector("body").removeChild(stationHTML)
+    if (stationHTML) {
+        document.querySelector("body").removeChild(stationHTML);
+    }
 }
 
 export const addResultToBody = (HTML) => {
