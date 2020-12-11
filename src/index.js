@@ -18,6 +18,7 @@ export default class SubwayManager {
     DOMs.managerContainer.addEventListener('click', this.addStation.bind(this));
     DOMs.managerContainer.addEventListener('click', this.deleteStation.bind(this));
     DOMs.managerContainer.addEventListener('click', this.addLine.bind(this));
+    DOMs.managerContainer.addEventListener('click', this.deleteLine.bind(this));
   }
 
   openStationManager() {
@@ -39,7 +40,6 @@ export default class SubwayManager {
   }
 
   openLineManager() {
-    console.log(this.lines);
     const lineManager = `
       <div id="line-manager"><br><span>노선 이름</span><br>
       <input type="text" id="line-name-input" placeholder="노선 이름을 입력해주세요." />
@@ -54,7 +54,8 @@ export default class SubwayManager {
         .map(
           line =>
             `<tr><td>${line.lineName}</td><td>${line.start.stationName}</td>
-          <td>${line.end.stationName}</td><td><button>삭제</button></td></tr>`
+          <td>${line.end.stationName}</td><td><button class="line-delete-button" 
+          data-line="${line.lineName}">삭제</button></td></tr>`
         )
         .join('')}</table></div>
     `;
@@ -105,8 +106,8 @@ export default class SubwayManager {
       target: { className },
     } = event;
     if (className === 'station-delete-button') {
-      const stationName = event.target.dataset['station'];
-      const index = this.stations.indexOf(stationName);
+      const targetStationName = event.target.dataset['station'];
+      const index = this.stations.indexOf(targetStationName);
       this.stations.splice(index, 1);
       localStorage.setItem('stations', JSON.stringify(this.stations));
       this.openStationManager();
@@ -126,6 +127,19 @@ export default class SubwayManager {
         localStorage.setItem('lines', JSON.stringify(this.lines));
         this.openLineManager();
       }
+    }
+  }
+
+  deleteLine(event) {
+    const {
+      target: { className },
+    } = event;
+    if (className === 'line-delete-button') {
+      const targetLineName = event.target.dataset['line'];
+      const index = this.lines.findIndex(line => line.lineName === targetLineName);
+      this.lines.splice(index, 1);
+      localStorage.setItem('lines', JSON.stringify(this.lines));
+      this.openLineManager();
     }
   }
 }
