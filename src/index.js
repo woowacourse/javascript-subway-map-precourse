@@ -23,6 +23,9 @@ export function onAddStation() {
 }
 
 export function onRemoveStation(e) {
-  removeLocalStorage('station', e.target.dataset.station);
-  removeStationScreen(e.target);
+  const removeConfirm = confirm('정말로 삭제하시겠습니까?');
+  if (removeConfirm) {
+    removeLocalStorage('station', e.target.dataset.station);
+    removeStationScreen(e.target);
+  }
 }
