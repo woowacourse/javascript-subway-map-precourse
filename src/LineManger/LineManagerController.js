@@ -29,7 +29,13 @@ export default class LineManagerController {
     LineManagerView.lineTableView();
   }
 
-  static deleteButtonClicked() {
-
+  static deleteButtonClicked(button) {
+    const buttons = document.getElementsByClassName('line-delete-button');
+    const buttonsArray = Array.from(buttons);
+    const line = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
+    if (LineManagerModel.isInLines(line)) {
+      LineManagerModel.delete(line);
+      LineManagerView.lineTableView();
+    }
   }
 }

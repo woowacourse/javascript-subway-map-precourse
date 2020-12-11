@@ -39,4 +39,15 @@ export default class LineManagerModel {
     lines[line] = [lineStart, lineEnd];
     localStorage.setItem('Lines', JSON.stringify(lines));
   }
+
+  static isInLines(line) {
+    const lines = Object.keys(JSON.parse(localStorage.getItem('Lines')));
+    return lines.indexOf(line) > -1;
+  }
+
+  static delete(line) {
+    const lines = JSON.parse(localStorage.getItem('Lines'));
+    delete lines[line];
+    localStorage.setItem('Lines', JSON.stringify(lines));
+  }
 }
