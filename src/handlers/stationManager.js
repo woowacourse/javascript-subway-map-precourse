@@ -1,4 +1,95 @@
+import { appendAtEnd, emptyElement } from '../util/utilUI.js';
+
 // 1. 역 관리
-export const startStationManager = () => {
-  console.log('added1');
+export const startStationManager = (e) => {
+  const container = document.getElementById('manager-ui');
+
+  container.setAttribute('data-menu-selected', e.currentTarget.dataset.menu);
+  emptyElement(container);
+  createManagerUI(container);
+  addEventListeners();
 };
+
+const createManagerUI = (container) => {
+  const table = makeTable(container.dataset.menu);
+  console.log(table);
+
+  appendAtEnd('h3', container, '역 이름', 'station-manager-header');
+  appendAtEnd('input', container, null, 'station-name-input');
+  appendAtEnd('button', container, '역 추가', 'station-add-button');
+  appendAtEnd('br', container);
+  appendAtEnd('h2', container, '🚉지하철 역 목록', 'station-list-header');
+  appendAtEnd('div', container, table, 'station-list');
+};
+
+const makeTable = (menu) => {
+  return `<table border="1">
+            ${makeTableHeader().join('')}
+            ${makeTableRow('data-station').join('')}
+          </table>`;
+};
+
+const makeTableHeader = () => {
+  const tableHeader = ['역 이름', '설정'];
+
+  return tableHeader.map((header) => `<th>${header}</th>`);
+};
+
+const makeTableRow = (dataSetName) => {
+  return stationListDummy.map(
+    (station) =>
+      `<tr>
+          <td>${station.name}</td>
+          <td>
+            <button
+              class=station-delete-button
+              ${dataSetName}=${station.name}>
+                삭제
+            </button>
+          </td>
+        </tr>`
+  );
+};
+
+const addEventListeners = () => {
+  document
+    .getElementById('station-add-button')
+    .addEventListener('click', addStation);
+  document
+    .querySelectorAll('.station-delete-button')
+    .forEach((element) => element.addEventListener('click', deleteStation));
+};
+
+const addStation = (e) => {
+  console.log('add');
+  //추가가능한지 일단 검증
+  //station에 추가
+};
+
+const deleteStation = (e) => {
+  console.log('delete');
+  //e.currentTarget.dataset.station
+  //삭제가능한지 일단 검증
+  //station에서 삭제
+  //line에서도 삭제
+};
+
+const stationListDummy = [
+  {
+    name: '잠실',
+    lineList: ['2호선', '8호선'],
+  },
+  {
+    name: '잠실새내',
+    lineList: ['2호선'],
+  },
+  {
+    name: '잠실나루',
+    lineList: ['2호선'],
+  },
+];
+
+const lineListDummy = [
+  { name: '2호선', stationList: ['잠실새내', '잠실', '잠실나루'] },
+  { name: '8호선', stationList: ['석촌', '잠실', '몽촌토성'] },
+];
