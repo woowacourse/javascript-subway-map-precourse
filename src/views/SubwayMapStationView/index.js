@@ -20,6 +20,8 @@ export default class SubwayMapStationView {
     const stationDeleteButtons = document.getElementsByClassName(
       '.station-delete-button',
     );
+    console.log(stationDeleteButtons);
+    console.log(self);
 
     for (let i = 0; i < stationDeleteButtons.length; i++) {
       stationDeleteButtons[i].addEventListener(

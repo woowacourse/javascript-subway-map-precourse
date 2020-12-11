@@ -16,6 +16,35 @@ export default class SubwayMapSectionView {
     );
   }
 
+  test(event) {
+    alert(event);
+    console.log('test');
+  }
+
+  addEventListenerToLineMenuButtons(self) {
+    let lineMenuButtons = document.getElementsByClassName(
+      '.section-line-menu-button',
+    );
+
+    console.log(lineMenuButtons, 'lineMenuButtons');
+    console.log(this.test);
+
+    for (let i = 0; i < lineMenuButtons.length; i++) {
+      console.log(self, 'self');
+      lineMenuButtons[i].addEventListener('click', this.test);
+    }
+  }
+
+  // handleStationDeleteButton(event) {
+  //   this.subwayMapViewModel.deleteStation(event.target.dataset.id);
+
+  //   this.resetStationTable();
+  //   this.renderStationTable(
+  //     Object.entries(this.subwayMapViewModel.getStations()),
+  //   );
+  //   this.addEventListenerToStationDeleteButtons(this);
+  // }
+
   handleSectionManagerButton() {
     this.resetManagerContainer();
     this.renderSectionManager();
@@ -33,18 +62,29 @@ export default class SubwayMapSectionView {
       <h3>${message.SECTION_INFORMATION}</h3>
       ${lineButtons}
     `;
+
+    this.addEventListenerToLineMenuButtons(this);
+
+    this.renderSelectedLine();
   }
 
   renderLineMenuButtons(lines) {
     let lineButtons = ``;
     lines.forEach(line => {
       lineButtons += `
-        <button data-id="${line[0]}" class=".section-line-menu-button">
+        <button data-id="${line[0]}" data-line-instance="${line[1]}" class=".section-line-menu-button">
           ${line[0]}
         </button>
       `;
     });
 
     return lineButtons;
+  }
+
+  renderSelectedLine() {
+    this.managerContainer.innerHTML += `
+      <h3>${message.LINE_MANAGING}</h3>
+      <p>${message.ADD_SECTION}</p>
+    `;
   }
 }
