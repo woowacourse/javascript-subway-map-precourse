@@ -23,15 +23,27 @@ export const isOverlappedStationName = (newStationName) => {
   }
   return false;
 };
-export const deleteStationInList = (stationName) => {
-  const parent = document.querySelector("table#staion-list-table tbody");
-  const deleteIdx = manager.stationList.findIndex((station) => {
+export const isPossibleToDeleteStation = (stationName) => {
+  const deleteStation = manager.stationList.find((station) => {
     return station.name === stationName;
   });
-  parent.removeChild(
-    document.querySelector(`table#staion-list-table tbody tr#${stationName}`)
-  );
-  manager.stationList.splice(deleteIdx, 1);
+  if (deleteStation.isIncluded.length > 0) {
+    alert("이미 노선에 등록되어 있는 역입니다.");
+    return false; // 이미 노선에 등록되어있어서 삭제 불가
+  }
+  return true;
+};
+export const deleteStationInList = (stationName) => {
+  const parent = document.querySelector("table#staion-list-table tbody");
+  if (isPossibleToDeleteStation(stationName)) {
+    const deleteIdx = manager.stationList.findIndex((station) => {
+      return station.name === stationName;
+    });
+    parent.removeChild(
+      document.querySelector(`table#staion-list-table tbody tr#${stationName}`)
+    );
+    manager.stationList.splice(deleteIdx, 1);
+  }
 };
 export const makeStationBox = (newStationName) => {
   const newStation = document.createElement("tr");
@@ -56,4 +68,5 @@ export const addStationToList = (newStationName) => {
   const table = document.getElementById("staion-list-table");
   table.children[1].appendChild(newStation);
   document.getElementById("station-name-input").value = "";
+  console.log(manager.stationList);
 };
