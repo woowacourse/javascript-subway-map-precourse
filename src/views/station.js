@@ -16,7 +16,9 @@ export default {
 
   render() {
     const content = Station.list().reduce((html, name) => {
-      return html + `
+      return (
+        html +
+        `
         <tr>
           <td>${name}</td>
           <td>
@@ -24,20 +26,27 @@ export default {
           </td>
         </tr>
       `
-    }, '');
-    this.query('tbody').innerHTML = content;
+      );
+    }, "");
+    this.query("tbody").innerHTML = content;
   },
 
   bindEvents() {
-    this.query('#station-add-button').addEventListener('click', this.onClickAdd.bind(this));
-    this.query('tbody').addEventListener('click', this.onClickRemove.bind(this));
+    this.query("#station-add-button").addEventListener(
+      "click",
+      this.onClickAdd.bind(this)
+    );
+    this.query("tbody").addEventListener(
+      "click",
+      this.onClickRemove.bind(this)
+    );
   },
 
   onClickAdd() {
     const input = document.querySelector("#station-name-input");
     const name = input.value;
 
-    if(!name) {
+    if (!name) {
       return alert("역 이름을 입력해주세요.");
     }
 
@@ -48,15 +57,15 @@ export default {
       alert(error.message);
     }
 
-    input.value = '';
+    input.value = "";
   },
 
   onClickRemove(e) {
-    if (e.target.tagName !== 'BUTTON') return false;
-    if (!confirm('삭제하시겠습니까?')) return false;
+    if (e.target.tagName !== "BUTTON") return false;
+    if (!confirm("삭제하시겠습니까?")) return false;
 
     const name = e.target.dataset.name;
     Station.remove(name);
     this.render();
-  }
-}
+  },
+};

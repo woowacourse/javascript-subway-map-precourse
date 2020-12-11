@@ -9,9 +9,18 @@ export default {
   },
 
   bindEvents() {
-    this.query('.buttons').addEventListener('click', this.onClickLineBtn.bind(this));
-    this.query('tbody').addEventListener('click', this.onClickRemove.bind(this));
-    this.query('#section-add-button').addEventListener('click', this.onClickAddStationToLine.bind(this));
+    this.query(".buttons").addEventListener(
+      "click",
+      this.onClickLineBtn.bind(this)
+    );
+    this.query("tbody").addEventListener(
+      "click",
+      this.onClickRemove.bind(this)
+    );
+    this.query("#section-add-button").addEventListener(
+      "click",
+      this.onClickAddStationToLine.bind(this)
+    );
   },
 
   query(selector) {
@@ -19,9 +28,14 @@ export default {
   },
 
   render() {
-    const buttons = Line.list().reduce((html, line) => html + `
+    const buttons = Line.list().reduce(
+      (html, line) =>
+        html +
+        `
       <button data-name="${line.name}">${line.name}</button>
-    `, '');
+    `,
+      ""
+    );
 
     this.query(".buttons").innerHTML = buttons;
   },
@@ -29,10 +43,18 @@ export default {
   renderLine(name) {
     const stations = Station.list();
     const stationsOfLine = Line.get(name).stations;
-    const stationOptionsHTML = stations.reduce((html, station) => html + `
+    const stationOptionsHTML = stations.reduce(
+      (html, station) =>
+        html +
+        `
       <option value="${station}">${station}</option>
-    `, '');
-    const tbodyHTML = stationsOfLine.reduce((html, station, idx) => html + `
+    `,
+      ""
+    );
+    const tbodyHTML = stationsOfLine.reduce(
+      (html, station, idx) =>
+        html +
+        `
       <tr>
         <td>${idx}</td>
         <td>${station}</td>
@@ -42,15 +64,17 @@ export default {
           </button>
         </td>
       </tr>
-    `, '');
+    `,
+      ""
+    );
     this.currentLineName = name;
 
-    this.query('.manage-section').style.display = 'block';
-    this.query('.title').innerText = `${name} 관리`;
-    this.query('#section-station-selector').innerHTML = stationOptionsHTML;
-    this.query('tbody').innerHTML = tbodyHTML;
-    this.query('#section-order-input').min = 0;
-    this.query('#section-order-input').max = stationsOfLine.length;
+    this.query(".manage-section").style.display = "block";
+    this.query(".title").innerText = `${name} 관리`;
+    this.query("#section-station-selector").innerHTML = stationOptionsHTML;
+    this.query("tbody").innerHTML = tbodyHTML;
+    this.query("#section-order-input").min = 0;
+    this.query("#section-order-input").max = stationsOfLine.length;
     this.clearForm();
   },
 
@@ -61,19 +85,19 @@ export default {
 
   onClickAddStationToLine() {
     const line = Line.get(this.currentLineName);
-    const station = this.query('#section-station-selector').value;
-    const idx = this.query('#section-order-input').value;
+    const station = this.query("#section-station-selector").value;
+    const idx = this.query("#section-order-input").value;
 
     if (idx <= -1) {
-      return alert('최소값은 0입니다.');
+      return alert("최소값은 0입니다.");
     }
 
     if (idx > line.stations.length) {
-      return alert('올바르지 못한 입력입니다.');
+      return alert("올바르지 못한 입력입니다.");
     }
 
     if (station in line.stations) {
-      return alert('이미 등록된 역입니다.');
+      return alert("이미 등록된 역입니다.");
     }
 
     line.addSectionTo(station, idx);
@@ -83,12 +107,12 @@ export default {
   onClickRemove(e) {
     const lineName = this.currentLineName;
     const station = e.target.dataset.name;
-    if (e.target.tagName !== 'BUTTON') return;
+    if (e.target.tagName !== "BUTTON") return;
 
-    if(!confirm('정말로 노선에서 제거할까요?')) return;
+    if (!confirm("정말로 노선에서 제거할까요?")) return;
 
-    if(Line.get(lineName).stations.length === 2) {
-      return alert('노선에는 최소 2개의 역이 필요합니다.');
+    if (Line.get(lineName).stations.length === 2) {
+      return alert("노선에는 최소 2개의 역이 필요합니다.");
     }
 
     Line.get(lineName).removeSection(station);
@@ -96,6 +120,6 @@ export default {
   },
 
   clearForm() {
-    this.query('#section-order-input').value = 0;
-  }
-}
+    this.query("#section-order-input").value = 0;
+  },
+};

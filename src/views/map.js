@@ -15,11 +15,20 @@ export default {
       const stations = line.stations;
       const name = line.name;
 
-      return html + stations.reduce((html, station) => html + `
+      return (
+        html +
+        stations.reduce(
+          (html, station) =>
+            html +
+            `
         <li>${station}</li>
-      `, `<h3>${name}</h3><ul>`) + '</ul>';
-    }, '');
+      `,
+          `<h3>${name}</h3><ul>`
+        ) +
+        "</ul>"
+      );
+    }, "");
 
-    this.query('.map').innerHTML = html;
+    this.query(".map").innerHTML = html;
   },
-}
+};

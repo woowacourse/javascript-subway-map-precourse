@@ -1,6 +1,6 @@
 import { save, load } from "../utils/storage.js";
 
-const STORAGE_KEY = 'stations';
+const STORAGE_KEY = "stations";
 
 export default {
   data: new Set(load(STORAGE_KEY)),
@@ -10,8 +10,8 @@ export default {
   },
 
   add(name) {
-    if(this.data.has(name)) {
-      throw new Error('중복된 역명입니다.');
+    if (this.data.has(name)) {
+      throw new Error("중복된 역명입니다.");
     }
 
     this.data.add(name);
@@ -19,8 +19,8 @@ export default {
   },
 
   remove(name) {
-    if(!this.data.has(name)) {
-      throw new Error('존재하지 않는 역명입니다.');
+    if (!this.data.has(name)) {
+      throw new Error("존재하지 않는 역명입니다.");
     }
 
     this.data.delete(name);
@@ -30,5 +30,5 @@ export default {
   save() {
     const data = Array.from(this.data);
     save(STORAGE_KEY, data);
-  }
-}
+  },
+};
