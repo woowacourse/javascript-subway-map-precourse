@@ -3,7 +3,7 @@ export const TitleHTML = () => `
 `;
 
 export const MenuHTML = () => `
-  <nav>
+  <nav id="menu">
     <button id="station-manager-button">1. 역관리</button>
     <button id="line-manager-button">2. 노선 관리</button>
     <button id="section-manager-button">3. 구간 관리</button>
@@ -12,5 +12,5 @@ export const MenuHTML = () => `
 `;
 
 export const ManagerContainerHTML = () => `
-  <section id="subway-manager-container"></section>
+  <section id="manager-container"></section>
 `;

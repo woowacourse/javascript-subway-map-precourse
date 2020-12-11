@@ -9,6 +9,9 @@ class App {
   constructor($target) {
     this.$target = $target;
     this.initHTML();
+    this.mountDOM();
+
+    console.log(this);
   }
 
   initHTML() {
@@ -16,7 +19,10 @@ class App {
     this.$target.innerHTML = TitleHTML() + MenuHTML() + ManagerContainerHTML();
   }
 
-  mountDOM() {}
+  mountDOM() {
+    this.$menu = this.$target.querySelector(`#menu`);
+    this.$managerContainer = this.$target.querySelector(`#manager-container`);
+  }
 }
 
 export default App;
