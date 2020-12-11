@@ -1,7 +1,7 @@
-import Subway from '../index.js';
-import UserException from '../../util/userException.js';
-import { ID, CLASS, NAME, ALERT } from '../../constants/index.js';
-import { stationManagerTemplate, stationTableTemplate } from '../../view/template.js';
+import Subway from './subway.js';
+import UserException from '../util/userException.js';
+import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
+import { stationManagerTemplate, stationTableTemplate } from '../view/template.js';
 
 export default class Station {
   userException = new UserException();

@@ -1,4 +1,4 @@
-import Station from './subway/station/index.js';
+import Station from './components/station.js';
 
 export default class App {
   constructor($target) {
