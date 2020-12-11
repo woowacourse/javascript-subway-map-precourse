@@ -55,6 +55,17 @@ class Station {
     }
   };
 
+  deleteStation = e => {
+    const removeNode = e.target.parentNode.parentNode;
+    const removeIndex = removeNode.dataset.index;
+    for (let i = 0; i < this.stations.length; i++) {
+      if (i === parseInt(removeIndex)) {
+        this.stations.splice(i, 1);
+      }
+    }
+    this.showStation();
+  };
+
   handleAddNameClick = () => {
     const stationAddBtn = document.getElementById("station-add-button");
     stationAddBtn.addEventListener("click", this.addStation);
