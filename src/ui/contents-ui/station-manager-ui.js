@@ -24,6 +24,10 @@ export default class StationManagerUI {
       if (message !== "성공") {
         alert(message);
       }
+      this.stationINFOManager_.addNewStation({
+        name: name,
+      });
+      console.log(this.stationINFOManager_.stations_);
     });
   }
 }
