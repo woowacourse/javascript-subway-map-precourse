@@ -32,3 +32,8 @@ export const makeElement = (
     if (innerHTML) element.innerHTML = innerHTML;
 	return element;
 };
+
+export const alertAndClear = (message, inputElement) => {
+    alert(message);
+    if(inputElement) inputElement.value = '';
+}

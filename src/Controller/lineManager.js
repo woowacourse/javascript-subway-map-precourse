@@ -2,18 +2,19 @@ import Station from '../Model/Station.js';
 import Line from '../Model/Line.js';
 import words from '../key/words.js';
 import { addTableRow } from '../View/template.js';
-import { makeElement } from './utils.js';
+import { alertAndClear, makeElement } from './utils.js';
+import { errorAlertMessages } from '../key/alertMessages.js';
 
 export const getAllLines = () => {
-	return Line.readAllLines(); 
+	return Line.readAllLines();
 };
 
 export const saveAllLines = (lines) => {
-    Line.saveAllLines(lines);
-}
+	Line.saveAllLines(lines);
+};
 
-export const addLine = (lineName, startStation, endStation) => {
-	if (Line.isValidLineName(lineName)) {
+export const addLine = (lineName, startStation, endStation, inputElement) => {
+	if (Line.isValidLineName(lineName,inputElement)) {
 		const allLines = getAllLines();
 		const newLine = new Line(lineName);
 		newLine.stations = [startStation, endStation];
@@ -31,14 +32,14 @@ export const makeNewLineDeleteButtonElement = (id) =>
 	});
 
 export const tableSynchronizer = (tableElement) => {
-    const allLines = getAllLines();
+	const allLines = getAllLines();
 	if (allLines.length === 0) return;
 	allLines.forEach((line) => {
 		addTableRow(tableElement, [
 			line.name,
 			line.stations[0],
-			line.stations[line.stations.length-1],
+			line.stations[line.stations.length - 1],
 			makeNewLineDeleteButtonElement(line.name),
 		]);
-    });
+	});
 };

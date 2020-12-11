@@ -47,15 +47,9 @@ const lineContainer = (container) => {
 		const lineEndStation =
 			endPointSelectBoxElement.options[endPointSelectBoxElement.selectedIndex]
 				.text;
-		addLine(lineName, lineStartStation, lineEndStation);
+		addLine(lineName, lineStartStation, lineEndStation, inputElement);
 		clearAllContents(tableElement.querySelector('tbody'));
 		tableSynchronizer(tableElement);
-		// addTableRow(tableElement, [
-		// 	lineName,
-		// 	lineStartStation,
-		// 	lineEndStation,
-		// 	makeNewLineDeleteButtonElement(lineName),
-		// ]);
 	});
 
 	clearAllContents(container);

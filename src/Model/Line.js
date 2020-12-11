@@ -1,9 +1,10 @@
-import { isOnlySpaceString } from '../Controller/utils.js';
+import { alertAndClear, isOnlySpaceString } from '../Controller/utils.js';
 import words from '../key/words.js';
+import { errorAlertMessages } from '../key/alertMessages.js';
 
 const Line = function (lineName) {
 	this.name = lineName;
-    this.stations = [];
+	this.stations = [];
 	this.hasStation = (targetStation) => {
 		return this.stations.indexOf(targetStation.name) !== -1;
 	};
@@ -15,15 +16,18 @@ const Line = function (lineName) {
 	};
 };
 
-Line.isValidLineName = (lineName) => {
-	if (
-		!isOnlySpaceString(lineName) &&
-		// 형식이 숫자+'호선' 인지 검사하기
-		!Line.readAllLines().includes(lineName)
-	) {
-		return true;
+Line.isValidLineName = (lineName, inputElement) => {
+	if (isOnlySpaceString(lineName)) {
+        alertAndClear(errorAlertMessages.ALERT_SPACE_LINE_NAME, inputElement);
+        return false;
 	}
-	return false;
+    if(Line.readAllLines().map(line=>line.name).includes(lineName)){
+        alertAndClear(errorAlertMessages.ALERT_EXISTED_LINE_NAME, inputElement);
+        return false;
+    }
+	// 형식이 숫자+'호선' 인지 검사하기
+
+	return true;
 };
 
 Line.saveAllLines = (lines) => {
@@ -56,8 +60,8 @@ Line.removeOneLine = (targetLine) => {
 };
 
 Line.searchLinesByName = (lineName) => {
-    const targetIndex = Line.readAllLines().indexOf(lineName);
-    return targetIndex;
-}
+	const targetIndex = Line.readAllLines().indexOf(lineName);
+	return targetIndex;
+};
 
 export default Line;
