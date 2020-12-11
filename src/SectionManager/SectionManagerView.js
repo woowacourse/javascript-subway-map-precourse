@@ -13,7 +13,7 @@ export default class SectionManagerView {
     const lines = JSON.parse(localStorage.getItem('Lines'));
     document.getElementById('section-select').innerHTML = `
       <h3>구간을 수정할 노선을 선택해주세요.</h3>
-      ${Object.keys(lines).map((line) => `<button id='${line}'>${line}</button> `).join('')}
+      ${Object.keys(lines).map((line) => `<button class='section-line-menu-button'>${line}</button> `).join('')}
     `;
   }
 
@@ -22,11 +22,11 @@ export default class SectionManagerView {
     document.getElementById('section-input').innerHTML = `
       <h3>${line} 관리</h3>
       <h4>구간 등록</h4>
-      <select>
+      <select id="section-station-selector">
         ${stations.map((station) => `<option value='${station}'>${station}</option>`)}
       </select>
-      <input type='number' min='0' placeholder='순서'/>
-      <button id='add'>등록</button>`;
+      <input id='section-order-input' type='number' min='0' placeholder='순서'/>
+      <button id='section-add-button'>등록</button>`;
   }
 
   static sectionTableView(line) {
@@ -42,7 +42,7 @@ export default class SectionManagerView {
     <tr>
       <td align="center">${stations.indexOf(station)}</td>
       <td align="center">${station}</td>
-      <td align="center"><button id='delete'>노선에서 제거</button></td>
+      <td align="center"><button class='section-delete-button'>노선에서 제거</button></td>
     </tr>`).join('')}
   </table>`;
   }
