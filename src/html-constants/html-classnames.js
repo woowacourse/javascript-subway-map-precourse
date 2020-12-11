@@ -3,3 +3,5 @@ export const DELETE_BUTTONS_CLASS = {
   lineDeleteButton: "line-delete-button",
   sectoinDeleteButton: "sectoin-delete-button",
 };
+
+export const LINE_SELECT_BUTTONS = "line-select-buttons";

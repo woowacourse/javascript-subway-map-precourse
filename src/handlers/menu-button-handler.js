@@ -54,7 +54,11 @@ const setStartStationSelector = (appContainer) => {
 const fillLineSelectButtons = ($lineSelectButtons, lineList) => {
   $lineSelectButtons.innerHTML = lineList
     .map((_line, _index) => {
-      return `<button data-line-select-index=${_index}>${_line.name}</button>`;
+      return `
+        <button class="line-select-buttons" data-line-select-index=${_index}>
+          ${_line.name}
+        </button>
+      `;
     })
     .join("");
 };
