@@ -1,3 +1,4 @@
+import Station from "./model.js";
 import {
   stationInputForm,
   stationList,
@@ -24,13 +25,15 @@ const createStationList = (_stations) => {
   const stationNames = document.getElementById("station-names");
 
   for (let i = 0; i < _stations.length; i++) {
-    stationNames.innerHTML += `<tr><td>${_stations[i]}</td>${stationDeleteBtn}</tr>`;
+    stationNames.innerHTML += `<tr><td>${_stations[i].name}</td>${stationDeleteBtn}</tr>`;
   }
 };
 
 const updateStationList = (_stations, _newStation) => {
-  createStationList([_newStation]);
-  saveStations([..._stations, _newStation]);
+  if (_newStation) {
+    createStationList([_newStation]);
+    saveStations([..._stations, _newStation]);
+  }
 };
 
 const getStationName = () => {
@@ -42,6 +45,14 @@ const getStationName = () => {
   return stationName;
 };
 
+const createStation = () => {
+  const stationName = getStationName();
+
+  if (stationName) {
+    return new Station(stationName);
+  }
+};
+
 export default function StationManager() {
   printLayout();
   createStationList(loadStations());
@@ -49,6 +60,6 @@ export default function StationManager() {
   const stationAddBtn = document.getElementById("station-add-button");
 
   stationAddBtn.addEventListener("click", () => {
-    updateStationList(loadStations(), getStationName());
+    updateStationList(loadStations(), createStation());
   });
 }
