@@ -51,6 +51,9 @@ export default class StationManagerUI {
     );
     Array.prototype.forEach.call(deleteButtons, (deleteButton) => {
       deleteButton.addEventListener("click", (e) => {
+        if (!confirm(DELETE_CONFIRM_MESSAGE)) {
+          return;
+        }
         this.stationINFOManager_.deleteStation(e.target.dataset.name);
         this.updateStationsTable();
       });
@@ -72,6 +75,7 @@ const STATION_NAME_INPUT_ID = "station-name-input";
 const STATION_ADD_BUTTON_ID = "station-add-button";
 const STATION_DELETE_BUTTON_CLASS = "station-delete-button";
 const STATION_NAME_TABLE_ID = "station-name-table";
+const DELETE_CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?";
 const TEMPLATE = `
 역 이름<br>
 <input type="text" placeholder="역 이름을 입력해주세요." id="${STATION_NAME_INPUT_ID}"/>
