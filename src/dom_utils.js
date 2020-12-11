@@ -3,12 +3,11 @@ export default class DomUtils {
     this.DO_NOT_APPEND = false;
   }
 
-  createButton(idName, managerButton, before) {
+  createButton(idName, buttonText) {
     const button = document.createElement('button');
 
     this.setAttribute(button, idName);
-    this.setInnerHtml(button, idName, managerButton);
-    this.appendBefore('app', button, before)
+    this.setInnerHtml(button, buttonText);
 
     return button;
   }
@@ -17,8 +16,8 @@ export default class DomUtils {
     varName.setAttribute('id', idName);
   }
 
-  setInnerHtml(varName, idName, managerButton) {
-    varName.innerHTML = managerButton[idName]
+  setInnerHtml(varName, buttonText) {
+    varName.innerHTML = buttonText;
   }
 
   appendTo(toIdName, varName) {

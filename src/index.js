@@ -43,7 +43,8 @@ export default class SubwayMap {
   createMenuButton(idName) {
     const varName = this._privateStringUtils.getVarName(idName);
 
-    this[`_${varName}`] = this._privateDomUtils.createButton(idName, this._managerButton, this._articleArea);
+    this[`_${varName}`] = this._privateDomUtils.createButton(idName, this._managerButton[idName]);
+    this._privateDomUtils.appendBefore(this.APP, this[`_${varName}`], this._articleArea);
 
     return varName;
   }
