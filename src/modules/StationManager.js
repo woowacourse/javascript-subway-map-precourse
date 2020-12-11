@@ -46,7 +46,16 @@ export default class StationManager {
     });
   };
 
+  _handleAddButton = e => {
+    e.preventDefault();
+    const stationName = this._nameInput.value;
+    this._nameInput.value = "";
+    this._station.saveNewStation(stationName);
+    this._printStationList();
+  };
+
   _render = () => {
     this._printStationList();
+    this._addButton.addEventListener("click", this._handleAddButton);
   };
 }
