@@ -14,22 +14,23 @@ function initStationListContainer() {
   $stationTableContainer.innerHTML = stationListContainerTemplate();
 }
 
-function stationListTemplate(station) {
-  return `<tr class="station-table-child">
-            <td>${station}</td>
-            <td><button class="station-delete-button">삭제</button></td>
+function stationListTemplate(station, stationNumber) {
+  return `<tr class="station-table-child" data-number=${stationNumber}>
+            <td data-number=${stationNumber}>${station}</td>
+            <td data-number=${stationNumber}><button class="station-delete-button">삭제</button></td>
           </tr>`;
 }
 
 function initStationList(stations) {
   const $stationTable = document.querySelector('.station-table');
+  let stationNumber = 0;
 
   stations
     .split(' ')
     .forEach((station) =>
       $stationTable.insertAdjacentHTML(
         'beforeend',
-        stationListTemplate(station),
+        stationListTemplate(station, stationNumber++),
       ),
     );
 }
