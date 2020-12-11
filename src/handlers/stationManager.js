@@ -1,114 +1,36 @@
-import { appendAtEnd, emptyElement } from '../util/utilUI.js';
-import {
-  ALERT_MESSAGE,
-  STATION_NAME_LENGTH_LOW_LIMIT,
-} from '../configuration.js';
+import { appendAtEnd, emptyElement, makeTable } from '../util/utilUI.js';
+import { requestToAdd } from './stationAddition.js';
+import { requestToDelete } from './stationDeletion.js';
 
 // 1. 역 관리
-export const startStationManager = (e) => {
-  const container = document.getElementById('manager-ui');
+export const startStationManager = () => {
+  const INDEX = 0;
+  const MENU = 'station';
+  const container = document.getElementById('container');
 
-  container.setAttribute('data-menu-selected', e.currentTarget.dataset.menu);
+  container.setAttribute('data-index', INDEX);
+  container.setAttribute('data-menu', MENU);
   emptyElement(container);
-  createManagerUI(container);
-  addEventListeners();
+  createStationManagerUI(INDEX, MENU, container);
+  addEventListeners(MENU);
 };
 
-const createManagerUI = (container) => {
-  const table = makeTable(container.dataset.menu);
+const createStationManagerUI = (index, menu, container) => {
+  const table = makeTable(index, JSON.parse(localStorage.getItem(menu)));
 
-  appendAtEnd('h3', container, '역 이름', 'station-manager-header');
-  appendAtEnd('input', container, null, 'station-name-input');
-  appendAtEnd('button', container, '역 추가', 'station-add-button');
+  appendAtEnd('h3', container, '역 이름', `${menu}-manager-header`);
+  appendAtEnd('input', container, null, `${menu}-name-input`);
+  appendAtEnd('button', container, '역 추가', `${menu}-add-button`);
   appendAtEnd('br', container);
-  appendAtEnd('h2', container, '🚉지하철 역 목록', 'station-list-header');
-  appendAtEnd('div', container, table, 'station-list');
+  appendAtEnd('h2', container, '🚉지하철 역 목록', `${menu}-list-header`);
+  appendAtEnd('div', container, table, `${menu}-list`);
 };
 
-const makeTable = (menu) => {
-  return `<table border="1">
-            ${makeTableHeader().join('')}
-            ${makeTableRow('data-station').join('')}
-          </table>`;
-};
-
-const makeTableHeader = () => {
-  const tableHeader = ['역 이름', '설정'];
-
-  return tableHeader.map((header) => `<th>${header}</th>`);
-};
-
-const makeTableRow = (dataSetName) => {
-  return stationListDummy.map(
-    (station) =>
-      `<tr>
-          <td>${station.name}</td>
-          <td>
-            <button
-              class=station-delete-button
-              ${dataSetName}=${station.name}>
-                삭제
-            </button>
-          </td>
-        </tr>`
-  );
-};
-
-const addEventListeners = () => {
+const addEventListeners = (menu) => {
   document
-    .getElementById('station-add-button')
-    .addEventListener('click', requestToAddStation);
+    .getElementById(`${menu}-add-button`)
+    .addEventListener('click', requestToAdd);
   document
-    .querySelectorAll('.station-delete-button')
-    .forEach((element) => element.addEventListener('click', deleteStation));
+    .querySelectorAll(`.${menu}-delete-button`)
+    .forEach((element) => element.addEventListener('click', requestToDelete));
 };
-
-const requestToAddStation = () => {
-  const stationNameInput = document.getElementById('station-name-input');
-  const nameError = isWrongStationName(stationNameInput.value);
-
-  if (nameError) {
-    alert(ALERT_MESSAGE[nameError]);
-    return;
-  }
-  addStation();
-};
-
-const isWrongStationName = (name) => {
-  if (name.length < STATION_NAME_LENGTH_LOW_LIMIT) {
-    return 'stationNameTooShort';
-  }
-  if (stationListDummy.map((v) => v.name).includes(name)) {
-    return 'stationNameAlreadyExist';
-  }
-};
-
-const addStation = () => {};
-
-const deleteStation = (e) => {
-  console.log('delete');
-  //e.currentTarget.dataset.station
-  //삭제가능한지 일단 검증
-  //station에서 삭제
-  //line에서도 삭제
-};
-
-const stationListDummy = [
-  {
-    name: '잠실',
-    lineList: ['2호선', '8호선'],
-  },
-  {
-    name: '잠실새내',
-    lineList: ['2호선'],
-  },
-  {
-    name: '잠실나루',
-    lineList: ['2호선'],
-  },
-];
-
-const lineListDummy = [
-  { name: '2호선', stationList: ['잠실새내', '잠실', '잠실나루'] },
-  { name: '8호선', stationList: ['석촌', '잠실', '몽촌토성'] },
-];
