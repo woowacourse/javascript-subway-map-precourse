@@ -10,6 +10,7 @@ import {
 import {
   removeLastStopScreen,
   removeStationScreen,
+  removeLineScreen,
 } from './View/remove-screen.js';
 import {
   $stationAddInput,
@@ -60,6 +61,8 @@ export function onAddLine() {
 
 export function onRemoveLine(e) {
   removeLocalStorage('line', e.target.dataset.line);
+  lineInstance.removeLine(e.target.dataset.line);
+  removeLineScreen(e.target);
 }
 
 export const loadStation = () => {

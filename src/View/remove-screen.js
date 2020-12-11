@@ -1,4 +1,9 @@
-import {$stationContainer, $downStream, $upStream} from './input.js';
+import {
+  $stationContainer,
+  $downStream,
+  $upStream,
+  $lineContainer,
+} from './input.js';
 
 export const removeStationScreen = (button) => {
   const $stationTbody = $stationContainer.querySelector('table > tbody');
@@ -17,4 +22,10 @@ export const removeLastStopScreen = (station) => {
   );
   $upStream.removeChild(removedUpStreamOption);
   $downStream.removeChild(removedDownStreamOption);
+};
+
+export const removeLineScreen = (button) => {
+  const $lineTbody = $lineContainer.querySelector('table > tbody');
+  const $lineTr = button.parentElement.parentElement;
+  $lineTbody.removeChild($lineTr);
 };

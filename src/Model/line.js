@@ -9,5 +9,9 @@ export default class Line {
     return this.lines.push(line);
   }
 
-  removeLine() {}
+  removeLine(line) {
+    const removedLineIndex = this.lines.findIndex((v) => v.lineName === line);
+
+    return this.lines.splice(removedLineIndex, 1);
+  }
 }
