@@ -15,8 +15,8 @@ export default class StationManagerView {
   static StationInputView() {
     document.getElementById('station-input-view').innerHTML = `
     <h4>역 이름</h4>
-    <input type='text' placeholder='역 이름을 입력해주세요.'/>
-    <button id='add'>역 추가</button>
+    <input id='station-name-input' type='text' placeholder='역 이름을 입력해주세요.'/>
+    <button id='station-add-button'>역 추가</button>
     `;
   }
 
@@ -32,7 +32,7 @@ export default class StationManagerView {
       ${stations.map((station) => `
       <tr>
         <td aligh="center">${station}</td>
-        <td><button id="delete">삭제</button></td>
+        <td><button class="station-delete-button">삭제</button></td>
       </tr>`).join('')}
     </table>`;
   }
