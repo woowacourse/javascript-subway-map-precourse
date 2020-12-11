@@ -35,4 +35,12 @@ export default class StationManagerModel {
   static isSingleKoreanAlphabet(station) {
     return /[^가-힣]/.test(station);
   }
+
+  static delete() {
+
+  }
+
+  static IsInStations(station) {
+    return localStorage.getItem('Stations').join(',').indexOf(station) > -1;
+  }
 }
