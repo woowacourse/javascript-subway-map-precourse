@@ -1,11 +1,4 @@
 const Utils = function () {
-  this.getLocalStorageData = () => {
-    const { stations, lines } = window.localStorage;
-    return [stations, lines];
-  };
-  this.setLocalStorageDataOf = (item, value) => {
-    window.localStorage.setItem(item, value);
-  };
   this.resultDIV = document.getElementById("result");
 
   this.setAttributes = (tag, attributes) => {
@@ -13,11 +6,13 @@ const Utils = function () {
       tag.setAttribute(i, attributes[i]);
     }
   };
+
   this.appendChildrenToParent = (parentNode, ...ChildElements) => {
     for (let i = 0; i < ChildElements.length; i++) {
       parentNode.appendChild(ChildElements[i]);
     }
   };
+
   this.createElementWithOption = (typeOfTag, attributes, AnInsertedText) => {
     const result = document.createElement(typeOfTag);
     if (AnInsertedText) {
@@ -27,6 +22,7 @@ const Utils = function () {
     if (attributes) this.setAttributes(result, attributes);
     return result;
   };
+
   this.appendRecursiveChildrenToParent = (parent, ...children) => {
     for (let i = 0; i < children.length; i++) {
       if (Array.isArray(children[i]))
@@ -37,11 +33,4 @@ const Utils = function () {
   };
 };
 
-export const {
-  getLocalStorageData,
-  setLocalStorageDataOf,
-  resultDIV,
-  setAttributes,
-  appendChildrenToParent,
-  createElementWithOption,
-} = new Utils();
+export const { resultDIV } = new Utils();
