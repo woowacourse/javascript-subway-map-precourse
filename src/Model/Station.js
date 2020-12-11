@@ -1,19 +1,30 @@
-import { isOnlySpaceString } from '../Controller/utils.js';
+import { alertAndClear, isOnlySpaceString } from '../Controller/utils.js';
 import words from '../key/words.js';
+import { errorAlertMessages } from '../key/alertMessages.js';
 
 const Station = function (stationName) {
 	this.name = stationName;
 };
 
-Station.isValidStationName = (stationName) => {
-	if (
-		!isOnlySpaceString(stationName) &&
-		stationName.length >= 2 &&
-		!Station.readAllStations().includes(stationName)
-	) {
-		return true;
+Station.isValidStationName = (stationName, inputElement) => {
+	if (isOnlySpaceString(stationName)) {
+		alertAndClear(errorAlertMessages.ALERT_SPACE_STATION_NAME, inputElement);
+		return false;
 	}
-	return false;
+	if (stationName.length < 2) {
+		alertAndClear(errorAlertMessages.ALERT_STATION_NAME_LENGTH, inputElement);
+		return false;
+	}
+	if (
+		Station.readAllStations()
+			.map((station) => station.name)
+			.includes(stationName)
+	) {
+		alertAndClear(errorAlertMessages.ALERT_EXISTED_ADDED_STATION, inputElement);
+		return false;
+	}
+
+	return true;
 };
 
 Station.saveAllStations = (stations) => {

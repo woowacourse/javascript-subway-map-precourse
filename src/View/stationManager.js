@@ -27,7 +27,7 @@ const stationContainer = (container) => {
 
 	buttonElement.addEventListener('click', () => {
 		const inputValue = inputElement.value;
-		addStation(inputValue);
+		addStation(inputValue, inputElement);
 		clearAllContents(tableElement.querySelector("tbody"));
 		tableSynchronizer(tableElement);
 		// addTableRow(tableElement, [inputValue, makeNewStationDeleteButtonElement(inputValue)]);

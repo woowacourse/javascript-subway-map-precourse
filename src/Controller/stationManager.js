@@ -3,8 +3,8 @@ import Station from '../Model/Station.js';
 import { addTableRow } from '../View/template.js';
 import { makeElement } from './utils.js';
 
-export const addStation = (text) => {
-	if (Station.isValidStationName(text)) {
+export const addStation = (text, inputElement) => {
+	if (Station.isValidStationName(text, inputElement)) {
 		Station.addOneStation(new Station(text));
 	}
 };
