@@ -1,9 +1,19 @@
-export const BUTTON = {
+export const APP = document.getElementById('app');
+export const MANAGEMENT = document.getElementById('management-page');
+
+export const MENU = {
     STATION: document.getElementById('station-manager-button'),
     LINE: document.getElementById('line-manager-button'),
     SECTION: document.getElementById('section-manager-button'),
-    MAPPRINT: document.getElementById('map-print-manager-button'),
+    MAP_PRINT: document.getElementById('map-print-manager-button'),
 };
+
+export const PAGE = {
+    STATION: 'station.html',
+    LINE: 'line.html',
+    SECTION:'section.html',
+    MAP_PRINT: 'mapPrint.html',
+}
 
 export const STATION = {
     INPUT: document.getElementById('station-name-input'),
@@ -14,7 +24,7 @@ export const STATION = {
 export const LINE = {
     INPUT: document.getElementById('line-name-input'),
     START: document.getElementById('line-start-station-selector'),
-    END: document.getElementsById('line-end-station-selector'),
+    END: document.getElementById('line-end-station-selector'),
     ADD: document.getElementById('line-add-button'),
     DELETE: document.getElementsByClassName('line-delete-button'),
 };
@@ -27,6 +37,6 @@ export const SECTION = {
     DELETE: document.getElementsByClassName('section-delete-button'),
 };
 
-export const MAP_PRINT = {
-    MAP = document.getElementsByClassName('map'),
-};
+// export const MAP_PRINT = {
+//     MAP = document.getElementsByClassName('map'),
+// };
