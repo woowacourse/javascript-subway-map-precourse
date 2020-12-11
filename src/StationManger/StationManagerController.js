@@ -2,7 +2,7 @@ import StationManagerView from './StationManagerView.js';
 import StationManagerModel from './StationManagerModel.js';
 
 export default class StationManagerController {
-  static ButtonEventController() {
+  static buttonEventController() {
     document.addEventListener('click', (event) => {
       const eventId = event.target.id;
       const eventClassName = event.target.className;

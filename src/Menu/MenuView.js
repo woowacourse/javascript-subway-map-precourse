@@ -1,4 +1,5 @@
 import StationManagerView from '../StationManger/StationManagerView.js'
+import LineManagerView from '../LineManger/LineManagerView.js';
 
 export default class MenuView {
   static menuButtonListView() {
@@ -16,54 +17,10 @@ export default class MenuView {
   }
 
   static lineManagerView() {
-    document.getElementById('sub-view-container').innerHTML = `
-    <h4>노선 이름</h4>
-    <h2>🚉 지하철 노선 목록</h2>
-    <div id='line-input'></div>
-    <br/>
-    <div id='line-table'></div>
-    `;
-    this.lineInputView();
-    this.lineTableView();
+    LineManagerView.view();
   }
 
-  static lineInputView() {
-    const stations = localStorage.getItem('Stations').split(',');
-    document.getElementById('line-input').innerHTML = `<input type='text' placeholder='노선 이름을 입력해주세요.'/>
-    <p>상행 종점
-      <select>
-      ${stations.map((station) => `<option value='${station}'>${station}</option>`)}
-      </select>
-    </p>
-    <p>하행 종점
-      <select>
-      ${stations.map((station) => `<option value='${station}'>${station}</option>`)}
-      </select>
-    </p>
-    <button id='add'>노선 추가</button>`;
-  }
-
-  static lineTableView() {
-    const lines = localStorage.getItem('Lines').split(',');
-    document.getElementById('line-table').innerHTML = `
-    <table border='1px solid black'>
-      <tr>
-        <th align='center'>노선 이름</th>
-        <th align='center'>상행 종점역</th>
-        <th align='center'>하행 종점역</th>
-        <th algin='center'>설정</th>
-      </tr>
-      ${lines.map((line) => `
-      <tr>
-        <td align="center">${line}</td>
-        <td align="center">인천</td>
-        <td align="center">소요산</td>
-        <td align="center"><button id='delete'>삭제</button></td>
-      </tr>`).join('')}
-    </table>`;
-  }
-
-  static lectionManagerView() {
+  static sectionManagerView() {
     document.getElementById('sub-view-container').innerHTML = `
     <div id='section-select'></div>
     <div id='section-input'></div>
