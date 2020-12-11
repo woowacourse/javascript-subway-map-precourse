@@ -13,6 +13,11 @@ const Utils = function () {
       tag.setAttribute(i, attributes[i]);
     }
   };
+  this.appendChildrenToParent = (parentNode, ...ChildElements) => {
+    for (let i = 0; i < ChildElements.length; i++) {
+      parentNode.appendChild(ChildElements[i]);
+    }
+  };
 };
 
 export const {
@@ -20,4 +25,5 @@ export const {
   setLocalStorageDataOf,
   resultDIV,
   setAttributes,
+  appendChildrenToParent,
 } = new Utils();
