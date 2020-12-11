@@ -1,20 +1,22 @@
 import { message } from '../../constants';
 
-class EventDelegation {
-  constructor(element) {
-    element.addEventListener('click', this.onClicked.bind(this));
+class SectionViewEventDelegation {
+  constructor(element, sectionView) {
+    this.sectionView = sectionView;
+    element.addEventListener('click', this.onClick.bind(this));
   }
 
-  good() {
-    alert('sss');
-  }
+  onClick(event) {
+    let dataSet = event.target.dataset;
 
-  onClicked(event) {
-    let id = event.target.dataset.id;
-
-    if (id) {
-      this[id]();
+    if (dataSet.purpose) {
+      this[dataSet.purpose](dataSet.id);
     }
+  }
+
+  selectLine(id) {
+    this.sectionView.renderSelectedLine();
+    console.log(id);
   }
 }
 
@@ -34,30 +36,6 @@ export default class SubwayMapSectionView {
     );
   }
 
-  test(evt) {
-    alert('test');
-  }
-
-  // addEventListenerToLineMenuButtons(self) {
-  //   let lineMenuButtons = document.getElementsByClassName(
-  //     '.section-line-menu-button',
-  //   );
-
-  //   console.log(lineMenuButtons);
-
-  //   // for (let i = 0; i < lineMenuButtons.length; i++) {
-  //   //   lineMenuButtons[i].addEventListener('click', this.test.bind(self));
-  //   // }
-
-  //   setTimeout(() => {
-  //     for (let i = 0; i < lineMenuButtons.length; i++) {
-  //       lineMenuButtons[i].addEventListener('click', this.test.bind(self));
-  //     }
-  //   }, 1);
-
-  //   console.log(lineMenuButtons);
-  // }
-
   handleSectionManagerButton() {
     this.resetManagerContainer();
     this.renderSectionManager();
@@ -72,22 +50,17 @@ export default class SubwayMapSectionView {
       Object.entries(this.subwayMapViewModel.getLines()),
     );
 
-    console.log(document.getElementById('#section-line-menu-button-container'));
-
-    new EventDelegation(
+    new SectionViewEventDelegation(
       document.getElementById('#section-line-menu-button-container'),
+      this,
     );
-
-    // this.addEventListenerToLineMenuButtons(this);
-
-    // this.renderSelectedLine();
   }
 
   renderLineMenuButtons(lines) {
     let lineButtons = '';
     lines.forEach(line => {
       lineButtons += `
-        <button data-id="good" class=".section-line-menu-button">
+        <button data-id="${line[0]}" data-purpose="selectLine" class=".section-line-menu-button">
           ${line[0]}
         </button>
       `;

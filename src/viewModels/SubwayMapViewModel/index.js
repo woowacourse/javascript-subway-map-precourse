@@ -19,6 +19,10 @@ export default class SubwayMapViewModel {
     return this.subwayMapModel.getLines();
   }
 
+  getLine(lineId) {
+    return this.subwayMapModel.getLine(lineId);
+  }
+
   addLine(lineObject) {
     this.subwayMapModel.addLine(lineObject);
   }
