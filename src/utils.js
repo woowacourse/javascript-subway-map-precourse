@@ -18,6 +18,15 @@ const Utils = function () {
       parentNode.appendChild(ChildElements[i]);
     }
   };
+  this.createElementWithOption = (typeOfTag, attributes, AnInsertedText) => {
+    const result = document.createElement(typeOfTag);
+    if (AnInsertedText) {
+      const innerText = document.createTextNode(AnInsertedText);
+      this.appendChildrenToParent(result, innerText);
+    }
+    if (attributes) this.setAttributes(result, attributes);
+    return result;
+  };
 };
 
 export const {
@@ -26,4 +35,5 @@ export const {
   resultDIV,
   setAttributes,
   appendChildrenToParent,
+  createElementWithOption,
 } = new Utils();
