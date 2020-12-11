@@ -1,3 +1,5 @@
+import StationManager from "./modules/StationManager.js";
+
 const managerButtons = document.querySelectorAll(
   ".manager-button-group button"
 );
@@ -26,3 +28,5 @@ function handleManagerButton(e) {
 managerButtons.forEach(managerButton =>
   managerButton.addEventListener("click", handleManagerButton)
 );
+
+new StationManager();
