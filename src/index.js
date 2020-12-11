@@ -1,4 +1,4 @@
-import {addClickEventListener} from './common.js'
+import {addClickEventListener} from './common/elements.js'
 import StationManager from './station-manager.js';
 // import LineManager from './line-manager.js';
 // import SectionManager from './section-manager.js';
