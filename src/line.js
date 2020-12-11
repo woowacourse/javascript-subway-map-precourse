@@ -56,8 +56,7 @@ export default function Line(name) {
       currentStation = currentStation.next;
       currentIdx++;
     }
-    currentStation.next.deleteIncludedLine(selectedLine);
-    currentStation.next.next = null;
+    this.deleteOneStationInLine(currentStation.next);
     currentStation.next = currentStation.next.next;
     this.length--;
     manager.setChangedLine(this);

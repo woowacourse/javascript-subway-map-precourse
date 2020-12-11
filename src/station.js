@@ -5,10 +5,4 @@ export default function Station(name) {
   this.addIncludedLine = (lineName) => {
     this.isIncluded = lineName;
   };
-  this.deleteIncludedLine = (lineName) => {
-    const deleteIdx = this.isIncluded.findIndex(
-      (line) => line.name === lineName
-    );
-    this.isIncluded.splice(deleteIdx, 1);
-  };
 }
