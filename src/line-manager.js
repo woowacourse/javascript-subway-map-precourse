@@ -7,9 +7,8 @@ export const deleteLineInList = (lineName) => {
   const deleteIdx = manager.lineList.findIndex((line) => {
     return line.name === lineName;
   });
-  parent.removeChild(
-    document.querySelector(`table#line-list-table tbody tr#${lineName}`)
-  );
+  manager.lineList[deleteIdx].deleteAllStationInLine();
+  parent.removeChild(document.querySelector(`tbody#line-list tr#${lineName}`));
   manager.lineList.splice(deleteIdx, 1);
 };
 export const makeChildInLine = (line) => {
@@ -26,6 +25,7 @@ export const makeChildInLine = (line) => {
     deleteLineInList(`${line.name}`);
   };
   deleteButton.innerHTML = "삭제";
+
   return [lineName, startStation, endStation, deleteButton];
 };
 export const makeLineBox = (line) => {
@@ -68,7 +68,11 @@ export const addLineToList = () => {
     .value;
   if (isPossibleLine(startStationName, endStationName)) {
     const line = new Line(newLineName);
-    line.addLine(new Station(startStationName), new Station(endStationName));
+    const startStation = new Station(startStationName);
+    const endStation = new Station(endStationName);
+    manager.setStationInManager(startStation);
+    manager.setStationInManager(endStation);
+    line.addLine(startStation, endStation);
     manager.setLineInManager(line);
     showAllLineInLineManager(manager.lineList);
   }

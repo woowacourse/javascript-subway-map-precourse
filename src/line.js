@@ -62,4 +62,19 @@ export default function Line(name) {
     this.length--;
     manager.setChangedLine(this);
   };
+  this.deleteOneStationInLine = (current) => {
+    const deleteIdx = manager.stationList.findIndex(
+      (station) =>
+        station.name === current.name && station.isIncluded === this.name
+    );
+    manager.stationList.splice(deleteIdx, 1);
+  };
+  this.deleteAllStationInLine = () => {
+    let current = this.head;
+    while (current.next !== null) {
+      this.deleteOneStationInLine(current);
+      current = current.next; // 마지막 전까지 지우기
+    }
+    this.deleteOneStationInLine(current); // 마지막 역 지우기
+  };
 }
