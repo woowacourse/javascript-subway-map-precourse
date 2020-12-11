@@ -29,4 +29,8 @@ export default class LineManagerModel {
   static isSingleKoreanAlphabet(line) {
     return /[^가-힣a-z0-9]/.test(line);
   }
+
+  static isSame(lineStart, lineEnd) {
+    return lineStart === lineEnd;
+  }
 }
