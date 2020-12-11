@@ -20,7 +20,7 @@ function changeManagerContainer({ target }) {
   }
 }
 
-export default function clickMenuButtonEvent() {
+export default function selectMenuButtonEvent() {
   const $menuButton = document.querySelector('.menu-button');
 
   $menuButton.addEventListener('click', changeManagerContainer);
