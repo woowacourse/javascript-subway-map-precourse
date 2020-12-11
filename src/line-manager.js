@@ -1,5 +1,6 @@
 import { manager } from "./index.js";
 import Line from "./line.js";
+import Station from "./station.js";
 
 export const deleteLineInList = (lineName) => {
   const parent = document.querySelector("table#line-list-table tbody");
@@ -9,9 +10,7 @@ export const deleteLineInList = (lineName) => {
   parent.removeChild(
     document.querySelector(`table#line-list-table tbody tr#${lineName}`)
   );
-  console.log(manager.lineList);
   manager.lineList.splice(deleteIdx, 1);
-  console.log(manager.lineList);
 };
 export const makeChildInLine = (line) => {
   const lineName = document.createElement("td");
@@ -43,8 +42,9 @@ export const makeLineBox = (line) => {
 
   return newLine;
 };
-export const showLineToList = (lineList) => {
+export const showAllLineInLineManager = (lineList) => {
   const table = document.getElementById("line-list");
+  table.innerHTML = "";
   lineList.forEach((line) => {
     const newLine = makeLineBox(line);
     table.appendChild(newLine);
@@ -67,15 +67,9 @@ export const addLineToList = () => {
   const endStationName = document.getElementById("line-end-station-selector")
     .value;
   if (isPossibleLine(startStationName, endStationName)) {
-    const startStation = manager.stationList.find(
-      (station) => station.name === startStationName
-    );
-    const endStation = manager.stationList.find(
-      (station) => station.name === endStationName
-    );
     const line = new Line(newLineName);
-    line.addLine(startStation, endStation);
-    manager.addLineInList(line);
-    showLineToList(manager.lineList);
+    line.addLine(new Station(startStationName), new Station(endStationName));
+    manager.setLineInManager(line);
+    showAllLineInLineManager(manager.lineList);
   }
 };
