@@ -1,6 +1,7 @@
 import StationManagerView from '../StationManger/StationManagerView.js'
 import LineManagerView from '../LineManger/LineManagerView.js';
 import SectionManagerView from '../SectionManager/SectionManagerView.js';
+import MapPrintManagerView from '../MapPrintManager/MapPrintManagerView.js';
 
 export default class MenuView {
   static menuButtonListView() {
@@ -26,15 +27,6 @@ export default class MenuView {
   }
 
   static mapPrintManagerView() {
-    const stations = localStorage.getItem('Stations').split(',');
-    const lines = localStorage.getItem('Lines').split(',');
-    document.getElementById('sub-view-container').innerHTML = `
-    ${lines.map((line) => `
-    <h3>${line}</h3>
-    <ul>
-      <li>${stations[0]}</li>
-      <li>${stations[stations.length - 1]}</li>
-    </ul>`).join('')}
-    `;
+    MapPrintManagerView.view();
   }
 }
