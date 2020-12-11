@@ -1,4 +1,10 @@
 export default class StationManagerModel {
+  static add(station) {
+    const stations = localStorage.getItem('Stations').split(',');
+    stations.push(station);
+    localStorage.setItem('Stations', stations);
+  }
+
   static isValidName(station) {
     return (!this.isDuplicated(station) && !this.isSpace(station) && !this.isEnglish(station)
               && !this.isSpecialChar(station) && !this.isValidLength(station)

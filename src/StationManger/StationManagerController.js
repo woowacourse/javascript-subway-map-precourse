@@ -19,7 +19,10 @@ export default class StationManagerController {
       StationManagerView.alertNameError();
       StationManagerView.StationInputView();
       return;
-    };
+    }
+    StationManagerModel.add(station);
+    StationManagerView.StationInputView();
+    StationManagerView.StationTableView();
   }
 
   static deleteButtonClicked() {
