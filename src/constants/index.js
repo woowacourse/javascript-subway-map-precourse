@@ -10,5 +10,6 @@ export const CLASS = {
 };
 
 export const NAME = {
+  LOCALSTORAGE_KEY: 'subway',
   STATION_MANAGER_BUTTON_NAME: '1. 역 관리',
 };

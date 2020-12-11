@@ -1,3 +1,4 @@
+import Subway from '../index.js';
 import { ID, NAME } from '../../constants/index.js';
 import { stationManagerTemplate } from '../../view/template.js';
 
@@ -7,14 +8,13 @@ export default class Station {
     this.createStationManager($target);
     this.handleStationManagerButton();
 
-    this.stations = ['인천', '동대구']; // 임시 데이터: local Storage로 옮기기
+    this.subways = this.loadSubways();
   }
 
   createStationManagerButton($functionButtonContainer) {
     const stationManagerButton = document.createElement('button');
     stationManagerButton.id = ID.STATION_MANAGER_BUTTON;
     stationManagerButton.innerHTML = NAME.STATION_MANAGER_BUTTON_NAME;
-
     $functionButtonContainer.appendChild(stationManagerButton);
   }
 
@@ -36,12 +36,43 @@ export default class Station {
 
   render() {
     const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
-    stationManager.innerHTML = stationManagerTemplate(this.stations);
+    stationManager.innerHTML = stationManagerTemplate(this.subways);
 
-    // TODO: render에서 분리
-    const stationAddButton = document.querySelector('#station-add-button');
+    this.handleStationAddButton();
+  }
+
+  loadSubways() {
+    const loadedSubways = localStorage.getItem(NAME.LOCALSTORAGE_KEY);
+    let parsedSubways = [];
+
+    if (loadedSubways !== null) {
+      parsedSubways = JSON.parse(loadedSubways);
+    }
+
+    return parsedSubways;
+  }
+
+  handleStationAddButton() {
+    const stationAddButton = document.querySelector(
+      `#${ID.STATION_ADD_BUTTON}`
+    );
+    const stationNameInput = document.querySelector(
+      `#${ID.STATION_NAME_INPUT}`
+    );
     stationAddButton.addEventListener('click', () => {
-      console.log('Add');
+      this.saveStation(stationNameInput.value);
+      this.render();
     });
+  }
+
+  saveStation(station) {
+    const subway = this.addSubway();
+    subway.station = station;
+    this.subways.push(subway);
+    localStorage.setItem(NAME.LOCALSTORAGE_KEY, JSON.stringify(this.subways));
+  }
+
+  addSubway() {
+    return new Subway();
   }
 }

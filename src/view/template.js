@@ -1,6 +1,6 @@
 import { ID, CLASS } from '../constants/index.js';
 
-export const stationManagerTemplate = (stations) => {
+export const stationManagerTemplate = (subways) => {
   return `
     <h4>역 이름</h4>
     <input id='${ID.STATION_NAME_INPUT}'/>
@@ -9,17 +9,17 @@ export const stationManagerTemplate = (stations) => {
     <table border='1'>
     <th>역 이름</th>
     <th>설정</th>
-    ${stationTable(stations)}
+    ${stationTable(subways)}
     </table>
     `;
 };
 
-const stationTable = (stations) => {
-  return stations
+const stationTable = (subways) => {
+  return subways
     .map(
-      (station) =>
+      (subway) =>
         `<tr>
-        <td>${station}</td>
+        <td>${subway.station}</td>
         <td><button class='${CLASS.STATION_DELETE_BUTTON}'>삭제</button></td>
         </tr>`
     )
