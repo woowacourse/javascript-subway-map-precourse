@@ -6,8 +6,24 @@
   </head>
   <body>
     <div id="app">
-      <h1>🚇 지하철 노선도 관리 </h1>
+      <header>
+        <h1>🚇 지하철 노선도 관리</h1>
+        <button id="station-manager-button">1.역 관리</button>
+        <button id="line-manager-button">2.노선 관리</button>
+        <button id="section-manager-button">3.구간 관리</button>
+        <button id="map-print-manager-button">4.지하철 노선도 출력</button>
+      </header>
+      <div id="content">
+        <div class="hide" id="station-manager-content">역 관리 내용</div>
+        <div class="hide" id="line-manager-content">노선 관리 내용</div>
+        <div class="hide" id="section-manager-content">구간 관리 내용</div>
+      </div>
     </div>
+    <style>
+      .hide {
+        display: none;
+      }
+    </style>
     <script type="module" src="src/index.js"></script>
   </body>
 </html>
