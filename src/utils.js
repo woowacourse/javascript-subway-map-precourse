@@ -31,6 +31,24 @@ const Utils = function () {
     this.appendChildrenToParent(parent, ...children);
     return parent;
   };
+
+  this.getTableHeadByTexts = (texts) => {
+    const thead = document.createElement("thead");
+    const tr = document.createElement("tr");
+    texts.forEach((text) => {
+      const th = createElementWithOption("th", null, text);
+      this.appendChildrenToParent(tr, th);
+    });
+    this.appendChildrenToParent(thead, tr);
+    return thead;
+  };
+
+  this.getTableHavingTableHead = (texts) => {
+    const table = document.createElement("table");
+    const thead = this.getTableHeadByTexts(texts);
+    this.appendChildrenToParent(table, thead);
+    return table;
+  };
 };
 
 export const { resultDIV } = new Utils();
