@@ -33,4 +33,9 @@ export default class LineManagerModel {
   static isSame(lineStart, lineEnd) {
     return lineStart === lineEnd;
   }
+
+  static add(line, lineStart, lineEnd) {
+    const lines = JSON.parse(localStorage.getItem('Lines'));
+    lines[line] = [lineStart, lineEnd];
+  }
 }
