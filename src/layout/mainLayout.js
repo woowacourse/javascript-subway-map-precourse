@@ -13,7 +13,8 @@ const initElements = function () {
 
 const appendNodesToDOM = function () {
   app.append(managerContainer, sectionContainer);
-}
+  sectionContainer.insertAdjacentHTML('afterbegin', '<section></section>');
+};
 
 const buildDefaultPage = function () {
   initElements();
