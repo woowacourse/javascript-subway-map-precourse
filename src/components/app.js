@@ -6,8 +6,6 @@ import mapPrintManagerPage from "./pages/mapPrintPage.js";
 export default function app(pageName, subwayDatas) {
   let app = ``;
 
-  console.log(subwayDatas);
-
   if (pageName === "station") {
     app = stationManagerPage(subwayDatas);
   } else if (pageName === "line") {

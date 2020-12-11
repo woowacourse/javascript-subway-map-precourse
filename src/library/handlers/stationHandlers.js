@@ -10,25 +10,19 @@ function onStationHandler() {
 
 function onAddStationHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-  // let subwayDatas = {
-  //   subwayStations: [],
-  //   lines: [],
-  // };
-
   let subwayStations = {
     name: name,
     line: [],
   };
 
   subwayStations.name = document.getElementById("station-add-input").value;
-  subwayDatas.subwayStations.push(subwayStations.name);
+  subwayDatas.subwayStations.push(subwayStations);
 
   localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
   render(app("station", subwayDatas));
   subwayDatas && updateEvent();
 }
 
-// 렌더, 역 추가 버튼에 이벤트 리스너 추가, 삭제 버튼에 이벤트 리스너 추가
 function updateEvent() {
   document.getElementById("station-add-button").addEventListener("click", onAddStationHandler);
 
@@ -40,13 +34,17 @@ function updateEvent() {
 
 function onDeleteStationHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-  let tr = event.target.parentNode.parentNode;
+  let deleteTarget = event.target.parentNode.parentNode.childNodes[1].outerText;
 
-  let deleteIdx = subwayDatas.subwayStations.indexOf(tr.childNodes[1].outerText);
-  if (deleteIdx > -1) subwayDatas.subwayStations.splice(deleteIdx, 1);
-  localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
-  render(app("station", subwayDatas));
-  updateEvent();
+  subwayDatas.subwayStations.forEach((station, idx) => {
+    if (station.name === deleteTarget) {
+      subwayDatas.subwayStations.splice(idx, 1);
+      // console.log(subwayDatas.lines);
+      localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+      render(app("station", subwayDatas));
+      updateEvent();
+    }
+  });
 }
 
 export { onStationHandler };

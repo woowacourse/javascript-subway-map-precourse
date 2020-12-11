@@ -1,11 +1,5 @@
 import render from "../../components/render.js";
 import app from "../../components/app.js";
-import lineManagerPage from "../../components/pages/linePage.js";
-
-// stations = [{name:"왕십리", line:["중앙선","2호선"]}, {name:"회기", line:["중앙선","1호선"]}]
-// lines = [{name:"1호선", stops:["인천","동대문","왕십리","회기"]}]
-
-// let lines = JSON.parse(localStorage.getItem("lines"));
 
 function onLineHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -16,18 +10,36 @@ function onLineHandler() {
 
 function onAddLineHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-  let lines = {
+
+  let line = {
     name: name,
     stops: [],
   };
 
-  lines.name = document.getElementById("line-name-input").value;
-  lines.stops.push(document.getElementById("line-start-station-selector").value);
-  lines.stops.push(document.getElementById("line-end-station-selector").value);
+  line.name = document.getElementById("line-name-input").value;
+  line.stops.push(document.getElementById("line-start-station-selector").value);
+  line.stops.push(document.getElementById("line-end-station-selector").value);
 
-  subwayDatas.lines.push(lines);
+  let startStop = line.stops[0];
+  let endStop = line.stops[line.stops.length - 1];
+
+  //상행선 역 정보에 노선 정보 추가
+  subwayDatas.subwayStations.forEach((station, idx) => {
+    if (startStop === station.name) {
+      subwayDatas.subwayStations[idx].line.push(line.name);
+    }
+  });
+
+  //하행선 역 정보에 노선 정보 추가
+  subwayDatas.subwayStations.forEach((station, idx) => {
+    if (endStop === station.name) {
+      subwayDatas.subwayStations[idx].line.push(line.name);
+    }
+  });
+
+  subwayDatas.lines.push(line);
   localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
-  // console.log(localStorage.getItem("subwayDatas"));
+
   render(app("line", subwayDatas));
   subwayDatas && updateEvent();
 }
@@ -42,19 +54,12 @@ function updateEvent() {
 }
 
 function onDeleteLineHandler() {
-  // console.log(event.target);
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let deleteTarget = event.target.parentNode.parentNode.childNodes[1].outerText;
 
-  // console.log(tr.childNodes[1].outerText); //1호선
-  // let deleteKey = subwayDatas.lines.keys(tr.childNodes[1].outerText); //1호선의 키값
-
-  // let idx = 0;
   subwayDatas.lines.forEach((line, idx) => {
-    // console.log(line.name, tr.childNodes[1].outerText);
     if (line.name === deleteTarget) {
       subwayDatas.lines.splice(idx, 1);
-      // console.log(subwayDatas.lines);
       localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
       render(app("line", subwayDatas));
       updateEvent();

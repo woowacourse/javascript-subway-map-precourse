@@ -1,11 +1,5 @@
-// stations = [{name:"왕십리", line:["중앙선","2호선"]}, {name:"회기", line:["중앙선","1호선"]}]
-// lines = [{name:"1호선", stops:["인천","동대문","왕십리","회기"]}]
-
 function lineManagerPage(subwayDatas) {
-  // console.log(subwayDatas);
-  // let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-  let options = subwayDatas.subwayStations.map((station) => `<option value = "${station}">${station}</option>`);
-  // let options = `<option value = "sample">sample</option>`;
+  let options = subwayDatas.subwayStations.map((station) => `<option value = "${station.name}">${station.name}</option>`);
   let table = ``;
 
   subwayDatas.lines &&
