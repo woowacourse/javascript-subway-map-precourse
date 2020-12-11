@@ -14,7 +14,7 @@ export function onAddStation() {
 }
 
 export function onRemoveStation(e) {
-  console.log(e.target.dataset.station);
+  removeLocalStorage('station', e.target.dataset.station);
 }
 
 const setLocalStorage = (key) => {
@@ -27,6 +27,15 @@ const setLocalStorage = (key) => {
     key,
     JSON.stringify([...localStorageValue, $stationAddInput.value]),
   );
+};
+
+const removeLocalStorage = (key, value) => {
+  const localStorageValue = getLocalStorage(key);
+  const filteredStorage = localStorageValue.filter(
+    (station) => station !== value,
+  );
+
+  return localStorage.setItem(key, JSON.stringify(filteredStorage));
 };
 
 const getLocalStorage = (key) => {
