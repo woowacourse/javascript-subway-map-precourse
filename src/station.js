@@ -4,6 +4,15 @@ class Station {
     this.handleAddNameClick();
   }
 
+  showStation = () => {
+    const stationContainer = document.querySelector(".station-list");
+    const stationTable = createStationTable();
+    stationContainer.innerHTML = "";
+    stationContainer.appendChild(stationTable);
+
+    this.handleDeleteNameClick();
+  };
+
   checkVaildName = name => {
     // 주어진 역이름이 2글자이상이고 중복 아니면 true
     return name.length >= 2 && !this.stations.includes(name);
@@ -18,9 +27,11 @@ class Station {
 
   addStation = () => {
     const name = this.getNameInput();
-
     if (this.checkVaildName(name)) {
       this.stations.push(name);
+      this.showStation();
+    } else {
+      alert("잘못된 역 이름입니다");
     }
   };
 
