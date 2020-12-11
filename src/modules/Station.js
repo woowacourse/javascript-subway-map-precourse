@@ -54,4 +54,8 @@ export default class Station {
 
     this._failToSaveNewStation(isValidLength, isSavedStation);
   };
+
+  getStationList = () => {
+    return this._stationList;
+  };
 }
