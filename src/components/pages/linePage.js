@@ -1,6 +1,23 @@
-function lineManagerPage() {
-  let stations = JSON.parse(localStorage.getItem("stations"));
-  let options = stations.map((station) => `<option value = "${station}">${station}</option>`);
+// stations = [{name:"왕십리", line:["중앙선","2호선"]}, {name:"회기", line:["중앙선","1호선"]}]
+// lines = [{name:"1호선", stops:["인천","동대문","왕십리","회기"]}]
+
+function lineManagerPage(subwayDatas) {
+  // console.log(subwayDatas);
+  // let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  let options = subwayDatas.subwayStations.map((station) => `<option value = "${station}">${station}</option>`);
+  // let options = `<option value = "sample">sample</option>`;
+  let table = ``;
+
+  subwayDatas.lines &&
+    subwayDatas.lines.map(
+      (line) =>
+        (table += `<tr>
+            <td>${line.name}</td>
+            <td>${line.stops[0]}</td>
+            <td>${line.stops[line.stops.length - 1]}</td>
+            <td><button class="line-delete-button">삭제</button></td>
+          </tr>`)
+    );
 
   let lineManager = `
   <h4>노선 이름<h4>
@@ -30,12 +47,7 @@ function lineManagerPage() {
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1호선</td>
-        <td>인천</td>
-        <td>소요산</td>
-        <td><button class="line-delete-button">삭제</button></td>
-      </tr>
+      ${table}
     </tbody>
   </table>
   `;

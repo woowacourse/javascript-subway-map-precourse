@@ -1,11 +1,14 @@
 // import render from "../render.js";
 // import app from "../app.js";
 
-function stationManagerPage(stationNames) {
+function stationManagerPage(subwayDatas) {
   let table = ``;
 
-  stationNames &&
-    stationNames.map((name) => {
+  // let stations = subwayDatas.subwayStations;
+
+  let names = subwayDatas.subwayStations;
+  names &&
+    names.map((name) => {
       table += `<tr>
       <td>${name}</td>
       <td>

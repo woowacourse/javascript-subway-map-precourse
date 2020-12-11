@@ -1,21 +1,31 @@
 import render from "../../components/render.js";
 import app from "../../components/app.js";
 
-let stations = JSON.parse(localStorage.getItem("stations"));
-
 function onStationHandler() {
-  render(app("station", stations));
-  stations && updateEvent();
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  render(app("station", subwayDatas));
+  subwayDatas && updateEvent();
   document.getElementById("station-add-button").addEventListener("click", onAddStationHandler);
 }
 
 function onAddStationHandler() {
-  let stationName = document.getElementById("station-add-input").value;
-  stations.push(stationName);
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  // let subwayDatas = {
+  //   subwayStations: [],
+  //   lines: [],
+  // };
 
-  localStorage.setItem("stations", JSON.stringify(stations));
-  render(app("station", stations));
-  stations && updateEvent();
+  let subwayStations = {
+    name: name,
+    line: [],
+  };
+
+  subwayStations.name = document.getElementById("station-add-input").value;
+  subwayDatas.subwayStations.push(subwayStations.name);
+
+  localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+  render(app("station", subwayDatas));
+  subwayDatas && updateEvent();
 }
 
 // 렌더, 역 추가 버튼에 이벤트 리스너 추가, 삭제 버튼에 이벤트 리스너 추가
@@ -29,14 +39,13 @@ function updateEvent() {
 }
 
 function onDeleteStationHandler() {
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let tr = event.target.parentNode.parentNode;
 
-  let deleteIdx = stations.indexOf(tr.childNodes[1].outerText);
-  if (deleteIdx > -1) stations.splice(deleteIdx, 1);
-  localStorage.clear();
-  localStorage.setItem("stations", JSON.stringify(stations));
-  tr.parentNode.removeChild(tr);
-  render(app("station", stations));
+  let deleteIdx = subwayDatas.subwayStations.indexOf(tr.childNodes[1].outerText);
+  if (deleteIdx > -1) subwayDatas.subwayStations.splice(deleteIdx, 1);
+  localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+  render(app("station", subwayDatas));
   updateEvent();
 }
 

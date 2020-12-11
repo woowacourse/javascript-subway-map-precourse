@@ -3,23 +3,14 @@
 ## 👩🏻‍💻 기능 목록
 
 - 4개 관리 페이지 연결을 위한 버튼 생성
-  - 역 관리 : #station-manager-button
-  - 노선 관리 : #line-manager-button
-  - 구간 관리 : #section-manager-button
-  - 노선도 출력 : #map-print-manager-button
 - 4개 관리페이지 컴포넌트 생성
 - 각 버튼에 이벤트 리스너 등록하여 컴포넌트 연결
-- 역 관리 페이지 UI 구현, 각 버튼에 이벤트 리스너 연결
-  - 역 이름 추가 input : #station-name-input
-  - 역 이름 추가 button : #station-add-button
-  - 역 목록 table
-  - 역 삭제 button : .station-delete-button
+- 역 관리 페이지 UI 구현
+- 역 관리 페이지 각 버튼에 이벤트 리스너 연결
 - local storage를 이용하여 역 데이터 저장하기
 - 노선 관리 페이지 UI 구현
-  - 노선 이름 입력 input
-  - 종점 select option
-  - 노선 추가 button
-  - 노선 목록 table
+- 노선 관리 페이지 각 버튼에 이벤트 리스너 연결
+- local storage에 객체를 이용하여 노선 데이터와 역 데이터 함께 저장하기
 - 구간 관리 페이지 UI 구현
   - 노선 선택 button
   - 호선별 컴포넌트 생성

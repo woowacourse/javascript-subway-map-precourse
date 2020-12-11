@@ -3,15 +3,15 @@ import lineManagerPage from "./pages/linePage.js";
 import sectionManagerPage from "./pages/sectionPage.js";
 import mapPrintManagerPage from "./pages/mapPrintPage.js";
 
-export default function app(pageName, stationNames) {
+export default function app(pageName, subwayDatas) {
   let app = ``;
 
-  // console.log("app", stationNames);
+  console.log(subwayDatas);
 
   if (pageName === "station") {
-    app = stationManagerPage(stationNames);
+    app = stationManagerPage(subwayDatas);
   } else if (pageName === "line") {
-    app = lineManagerPage();
+    app = lineManagerPage(subwayDatas);
   } else if (pageName === "section") {
     app = sectionManagerPage();
   } else if (pageName === "map") {
