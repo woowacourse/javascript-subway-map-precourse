@@ -1,4 +1,4 @@
-// import render from '../render.js';
+import render from '../render/render.js';
 
 const MINIMUN_STATION_LENGTH = 2;
 
@@ -9,7 +9,6 @@ function checkValidStationName(stationName, stations) {
   if (stations.split(' ').includes(stationName)) {
     return alert('이미 존재하는 역 이름은 입력할 수 없습니다.');
   }
-
   return true;
 }
 
@@ -29,8 +28,11 @@ function addStation() {
   );
 }
 
-export default function stationManagerEvent() {
+export default function addStationEvent() {
   const $stationAddButton = document.querySelector('#station-add-button');
 
-  $stationAddButton.addEventListener('click', addStation);
+  $stationAddButton.addEventListener('click', () => {
+    addStation();
+    render();
+  });
 }
