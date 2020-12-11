@@ -7,10 +7,17 @@ const Utils = function () {
     window.localStorage.setItem(item, value);
   };
   this.resultDIV = document.getElementById("result");
+
+  this.setAttributes = (tag, attributes) => {
+    for (let i in attributes) {
+      tag.setAttribute(i, attributes[i]);
+    }
+  };
 };
 
 export const {
   getLocalStorageData,
   setLocalStorageDataOf,
   resultDIV,
+  setAttributes,
 } = new Utils();
