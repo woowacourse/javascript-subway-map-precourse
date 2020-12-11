@@ -1,3 +1,5 @@
+import { stationSelector, lineSelector } from "./selectors.js";
+
 const initState = {
   stations: [],
   lines: [],
@@ -6,8 +8,8 @@ const initState = {
 export default () => {
   console.log(localStorage);
 
-  initState.stations = JSON.parse(localStorage.getItem("stations"));
-  initState.lines = JSON.parse(localStorage.getItem("lines"));
+  initState.stations = stationSelector;
+  initState.lines = lineSelector;
 
   console.log(initState);
 };
