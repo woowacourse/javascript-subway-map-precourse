@@ -22,6 +22,7 @@ export function onAddStation() {
     setLocalStorage('station', $stationAddInput.value);
     stationInstance.addStation($stationAddInput.value);
     addStationScreen($stationAddInput.value);
+    addLastStopScreen($stationAddInput.value);
   }
   $stationAddInput.value = '';
 }
