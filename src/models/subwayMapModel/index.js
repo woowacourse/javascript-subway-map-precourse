@@ -28,6 +28,10 @@ export default class SubwayMapModel {
     return { ...this._lines };
   }
 
+  getLine(lineId) {
+    return this._lines[lineId];
+  }
+
   addLine(lineObject) {
     const lines = { ...this._lines };
     lines[lineObject.lineId] = new Line(lineObject);
