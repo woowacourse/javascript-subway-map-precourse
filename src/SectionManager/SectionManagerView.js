@@ -13,7 +13,7 @@ export default class SectionManagerView {
     const lines = JSON.parse(localStorage.getItem('Lines'));
     document.getElementById('section-select').innerHTML = `
       <h3>구간을 수정할 노선을 선택해주세요.</h3>
-      ${Object.keys(lines).map((line) => `<button class='section-line-menu-button'>${line}</button> `).join('')}
+      ${Object.keys(lines).map((line) => `<button class='section-line-menu-button' data-menu='${line}'>${line}</button> `).join('')}
     `;
   }
 

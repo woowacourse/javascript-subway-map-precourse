@@ -1,4 +1,4 @@
-import SectionManagerView from './SectionManagerView';
+import SectionManagerView from './SectionManagerView.js';
 
 export default class SectionManagerController {
   static buttonEventController() {
@@ -17,15 +17,19 @@ export default class SectionManagerController {
     });
   }
 
-  addButtonClicked() {
+  static addButtonClicked() {
 
   }
 
-  deleteButtonClicked() {
+  static deleteButtonClicked() {
 
   }
 
-  sectionLineMenuClicked() {
-    
+  static sectionLineMenuClicked(button) {
+    const buttons = document.getElementsByClassName('section-line-menu-button');
+    const buttonsArray = Array.from(buttons);
+    const line = buttons[buttonsArray.indexOf(button)].dataset.menu;
+    SectionManagerView.sectionInputView(line);
+    SectionManagerView.sectionTableView(line);
   }
 }
