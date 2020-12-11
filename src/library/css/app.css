@@ -27,6 +27,19 @@ td {
   margin: 0;
 }
 
+/* station manager */
+#station-name-header {
+  width: 150px;
+}
+
+#station-update-header {
+  width: 50px;
+}
+
+.station-delete-button {
+  width: 100%;
+}
+
 /* behavior */
 .active {
   display: block;
