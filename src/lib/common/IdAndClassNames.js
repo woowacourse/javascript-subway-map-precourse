@@ -20,20 +20,34 @@ export const tabs = [
 ];
 
 // station
+export const STATION_NAME_INPUT_CONTAINER_ID = "station-name-input-container";
 export const STATION_NAME_INPUT = "#station-name-input";
 export const ADD_STATION_INPUT = "#station-add-button";
+
+export const STATION_LIST_VIEW_CONTAINER_ID = "station-list-view-container";
 export const DELETE_STATION_INPUT = ".station-delete-button";
 
 // Line
+export const LINE_NAME_INPUT_CONTAINER_ID = "line-name-input-container";
 export const LINE_NAME_INPUT = "#Line-name-input";
+
+export const LINE_INFO_INPUT_CONTAINER_ID = "line-info-input-container";
 export const SELECT_START_STATION = "#Line-start-station-selector";
 export const SELECT_END_STATION = "#Line-end-station-selector";
 export const ADD_LINE_BUTTON = "#Line-add-button";
+
+export const LINE_LIST_VIEW_CONTAINER_ID = "station-list-view-container";
 export const DELETE_LINE_BUTTON = ".Line-delete-button";
 
 // section
+export const LINE_LIST_VIEW_BUTTONS_CONTAINER_ID =
+  "station-list-view-buttons-container";
 export const SELECT_LINE_BUTTON = ".section-Line-menu-button";
-export const SELECT_SECTION_BUTTON = "#section-station-selector";
+
+export const SECTION_INFO_INPUT_CONTAINER_ID = "section-info-input-container";
+export const SECTION_STATION_SELECTOR = "#section-station-selector";
 export const SECTION_ORDER_INPUT = "#section-order-input";
 export const ADD_SECTION_BUTTON = "#section-add-button";
+
+export const SECTION_LIST_VIEW_CONTAINER_ID = "section-list-view-container";
 export const DELETE_SECTION_BUTTON = ".section-delete-button";

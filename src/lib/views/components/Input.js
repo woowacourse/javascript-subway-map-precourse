@@ -13,4 +13,10 @@ export default class Input {
   removeValue() {
     this.element.value = "";
   }
+
+  addEventListener(callbackFunction) {
+    this.element.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") return callbackFunction;
+    });
+  }
 }
