@@ -1,0 +1,26 @@
+{
+  "name": "javascript-subway-map-precourse",
+  "version": "1.0.0",
+  "description": "- 지하철 역을 등록하고 삭제할 수 있다. (단, 노선에 등록된 역은 삭제할 수 없다)\r - 중복된 지하철 역 이름이 등록될 수 없다.\r - 지하철 역은 2글자 이상이어야 한다.\r - 지하철 역의 목록을 조회할 수 있다.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maywngml/javascript-subway-map-precourse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maywngml/javascript-subway-map-precourse/issues"
+  },
+  "homepage": "https://github.com/maywngml/javascript-subway-map-precourse#readme",
+  "devDependencies": {
+    "eslint": "7.15.0",
+    "eslint-config-standard": "16.0.2",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "4.2.1"
+  }
+}
