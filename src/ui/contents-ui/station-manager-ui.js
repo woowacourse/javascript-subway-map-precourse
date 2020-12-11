@@ -24,6 +24,7 @@ export default class StationManagerUI {
       const message = getMessageToCheckStationName(name);
       if (message !== "성공") {
         alert(message);
+        return;
       }
       this.stationINFOManager_.addNewStation({
         name: name,
