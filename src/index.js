@@ -76,6 +76,11 @@ export const loadStation = () => {
   });
 };
 
+export const loadLine = () => {
+  lineInstance.loadLine();
+  lineInstance.lines.forEach((line) => addLineScreen(line));
+};
+
 const getLineValue = () => {
   return {
     lineName: $lineNameInput.value,
@@ -85,3 +90,4 @@ const getLineValue = () => {
 };
 
 loadStation();
+loadLine();
