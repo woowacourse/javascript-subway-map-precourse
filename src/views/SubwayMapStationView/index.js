@@ -40,6 +40,7 @@ export default class SubwayMapStationView {
   handleStationManagerButton() {
     this.resetManagerContainer();
     this.renderStationManager();
+    this.addEventListenerToStationAddButton(this);
   }
 
   handleStationAddButton() {
@@ -80,7 +81,6 @@ export default class SubwayMapStationView {
       <h2>${message.LIST_OF_STATIONS}</h2>
       <div id="#station-table-container"></div>
     `;
-    this.addEventListenerToStationAddButton(this);
 
     this.renderStationTable([]);
   }
