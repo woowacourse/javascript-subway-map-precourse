@@ -37,5 +37,6 @@ export default class LineManagerModel {
   static add(line, lineStart, lineEnd) {
     const lines = JSON.parse(localStorage.getItem('Lines'));
     lines[line] = [lineStart, lineEnd];
+    localStorage.setItem('Lines', JSON.stringify(lines));
   }
 }
