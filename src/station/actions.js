@@ -36,13 +36,46 @@ const updateStationList = (_stations, _newStation) => {
   }
 };
 
+const isNull = (value) => {
+  return value === "";
+};
+
+const isUnderTwo = (value) => {
+  return value.length < 2;
+};
+
+const isDuplication = (value) => {
+  return (
+    loadStations()
+      .map((x) => x.name)
+      .indexOf(value) !== -1
+  );
+};
+
+const isValid = (_stationName) => {
+  if (isNull(_stationName)) {
+    alert("지하철 이름을 입력해주세요.");
+    return;
+  } else if (isUnderTwo(_stationName)) {
+    alert("두 글자 이상의 이름을 입력해주세요.");
+    return;
+  } else if (isDuplication(_stationName)) {
+    alert("중복된 지하철 이름입니다.");
+    return;
+  }
+
+  return true;
+};
+
 const getStationName = () => {
   const stationNameInput = document.getElementById("station-name-input");
   const stationName = stationNameInput.value;
 
   stationNameInput.value = "";
 
-  return stationName;
+  if (isValid(stationName)) {
+    return stationName;
+  }
 };
 
 const createStation = () => {
