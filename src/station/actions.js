@@ -32,6 +32,10 @@ const createStationList = (_stations) => {
 };
 
 const updateStationList = (_stations, _newStation) => {
+  if (!_stations) {
+    return;
+  }
+
   if (_newStation) {
     saveStations([..._stations, _newStation]);
   } else {
@@ -91,12 +95,17 @@ const createStation = () => {
   }
 };
 
+const isUsed = (_station) => {
+  return _station.used !== 0;
+};
+
 const deleteStation = (_stationDeletebtn) => {
   const stations = loadStations();
   const stationIndex = _stationDeletebtn.path[2].dataset.stationIndex;
 
-  if (stations[stationIndex].used !== 0) {
+  if (isUsed(stations[stationIndex])) {
     alert("사용중인 역입니다.");
+    return;
   }
 
   stations.splice(stationIndex, 1);
