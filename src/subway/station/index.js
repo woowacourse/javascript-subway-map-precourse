@@ -1,8 +1,11 @@
 import Subway from '../index.js';
-import { ID, NAME } from '../../constants/index.js';
+import UserException from '../../util/userException.js';
+import { ID, NAME, ALERT } from '../../constants/index.js';
 import { stationManagerTemplate } from '../../view/template.js';
 
 export default class Station {
+  userException = new UserException();
+
   constructor($target, $functionButtonContainer) {
     this.createStationManagerButton($functionButtonContainer);
     this.createStationManager($target);
@@ -38,9 +41,7 @@ export default class Station {
   }
 
   handleStationManagerButton() {
-    const stationManagerButton = document.querySelector(
-      `#${ID.STATION_MANAGER_BUTTON}`
-    );
+    const stationManagerButton = document.querySelector(`#${ID.STATION_MANAGER_BUTTON}`);
 
     stationManagerButton.addEventListener('click', () => {
       this.render();
@@ -50,22 +51,28 @@ export default class Station {
 
   render() {
     const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
-
     stationManager.innerHTML = stationManagerTemplate(this.subways);
   }
 
   handleStationAddButton() {
-    const stationAddButton = document.querySelector(
-      `#${ID.STATION_ADD_BUTTON}`
-    );
-    const stationNameInput = document.querySelector(
-      `#${ID.STATION_NAME_INPUT}`
-    );
+    const stationAddButton = document.querySelector(`#${ID.STATION_ADD_BUTTON}`);
+    const stationNameInput = document.querySelector(`#${ID.STATION_NAME_INPUT}`);
 
     stationAddButton.addEventListener('click', () => {
-      this.saveStation(stationNameInput.value);
-      this.render();
+      this.hasValidName(stationNameInput.value);
     });
+  }
+
+  hasValidName(stationName) {
+    if (!this.userException.isValidNameLength(stationName)) {
+      alert(ALERT.VALID_STATION_NAME_LENGTH);
+    } else if (this.userException.isDuplicatedName(this.subways, stationName)) {
+      alert(ALERT.DUPLICATED_STATION_NAME);
+    } else {
+      this.saveStation(stationName);
+      this.render();
+      this.handleStationAddButton(); // style: none 방식으로 할지 고민
+    }
   }
 
   saveStation(station) {

@@ -13,3 +13,8 @@ export const NAME = {
   LOCALSTORAGE_KEY: 'subway',
   STATION_MANAGER_BUTTON_NAME: '1. 역 관리',
 };
+
+export const ALERT = {
+  VALID_STATION_NAME_LENGTH: '2글자 이상으로 적어주세요.',
+  DUPLICATED_STATION_NAME: '중복된 역이 존재합니다.',
+};
