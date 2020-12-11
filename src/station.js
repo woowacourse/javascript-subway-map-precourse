@@ -9,8 +9,9 @@ class Station {
     return name.length >= 2 && !this.stations.includes(name);
   };
 
-  getNameInput = () => {
+  getNameInput = e => {
     const station = document.getElementById("station-name-input").value;
+    document.getElementById("station-name-input").value = "";
 
     return station;
   };
