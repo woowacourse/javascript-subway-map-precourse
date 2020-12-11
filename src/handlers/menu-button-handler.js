@@ -55,7 +55,7 @@ const fillLineSelectButtons = ($lineSelectButtons, lineList) => {
   $lineSelectButtons.innerHTML = lineList
     .map((_line, _index) => {
       return `
-        <button class="line-select-buttons" data-line-select-index=${_index}>
+        <button class="line-select-buttons" data-selected-line-index=${_index}>
           ${_line.name}
         </button>
       `;
