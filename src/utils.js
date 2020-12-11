@@ -27,6 +27,14 @@ const Utils = function () {
     if (attributes) this.setAttributes(result, attributes);
     return result;
   };
+  this.appendRecursiveChildrenToParent = (parent, ...children) => {
+    for (let i = 0; i < children.length; i++) {
+      if (Array.isArray(children[i]))
+        children[i] = this.appendRecursiveChildrenToParent(...children[i]);
+    }
+    this.appendChildrenToParent(parent, ...children);
+    return parent;
+  };
 };
 
 export const {
