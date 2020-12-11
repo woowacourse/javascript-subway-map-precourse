@@ -1,4 +1,5 @@
 import Station from './Model/station.js';
+import Line from './Model/line.js';
 import {hideScreen} from './View/hide-screen.js';
 import {showScreen} from './View/show-screen.js';
 import {addStationScreen, addLastStopScreen} from './View/add-screen.js';
@@ -19,6 +20,7 @@ import {
 } from './Controller/local-storage.js';
 
 const stationInstance = new Station();
+const lineInstance = new Line();
 
 export function onChangeScreen(e) {
   hideScreen();
@@ -46,7 +48,9 @@ export function onRemoveStation(e) {
 }
 
 export function onAddLine() {
-  setLocalStorage('line', getLineValue());
+  const lineValue = getLineValue();
+  setLocalStorage('line', lineValue);
+  lineInstance.addLine(lineValue);
 }
 
 export const loadStation = () => {
