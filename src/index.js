@@ -2,6 +2,7 @@ import {
   SubwayMapLineView,
   SubwayMapStationView,
   SubwayMapSectionView,
+  SubwayMapMapPrintView,
 } from './views';
 import { SubwayMapViewModel } from './viewModels';
 import { SubwayMapModel } from './models';
@@ -14,6 +15,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const lineManagerButton = document.getElementById('#line-manager-button');
   const sectionManagerButton = document.getElementById(
     '#section-manager-button',
+  );
+  const mapPrintManagerButton = document.getElementById(
+    '#map-print-manager-button',
   );
 
   const subwayMapModel = new SubwayMapModel();
@@ -28,10 +32,14 @@ window.addEventListener('DOMContentLoaded', () => {
     managerContainer,
     lineManagerButton,
   );
-
   const subwayMapSectionView = new SubwayMapSectionView(
     subwayMapViewModel,
     managerContainer,
     sectionManagerButton,
+  );
+  const subwayMapMapPrintView = new SubwayMapMapPrintView(
+    subwayMapViewModel,
+    managerContainer,
+    mapPrintManagerButton,
   );
 });
