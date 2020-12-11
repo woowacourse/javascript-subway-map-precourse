@@ -1,4 +1,4 @@
-const managerContainer = document.getElementById("manager-container");
+const stationManagerBtn = document.getElementById("station-manager-button");
 const stationInputForm = `
 <div id="station-input-form">
   <label for="station-name">역 이름</label>
@@ -30,22 +30,39 @@ const stationListCloseTag = `
 </div>
 `;
 
-const getStationList = (_station) => {
+const getStationList = (_stations) => {
   let stationList = "";
 
-  for (let i = 0; i < _station.length; i++) {
-    stationList += `<tr><td>${_station[i]}</td>${stationDeleteBtn}</tr>`;
+  for (let i = 0; i < _stations.length; i++) {
+    stationList += `<tr><td>${_stations[i]}</td>${stationDeleteBtn}</tr>`;
   }
 
   return stationListOpenTag + stationList + stationListCloseTag;
 };
 
-const init = () => {
-  const station = ["인천", "동인천", "도원", "소요산"];
+const getStationName = () => {
+  return document.getElementById("station-name-input").value;
+};
 
-  managerContainer.innerHTML = stationInputForm + getStationList(station);
+const printLayout = (_stations) => {
+  const managerContainer = document.getElementById("manager-container");
+
+  managerContainer.innerHTML = stationInputForm + getStationList(_stations);
+};
+
+const createStation = (_stations) => {
+  _stations.push(getStationName());
+  printLayout(_stations);
 };
 
 export default function StationManager() {
-  init();
+  const stations = ["인천", "동인천"];
+
+  printLayout(stations);
+
+  const stationAddBtn = document.getElementById("station-add-button");
+
+  stationAddBtn.addEventListener("click", () => {
+    createStation(stations);
+  });
 }
