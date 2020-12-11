@@ -12,6 +12,8 @@ export const STATION_MANAGER_BUTTON = 'station-manager-button';
 export const STATION_ADD_BUTTON = 'station-add-button';
 export const STATION_DELETE_BUTTON = 'station-delete-button';
 export const STATION_NAME_INPUT = 'station-name-input';
+export const STATION_NAME_TABLE = 'table-station-name';
+export const STATION_NAME_ROW = 'station-name-row';
 // line manage;
 export const LINE_MANAGER_BUTTON = 'line-manager-button';
 export const LINE_ADD_BUTTON = 'line-add-button';

@@ -1,8 +1,9 @@
 import { nodeSelector } from '../../selector/node_selector.js';
 
 export default class EventHandler {
-  handleClickEvent(targetId, onEventFunc, binder) {
-    const target = nodeSelector.selectId(targetId);
+  handleButtonEvent(targetName, onEventFunc, binder) {
+    const target =
+      nodeSelector.selectId(targetName) || nodeSelector.selectClass(targetName);
 
     target.addEventListener('click', onEventFunc.bind(binder));
   }

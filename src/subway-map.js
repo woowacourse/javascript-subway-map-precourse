@@ -10,7 +10,7 @@ export default class SubwayMap {
     const eventHandler = new EventHandler();
 
     this.roles.forEach(role =>
-      eventHandler.handleClickEvent(role.buttonId, role.display, role)
+      eventHandler.handleButtonEvent(role.buttonId, role.display, role)
     );
   }
 }
