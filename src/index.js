@@ -1,9 +1,11 @@
-import Manager from '/src/manager/manager.js';
+import Controller from '/src/controller/controller.js';
+import StationManager from '/src/station/station-manager.js';
 
-export default class SubwayStationMap {
+export default class SubwayStationApp {
 	constructor() {
-		new Manager();
+		new Controller();
+		new StationManager();
 	}
 }
 
-new SubwayStationMap();
+new SubwayStationApp();

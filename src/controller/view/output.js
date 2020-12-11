@@ -1,4 +1,4 @@
-import Toggle from '/src/core/utils/toggle.js';
+import Toggle from '/src/utils/toggle.js';
 
 export default class ManagerOutput {
 	constructor() {

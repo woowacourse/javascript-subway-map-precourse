@@ -1,7 +1,7 @@
-import ManagerOutput from '/src/manager/view/output.js';
-import ManagerInput from '/src/manager/view/input.js';
+import ManagerOutput from './view/output.js';
+import ManagerInput from './view/input.js';
 
-export default class Manager {
+export default class Controller {
 	constructor() {
 		this.managerInput = new ManagerInput();
 		this.managerOutput = new ManagerOutput();
