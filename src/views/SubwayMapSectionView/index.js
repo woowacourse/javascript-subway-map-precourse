@@ -103,6 +103,7 @@ export default class SubwayMapSectionView {
         ${sectionAddButton}
       </div>
     `;
+    this.renderSectionTableContainer();
     new SectionViewEventDelegation(
       document.getElementById('#section-selected-line-manager-container'),
       this,
@@ -126,5 +127,11 @@ export default class SubwayMapSectionView {
     `;
 
     return sectionSelector;
+  }
+
+  renderSectionTableContainer() {
+    this.managerContainer.innerHTML += `
+      <div id="#line-table-container"></div>
+    `;
   }
 }
