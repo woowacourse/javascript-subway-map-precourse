@@ -11,4 +11,8 @@ export default class Typography {
   addToParentNode($parentNode) {
     $parentNode.appendChild(this.getElement());
   }
+
+  render() {
+    return this.element.outerHTML;
+  }
 }

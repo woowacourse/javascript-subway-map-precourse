@@ -1,6 +1,6 @@
 import Typography from "../components/Typography.js";
 import {
-  LINE_LIST_VIEW_BUTTONS_CONTAINER_ID,
+  LINE_LIST_VIEW_BUTTON_GROUP_CONTAINER_ID,
   SECTION_INFO_INPUT_CONTAINER_ID,
   SECTION_LIST_VIEW_CONTAINER_ID,
   SELECT_LINE_BUTTON,
@@ -12,7 +12,7 @@ import {
 
 export default class Section {
   constructor() {
-    this.lineListViewButtonsContainerId = LINE_LIST_VIEW_BUTTONS_CONTAINER_ID;
+    this.lineListViewButtonsContainerId = LINE_LIST_VIEW_BUTTON_GROUP_CONTAINER_ID;
     this.sectionInfoInputContainerId = SECTION_INFO_INPUT_CONTAINER_ID;
     this.sectionListViewContainerId = SECTION_LIST_VIEW_CONTAINER_ID;
   }

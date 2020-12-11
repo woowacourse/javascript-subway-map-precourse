@@ -24,11 +24,12 @@ export default class Line {
 
   _getLineNameInputContainer() {
     const $inputHelperText = new Typography("노선 이름", "p");
-    const $lineNameInput = new Input(LINE_NAME_INPUT);
-
-    return (
-      $inputHelperText.element.outerHTML + $lineNameInput.element.outerHTML
+    const $lineNameInput = new Input(
+      LINE_NAME_INPUT,
+      "노선 이름을 입력해주세요.",
     );
+
+    return $inputHelperText.render() + $lineNameInput.render();
   }
 
   render() {

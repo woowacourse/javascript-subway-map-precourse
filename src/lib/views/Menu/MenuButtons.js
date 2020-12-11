@@ -11,9 +11,9 @@ export default tabs.map(({ title }, index) => {
   const $menuButton = new Button(
     menuButtonsId[index],
     `${index + 1}. ${innerText}`,
+    () => viewTabContainer(index),
   );
 
-  $menuButton.addEventListener(() => viewTabContainer(index));
   $menuButton.addRightSpace();
   return $menuButton.element;
 });

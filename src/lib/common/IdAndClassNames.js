@@ -20,11 +20,11 @@ export const tabs = [
 ];
 
 // station
-export const STATION_NAME_INPUT_CONTAINER_ID = "station-name-input-container";
+export const STATION_NAME_INPUT_CONTAINER_ID = "#station-name-input-container";
 export const STATION_NAME_INPUT = "#station-name-input";
 export const ADD_STATION_INPUT = "#station-add-button";
 
-export const STATION_LIST_VIEW_CONTAINER_ID = "station-list-view-container";
+export const STATION_LIST_VIEW_CONTAINER_ID = "#station-list-view-container";
 export const DELETE_STATION_INPUT = ".station-delete-button";
 
 // Line
@@ -40,8 +40,8 @@ export const LINE_LIST_VIEW_CONTAINER_ID = "station-list-view-container";
 export const DELETE_LINE_BUTTON = ".Line-delete-button";
 
 // section
-export const LINE_LIST_VIEW_BUTTONS_CONTAINER_ID =
-  "station-list-view-buttons-container";
+export const LINE_LIST_VIEW_BUTTON_GROUP_CONTAINER_ID =
+  "station-list-view-button-group-container";
 export const SELECT_LINE_BUTTON = ".section-Line-menu-button";
 
 export const SECTION_INFO_INPUT_CONTAINER_ID = "section-info-input-container";
