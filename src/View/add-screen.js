@@ -5,7 +5,7 @@ export const addStationScreen = (value) => {
   const $stationTr = document.createElement('tr');
   $stationTr.innerHTML = `
     <td>${value}</td>
-    <td><button>삭제</button></td>
+    <td><button class="station-delete-button">삭제</button></td>
   `;
   setStationButton(value, $stationTr.querySelector('button'));
   $stationTbody.appendChild($stationTr);
