@@ -14,6 +14,18 @@ const stationResultContainer = document.createElement('article');
 const stationResultTitle = document.createElement('h2');
 const stationResultTable = document.createElement('table');
 
+// TODO: 나중에 replace가 많이 쓰이면 common으로 뺄 것
+const replaceSectionToStation = function (section) {
+  section.replaceWith(stationSection);
+};
+
+// TODO: html data 속성으로 page 동적으로 바꾸기
+const handleStationManagerButton = function () {
+  const section = document.querySelector('#section-container > section');
+  replaceSectionToStation(section);
+  console.log('station showed');
+};
+
 const initElements = function () {
   stationSection.id = 'station-section';
   stationManagerButton.id = 'station-manager-button';
@@ -24,6 +36,7 @@ const initElements = function () {
   stationAddButton.id = 'station-add-button';
   stationAddButton.innerHTML = '역 추가';
   stationResultTitle.innerHTML = '🚉 지하철 역 목록';
+  stationManagerButton.addEventListener('click', handleStationManagerButton);
 };
 
 const appendNodesToDOM = function () {
@@ -48,12 +61,4 @@ buildStationSection();
 export const stationElements = {
   managerButton: stationManagerButton,
   section: stationSection,
-  // nameContainer: stationNameContainer,
-  // nameContainer: {
-  //     container: stationNameContainer,
-  //     title: stationNameTitle,
-  //     input: stationNameInput,
-  //     addButton: stationAddButton,
-  // },
-  // resultContainer: stationResultContainer,
 };
