@@ -6,6 +6,7 @@ const message = {
   SECTION_INFORMATION: '구간을 수정할 노선을 선택해주세요.',
   OPTION: '설정',
   ADD_STATION: '역 추가',
+  ADD: '등록',
   LIST_OF_STATIONS: '지하철 역 목록',
   LIST_OF_LINES: '지하철 노선 목록',
   OPTION_DELETE: '삭제',

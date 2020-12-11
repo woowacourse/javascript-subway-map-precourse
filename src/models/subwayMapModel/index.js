@@ -50,11 +50,11 @@ export default class SubwayMapModel {
     return this._lines[lineId].getStations();
   }
 
-  addStationToline(stationObject, lineId, order) {
-    this._lines[lineId].addStation(stationObject, order);
+  addSectionToline(sectionObject, lineId, order) {
+    this._lines[lineId].addSection(sectionObject, order);
   }
 
-  removeStationFromline(lineId, order) {
+  removeSectionFromline(lineId, order) {
     this._lines[lineId].removeStation(order);
   }
 }

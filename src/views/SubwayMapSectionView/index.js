@@ -21,6 +21,8 @@ class SectionViewEventDelegation {
     );
     console.log(this.subwayMapViewModel.getLine(id));
   }
+
+  addSection() {}
 }
 
 export default class SubwayMapSectionView {
@@ -80,13 +82,15 @@ export default class SubwayMapSectionView {
 
   renderSelectedLineSectionManager(line) {
     const sectionSelector = this.renderSectionSelector(line.getStations());
-    const sectionOrderInput = this.renderSectionOrderInput();
+    const sectionOrderInput = `<input id="#section-order-input"></input>`;
+    const sectionAddButton = `<button id="#section-add-button" data-purpose="addSection>${message.ADD}</button>`;
     this.managerContainer.innerHTML += `
       <div id="#section-selected-line-manager-container">
         <h3>${line.lineId} ${message.LINE_MANAGING}</h3>
         <p>${message.ADD_SECTION}</p>
         ${sectionSelector}
         ${sectionOrderInput}
+        ${sectionAddButton}
       </div>
     `;
   }
@@ -107,13 +111,5 @@ export default class SubwayMapSectionView {
     `;
 
     return sectionSelector;
-  }
-
-  renderSectionOrderInput() {
-    const sectionOrderInput = `
-      <input id="#section-order-input"></input>
-    `;
-
-    return sectionOrderInput;
   }
 }

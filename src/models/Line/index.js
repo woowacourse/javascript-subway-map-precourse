@@ -12,7 +12,7 @@ export default class Line {
     return [...this.stations];
   }
 
-  addStation(stationObject, order) {
+  addSection(stationObject, order) {
     const stations = [...this.stations].splice(
       order,
       0,
