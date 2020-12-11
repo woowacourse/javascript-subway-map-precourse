@@ -77,7 +77,7 @@ const STATION_DELETE_BUTTON_CLASS = "station-delete-button";
 const STATION_NAME_TABLE_ID = "station-name-table";
 const DELETE_CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?";
 const TEMPLATE = `
-역 이름<br>
+<span>역 이름</span><br>
 <input type="text" placeholder="역 이름을 입력해주세요." id="${STATION_NAME_INPUT_ID}"/>
 <button id="${STATION_ADD_BUTTON_ID}">역 추가</button>
 <h2>🚉 지하철 역 목록</h2>
