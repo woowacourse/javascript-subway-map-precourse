@@ -8,6 +8,9 @@ export default function Line(name) {
     this.head = startStation;
     this.head.next = endStation;
     this.length += 2;
+
+    startStation.addIncludedLine(this.name);
+    endStation.addIncludedLine(this.name);
   };
   this.getStartStation = () => {
     return this.head.name;
@@ -28,6 +31,7 @@ export default function Line(name) {
       current = current.next;
     }
     stationList.push(current.name);
+
     return stationList;
   };
   this.addStationInIdx = (station, idx) => {
@@ -42,15 +46,18 @@ export default function Line(name) {
     currentStation.next = addStation;
     this.length++;
     manager.setChangedLine(this);
+
+    station.addIncludedLine(this.name);
   };
-  this.deleteStationInIdx = (idx) => {
-    // const deleteStation = station;
+  this.deleteStationInIdx = (idx, selectedLine) => {
     let currentIdx = 0;
     let currentStation = this.head;
     while (currentIdx < idx - 1) {
       currentStation = currentStation.next;
       currentIdx++;
     }
+    currentStation.next.deleteIncludedLine(selectedLine);
+    currentStation.next.next = null;
     currentStation.next = currentStation.next.next;
     this.length--;
     manager.setChangedLine(this);

@@ -5,9 +5,10 @@ export const deleteSectionInList = (idx) => {
     "station-in-selected-line"
   );
   stationInSelecteLine.innerHTML = "";
-  manager.selectedLine.deleteStationInIdx(idx);
+  manager.selectedLine.deleteStationInIdx(idx, manager.getSelectedLine().name);
   manager.setSelectedLine(manager.selectedLine);
   showStationList(manager.getSelectedLine().getAllStationName());
+  console.log(manager.stationList);
 };
 export const makeStationBox = (station, idx) => {
   const oneStation = document.createElement("tr");
@@ -89,4 +90,5 @@ btnAddSection.onclick = () => {
   const stationList = document.getElementById("station-in-selected-line");
   stationList.innerHTML = "";
   showStationList(manager.getSelectedLine().getAllStationName());
+  console.log("등록 후stationList", manager.stationList);
 };
