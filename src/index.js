@@ -1,6 +1,7 @@
 import {hideScreen} from './View/hide-screen.js';
 import {showScreen} from './View/show-screen.js';
 import {addStationScreen} from './View/add-screen.js';
+import {removeStationScreen} from './View/remove-screen.js';
 import {$stationAddInput} from './View/input.js';
 
 export function onChangeScreen(e) {
@@ -15,6 +16,7 @@ export function onAddStation() {
 
 export function onRemoveStation(e) {
   removeLocalStorage('station', e.target.dataset.station);
+  removeStationScreen(e.target);
 }
 
 const setLocalStorage = (key) => {
