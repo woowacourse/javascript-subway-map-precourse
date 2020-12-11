@@ -59,6 +59,15 @@ class Station {
     const stationAddBtn = document.getElementById("station-add-button");
     stationAddBtn.addEventListener("click", this.addStation);
   };
+
+  handleDeleteNameClick = () => {
+    const stationDeleteBtn = document.getElementsByClassName(
+      "station-delete-button"
+    );
+    for (let i = 0; i < stationDeleteBtn.length; i++) {
+      stationDeleteBtn[i].addEventListener("click", this.deleteStation);
+    }
+  };
 }
 
 export default Station;
