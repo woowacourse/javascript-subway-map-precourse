@@ -19,6 +19,13 @@ class Table {
 
     return tr;
   };
+
+  createValueTd = value => {
+    const stationTd = document.createElement("td");
+    stationTd.innerHTML = value;
+
+    return stationTd;
+  };
 }
 
-export const { createTable, createTr } = new Table();
+export const { createTable, createTr, createValueTd } = new Table();

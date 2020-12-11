@@ -1,4 +1,4 @@
-import { createTable, createTr } from "./table.js";
+import { createTable, createTr, createValueTd } from "./table.js";
 class Station {
   constructor() {
     this.stations = [];
