@@ -27,9 +27,10 @@ export const INPUT_FORM_ID = {
 export const SELECTORS_ID = {
   lineStartStation: "line-start-station-selector",
   lineEndStation: "line-end-station-selector",
+  sectionStationSelector: "section-station-selector",
 };
 
 export const SECTION_MANAGER_CONTAINERS_ID = {
-  lineSelectButtons: "line-select-buttons",
+  sectionLineMenuButtons: "section-line-menu-buttons",
   selectedLineManager: "selected-line-manager",
 };

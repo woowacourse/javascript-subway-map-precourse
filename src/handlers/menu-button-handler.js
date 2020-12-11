@@ -10,6 +10,7 @@ import {
   MANAGER_PAGES_ID,
   SECTION_MANAGER_CONTAINERS_ID,
 } from "../html-constants/html-id-values.js";
+import { SECTION_LINE_MENU_BUTTON } from "../html-constants/html-classnames.js";
 
 const showManagerPageById = (container, id) => {
   Object.values(MANAGER_PAGES_ID).forEach((_pageId) => {
@@ -51,11 +52,11 @@ const setStartStationSelector = (appContainer) => {
   $startStationSelector.onchange = () => setEndStationSelector(appContainer);
 };
 
-const fillLineSelectButtons = ($lineSelectButtons, lineList) => {
+const fillSectionLineMenuButtons = ($lineSelectButtons, lineList) => {
   $lineSelectButtons.innerHTML = lineList
     .map((_line, _index) => {
       return `
-        <button class="line-select-buttons" data-selected-line-index=${_index}>
+        <button class=${SECTION_LINE_MENU_BUTTON} data-selected-line-index=${_index}>
           ${_line.name}
         </button>
       `;
@@ -64,15 +65,15 @@ const fillLineSelectButtons = ($lineSelectButtons, lineList) => {
 };
 
 const renderLineSelectButtons = ($sectionManager) => {
-  const $lineSelectButtons = getChildById(
+  const $sectionLineMenuButtons = getChildById(
     $sectionManager,
-    SECTION_MANAGER_CONTAINERS_ID.lineSelectButtons
+    SECTION_MANAGER_CONTAINERS_ID.sectionLineMenuButtons
   );
   const lineList = new LineManager().lineList;
   if (lineList.length === 0) {
-    $lineSelectButtons.innerHTML = "노선이 존재하지 않습니다.";
+    $sectionLineMenuButtons.innerHTML = "노선이 존재하지 않습니다.";
   } else {
-    fillLineSelectButtons($lineSelectButtons, lineList);
+    fillSectionLineMenuButtons($sectionLineMenuButtons, lineList);
   }
 };
 
