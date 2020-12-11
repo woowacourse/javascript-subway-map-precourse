@@ -27,7 +27,7 @@ export const isPossibleToDeleteStation = (stationName) => {
   const deleteStation = manager.stationList.find((station) => {
     return station.name === stationName;
   });
-  if (deleteStation.isIncluded.length > 0) {
+  if (deleteStation.isIncluded !== null) {
     alert("이미 노선에 등록되어 있는 역입니다.");
     return false; // 이미 노선에 등록되어있어서 삭제 불가
   }
@@ -37,10 +37,12 @@ export const deleteStationInList = (stationName) => {
   const parent = document.querySelector("table#staion-list-table tbody");
   if (isPossibleToDeleteStation(stationName)) {
     const deleteIdx = manager.stationList.findIndex((station) => {
-      return station.name === stationName;
+      return station.name === stationName && station.isIncluded === null;
     });
     parent.removeChild(
-      document.querySelector(`table#staion-list-table tbody tr#${stationName}`)
+      document.querySelector(
+        `table#staion-list-table tbody tr#${stationName}-null`
+      )
     );
     manager.stationList.splice(deleteIdx, 1);
   }
@@ -49,7 +51,7 @@ export const makeStationBox = (newStationName) => {
   const newStation = document.createElement("tr");
   const stationName = document.createElement("td");
   const deleteButton = document.createElement("td");
-  newStation.setAttribute("id", `${newStationName}`);
+  newStation.setAttribute("id", `${newStationName}-null`);
   stationName.innerHTML = newStationName;
   deleteButton.setAttribute("class", "station-delete-class");
   deleteButton.onclick = () => {
