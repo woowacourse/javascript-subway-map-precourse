@@ -1,5 +1,23 @@
 import { message } from '../../constants';
 
+class EventDelegation {
+  constructor(element) {
+    element.addEventListener('click', this.onClicked.bind(this));
+  }
+
+  good() {
+    alert('sss');
+  }
+
+  onClicked(event) {
+    let id = event.target.dataset.id;
+
+    if (id) {
+      this[id]();
+    }
+  }
+}
+
 export default class SubwayMapSectionView {
   constructor(subwayMapViewModel, managerContainer, sectionManagerButton) {
     this.subwayMapViewModel = subwayMapViewModel;
@@ -12,37 +30,32 @@ export default class SubwayMapSectionView {
   addEventListenerToSectionManagerButton(self) {
     this.sectionManagerButton.addEventListener(
       'click',
-      this.handleSectionManagerButton.bind(self),
+      this.handleSectionManagerButton.bind(this),
     );
   }
 
-  test(event) {
-    alert(event);
-    console.log('test');
+  test(evt) {
+    alert('test');
   }
 
-  addEventListenerToLineMenuButtons(self) {
-    let lineMenuButtons = document.getElementsByClassName(
-      '.section-line-menu-button',
-    );
-
-    console.log(lineMenuButtons, 'lineMenuButtons');
-    console.log(this.test);
-
-    for (let i = 0; i < lineMenuButtons.length; i++) {
-      console.log(self, 'self');
-      lineMenuButtons[i].addEventListener('click', this.test);
-    }
-  }
-
-  // handleStationDeleteButton(event) {
-  //   this.subwayMapViewModel.deleteStation(event.target.dataset.id);
-
-  //   this.resetStationTable();
-  //   this.renderStationTable(
-  //     Object.entries(this.subwayMapViewModel.getStations()),
+  // addEventListenerToLineMenuButtons(self) {
+  //   let lineMenuButtons = document.getElementsByClassName(
+  //     '.section-line-menu-button',
   //   );
-  //   this.addEventListenerToStationDeleteButtons(this);
+
+  //   console.log(lineMenuButtons);
+
+  //   // for (let i = 0; i < lineMenuButtons.length; i++) {
+  //   //   lineMenuButtons[i].addEventListener('click', this.test.bind(self));
+  //   // }
+
+  //   setTimeout(() => {
+  //     for (let i = 0; i < lineMenuButtons.length; i++) {
+  //       lineMenuButtons[i].addEventListener('click', this.test.bind(self));
+  //     }
+  //   }, 1);
+
+  //   console.log(lineMenuButtons);
   // }
 
   handleSectionManagerButton() {
@@ -55,30 +68,37 @@ export default class SubwayMapSectionView {
   }
 
   renderSectionManager() {
-    const lineButtons = this.renderLineMenuButtons(
+    this.renderLineMenuButtons(
       Object.entries(this.subwayMapViewModel.getLines()),
     );
-    this.managerContainer.innerHTML = `
-      <h3>${message.SECTION_INFORMATION}</h3>
-      ${lineButtons}
-    `;
 
-    this.addEventListenerToLineMenuButtons(this);
+    console.log(document.getElementById('#section-line-menu-button-container'));
 
-    this.renderSelectedLine();
+    new EventDelegation(
+      document.getElementById('#section-line-menu-button-container'),
+    );
+
+    // this.addEventListenerToLineMenuButtons(this);
+
+    // this.renderSelectedLine();
   }
 
   renderLineMenuButtons(lines) {
-    let lineButtons = ``;
+    let lineButtons = '';
     lines.forEach(line => {
       lineButtons += `
-        <button data-id="${line[0]}" data-line-instance="${line[1]}" class=".section-line-menu-button">
+        <button data-id="good" class=".section-line-menu-button">
           ${line[0]}
         </button>
       `;
     });
 
-    return lineButtons;
+    this.managerContainer.innerHTML = `
+    <div id="#section-line-menu-button-container">
+      <h3>${message.SECTION_INFORMATION}</h3>
+      ${lineButtons}
+    </div>
+    `;
   }
 
   renderSelectedLine() {
