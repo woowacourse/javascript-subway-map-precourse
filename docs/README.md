@@ -119,6 +119,9 @@ git clone https://github.com/sunhpark42/javascript-subway-map-precourse.git; cd 
 1. 화면표시 (View)
   - [x] 역 목록을 출력한다.
 
+### 기능 연결
+- [ ] 기능 연결
+
 ## ✔️ 커밋 규칙
 * feat : 새로운 기능 추가
 * fix : 버그 수정
