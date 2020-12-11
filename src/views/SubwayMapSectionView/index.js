@@ -136,6 +136,10 @@ export default class SubwayMapSectionView {
     `;
   }
 
+  resetLineTable() {
+    document.getElementById('#section-name-table').innerHTML = '';
+  }
+
   renderSectionTable(sections) {
     const sectionThead = this.renderSectionThead();
     const sectionTbody = this.renderSectionTbody(sections);
