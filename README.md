@@ -57,7 +57,8 @@
   - ui는 views, 그리고 user 인풋 처리는 action / 데이터 저장은 reducer에서 함
 
 ### day 2
-1. UI 로직 구현 part 1 => 매뉴 버튼 생성 [참고, insert adjacent html](https://developer.mozilla.org/ko/docs/Web/API/Element/insertAdjacentHTML)
+1. UI 로직 구현 part 1 => 매뉴 버튼 생성
+  - [참고, insert adjacent html](https://developer.mozilla.org/ko/docs/Web/API/Element/insertAdjacentHTML)
 
 2. document.createElement를 변수로 저장할 때 조심하자
 3. 매뉴에 해당하는 tab부터 렌더링하는 이벤트 완료
@@ -69,13 +70,19 @@
 - 이제 UI로직까지는 대략적으로 짰으므로, 이제 비즈니스 로직(데이터 모델링, user action, store등)에 신경쓰면 됨.
 
 ### day 3
-#### 목표
-1. 데이터 모델링 하기 (클래스 상속 이용)
-2. input 유효성 검사하기. throw new Error 이용해보기
-
-#### 구현한 것
 1. 인풋을 위한 view 재검토하기
   - 주의사항 innerHTML은 함수가 아니라 안에 string을 대입하는 것이다.
 
-2. 생각보다 UI로직에서 시간이 많이 걸린다.
-  - 그 이유는 이벤트 리스너 등록 과정에서 비동기 처리 때문..ㅠㅠ
+2. 생각보다 UI로직에서 시간이 많이 걸렸다. 이것만 하는데 이틀은 쓴거같다ㅠ
+  - 그 이유는 이벤트 리스너 등록 과정에서 비동기 처리 때문.. 이 아니었다 중요한 것은...
+
+3. 일단 input 성공적으로 되는 것까지는 확인했다.
+  - 가상 돔을 직접 만들 시, 템플릿 리터럴로 html을 삽입하는 방법이랑 dom 조작함수를 이용하는 방법 두 가지가 있는데,
+  - 하나로 쓸거면 하나로 쭉 밀고나가는게 좋다.
+  - 리액트에 익숙한 관계로 둘 다 짬뽕하다가 로직이 꼬여서 시간을 많이 썼다ㅠㅠ
+
+4. 이제 인풋 유효성 검사랑 로컬 스토리지 데이터 모델링 하자!
+
+### day 4
+#### 목표
+1. input 유효성 검사 시. throw new Error 이용해보기
