@@ -12,18 +12,11 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": [
-    "prettier",
-    "import"
-  ],
+  "plugins": ["prettier", "import"],
   "rules": {
-    "max-depth": [
-      "error",
-      2
-    ],
-    "max-lines-per-function": [
-      "error",
-      14
-    ]
+    "max-depth": ["error", 2],
+    "max-lines-per-function": ["error", 14],
+    "no-underscore-dangle": "off",
+    "import/extensions": ["off"]
   }
 }

@@ -39,6 +39,9 @@
 4. 주석은 왠만하면 함수 밖 혹은 코드 우측에 추가하라. (왠만하면 하지 말자)
 5. 커밋 메시지에 번호 추가하지 마라.
 
+## 새롭게 배운 것
+1. innerHTML과 outerHTML의 차이 (outerHTML은 html object를 string으로 파싱할 때 사용)
+
 ## 참고
 [내가 정리한 객체를 배열로 변환하는 메소드](https://blog.naver.com/kodewithamy/222139550359)
 [역, 노선, 구간의 유일한 데이터 값들을 data속성으로 관리](https://developer.mozilla.org/ko/docs/Learn/HTML/Howto/%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%86%8D%EC%84%B1_%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
