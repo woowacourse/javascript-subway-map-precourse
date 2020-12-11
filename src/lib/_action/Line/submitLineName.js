@@ -1,3 +1,3 @@
-export default async (inputValue) => {
-  await console.log(inputValue);
+export default (inputValue) => {
+  console.log(inputValue);
 };
