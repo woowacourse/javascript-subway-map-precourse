@@ -48,6 +48,10 @@ export default class LineManagerView {
     </table>`;
   }
 
+  static alertNameError() {
+    alert('invalid Error');
+  }
+
   static confirmDelete() {
     return window.confirm('정말로 삭제 하시겠습니까?');
   }

@@ -21,7 +21,7 @@ export default class LineManagerController {
     const lineStart = document.getElementById('line-start-station-selector').value;
     const lineEnd = document.getElementById('line-end-station-selector').value;
     if (!LineManagerModel.isValidName(line) || LineManagerModel.isSame(lineStart, lineEnd)) {
-      alert('error');
+      LineManagerView.alertNameError();
       LineManagerView.lineInputView();
       return;
     }
