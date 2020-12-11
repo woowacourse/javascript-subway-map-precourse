@@ -11,6 +11,7 @@ export default () => {
   MenuButtons.forEach((menuButton) => $menu.element.appendChild(menuButton));
 
   setInitState();
+
   $appContainer.appendChild($menu.element);
   $appContainer.appendChild($tabContainer.element);
 };
