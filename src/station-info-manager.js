@@ -10,4 +10,11 @@ export default class StationINFOManager {
     };
     this.stations_.push(newStation);
   }
+  getStationsNames() {
+    let stationNames = [];
+    this.stations_.forEach(({ name }) => {
+      stationNames.push(name);
+    });
+    return stationNames;
+  }
 }
