@@ -22,14 +22,28 @@ const stationListOpenTag = `
       <th>설정</th>
     </tr>
 `;
+const stationDeleteBtn = `
+<td><button class="station-delete-button">삭제</button></td>
+`;
 const stationListCloseTag = `
   </table>
 </div>
 `;
 
+const getStationList = (_station) => {
+  let stationList = "";
+
+  for (let i = 0; i < _station.length; i++) {
+    stationList += `<tr><td>${_station[i]}</td>${stationDeleteBtn}</tr>`;
+  }
+
+  return stationListOpenTag + stationList + stationListCloseTag;
+};
+
 const init = () => {
-  managerContainer.innerHTML =
-    stationInputForm + stationListOpenTag + stationListCloseTag;
+  const station = ["인천", "동인천", "도원", "소요산"];
+
+  managerContainer.innerHTML = stationInputForm + getStationList(station);
 };
 
 export default function StationManager() {
