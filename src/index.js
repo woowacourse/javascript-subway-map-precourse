@@ -18,7 +18,7 @@ import {
   $downStream,
   $lineNameInput,
 } from './View/input.js';
-import {isInputValid} from './Controller/valid.js';
+import {isInputValid, isLineInputValid} from './Controller/valid.js';
 import {
   setLocalStorage,
   removeLocalStorage,
@@ -54,9 +54,12 @@ export function onRemoveStation(e) {
 
 export function onAddLine() {
   const lineValue = getLineValue();
-  setLocalStorage('line', lineValue);
-  lineInstance.addLine(lineValue);
-  addLineScreen(lineValue);
+  if (isLineInputValid(lineValue, lineInstance.lines)) {
+    setLocalStorage('line', lineValue);
+    lineInstance.addLine(lineValue);
+    addLineScreen(lineValue);
+  }
+  $lineNameInput.value = '';
 }
 
 export function onRemoveLine(e) {
