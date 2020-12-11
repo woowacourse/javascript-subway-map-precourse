@@ -77,13 +77,6 @@ const renderLineSelectButtons = ($sectionManager) => {
   }
 };
 
-const emptySelectedLineManager = ($sectionManager) => {
-  getChildById(
-    $sectionManager,
-    SECTION_MANAGER_CONTAINERS_ID.selectedLineManager
-  ).innerHTML = "";
-};
-
 const showStationManagerPage = (appContainer) => {
   showManagerPageById(appContainer, MANAGER_PAGES_ID.stationManager);
   new StationManager().renderStationNameTable();
@@ -102,7 +95,6 @@ const showSectionManagerPage = (appContainer) => {
     MANAGER_PAGES_ID.sectionManager
   );
   renderLineSelectButtons($sectionManager);
-  emptySelectedLineManager($sectionManager);
 };
 
 export default function menuButtonHandler(e) {
