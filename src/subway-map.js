@@ -1,5 +1,5 @@
 import StationManager from './component/station-manager.js';
-import EventHandler from './util/handler/event_handler/event_handler.js';
+import EventHandler from './util/handler/event_handler.js';
 
 export default class SubwayMap {
   constructor() {

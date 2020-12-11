@@ -1,4 +1,5 @@
 import Role from './role.js';
+import { nodeSelector } from '../util/selector/node_selector.js';
 import {
   DELETE_K,
   STATION_ADD_BUTTON,
@@ -10,24 +11,22 @@ import {
   STATION_NAME_TABLE,
   STATION_NAME_ROW,
 } from '../library/constant/constant.js';
-import { nodeSelector } from '../util/selector/node_selector.js';
 
 export default class StationManager extends Role {
   constructor() {
     super(STATION_MANAGER, STATION_MANAGER_BUTTON, STATION_MANAGER_K);
-    this.addStationNameInput();
-    this.test();
+    this.handleStationNameInput();
   }
 
-  addStationNameInput() {
+  handleStationNameInput() {
     this.eventHandler.handleButtonEvent(
       STATION_ADD_BUTTON,
-      this.handleStationNameInput,
+      this.addStationNameInput,
       this
     );
   }
 
-  handleStationNameInput() {
+  addStationNameInput() {
     const stationNameInput = nodeSelector.selectId(STATION_NAME_INPUT);
     const value = stationNameInput.value;
     const response = this.validator.checkStationName(value);
@@ -35,7 +34,7 @@ export default class StationManager extends Role {
     response.then(isValidate =>
       isValidate
         ? this.renderStationName(value)
-        : this.errorHandler.handleStationNameError()
+        : this.errorHandler.handleStationNameError(stationNameInput)
     );
   }
 

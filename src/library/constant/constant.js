@@ -14,6 +14,8 @@ export const STATION_DELETE_BUTTON = 'station-delete-button';
 export const STATION_NAME_INPUT = 'station-name-input';
 export const STATION_NAME_TABLE = 'table-station-name';
 export const STATION_NAME_ROW = 'station-name-row';
+export const STATION_NAME_ALERT_MESSAGE =
+  '일치하는 역 이름이 없네요. 😅\n실제 지하철 역만 추가할 수 있어요!';
 // line manage;
 export const LINE_MANAGER_BUTTON = 'line-manager-button';
 export const LINE_ADD_BUTTON = 'line-add-button';

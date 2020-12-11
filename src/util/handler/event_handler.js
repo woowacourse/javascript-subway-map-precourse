@@ -1,4 +1,4 @@
-import { nodeSelector } from '../../selector/node_selector.js';
+import { nodeSelector } from '../selector/node_selector.js';
 
 export default class EventHandler {
   handleButtonEvent(targetName, onEventFunc, binder) {
