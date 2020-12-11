@@ -18,7 +18,7 @@ import {
   $downStream,
   $lineNameInput,
 } from './View/input.js';
-import {isInputValid, isLineInputValid} from './Controller/valid.js';
+import {isStationInputVaild, isLineInputValid} from './Controller/valid.js';
 import {
   setLocalStorage,
   removeLocalStorage,
@@ -33,7 +33,7 @@ export function onChangeScreen(e) {
 }
 
 export function onAddStation() {
-  if (isInputValid($stationAddInput.value, stationInstance.stations)) {
+  if (isStationInputVaild($stationAddInput.value, stationInstance.stations)) {
     setLocalStorage('station', $stationAddInput.value);
     stationInstance.addStation($stationAddInput.value);
     addStationScreen($stationAddInput.value);
