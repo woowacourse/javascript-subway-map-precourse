@@ -1,5 +1,4 @@
 import Toggle from '/src/core/utils/toggle.js';
-import {managerInput} from '/src/manager/view/input.js';
 
 export default class ManagerOutput {
 	constructor() {
@@ -15,7 +14,7 @@ export default class ManagerOutput {
 
 	hideAllContainers = () => {
 		this.hideStationContainer();
-		this.hideManagerContainer();
+		this.hideLineContainer();
 		this.hideSectionContainer();
 		this.hideMapContainer();
 	}
@@ -24,7 +23,7 @@ export default class ManagerOutput {
 		this.managerOutputToggle.hideElement(this.stationContainer);
 	}
 
-	hideManagerContainer = () => {
+	hideLineContainer = () => {
 		this.managerOutputToggle.hideElement(this.lineContainer);
 	}
 
@@ -34,5 +33,21 @@ export default class ManagerOutput {
 
 	hideMapContainer = () => {
 		this.managerOutputToggle.hideElement(this.mapContainer);
+	}
+
+	showStationContainer = () => {
+		this.managerOutputToggle.showElement(this.stationContainer);
+	}
+
+	showLineContainer = () => {
+		this.managerOutputToggle.showElement(this.lineContainer);
+	}
+
+	showSectionContainer = () => {
+		this.managerOutputToggle.showElement(this.sectionContainer);
+	}
+
+	showMapContainer = () => {
+		this.managerOutputToggle.showElement(this.mapContainer);
 	}
 }

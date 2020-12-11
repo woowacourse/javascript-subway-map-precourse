@@ -1,9 +1,8 @@
-import ManagerOutput from '/src/manager/view/output.js';
+import Manager from '/src/manager/manager.js';
 
 export default class SubwayStationMap {
 	constructor() {
-		new ManagerOutput;
-
+		new Manager();
 	}
 }
 

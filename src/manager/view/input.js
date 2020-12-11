@@ -1,4 +1,4 @@
-class ManagerInput {
+export default class ManagerInput {
 	constructor() {
 		this.stationManagerButton = document.getElementById('station-manager-button');
 		this.lineManagerButton = document.getElementById('line-manager-button');
@@ -6,6 +6,3 @@ class ManagerInput {
 		this.mapPrintManagerButton = document.getElementById('map-print-manager-button');
 	}
 }
-
-export const managerInput = new ManagerInput();
-
