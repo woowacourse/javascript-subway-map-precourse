@@ -79,9 +79,21 @@ export default class SubwayMapSectionView {
   }
 
   renderSelectedLineSectionManager(line) {
+    const sectionOrderInput = this.renderSectionOrderInput();
     this.managerContainer.innerHTML += `
-      <h3>${line.lineId} ${message.LINE_MANAGING}</h3>
-      <p>${message.ADD_SECTION}</p>
+      <div id="#section-selected-line-manager-container">
+        <h3>${line.lineId} ${message.LINE_MANAGING}</h3>
+        <p>${message.ADD_SECTION}</p>
+        ${sectionOrderInput}
+      </div>
     `;
+  }
+
+  renderSectionOrderInput() {
+    const sectionOrderInput = `
+      <input id="#section-order-input"></input>
+    `;
+
+    return sectionOrderInput;
   }
 }
