@@ -83,6 +83,7 @@ export default class Station {
 
     stationAddButton.addEventListener('click', () => {
       this.hasValidName(stationNameInput.value);
+      stationNameInput.value = '';
     });
   }
 
@@ -94,7 +95,6 @@ export default class Station {
     } else {
       this.saveStation(stationName);
       this.render();
-      this.handleStationDeleteButton();
     }
   }
 
