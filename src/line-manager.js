@@ -1,4 +1,4 @@
-import { manager } from "./index.js";
+import { manager } from "./manager.js";
 import Line from "./line.js";
 import Station from "./station.js";
 

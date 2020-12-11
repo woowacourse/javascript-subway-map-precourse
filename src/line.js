@@ -1,4 +1,4 @@
-import { manager } from "./index.js";
+import { manager } from "./manager.js";
 
 export default function Line(name) {
   this.name = name;

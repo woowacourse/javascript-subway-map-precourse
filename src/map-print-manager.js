@@ -1,4 +1,4 @@
-import { manager } from "./index.js";
+import { manager } from "./manager.js";
 
 export const showLineTitleInMap = (lineName) => {
   const lineNameBox = document.createElement("div");

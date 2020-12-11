@@ -1,4 +1,5 @@
-import { manager, makeStationOption } from "./index.js";
+import { makeStationOption } from "./index.js";
+import { manager } from "./manager.js";
 
 export const deleteSectionInList = (idx) => {
   const stationInSelecteLine = document.getElementById(
@@ -8,7 +9,6 @@ export const deleteSectionInList = (idx) => {
   manager.selectedLine.deleteStationInIdx(idx, manager.getSelectedLine().name);
   manager.setSelectedLine(manager.selectedLine);
   showStationList(manager.getSelectedLine().getAllStationName());
-  console.log(manager.stationList);
 };
 export const makeStationBox = (station, idx) => {
   const oneStation = document.createElement("tr");
@@ -67,7 +67,7 @@ export const makeLineButton = (line) => {
 
   return lineMenuButton;
 };
-export const showLineList = (lineList) => {
+export const showLineMenuInSectionManager = (lineList) => {
   const lineMenu = document.getElementById("section-line-list");
   lineMenu.innerHTML = "";
   lineList.forEach((line) => {
@@ -90,5 +90,4 @@ btnAddSection.onclick = () => {
   const stationList = document.getElementById("station-in-selected-line");
   stationList.innerHTML = "";
   showStationList(manager.getSelectedLine().getAllStationName());
-  console.log("등록 후stationList", manager.stationList);
 };

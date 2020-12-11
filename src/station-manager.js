@@ -1,4 +1,4 @@
-import { manager } from "./index.js";
+import { manager } from "./manager.js";
 import Station from "./station.js";
 
 export const isCorrectStationName = (newStationName) => {
@@ -63,7 +63,7 @@ export const makeStationBox = (newStationName) => {
 };
 export const addStationToList = (newStationName) => {
   const station = new Station(newStationName);
-  manager.addStationInList(station);
+  manager.setStationInManager(station);
   const newStation = makeStationBox(newStationName);
   const table = document.getElementById("staion-list-table");
   table.children[1].appendChild(newStation);
