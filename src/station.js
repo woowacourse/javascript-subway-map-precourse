@@ -1,8 +1,23 @@
+import Table from "./table.js";
 class Station {
   constructor() {
     this.stations = [];
     this.handleAddNameClick();
   }
+
+  createStationTable = () => {
+    const stationTable = Table.createTable(["역 이름", "설정"]);
+    for (let i = 0; i < this.stations.length; i++) {
+      const tr = Table.createTr([
+        Table.createValueTd(this.stations[i]),
+        Table.createButtonTd("삭제", "station-delete-button"),
+      ]);
+      tr.dataset.index = i;
+      stationTable.appendChild(tr);
+    }
+
+    return stationTable;
+  };
 
   showStation = () => {
     const stationContainer = document.querySelector(".station-list");
@@ -18,7 +33,7 @@ class Station {
     return name.length >= 2 && !this.stations.includes(name);
   };
 
-  getNameInput = e => {
+  getNameInput = () => {
     const station = document.getElementById("station-name-input").value;
     document.getElementById("station-name-input").value = "";
 
