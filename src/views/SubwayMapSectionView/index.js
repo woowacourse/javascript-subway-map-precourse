@@ -104,6 +104,7 @@ export default class SubwayMapSectionView {
       </div>
     `;
     this.renderSectionTableContainer();
+    this.renderSectionTable();
     new SectionViewEventDelegation(
       document.getElementById('#section-selected-line-manager-container'),
       this,
@@ -129,8 +130,14 @@ export default class SubwayMapSectionView {
     return sectionSelector;
   }
 
-  rendersectionTable(lines) {
-    const sectionThead = this.rendersectionThead();
+  renderSectionTableContainer() {
+    this.managerContainer.innerHTML += `
+      <div id="#section-table-container"></div>
+    `;
+  }
+
+  renderSectionTable(lines) {
+    const sectionThead = this.renderSectionThead();
     const sectionTbody = this.rendersectionTbody(lines);
 
     const sectionTable = `
@@ -145,9 +152,15 @@ export default class SubwayMapSectionView {
     ).innerHTML += sectionTable;
   }
 
-  renderSectionTableContainer() {
-    this.managerContainer.innerHTML += `
-      <div id="#section-table-container"></div>
+  renderSectionThead() {
+    const sectionThead = `
+      <tr>
+        <th>${message.ORDER}</th>
+        <th>${message.NAME}</th>
+        <th>${message.OPTION}</th>
+      </tr>
     `;
+
+    return sectionThead;
   }
 }
