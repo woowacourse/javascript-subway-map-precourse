@@ -31,9 +31,11 @@ export default class StationManagerController {
     const buttons = document.getElementsByClassName('station-delete-button');
     const buttonsArray = Array.from(buttons);
     const station = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
-    console.log(station);
-    // alert('delete');
-    StationManagerModel.delete(station);
-    StationManagerView.StationTableView();
+    if (StationManagerView.AlertDelete()) {
+      StationManagerModel.delete(station);
+      StationManagerView.StationTableView();
+    } else {
+      StationManagerView.StationInputView();
+    }
   }
 }
