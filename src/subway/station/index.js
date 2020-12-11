@@ -11,36 +11,6 @@ export default class Station {
     this.subways = this.loadSubways();
   }
 
-  createStationManagerButton($functionButtonContainer) {
-    const stationManagerButton = document.createElement('button');
-    stationManagerButton.id = ID.STATION_MANAGER_BUTTON;
-    stationManagerButton.innerHTML = NAME.STATION_MANAGER_BUTTON_NAME;
-    $functionButtonContainer.appendChild(stationManagerButton);
-  }
-
-  createStationManager($target) {
-    const $stationManager = document.createElement('div');
-    $stationManager.id = `${ID.STATION_MANAGER}`;
-    $target.appendChild($stationManager);
-  }
-
-  handleStationManagerButton() {
-    const stationManagerButton = document.querySelector(
-      `#${ID.STATION_MANAGER_BUTTON}`
-    );
-
-    stationManagerButton.addEventListener('click', () => {
-      this.render();
-    });
-  }
-
-  render() {
-    const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
-    stationManager.innerHTML = stationManagerTemplate(this.subways);
-
-    this.handleStationAddButton();
-  }
-
   loadSubways() {
     const loadedSubways = localStorage.getItem(NAME.LOCALSTORAGE_KEY);
     let parsedSubways = [];
@@ -52,6 +22,38 @@ export default class Station {
     return parsedSubways;
   }
 
+  createStationManagerButton($functionButtonContainer) {
+    const stationManagerButton = document.createElement('button');
+
+    stationManagerButton.id = ID.STATION_MANAGER_BUTTON;
+    stationManagerButton.innerHTML = NAME.STATION_MANAGER_BUTTON_NAME;
+    $functionButtonContainer.appendChild(stationManagerButton);
+  }
+
+  createStationManager($target) {
+    const $stationManager = document.createElement('div');
+
+    $stationManager.id = `${ID.STATION_MANAGER}`;
+    $target.appendChild($stationManager);
+  }
+
+  handleStationManagerButton() {
+    const stationManagerButton = document.querySelector(
+      `#${ID.STATION_MANAGER_BUTTON}`
+    );
+
+    stationManagerButton.addEventListener('click', () => {
+      this.render();
+      this.handleStationAddButton();
+    });
+  }
+
+  render() {
+    const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
+
+    stationManager.innerHTML = stationManagerTemplate(this.subways);
+  }
+
   handleStationAddButton() {
     const stationAddButton = document.querySelector(
       `#${ID.STATION_ADD_BUTTON}`
@@ -59,6 +61,7 @@ export default class Station {
     const stationNameInput = document.querySelector(
       `#${ID.STATION_NAME_INPUT}`
     );
+
     stationAddButton.addEventListener('click', () => {
       this.saveStation(stationNameInput.value);
       this.render();
@@ -67,6 +70,7 @@ export default class Station {
 
   saveStation(station) {
     const subway = this.addSubway();
+
     subway.station = station;
     this.subways.push(subway);
     localStorage.setItem(NAME.LOCALSTORAGE_KEY, JSON.stringify(this.subways));
