@@ -108,6 +108,8 @@ const addLine = (lineName, lineInput, start, end) => {
   updatedLines[lineName] = [start, end];
   localStorage.setItem('lines', JSON.stringify(updatedLines));
   console.log(JSON.parse(localStorage.getItem('lines')));
+
+  addTable(lineName, start, end);
 };
 
 const validateName = lineName => {
@@ -166,4 +168,26 @@ const createResultArea = () => {
   });
 
   app.appendChild(lineTable);
+};
+
+const addTable = (lineName, start, end) => {
+  const lineTable = document.getElementById('line-table');
+  const newRow = document.createElement('tr');
+  newRow.setAttribute('data-line', lineName);
+
+  const newData = document.createElement('td');
+  newData.innerHTML = lineName;
+  const upwardEndData = document.createElement('td');
+  upwardEndData.innerHTML = start;
+  const downwardEndData = document.createElement('td');
+  downwardEndData.innerHTML = end;
+  const deleteBtn = document.createElement('button');
+  deleteBtn.innerHTML = '삭제';
+
+  newRow.appendChild(newData);
+  newRow.appendChild(upwardEndData);
+  newRow.appendChild(downwardEndData);
+  newRow.appendChild(deleteBtn);
+
+  lineTable.appendChild(newRow);
 };
