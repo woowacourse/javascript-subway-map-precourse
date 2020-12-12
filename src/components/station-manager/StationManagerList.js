@@ -22,17 +22,18 @@ export class StationManagerList {
     this.stationTable.innerHTML = getStationsTableHeader();
     this.stations = this.getStations();
 
-    this.stations.forEach((station, index) => {
-      addRow(this.stationTable, station, index);
+    this.stations.forEach((station) => {
+      addRow(this.stationTable, station);
     });
   };
 
   handleDeleteStation = (e) => {
-    console.log("dsfs");
     if (e.target.classList.contains("delete-button")) {
-      console.log(e.target.dataset.station);
-      this.deleteStation(e.target.dataset.station);
-      this.render();
+      let confirmDelete = confirm("정말로 삭제하시겠습니까?");
+      if (confirmDelete) {
+        this.deleteStation(e.target.dataset.station);
+        this.render();
+      }
     }
   };
 }

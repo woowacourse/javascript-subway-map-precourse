@@ -7,3 +7,8 @@ export const MESSAGE = {
   DUPLICATION_ERROR: "중복",
   CHECK_GUIDE: " 을 확인해주세요.",
 };
+
+export const DELETE_GUIDE = {
+  DELETE: "삭제",
+  DELETE_IN_LINE: "노선에서 제거",
+};

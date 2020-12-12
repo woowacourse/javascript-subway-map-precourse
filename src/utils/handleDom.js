@@ -1,3 +1,4 @@
+import { DELETE_GUIDE } from "../constants/constants.js";
 export const displayShow = (dom) => {
   dom.style.display = "block";
 };
@@ -16,11 +17,11 @@ export const showErrors = (error) => {
   alert(error);
 };
 
-export const addRow = (table, name, index) => {
+export const addRow = (table, name) => {
   const tr = document.createElement("tr");
 
   addCell(tr, name);
-  addCell(tr, addDeleteButton(name, "삭제"));
+  addCell(tr, addDeleteButton(name, `${DELETE_GUIDE.DELETE}`));
   table.appendChild(tr);
 };
 
