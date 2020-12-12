@@ -96,7 +96,7 @@ export default {
       return alert("올바르지 못한 입력입니다.");
     }
 
-    if (station in line.stations) {
+    if (line.stations.some(s => s === station)) {
       return alert("이미 등록된 역입니다.");
     }
 
