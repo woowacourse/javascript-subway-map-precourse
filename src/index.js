@@ -1,4 +1,4 @@
-import { appendAtEnd } from './util/util-ui.js';
+import { appendNew } from './util/util-ui.js';
 import { launchStationManager } from './managers/station/launcher.js';
 import { launchLineManager } from './managers/line/launcher.js';
 import { launchSectionManager } from './managers/section/launcher.js';
@@ -12,11 +12,11 @@ export default function SubwayLineManager() {
 }
 
 const createInitialView = (app) => {
-  const menuBar = appendAtEnd('div', app, '', '#menu-bar');
+  const menuBar = appendNew('div', app, '', '#menu-bar');
   const menuButtons = MENU_LIST.map((attr, i) =>
-    appendAtEnd('button', menuBar, `${i + 1}. ${attr.content}`, attr.id)
+    appendNew('button', menuBar, `${i + 1}. ${attr.content}`, attr.id)
   );
-  const container = appendAtEnd('div', app, '', '#container');
+  const container = appendNew('div', app, '', '#container');
 
   addEventListenerOnMenuButton(menuButtons, container);
 };

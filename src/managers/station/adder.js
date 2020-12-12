@@ -1,5 +1,8 @@
-import { addEventListenerOnDeleteButton } from './launcher.js';
-import { emptyElement, requestInputAgain } from '../../util/util-ui.js';
+import {
+  emptyElement,
+  requestInputAgain,
+  addEventListenerOnDeleteButton,
+} from '../../util/util-ui.js';
 import { addItemToLocalStroage } from '../../util/util-local-storage.js';
 import { addItemToTable } from '../../util/util-table.js';
 import { Station } from '../../classes/station.js';

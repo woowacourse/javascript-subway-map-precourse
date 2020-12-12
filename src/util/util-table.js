@@ -1,5 +1,5 @@
 import { getLocalStorageAsArray } from './util-local-storage.js';
-import { appendAtEnd } from './util-ui.js';
+import { appendNew, createButton } from './util-ui.js';
 import { TABLE } from '../configuration.js';
 
 export const makeTable = (menu) => {
@@ -16,12 +16,12 @@ export const makeTable = (menu) => {
 
 const makeTableHeader = (table, menu) => {
   TABLE.header[menu].forEach((header) => {
-    appendAtEnd('th', table, header);
+    appendNew('th', table, header);
   });
 };
 
 const makeOneRow = (table, menu, item) => {
-  let row = appendAtEnd('tr', table);
+  let row = appendNew('tr', table);
   let makeMenuCell = {
     station: makeStationCell,
     line: makeLineCell,
@@ -33,15 +33,15 @@ const makeOneRow = (table, menu, item) => {
 };
 
 const makeStationCell = (row, item) => {
-  [item.name].forEach((cell) => appendAtEnd('td', row, cell));
+  appendNew('td', row, item.name);
 };
 
 const makeLineCell = (row, item) => {
-  [
-    item.name,
-    item.stationList[0],
-    item.stationList[stationList.length - 1],
-  ].forEach((cell) => appendAtEnd('td', row, cell));
+  const firstStation = item.stationList[0];
+  const lastStation = item.stationList[item.stationList.length - 1];
+  const cells = [item.name, firstStation, lastStation];
+
+  cells.forEach((cell) => appendNew('td', row, cell));
 };
 
 const makeSectionCell = (row, item) => {
@@ -49,16 +49,16 @@ const makeSectionCell = (row, item) => {
     item.name,
     item.stationList[0],
     item.stationList[stationList.length - 1],
-  ].forEach((cell) => appendAtEnd('td', row, cell));
+  ].forEach((cell) => appendNew('td', row, cell));
 };
 
 const makeDeleteButton = (row, menu, item) => {
-  const button = document.createElement('button');
+  const className = `${menu}-delete-button`;
+  const dataset = `data-${menu}`;
+  const button = createButton(className, dataset, item.name);
 
-  button.setAttribute('class', `${menu}-delete-button`);
-  button.setAttribute(`data-${menu}`, item.name);
   button.innerHTML = TABLE.deleteButtonText[menu];
-  return appendAtEnd('td', row, button.outerHTML);
+  return appendNew('td', row, button.outerHTML);
 };
 
 export const addItemToTable = (menu, item) => {

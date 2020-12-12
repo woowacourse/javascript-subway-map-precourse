@@ -40,3 +40,21 @@ export const TABLE = {
   },
   deleteButtonText: { station: '삭제', line: '삭제', section: '노선에서 제거' },
 };
+
+export const SELECT_FORM = {
+  startStation: {
+    id: '#line-start-station-selector',
+    label: '상행 종점',
+    dataLocation: 'station',
+  },
+  endStation: {
+    id: '#line-end-station-selector',
+    label: '하행 종점',
+    dataLocation: 'station',
+  },
+  section: {
+    id: '#section-station-selector',
+    label: '',
+    dataLocation: 'line',
+  },
+};

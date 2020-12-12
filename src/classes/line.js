@@ -1,4 +1,4 @@
-export default class Line {
+export class Line {
   constructor(name) {
     this.name = name;
     this.stationList = [];
