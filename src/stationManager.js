@@ -116,10 +116,12 @@ const addTable = name => {
 };
 
 const deleteStation = name => {
-  const stationTable = document.getElementById('station-table');
-  const currStations = JSON.parse(localStorage.getItem('stations'));
-  const updatedStations = currStations.filter(station => station !== name);
-  localStorage.setItem('stations', JSON.stringify(updatedStations));
-  const rowToBeDeleted = stationTable.querySelector(`[data-station=${name}]`);
-  stationTable.removeChild(rowToBeDeleted);
+  if (confirm('정말 삭제하시겠습니까?')) {
+    const stationTable = document.getElementById('station-table');
+    const currStations = JSON.parse(localStorage.getItem('stations'));
+    const updatedStations = currStations.filter(station => station !== name);
+    localStorage.setItem('stations', JSON.stringify(updatedStations));
+    const rowToBeDeleted = stationTable.querySelector(`[data-station=${name}]`);
+    stationTable.removeChild(rowToBeDeleted);
+  }
 };
