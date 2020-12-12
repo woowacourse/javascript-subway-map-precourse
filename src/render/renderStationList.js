@@ -1,3 +1,5 @@
+import removeStationEvent from '../event/removeStationEvent.js';
+
 function stationListContainerTemplate() {
   return `<table class="station-table" border="1">
                 <tr>
@@ -37,6 +39,7 @@ function initStationList(stations) {
         stationListTemplate(station, stationNumber++),
       ),
     );
+  removeStationEvent();
 }
 
 export default function renderStationList() {
