@@ -16,8 +16,12 @@ function initStationListContainer() {
 
 function stationListTemplate(station, stationNumber) {
   return `<tr class="station-table-child" data-number=${stationNumber}>
-            <td data-number=${stationNumber}>${station}</td>
-            <td data-number=${stationNumber}><button class="station-delete-button">삭제</button></td>
+            <td data-number=${stationNumber}>
+              <span>${station}</span>
+            </td>
+            <td data-number=${stationNumber}>
+              <button class="station-delete-button">삭제</button>
+            </td>
           </tr>`;
 }
 
