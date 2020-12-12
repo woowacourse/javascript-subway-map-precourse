@@ -23,12 +23,13 @@ export default class Table {
   _getTableRow(tableRowSet) {
     return tableRowSet.reduce(($tr, $tdData) => {
       const $td = document.createElement("td");
-      $td.appendChild($tdData);
-      return $tr.appendChild($td);
+      if (typeof $tdData === "string") $td.innerText = $tdData;
+      else $td.appendChild($tdData);
+      $tr.appendChild($td);
+      return $tr;
     }, document.createElement("tr"));
   }
 
-  // 걍 td는 다른 private함수로 빼자
   insertTableData(tableDataSetArray) {
     const $tbody = document.createElement("tbody");
     tableDataSetArray.forEach((tableRowSet) => {
