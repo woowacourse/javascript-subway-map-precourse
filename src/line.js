@@ -70,6 +70,13 @@ class Line {
     const lineAddBtn = document.getElementById("line-add-button");
     lineAddBtn.addEventListener("click", this.addLine);
   };
+
+  handleDeleteLineClick = () => {
+    const lineDeleteBtn = document.getElementsByClassName("line-delete-button");
+    for (let i = 0; i < lineDeleteBtn.length; i++) {
+      lineDeleteBtn[i].addEventListener("click", this.deleteLine);
+    }
+  };
 }
 
 export default new Line();
