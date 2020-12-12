@@ -1,15 +1,25 @@
 export const stationAddContainer = () => {
-  return `<div>역 이름
+  return `<div>
+    <div><strong>역 이름<strong></div>
     ${stationNameInput}
     ${stationAddButton}
   </div>`;
 };
 
-const stationNameInput = '<input id="station-name-input"></input>';
-const stationAddButton = '<button id="station-add-button"></button>';
+const stationNameInput =
+  '<input id="station-name-input" placeholder="역 이름을 입력해주세요."></input>';
+const stationAddButton = '<button id="station-add-button">역 추가</button>';
 
-export const stationTable = stations => {
-  `<table${stationTableHeader}
+export const stationList = stations => {
+  return `<div class="station-list">
+    <h2>🚉지하철 역 목록</h2>
+    ${stationTable(stations)}
+  </div>`;
+};
+
+const stationTable = stations => {
+  return `<table>
+    ${stationTableHeader}
     ${stations.map(
       station => `<tr>${stationName(station.name)}${stationDeleteButton}</tr>`
     )}
@@ -18,7 +28,7 @@ export const stationTable = stations => {
 
 const stationTableHeader = '<tr><th>역 이름</th><th>설정</th></tr>';
 const stationDeleteButton =
-  '<td><button class="station-delete-button"></button></td>';
+  '<td><button class="station-delete-button">삭제</button></td>';
 
 const stationName = name => {
   return `<td>${name}</td>`;
