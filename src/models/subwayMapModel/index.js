@@ -35,6 +35,10 @@ export default class SubwayMapModel {
     return { ...this.lines };
   }
 
+  setLines(lines) {
+    this.lines = lines;
+  }
+
   getLine(lineId) {
     return this.lines[lineId];
   }
@@ -44,6 +48,8 @@ export default class SubwayMapModel {
     lines[lineObject.lineId] = new Line(lineObject);
 
     this.lines = lines;
+
+    localStorage.setItem('lines', JSON.stringify(this.lines));
   }
 
   deleteLine(lineId) {
@@ -51,6 +57,8 @@ export default class SubwayMapModel {
     delete lines[lineId];
 
     this.lines = lines;
+
+    localStorage.setItem('lines', JSON.stringify(this.lines));
   }
 
   selectline(lineId) {

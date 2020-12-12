@@ -104,6 +104,12 @@ export default class SubwayMapLineView {
       <div id="#line-table-container"></div>
     `;
 
+    if ('lines' in localStorage) {
+      this.subwayMapViewModel.setStations(
+        JSON.parse(localStorage.getItem('lines')),
+      );
+    }
+
     this.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
   }
 
