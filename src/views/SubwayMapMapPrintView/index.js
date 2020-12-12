@@ -6,6 +6,7 @@ class MapPrintViewEventDelegation {
   }
 
   mapPrintManager() {
+    this.mapPrintView.resetManagerContainer();
     this.mapPrintView.renderMapPrintManager();
   }
 
@@ -31,11 +32,36 @@ export default class SubwayMapMapPrintView {
     );
   }
 
+  resetManagerContainer() {
+    this.managerContainer.innerHTML = '';
+  }
+
   renderMapPrintManager() {
+    const linesUls = this.renderLinesUls(
+      Object.entries(this.subwayMapViewModel.getLines()),
+    );
     this.managerContainer.innerHTML += `
       <div class="map">
-        <p>test</p>
+      ${linesUls}
       </div>
     `;
+  }
+
+  renderLinesUls(lines) {
+    let linesUls = ``;
+
+    lines.map(line => {
+      let sectionlis = ``;
+      line[1].sections.map(section => {
+        sectionlis += `<li>${section.stationId}</li>`;
+      });
+      let lineUl = `
+      <h3>${line[0]}</h3>
+      <ul>${sectionlis}</ul>
+      `;
+      linesUls += lineUl;
+    });
+
+    return linesUls;
   }
 }
