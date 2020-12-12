@@ -12,6 +12,15 @@ export default class DomUtils {
     return button;
   }
 
+  createArticle(toIdName, idName) {
+    const article = document.createElement('ARTICLE');
+
+    this.setAttribute(article, idName);
+    this.appendTo(toIdName, article);
+
+    return article
+  }
+
   setAttribute(varName, idName) {
     varName.setAttribute('id', idName);
   }
@@ -28,15 +37,6 @@ export default class DomUtils {
     const toVarName = document.getElementById(toIdName);
 
     toVarName.insertBefore(varName, before);
-  }
-
-  createArticle(toIdName, idName) {
-    const article = document.createElement('ARTICLE');
-
-    this.setAttribute(article, idName);
-    this.appendTo(toIdName, article);
-
-    return article
   }
 
   displayNone(varName) {

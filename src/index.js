@@ -4,6 +4,7 @@ import ManageStation from './manage_station.js';
 
 export default class SubwayMap {
   constructor() {
+    document.body.style.fontFamily = 'Arial';
     this._privateDomUtils = new DomUtils();
     this._privateStringUtils = new StringUtils();
     this.setIdNAme();
@@ -53,7 +54,6 @@ export default class SubwayMap {
     const articleName = this._privateStringUtils.getArticleName(idName);
     
     this[`_${articleName}`] = this._privateDomUtils.createArticle(this.ARTICLE_AREA, articleName);
-    this[`_${articleName}`].innerHTML = articleName;
     this._privateDomUtils.displayNone(this[`_${articleName}`]);
 
     return articleName;
@@ -61,13 +61,13 @@ export default class SubwayMap {
 
   addEventToButton(varName, articleName) {
     this[`_${varName}`].addEventListener('click', () => {
-      this.showArticle(articleName);
+      this.showArticle(articleName)
     });
   }
 
   showArticle(articleName) {
     this.hideAllArticle();
-    this.showTheOne(articleName);
+    this.showCorrespondingArticle(articleName);
   }
 
   hideAllArticle() {
@@ -76,7 +76,7 @@ export default class SubwayMap {
     }
   }
 
-  showTheOne(articleName) {
+  showCorrespondingArticle(articleName) {
     this[`_${articleName}`].style.display = 'block';
   }
 
