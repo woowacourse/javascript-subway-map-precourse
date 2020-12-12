@@ -55,7 +55,7 @@ const renderLineSectionTbody = (lineIndex) => {
           <td>${_index}</td>
           <td>${_station}</td>
           <td><button 
-            class=${DELETE_BUTTONS_CLASS.sectoinDeleteButton}
+            class=${DELETE_BUTTONS_CLASS.sectionDeleteButton}
             data-section-index=${_index}>노선에서 제거</button>
         </tr>
       `;

@@ -1,7 +1,7 @@
 export const DELETE_BUTTONS_CLASS = {
   stationDeleteButton: "station-delete-button",
   lineDeleteButton: "line-delete-button",
-  sectoinDeleteButton: "sectoin-delete-button",
+  sectionDeleteButton: "section-delete-button",
 };
 
 export const SECTION_LINE_MENU_BUTTON = "section-line-menu-button";
