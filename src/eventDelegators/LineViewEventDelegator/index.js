@@ -21,12 +21,14 @@ export default class LineViewEventDelegator {
   addLine() {
     const lineObject = {
       lineId: document.getElementById('#line-name-input').value,
-      startStation: document.getElementById('#line-start-station-selector')[
-        document.getElementById('#line-start-station-selector').selectedIndex
-      ].dataset.id,
-      endStation: document.getElementById('#line-end-station-selector')[
-        document.getElementById('#line-end-station-selector').selectedIndex
-      ].dataset.id,
+      sections: [
+        document.getElementById('#line-start-station-selector')[
+          document.getElementById('#line-start-station-selector').selectedIndex
+        ].dataset.id,
+        document.getElementById('#line-end-station-selector')[
+          document.getElementById('#line-end-station-selector').selectedIndex
+        ].dataset.id,
+      ],
     };
 
     this.subwayMapViewModel.addLine(lineObject);

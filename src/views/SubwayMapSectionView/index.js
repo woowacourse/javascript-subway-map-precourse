@@ -69,6 +69,7 @@ export default class SubwayMapSectionView {
   }
 
   renderSelectedLineSectionManager(line) {
+    console.log(line);
     const sectionSelector = this.renderSectionSelector(
       Object.entries(this.subwayMapViewModel.getStations()),
     );

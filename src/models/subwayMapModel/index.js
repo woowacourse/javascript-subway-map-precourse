@@ -4,6 +4,18 @@ export default class SubwayMapModel {
   constructor() {
     this.lines = {};
     this.stations = {};
+
+    this.setLocalStorage();
+  }
+
+  setLocalStorage() {
+    if ('stations' in localStorage) {
+      this.setStations(JSON.parse(localStorage.getItem('stations')));
+    }
+
+    if ('lines' in localStorage) {
+      this.setLines(JSON.parse(localStorage.getItem('lines')));
+    }
   }
 
   getStations() {
@@ -19,7 +31,6 @@ export default class SubwayMapModel {
     stations[stationId] = stationId;
 
     this.stations = stations;
-
     localStorage.setItem('stations', JSON.stringify(this.stations));
   }
 
@@ -36,7 +47,20 @@ export default class SubwayMapModel {
   }
 
   setLines(lines) {
-    this.lines = lines;
+    const linesInstances = {};
+
+    Object.entries(lines).forEach(line => {
+      console.log(line[1]);
+      linesInstances[`${line[0]}`] = new Line({
+        lineId: line[1].lineId,
+        sections: line[1].sections.map(section => {
+          return section.stationId;
+        }),
+      });
+    });
+    console.log(linesInstances, 'call');
+
+    this.lines = linesInstances;
   }
 
   getLine(lineId) {
@@ -46,7 +70,6 @@ export default class SubwayMapModel {
   addLine(lineObject) {
     const lines = { ...this.lines };
     lines[lineObject.lineId] = new Line(lineObject);
-
     this.lines = lines;
 
     localStorage.setItem('lines', JSON.stringify(this.lines));
@@ -67,6 +90,8 @@ export default class SubwayMapModel {
 
   addSectionToLine(sectionId, lineId, order) {
     this.lines[lineId].addSection(sectionId, order);
+
+    localStorage.setItem('lines', JSON.stringify(this.lines));
   }
 
   getSectionsFromLine(lineId) {
@@ -75,5 +100,7 @@ export default class SubwayMapModel {
 
   deleteSectionFromLine(lineId, order) {
     this.lines[lineId].deleteSection(order);
+
+    localStorage.setItem('lines', JSON.stringify(this.lines));
   }
 }

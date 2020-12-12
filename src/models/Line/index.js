@@ -1,14 +1,12 @@
 import { Station } from '..';
 
 export default class Line {
-  constructor(lineObject) {
-    this.lineId = lineObject.lineId;
-    this.sections = [
-      new Station(lineObject.startStation),
-      new Station(lineObject.endStation),
-    ];
-    this.startStation = lineObject.startStation;
-    this.endStation = lineObject.endStation;
+  constructor({ lineId, sections }) {
+    this.lineId = lineId;
+    // this.sections = [new Station(startStation), new Station(endStation)];
+    this.sections = sections.map(section => {
+      return new Station(section);
+    });
   }
 
   getSections() {

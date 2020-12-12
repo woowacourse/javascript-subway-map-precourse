@@ -79,6 +79,7 @@ export default class SubwayMapViewModel {
   }
 
   getSections(lineId) {
+    console.log(lineId, 'viewModel');
     return this.subwayMapModel.getSectionsFromLine(lineId);
   }
 
@@ -149,7 +150,7 @@ export default class SubwayMapViewModel {
       return message.ALERT_FOR_OVERLAPED_NAME;
     }
 
-    if (lineObject.startStation === lineObject.endStation) {
+    if (lineObject.sections[0] === lineObject.sections[1]) {
       return message.ALERT_FOR_OVERLAPED_STATION;
     }
 

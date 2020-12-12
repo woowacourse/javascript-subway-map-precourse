@@ -12,12 +12,6 @@ export default class SubwayMapLineView {
       this,
       this.subwayMapViewModel,
     );
-
-    if ('lines' in localStorage) {
-      this.subwayMapViewModel.setLines(
-        JSON.parse(localStorage.getItem('lines')),
-      );
-    }
   }
 
   resetManagerContainer() {
