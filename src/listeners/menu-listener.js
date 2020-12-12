@@ -1,7 +1,6 @@
 import {MENU} from '../constants.js';
-import {
-  handleStation,
-} from '../handlers/station-handler.js';
+import {handleStation} from '../handlers/station-handler.js';
+import {handleLine} from '../handlers/line-handler.js';
 
 export default class MenuListener {
   constructor() {
@@ -18,6 +17,7 @@ export default class MenuListener {
 
   addEventListener() {
     this.stationButton.addEventListener('click', handleStation);
+    this.lineButton.addEventListener('click', handleLine);
   }
 }
 
