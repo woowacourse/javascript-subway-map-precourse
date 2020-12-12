@@ -1,4 +1,4 @@
-import render from '../render/render.js';
+import render from '../../render/render.js';
 
 function removeStation(stationName) {
   const stations = JSON.parse(String(localStorage.getItem('stations')));

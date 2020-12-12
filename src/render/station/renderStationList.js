@@ -1,4 +1,4 @@
-import removeStationEvent from '../event/removeStationEvent.js';
+import removeStationEvent from '../../event/station/removeStationEvent.js';
 
 function stationListContainerTemplate() {
   return `<table class="station-table" border="1">

@@ -1,4 +1,4 @@
-import render from '../render/render.js';
+import render from '../../render/render.js';
 
 const MINIMUN_STATION_LENGTH = 2;
 
