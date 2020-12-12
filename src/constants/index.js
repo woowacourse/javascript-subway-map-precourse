@@ -38,4 +38,5 @@ export const MESSAGE = {
 
 export const KEY = {
   STATION: "station",
+  LINE: "line",
 };
