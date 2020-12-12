@@ -14,7 +14,6 @@ export function isEmpty(value) {
 export function itemDuplicateCheck(itemList, value) {
     let isDuplicate = false;
     if(itemList.includes(value)) {
-        alert(`${value}은 이미 등록된 이름입니다`);
         isDuplicate = true;
     }
     return isDuplicate;
@@ -26,6 +25,7 @@ export function getItemList(key) {
 
 export function addItem(key, value) {
     let itemList = getItemList(key);
+    let isComplete = false;
     // 수정 - 더 효율적으로 수정하기
     if(itemList === null){
         itemList = [];
@@ -33,5 +33,7 @@ export function addItem(key, value) {
     if(!itemDuplicateCheck(itemList, value)){
         itemList.push(value);
         localStorage.setItem(key, JSON.stringify(itemList));
+        isComplete = true;
     }
+    return isComplete;
 }

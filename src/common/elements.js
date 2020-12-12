@@ -4,11 +4,12 @@ export function addClickEventListener(target, listener) {
     target.addEventListener("click", listener);
 }
 
-export function addElement(type, content, attribute, attributeName) {
+export function addElement(type, content, attribute, attributeName, parentNode) {
     const element = document.createElement(type);
     element.append(content);
     element.setAttribute(attribute, attributeName);
-    managerPart.append(element);
+    parentNode = parentNode === null ? managerPart : parentNode;
+    parentNode.append(element);
 }
 
 export function addInputElement(name, information) {
@@ -19,7 +20,12 @@ export function addInputElement(name, information) {
     managerPart.append(element); 
 }
 
-// export function addTableElement(name, )
+export function addTableElement(idName) {
+    const element = document.createElement("table");
+    element.setAttribute("id", idName);
+    element.setAttribute("border", 1);
+    managerPart.append(element);
+}
 
 export function pageInit() {
     managerPart.innerHTML = ""; 
