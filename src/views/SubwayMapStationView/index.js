@@ -53,7 +53,6 @@ export default class SubwayMapStationView {
     this.managerContainer = managerContainer;
     this.stationManagerButton = stationManagerButton;
 
-    // this.addEventListenerToStationManagerButton(this);
     new StationViewEventDelegation(
       this.stationManagerButton,
       this,
@@ -127,16 +126,17 @@ export default class SubwayMapStationView {
 
   renderStationManager() {
     this.renderStationInputContainer();
-    this.managerContainer.innerHTML += `
-      <p>${message.STATION_NAME}</p>
-      <input id="#station-name-input"></input>
-      <button id="#station-add-button">${message.ADD_STATION}</button>
-      <h2>${message.LIST_OF_STATIONS}</h2>
-      <div id="#station-table-container"></div>
-    `;
+    this.renderStationTableContainer();
 
-    this.renderStationTable(
-      Object.entries(this.subwayMapViewModel.getStations()),
+    new StationViewEventDelegation(
+      document.getElementById('#station-input-container'),
+      this,
+      this.subwayMapViewModel,
+    );
+    new StationViewEventDelegation(
+      document.getElementById('#station-table-container'),
+      this,
+      this.subwayMapViewModel,
     );
   }
 
@@ -149,6 +149,16 @@ export default class SubwayMapStationView {
         <h2>${message.LIST_OF_STATIONS}</h2>
       </div>
     `;
+  }
+
+  renderStationTableContainer() {
+    this.managerContainer.innerHTML += `
+      <div id="#station-table-container"></div>
+    `;
+
+    this.renderStationTable(
+      Object.entries(this.subwayMapViewModel.getStations()),
+    );
   }
 
   renderStationTable(stations) {

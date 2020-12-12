@@ -149,6 +149,7 @@ export default class SubwayMapLineView {
       <h2>${message.LIST_OF_LINES}</h2>
       <div id="#line-table-container"></div>
     `;
+
     this.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
   }
 
