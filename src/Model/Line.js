@@ -1,6 +1,7 @@
 import { alertAndClear, isOnlySpaceString } from '../Controller/utils.js';
 import words from '../key/words.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
+import Station from './Station.js';
 
 const Line = function (lineName) {
 	this.name = lineName;
@@ -63,9 +64,13 @@ Line.removeOneLine = (targetLine) => {
 	}
 };
 
+Line.hasThisStation = (lineName, stationName) => {
+    const allLines = Line.readAllLines();
+    const targetLineIndex = Line.searchLinesByName(lineName);
+    return allLines[targetLineIndex].stations.indexOf(stationName) !== -1;
+}
+
 Line.searchLinesByName = (lineName) => {
-	// const targetLine = Line.readAllLines().filter(line=>line.name===lineName);
-	// return targetLine;
 	const targetIndex = Line.readAllLines()
 		.map((line) => line.name)
 		.indexOf(lineName);

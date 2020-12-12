@@ -1,8 +1,8 @@
-import { confirmAlertMessage } from '../key/alertMessages.js';
+import { confirmAlertMessage, errorAlertMessages } from '../key/alertMessages.js';
 import words from '../key/words.js';
 import Station from '../Model/Station.js';
 import { addTableRow } from '../View/template.js';
-import { confirmAlert, makeElement } from './utils.js';
+import { alertAndClear, confirmAlert, makeElement } from './utils.js';
 
 export const addStation = (text, inputElement) => {
 	if (Station.isValidStationName(text, inputElement)) {
@@ -37,6 +37,10 @@ export const deleteCallbackFunction = (e) => {
     const {target:buttonElement} = e;
     const {id:stationName} = buttonElement;
     if(confirmAlert(confirmAlertMessage.ALERT_DELETE_CONFIRM)){
+        if(Station.isOnLine(stationName)){
+            alertAndClear(errorAlertMessages.ALERT_STATION_REGISTED_ON_LINE);
+            return;
+        }
         Station.removeOneStation(stationName);
         buttonElement.parentNode.parentElement.remove();
     }

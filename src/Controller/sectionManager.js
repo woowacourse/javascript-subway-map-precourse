@@ -1,10 +1,11 @@
-import { confirmAlert, makeElement } from './utils.js';
+import { alertAndClear, confirmAlert, makeElement } from './utils.js';
 import words from '../key/words.js';
 import { getAllStation } from './stationManager.js';
 import { addTableRow } from '../View/template.js';
 import { getAllLines, saveAllLines } from './lineManager.js';
-import { confirmAlertMessage } from '../key/alertMessages.js';
+import { errorAlertMessages,confirmAlertMessage } from '../key/alertMessages.js';
 import Line from '../Model/Line.js';
+import Station from '../Model/Station.js';
 
 export const makeNewSectionDeleteButtonElement = (id) =>
 	makeElement({
@@ -43,11 +44,6 @@ export const insertStation = (lineName, stationName, insertElement) => {
 	);
 	saveAllLines(allLines);
 };
-
-export const removeStationOnLine = (lineName, stationName) => {
-    const targetLineIndex = Line.searchLinesByName(lineName);
-
-}
 
 export const deleteCallbackFunction = (e) => {
     const {target:buttonElement} = e;

@@ -28,9 +28,9 @@ const stationContainer = (container) => {
 	buttonElement.addEventListener('click', () => {
 		const inputValue = inputElement.value;
 		addStation(inputValue, inputElement);
+		inputElement.value='';
 		clearAllContents(tableElement.querySelector("tbody"));
 		tableSynchronizer(tableElement);
-		applyDeleteEventForAllDeleteButton();
 	});
 
 	clearAllContents(container);
@@ -42,7 +42,6 @@ const stationContainer = (container) => {
 		tableElement,
 	]);
 	tableSynchronizer(tableElement);
-	applyDeleteEventForAllDeleteButton();
 };
 
 export default stationContainer;

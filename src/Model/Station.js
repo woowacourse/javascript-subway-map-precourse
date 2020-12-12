@@ -1,6 +1,7 @@
 import { alertAndClear, isOnlySpaceString } from '../Controller/utils.js';
 import words from '../key/words.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
+import Line from './Line.js';
 
 const Station = function (stationName) {
 	this.name = stationName;
@@ -55,6 +56,16 @@ Station.removeOneStation = (targetStation) => {
 		allStations.splice(targetIndex, 1);
 		Station.saveAllStations(allStations);
 	}
+};
+
+Station.isOnLine = (stationName) => {
+	const allLines = Line.readAllLines();
+	return (
+		allLines
+			.map((line) => line.name)
+			.filter((lineName) => Line.hasThisStation(lineName, stationName)).length >
+		0
+	);
 };
 
 export default Station;
