@@ -43,6 +43,14 @@ export const isSectionValid = (userSection, exSection) => {
   return true;
 };
 
+export const isNotLineHaved = (station, lines) => {
+  if (lines.find((line) => line.station.includes(station))) {
+    return alert('노선에 존재하는 역은 삭제할 수 없습니다.');
+  }
+
+  return true;
+};
+
 const isLengthRight = (value) => {
   if (value.length < 2) {
     return alert('2글자 이상으로 입력해주세요.');

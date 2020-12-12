@@ -38,6 +38,7 @@ import {
   isStationInputVaild,
   isLineInputValid,
   isSectionValid,
+  isNotLineHaved,
 } from './Controller/valid.js';
 import {
   setLocalStorage,
@@ -53,7 +54,6 @@ const sectionInstance = new Section();
 export function onChangeScreen(e) {
   hideScreen();
   showScreen(e);
-  stationInstance.loadStation();
   if (e.target.id === 'station-manager-button') {
     return loadStation();
   }
@@ -79,7 +79,10 @@ export function onAddStation() {
 
 export function onRemoveStation(e) {
   const removeConfirm = confirm('정말로 삭제하시겠습니까?');
-  if (removeConfirm) {
+  if (
+    removeConfirm &&
+    isNotLineHaved(e.target.dataset.station, lineInstance.lines)
+  ) {
     removeLocalStorage('station', e.target.dataset.station);
     stationInstance.removeStation(e.target.dataset.station);
     removeStationScreen(e.target);
@@ -133,6 +136,7 @@ export function onRemoveSection(e) {
 
 export const loadStation = () => {
   removeTableScreen($stationContainer);
+  stationInstance.loadStation();
   stationInstance.stations.forEach((station) => addStationScreen(station));
 };
 
@@ -192,3 +196,7 @@ const getSelectedSection = (lineName) => {
 
   return sectionInstance.sections[sectionIndex];
 };
+
+loadStation();
+loadLine();
+loadSectionTable();
