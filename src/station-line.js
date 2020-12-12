@@ -4,7 +4,7 @@ export default class StationLine {
     this.section = stationList;
   }
 
-  addStationToLine(order, station) {
+  addStationToSection(order, station) {
     this.section.push("");
     for (let i = this.section.length - 1; i > order; i--) {
       this.section[i] = this.section[i - 1];

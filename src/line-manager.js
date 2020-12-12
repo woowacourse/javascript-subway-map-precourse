@@ -53,7 +53,7 @@ export default class LineManager {
   }
 
   addSection(lineIndex, order, station) {
-    this.lineList[lineIndex].addStationToLine(order, station);
+    this.lineList[lineIndex].addStationToSection(order, station);
     this.storeLineListToLocal();
   }
 
