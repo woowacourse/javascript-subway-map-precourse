@@ -13,6 +13,11 @@ class Line {
     createSelect(upLineSelect, this.stations);
     createSelect(downLineSelect, this.stations);
   };
+
+  handleAddLineClick = () => {
+    const lineAddBtn = document.getElementById("line-add-button");
+    lineAddBtn.addEventListener("click", this.addLine);
+  };
 }
 
 export default new Line();
