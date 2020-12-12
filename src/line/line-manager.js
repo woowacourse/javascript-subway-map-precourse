@@ -9,6 +9,7 @@ export default class LineManager {
 		this.lineOutput = new LineOutput();
 
 		this.setLineAddButtonHandler();
+		this.setLineDeleteButtonHandler();
 	}
 
 	setLineAddButtonHandler = () => {
@@ -36,4 +37,31 @@ export default class LineManager {
 		return line;
 	}
 
+	setLineDeleteButtonHandler = () => {
+		const lineDeleteButtons = document.getElementsByClassName('line-delete-button');
+		if (lineDeleteButtons != null) {
+			for (let deleteButton of lineDeleteButtons) {
+				deleteButton.addEventListener('click', this.deleteLine);
+			}
+		}
+	}
+
+	deleteLine = event => {
+		const checkDelete = confirm('정말로 삭제하시겠습니까');
+
+		if (checkDelete === false) {
+			return;
+		}
+
+		const tableRowToDelete = event.target.parentNode.parentNode.parentNode;
+		const lineNameToDelete = tableRowToDelete.dataset.lineName;
+		
+		tableRowToDelete.remove();
+
+		const lines = new LineModel().getLineStorageData();
+
+		lines.splice(lines.indexOf({lineName: lineNameToDelete}));
+
+		new LineModel().setLineStorageData(lines);
+	}
 }
