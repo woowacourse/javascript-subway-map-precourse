@@ -7,6 +7,9 @@ export default class SubwayMap {
 
   // 지하철 역 등록
   addStation(name) {
+    if (this.stationList.find(element => element.name === name) !== undefined) {
+      return null;
+    }
     let station = new Station(name);
     this.stationList.push(station);
     return station;
