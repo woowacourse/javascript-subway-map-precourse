@@ -1,6 +1,7 @@
 import { HeaderButtons } from "./HeaderButtons.js";
 import { ContentContainer } from "./ContentContainer.js";
 import { StationManager } from "./station-manager/StationManager.js";
+import { LineManager } from "./line-manager/LineManager.js";
 export class SubwayMap {
   constructor() {
     this.initiateDOM();
@@ -15,6 +16,7 @@ export class SubwayMap {
       getStations: this.getStations,
       deleteStation: this.deleteStation,
     });
+    new LineManager({ getStations: this.getStations });
   };
 
   clickHeaders = (index) => {
@@ -32,6 +34,7 @@ export class SubwayMap {
   deleteStation = (target) => {
     let stations = this.getStations();
     stations = stations.filter((station) => {
+      // TODOS: 노선에 등록되어있는지 확인.
       return station !== target;
     });
     this.setStations(stations);

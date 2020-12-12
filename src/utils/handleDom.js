@@ -40,3 +40,11 @@ export const getStationsTableHeader = () => {
   return `<th>역 이름</th>
           <th>설정</th>`;
 };
+
+export const addOptionTag = (selector, station) => {
+  const option = document.createElement("option");
+
+  option.value = station;
+  option.innerHTML = station;
+  selector.appendChild(option);
+};
