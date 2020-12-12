@@ -1,5 +1,10 @@
 import { getAllStation } from '../Controller/stationManager.js';
-import { alertAndClear, appendChilds, clearAllContents, makeElement } from '../Controller/utils.js';
+import {
+	alertAndClear,
+	appendChilds,
+	clearAllContents,
+	makeElement,
+} from '../Controller/utils.js';
 import words from '../key/words.js';
 import { addTableRow, makeSelectBox, makeTable } from './template.js';
 import {
@@ -11,26 +16,34 @@ import { getAllLines } from '../Controller/lineManager.js';
 import Station from '../Model/Station.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
 import Line from '../Model/Line.js';
+import cssText from '../key/cssText.js';
 
 const lineButtonHandler = (subContainer, lineName) => {
 	const allStations = getAllStation();
 	const lineHandleTitleElement = makeElement({
 		tag: 'p',
 		innerText: `${lineName} ${words.SECTION_HANDLE_TEXT}`,
+		style: cssText.boldText(1.3, 800),
 	});
 	const sectionRegisterTextElement = makeElement({
 		tag: 'p',
 		innerText: words.SECTION_REGISTER_TEXT,
+		style: cssText.boldText(1, 800),
+	});
+	const inputAreaElement = makeElement({
+		tag: 'div',
+		style: cssText.marginBottom(35),
 	});
 	const stationSelectBox = makeSelectBox(
 		allStations.map((station) => station.name),
-		{ id: words.SECTION_STATION_SELECTOR_ID }
+		{ id: words.SECTION_STATION_SELECTOR_ID, style: cssText.marginRight(5) }
 	);
 	const inputElement = makeElement({
 		tag: 'input',
 		id: words.SECTION_ORDER_INPUT_ID,
 		placeholder: words.SECTION_PLACEHOLDER,
 		type: 'number',
+		style: cssText.marginRight(5),
 	});
 	const sectionAddButtonElement = makeElement({
 		tag: 'button',
@@ -43,34 +56,37 @@ const lineButtonHandler = (subContainer, lineName) => {
 		const stationName =
 			stationSelectBox.options[stationSelectBox.selectedIndex].text;
 		insertStation(lineName, stationName, inputElement);
-		clearAllContents(tableElement.querySelector("tbody"));
+		clearAllContents(tableElement.querySelector('tbody'));
 		tableSynchronizer(tableElement, lineName);
 	});
 
 	clearAllContents(subContainer);
-	
-	appendChilds(subContainer, [
-		lineHandleTitleElement,
-		sectionRegisterTextElement,
+	appendChilds(inputAreaElement, [
 		stationSelectBox,
 		inputElement,
 		sectionAddButtonElement,
+	]);
+	appendChilds(subContainer, [
+		lineHandleTitleElement,
+		sectionRegisterTextElement,
+		inputAreaElement,
 		tableElement,
 	]);
-	
+
 	tableSynchronizer(tableElement, lineName);
 };
 
 const sectionContainer = (container) => {
-	if(Line.readAllLines().length<1){
+	if (Line.readAllLines().length < 1) {
 		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_LINE);
 		return;
 	}
 	const titleElement = makeElement({
 		tag: 'p',
 		innerText: words.SECTION_TITLE,
+		style: cssText.boldText(1.3, 800) + cssText.marginTop(35),
 	});
-	const subContainer = makeElement({tag:"div"})
+	const subContainer = makeElement({ tag: 'div' });
 	const lineButtonElements = getAllLines().map((line) => {
 		const lineButtonElement = makeElement({
 			tag: 'button',
@@ -79,7 +95,7 @@ const sectionContainer = (container) => {
 			classes: [words.SECTION_LINE_MENU_BUTTON_CLASS],
 		});
 		lineButtonElement.addEventListener('click', () =>
-			lineButtonHandler(subContainer,line.name)
+			lineButtonHandler(subContainer, line.name)
 		);
 		return lineButtonElement;
 	});

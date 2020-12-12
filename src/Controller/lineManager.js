@@ -17,6 +17,9 @@ export const saveAllLines = (lines) => {
 };
 
 export const addLine = (lineName, startStation, endStation, inputElement) => {
+    const allLines = Line.readAllLines();
+    const newLine = new Line(lineName);
+    
 	if (!Line.isValidLineName(lineName, inputElement)) {
 		return;
 	}
@@ -26,9 +29,8 @@ export const addLine = (lineName, startStation, endStation, inputElement) => {
 			inputElement
 		);
 		return;
-	}
-	const allLines = getAllLines();
-	const newLine = new Line(lineName);
+    }
+
 	newLine.stations = [startStation, endStation];
 	allLines.push(newLine);
 	Line.saveAllLines(allLines);
@@ -51,10 +53,7 @@ export const tableSynchronizer = (tableElement) => {
 			line.stations[0],
 			line.stations[line.stations.length - 1],
 			makeNewLineDeleteButtonElement(line.name),
-        ]);
-        console.log(line.name,
-			line.stations[0],
-			line.stations[line.stations.length - 1],)
+		]);
 	});
 	applyDeleteEventForAllDeleteButton();
 };

@@ -47,11 +47,16 @@ Station.addOneStation = (station) => {
 	Station.saveAllStations(allStations);
 };
 
+Station.searchStationsByName = (stationName) => {
+	const targetIndex = Station.readAllStations()
+		.map((station) => station.name)
+		.indexOf(stationName);
+	return targetIndex;
+};
+
 Station.removeOneStation = (targetStation) => {
 	const allStations = Station.readAllStations();
-	const targetIndex = allStations.findIndex((station) => {
-		return targetStation === station.name;
-	});
+	const targetIndex = Station.searchStationsByName(targetStation);
 	if (targetIndex !== -1) {
 		allStations.splice(targetIndex, 1);
 		Station.saveAllStations(allStations);

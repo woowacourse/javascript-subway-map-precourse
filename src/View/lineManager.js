@@ -1,4 +1,8 @@
-import { addLine, makeNewLineDeleteButtonElement, tableSynchronizer } from '../Controller/lineManager.js';
+import {
+	addLine,
+	makeNewLineDeleteButtonElement,
+	tableSynchronizer,
+} from '../Controller/lineManager.js';
 import { getAllStation } from '../Controller/stationManager.js';
 import {
 	alertAndClear,
@@ -10,31 +14,49 @@ import words from '../key/words.js';
 import { addTableRow, makeSelectBox, makeTable } from './template.js';
 import Station from '../Model/Station.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
+import cssText from '../key/cssText.js';
 
 const lineContainer = (container) => {
-	if(Station.readAllStations().length<=1){
+	if (Station.readAllStations().length <= 1) {
 		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_STATION);
 		return;
 	}
-	const titleElement = makeElement({ tag: 'p', innerText: words.LINE_NAME });
+	const titleElement = makeElement({
+		tag: 'p',
+		innerText: words.LINE_NAME,
+		style: cssText.marginBottom(0),
+	});
 	const inputElement = makeElement({
 		tag: 'input',
 		placeholder: words.LINE_PLACEHOLDER,
-		id: words.STATION_NAME_INPUT_ID
+		id: words.STATION_NAME_INPUT_ID,
+		style: 'display:block;' + cssText.marginBottom(15),
+	});
+	const startPointElement = makeElement({
+		tag: 'div',
+		style: cssText.marginBottom(0),
+	});
+	const endPointElement = makeElement({
+		tag: 'div',
+		style: cssText.marginBottom(15),
 	});
 	const startPointTextElement = makeElement({
-		tag: 'p',
+		tag: 'span',
 		innerText: words.LINE_START_POINT,
+		style: cssText.marginRight(5)
 	});
 	const startPointSelectBoxElement = makeSelectBox(
-		getAllStation().map((item) => item.name), {classes:[words.LINE_START_STATION_SELECTOR_ID]}
+		getAllStation().map((item) => item.name),
+		{ classes: [words.LINE_START_STATION_SELECTOR_ID] }
 	);
 	const endPointTextElement = makeElement({
-		tag: 'p',
+		tag: 'span',
 		innerText: words.LINE_END_POINT,
+		style: cssText.marginRight(5)
 	});
 	const endPointSelectBoxElement = makeSelectBox(
-		getAllStation().map((item) => item.name), {classes:[words.LINE_END_STATION_SELECTOR_ID]}
+		getAllStation().map((item) => item.name),
+		{ classes: [words.LINE_END_STATION_SELECTOR_ID] }
 	);
 
 	const lineAddButtonElement = makeElement({
@@ -43,7 +65,22 @@ const lineContainer = (container) => {
 		id: words.LINE_ADD_BUTTON_ID,
 	});
 
+	const talbeTitleElement = makeElement({
+		tag: 'p',
+		innerText: words.LINE_TABLE_TITLE,
+		style: cssText.DEFAULT_BOLD_TEXT+cssText.marginBottom(15)+cssText.marginTop(15)
+	});
+
 	const tableElement = makeTable(words.LINE_TABLE_COLUMNS);
+
+	appendChilds(startPointElement, [
+		startPointTextElement,
+		startPointSelectBoxElement,
+	]);
+	appendChilds(endPointElement, [
+		endPointTextElement,
+		endPointSelectBoxElement,
+	]);
 
 	lineAddButtonElement.addEventListener('click', () => {
 		const lineName = inputElement.value;
@@ -63,11 +100,10 @@ const lineContainer = (container) => {
 	appendChilds(container, [
 		titleElement,
 		inputElement,
-		startPointTextElement,
-		startPointSelectBoxElement,
-		endPointTextElement,
-		endPointSelectBoxElement,
+		startPointElement,
+		endPointElement,
 		lineAddButtonElement,
+		talbeTitleElement,
 		tableElement,
 	]);
 

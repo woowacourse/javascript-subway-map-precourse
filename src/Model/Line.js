@@ -21,8 +21,6 @@ Line.isValidLineName = (lineName, inputElement) => {
 		alertAndClear(errorAlertMessages.ALERT_EXISTED_LINE_NAME, inputElement);
 		return false;
 	}
-	// 형식이 숫자+'호선' 인지 검사하기
-
 	return true;
 };
 
