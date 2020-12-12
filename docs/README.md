@@ -36,7 +36,7 @@
   - 노선의 하행 종점을 선택하는 slect 태그 : ```#line-end-station-selector```
   - 노선을 추가하는 button 태그 : ```#line-add-button```
   - 노선을 삭제하는 input 태그 : ```.line-delete-button```
-- [ ] 상행 종점, 하행 종점을 선택하는 select태그에 option태그로 현재 역 목록을 보여줘야 한다.
+- [X] 상행 종점, 하행 종점을 선택하는 select태그에 option태그로 현재 역 목록을 보여줘야 한다.
 - [ ] ```localStorange```에 저장된 지하철 노선 목록을 보여줘야 한다.
 - [ ] '노선 추가' 버튼 클릭을 통해 새로운 노선을 추가할 수 있어야 한다.
   - 추가한 값은 특정 템플릿을 가진 채로 ```localStorage```에 저장한다.
