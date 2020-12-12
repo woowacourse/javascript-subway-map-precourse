@@ -48,13 +48,17 @@ const Visualization = function () {
     return table;
   };
 
-  this.convertDataArrayToElementArray = (
-    elementType,
-    attributes,
-    dataArray
-  ) => {
-    return dataArray.map((data) =>
-      createElementWithOption(elementType, attributes, data)
-    );
-  };
+  this.convertDataArrayToElementArray = (elementType, attributes, dataArray) =>
+    dataArray.map((data, index) => {
+      const iterableAttributeObj = { ...attributes };
+      for (let i in iterableAttributeObj) {
+        if (iterableAttributeObj[i] === "valueInArray")
+          iterableAttributeObj[i] = index.toString();
+      }
+      return this.createElementWithOption(
+        elementType,
+        iterableAttributeObj,
+        data
+      );
+    });
 };
