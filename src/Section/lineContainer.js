@@ -1,7 +1,7 @@
 import { KEY } from "../constants/index.js";
 import { checkTheList } from "../utils/message.js";
 import { checkEmpty } from "../validation/index.js";
-import { displayAddedLine } from "./linePresenter.js";
+import { displayAddedLine, removeDisplayLine } from "./linePresenter.js";
 
 const saveLines = (stationArray) =>
   localStorage.setItem(KEY.LINE, JSON.stringify(stationArray));
@@ -41,7 +41,7 @@ const removeLine = (event) => {
 };
 
 const lineRemoveClicked = (event) => {
-  // removeDisplayStation(event);
+  removeDisplayLine(event);
   removeLine(event);
 };
 

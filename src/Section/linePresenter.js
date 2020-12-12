@@ -72,3 +72,16 @@ export const displayInitialLine = () => {
 
   return true;
 };
+
+export const removeDisplayLine = (event) => {
+  const {
+    target: {
+      parentNode: {
+        parentNode: target,
+        parentNode: { parentNode: parent },
+      },
+    },
+  } = event;
+
+  parent.removeChild(target);
+};
