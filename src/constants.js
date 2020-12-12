@@ -1,4 +1,12 @@
 const CONSTANTS = {
+  'STORAGE': {
+    'STATION': {
+      'KEY': 'station',
+    },
+    'LINE': {
+      'KEY': 'line',
+    },
+  },
   'MENU': {
     'ID': 'menu',
     'BUTTON': {
@@ -26,7 +34,7 @@ const CONSTANTS = {
     'ALERT': {
       'DUPLICATION': '역 이름이 중복되지 않게 입력해주세요',
       'LENGTH': '역 이름은 2글자 이상으로 입력해주세요',
-      'DELETE': '정말로 삭제하시겠습니까?',
+      'DELETE': '역을 정말로 삭제하시겠습니까?',
     },
     'INPUT': {
       'ID': 'station-name-input',
@@ -40,6 +48,33 @@ const CONSTANTS = {
       },
     },
   },
+  'LINE': {
+    'ALERT': {
+      'DUPLICATION': '노선 이름이 중복되지 않게 입력해주세요',
+      'DELETE': '노선을 정말로 삭제하시겠습니까?',
+    },
+    'INPUT': {
+      'ID': 'line-name-input',
+    },
+    'SELECT': {
+      'START': {
+        'ID': 'line-start-station-selector',
+      },
+      'END': {
+        'ID': 'line-end-station-selector',
+      },
+    },
+    'BUTTON': {
+      'ADD': {
+        'ID': 'line-add-button',
+      },
+      'DELETE': {
+        'CLASS': 'line-delete-button',
+      },
+    },
+  },
 };
 
-export const {MENU, REGISTER, RESULT, STATION} = CONSTANTS;
+export const {
+  STORAGE, MENU, REGISTER, RESULT, STATION, LINE,
+} = CONSTANTS;
