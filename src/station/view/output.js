@@ -8,14 +8,14 @@ export default class StationOutput {
 	showStationTable = () => {
 		this.clearStationTable();
 
-		const stationData = new StationModel().getStationStorageData();
+		const stations = new StationModel().getStationStorageData();
 		const stationContainer = document.getElementById('station-container');
-		const stationTable = this.createStationTable(stationData);
+		const stationTable = this.createStationTable(stations);
 
 		stationContainer.appendChild(stationTable);
 	}
 
-	createStationTable = stationData => {
+	createStationTable = stations => {
 		const stationTable = document.createElement('table');
 		stationTable.setAttribute('id', 'station-table');
 		stationTable.innerHTML = 
@@ -26,11 +26,11 @@ export default class StationOutput {
 		</tr>
 		`;
 
-		for (let data of stationData) {
+		for (let station of stations) {
 			stationTable.innerHTML += 
 			`
-			<tr data-name="${data.stationName}">
-				<td>${data.stationName}</td>
+			<tr data-stationName="${station.stationName}">
+				<td>${station.stationName}</td>
 				<td><button class="station-delete-button">삭제</button>
 			</tr>
 			`;

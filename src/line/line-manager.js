@@ -19,14 +19,15 @@ export default class LineManager {
 		const lineNameInput = this.lineInput.lineNameInput.value;
 		const lineStartStation = this.lineInput.lineStartStationSelector.value;
 		const lineEndStation = this.lineInput.lineEndStationSelector.value;
-
-		const lines = new LineModel().getLineStorageData();
 		const line = this.createLine(lineNameInput, lineStartStation, lineEndStation);
 
+		const lines = new LineModel().getLineStorageData();
 
 		lines.push(line);
 
 		new LineModel().setLineStorageData(lines);
+
+		this.lineOutput.showLineTable();
 	}
 
 	createLine = (lineNameInput, lineStartStation, lineEndStation) => {
@@ -34,4 +35,5 @@ export default class LineManager {
 
 		return line;
 	}
+
 }
