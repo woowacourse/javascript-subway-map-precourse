@@ -1,5 +1,16 @@
 import { appendChilds, makeElement } from '../Controller/utils.js';
 
+const getTdElements = (values) =>
+    values.map((value, index) => {
+        if (index === values.length - 1) {
+            const tdElement = makeElement({ tag: 'td' });
+            appendChilds(tdElement, [value]);
+            return tdElement;
+        } else {
+            return makeElement({ tag: 'td', innerText: value });
+        }
+    });
+
 export const makeTable = (columns) => {
 	const tableElement = makeElement({ tag: 'table' });
 	const tableHeadElement = makeElement({ tag: 'thead' });
@@ -17,19 +28,9 @@ export const addTableRow = (
 	{ order, dataName, startPointName, endPointName, deleteButton }
 ) => {
 	const tableTBodyElement = tableElement.querySelector('tbody');
-    const tableRowElement = makeElement({ tag: 'tr', dataName });
-    const values = [order, dataName, startPointName, endPointName, deleteButton].filter(value=>value)
-	const tableCells = values.map(
-		(value, index) => {
-			if (index === values.length - 1) {
-				const tdElement = makeElement({ tag: 'td' });
-				appendChilds(tdElement, [value]);
-				return tdElement;
-			} else {
-				return makeElement({ tag: 'td', innerText: value });
-			}
-		}
-	);
+	const tableRowElement = makeElement({ tag: 'tr', dataName });
+	const values = [order,dataName,startPointName,endPointName,deleteButton].filter((value) => value);
+	const tableCells = getTdElements(values);
 	appendChilds(tableRowElement, tableCells);
 	appendChilds(tableTBodyElement, [tableRowElement]);
 };

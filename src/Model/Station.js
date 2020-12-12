@@ -7,24 +7,22 @@ const Station = function (stationName) {
 	this.name = stationName;
 };
 
+Station.isDuplitedStationName = (stationName) =>
+	Station.readAllStations()
+		.map((station) => station.name)
+		.includes(stationName);
+
 Station.isValidStationName = (stationName, inputElement) => {
 	if (isOnlySpaceString(stationName)) {
 		alertAndClear(errorAlertMessages.ALERT_SPACE_STATION_NAME, inputElement);
 		return false;
-	}
-	if (stationName.length < 2) {
+	} else if (stationName.length < 2) {
 		alertAndClear(errorAlertMessages.ALERT_STATION_NAME_LENGTH, inputElement);
 		return false;
-	}
-	if (
-		Station.readAllStations()
-			.map((station) => station.name)
-			.includes(stationName)
-	) {
+	} else if (isDuplitedStationName(stationName)) {
 		alertAndClear(errorAlertMessages.ALERT_EXISTED_ADDED_STATION, inputElement);
 		return false;
 	}
-
 	return true;
 };
 

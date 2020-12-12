@@ -23,12 +23,7 @@ const words = {
 	LINE_END_POINT: '하행 종점',
 	LINE_ADD_BUTTON: '노선 추가',
 	LINE_TABLE_TITLE: '🚉 지하철 노선 목록',
-	LINE_TABLE_COLUMNS: [
-		'노선 이름',
-		'상행 종점역',
-		'하행 종점역',
-		'설정',
-	],
+	LINE_TABLE_COLUMNS: ['노선 이름', '상행 종점역', '하행 종점역', '설정'],
 
 	LINE_DELETE_BUTTON: '삭제',
 
@@ -46,12 +41,8 @@ const words = {
 	SECTION_REGISTER_TEXT: '구간 등록',
 	SECTION_PLACEHOLDER: '순서',
 	SECTION_ADD_BUTTON: '등록',
-	SECTION_TABLE_COLUMNS: [
-		'순서',
-		'이름',
-		'설정',
-    ],
-    SECTION_DELETE_FOR_STATION: '노선에서 제거',
+	SECTION_TABLE_COLUMNS: ['순서', '이름', '설정'],
+	SECTION_DELETE_FOR_STATION: '노선에서 제거',
 
 	SECTION_MANAGER_BUTTON_ID: 'section-manager-button',
 	SECTION_STATION_SELECTOR_ID: 'section-station-selector',

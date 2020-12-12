@@ -1,23 +1,23 @@
 import { alertAndClear, isOnlySpaceString } from '../Controller/utils.js';
 import words from '../key/words.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
-import Station from './Station.js';
 
 const Line = function (lineName) {
 	this.name = lineName;
 	this.stations = [];
 };
 
+Line.isDupliateLineName = (lineName) =>
+	Line.readAllLines()
+		.map((line) => line.name)
+		.includes(lineName);
+
 Line.isValidLineName = (lineName, inputElement) => {
 	if (isOnlySpaceString(lineName)) {
 		alertAndClear(errorAlertMessages.ALERT_SPACE_LINE_NAME, inputElement);
 		return false;
 	}
-	if (
-		Line.readAllLines()
-			.map((line) => line.name)
-			.includes(lineName)
-	) {
+	if (isDupliateLineName) {
 		alertAndClear(errorAlertMessages.ALERT_EXISTED_LINE_NAME, inputElement);
 		return false;
 	}

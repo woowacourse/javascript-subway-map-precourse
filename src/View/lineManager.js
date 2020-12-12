@@ -1,7 +1,4 @@
-import {
-	addLine,
-	tableSynchronizer,
-} from '../Controller/lineManager.js';
+import { addLine, canAccessThisPage, tableSynchronizer } from '../Controller/lineManager.js';
 import { getAllStation } from '../Controller/stationManager.js';
 import {
 	alertAndClear,
@@ -14,10 +11,9 @@ import { makeSelectBox, makeTable } from './template.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
 import cssText from '../key/cssText.js';
 
-const lineContainer = (container) => {
-	if (getAllStation().length <= 1) {
-		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_STATION);
-		return;
+class LineContainer {
+	constructor(container) {
+
 	}
 	const titleElement = makeElement({
 		tag: 'p',
@@ -41,7 +37,7 @@ const lineContainer = (container) => {
 	const startPointTextElement = makeElement({
 		tag: 'span',
 		innerText: words.LINE_START_POINT,
-		style: cssText.marginRight(5)
+		style: cssText.marginRight(5),
 	});
 	const startPointSelectBoxElement = makeSelectBox(
 		getAllStation().map((item) => item.name),
@@ -50,7 +46,7 @@ const lineContainer = (container) => {
 	const endPointTextElement = makeElement({
 		tag: 'span',
 		innerText: words.LINE_END_POINT,
-		style: cssText.marginRight(5)
+		style: cssText.marginRight(5),
 	});
 	const endPointSelectBoxElement = makeSelectBox(
 		getAllStation().map((item) => item.name),
@@ -66,7 +62,10 @@ const lineContainer = (container) => {
 	const talbeTitleElement = makeElement({
 		tag: 'p',
 		innerText: words.LINE_TABLE_TITLE,
-		style: cssText.DEFAULT_BOLD_TEXT+cssText.marginBottom(15)+cssText.marginTop(15)
+		style:
+			cssText.DEFAULT_BOLD_TEXT +
+			cssText.marginBottom(15) +
+			cssText.marginTop(15),
 	});
 
 	const tableElement = makeTable(words.LINE_TABLE_COLUMNS);

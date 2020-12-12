@@ -1,4 +1,3 @@
-import Station from '../Model/Station.js';
 import Line from '../Model/Line.js';
 import words from '../key/words.js';
 import { addTableRow } from '../View/template.js';
@@ -7,6 +6,7 @@ import {
 	confirmAlertMessage,
 	errorAlertMessages,
 } from '../key/alertMessages.js';
+import Station from '../Model/Station.js';
 
 export const getAllLines = () => {
 	return Line.readAllLines();
@@ -19,18 +19,11 @@ export const saveAllLines = (lines) => {
 export const addLine = (lineName, startStation, endStation, inputElement) => {
 	const allLines = Line.readAllLines();
 	const newLine = new Line(lineName);
-
-	if (!Line.isValidLineName(lineName, inputElement)) {
-		return;
-	}
+	if (!Line.isValidLineName(lineName, inputElement)) return;
 	if (startStation === endStation) {
-		alertAndClear(
-			errorAlertMessages.ALERT_SAME_START_WITH_END_STATION,
-			inputElement
-		);
+		alertAndClear(errorAlertMessages.ALERT_SAME_START_WITH_END_STATION, inputElement);
 		return;
 	}
-
 	newLine.stations = [startStation, endStation];
 	allLines.push(newLine);
 	Line.saveAllLines(allLines);
@@ -74,3 +67,11 @@ export const applyDeleteEventForAllDeleteButton = () => {
 		deleteButton.addEventListener('click', deleteCallbackFunction);
 	});
 };
+
+export const canAccessLinePage = () => {
+    if (Station.readAllStations().length <= 1) {
+		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_STATION);
+		return false;
+    }
+    return true;
+}

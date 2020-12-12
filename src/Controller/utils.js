@@ -19,6 +19,13 @@ export const addClassToElement = (element, classes = []) => {
 	return element;
 };
 
+export const alertAndClear = (message, inputElement) => {
+    alert(message);
+    if (inputElement) inputElement.value = '';
+};
+
+export const confirmAlert = (message) => confirm(message);
+
 export const makeElement = ({
 	tag = 'div',
 	innerText,
@@ -44,9 +51,3 @@ export const makeElement = ({
 	return element;
 };
 
-export const alertAndClear = (message, inputElement) => {
-	alert(message);
-	if (inputElement) inputElement.value = '';
-};
-
-export const confirmAlert = (message) => confirm(message);
