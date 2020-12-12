@@ -1,4 +1,5 @@
 import Station from "./models.js";
+import { isNull, isUnderTwo, isDuplication } from "../utils.js";
 import {
   stationInputForm,
   stationList,
@@ -36,22 +37,6 @@ const updateStationList = (_stations) => {
   createStationList(_stations);
 };
 
-const isNull = (value) => {
-  return value === "";
-};
-
-const isUnderTwo = (value) => {
-  return value.length < 2;
-};
-
-const isDuplication = (value) => {
-  return (
-    loadStations()
-      .map((x) => x.name)
-      .indexOf(value) !== -1
-  );
-};
-
 const isValid = (_stationName) => {
   if (isNull(_stationName)) {
     alert("역 이름을 입력해주세요.");
@@ -59,7 +44,7 @@ const isValid = (_stationName) => {
   } else if (isUnderTwo(_stationName)) {
     alert("두 글자 이상의 이름을 입력해주세요.");
     return;
-  } else if (isDuplication(_stationName)) {
+  } else if (isDuplication(loadStations(), _stationName)) {
     alert("중복된 역 이름입니다.");
     return;
   }
