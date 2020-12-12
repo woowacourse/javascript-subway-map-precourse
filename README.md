@@ -1,8 +1,10 @@
 # 🚇 지하철 노선도 미션
 
 ## 구현 세부사항
-- 각 기능에 대한 버튼 처리 함수 구현
-- 기능을 넘어가기 전에 HTML 부분을 비워주는 함수 구현
+- 각 기능에 대한 버튼에 함수를 바인딩 해주는 `bindHandler`
+- 각 버튼에 대해서 처리할 함수 `handleStationManager`, `handleLineManager`, `handleSectionManager`, `handleMapPrintManager`
+- 기능을 넘어가기 전에 HTML 부분을 비워주는 함수 `clearContainer`
+- 역 관리 기능을 시작할 함수 `initStationManager`
 
 ## 🚀 기능 요구사항
 
