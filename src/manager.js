@@ -9,12 +9,9 @@ export function Manager() {
     this.lineList.push(line);
   };
   this.getAllLineName = () => {
-    let lineNameList = [];
-    for (let i in lineList) {
-      lineNameList.push(this.lineList[i].name);
-    }
-
-    return lineNameList;
+    return this.lineList.map((line) => {
+      return line.name;
+    });
   };
   this.setSelectedLine = (selectedLine) => {
     this.selectedLine = selectedLine;
