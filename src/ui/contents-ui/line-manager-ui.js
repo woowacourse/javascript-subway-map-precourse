@@ -23,7 +23,7 @@ export default class LineManagerUI {
     const tableContainer = document.getElementById(TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     linesINFOs.forEach((lineINFOs) => {
-      innerHTMLOfTable += this.createNewTableRowHTML_(lineINFOs);
+      innerHTMLOfTable += this.makeNewTableRowHTML_(lineINFOs);
     });
     tableContainer.innerHTML = innerHTMLOfTable;
     this.addEventToAllTableDeleteButton_();
@@ -31,20 +31,7 @@ export default class LineManagerUI {
 
   setStationSelector_(selectorID) {
     const selector = document.getElementById(selectorID);
-    selector.innerHTML = this.createSelectorInnerHTML_();
-  }
-  createSelectorInnerHTML_() {
-    const stationNames = this.stationINFOManager_.getStationsNames();
-    let selectorInnerHTML = "";
-    stationNames.forEach((name) => {
-      selectorInnerHTML += this.createNewSelectorOptionHTML_(name);
-    });
-    return selectorInnerHTML;
-  }
-  createNewSelectorOptionHTML_(name) {
-    return `
-    <option value="${name}">${name}</option>
-    `;
+    selector.innerHTML = this.makeSelectorInnerHTML_();
   }
   addEventToLineAddButton_() {
     const button = document.getElementById(LINE_ADD_BUTTON_ID);
@@ -67,7 +54,6 @@ export default class LineManagerUI {
       this.updateLinesTable();
     });
   }
-
   isValidLineInput_(lineName, startStationName, endStationName) {
     const condition1 = isValidLine(lineName, startStationName, endStationName);
     const condition2 = this.stationINFOManager_.isNotOverlapNameInLinesArray(lineName);
@@ -93,7 +79,7 @@ export default class LineManagerUI {
       });
     });
   }
-  createNewTableRowHTML_({ name, startStationName, endStationName }) {
+  makeNewTableRowHTML_({ name, startStationName, endStationName }) {
     return `
     <tr>
     <td>${name}</td>
@@ -103,6 +89,19 @@ export default class LineManagerUI {
       <button class="${LINE_DELETE_BUTTON_CLASS}" data-name="${name}">삭제</button>
     </td>
     <tr>
+    `;
+  }
+  makeSelectorInnerHTML_() {
+    const stationNames = this.stationINFOManager_.getStationsNames();
+    let selectorInnerHTML = "";
+    stationNames.forEach((name) => {
+      selectorInnerHTML += this.makeNewSelectorOptionHTML_(name);
+    });
+    return selectorInnerHTML;
+  }
+  makeNewSelectorOptionHTML_(name) {
+    return `
+    <option value="${name}">${name}</option>
     `;
   }
 }

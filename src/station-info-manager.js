@@ -11,6 +11,15 @@ export default class StationINFOManager {
     };
     this.stations_.push(newStation);
   }
+  getStationsByCondition(condition) {
+    const returnStations = [];
+    this.stations_.forEach((station) => {
+      if (condition(station)) {
+        returnStations.push(station.name);
+      }
+    });
+    return returnStations;
+  }
   getStationsNames() {
     const stationNames = [];
     this.stations_.forEach(({ name }) => {

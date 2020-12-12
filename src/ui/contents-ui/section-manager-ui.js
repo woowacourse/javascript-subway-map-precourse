@@ -27,7 +27,10 @@ export default class SectionManagerUI {
     );
     Array.prototype.forEach.call(buttons, (button) => {
       button.addEventListener("click", (e) => {
-        this.sectionRegisterUI = new SectionRegisterUI(e.target.dataset.name);
+        this.sectionRegisterUI = new SectionRegisterUI(
+          e.target.dataset.name,
+          this.stationINFOManager_
+        );
       });
     });
   }
@@ -39,26 +42,48 @@ export default class SectionManagerUI {
 }
 
 class SectionRegisterUI {
-  constructor(lineName) {
-    this.lineName = lineName;
+  constructor(lineName, stationINFOManager) {
+    this.lineName_ = lineName;
+    this.stationINFOManager_ = stationINFOManager;
     this.setContentsHTML();
   }
 
   setContentsHTML() {
     const manageDiv = document.getElementById(SECTION_REGISTER_DIV_ID);
     manageDiv.innerHTML =
-      this.makeTitleHTML(this.lineName) + SECTION_REGISTER_TEMPLATE;
+      this.makeTitleHTML_(this.lineName_) + SECTION_REGISTER_TEMPLATE;
+    this.setComboboxOption_();
   }
-  makeTitleHTML(name) {
+  setComboboxOption_() {
+    const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);
+    const optionNames = this.stationINFOManager_.getStationsByCondition(
+      (station) => {
+        return !station.linesOfStation.has(this.lineName_);
+      }
+    );
+    let seletorInnerHTML = "";
+    optionNames.forEach((optionName) => {
+      seletorInnerHTML += this.makeNewOptionHTML_(optionName);
+    });
+    seletor.innerHTML = seletorInnerHTML;
+  }
+
+  makeNewOptionHTML_(name) {
+    return `
+    <option value="${name}">${name}</option>
+    `;
+  }
+  makeTitleHTML_(name) {
     return `<h2>${name} 관리<h2>`;
   }
 }
 
 const SECTION_REGISTER_DIV_ID = "section-register-div";
+const SECTION_STATION_SELECTOR_ID = "section-station-selector";
 const SECTION_REGISTER_TEMPLATE = `
   <h3>구간 등록</h3>
   <p>
-    <select id="section-station-selector">
+    <select id="${SECTION_STATION_SELECTOR_ID}">
     </select>
     <input type="text" id="section-order-input" placeholder="순서" />
     <button id="section-add-button">등록</button>

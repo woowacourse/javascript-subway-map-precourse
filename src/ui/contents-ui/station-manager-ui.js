@@ -21,7 +21,7 @@ export default class StationManagerUI {
     const tableContainer = document.getElementById(STATION_NAME_TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     for (let name of stationsNames) {
-      innerHTMLOfTable += this.createNewTableRowHTML_(name);
+      innerHTMLOfTable += this.makeNewTableRowHTML_(name);
     }
     tableContainer.innerHTML = innerHTMLOfTable;
     this.addEventToAllTableDeleteButton_();
@@ -61,7 +61,7 @@ export default class StationManagerUI {
     }
     return boolToReturn;
   }
-  createNewTableRowHTML_(name) {
+  makeNewTableRowHTML_(name) {
     const newTableRow = `
     <tr>
       <td>${name}</td>
