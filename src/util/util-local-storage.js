@@ -6,14 +6,14 @@ export const getLocalStorageAsArray = (key) => {
   }
 };
 
-export const addItemToLocalStroage = (item, key) => {
+export const addItemToLocalStroage = (key, item) => {
   let list = getLocalStorageAsArray(key);
 
   list.push(item);
   localStorage.setItem(key, JSON.stringify(list));
 };
 
-export const deleteItemFromLocalStroage = (item, key) => {
+export const deleteItemFromLocalStroage = (key, item) => {
   let list = getLocalStorageAsArray(key);
   let index = list.forEach((value, index) => {
     if (value.name === item.name) {

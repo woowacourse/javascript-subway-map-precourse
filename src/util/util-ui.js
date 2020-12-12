@@ -19,6 +19,13 @@ export const appendAtEnd = (tagName, parentElement, content, id, className) => {
   return newElement;
 };
 
+export const createButton = (className, datasetKey, datasetValue) => {
+  const button = document.createElement('button');
+
+  button.setAttribute('className', `${menu}-delete-button`);
+  button.setAttribute(`${dataset}`, `${item.name}`);
+};
+
 export const emptyElement = (elem) => {
   if (elem.tagName === 'DIV') {
     return (elem.innerHTML = '');

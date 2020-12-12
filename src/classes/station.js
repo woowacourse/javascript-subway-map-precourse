@@ -12,7 +12,7 @@ export class Station {
 
   unableToAdd() {
     const stationList = getLocalStorageAsArray('station');
-    console.log(this.name);
+
     if (this.name.replace(/ /g, '').length == 0) {
       return EXCEPTION_MESSAGE['stationNameOnlySpace'];
     }

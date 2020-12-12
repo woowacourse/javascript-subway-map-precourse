@@ -1,74 +1,75 @@
 import { getLocalStorageAsArray } from './util-local-storage.js';
-import { TABLE_HEADER } from '../configuration.js';
+import { appendAtEnd } from './util-ui.js';
+import { TABLE } from '../configuration.js';
 
-export const makeTable = (index, menu) => {
+export const makeTable = (menu) => {
+  const table = document.createElement('table');
   const tableData = getLocalStorageAsArray(menu);
-  const header = makeHeader(index).join('');
-  const rowMakers = [makeRowStation, makeRowLine, makeRowSection];
-  let rows = rowMakers[index](tableData, `data-${menu}`)?.join('');
 
-  rows = rows === undefined ? '' : rows;
-  return `<table border="1">
-            ${header}
-            ${rows}
-          </table>`;
+  makeTableHeader(table, menu);
+  tableData.forEach((item) => {
+    makeOneRow(table, menu, item);
+  });
+  table.setAttribute('border', 1);
+  return table;
 };
 
-const makeHeader = (index) => {
-  return TABLE_HEADER[index].map((header) => `<th>${header}</th>`);
+const makeTableHeader = (table, menu) => {
+  TABLE.header[menu].forEach((header) => {
+    appendAtEnd('th', table, header);
+  });
 };
 
-const makeRowStation = (tableData, dataset) => {
-  console.log(tableData);
+const makeOneRow = (table, menu, item) => {
+  let row = appendAtEnd('tr', table);
+  let makeMenuCell = {
+    station: makeStationCell,
+    line: makeLineCell,
+    section: makeSectionCell,
+  }[menu];
 
-  return tableData?.map(
-    (station) =>
-      `<tr>
-        <td>${station.name}</td>
-        <td>
-          <button class=station-delete-button ${dataset}=${station.name}>
-            삭제
-          </button>
-        </td>
-      </tr>`
-  );
+  makeMenuCell(row, item);
+  makeDeleteButton(row, menu, item);
 };
 
-const makeRowLine = (tableData, dataset) => {
-  return tableData?.map(
-    (line) =>
-      `<tr>
-      <td>${line.name}</td>
-      <td>${line.stationList[0]}</td>
-      <td>${stationList[stationList.length - 1]}</td>
-      <td>
-        <button class=line-delete-button ${dataset}=${line.name}>
-          삭제
-        </button>
-      </td>
-    </tr>`
-  );
+const makeStationCell = (row, item) => {
+  [item.name].forEach((cell) => appendAtEnd('td', row, cell));
 };
 
-const makeRowSection = (tableData, dataset) => {
-  return tableData?.map(
-    (line, index) =>
-      `<tr>
-        <td>${index}</td>
-        <td>${line[index]}</td>
-        <td>
-          <button class=section-delete-button ${dataset}=${line[index]}}>
-            노선에서 제거
-          </button>
-        </td>
-      </tr>`
-  );
+const makeLineCell = (row, item) => {
+  [
+    item.name,
+    item.stationList[0],
+    item.stationList[stationList.length - 1],
+  ].forEach((cell) => appendAtEnd('td', row, cell));
 };
 
-export const refreshTable = (index, menu, addEventListeners) => {
-  const tableElement = document.getElementById(`${menu}-list`);
-  const newTable = makeTable(index, menu);
+const makeSectionCell = (row, item) => {
+  [
+    item.name,
+    item.stationList[0],
+    item.stationList[stationList.length - 1],
+  ].forEach((cell) => appendAtEnd('td', row, cell));
+};
 
-  tableElement.innerHTML = newTable;
-  addEventListeners(index, menu);
+const makeDeleteButton = (row, menu, item) => {
+  const button = document.createElement('button');
+
+  button.setAttribute('class', `${menu}-delete-button`);
+  button.setAttribute(`data-${menu}`, item.name);
+  button.innerHTML = TABLE.deleteButtonText[menu];
+  return appendAtEnd('td', row, button.outerHTML);
+};
+
+export const addItemToTable = (menu, item) => {
+  const table = document.getElementsByTagName('tbody')[0];
+
+  makeOneRow(table, menu, item);
+};
+
+export const deleteItemFromTable = (button) => {
+  const cell = button.parentNode;
+  const row = cell.parentNode;
+
+  row.remove();
 };
