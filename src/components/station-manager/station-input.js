@@ -13,6 +13,25 @@ class StationInput extends Component {
 			<button id="station-add-button">역 추가</button>
 		`;
   }
+
+  initializeEventListener() {
+    this._$target.addEventListener('click', event => {
+      if (event.target.id === 'station-add-button') {
+        this.addStation();
+      }
+    });
+    this._$target.addEventListener('keyup', event => {
+      if (event.target.id === 'station-name-input' && event.key === 'Enter') {
+        this.addStation();
+      }
+    });
+  }
+
+  addStation() {
+    const $stationNameInput = document.querySelector('#station-name-input');
+    const newStation = $stationNameInput.value;
+    this._props.stations.value = [...this._props.stations.value, newStation];
+  }
 }
 
 export default StationInput;

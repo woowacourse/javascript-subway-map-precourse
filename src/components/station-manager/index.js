@@ -20,8 +20,12 @@ class StationManager extends Component {
       '#station-input-container'
     );
     const $stationList = this._$target.querySelector('#station-list');
-    new StationInput($stationInputContainer);
-    new StationList($stationList);
+    new StationInput($stationInputContainer, {
+      stations: this._props.stations,
+    });
+    new StationList($stationList, {
+      stations: this._props.stations,
+    });
   }
 }
 
