@@ -31,6 +31,7 @@ export const STATION_ALERT_OVERLAP = '이미 추가한 역이에요. 😅';
 export const STATION_ALERT_HAS_LINE = '노선에 추가한 역은 삭제할 수 없어요!';
 
 // line manager;
+export const LINE_MANAGER = 'line-manager';
 export const LINE_MANAGER_BUTTON = 'line-manager-button';
 export const LINE_ADD_BUTTON = 'line-add-button';
 export const LINE_DELETE_BUTTON = 'line-delete-button';
@@ -39,6 +40,7 @@ export const LINE_START_STATION_SELECTOR = 'line-start-station-selector';
 export const LINE_END_STATION_SELECTOR = 'line-end-station-selector';
 
 // section manager;
+export const SECTION_MANAGER = 'section-manager';
 export const SECTION_LINE_MENU_BUTTON = 'section-line-menu-button';
 export const SECTION_ADD_BUTTON = 'section-add-button';
 export const SECTION_DELETE_BUTTON = 'section-delete-button';

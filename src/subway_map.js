@@ -1,6 +1,7 @@
 import { nodeSelector } from './util/selector/node_selector.js';
 import StationManager from './component/station_manager.js';
-import { STATIONS_LS } from './library/constant/constant.js';
+import LineManager from './component/line_manager.js';
+import { LINES_LS, STATIONS_LS } from './library/constant/constant.js';
 
 export default class SubwayMap {
   constructor() {
@@ -11,6 +12,7 @@ export default class SubwayMap {
 
   initRoles() {
     this.loadStationManager();
+    this.loadLineManager();
   }
 
   loadStationManager() {
@@ -18,6 +20,13 @@ export default class SubwayMap {
     const stations = loadedStations ? JSON.parse(loadedStations) : [];
 
     this.roles.push(new StationManager(stations));
+  }
+
+  loadLineManager() {
+    const loadedLines = localStorage.getItem(LINES_LS);
+    const lines = loadedLines ? JSON.parse(loadedLines) : [];
+
+    this.roles.push(new LineManager(lines));
   }
 
   activate() {
