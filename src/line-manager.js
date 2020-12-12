@@ -33,11 +33,14 @@ export default class LineManager {
     return converted;
   }
 
+  storeLineListToLocal() {
+    localStorage.lineList = JSON.stringify(this.convertLineListToObject());
+  }
+
   addLine(lineName, startStation, endStation) {
     const newLine = new StationLine(lineName, [startStation, endStation]);
     this.lineList.push(newLine);
-    const convertedLineObject = this.convertLineListToObject();
-    localStorage.lineList = JSON.stringify(convertedLineObject);
+    this.storeLineListToLocal();
   }
 
   removeLine(lineIndex) {
@@ -45,8 +48,13 @@ export default class LineManager {
       this.lineList[i - 1] = this.lineList[i];
     }
     this.lineList.pop();
-    localStorage.lineList = JSON.stringify(this.convertLineListToObject());
+    this.storeLineListToLocal();
     this.renderLineNameTable();
+  }
+
+  addSection(lineIndex, order, station) {
+    this.lineList[lineIndex].addStationToLine(order, station);
+    this.storeLineListToLocal();
   }
 
   hasLineName(lineName) {

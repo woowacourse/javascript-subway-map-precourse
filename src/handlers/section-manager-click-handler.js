@@ -45,7 +45,8 @@ const addLineIndexAsDatasetToSectionAddButton = (
   ).dataset.lineIndex = lineIndex;
 };
 
-const renderLineSectionTbody = (currentLine) => {
+const renderLineSectionTbody = (lineIndex) => {
+  const currentLine = new LineManager().lineList[lineIndex];
   const $tbody = document.getElementById(TBODY_ID.lineSectionTbody);
   $tbody.innerHTML = currentLine.section
     .map((_station, _index) => {
@@ -70,7 +71,7 @@ const showSelectedLineManager = ($selectedLineManager, lineIndex) => {
     lineIndex
   );
   addLineIndexAsDatasetToSectionAddButton($selectedLineManager, lineIndex);
-  renderLineSectionTbody(new LineManager().lineList[lineIndex]);
+  renderLineSectionTbody(lineIndex);
 };
 
 const isSectionSelectorValid = ($selectedLineManager) => {
@@ -85,8 +86,8 @@ const isSectionSelectorValid = ($selectedLineManager) => {
   return true;
 };
 
-const isSectionOrderInputEmpty = (sectionOrderInputValue) => {
-  if (sectionOrderInputValue === "") {
+const isSectionOrderInputEmpty = (input) => {
+  if (input === "") {
     alert("순서(숫자)를 입력해주세요");
     return true;
   }
@@ -112,18 +113,36 @@ const isInteger = (input) => {
 };
 
 const isSectionOrderInputValid = ($selectedLineManager, lineIndex) => {
-  const sectionOrderInput = getChildById(
+  const sectionOrderInputValue = getChildById(
     $selectedLineManager,
     INPUT_FORM_ID.sectionOrderInput
-  );
-  const sectionOrderInputValue = sectionOrderInput.value;
-  sectionOrderInput.value = "";
+  ).value;
 
   return (
     !isSectionOrderInputEmpty(sectionOrderInputValue) &&
     isInputInRange(sectionOrderInputValue, lineIndex) &&
     isInteger(sectionOrderInputValue)
   );
+};
+
+const emptySectionOrderInputValue = ($selectedLineManager) => {
+  // eslint-disable-next-line prettier/prettier
+  getChildById(
+    $selectedLineManager,
+    INPUT_FORM_ID.sectionOrderInput
+  ).value = "";
+};
+
+const addSectionToSelectedLine = ($selectedLineManager, lineIndex) => {
+  const order =
+    getChildById($selectedLineManager, INPUT_FORM_ID.sectionOrderInput).value *
+    1;
+  const station = getChildById(
+    $selectedLineManager,
+    SELECTORS_ID.sectionStationSelector
+  ).value;
+  new LineManager().addSection(lineIndex, order, station);
+  emptySectionOrderInputValue($selectedLineManager);
 };
 
 const selectedLineManagerHandler = (e) => {
@@ -139,11 +158,15 @@ const selectedLineManagerHandler = (e) => {
 
 const sectionAddButtonHandler = (e) => {
   const $selectedLineManager = e.target.parentElement;
+  const lineIndex = e.target.dataset.lineIndex;
   if (
     isSectionSelectorValid($selectedLineManager) &&
-    isSectionOrderInputValid($selectedLineManager, e.target.dataset.lineIndex)
+    isSectionOrderInputValid($selectedLineManager, lineIndex)
   ) {
-    console.log(true);
+    addSectionToSelectedLine($selectedLineManager, lineIndex);
+    showSelectedLineManager($selectedLineManager, lineIndex);
+  } else {
+    emptySectionOrderInputValue($selectedLineManager);
   }
 };
 
