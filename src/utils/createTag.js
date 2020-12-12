@@ -132,7 +132,7 @@ export const createLineTableRow = (lineInfo) => {
   const tr = document.createElement("tr");
   const td1 = createTd(lineName);
   const td2 = createTd(stations[0]);
-  const td3 = createTd(stations[1]);
+  const td3 = createTd(stations[stations.length - 1]);
   const td4 = createTd();
   const button = createButton(
     "",
