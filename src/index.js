@@ -45,7 +45,7 @@ manager.setLineInManager(tmp4);
 
 const makeResultBlock = (idx) => {
   for (let i in resultList) {
-    if (i == idx) {
+    if (i === String(idx)) {
       resultList[i].style.display = "Block";
     } else {
       resultList[i].style.display = "None";
@@ -53,10 +53,6 @@ const makeResultBlock = (idx) => {
   }
 };
 showAllStationInManager(manager.stationList);
-btnStationManager.onclick = () => {
-  makeResultBlock(0);
-  showAllStationInManager(makeStationList());
-};
 export const makeStationList = () => {
   const finalStationList = [];
   const nowStationList = manager.stationList;
@@ -81,30 +77,15 @@ export const makeStationList = () => {
   });
   return finalStationList;
 };
-export const makeStationOption = (optionStationList, optionName) => {
+export const makeStationOption = (optionName) => {
+  const StationListInOption = makeStationList();
   const optionList = document.getElementById(optionName);
   optionList.innerHTML = ""; // 선택 노선 변경 시 지하철 역 새로 load
-  console.log(optionStationList);
-  for (let idx in optionStationList) {
+  for (let idx in StationListInOption) {
     const newOption = document.createElement("option");
-    newOption.innerHTML = optionStationList[idx].name;
+    newOption.innerHTML = StationListInOption[idx].name;
     optionList.appendChild(newOption);
   }
-};
-btnLineManager.onclick = () => {
-  makeResultBlock(1);
-  const optionStationList = makeStationList();
-  makeStationOption(optionStationList, "line-start-station-selector");
-  makeStationOption(optionStationList, "line-end-station-selector");
-  showAllLineInLineManager(manager.lineList);
-};
-btnSectionManager.onclick = () => {
-  makeResultBlock(2);
-  showLineMenuInSectionManager(manager.lineList);
-};
-btnMapPrintManager.onclick = () => {
-  makeResultBlock(3);
-  showMapList();
 };
 const btnAddStation = document.getElementById("station-add-button");
 btnAddStation.onclick = () => {
@@ -119,4 +100,22 @@ btnAddStation.onclick = () => {
 const btnAddLine = document.getElementById("line-add-button");
 btnAddLine.onclick = () => {
   addLineToList();
+};
+btnStationManager.onclick = () => {
+  makeResultBlock(0);
+  showAllStationInManager(makeStationList());
+};
+btnLineManager.onclick = () => {
+  makeResultBlock(1);
+  makeStationOption("line-start-station-selector");
+  makeStationOption("line-end-station-selector");
+  showAllLineInLineManager(manager.lineList);
+};
+btnSectionManager.onclick = () => {
+  makeResultBlock(2);
+  showLineMenuInSectionManager(manager.lineList);
+};
+btnMapPrintManager.onclick = () => {
+  makeResultBlock(3);
+  showMapList();
 };

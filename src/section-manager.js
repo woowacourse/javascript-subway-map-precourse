@@ -1,4 +1,4 @@
-import { makeStationOption, makeStationList } from "./index.js";
+import { makeStationOption } from "./index.js";
 import { manager } from "./manager.js";
 import Station from "./station.js";
 
@@ -60,7 +60,7 @@ export const onClickedLine = (lineName) => {
   sectionManagerTitle.innerHTML = `${selectedLineName} 관리`;
   const stationListBox = document.getElementById("station-in-selected-line");
   stationListBox.innerHTML = ""; // 선택 노선 변경 시 역 계속 나열 안되게 초기화
-  makeStationOption(makeStationList(), "section-station-selector");
+  makeStationOption("section-station-selector");
   const selectedLine = manager.lineList.find(
     (line) => line.name === selectedLineName
   );
@@ -97,7 +97,7 @@ export const isCorrectAddIdx = (idx, addSectionIdx) => {
   } else {
     alert("올바른 구간 번호를 입력하세요");
     addSectionIdx.value = "";
-    makeStationOption(makeStationList(), "section-station-selector");
+    makeStationOption("section-station-selector");
 
     return false;
   }
@@ -119,6 +119,6 @@ btnAddSection.onclick = () => {
     stationList.innerHTML = "";
     showStationList(manager.getSelectedLine().getAllStationName());
     addSectionIdx.value = "";
-    makeStationOption(makeStationList(), "section-station-selector");
+    makeStationOption("section-station-selector");
   }
 };
