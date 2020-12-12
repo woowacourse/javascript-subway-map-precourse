@@ -39,6 +39,7 @@ import {
   isLineInputValid,
   isSectionValid,
   isNotLineHaved,
+  isMoreThanTwoStation,
 } from './Controller/valid.js';
 import {
   setLocalStorage,
@@ -129,9 +130,12 @@ export function onAddSection(e) {
 export function onRemoveSection(e) {
   const parsedData = JSON.parse(e.target.dataset.sectionLine);
   const removedData = {lineName: parsedData.line, station: parsedData.station};
-  removeSectionOnLocalStorage('line', removedData);
-  loadSectionTable();
-  showSectionScreen(parsedData.line);
+  const selectedSection = getSelectedSection(removedData.lineName);
+  if (isMoreThanTwoStation(selectedSection.station)) {
+    removeSectionOnLocalStorage('line', removedData);
+    loadSectionTable();
+    showSectionScreen(parsedData.line);
+  }
 }
 
 export const loadStation = () => {

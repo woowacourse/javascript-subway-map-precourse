@@ -51,6 +51,14 @@ export const isNotLineHaved = (station, lines) => {
   return true;
 };
 
+export const isMoreThanTwoStation = (line) => {
+  if (line.length <= 2) {
+    return alert('노선에 역이 2개 이하이면 삭제할 수 없습니다.');
+  }
+
+  return true;
+};
+
 const isLengthRight = (value) => {
   if (value.length < 2) {
     return alert('2글자 이상으로 입력해주세요.');
