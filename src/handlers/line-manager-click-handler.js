@@ -1,4 +1,5 @@
 import LineManager from "../line-manager.js";
+import { setStartStationSelector } from "../handlers/menu-button-handler.js";
 import { ADD_BUTTONS_ID } from "../html-constants/html-id-values.js";
 import { DELETE_BUTTONS_CLASS } from "../html-constants/html-classnames.js";
 import {
@@ -40,19 +41,24 @@ const isLineFormValid = (appContainer) => {
   );
 };
 
+const addLineToList = (appContainer) => {
+  const $lineNameInput = getLineNameInput(appContainer);
+  const lineManager = new LineManager();
+  lineManager.addLine(
+    $lineNameInput.value,
+    getStartStationSelector(appContainer).value,
+    getEndStationSelector(appContainer).value
+  );
+  $lineNameInput.value = "";
+  setStartStationSelector(appContainer);
+  lineManager.renderLineNameTable();
+};
+
 const lineAddButtonHandler = (e) => {
   const app = e.target.closest("#app");
-  const $lineNameInput = getLineNameInput(app);
-  const lineManager = new LineManager();
   if (isLineFormValid(app)) {
-    lineManager.addLine(
-      $lineNameInput.value,
-      getStartStationSelector(app).value,
-      getEndStationSelector(app).value
-    );
-    $lineNameInput.value = "";
+    addLineToList(app);
   }
-  lineManager.renderLineNameTable();
 };
 
 const lineRemoveButtonHandler = (e) => {

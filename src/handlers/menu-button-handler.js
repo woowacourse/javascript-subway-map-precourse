@@ -154,3 +154,5 @@ export default function menuButtonHandler(e) {
     showMapPrintManagerPage(app);
   }
 }
+
+export { setStartStationSelector };
