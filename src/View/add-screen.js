@@ -40,14 +40,14 @@ export const addSectionScreen = (line) => {
   addSectionTable(line);
 };
 
-const addSectionButton = (section) => {
+const addSectionButton = (line) => {
   const $sectionButtonContainer = $sectionContainer.querySelector(
     '#section-select-button',
   );
   const $sectionButton = document.createElement('button');
   $sectionButton.className = 'section-line-menu-button';
-  $sectionButton.textContent = section;
-  setButtonOption(section, $sectionButton);
+  $sectionButton.textContent = line;
+  setButtonOption(line, $sectionButton);
   $sectionButtonContainer.appendChild($sectionButton);
 };
 
