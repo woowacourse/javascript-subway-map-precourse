@@ -1,6 +1,19 @@
+import {
+  ManagerButtonContainer,
+  StationManagerContainer,
+  LineManagerContainer,
+  SectionManagerContainer,
+  MapPrintContainer,
+} from './components/index.js';
+
 export default function SubwayMapManagement() {
   this.subwayStations = [];
   this.subwayLines = [];
+
+  this.selectMenu = number => {
+    const selectedMenu = this.menu[number];
+    selectedMenu.render();
+  };
 
   this.addSubwayStation = () => {};
 
@@ -19,4 +32,14 @@ export default function SubwayMapManagement() {
   this.deleteSubwaySection = () => {};
 
   this.getSubwayMap = () => {};
+
+  new ManagerButtonContainer({ selectMenu: this.selectMenu });
+  this.menu = [
+    new StationManagerContainer({ stations: this.subwayStations }),
+    new LineManagerContainer(),
+    new SectionManagerContainer(),
+    new MapPrintContainer(),
+  ];
 }
+
+new SubwayMapManagement();
