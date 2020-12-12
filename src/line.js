@@ -1,5 +1,11 @@
 import Station from "./station.js";
-import { createSelect } from "./table.js";
+import {
+  createTable,
+  createTr,
+  createValueTd,
+  createButtonTd,
+  createSelect,
+} from "./table.js";
 
 class Line {
   constructor() {
@@ -14,6 +20,22 @@ class Line {
     const downLineSelect = document.getElementById("line-end-station-selector");
     createSelect(upLineSelect, this.stations);
     createSelect(downLineSelect, this.stations);
+  };
+
+  createLineTable = () => {
+    const table = createTable(["노선이름", "상행종점역", "하행종점역", "설정"]);
+    for (let i = 0; i < Object.keys(this.lines).length; i++) {
+      const tr = createTr([
+        createValueTd(Object.keys(this.lines)[i]),
+        createValueTd(this.lines[Object.keys(this.lines)[i]][0]),
+        createValueTd(this.lines[Object.keys(this.lines)[i]][1]),
+        createButtonTd("삭제", "line-delete-button"),
+      ]);
+      tr.dataset.index = i;
+      table.appendChild(tr);
+    }
+
+    return table;
   };
 
   showLines = () => {
@@ -38,6 +60,7 @@ class Line {
       .value;
     if (this.checkLineVaild(lineName)) {
       this.lines[lineName] = [upStation, downStation];
+      this.showLines();
     } else {
       alert("중복된 노선 이름입니다");
     }
