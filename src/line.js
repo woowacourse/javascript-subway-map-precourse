@@ -15,6 +15,10 @@ class Line {
     this.handleAddLineClick();
   }
 
+  saveLines = () => {
+    localStorage.setItem("lines", JSON.stringify(this.lines));
+  };
+
   showStationSelect = () => {
     const upLineSelect = document.getElementById("line-start-station-selector");
     const downLineSelect = document.getElementById("line-end-station-selector");
