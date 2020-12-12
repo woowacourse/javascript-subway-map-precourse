@@ -3,25 +3,15 @@ import { Station } from '../model/subway.js';
 import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
 import { stationManagerTemplate, stationTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
+import { loadStorage, saveStorage } from '../util/handleStorage.js';
 
 export default class StationManager {
   userException = new UserException();
 
   constructor($target, $functionButtonContainer) {
-    this.stations = this.loadStations();
+    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
 
     this.start($target, $functionButtonContainer);
-  }
-
-  loadStations() {
-    const loadedStations = localStorage.getItem(NAME.LOCALSTORAGE_STATION_KEY);
-    let parsedStations = [];
-
-    if (loadedStations !== null) {
-      parsedStations = JSON.parse(loadedStations);
-    }
-
-    return parsedStations;
   }
 
   start($target, $functionButtonContainer) {
@@ -59,7 +49,7 @@ export default class StationManager {
 
   updateStations() {
     const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
-    this.stations = this.loadStations();
+    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
     stationManager.innerHTML = stationManagerTemplate();
     this.createStationTable(stationManager);
   }
@@ -110,7 +100,7 @@ export default class StationManager {
 
     station.name = stationName;
     this.stations.push(station);
-    localStorage.setItem(NAME.LOCALSTORAGE_STATION_KEY, JSON.stringify(this.stations));
+    saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
   }
 
   addStation() {
@@ -130,11 +120,11 @@ export default class StationManager {
   deleteStation(event) {
     const index = event.target.parentNode.dataset.index;
 
-    if (this.stations[index].line.length > 0) {
+    if (this.stations[index].line > 0) {
       alert(ALERT.DELETE_ERROR);
     } else {
       this.stations.splice(index, 1);
-      localStorage.setItem(NAME.LOCALSTORAGE_STATION_KEY, JSON.stringify(this.stations));
+      saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
       this.render();
     }
   }

@@ -1,41 +1,24 @@
 import UserException from '../util/userException.js';
 import { Line } from '../model/subway.js';
-import { ID, NAME, ALERT } from '../constants/index.js';
+import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
 import { lineManagerTemplate, lineTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
+import { loadStorage, saveStorage } from '../util/handleStorage.js';
 
 export default class LineManager {
   userException = new UserException();
 
   constructor($target, $functionButtonContainer) {
-    this.stations = this.loadStations();
-    this.lines = this.loadLines();
+    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
+    this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
 
+    this.start($target, $functionButtonContainer);
+  }
+
+  start($target, $functionButtonContainer) {
     this.createLineManagerButton($functionButtonContainer);
     this.createLineManager($target);
     this.handleLineManagerButton();
-  }
-
-  loadStations() {
-    const loadedStations = localStorage.getItem(NAME.LOCALSTORAGE_STATION_KEY);
-    let parsedStations = [];
-
-    if (loadedStations !== null) {
-      parsedStations = JSON.parse(loadedStations);
-    }
-
-    return parsedStations;
-  }
-
-  loadLines() {
-    const loadedLines = localStorage.getItem(NAME.LOCALSTORAGE_LINE_KEY);
-    let parsedLines = [];
-
-    if (loadedLines !== null) {
-      parsedLines = JSON.parse(loadedLines);
-    }
-
-    return parsedLines;
   }
 
   createLineManagerButton($functionButtonContainer) {
@@ -54,20 +37,6 @@ export default class LineManager {
     $target.appendChild(lineManager);
   }
 
-  createLineTable(lineManager) {
-    const lineTable = document.createElement('div');
-
-    lineTable.id = ID.LINE_TABLE;
-    lineManager.appendChild(lineTable);
-    this.render();
-  }
-
-  render() {
-    const lineTable = document.querySelector(`#${ID.LINE_TABLE}`);
-
-    lineTable.innerHTML = lineTableTemplate(this.lines);
-  }
-
   handleLineManagerButton() {
     const lineManagerButton = document.querySelector(`#${ID.LINE_MANAGER_BUTTON}`);
 
@@ -81,9 +50,24 @@ export default class LineManager {
 
   updateOption() {
     const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
-    this.stations = this.loadStations();
+    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
     lineManager.innerHTML = lineManagerTemplate(this.stations);
     this.createLineTable(lineManager);
+  }
+
+  createLineTable(lineManager) {
+    const lineTable = document.createElement('div');
+
+    lineTable.id = ID.LINE_TABLE;
+    lineManager.appendChild(lineTable);
+    this.render();
+  }
+
+  render() {
+    const lineTable = document.querySelector(`#${ID.LINE_TABLE}`);
+
+    lineTable.innerHTML = lineTableTemplate(this.lines);
+    this.handleLineDeleteButton();
   }
 
   showLineManager() {
@@ -124,7 +108,7 @@ export default class LineManager {
     line.name = lineName;
     line.section = [lineStartStation, lineEndStation];
     this.lines.push(line);
-    localStorage.setItem(NAME.LOCALSTORAGE_LINE_KEY, JSON.stringify(this.lines));
+    saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
   }
 
   addLine() {
@@ -134,13 +118,42 @@ export default class LineManager {
   saveLineToStation(lineName, lineStartStation, lineEndStation) {
     this.stations.forEach((station) => {
       if (station.name === lineStartStation) {
-        station.line.push(lineName);
-        station.section.push(0);
+        station.line += 1;
       } else if (station.name === lineEndStation) {
-        station.line.push(lineName);
-        station.section.push(1);
+        station.line += 1;
       }
     });
-    localStorage.setItem(NAME.LOCALSTORAGE_STATION_KEY, JSON.stringify(this.stations));
+    saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
+  }
+
+  handleLineDeleteButton() {
+    const deleteLineButton = document.querySelectorAll(`.${CLASS.LINE_DELETE_BUTTON}`);
+
+    deleteLineButton.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        this.deleteLineToStation(event);
+        this.deleteLine(event);
+      });
+    });
+  }
+
+  deleteLine(event) {
+    const index = event.target.parentNode.dataset.index;
+
+    this.lines.splice(index, 1);
+    saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
+    this.render();
+  }
+
+  deleteLineToStation(event) {
+    const index = event.target.parentNode.dataset.index;
+    const lineSection = this.lines[index].section;
+
+    this.stations.forEach((station) => {
+      if (lineSection.indexOf(station.name) > -1) {
+        station.line -= 1;
+      }
+    });
+    saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
   }
 }
