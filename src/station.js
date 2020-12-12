@@ -22,7 +22,17 @@ export default function Station() {
     })
   }
 
+  this.printStationList = function() {
+    let stationList = document.querySelector("#station-list");
+    let i;
+    for (i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      stationList.innerHTML += `<tr id="${key}"><td>${key}</td><td><button data-name="${key}" class="station-delete-button">삭제</button></td></tr>`;
+    }
+  }
+
   this.getStationName();
+  this.printStationList();
 }
   
 new Station();
