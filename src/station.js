@@ -58,13 +58,13 @@ export default function Station() {
   }
 
   this.init = function() {
+    this.getStationName();
+    this.printStationList();
     if (localStorage) {
       this.confirmDelete();
     }
   }
 
-  this.getStationName();
-  this.printStationList();
   this.init();
 }
   
