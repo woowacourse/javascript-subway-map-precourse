@@ -4,10 +4,10 @@ import deleteStationData from "../../_store/Station/deleteStationData.js";
 
 // 삭제할 인덱스는 여기서 찾읍시다!!
 
-export default (deleteValue) => {
+export default (deletedStation) => {
   if (!confirm(DELETE_MESSAGE)) return null;
-  const index = stationSelector().indexOf(deleteValue);
+  const index = stationSelector().indexOf(deletedStation);
   return new Promise((resolve) => {
-    resolve(deleteStationData(deleteValue, index));
+    resolve(deleteStationData(deletedStation, index));
   });
 };

@@ -16,3 +16,5 @@ export default class Line {
 
   // 구간 관리할 부분(삽입, 삭제)
 }
+
+//selector에다가 해당되는 노선 이름 찾고 배열 조작 후 reducer로 보내기!

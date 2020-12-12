@@ -2,14 +2,14 @@ import StationNameInputValidation from "../../controllers/station/stationNameInp
 import { STATION_NAME_INPUT } from "../../common/IdAndClassNames.js";
 import saveNewStation from "../../_store/Station/saveNewStation.js";
 
-export default (inputValue) => {
+export default (stationName) => {
   const $inputForm = document.querySelector(STATION_NAME_INPUT);
-  const checkInput = new StationNameInputValidation(inputValue);
+  const checkInput = new StationNameInputValidation(stationName);
 
   return new Promise((resolve, reject) => {
     $inputForm.value = "";
     if (checkInput.getInputResult().ok) {
-      resolve(saveNewStation(inputValue));
+      resolve(saveNewStation(stationName));
     } else {
       $inputForm.focus();
       reject(alert(checkInput.getInputResult().message));
