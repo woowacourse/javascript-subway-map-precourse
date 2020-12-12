@@ -1,9 +1,12 @@
 import { stationSelector } from "../selectors.js";
 import { stationReducer } from "../reducers.js";
+import { STATION_LIST } from "../../common/IdAndClassNames.js";
 
 export default (stationName) => {
-  console.log(`${stationName}이 성공적으로 로컬스토리지에 저장됩니다.`);
+  const $dataTable = document
+    .querySelector(STATION_LIST)
+    .querySelector("tbody");
+
   stationSelector.push(stationName);
   stationReducer(stationSelector);
-  console.log("after", localStorage);
 };

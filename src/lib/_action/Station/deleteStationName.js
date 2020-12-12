@@ -3,7 +3,7 @@ import { STATION_LIST } from "../../common/IdAndClassNames.js";
 
 export default (deleteValue, index) => {
   const $dataTable = document.querySelector(STATION_LIST);
-  console.log($dataTable.dataset);
+  console.log($dataTable);
   console.log(deleteValue, index);
   if (confirm(DELETE_MESSAGE) === true) {
     return new Promise((resolve) => {

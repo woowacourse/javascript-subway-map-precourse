@@ -84,11 +84,15 @@
 4. 이제 인풋 유효성 검사랑 로컬 스토리지 데이터 모델링 하자!
 
 ### day 4
-#### 참고: 저장 후 불러올 때 data속성 이용하기
+[dataset 사용법](https://javascript.info/dom-attributes-and-properties#non-standard-attributes-dataset)
 
-1. input 유효성 체크 시, 결과를 리턴하는 클래스 선언 후 성공하면 resolve 후 다음 순서(스토리지 저장 진행),
+1. input 유효성 체크 시, 결과를 리턴하는 클래스 선언 후 promise 리턴. 성공하면 resolve 후 다음 순서(스토리지 저장 진행),
 실패 시 오류 메시지 alert창에 출력
    
 2. 데이터 모델은, 우선 역 명은 그냥 string배열로 저장하는게 더 간결해 보여서 삭제함.
 
 3. 로컬 스토리지에서 데이터를 가져올 때는 selector, 업데이트된 데이터를 로컬 스토리지에 저장할 땐 reducer 함수 사용
+
+4. css를 로딩 후 js파일에서 렌더링하게 구현
+
+5. 데이터 모델링은 생각보다 단순했지만 요구사항에 맞게 구현하는게 많이 까다롭다 흑
