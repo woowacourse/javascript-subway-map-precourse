@@ -37,8 +37,10 @@ export class LineManagerInput {
     let lineName = this.lineNameInput.value;
     let start = this.lineStartSelector.value;
     let end = this.lineEndSelector.value;
+
     if (!isValidLineInfo(lineName, start, end)) {
       return;
     }
+    //TODOS: 노선 저장하기
   };
 }

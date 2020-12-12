@@ -14,6 +14,7 @@ export class SubwayMap {
   constructor() {
     this.initiateDOM();
     localStorage.setItem("stations", JSON.stringify([]));
+    localStorage.setItem("lines", JSON.stringify([]));
   }
 
   // props = {

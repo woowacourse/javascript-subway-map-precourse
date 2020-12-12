@@ -21,11 +21,11 @@ export const isValidLineInfo = (name, start, end) => {
   return true;
 };
 
-export const isEmpty = (name) => {
+const isEmpty = (name) => {
   return name === "";
 };
 
-export const isSameStartAndEnd = (start, end) => {
+const isSameStartAndEnd = (start, end) => {
   return start === end;
 };
 
