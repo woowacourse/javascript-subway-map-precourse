@@ -3,7 +3,7 @@ export default class UserException {
     return name.length >= 2;
   }
 
-  isDuplicatedName(stations, stationName) {
-    return stations.some((station) => station.name === stationName);
+  isDuplicatedName(lists, inputName) {
+    return lists.some((element) => element.name === inputName);
   }
 }

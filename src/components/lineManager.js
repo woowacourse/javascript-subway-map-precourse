@@ -1,9 +1,12 @@
+import UserException from '../util/userException.js';
 import { Line } from '../model/subway.js';
-import { ID, NAME } from '../constants/index.js';
+import { ID, NAME, ALERT } from '../constants/index.js';
 import { lineManagerTemplate, lineTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
 
 export default class LineManager {
+  userException = new UserException();
+
   constructor($target, $functionButtonContainer) {
     this.stations = this.loadStations();
     this.lines = this.loadLines();
@@ -95,13 +98,23 @@ export default class LineManager {
     const lineEndStationSelector = document.querySelector(`#${ID.LINE_END_STATION_SELECTOR}`);
 
     lineAddButton.addEventListener('click', () => {
-      this.saveLine(
+      this.hasValidInput(
         lineNameInput.value,
         lineStartStationSelector.value,
         lineEndStationSelector.value
       );
-      this.render();
     });
+  }
+
+  hasValidInput(lineName, lineStartStation, lineEndStation) {
+    if (this.userException.isDuplicatedName(this.lines, lineName)) {
+      alert(ALERT.DUPLICATED_NAME);
+    } else if (lineStartStation === lineEndStation) {
+      alert(ALERT.DUPLICATED_STATION);
+    } else {
+      this.saveLine(lineName, lineStartStation, lineEndStation);
+      this.render();
+    }
   }
 
   saveLine(lineName, lineStartStation, lineEndStation) {

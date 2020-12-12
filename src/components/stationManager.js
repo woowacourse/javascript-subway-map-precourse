@@ -98,7 +98,7 @@ export default class StationManager {
     if (!this.userException.isValidNameLength(stationName)) {
       alert(ALERT.VALID_STATION_NAME_LENGTH);
     } else if (this.userException.isDuplicatedName(this.stations, stationName)) {
-      alert(ALERT.DUPLICATED_STATION_NAME);
+      alert(ALERT.DUPLICATED_STATION);
     } else {
       this.saveStation(stationName);
       this.render();
