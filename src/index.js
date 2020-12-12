@@ -1,4 +1,5 @@
 import SubwayStation from './subway_station.js';
+import SubwayLine from './subway_line.js';
 
 export default class SubwayMap {
   constructor() {
@@ -23,7 +24,7 @@ export default class SubwayMap {
   // 지하철 역 삭제
   removeStation(name) {
     let index = this.stationList.findIndex(element => element.name === name);
-    if (index === -1 || this.stationList[index].line.length !== 0) {
+    if (index === -1 || this.stationList[index].semaphore !== 0) {
       return false;
     }
     this.stationList.splice(index, 1);
