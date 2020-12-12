@@ -1,4 +1,4 @@
-import Station from './station.js';
+import SubwayStation from './subway_station.js';
 
 export default class SubwayMap {
   constructor() {
@@ -15,7 +15,7 @@ export default class SubwayMap {
     if (name.length < 2 || this.stationList.find(element => element.name === name) !== undefined) {
       return null;
     }
-    let station = new Station(name);
+    let station = new SubwayStation(name);
     this.stationList.push(station);
     return station;
   }
