@@ -9,9 +9,7 @@ import {
 const stationManagerBtn = document.getElementById("station-manager-button");
 
 const loadStations = () => {
-  return JSON.parse(stationManagerBtn.dataset.stations).map(
-    (x) => new Station(x.name, x.usedCount)
-  );
+  return JSON.parse(stationManagerBtn.dataset.stations);
 };
 
 const saveStations = (_stations) => {
@@ -80,11 +78,25 @@ const getStationName = () => {
   }
 };
 
+const useStation = (_stationName) => {
+  const stations = loadStations();
+
+  stations.find((x) => x.name === _stationName).usedCount++;
+  saveStations(stations);
+};
+
+const disUseStation = (_stationName) => {
+  const stations = loadStations();
+
+  stations.find((x) => x.name === _stationName).usedCount--;
+  saveStations(stations);
+};
+
 const createStation = () => {
   const stationName = getStationName();
 
   if (stationName) {
-    return new Station(stationName, 1);
+    return new Station(stationName);
   }
 };
 
@@ -140,4 +152,4 @@ export default function StationManager() {
   });
 }
 
-export { loadStations, saveStations };
+export { loadStations, useStation, disUseStation };
