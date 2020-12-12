@@ -38,7 +38,7 @@ export default function SubwayMapManagement() {
     new StationManagerContainer({ stations: this.subwayStations }),
     new LineManagerContainer({ lines: this.subwayLines }),
     new SectionManagerContainer({ lines: this.subwayLines }),
-    new MapPrintContainer(),
+    new MapPrintContainer({ lines: this.subwayLines }),
   ];
 }
 
