@@ -1,4 +1,5 @@
 import { addOptionTag, initSelector } from "../../utils/handleDom.js";
+import { isValidLineInfo } from "../../utils/validation.js";
 
 export class LineManagerInput {
   constructor({ getStations }) {
@@ -32,5 +33,12 @@ export class LineManagerInput {
     });
   };
 
-  handleAddLine = () => {};
+  handleAddLine = () => {
+    let lineName = this.lineNameInput.value;
+    let start = this.lineStartSelector.value;
+    let end = this.lineEndSelector.value;
+    if (!isValidLineInfo(lineName, start, end)) {
+      return;
+    }
+  };
 }

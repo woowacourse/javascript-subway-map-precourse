@@ -8,8 +8,25 @@ export const isValidStationManager = (stationName, stations) => {
     showErrors(error + MESSAGE.CHECK_GUIDE);
     return false;
   }
-
   return true;
+};
+
+export const isValidLineInfo = (name, start, end) => {
+  let error = getErrorsFromLineManager(name, start, end);
+
+  if (error !== "") {
+    showErrors(error + MESSAGE.CHECK_GUIDE);
+    return false;
+  }
+  return true;
+};
+
+export const isEmpty = (name) => {
+  return name === "";
+};
+
+export const isSameStartAndEnd = (start, end) => {
+  return start === end;
 };
 
 const checkNameLength = (stationName) => {
@@ -29,5 +46,19 @@ const getErrorsFromStationManager = (stationName, stations) => {
   if (isDuplicate(stationName, stations)) {
     error += MESSAGE.DUPLICATION_ERROR;
   }
+
+  return error;
+};
+
+const getErrorsFromLineManager = (name, start, end) => {
+  let error = "";
+
+  if (isSameStartAndEnd(start, end)) {
+    error += MESSAGE.START_END_SAME_ERROR;
+  }
+  if (isEmpty(name)) {
+    error += MESSAGE.IS_EMPTY_ERROR;
+  }
+
   return error;
 };

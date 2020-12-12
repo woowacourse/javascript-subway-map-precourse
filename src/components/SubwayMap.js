@@ -58,11 +58,11 @@ export class SubwayMap {
   };
 
   updateView = () => {
-    this.stationManager.render({
-      setStations: this.setStations,
-      getStations: this.getStations,
-      deleteStation: this.deleteStation,
-    });
+    // this.stationManager.render({
+    //   setStations: this.setStations,
+    //   getStations: this.getStations,
+    //   deleteStation: this.deleteStation,
+    // });
     this.lineManager.render();
   };
 }
