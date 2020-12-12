@@ -14,7 +14,18 @@
         <button id="map-print-manager-button">4.지하철 노선도 출력</button>
       </header>
       <div id="content">
-        <div class="hide" id="station-manager-content">역 관리 내용</div>
+        <div class="" id="station-manager-content">
+          <div>역 이름</div>
+          <input type="text" />
+          <button>역 추가</button>
+          <h2>🚉 지하철 역 목록</h2>
+          <table>
+            <tr>
+              <th>역 이름</th>
+              <th>설정</th>
+            </tr>
+          </table>
+        </div>
         <div class="hide" id="line-manager-content">노선 관리 내용</div>
         <div class="hide" id="section-manager-content">구간 관리 내용</div>
       </div>
@@ -22,6 +33,14 @@
     <style>
       .hide {
         display: none;
+      }
+      #content {
+        margin-top: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
       }
     </style>
     <script type="module" src="src/index.js"></script>
