@@ -18,4 +18,9 @@ export default class SubwayLine {
     this.line.splice(index, 1);
     return true;
   }
+
+  // 구간 조회
+  getLine() {
+    return this.line.map(element => element.name);
+  }
 }
