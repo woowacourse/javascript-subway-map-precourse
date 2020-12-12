@@ -3,4 +3,16 @@ export default class Line {
     this.lineName = lineName;
     this.stations = [];
   }
+
+  // 시작 역이 이미 기점이면 추가가 안 된다.
+  addStartStation(stationName) {
+    this.stations.unshift(stationName);
+  }
+
+  // 마지막 역이 이미 종점이면 추가가 안 된다.
+  addEndStation(stationName) {
+    this.stations.push(stationName);
+  }
+
+  // 구간 관리할 부분(삽입, 삭제)
 }
