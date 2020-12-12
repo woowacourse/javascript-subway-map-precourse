@@ -6,15 +6,6 @@ import Station from './Station.js';
 const Line = function (lineName) {
 	this.name = lineName;
 	this.stations = [];
-	this.hasStation = (targetStation) => {
-		return this.stations.indexOf(targetStation.name) !== -1;
-	};
-	this.addStation = (station, pos = this.stations.length) => {
-		this.stations.splice(pos, 0, station);
-	};
-	this.removeStation = (targetStation) => {
-		if (hasStation(targetStation) !== -1) this.stations.splice(targetIndex, 1);
-	};
 };
 
 Line.isValidLineName = (lineName, inputElement) => {
@@ -65,10 +56,10 @@ Line.removeOneLine = (targetLine) => {
 };
 
 Line.hasThisStation = (lineName, stationName) => {
-    const allLines = Line.readAllLines();
-    const targetLineIndex = Line.searchLinesByName(lineName);
-    return allLines[targetLineIndex].stations.indexOf(stationName) !== -1;
-}
+	const allLines = Line.readAllLines();
+	const targetLineIndex = Line.searchLinesByName(lineName);
+	return allLines[targetLineIndex].stations.indexOf(stationName) !== -1;
+};
 
 Line.searchLinesByName = (lineName) => {
 	const targetIndex = Line.readAllLines()
@@ -77,13 +68,19 @@ Line.searchLinesByName = (lineName) => {
 	return targetIndex;
 };
 
+Line.getStationLength = (lineName) => {
+	const allLines = Line.readAllLines();
+	const targetIndex = Line.searchLinesByName(lineName);
+	return allLines[targetIndex].stations.length;
+};
+
 Line.removeStationOnLine = (lineName, stationName) => {
 	const allLines = Line.readAllLines();
-    const targetIndex = Line.searchLinesByName(lineName);
+	const targetIndex = Line.searchLinesByName(lineName);
 	allLines[targetIndex].stations = allLines[targetIndex].stations.filter(
 		(station) => station !== stationName
-    );
-    Line.saveAllLines(allLines)
+	);
+	Line.saveAllLines(allLines);
 };
 
 export default Line;

@@ -37,6 +37,14 @@ export const insertStation = (lineName, stationName, insertElement) => {
 		.map((station) => station.name)
         .indexOf(stationName);
     const insertIndex = insertElement.value;
+    if(!insertIndex){
+        alertAndClear(errorAlertMessages.ALERT_NOTHING_ORDER_INPUT);
+        return;
+    }
+    if(Line.hasThisStation(lineName, stationName)){
+        alertAndClear(errorAlertMessages.ALERT_EXISTED_ADDED_STATION);
+        return;
+    }
 	allLines[targetLineIndex].stations.splice(
 		parseInt(insertIndex),
 		0,
@@ -50,6 +58,10 @@ export const deleteCallbackFunction = (e) => {
     const {id} = buttonElement;
     const [lineName, stationName] = id.split("_");
     if(confirmAlert(confirmAlertMessage.ALERT_DELETE_CONFIRM)){
+        if (Line.getStationLength(lineName) <= 2) {
+			alertAndClear(errorAlertMessages.ALERT_UNDER_TWO_STATION_ON_LINE);
+			return;
+		}
         Line.removeStationOnLine(lineName, stationName);
         buttonElement.parentNode.parentElement.remove();
     }
