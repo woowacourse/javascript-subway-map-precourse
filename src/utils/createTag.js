@@ -9,13 +9,14 @@ export const createDiv = (text, style = "") => {
   return div;
 };
 
-export const createDivContainer = (elementArray, style = "") => {
+export const createDivContainer = (elementArray, style = "", id = "") => {
   const container = document.createElement("div");
 
   elementArray.forEach((element) => {
     container.appendChild(element);
   });
 
+  container.setAttribute("id", id);
   container.style = style;
 
   return container;
@@ -141,6 +142,24 @@ export const createLineTableRow = (lineInfo) => {
   const tdArray = [td1, td2, td3, td4];
 
   td4.appendChild(button);
+  tdArray.forEach((td) => tr.appendChild(td));
+
+  return tr;
+};
+
+export const createSectionTableRow = (sectionInfo, index) => {
+  const tr = document.createElement("tr");
+  const td1 = createTd(index);
+  const td2 = createTd(sectionInfo);
+  const td3 = createTd();
+  const button = createButton(
+    "",
+    "section-delete-button",
+    WORDS.SECTION.DELETE_BUTTON
+  );
+  const tdArray = [td1, td2, td3];
+
+  td3.appendChild(button);
   tdArray.forEach((td) => tr.appendChild(td));
 
   return tr;

@@ -19,15 +19,19 @@ export const WORDS = {
     ADD_BUTTON: "노선 추가",
 
     LIST_TITLE: "🚉 지하철 노선 목록",
-    LIST_COL1: "노선 이름",
-    LIST_COL2: "상행 종점역",
-    LIST_COL3: "하행 종점역",
-    LIST_COL4: "설정",
     LIST_COL_ARRAY: ["노선 이름", "상행 종점역", "하행 종점역", "설정"],
     DELETE_BUTTON: "삭제",
   },
   SECTION: {
     CHOICE_TITLE: "구간을 수정할 노선을 선택해주세요.",
+    LINE_TITLE: "관리",
+
+    ADD_TITLE: "구간 등록",
+    INPUT_PLACEHOLDER: "순서",
+    ADD_BUTTON: "등록",
+    LIST_COL_ARRAY: ["순서", "이름", "설정"],
+
+    DELETE_BUTTON: "노선에서 제거",
   },
 };
 

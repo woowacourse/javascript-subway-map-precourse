@@ -1,17 +1,17 @@
 import { WORDS } from "../constants/index.js";
 import { loadLines } from "../Line/lineContainer.js";
+import { loadStations } from "../Station/stationContainer.js";
 import {
   createButton,
-  createDiv,
   createDivContainer,
   createHeader,
   createInput,
-  createLabel,
-  createLineTableRow,
+  createSectionTableRow,
   createSelect,
   createTable,
 } from "../utils/createTag.js";
 import { clearChilds, displayChilds } from "../utils/display.js";
+import { initialSection } from "./sectionContainer.js";
 
 export const displayInitialSection = () => {
   const lines = loadLines() || [];
@@ -31,6 +31,47 @@ export const displayInitialSection = () => {
 
   clearChilds("root");
   displayChilds("root", [sectionChoiceTitle, buttonContainer]);
+
+  return true;
+};
+
+const inputPart = () => {
+  const stations = loadStations() || [];
+  const select = createSelect("section-station-selector", stations);
+  const input = createInput(
+    "section-order-input",
+    WORDS.SECTION.INPUT_PLACEHOLDER
+  );
+  const button = createButton(
+    "section-add-button",
+    "",
+    WORDS.SECTION.ADD_BUTTON
+  );
+  const container = createDivContainer(
+    [select, input, button],
+    "margin-bottom:20px"
+  );
+
+  return container;
+};
+
+export const displayAddedSection = (table, sectionInfo, index) => {
+  const tr = createSectionTableRow(sectionInfo, index);
+
+  table.appendChild(tr);
+};
+
+export const displaySectionUtil = (line) => {
+  const sectionDataArray = initialSection(line);
+  const sectionTitle = createHeader(3, line + WORDS.SECTION.LINE_TITLE);
+  const addTitle = createHeader(4, WORDS.SECTION.ADD_TITLE);
+  const inputDiv = inputPart();
+  const table = createTable(WORDS.SECTION.LIST_COL_ARRAY);
+  sectionDataArray.forEach((section, index) => {
+    displayAddedSection(table, section, index);
+  });
+
+  displayChilds("root", [sectionTitle, addTitle, inputDiv, table]);
 
   return true;
 };
