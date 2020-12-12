@@ -105,9 +105,12 @@ export function onAddLine() {
 }
 
 export function onRemoveLine(e) {
-  removeLocalStorage('line', e.target.dataset.line);
-  lineInstance.removeLine(e.target.dataset.line);
-  removeLineScreen(e.target);
+  const removeConfirm = confirm('정말로 삭제하시겠습니까?');
+  if (removeConfirm) {
+    removeLocalStorage('line', e.target.dataset.line);
+    lineInstance.removeLine(e.target.dataset.line);
+    removeLineScreen(e.target);
+  }
 }
 
 export function onLoadSection(e) {
@@ -130,10 +133,11 @@ export function onAddSection(e) {
 }
 
 export function onRemoveSection(e) {
+  const removeConfirm = confirm('정말로 삭제하시겠습니까?');
   const parsedData = JSON.parse(e.target.dataset.sectionLine);
   const removedData = {lineName: parsedData.line, station: parsedData.station};
   const selectedSection = getSelectedSection(removedData.lineName);
-  if (isMoreThanTwoStation(selectedSection.station)) {
+  if (removeConfirm && isMoreThanTwoStation(selectedSection.station)) {
     removeSectionOnLocalStorage('line', removedData);
     loadSectionTable();
     showSectionScreen(parsedData.line);
