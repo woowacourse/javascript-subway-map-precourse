@@ -7,17 +7,17 @@ import { stationSelector, lineSelector } from "./selectors.js";
 const initState = {
   stations: [],
   lines: [],
+  isChanged: "false",
 };
 
 export default () => {
   if (localStorage.length === 0) {
     localStorage.setItem(STATION_STORAGE_NAME, "[]");
     localStorage.setItem(LINE_STORAGE_NAME, "[]");
-    console.log(localStorage);
   } else {
     initState.stations = stationSelector;
     initState.lines = lineSelector;
   }
-
-  console.log(initState);
+  localStorage.setItem("isChanged", "false");
+  console.log(localStorage);
 };
