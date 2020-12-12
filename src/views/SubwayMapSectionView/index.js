@@ -21,6 +21,7 @@ class SectionViewEventDelegation {
   }
 
   selectLine(dataSet) {
+    this.sectionView.resetSelectedLineSectionManagerContainer();
     this.sectionView.renderSelectedLineSectionManager(
       this.subwayMapViewModel.getLine(dataSet.id),
     );
@@ -105,6 +106,18 @@ export default class SubwayMapSectionView {
     this.managerContainer.innerHTML += `
     <div id="#section-selected-line-manager-container"></div>
     `;
+
+    new SectionViewEventDelegation(
+      document.getElementById('#section-selected-line-manager-container'),
+      this,
+      this.subwayMapViewModel,
+    );
+  }
+
+  resetSelectedLineSectionManagerContainer() {
+    document.getElementById(
+      '#section-selected-line-manager-container',
+    ).innerHTML = '';
   }
 
   renderSelectedLineSectionManager(line) {
@@ -126,16 +139,6 @@ export default class SubwayMapSectionView {
     this.renderSectionTable(
       line.lineId,
       this.subwayMapViewModel.getSections(line.lineId),
-    );
-    new SectionViewEventDelegation(
-      document.getElementById('#section-selected-line-manager-container'),
-      this,
-      this.subwayMapViewModel,
-    );
-    new SectionViewEventDelegation(
-      document.getElementById('#section-table-container'),
-      this,
-      this.subwayMapViewModel,
     );
   }
 
