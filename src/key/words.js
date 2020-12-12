@@ -1,5 +1,7 @@
 const words = {
 	// 역 관리
+	STATION_PAGE_BUTTON: '1. 역관리',
+	STATION_PAGE_BUTTON_ID: 'station-manager-button',
 	STATION: 'Stations',
 	STATION_NAME: '역 이름',
 	STATION_NAME_PLACEHOLDER: '역 이름을 입력해주세요.',
@@ -16,6 +18,8 @@ const words = {
 	STATION_DELETE_CLASS: 'station-delete-button',
 
 	// 노선 관리
+	LINE_PAGE_BUTTON: '2. 노선 관리',
+	LINE_PAGE_BUTTON_ID: 'line-manager-button',
 	LINE: 'Lines',
 	LINE_NAME: '노선 이름',
 	LINE_PLACEHOLDER: '노선 이름을 입력해주세요.',
@@ -36,6 +40,8 @@ const words = {
 	LINE_DELETE_BUTTON_CLASS: 'line-delete-button',
 
 	// 구간 관리
+	SECTION_PAGE_BUTTON: '3. 구간 관리',
+	SECTION_PAGE_BUTTON_ID: 'section-manager-button',
 	SECTION_TITLE: '구간을 설정할 노선을 선택해주세요.',
 	SECTION_HANDLE_TEXT: '관리',
 	SECTION_REGISTER_TEXT: '구간 등록',
@@ -53,7 +59,9 @@ const words = {
 	SECTION_DELETE_BUTTON_CLASS: 'section-delete-button',
 
 	// 지하철 노선도
-	MAP_CONTAINER_CLASS: 'map',
+	MAP_PRINT_PAGE: '4. 지하철 노선도 출력',
+	MAP_PRINT_PAGE_ID: 'map-print-manager-button',
+	MAP_PRINT_CONTAINER_CLASS: 'map',
 	MAP_PRINT_MANAGER_BUTTON_ID: 'map-print-manager-button',
 };
 

@@ -13,7 +13,8 @@ const MapPrintContainer = function (container) {
 	this.allLines = getAllLines();
 	this.mapContainer = makeElement({
 		tag: 'div',
-		classes: [words.MAP_CONTAINER_CLASS],
+		classes: [words.MAP_PRINT_CONTAINER_CLASS],
+		style: cssText.marginTop(15)
 	});
 	this.allLines.forEach((line) => {
 		const lineNameElement = makeElement({

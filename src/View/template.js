@@ -1,4 +1,5 @@
 import { appendChilds, makeElement } from '../Controller/utils.js';
+import cssText from '../key/cssText.js';
 
 const getTdElements = (values) =>
     values.map((value, index) => {
@@ -7,17 +8,17 @@ const getTdElements = (values) =>
             appendChilds(tdElement, [value]);
             return tdElement;
         } else {
-            return makeElement({ tag: 'td', innerText: value });
+            return makeElement({ tag: 'td', innerText: value, style: cssText.BOLDER });
         }
     });
 
 export const makeTable = (columns) => {
-	const tableElement = makeElement({ tag: 'table' });
+	const tableElement = makeElement({ tag: 'table' , style: cssText.BOLDER});
 	const tableHeadElement = makeElement({ tag: 'thead' });
 	const tableBodyElement = makeElement({ tag: 'tbody' });
 	appendChilds(
 		tableHeadElement,
-		columns.map((column) => makeElement({ tag: 'th', innerText: column }))
+		columns.map((column) => makeElement({ tag: 'th', innerText: column , style: cssText.BOLDER}))
 	);
 	appendChilds(tableElement, [tableHeadElement, tableBodyElement]);
 	return tableElement;
@@ -28,7 +29,7 @@ export const addTableRow = (
 	{ order, dataName, startPointName, endPointName, deleteButton }
 ) => {
 	const tableTBodyElement = tableElement.querySelector('tbody');
-	const tableRowElement = makeElement({ tag: 'tr', dataName });
+	const tableRowElement = makeElement({ tag: 'tr', dataName, style: cssText.BOLDER });
 	const values = [order,dataName,startPointName,endPointName,deleteButton].filter((value) => value);
 	const tableCells = getTdElements(values);
 	appendChilds(tableRowElement, tableCells);

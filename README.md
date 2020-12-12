@@ -27,7 +27,7 @@
 - [x] 구간 등록시, 역 목록(select box)은 **지하철 역 목록 순서**대로 노출된다.
 - [x] localStorage에 Station, Line데이터 저장 및 불러오기
 - [x] 버튼 누를 때마다 container 영역 콘텐츠 모두 지우고 새로 그리기.
-- [x] style.css 적용하기
+- [x] style 적용하기
 - [x] localStorage 초기화 기능 추가하기
 - [x] 초기 화면은 **역 관리** 화면 노출
 - [x] 구간 삭제 시, table 순서 업데이트
