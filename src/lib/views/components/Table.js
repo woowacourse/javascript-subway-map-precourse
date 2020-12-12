@@ -1,5 +1,5 @@
 import { getComponentIdOrClassQuerySelectorName } from "../utils/utils.js";
-import addTableRow from "./subComponents/addTableRow.js";
+import getTableRow from "./subComponents/getTableRow.js";
 
 export default class Table {
   constructor(id) {
@@ -23,7 +23,7 @@ export default class Table {
   insertTableData(tableDataSetArray) {
     const $tbody = document.createElement("tbody");
     tableDataSetArray.forEach((tableRowSet) => {
-      $tbody.appendChild(addTableRow(tableRowSet));
+      $tbody.appendChild(getTableRow(tableRowSet));
     });
     this.element.appendChild($tbody);
   }
