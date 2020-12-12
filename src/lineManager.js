@@ -8,7 +8,7 @@ export const initLineManager = () => {
   createSelectbox();
   createSubmitBtn();
   getInput();
-  // createResultArea();
+  createResultArea();
 };
 
 const createInputArea = () => {
@@ -117,4 +117,53 @@ const validateName = lineName => {
     return false;
   }
   return true;
+};
+
+const createResultArea = () => {
+  const tableName = document.createElement('h2');
+  tableName.innerHTML = '🚉 지하철 노선 목록';
+  app.appendChild(tableName);
+
+  const lineTable = document.createElement('table');
+  lineTable.setAttribute('border', 1);
+  lineTable.setAttribute('id', 'line-table');
+
+  const lineNameHeader = document.createElement('th');
+  lineNameHeader.innerHTML = '노선 이름';
+  const upwardEndStation = document.createElement('th');
+  upwardEndStation.innerHTML = '상행 종점역';
+  const downwardEndStation = document.createElement('th');
+  downwardEndStation.innerHTML = '하행 종점역';
+  const lineSettingHeader = document.createElement('th');
+  lineSettingHeader.innerHTML = '설정';
+
+  lineTable.appendChild(lineNameHeader);
+  lineTable.appendChild(upwardEndStation);
+  lineTable.appendChild(downwardEndStation);
+  lineTable.appendChild(lineSettingHeader);
+
+  const lines = JSON.parse(localStorage.getItem('lines'));
+
+  Object.entries(lines).map(([line, stations]) => {
+    const tableRow = document.createElement('tr');
+    tableRow.setAttribute('data-line', line);
+
+    const nameData = document.createElement('td');
+    nameData.innerHTML = line;
+    const upwardEndData = document.createElement('td');
+    upwardEndData.innerHTML = stations[0];
+    const downwardEndData = document.createElement('td');
+    downwardEndData.innerHTML = stations[1];
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = '삭제';
+
+    tableRow.appendChild(nameData);
+    tableRow.appendChild(upwardEndData);
+    tableRow.appendChild(downwardEndData);
+    tableRow.appendChild(deleteBtn);
+
+    lineTable.appendChild(tableRow);
+  });
+
+  app.appendChild(lineTable);
 };
