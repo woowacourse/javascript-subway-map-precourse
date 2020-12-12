@@ -1,3 +1,9 @@
 import StationViewEventDelegator from './StationViewEventDelegator';
+import LineViewEventDelegator from './LineViewEventDelegator';
+import SectionViewEventDelegator from './SectionViewEventDelegator';
 
-export { StationViewEventDelegator };
+export {
+  StationViewEventDelegator,
+  LineViewEventDelegator,
+  SectionViewEventDelegator,
+};

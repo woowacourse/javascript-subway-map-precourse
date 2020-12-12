@@ -20,19 +20,10 @@ export default class SubwayMapViewModel {
 
   deleteStation(stationId) {
     if (this.isInLines(stationId)) {
-      alert(ALERT_FOR_STATION_IN_LINES);
+      alert(message.ALERT_FOR_STATION_IN_LINES);
       return;
     }
     this.subwayMapModel.deleteStation(stationId);
-  }
-
-  isInLines(stationId) {
-    const lines = Object.entries(this.subwayMapModel.getLines());
-    return lines.some(line => {
-      return line[1].sections.some(section => {
-        return section.stationId === stationId;
-      });
-    });
   }
 
   getLines() {
@@ -80,6 +71,16 @@ export default class SubwayMapViewModel {
 
     return false;
   }
+
+  isInLines(stationId) {
+    const lines = Object.entries(this.subwayMapModel.getLines());
+    return lines.some(line => {
+      return line[1].sections.some(section => {
+        return section.stationId === stationId;
+      });
+    });
+  }
+
   validStationId(stationId) {
     if (this.isEmpty(stationId)) {
       return message.ALERT_FOR_EMPTY;

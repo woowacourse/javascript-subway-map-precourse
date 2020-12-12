@@ -1,57 +1,5 @@
 import { message } from '../../constants';
-
-class SectionViewEventDelegation {
-  constructor(element, sectionView, subwayMapViewModel) {
-    this.sectionView = sectionView;
-    this.subwayMapViewModel = subwayMapViewModel;
-    element.addEventListener('click', this.onClick.bind(this));
-  }
-
-  onClick(event) {
-    let dataSet = event.target.dataset;
-
-    if (dataSet.purpose) {
-      this[dataSet.purpose](dataSet);
-    }
-  }
-
-  sectionManager() {
-    this.sectionView.resetManagerContainer();
-    this.sectionView.renderSectionManager();
-  }
-
-  selectLine(dataSet) {
-    this.sectionView.resetSelectedLineSectionManagerContainer();
-    this.sectionView.renderSelectedLineSectionManager(
-      this.subwayMapViewModel.getLine(dataSet.id),
-    );
-  }
-
-  addSection(dataSet) {
-    const sectionId = document.getElementById('#section-station-selector')[
-      document.getElementById('#section-station-selector').selectedIndex
-    ].dataset.id;
-    const sectionOrder = parseInt(
-      document.getElementById('#section-order-input').value,
-    );
-
-    this.subwayMapViewModel.addSection(sectionId, dataSet.lineid, sectionOrder);
-    this.sectionView.resetSectionTable();
-    this.sectionView.renderSectionTable(
-      dataSet.lineid,
-      this.subwayMapViewModel.getSections(dataSet.lineid),
-    );
-  }
-
-  deleteSection(dataSet) {
-    this.subwayMapViewModel.deleteSection(dataSet.lineid, dataSet.sectionid);
-    this.sectionView.resetSectionTable();
-    this.sectionView.renderSectionTable(
-      dataSet.lineid,
-      this.subwayMapViewModel.getSections(dataSet.lineid),
-    );
-  }
-}
+import { SectionViewEventDelegator } from '../../eventDelegators';
 
 export default class SubwayMapSectionView {
   constructor(subwayMapViewModel, managerContainer, sectionManagerButton) {
@@ -59,7 +7,7 @@ export default class SubwayMapSectionView {
     this.managerContainer = managerContainer;
     this.sectionManagerButton = sectionManagerButton;
 
-    new SectionViewEventDelegation(
+    new SectionViewEventDelegator(
       sectionManagerButton,
       this,
       this.subwayMapViewModel,
@@ -76,7 +24,7 @@ export default class SubwayMapSectionView {
     );
     this.renderSelectedLineSectionManagerContainer();
 
-    new SectionViewEventDelegation(
+    new SectionViewEventDelegator(
       document.getElementById('#section-line-menu-button-container'),
       this,
       this.subwayMapViewModel,
@@ -107,7 +55,7 @@ export default class SubwayMapSectionView {
     <div id="#section-selected-line-manager-container"></div>
     `;
 
-    new SectionViewEventDelegation(
+    new SectionViewEventDelegator(
       document.getElementById('#section-selected-line-manager-container'),
       this,
       this.subwayMapViewModel,

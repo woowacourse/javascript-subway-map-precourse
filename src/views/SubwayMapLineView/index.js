@@ -1,51 +1,5 @@
 import { message } from '../../constants';
-
-class LineViewEventDelegation {
-  constructor(element, lineView, subwayMapViewModel) {
-    this.lineView = lineView;
-    this.subwayMapViewModel = subwayMapViewModel;
-    element.addEventListener('click', this.onClick.bind(this));
-  }
-
-  onClick(event) {
-    let dataSet = event.target.dataset;
-
-    if (dataSet.purpose) {
-      this[dataSet.purpose](dataSet);
-    }
-  }
-
-  lineManager() {
-    this.lineView.resetManagerContainer();
-    this.lineView.renderLineManager();
-  }
-
-  addLine() {
-    const lineObject = {
-      lineId: document.getElementById('#line-name-input').value,
-      startStation: document.getElementById('#line-start-station-selector')[
-        document.getElementById('#line-start-station-selector').selectedIndex
-      ].dataset.id,
-      endStation: document.getElementById('#line-end-station-selector')[
-        document.getElementById('#line-end-station-selector').selectedIndex
-      ].dataset.id,
-    };
-
-    this.subwayMapViewModel.addLine(lineObject);
-    this.lineView.resetLineTable();
-    this.lineView.renderLineTable(
-      Object.entries(this.subwayMapViewModel.getLines()),
-    );
-  }
-
-  deleteLine(dataSet) {
-    this.subwayMapViewModel.deleteLine(dataSet.lineid);
-    this.lineView.resetLineTable();
-    this.lineView.renderLineTable(
-      Object.entries(this.subwayMapViewModel.getLines()),
-    );
-  }
-}
+import { LineViewEventDelegator } from '../../eventDelegators';
 
 export default class SubwayMapLineView {
   constructor(subwayMapViewModel, managerContainer, lineManagerButton) {
@@ -53,7 +7,7 @@ export default class SubwayMapLineView {
     this.subwayMapViewModel = subwayMapViewModel;
     this.lineManagerButton = lineManagerButton;
 
-    new LineViewEventDelegation(
+    new LineViewEventDelegator(
       lineManagerButton,
       this,
       this.subwayMapViewModel,
@@ -71,12 +25,12 @@ export default class SubwayMapLineView {
   renderLineManager() {
     this.renderLineInputContainer();
     this.renderLineTableContainer();
-    new LineViewEventDelegation(
+    new LineViewEventDelegator(
       document.getElementById('#line-add-button'),
       this,
       this.subwayMapViewModel,
     );
-    new LineViewEventDelegation(
+    new LineViewEventDelegator(
       document.getElementById('#line-table-container'),
       this,
       this.subwayMapViewModel,
