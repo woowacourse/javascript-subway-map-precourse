@@ -99,8 +99,7 @@ export const loadLine = () => {
 const getLineValue = () => {
   return {
     lineName: $lineNameInput.value,
-    upStream: $upStream.value,
-    downStream: $downStream.value,
+    lastStop: [$upStream.value, $downStream.value],
   };
 };
 
