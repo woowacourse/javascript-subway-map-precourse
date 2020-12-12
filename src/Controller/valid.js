@@ -76,15 +76,7 @@ const isAllDifferentLine = (userLine, allLines) => {
 };
 
 const isAllDifferentSection = (userSection, allSection) => {
-  const sectionIndex = allSection.findIndex(
-    (section) => section.lineName === userSection.lineName,
-  );
-
-  if (
-    allSection[sectionIndex].station.find(
-      (station) => station === userSection.sectionName,
-    )
-  ) {
+  if (allSection.find((station) => station === userSection.sectionName)) {
     return alert('이미 역이 추가되어 있습니다.');
   }
 
@@ -107,15 +99,9 @@ const isNumber = (number) => {
   return true;
 };
 
-const isMoreThanMaxNumber = (userSection, allSection) => {
-  const sectionIndex = allSection.findIndex(
-    (section) => section.lineName === userSection.lineName,
-  );
-
-  if (allSection[sectionIndex].station.length < userSection.number) {
-    return alert(
-      `${allSection[sectionIndex].station.length}이하의 수를 입력해주세요.`,
-    );
+const isMoreThanMaxNumber = (userSection, section) => {
+  if (section.length < userSection.number) {
+    return alert(`${section.length}이하의 수를 입력해주세요.`);
   }
 
   return true;

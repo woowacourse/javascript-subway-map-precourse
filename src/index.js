@@ -95,7 +95,9 @@ export function onLoadSection(e) {
 
 export function onAddSection(e) {
   const sectionValue = getSectionValue(e.target.dataset.line);
-  if (isSectionValid(sectionValue, sectionInstance.sections)) {
+  const selectedSection = getSelectedSection(sectionValue.lineName);
+  console.log(selectedSection);
+  if (isSectionValid(sectionValue, selectedSection.station)) {
     addSectionOnLocalStorage('line', sectionValue);
     loadSectionTable();
     showSectionScreen(e.target.dataset.line);
@@ -149,6 +151,14 @@ const getSectionValue = (lineName) => {
     sectionName: $sectionLineSelect.value,
     number: $sectionNumber.value,
   };
+};
+
+const getSelectedSection = (lineName) => {
+  const sectionIndex = sectionInstance.sections.findIndex(
+    (section) => section.lineName === lineName,
+  );
+
+  return sectionInstance.sections[sectionIndex];
 };
 
 loadStation();
