@@ -1,9 +1,4 @@
-import {
-  $stationContainer,
-  $downStream,
-  $upStream,
-  $lineContainer,
-} from './input.js';
+import {$stationContainer, $lineContainer} from './input.js';
 
 export const removeStationScreen = (button) => {
   const $stationTbody = $stationContainer.querySelector('table > tbody');
@@ -11,17 +6,12 @@ export const removeStationScreen = (button) => {
   $stationTbody.removeChild($stationTr);
 };
 
-export const removeLastStopScreen = (station) => {
-  const $upStreamOptions = $upStream.querySelectorAll('option');
-  const $downStreamOptions = $downStream.querySelectorAll('option');
-  const removedUpStreamOption = Array.from($upStreamOptions).find(
+export const removeStationSelectOption = ($stationSelect, station) => {
+  const $stationSelectOptions = $stationSelect.querySelectorAll('option');
+  const removedStationOption = Array.from($stationSelectOptions).find(
     (option) => option.value === station,
   );
-  const removedDownStreamOption = Array.from($downStreamOptions).find(
-    (option) => option.value === station,
-  );
-  $upStream.removeChild(removedUpStreamOption);
-  $downStream.removeChild(removedDownStreamOption);
+  $stationSelect.removeChild(removedStationOption);
 };
 
 export const removeLineScreen = (button) => {

@@ -9,7 +9,7 @@ import {
   addSectionScreen,
 } from './View/add-screen.js';
 import {
-  removeLastStopScreen,
+  removeStationSelectOption,
   removeStationScreen,
   removeLineScreen,
 } from './View/remove-screen.js';
@@ -52,7 +52,9 @@ export function onRemoveStation(e) {
     removeLocalStorage('station', e.target.dataset.station);
     stationInstance.removeStation(e.target.dataset.station);
     removeStationScreen(e.target);
-    removeLastStopScreen(e.target.dataset.station);
+    removeStationSelectOption($upStream, e.target.dataset.station);
+    removeStationSelectOption($downStream, e.target.dataset.station);
+    removeStationSelectOption($sectionStation, e.target.dataset.station);
   }
 }
 
