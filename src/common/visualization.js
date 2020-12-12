@@ -1,6 +1,4 @@
-const Utils = function () {
-  this.resultDIV = document.getElementById("result");
-
+const Visualization = function () {
   this.setAttributes = (tag, attributes) => {
     for (let i in attributes) {
       tag.setAttribute(i, attributes[i]);
@@ -50,5 +48,3 @@ const Utils = function () {
     return table;
   };
 };
-
-export const { resultDIV } = new Utils();
