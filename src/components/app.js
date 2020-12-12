@@ -13,7 +13,7 @@ import MapPrintManager from './map-print-manager/index.js';
 import SectionManager from './section-manager/index.js';
 
 class App extends Component {
-  #stations;
+  _stations;
 
   constructor($target) {
     super($target);
@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   initializeStates() {
-    this.#stations = new State([]);
+    this._stations = new State([]);
   }
 
   mountTemplate() {
@@ -41,15 +41,12 @@ class App extends Component {
   routeTo = destination => {
     const $routerView = this._$target.querySelector('#router-view');
     if (destination === STATION_MANAGER) {
-      new StationManager($routerView, { stations: this.#stations });
-    }
-    if (destination === LINE_MANAGER) {
+      new StationManager($routerView, { stations: this._tations });
+    } else if (destination === LINE_MANAGER) {
       new LineManager($routerView);
-    }
-    if (destination === MAP_PRINT_MANAGER) {
+    } else if (destination === MAP_PRINT_MANAGER) {
       new MapPrintManager($routerView);
-    }
-    if (destination === SECTION_MANAGER) {
+    } else if (destination === SECTION_MANAGER) {
       new SectionManager($routerView);
     }
   };
