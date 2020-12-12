@@ -1,5 +1,5 @@
 import Line from "./models.js";
-import { loadStations, useStation } from "../station/actions.js";
+import { disUseStation, loadStations, useStation } from "../station/actions.js";
 import {
   lineInputForm,
   lineList,
@@ -45,7 +45,7 @@ const createLineList = (_lines) => {
 
   for (let i = 0; i < _lines.length; i++) {
     lineNames.innerHTML += `
-    <tr data-station-index="${i}">
+    <tr data-line-index="${i}">
       <td>${_lines[i].name}</td>
       <td>${_lines[i].startStation()}</td>
       <td>${_lines[i].endStation()}</td>
@@ -91,10 +91,40 @@ const createLine = () => {
   }
 };
 
+const deleteLine = (e) => {
+  const lines = loadLines();
+  const lineIndex = e.path[2].dataset.lineIndex;
+  const usedstations = lines[lineIndex].inLineStations;
+
+  for (let i = 0; i < usedstations.length; i++) {
+    disUseStation(usedstations[i]);
+  }
+
+  lines.splice(lineIndex, 1);
+
+  return lines;
+};
+
+const setLineDeleteBtn = () => {
+  const lineDeleteBtn = document.getElementsByClassName("line-delete-button");
+
+  for (let i = 0; i < lineDeleteBtn.length; i++) {
+    lineDeleteBtn[i].addEventListener("click", (e) => {
+      const linesWithoutDeleteLine = deleteLine(e);
+
+      if (linesWithoutDeleteLine) {
+        updateLineList(linesWithoutDeleteLine);
+        setLineDeleteBtn();
+      }
+    });
+  }
+};
+
 export default function LineManager() {
   printLayout();
   createStationSelector(loadStations());
   createLineList(loadLines());
+  setLineDeleteBtn();
 
   const lineAddBtn = document.getElementById("line-add-button");
 
@@ -103,6 +133,7 @@ export default function LineManager() {
 
     if (newLine) {
       updateLineList([...loadLines(), newLine]);
+      setLineDeleteBtn();
     }
   });
 }
