@@ -15,10 +15,10 @@ class StationViewEventDelegation {
     }
   }
 
-  // lineManager() {
-  //   this.lineView.resetManagerContainer();
-  //   this.lineView.renderLineManager();
-  // }
+  stationManager() {
+    this.stationView.resetManagerContainer();
+    this.stationView.renderStationManager();
+  }
 
   // addLine() {
   //   const lineObject = {
@@ -53,7 +53,11 @@ export default class SubwayMapStationView {
     this.managerContainer = managerContainer;
     this.stationManagerButton = stationManagerButton;
 
-    this.addEventListenerToStationManagerButton(this);
+    // this.addEventListenerToStationManagerButton(this);
+    new StationViewEventDelegation(
+      this.stationManagerButton,
+      this.this.subwayMapViewModel,
+    );
   }
 
   addEventListenerToStationManagerButton(self) {
@@ -133,6 +137,10 @@ export default class SubwayMapStationView {
       Object.entries(this.subwayMapViewModel.getStations()),
     );
   }
+
+  // renderStationInputContainer() {
+
+  // }
 
   renderStationTable(stations) {
     const stationThead = this.renderStationThead();

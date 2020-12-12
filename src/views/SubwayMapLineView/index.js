@@ -60,37 +60,6 @@ export default class SubwayMapLineView {
     );
   }
 
-  addEventListenerToLineAddButton(self) {
-    const lineAddbutton = document.getElementById('#line-add-button');
-    lineAddbutton.addEventListener(
-      'click',
-      this.handleLineAddButton.bind(self),
-    );
-  }
-
-  handleLineManagerButton() {
-    this.resetManagerContainer();
-    this.renderLineManager();
-
-    this.addEventListenerToLineAddButton(this);
-  }
-
-  handleLineAddButton() {
-    const lineObject = {
-      lineId: document.getElementById('#line-name-input').value,
-      startStation: document.getElementById('#line-start-station-selector')[
-        document.getElementById('#line-start-station-selector').selectedIndex
-      ].dataset.id,
-      endStation: document.getElementById('#line-end-station-selector')[
-        document.getElementById('#line-end-station-selector').selectedIndex
-      ].dataset.id,
-    };
-
-    this.subwayMapViewModel.addLine(lineObject);
-    this.resetLineTable();
-    this.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
-  }
-
   resetManagerContainer() {
     this.managerContainer.innerHTML = '';
   }
