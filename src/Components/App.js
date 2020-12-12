@@ -1,42 +1,21 @@
-import {
-  TitleHTML,
-  MenuHTML,
-  ManagerContainerHTML,
-} from "../utils/templates/app.js";
-import { clearInnerHTML } from "../utils/domUtil.js";
-
-import Menu from "./Menu.js";
-import ManagerContainer from "./ManagerContainer.js";
+import { MenuInnerHTML } from "../utils/templates/main.js";
+import { makeElement } from "../utils/domUtil.js";
 
 class App {
   constructor($target) {
     this.$target = $target;
-    this.initHTML();
-    this.mountDOM();
-    this.mountComponent();
-
-    console.log(this);
+    this.createDOMs();
+    this.mountDOMs();
   }
 
-  initHTML() {
-    clearInnerHTML(this.$target);
-    this.$target.innerHTML = TitleHTML() + MenuHTML() + ManagerContainerHTML();
+  createDOMs() {
+    this.$menu = makeElement(`nav`, { id: `menu` }, MenuInnerHTML);
+    this.$managerContainer = makeElement(`div`, { id: `manager-container` });
   }
 
-  mountDOM() {
-    this.$menu = this.$target.querySelector(`#menu`);
-    this.$managerContainer = this.$target.querySelector(`#manager-container`);
-  }
-
-  mountComponent() {
-    this.managerContainer = new ManagerContainer({
-      $target: this.$managerContainer,
-    });
-
-    this.menu = new Menu({
-      $target: this.$menu,
-      managerContainer: this.managerContainer,
-    });
+  mountDOMs() {
+    this.$target.appendChild(this.$menu);
+    this.$target.appendChild(this.$managerContainer);
   }
 }
 
