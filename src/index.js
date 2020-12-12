@@ -1,35 +1,36 @@
-import { appendAtEnd } from './util/utilUI.js';
-import { startStationManager } from './handlers/stationManager.js';
-import { startLineManager } from './handlers/lineManager.js';
-import { startSectionManager } from './handlers/sectionManager.js';
-import { startMapPrintManager } from './handlers/mapPrintManager.js';
+import { appendAtEnd } from './util/util-ui.js';
+import { launchStationManager } from './managers/station/launcher.js';
+import { launchLineManager } from './managers/line/launcher.js';
+import { launchSectionManager } from './managers/section/launcher.js';
+import { launchMapPrintManager } from './managers/map-print/launcher.js';
 import { MENU } from './configuration.js';
 
 export default function SubwayLineManager() {
   const app = document.getElementById('app');
-  const menuBar = appendAtEnd('div', app, '', '#menu-bar');
-  const menuButtons = createMenuButtons(menuBar);
 
+  createMenuBar(app);
   appendAtEnd('div', app, '', '#container');
-  addEventListeners(menuButtons);
 }
 
-const createMenuButtons = (menuBar) => {
-  return MENU.map((attr, i) =>
+const createMenuBar = (app) => {
+  const menuBar = appendAtEnd('div', app, '', '#menu-bar');
+  const menuButtons = MENU.map((attr, i) =>
     appendAtEnd('button', menuBar, `${i + 1}. ${attr.content}`, attr.id)
   );
+
+  addEventListenerOnMenuButton(menuButtons);
 };
 
-const addEventListeners = (menuButtons) => {
-  const MANAGER_BUTTON_HANDLER = [
-    startStationManager,
-    startLineManager,
-    startSectionManager,
-    startMapPrintManager,
+const addEventListenerOnMenuButton = (menuButtons) => {
+  const MENU_BUTTON_HANDLER = [
+    launchStationManager,
+    launchLineManager,
+    launchSectionManager,
+    launchMapPrintManager,
   ];
 
   menuButtons.forEach((button, i) =>
-    button.addEventListener('click', MANAGER_BUTTON_HANDLER[i])
+    button.addEventListener('click', MENU_BUTTON_HANDLER[i])
   );
 };
 

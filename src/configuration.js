@@ -1,26 +1,27 @@
-export const ALERT_MESSAGE = {
-  stationNameTooShort: '🚨　역 이름이 너무 짧습니다.',
-  stationNameAlreadyExist: '🚨　이미 등록된 역입니다.',
+export const STATION_NAME_LENGTH_LOW_LIMIT = 2;
+
+export const EXCEPTION_MESSAGE = {
+  stationNameTooShort: `입력해주신 역 이름이 너무 짧아 등록할 수 없습니다.😥\n${STATION_NAME_LENGTH_LOW_LIMIT}글자 이상으로 다시 입력해주세요 `,
+  stationNameAlreadyExist:
+    '입력해주신 역은 이미 등록된 역입니다.😥 다른 역으로 다시 입력해주세요',
+  stationRegisteredToLine:
+    '해당 역은 노선에 등록되어 있어 삭제할 수 없습니다.😥 노선 관리에서 해당 역에 등록된 노선을 먼저 삭제하신 뒤 다시 시도해주세요',
 };
 
 export const MENU = [
   {
-    index: 0,
     content: '역 관리',
     id: '#station-manager-button',
   },
   {
-    index: 1,
     content: '노선 관리',
     id: '#line-manager-button',
   },
   {
-    index: 2,
     content: '구간 관리',
     id: '#section-manager-button',
   },
   {
-    index: 3,
     content: '지하철 노선도 출력',
     id: '#map-print-manager-button',
   },

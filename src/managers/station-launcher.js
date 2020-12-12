@@ -1,9 +1,9 @@
-import { appendAtEnd, emptyElement, makeTable } from '../util/utilUI.js';
-import { requestToAdd } from './stationAddition.js';
-import { requestToDelete } from './stationDeletion.js';
+import { appendAtEnd, emptyElement, makeTable } from '../../util/util-ui.js';
+import { requestToAdd } from './station/adder.js';
+import { requestToDelete } from './station-remover.js';
 
 // 1. 역 관리
-export const startStationManager = () => {
+export const launchStationManager = () => {
   const INDEX = 0;
   const MENU = 'station';
   const container = document.getElementById('container');
