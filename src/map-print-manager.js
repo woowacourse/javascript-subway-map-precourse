@@ -1,12 +1,12 @@
 import { manager } from "./manager.js";
 
-export const showLineTitleInMap = (lineName) => {
+export const makeLineNameUI = (lineName) => {
   const lineNameBox = document.createElement("div");
   lineNameBox.innerHTML = lineName;
 
   return lineNameBox;
 };
-export const showStationInMap = (line) => {
+export const makeStationInLineUI = (line) => {
   const stationBox = document.createElement("ul");
   const stationList = line.getAllStationName();
   stationList.forEach((station) => {
@@ -17,12 +17,11 @@ export const showStationInMap = (line) => {
 
   return stationBox;
 };
-export const showMap = (line) => {
+export const makeMapUI = (line) => {
   const oneMap = document.createElement("div");
-  const lineNameBox = showLineTitleInMap(line.name);
-  const stationBox = showStationInMap(line);
-  oneMap.appendChild(lineNameBox);
-  oneMap.appendChild(stationBox);
+  const lineNameBox = makeLineNameUI(line.name);
+  const stationBox = makeStationInLineUI(line);
+  oneMap.append(lineNameBox, stationBox);
 
   return oneMap;
 };
@@ -33,7 +32,7 @@ export const showMapList = () => {
   mapPrintResult.innerHTML = ""; // 버튼 누를때 마다 map 추가되지 않게 초기화
   mapList.setAttribute("class", "map");
   lineList.forEach((line) => {
-    const map = showMap(line); // 라인 하나의 map그리기
+    const map = makeMapUI(line); // 라인 하나의 map그리기
     mapList.appendChild(map);
   });
   mapPrintResult.appendChild(mapList);
