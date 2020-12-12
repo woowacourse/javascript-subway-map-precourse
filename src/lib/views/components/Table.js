@@ -22,9 +22,10 @@ export default class Table {
 
   insertTableData(tableDataSetArray) {
     const $tbody = document.createElement("tbody");
+    this.element.appendChild($tbody);
+    if (!tableDataSetArray || tableDataSetArray.length === 0) return;
     tableDataSetArray.forEach((tableRowSet) => {
       $tbody.appendChild(convertTableRowDataToDOM(tableRowSet));
     });
-    this.element.appendChild($tbody);
   }
 }
