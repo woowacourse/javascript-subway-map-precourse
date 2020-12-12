@@ -5,7 +5,11 @@ function removeStation(stationName) {
   const stationList = stations.split(' ');
 
   stationList.splice(stationList.indexOf(stationName), 1);
+
   localStorage.setItem('stations', JSON.stringify(stationList.join(' ')));
+  if (!stationList.length) {
+    localStorage.removeItem('stations');
+  }
 
   render();
 }
