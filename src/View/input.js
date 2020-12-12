@@ -23,6 +23,9 @@ export const $upStream = document.body.querySelector(
 export const $downStream = document.body.querySelector(
   '#line-end-station-selector',
 );
+export const $sectionStation = document.body.querySelector(
+  '#section-station-selector',
+);
 export const $lineAddButton = document.body.querySelector('#line-add-button');
 export const $lineNameInput = document.body.querySelector('#line-name-input');
 

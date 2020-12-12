@@ -18,6 +18,7 @@ import {
   $upStream,
   $downStream,
   $lineNameInput,
+  $sectionStation,
 } from './View/input.js';
 import {isStationInputVaild, isLineInputValid} from './Controller/valid.js';
 import {
@@ -40,6 +41,7 @@ export function onAddStation() {
     addStationScreen($stationAddInput.value);
     addStationSelectOption($upStream, $stationAddInput.value);
     addStationSelectOption($downStream, $stationAddInput.value);
+    addStationSelectOption($sectionStation, $stationAddInput.value);
   }
   $stationAddInput.value = '';
 }
@@ -76,6 +78,7 @@ export const loadStation = () => {
     addStationScreen(station);
     addStationSelectOption($upStream, station);
     addStationSelectOption($downStream, station);
+    addStationSelectOption($sectionStation, station);
   });
 };
 
