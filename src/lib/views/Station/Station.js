@@ -1,9 +1,10 @@
 import Typography from "../components/Typography.js";
 import Button from "../components/Button.js";
 import Input from "../components/Input.js";
+import Table from "../components/Table.js";
 import Div from "../components/Div.js";
 import submitStationName from "../../_action/Station/submitStationName.js";
-import { stationSelector, isStateChanged } from "../../_store/selectors.js";
+import { stationSelector } from "../../_store/selectors.js";
 
 import {
   STATION_DIV,
@@ -11,11 +12,13 @@ import {
   STATION_LIST_VIEW_CONTAINER_ID,
   STATION_NAME_INPUT,
   ADD_STATION_INPUT,
+  STATION_LIST,
   DELETE_STATION_INPUT,
 } from "../../common/IdAndClassNames.js";
 
 export default class Station {
   constructor() {
+    this.stationDataList = stationSelector;
     this.element = document.createElement("div");
     this.element.id = STATION_DIV.substring(1);
   }
@@ -43,12 +46,17 @@ export default class Station {
     this.element.appendChild($stationInputContainer.element);
   }
 
+  _getStationListDataSet() {
+    const $stationDataListTable = new Table(STATION_LIST);
+    $stationDataListTable.insertTableHeader(['역 이름', '설정']);
+    console.log(this.stationDataList);
+
+    return $stationDataListTable;
+  }
+
   _getStationListViewContainerChildNodes() {
     const $title = new Typography("지하철 역 목록", "h2");
-    const $isChanged = new Typography(isStateChanged, "h4");
-    // 새로 들어온 정보 여기다 출력(데이터 이용해야 할 듯ㅠㅠ)
-
-    return [$title, $isChanged];
+    return [$title, this._getStationListDataSet()];
   }
 
   _getStationListViewContainer() {

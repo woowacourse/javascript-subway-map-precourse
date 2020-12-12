@@ -17,6 +17,7 @@
     "max-depth": ["error", 2],
     "max-lines-per-function": ["error", 14],
     "no-underscore-dangle": "off",
-    "import/extensions": ["off"]
+    "import/extensions": ["off"],
+    "prefer-template": "off"
   }
 }
