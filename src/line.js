@@ -74,6 +74,7 @@ class Line {
       .value;
     if (this.checkLineVaild(lineName)) {
       this.lines[lineName] = [upStation, downStation];
+      this.saveLines();
       this.showLines();
     } else {
       alert("중복된 노선 이름입니다");
@@ -85,6 +86,7 @@ class Line {
     const removeName = removeNode.querySelector("td").innerHTML;
     delete this.lines[removeName];
 
+    this.saveLines();
     this.showLines();
   };
 

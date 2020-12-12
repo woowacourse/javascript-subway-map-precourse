@@ -78,6 +78,8 @@ class Station {
         this.stations.splice(i, 1);
       }
     }
+
+    this.saveStation();
     this.showStation();
   };
 
