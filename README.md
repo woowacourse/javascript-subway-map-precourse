@@ -47,8 +47,6 @@
 [역, 노선, 구간의 유일한 데이터 값들을 data속성으로 관리](https://developer.mozilla.org/ko/docs/Learn/HTML/Howto/%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%86%8D%EC%84%B1_%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
 [localstorage 객체 사용](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)
 
-[error 메시지를 throw객체로 처리해보자]
-
 ## 개발 과정
 
 ### day 1
@@ -109,3 +107,5 @@
   - 원인은 기존 로컬 스토리지 값을 정적인 변수에 저장하느냐, 아니면 함수를 호출해서 그때그때 갱신하느냐...
   - `export const stationSelector = JSON.parse(localStorage.getItem(STATION_STORAGE_NAME));` -> 
     `export const stationSelector = () => JSON.parse(localStorage.getItem(STATION_STORAGE_NAME));` 로 변경
+
+9. 일단 역 이름은 구현 완료... 일단 가장 크게 배운건 input 유효성 체크할 때 보다 깔끔하게 유지보수 편하게끔 짜는 것!
