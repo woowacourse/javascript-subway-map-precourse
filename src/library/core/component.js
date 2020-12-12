@@ -23,7 +23,10 @@ class Component {
 
   mountComponents() {}
 
-  render() {}
+  render = () => {
+    this.mountTemplate();
+    this.mountComponents();
+  };
 }
 
 export default Component;

@@ -6,7 +6,7 @@ class LineList extends Component {
     this.render();
   }
 
-  render = () => {
+  mountTemplate() {
     this._$target.innerHTML = `
 			<h3>🚉 지하철 노선 목록</h3>
 			<table>
@@ -18,7 +18,7 @@ class LineList extends Component {
 				</tr>
 			</table>
 		`;
-  };
+  }
 }
 
 export default LineList;

@@ -7,7 +7,7 @@ class LineInput extends Component {
     this.render();
   }
 
-  render = () => {
+  mountTemplate() {
     this._$target.innerHTML = `
 			<div id="line-name-input-container">
 				<div><strong>노선 이름</strong></div>
@@ -29,7 +29,7 @@ class LineInput extends Component {
 			</div>
 			<button id="line-add-button">노선 추가</button>
 		`;
-  };
+  }
 }
 
 export default LineInput;

@@ -1,4 +1,5 @@
 import Component from '../library/core/component.js';
+import State from '../library/core/state.js';
 import Navigator from './navigator.js';
 import {
   LINE_MANAGER,
@@ -12,15 +13,17 @@ import MapPrintManager from './map-print-manager/index.js';
 import SectionManager from './section-manager/index.js';
 
 class App extends Component {
+  #stations;
+
   constructor($target) {
     super($target);
+    this.initializeStates();
     this.render();
   }
 
-  render = () => {
-    this.mountTemplate();
-    this.mountComponents();
-  };
+  initializeStates() {
+    this.#stations = new State([]);
+  }
 
   mountTemplate() {
     this._$target.innerHTML = `
@@ -38,7 +41,7 @@ class App extends Component {
   routeTo = destination => {
     const $routerView = this._$target.querySelector('#router-view');
     if (destination === STATION_MANAGER) {
-      new StationManager($routerView);
+      new StationManager($routerView, { stations: this.#stations });
     }
     if (destination === LINE_MANAGER) {
       new LineManager($routerView);

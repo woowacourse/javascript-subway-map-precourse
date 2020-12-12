@@ -7,11 +7,6 @@ class SectionManager extends Component {
     this.render();
   }
 
-  render = () => {
-    this.mountTemplate();
-    this.mountComponents();
-  };
-
   mountTemplate() {
     this._$target.innerHTML = `
       <div id="line-selector"></div>

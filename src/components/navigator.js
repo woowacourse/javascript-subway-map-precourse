@@ -12,7 +12,7 @@ class Navigator extends Component {
     this.render();
   }
 
-  render() {
+  mountTemplate() {
     this._$target.innerHTML = `
       <button id="station-manager-button">1. 역 관리</button>
       <button id="line-manager-button">2. 노선 관리</button>
