@@ -12,15 +12,22 @@ import {
   STATION_NAME_INPUT,
   STATION_TABLE,
   STATION_ROW,
+  STATIONS_LS,
 } from '../library/constant/constant.js';
 
 export default class StationManager extends Role {
-  constructor() {
+  constructor(stations) {
     super(STATION_MANAGER, STATION_MANAGER_BUTTON, STATION_MANAGER_K);
-    this.addStationName();
+    this._stations = stations;
+    this.renderStations();
+    this.addStation();
   }
 
-  addStationName() {
+  renderStations() {
+    this._stations.forEach(station => this.renderStation(station));
+  }
+
+  addStation() {
     const addButton = nodeSelector.selectId(STATION_ADD_BUTTON);
 
     addButton.addEventListener('click', this.handleStationNameInput.bind(this));
@@ -34,27 +41,27 @@ export default class StationManager extends Role {
     if (response) {
       response.then(isValidate => {
         if (isValidate) {
-          this.renderStationName(stationNameInput.value);
-          // 로컬 스토리지에 추가하는 로직.
+          this.renderStation(stationNameInput.value);
+          this.updateStations(stationNameInput.value);
         }
       });
     }
   }
 
-  renderStationName(stationName) {
-    const stationNameTable = nodeSelector.selectId(STATION_TABLE);
-    const row = this.getStationNameRow();
+  renderStation(station) {
+    const stationTable = nodeSelector.selectId(STATION_TABLE);
+    const row = this.getStationRow();
     const stationDeleteButton = document.createElement('button');
 
     stationDeleteButton.className = STATION_DELETE_BUTTON;
-    stationDeleteButton.dataset.stationName = stationName;
+    stationDeleteButton.dataset.station = station;
     stationDeleteButton.innerHTML = DELETE_K;
-    row.childNodes[0].innerHTML = stationName;
+    row.childNodes[0].innerHTML = station;
     row.childNodes[1].appendChild(stationDeleteButton);
-    stationNameTable.appendChild(row);
+    stationTable.appendChild(row);
   }
 
-  getStationNameRow() {
+  getStationRow() {
     const row = document.createElement('tr');
     const nameBlank = document.createElement('td');
     const buttonBlank = document.createElement('td');
@@ -65,5 +72,11 @@ export default class StationManager extends Role {
     row.className = STATION_ROW;
 
     return row;
+  }
+
+  updateStations(station) {
+    this._stations.push(station);
+
+    localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
   }
 }

@@ -4,16 +4,20 @@ import { STATIONS_LS } from './library/constant/constant.js';
 
 export default class SubwayMap {
   constructor() {
-    this.roles = [new StationManager()];
-    this.loadStations();
+    this.roles = [];
+    this.initRoles();
+    this.activate();
   }
 
-  loadStations() {
-    const loadedStations = localStorage.getItem(STATIONS_LS);
+  initRoles() {
+    this.loadStationManager();
+  }
 
-    if (loadedStations) {
-      console.log('hi');
-    }
+  loadStationManager() {
+    const loadedStations = localStorage.getItem(STATIONS_LS);
+    const stations = loadedStations ? JSON.parse(loadedStations) : [];
+
+    this.roles.push(new StationManager(stations));
   }
 
   activate() {
