@@ -1,3 +1,5 @@
+import { getMessageToCheckLineInput } from "../../utility/string-check-utility.js";
+
 export default class SectionManagerUI {
   constructor({ contentsContainer, stationINFOManager }) {
     this.contentsContainer_ = contentsContainer;
@@ -33,8 +35,14 @@ export default class SectionManagerUI {
   addEventToLineAddButton_() {
     const button = this.contentsContainer_.querySelector("#" + ADD_BUTTON_ID);
     button.addEventListener("click", () => {
+      const lineName = this.getHTMLElementByID_(NAME_INPUT_ID).value;
+      const message = getMessageToCheckLineInput(lineName);
+      if (message !== "성공") {
+        alert(message);
+        return;
+      }
       this.stationINFOManager_.addNewLine({
-        lineName: this.getHTMLElementByID_(NAME_INPUT_ID).value,
+        lineName: lineName,
         startStationName: this.getSelectedOptionInSelector_(
           START_STATION_SELECTOR_ID
         ),
