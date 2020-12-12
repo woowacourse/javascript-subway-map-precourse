@@ -12,18 +12,4 @@ export default class Section {
       return (this.sections = sections);
     }
   }
-
-  addSectionLine(userSection) {
-    const sectionIndex = this.sections.findIndex(
-      (section) => section.lineName === userSection.lineName,
-    );
-
-    return this.sections[sectionIndex].station.splice(
-      userSection.number,
-      0,
-      userSection.sectionName,
-    );
-  }
-
-  removeSectionLine() {}
 }
