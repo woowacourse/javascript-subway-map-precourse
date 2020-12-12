@@ -1,7 +1,7 @@
 import Tab from "./Tab.js";
-import stationView from "./views/station.js";
-import lineView from "./views/line.js";
-import sectionView from "./views/section.js";
-import mapView from "./views/map.js";
+import stationController from "./controllers/station.js";
+import lineController from "./controllers/line.js";
+import sectionController from "./controllers/section.js";
+import mapController from "./controllers/map.js";
 
-new Tab("main", [stationView, lineView, sectionView, mapView]);
+new Tab("main", [stationController, lineController, sectionController, mapController]);
