@@ -6,16 +6,13 @@ import {
 	makeElement,
 } from '../Controller/utils.js';
 import words from '../key/words.js';
-import { addTableRow, makeSelectBox, makeTable } from './template.js';
+import { makeSelectBox, makeTable } from './template.js';
 import {
 	insertStation,
-	makeNewSectionDeleteButtonElement,
 	tableSynchronizer,
 } from '../Controller/sectionManager.js';
 import { getAllLines } from '../Controller/lineManager.js';
-import Station from '../Model/Station.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
-import Line from '../Model/Line.js';
 import cssText from '../key/cssText.js';
 
 const lineButtonHandler = (subContainer, lineName) => {
@@ -77,7 +74,7 @@ const lineButtonHandler = (subContainer, lineName) => {
 };
 
 const sectionContainer = (container) => {
-	if (Line.readAllLines().length < 1) {
+	if (getAllLines().length < 1) {
 		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_LINE);
 		return;
 	}

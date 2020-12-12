@@ -1,12 +1,11 @@
 import { getAllLines } from "../Controller/lineManager.js";
 import { alertAndClear, appendChilds, clearAllContents, makeElement } from "../Controller/utils.js";
 import words from '../key/words.js';
-import Line from '../Model/Line.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
 import cssText from "../key/cssText.js";
 
 const mapPrintContainer = (container) => {
-	if(Line.readAllLines().length<1){
+	if(getAllLines().length<1){
 		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_LINE);
 		return;
 	}

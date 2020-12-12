@@ -1,4 +1,4 @@
-import { addTableRow, makeTable } from './template.js';
+import { makeTable } from './template.js';
 import words from '../key/words.js';
 import {
 	appendChilds,
