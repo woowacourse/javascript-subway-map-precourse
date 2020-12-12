@@ -16,6 +16,15 @@ class Line {
     createSelect(downLineSelect, this.stations);
   };
 
+  showLines = () => {
+    const linenContainer = document.querySelector(".line-list");
+    const lineTable = this.createLineTable();
+    linenContainer.innerHTML = "";
+    linenContainer.appendChild(lineTable);
+
+    this.handleDeleteLineClick();
+  };
+
   checkLineVaild = lineName => {
     // 라인 이름이 중복되는 이름이 검증한다
     return lineName.length > 0 && !this.lines.hasOwnProperty(lineName);
