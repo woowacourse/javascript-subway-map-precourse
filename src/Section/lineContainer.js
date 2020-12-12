@@ -37,8 +37,18 @@ const lineAddClicked = () => {
   }
 };
 
+const initialTable = () => {
+  const lines = loadLines();
+
+  if (lines) {
+    lines.forEach((line) => displayAddedLine(line));
+  }
+};
+
 export const lineStart = () => {
   const lineAddButton = document.getElementById("line-add-button");
 
   lineAddButton.addEventListener("click", lineAddClicked);
+
+  initialTable();
 };
