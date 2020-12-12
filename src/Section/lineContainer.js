@@ -6,6 +6,8 @@ import { displayAddedLine } from "./linePresenter.js";
 const saveLines = (stationArray) =>
   localStorage.setItem(KEY.LINE, JSON.stringify(stationArray));
 
+const clearLines = () => localStorage.removeItem(KEY.Line);
+
 export const loadLines = () => JSON.parse(localStorage.getItem(KEY.LINE));
 
 const addLine = (lineName, startStation, endStation) => {
@@ -18,6 +20,39 @@ const addLine = (lineName, startStation, endStation) => {
   saveLines(lines);
 
   return newLine;
+};
+
+const removeLine = (event) => {
+  const {
+    target: {
+      parentNode: { parentNode },
+    },
+  } = event;
+
+  const targetLine = parentNode.childNodes[0].innerText;
+  const currentLines = loadLines();
+
+  const filteredLines = currentLines.filter(
+    (line) => Object.keys(line)[0] !== targetLine
+  );
+
+  clearLines();
+  saveLines(filteredLines);
+};
+
+const lineRemoveClicked = (event) => {
+  // removeDisplayStation(event);
+  removeLine(event);
+};
+
+const activateRemoveLine = () => {
+  const lineRemoveButton = document.getElementsByClassName(
+    "line-delete-button"
+  );
+
+  for (let i = 0; i < lineRemoveButton.length; i++) {
+    lineRemoveButton[i].addEventListener("click", lineRemoveClicked);
+  }
 };
 
 const lineAddClicked = () => {
@@ -34,6 +69,7 @@ const lineAddClicked = () => {
   if (isValid) {
     const newLine = addLine(lineInputValue, startStation, endStation);
     displayAddedLine(newLine);
+    activateRemoveLine();
   }
 };
 
@@ -42,6 +78,7 @@ const initialTable = () => {
 
   if (lines) {
     lines.forEach((line) => displayAddedLine(line));
+    activateRemoveLine();
   }
 };
 
