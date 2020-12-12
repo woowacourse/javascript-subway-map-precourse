@@ -73,6 +73,7 @@ export default class SubwayMapSectionView {
     this.renderLineMenuButtons(
       Object.entries(this.subwayMapViewModel.getLines()),
     );
+    this.renderSelectedLineSectionManagerContainer();
 
     new SectionViewEventDelegation(
       document.getElementById('#section-line-menu-button-container'),
@@ -96,6 +97,13 @@ export default class SubwayMapSectionView {
       <h3>${message.SECTION_INFORMATION}</h3>
       ${lineButtons}
     </div>
+   
+    `;
+  }
+
+  renderSelectedLineSectionManagerContainer() {
+    this.managerContainer.innerHTML += `
+    <div id="#section-selected-line-manager-container"></div>
     `;
   }
 
@@ -105,14 +113,14 @@ export default class SubwayMapSectionView {
     );
     const sectionOrderInput = `<input id="#section-order-input"></input>`;
     const sectionAddButton = `<button id="#section-add-button" data-lineid="${line.lineId}" data-purpose="addSection">${message.ADD}</button>`;
-    this.managerContainer.innerHTML += `
-      <div id="#section-selected-line-manager-container">
+    document.getElementById(
+      '#section-selected-line-manager-container',
+    ).innerHTML += `
         <h3>${line.lineId} ${message.LINE_MANAGING}</h3>
         <p>${message.ADD_SECTION}</p>
         ${sectionSelector}
         ${sectionOrderInput}
         ${sectionAddButton}
-      </div>
     `;
     this.renderSectionTableContainer();
     this.renderSectionTable(
@@ -150,7 +158,9 @@ export default class SubwayMapSectionView {
   }
 
   renderSectionTableContainer() {
-    this.managerContainer.innerHTML += `
+    document.getElementById(
+      '#section-selected-line-manager-container',
+    ).innerHTML += `
       <div id="#section-table-container"></div>
     `;
   }
