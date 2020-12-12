@@ -8,6 +8,7 @@ class App {
     this.$target = $target;
     this.createDOMs();
     this.mountDOMs();
+    this.mountComponents();
   }
 
   createDOMs() {
