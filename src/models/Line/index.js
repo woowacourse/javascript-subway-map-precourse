@@ -11,7 +11,7 @@ export default class Line {
     this.endStation = lineObject.endStation;
   }
 
-  getsections() {
+  getSections() {
     return [...this.sections];
   }
 

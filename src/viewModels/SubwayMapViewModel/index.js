@@ -48,15 +48,30 @@ export default class SubwayMapViewModel {
   }
 
   addSection(sectionId, lineId, order) {
+    if (order < 0 || order === this.getSections(lineId).length) {
+      alert(message.ALERT_FOR_BETWEEN_STATION_AND_STATION);
+      return;
+    }
+
+    if (this.isInLine(sectionId, lineId)) {
+      alert(message.ALERT_FOR_STATION_IS_IN_LINE);
+      return;
+    }
+
     this.subwayMapModel.addSectionToLine(sectionId, lineId, order);
   }
 
   deleteSection(lineId, order) {
+    if (this.getSections(lineId).length === 2) {
+      alert(message.ALERT_FOR_LESS_THAN_TWO);
+      return;
+    }
+
     this.subwayMapModel.deleteSectionFromLine(lineId, order);
   }
 
   getSections(lineId) {
-    return this.subwayMapModel.getsectionsFromLine(lineId);
+    return this.subwayMapModel.getSectionsFromLine(lineId);
   }
 
   isEmpty(id) {
@@ -79,6 +94,18 @@ export default class SubwayMapViewModel {
         return section.stationId === stationId;
       });
     });
+  }
+
+  isInLine(stationId, lineId) {
+    const found = this.getSections(lineId).find(section => {
+      return stationId === section.stationId;
+    });
+
+    if (found) {
+      return true;
+    }
+
+    return false;
   }
 
   validStationId(stationId) {
