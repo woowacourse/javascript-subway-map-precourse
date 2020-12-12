@@ -11,4 +11,11 @@ export default class StationLine {
     }
     this.section[order] = station;
   }
+
+  removeStationFromSection(index) {
+    for (let i = index + 1; i < this.section.length; i++) {
+      this.section[i - 1] = this.section[i];
+    }
+    this.section.pop();
+  }
 }

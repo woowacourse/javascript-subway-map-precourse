@@ -45,20 +45,26 @@ const addLineIndexAsDatasetToSectionAddButton = (
   ).dataset.lineIndex = lineIndex;
 };
 
+const getSectionRow = (station, sectionIndex, lineIndex) => {
+  return `
+    <tr data-line-index=${lineIndex}>
+      <td>${sectionIndex}</td>
+      <td>${station}</td>
+      <td><button 
+        class=${DELETE_BUTTONS_CLASS.sectionDeleteButton}
+        data-section-index=${sectionIndex}
+        data-station-name=${station}
+        >노선에서 제거</button>
+    </tr>
+  `;
+};
+
 const renderLineSectionTbody = (lineIndex) => {
   const currentLine = new LineManager().lineList[lineIndex];
   const $tbody = document.getElementById(TBODY_ID.lineSectionTbody);
   $tbody.innerHTML = currentLine.section
     .map((_station, _index) => {
-      return `
-        <tr data-line-name=${currentLine.name}>
-          <td>${_index}</td>
-          <td>${_station}</td>
-          <td><button 
-            class=${DELETE_BUTTONS_CLASS.sectionDeleteButton}
-            data-section-index=${_index}>노선에서 제거</button>
-        </tr>
-      `;
+      return getSectionRow(_station, _index, lineIndex);
     })
     .join("\n");
 };
@@ -156,6 +162,15 @@ const selectedLineManagerHandler = (e) => {
   );
 };
 
+const isNumberOfSectionTwoOrLess = (lineIndex) => {
+  const numberOfSection = new LineManager().lineList[lineIndex].section.length;
+  if (numberOfSection < 3) {
+    alert("더 이상 구간을 제거할 수 없습니다.");
+    return true;
+  }
+  return false;
+};
+
 const sectionAddButtonHandler = (e) => {
   const $selectedLineManager = e.target.parentElement;
   const lineIndex = e.target.dataset.lineIndex;
@@ -170,10 +185,27 @@ const sectionAddButtonHandler = (e) => {
   }
 };
 
+const sectionRemoveButtonHandler = (e) => {
+  const sectionIndex = e.target.dataset.sectionIndex * 1;
+  const lineIndex = e.target.closest("tr").dataset.lineIndex * 1;
+  const $selectedLineManager = e.target.closest(
+    `#${SECTION_MANAGER_CONTAINERS_ID.selectedLineManager}`
+  );
+  if (
+    !isNumberOfSectionTwoOrLess(lineIndex) &&
+    confirm(`${e.target.dataset.stationName}을 제거하시겠습니까?`)
+  ) {
+    new LineManager().removeSection(lineIndex, sectionIndex);
+    showSelectedLineManager($selectedLineManager, lineIndex);
+  }
+};
+
 export default function sectionManagerClickHandler(e) {
   if (e.target.className === SECTION_LINE_MENU_BUTTON) {
     selectedLineManagerHandler(e);
   } else if (e.target.id === ADD_BUTTONS_ID.sectionAddButton) {
     sectionAddButtonHandler(e);
+  } else if (e.target.className === DELETE_BUTTONS_CLASS.sectionDeleteButton) {
+    sectionRemoveButtonHandler(e);
   }
 }

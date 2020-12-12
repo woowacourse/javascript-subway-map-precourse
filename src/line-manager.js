@@ -57,6 +57,11 @@ export default class LineManager {
     this.storeLineListToLocal();
   }
 
+  removeSection(lineIndex, sectionIndex) {
+    this.lineList[lineIndex].removeStationFromSection(sectionIndex);
+    this.storeLineListToLocal();
+  }
+
   hasLineName(lineName) {
     for (let i = 0; i < this.lineList.length; i++) {
       if (this.lineList[i].name === lineName) {
