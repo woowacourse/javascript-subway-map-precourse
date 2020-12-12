@@ -33,7 +33,7 @@ export default class SubwayManager {
       if (isValidStationName(this.stations, station)) {
         this.stations.push(station);
         localStorage.setItem(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
-        this.openStationManager();
+        DOMCtrl.openStationManager.bind(this)();
       }
     }
   }
@@ -48,7 +48,7 @@ export default class SubwayManager {
       const index = this.stations.indexOf(targetStationName);
       this.stations.splice(index, 1);
       localStorage.setItem(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
-      this.openStationManager();
+      DOMCtrl.openStationManager.bind(this)();
     }
   }
 
@@ -63,7 +63,7 @@ export default class SubwayManager {
         const endStation = document.getElementById(DOMStrings.LINE_END_STATION_SELECTOR).value;
         this.lines.push(new SubwayLine(lineName, startStation, endStation));
         localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
-        this.openLineManager();
+        DOMCtrl.openLineManager.bind(this)();
       }
     }
   }
@@ -77,7 +77,7 @@ export default class SubwayManager {
       const index = this.lines.findIndex(line => line.lineName === targetLine);
       this.lines.splice(index, 1);
       localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
-      this.openLineManager();
+      DOMCtrl.openLineManager.bind(this)();
     }
   }
 
@@ -95,8 +95,8 @@ export default class SubwayManager {
         .slice(0, stationOrder)
         .concat(stationName, this.lines[targetLineIndex].stations.slice(stationOrder));
       localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
-      this.openSectionManager();
-      this.openSection(targetLine, targetLineIndex);
+      DOMCtrl.openSectionManager.bind(this)();
+      DOMCtrl.openSection.bind(this)(targetLine, targetLineIndex);
     }
   }
 
@@ -111,8 +111,8 @@ export default class SubwayManager {
       const targetSectionIndex = event.target.dataset[dataStrings.DATA_INDEX];
       this.lines[targetLineIndex].stations.splice(targetSectionIndex, 1);
       localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
-      this.openSectionManager();
-      this.openSection(targetLine, targetLineIndex);
+      DOMCtrl.openSectionManager.bind(this)();
+      DOMCtrl.openSection.bind(this)(targetLine, targetLineIndex);
     }
   }
 }
