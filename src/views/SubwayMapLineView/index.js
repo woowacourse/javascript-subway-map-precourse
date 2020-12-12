@@ -12,6 +12,12 @@ export default class SubwayMapLineView {
       this,
       this.subwayMapViewModel,
     );
+
+    if ('lines' in localStorage) {
+      this.subwayMapViewModel.setLines(
+        JSON.parse(localStorage.getItem('lines')),
+      );
+    }
   }
 
   resetManagerContainer() {
@@ -103,12 +109,6 @@ export default class SubwayMapLineView {
       <h2>${message.LIST_OF_LINES}</h2>
       <div id="#line-table-container"></div>
     `;
-
-    if ('lines' in localStorage) {
-      this.subwayMapViewModel.setStations(
-        JSON.parse(localStorage.getItem('lines')),
-      );
-    }
 
     this.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
   }
