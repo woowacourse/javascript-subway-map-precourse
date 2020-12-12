@@ -10,14 +10,15 @@ const isUnderMinLength = input => input.length < MIN_LENGTH;
 const isEmptyString = input => !input;
 
 export const isValidStationName = (list, input) => {
-  if (isDuplicatedName(list, input)) {
+  const testInput = input.trim();
+  if (isDuplicatedName(list, testInput)) {
     alert(ERROR_DUPLICATED_STATION);
     return false;
-  } else if (isUnderMinLength(input)) {
-    alert(ERROR_UNDER_MINUMUM_LENGTH);
-    return false;
-  } else if (isEmptyString(input)) {
+  } else if (isEmptyString(testInput)) {
     alert(ERROR_EMPTY_STRING);
+    return false;
+  } else if (isUnderMinLength(testInput)) {
+    alert(ERROR_UNDER_MINUMUM_LENGTH);
     return false;
   }
 
@@ -26,10 +27,11 @@ export const isValidStationName = (list, input) => {
 
 export const isValidLineName = (list, input) => {
   const nameList = list.map(item => item.lineName);
-  if (isDuplicatedName(nameList, input)) {
+  const testInput = input.trim();
+  if (isDuplicatedName(nameList, testInput)) {
     alert(ERROR_DUPLICATED_STATION);
     return false;
-  } else if (isEmptyString(input)) {
+  } else if (isEmptyString(testInput)) {
     alert(ERROR_EMPTY_STRING);
     return false;
   }
