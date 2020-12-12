@@ -8,4 +8,14 @@ export default class SubwayLine {
   addStation(station, index = -1) {
     this.line.splice(index, 0, station);
   }
+
+  // 노선에서 역 제거
+  removeStation(station) {
+    let index = this.line.indexOf(station);
+    if (this.line <= 2 || index === -1) {
+      return false;
+    }
+    this.line.splice(index, 1);
+    return true;
+  }
 }
