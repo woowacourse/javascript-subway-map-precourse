@@ -7,24 +7,31 @@ export default class SectionManagerUI {
 
   setContentsHTML() {
     document.getElementById(this.contentsID_).innerHTML = TEMPLATE;
+    this.updateLineButtons_();
   }
 
-  updateLineButtons() {
+  updateLineButtons_() {
     const buttonDiv = document.getElementById(SECTION_LINE_MENU_DIV);
     const lineINFOs = this.stationINFOManager_.getLineINFOs();
     let buttonDivInnerHTML = "";
     lineINFOs.forEach(({ name }) => {
-      //buttonDivInnerHTML += makeNew
+      buttonDivInnerHTML += this.makeNewSelectLineButtonHTML_(name);
     });
+    buttonDiv.innerHTML = buttonDivInnerHTML;
+  }
+  makeNewSelectLineButtonHTML_(name) {
+    return `
+    <button class="${SECTION_LINE_MENU_BUTTON}" data-name="${name}">${name}</button>
+    `;
   }
 }
 
 const SECTION_LINE_MENU_DIV = "section-line-menu-div";
+const SECTION_LINE_MENU_BUTTON = "section-line-menu-button";
 
 const TEMPLATE = `
 <h2>구간을 수정할 노선을 선택해주세요.</h2>
 <div id="${SECTION_LINE_MENU_DIV}">
-  <button class="section-line-menu-button">1호선</button>
 </div>
 
 <div>
