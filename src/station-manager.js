@@ -1,5 +1,6 @@
 import { NO_DATA_MESSAGE_ID } from "./html-constants/no-data-message.js";
 import { DELETE_BUTTONS_CLASS } from "./html-constants/html-classnames.js";
+import { TBODY_ID } from "./html-constants/html-id-values.js";
 import {
   getChildById,
   turnOnNoDataMessage,
@@ -60,7 +61,7 @@ export default class StationManager {
   }
 
   renderStationNameTable() {
-    const $tbody = document.getElementById("station-name-tbody");
+    const $tbody = document.getElementById(TBODY_ID.stationNameTbody);
     const $noStationMessage = getChildById(
       $tbody.parentElement.parentElement,
       NO_DATA_MESSAGE_ID.noStation

@@ -35,3 +35,9 @@ export const SECTION_MANAGER_CONTAINERS_ID = {
   sectionLineMenuButtons: "section-line-menu-buttons",
   selectedLineManager: "selected-line-manager",
 };
+
+export const TBODY_ID = {
+  stationNameTbody: "station-name-tbody",
+  lineNameTbody: "line-name-tbody",
+  lineSectionTbody: "line-section-tbody",
+};
