@@ -48,11 +48,10 @@ export const lineManagerTemplate = (stations) => {
 };
 
 const lineSelectorOption = (stations) => {
-  let count = 0;
-  return stations.map((station) => `<option value=${count++}>${station.name}</option>`).join('');
+  return stations.map((station) => `<option>${station.name}</option>`).join('');
 };
 
-export const lineTableTemplate = (subways) => {
+export const lineTableTemplate = (lines) => {
   return `
     <h2>🚉 지하철 노선 목록</h2>
     <table border='1'>
@@ -60,19 +59,19 @@ export const lineTableTemplate = (subways) => {
     <th>상행 종점역</th>
     <th>하행 종점역</th>
     <th>설정</th>
-    ${lineTable(subways)}
+    ${lineTable(lines)}
     </table>`;
 };
 
-const lineTable = (subways) => {
+const lineTable = (lines) => {
   let count = 0;
-  return subways
+  return lines
     .map(
-      (subway) =>
+      (line) =>
         `<tr>
-        <td>${subway.line}</td>
-        <td>${subway.section}</td>
-        <td>${subway.section}</td>
+        <td>${line.name}</td>
+        <td>${line.section[0]}</td>
+        <td>${line.section[line.section.length - 1]}</td>
         <td data-index='${count++}'>
           <button class='${CLASS.LINE_DELETE_BUTTON}'>삭제</button>
         </td>

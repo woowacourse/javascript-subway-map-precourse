@@ -7,9 +7,8 @@ export class Station {
 }
 
 export class Line {
-  constructor(station, name, section) {
-    this.station = station;
+  constructor(name, section) {
     this.name = name;
-    this.section = section;
+    this.section = section; // 배열의 형태로
   }
 }

@@ -78,7 +78,7 @@ export default class LineManager {
 
   updateOption() {
     const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
-    this.lines = this.loadLines();
+    this.stations = this.loadStations();
     lineManager.innerHTML = lineManagerTemplate(this.stations);
     this.createLineTable(lineManager);
   }
@@ -95,17 +95,25 @@ export default class LineManager {
     const lineEndStationSelector = document.querySelector(`#${ID.LINE_END_STATION_SELECTOR}`);
 
     lineAddButton.addEventListener('click', () => {
-      // this.lines[lineStartStationSelector.value].line = lineNameInput.value;
-      // this.lines[lineStartStationSelector.value].section = 0;
-      // this.lines[lineEndStationSelector.value].line = lineNameInput.value;
-      // this.lines[lineEndStationSelector.value].section = 1;
-      console.log(this.lines);
-      this.saveSubways();
+      this.saveLine(
+        lineNameInput.value,
+        lineStartStationSelector.value,
+        lineEndStationSelector.value
+      );
       this.render();
     });
   }
 
-  saveSubways() {
-    localStorage.setItem(NAME.LOCALSTORAGE_KEY, JSON.stringify(this.subways));
+  saveLine(lineName, lineStartStation, lineEndStation) {
+    const line = this.addLine();
+
+    line.name = lineName;
+    line.section = [lineStartStation, lineEndStation];
+    this.lines.push(line);
+    localStorage.setItem(NAME.LOCALSTORAGE_LINE_KEY, JSON.stringify(this.lines));
+  }
+
+  addLine() {
+    return new Line();
   }
 }
