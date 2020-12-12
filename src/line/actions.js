@@ -1,4 +1,4 @@
-import { loadStations, saveStations } from "../station/actions.js";
+import { loadStations, useStation } from "../station/actions.js";
 import {
   lineInputForm,
   lineList,
@@ -31,8 +31,45 @@ const createStationList = () => {
   lineNames.innerHTML = lineListHeader;
 };
 
+const getLineName = () => {
+  const lineNameInput = document.getElementById("line-name-input");
+  const lineName = lineNameInput.value;
+
+  lineNameInput.value = "";
+
+  return lineName;
+};
+
+const getStartStation = () => {
+  return document.getElementById("line-start-station-selector").value;
+};
+
+const getEndStation = () => {
+  return document.getElementById("line-end-station-selector").value;
+};
+
+const createLine = () => {
+  const lineName = getLineName();
+
+  if (lineName) {
+    const startStation = getStartStation();
+    const endStation = getEndStation();
+
+    useStation(startStation);
+    useStation(endStation);
+
+    console.log(lineName, [startStation, endStation]);
+  }
+};
+
 export default function LineManager() {
   printLayout();
   createStationSelector(loadStations());
   createStationList();
+
+  const lineAddBtn = document.getElementById("line-add-button");
+
+  lineAddBtn.addEventListener("click", () => {
+    createLine();
+  });
 }
