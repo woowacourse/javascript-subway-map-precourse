@@ -13,10 +13,20 @@ class Line {
     this.lines = {};
     this.showStationSelect();
     this.handleAddLineClick();
+    this.loadLines();
   }
 
   saveLines = () => {
     localStorage.setItem("lines", JSON.stringify(this.lines));
+  };
+
+  loadLines = () => {
+    const lines = localStorage.getItem("lines");
+    if (lines !== null) {
+      this.lines = JSON.parse(lines);
+    }
+
+    this.showLines();
   };
 
   showStationSelect = () => {
