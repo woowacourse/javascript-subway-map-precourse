@@ -46,7 +46,6 @@ export default function renderStationList() {
   initStationListContainer();
 
   const stations = JSON.parse(String(localStorage.getItem('stations')));
-
   if (stations !== null) {
     initStationList(stations);
   }

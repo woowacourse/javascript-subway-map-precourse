@@ -2,7 +2,7 @@ import render from '../../render/render.js';
 
 const MINIMUN_LINE_LENGTH = 2;
 
-function checkStartEndStation() {
+function checkDuplicateStation() {
   const startStation = document.querySelector('#line-start-station-selector').value;
   const endStation = document.querySelector('#line-end-station-selector').value;
 
@@ -57,7 +57,7 @@ function checkValidInput() {
   if (!checkDuplicateLineName(lines, inputLineName)) {
     return alert('이미 존재하는 노선 이름은 입력할 수 없습니다.');
   }
-  if (!checkStartEndStation()) {
+  if (!checkDuplicateStation()) {
     return alert('상행 종점과 하행 종점은 다른 역을 선택해야 합니다.');
   }
   return addLine(lines, inputLineName);
