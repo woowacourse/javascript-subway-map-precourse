@@ -23,6 +23,10 @@ export default class SubwayMapViewModel {
     return this.subwayMapModel.getLine(lineId);
   }
 
+  deleteLine(lineId) {
+    this.subwayMapModel.deleteLine(lineId);
+  }
+
   addLine(lineObject) {
     this.subwayMapModel.addLine(lineObject);
   }

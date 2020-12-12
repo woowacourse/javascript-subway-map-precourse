@@ -39,7 +39,7 @@ export default class SubwayMapModel {
     this.lines = lines;
   }
 
-  removeLine(lineId) {
+  deleteLine(lineId) {
     const lines = { ...this.lines };
     delete lines[lineId];
 

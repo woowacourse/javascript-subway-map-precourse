@@ -38,6 +38,11 @@ class LineViewEventDelegation {
     );
   }
 
+  // deleteLine(dataSet) {
+  //   this.subwayMapViewModel.deleteLine(dataSet.lineid)
+
+  // }
+
   deleteSection(dataSet) {
     this.subwayMapViewModel.deleteSection(dataSet.lineid, dataSet.sectionid);
     this.sectionView.resetSectionTable();
@@ -58,14 +63,6 @@ export default class SubwayMapLineView {
       lineManagerButton,
       this,
       this.subwayMapViewModel,
-    );
-    // this.addEventListenerToLineManagerButton(this);
-  }
-
-  addEventListenerToLineManagerButton(self) {
-    this.lineManagerButton.addEventListener(
-      'click',
-      this.handleLineManagerButton.bind(self),
     );
   }
 
@@ -228,7 +225,7 @@ export default class SubwayMapLineView {
         <td>${line[1].startStation}</td>
         <td>${line[1].endStation}
         <td>
-          <button data-id="${line[0]}" class=".line-delete-button">${message.OPTION_DELETE}</button>
+          <button data-lineid="${line[0]}" data-purpose="deleteLine" class=".line-delete-button">${message.OPTION_DELETE}</button>
         </td>
       </tr>
     `;
