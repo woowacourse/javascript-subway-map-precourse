@@ -21,6 +21,7 @@ class App extends Component {
 
   initializeStates() {
     this._stations = new State([]);
+    this._lines = new State([]);
   }
 
   mountTemplate() {
@@ -41,7 +42,10 @@ class App extends Component {
     if (destination === STATION_MANAGER) {
       new StationManager($routerView, { stations: this._stations });
     } else if (destination === LINE_MANAGER) {
-      new LineManager($routerView);
+      new LineManager($routerView, {
+        lines: this._lines,
+        stations: this._stations,
+      });
     } else if (destination === MAP_PRINT_MANAGER) {
       new MapPrintManager($routerView);
     } else if (destination === SECTION_MANAGER) {

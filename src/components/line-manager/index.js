@@ -22,7 +22,10 @@ class LineManager extends Component {
     const $lineListContainer = this._$target.querySelector(
       '#line-list-container'
     );
-    new LineInput($lineInputContainer);
+    new LineInput($lineInputContainer, {
+      stations: this._props.stations,
+      lines: this._props.lines,
+    });
     new LineList($lineListContainer);
   }
 }
