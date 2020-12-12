@@ -31,12 +31,18 @@ export const createInput = (idValue = "", placeholder = "", type = "text") => {
   return input;
 };
 
-export const createButton = (idValue = "", classValue = "", text) => {
+export const createButton = (
+  idValue = "",
+  classValue = "",
+  text,
+  style = ""
+) => {
   const button = document.createElement("button");
 
   button.setAttribute("id", idValue);
   button.setAttribute("class", classValue);
   button.innerText = text;
+  button.style = style;
 
   return button;
 };

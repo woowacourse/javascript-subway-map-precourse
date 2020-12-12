@@ -26,6 +26,9 @@ export const WORDS = {
     LIST_COL_ARRAY: ["노선 이름", "상행 종점역", "하행 종점역", "설정"],
     DELETE_BUTTON: "삭제",
   },
+  SECTION: {
+    CHOICE_TITLE: "구간을 수정할 노선을 선택해주세요.",
+  },
 };
 
 export const REFRENCE_STATION_LENGTH = 2;
