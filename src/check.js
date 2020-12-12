@@ -8,3 +8,7 @@ export function isValidLength(inputValue) {
   const inputValueLength = inputValue.length
   return (inputValueLength >= validLength);
 }
+
+export function isDuplicated(inputValue) {
+  return (localStorage.getItem(inputValue))
+}
