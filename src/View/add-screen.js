@@ -16,15 +16,10 @@ export const addStationScreen = (value) => {
   $stationTbody.appendChild($stationTr);
 };
 
-export const addLastStopScreen = (station) => {
-  const $upStream = document.body.querySelector('#line-start-station-selector');
-  const $downStream = document.body.querySelector('#line-end-station-selector');
-  const $optionUpStreamStation = document.createElement('option');
-  const $optionDownStreamStation = document.createElement('option');
-  $optionUpStreamStation.textContent = station;
-  $optionDownStreamStation.textContent = station;
-  $upStream.appendChild($optionUpStreamStation);
-  $downStream.appendChild($optionDownStreamStation);
+export const addLastStopScreen = ($lastStop, station) => {
+  const $optionLastStopStation = document.createElement('option');
+  $optionLastStopStation.textContent = station;
+  $lastStop.appendChild($optionLastStopStation);
 };
 
 export const addLineScreen = (line) => {
@@ -42,7 +37,6 @@ export const addLineScreen = (line) => {
 
 export const addSectionScreen = (line) => {
   addSectionButton(line.lineName);
-  addSectionTable(line);
 };
 
 const addSectionButton = (section) => {

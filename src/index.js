@@ -38,7 +38,8 @@ export function onAddStation() {
     setLocalStorage('station', $stationAddInput.value);
     stationInstance.addStation($stationAddInput.value);
     addStationScreen($stationAddInput.value);
-    addLastStopScreen($stationAddInput.value);
+    addLastStopScreen($upStream, $stationAddInput.value);
+    addLastStopScreen($downStream, $stationAddInput.value);
   }
   $stationAddInput.value = '';
 }
@@ -73,7 +74,8 @@ export const loadStation = () => {
   stationInstance.loadStation();
   stationInstance.stations.forEach((station) => {
     addStationScreen(station);
-    addLastStopScreen(station);
+    addLastStopScreen($upStream, station);
+    addLastStopScreen($downStream, station);
   });
 };
 
