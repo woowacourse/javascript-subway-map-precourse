@@ -10,6 +10,10 @@ class Station {
     this.handleAddNameClick();
   }
 
+  saveStation = () => {
+    localStorage.setItem("stations", this.stations);
+  };
+
   createStationTable = () => {
     const stationTable = createTable(["역 이름", "설정"]);
     for (let i = 0; i < this.stations.length; i++) {
