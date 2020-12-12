@@ -46,6 +46,10 @@ export const setButtonOption = (value, button) => {
     button.dataset.section = value;
     return button.addEventListener('click', onLoadSection);
   }
+  if (button.className === 'section-delete-button') {
+    button.dataset.sectionLine = JSON.stringify(value);
+    return button.addEventListener('click', () => console.log('remove'));
+  }
 };
 
 $screenButton.forEach((button) =>

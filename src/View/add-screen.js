@@ -37,6 +37,7 @@ export const addLineScreen = (line) => {
 
 export const addSectionScreen = (line) => {
   addSectionButton(line.lineName);
+  addSectionTable(line);
 };
 
 const addSectionButton = (section) => {
@@ -48,4 +49,24 @@ const addSectionButton = (section) => {
   $sectionButton.textContent = section;
   setButtonOption(section, $sectionButton);
   $sectionButtonContainer.appendChild($sectionButton);
+};
+
+const addSectionTable = (line) => {
+  const $sectionTbody = $sectionContainer.querySelector('table > tbody');
+  for (let i = 0; i < line.station.length; i++) {
+    const $sectionTr = document.createElement('tr');
+    $sectionTr.innerHTML = `
+      <td>${i}</td>
+      <td>${line.station[i]}</td>
+      <td><button class="section-delete-button">노선에서 삭제</button></td>
+    `;
+    $sectionTr.dataset.section = line.lineName;
+    const sectionData = getSectionData(line, i);
+    setButtonOption(sectionData, $sectionTr.querySelector('button'));
+    $sectionTbody.appendChild($sectionTr);
+  }
+};
+
+const getSectionData = (line, index) => {
+  return {section: line.lineName, station: line.station[index]};
 };

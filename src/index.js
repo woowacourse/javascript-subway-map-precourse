@@ -94,12 +94,14 @@ export const loadLine = () => {
   lineInstance.loadLine();
   lineInstance.lines.forEach((line) => {
     addLineScreen(line);
-    addSectionScreen(line);
   });
 };
 
 export const loadSectionTable = () => {
   sectionInstance.loadSection();
+  sectionInstance.sections.forEach((section) => {
+    addSectionScreen(section);
+  });
 };
 
 const getLineValue = () => {
