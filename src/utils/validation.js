@@ -17,7 +17,6 @@ const checkNameLength = (stationName) => {
 };
 
 const isDuplicate = (stationName, stations) => {
-  console.log(stations);
   return stations.includes(stationName);
 };
 
