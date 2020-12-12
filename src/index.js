@@ -32,6 +32,11 @@ export default class SubwayMap {
     return true;
   }
 
+  // 지하철 노선 조회
+  getLineList() {
+    return this.lineList.map(element => element.name);
+  }
+
   // 지하철 노선 등록
   addLine(name, upTerminus, downTerminus) {
     if (name.length <= 0 || this.lineList.find(element => element.name === name) !== undefined) {
