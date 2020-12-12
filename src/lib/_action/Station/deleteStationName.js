@@ -1,13 +1,9 @@
 import { DELETE_MESSAGE } from "../../common/alertMessages.js";
-import { STATION_LIST } from "../../common/IdAndClassNames.js";
+import deleteStationData from "../../_store/Station/deleteStationData.js";
 
 export default (deleteValue, index) => {
-  const $dataTable = document.querySelector(STATION_LIST);
-  console.log($dataTable);
-  console.log(deleteValue, index);
-  if (confirm(DELETE_MESSAGE) === true) {
-    return new Promise((resolve) => {
-      resolve(console.log("삭제될겁니다."));
-    });
-  }
+  if (!confirm(DELETE_MESSAGE)) return null;
+  return new Promise((resolve) => {
+    resolve(deleteStationData(deleteValue, index));
+  });
 };
