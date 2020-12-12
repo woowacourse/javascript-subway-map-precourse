@@ -1,6 +1,6 @@
 import { KEY } from "../constants/index.js";
-import { checkTheList } from "../utils/message.js";
-import { checkEmpty } from "../validation/index.js";
+import { checkLineList } from "../utils/message.js";
+import { checkDuplicateLine, checkEmpty } from "../validation/index.js";
 import { displayAddedLine, removeDisplayLine } from "./linePresenter.js";
 
 const saveLines = (stationArray) =>
@@ -63,8 +63,9 @@ const lineAddClicked = () => {
   const lineInputValue = lineInput.value;
 
   const isEmpty = checkEmpty(lineInputValue);
-  const checkList = [isEmpty];
-  const isValid = checkTheList(checkList, lineInput);
+  const isDuplicate = checkDuplicateLine(lineInputValue);
+  const checkList = { isEmpty, isDuplicate };
+  const isValid = checkLineList(checkList, lineInput);
 
   if (isValid) {
     const newLine = addLine(lineInputValue, startStation, endStation);

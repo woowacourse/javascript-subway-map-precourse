@@ -7,7 +7,7 @@ import {
   checkEmpty,
   checkLength,
 } from "../validation/index.js";
-import { checkTheList } from "../utils/message.js";
+import { checkStationList } from "../utils/message.js";
 import { KEY } from "../constants/index.js";
 
 const saveStations = (stationArray) =>
@@ -64,7 +64,7 @@ const stationAddClicked = () => {
   const isTooShort = checkLength(stationInputValue);
   const isDuplicate = checkDuplicateStation(stationInputValue);
   const checkList = { isEmpty, isTooShort, isDuplicate };
-  const isValid = checkTheList(checkList, stationInput);
+  const isValid = checkStationList(checkList, stationInput);
 
   if (isValid) {
     displayAddedStation(stationInputValue);

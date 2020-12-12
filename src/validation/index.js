@@ -1,4 +1,5 @@
 import { REFRENCE_STATION_LENGTH } from "../constants/index.js";
+import { loadLines } from "../Section/lineContainer.js";
 import { loadStations } from "../Station/stationContainer.js";
 
 export const checkEmpty = (inputValue) =>
@@ -10,6 +11,14 @@ export const checkLength = (stationName) =>
 export const checkDuplicateStation = (stationName) => {
   const stations = loadStations() || [];
   const isDuplicate = stations.includes(stationName);
+
+  return isDuplicate;
+};
+
+export const checkDuplicateLine = (lineName) => {
+  const lines = loadLines() || [];
+  const currentLines = lines.map((line) => Object.keys(line)[0]);
+  const isDuplicate = currentLines.includes(lineName);
 
   return isDuplicate;
 };

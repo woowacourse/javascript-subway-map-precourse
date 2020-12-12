@@ -6,13 +6,25 @@ const alertMessage = (input, text) => {
   input.focus();
 };
 
-export const checkTheList = (checkList, input) => {
+export const checkStationList = (checkList, input) => {
   const { isEmpty, isTooShort, isDuplicate } = checkList;
 
   if (isEmpty) {
     alertMessage(input, MESSAGE.EMPTY);
   } else if (isTooShort) {
     alertMessage(input, MESSAGE.SHORT);
+  } else if (isDuplicate) {
+    alertMessage(input, MESSAGE.DUPLICATE);
+  } else {
+    return true;
+  }
+};
+
+export const checkLineList = (checkList, input) => {
+  const { isEmpty, isDuplicate } = checkList;
+
+  if (isEmpty) {
+    alertMessage(input, MESSAGE.EMPTY);
   } else if (isDuplicate) {
     alertMessage(input, MESSAGE.DUPLICATE);
   } else {
