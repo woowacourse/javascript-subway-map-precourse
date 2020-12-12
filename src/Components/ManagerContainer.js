@@ -1,18 +1,32 @@
-import { clearInnerHTML } from "../utils/domUtil.js";
+import { clearInnerHTML, makeElement } from "../utils/domUtil.js";
 import { DOM } from "../constants/index.js";
+import StationManager from "./StationManager.js";
 
 class ManagerContainer {
   constructor({ $target }) {
     this.$target = $target;
 
+    this.mountDOMs();
+    this.mountComponents();
+
     this.innerHTML = ``;
     this.render();
+  }
+
+  mountDOMs() {
+    this.$stationManager = makeElement("div", { id: "station-manager" });
+  }
+
+  mountComponents() {
+    this.stationManager = new StationManager({
+      $target: this.$stationManager,
+    });
   }
 
   setInnerHTML(targetId) {
     switch (targetId) {
       case DOM.STATION_MANAGER_BUTTON:
-        this.innerHTML = `역`;
+        this.innerHTML = this.$stationManager.outerHTML;
         break;
 
       case DOM.LINE_MANAGER_BUTTON:
