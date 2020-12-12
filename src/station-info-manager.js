@@ -18,7 +18,7 @@ export default class StationINFOManager {
     });
     return stationNames;
   }
-  getLinesNames() {
+  getLineINFOs() {
     const linesINFOs = [];
     this.lines_.forEach(({ name, stationsOfLine }) => {
       linesINFOs.push({

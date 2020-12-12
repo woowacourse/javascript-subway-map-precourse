@@ -1,7 +1,7 @@
 import MenubarUI from "./ui/menubar-ui.js";
 import StationManagerUI from "./ui/contents-ui/station-manager-ui.js";
-import SectionManagerUI from "./ui/contents-ui/section-manager-ui.js";
 import LineManagerUI from "./ui/contents-ui/line-manager-ui.js";
+import SectionManagerUI from "./ui/contents-ui/section-manager-ui.js";
 import MapPrintManagerUI from "./ui/contents-ui/map-print-manager-ui.js";
 
 export default class HTMLManager {
@@ -21,14 +21,14 @@ export default class HTMLManager {
     );
   }
   setContentsUIOnSectionUI() {
-    this.contentsUI_ = new SectionManagerUI(
+    this.contentsUI_ = new LineManagerUI(
       CONTENTS_ID,
       this.stationINFOManager
     );
   }
   setContentsUIOnLineUI() {
-    this.contentsUI_ = new LineManagerUI(
-      CONTENTS_ID, 
+    this.contentsUI_ = new SectionManagerUI(
+      CONTENTS_ID,
       this.stationINFOManager
       );
   }
