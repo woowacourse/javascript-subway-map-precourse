@@ -1,3 +1,4 @@
+import renderSelector from './line/renderSelector.js';
 import renderStationList from './renderStationList.js';
 
 function clearInputValue() {
@@ -8,5 +9,6 @@ function clearInputValue() {
 
 export default function render() {
   clearInputValue();
+  renderSelector();
   renderStationList();
 }
