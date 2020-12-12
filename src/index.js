@@ -10,6 +10,7 @@ import {
   addSectionScreen,
   addSectionButton,
   addLineTitle,
+  addMapPrint,
 } from './View/add-screen.js';
 import {
   removeStationSelectOption,
@@ -64,6 +65,9 @@ export function onChangeScreen(e) {
   }
   if (e.target.id === 'section-manager-button') {
     return loadSectionButton();
+  }
+  if (e.target.id === 'map-print-manager-button') {
+    return addMapPrint(sectionInstance.sections);
   }
 }
 

@@ -3,6 +3,7 @@ import {
   $lineContainer,
   $sectionContainer,
   $subwaySectionContainer,
+  $mapContainer,
   setButtonOption,
 } from './input.js';
 
@@ -67,4 +68,25 @@ export const addSectionScreen = (line) => {
 export const addLineTitle = (line) => {
   const $lineTitle = $subwaySectionContainer.querySelector('h2');
   $lineTitle.textContent = `${line} 관리`;
+};
+
+export const addMapPrint = (lines) => {
+  for (let i = 0; i < lines.length; i++) {
+    const $lineMap = document.createElement('div');
+    const $lineTitle = document.createElement('h3');
+    const $lineUl = document.createElement('ul');
+    $lineTitle.textContent = lines[i].lineName;
+    addMapStation($lineUl, lines[i].station);
+    $lineMap.appendChild($lineTitle);
+    $lineMap.appendChild($lineUl);
+    $mapContainer.appendChild($lineMap);
+  }
+};
+
+const addMapStation = ($ul, stations) => {
+  stations.forEach((station) => {
+    const $stationLi = document.createElement('li');
+    $stationLi.textContent = station;
+    $ul.appendChild($stationLi);
+  });
 };
