@@ -21,10 +21,10 @@ const Visualization = function () {
     return result;
   };
 
-  this.appendRecursiveChildrenToParent = (parent, ...children) => {
+  this.appendRecursiveChild = (parent, ...children) => {
     for (let i = 0; i < children.length; i++) {
       if (Array.isArray(children[i]))
-        children[i] = this.appendRecursiveChildrenToParent(...children[i]);
+        children[i] = this.appendRecursiveChild(...children[i]);
     }
     this.appendChildrenToParent(parent, ...children);
     return parent;
