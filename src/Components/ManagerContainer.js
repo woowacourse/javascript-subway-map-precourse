@@ -6,14 +6,10 @@ class ManagerContainer {
     this.$target = $target;
 
     this.innerHTML = ``;
+    this.render();
   }
 
-  render() {
-    clearInnerHTML(this.$target);
-    this.$target.innerHTML = this.innerHTML;
-  }
-
-  createInnerHTML(targetId) {
+  setInnerHTML(targetId) {
     switch (targetId) {
       case DOM.STATION_MANAGER:
         this.innerHTML = `역`;
@@ -36,6 +32,11 @@ class ManagerContainer {
     }
 
     this.render();
+  }
+
+  render() {
+    clearInnerHTML(this.$target);
+    this.$target.innerHTML = this.innerHTML;
   }
 }
 

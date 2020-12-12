@@ -12,7 +12,7 @@ class Menu {
 
   onClick({ target }) {
     if (target.nodeName !== `BUTTON`) return;
-    this.managerContainer.createInnerHTML(target.id);
+    this.managerContainer.setInnerHTML(target.id);
   }
 }
 
