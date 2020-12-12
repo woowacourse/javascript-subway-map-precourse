@@ -39,12 +39,25 @@ const createInputArea = () => {
 };
 
 const addStation = (name, nameInput) => {
+  if (!validateName(name)) return;
   nameInput.value = '';
   const currStations = JSON.parse(localStorage.getItem('stations'));
   const updatedStations = [...currStations, name];
   localStorage.setItem('stations', JSON.stringify(updatedStations));
   console.log(JSON.parse(localStorage.getItem('stations')));
   addTable(name);
+};
+
+const validateName = name => {
+  const currStations = JSON.parse(localStorage.getItem('stations'));
+  if (currStations.includes(name)) {
+    alert('중복된 역 이름이 존재합니다.');
+    return false;
+  } else if (name.length < 2) {
+    alert('역 이름을 2자 이상으로 입력해 주세요.');
+    return false;
+  }
+  return true;
 };
 
 const createResultArea = () => {
