@@ -17,6 +17,11 @@ td {
   border: 1px solid #333;
 }
 
+/* role button section */
+.role-button-section > button {
+  margin-right: 5px;
+}
+
 /* role section */
 .role {
   display: none;
@@ -37,6 +42,25 @@ td {
 }
 
 .station-delete-button {
+  width: 100%;
+}
+
+/* line manager */
+#selector-container {
+  margin: 15px 0;
+}
+
+#line-name-header,
+#line-start-header,
+#line-end-header {
+  width: 100px;
+}
+
+#line-update-header {
+  width: 50px;
+}
+
+.line-delete-button {
   width: 100%;
 }
 
