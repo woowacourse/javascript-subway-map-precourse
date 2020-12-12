@@ -26,7 +26,7 @@ class LineList extends Component {
     let template = '';
     this._props.lines.value.forEach(line => {
       template += `
-					<tr>
+					<tr data-key="${line.lineName}">
 						<td>${line.lineName}</td>
 						<td>${line.sections[0]}</td>
 						<td>${line.sections.slice(-1)[0]}</td>
@@ -36,6 +36,20 @@ class LineList extends Component {
     });
 
     return template;
+  }
+
+  initializeEventListener() {
+    this._$target.addEventListener('click', event => {
+      if (event.target.classList.contains('line-delete-button')) {
+        this.removeLine(event.target.closest('[data-key]').dataset.key);
+      }
+    });
+  }
+
+  removeLine(target) {
+    this._props.lines.value = this._props.lines.value.filter(
+      line => line.lineName !== target
+    );
   }
 }
 
