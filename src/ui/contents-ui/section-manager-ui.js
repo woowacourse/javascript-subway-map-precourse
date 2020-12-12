@@ -1,7 +1,4 @@
-import {
-  getMessageToCheckLineInput,
-  getMessageToCheckNotEquality,
-} from "../../utility/string-check-utility.js";
+import { isValidLine } from "../../utility/string-check-utility.js";
 import {
   getInputTextByID,
   getAllElementsByClass,
@@ -59,7 +56,7 @@ export default class SectionManagerUI {
       const endStationName = this.getSelectedOptionInSelector_(
         END_STATION_SELECTOR_ID
       );
-      if (!this.isLineINFOValid_(lineName, startStationName, endStationName)) {
+      if (!this.isValidLineInput_(lineName, startStationName, endStationName)) {
         return;
       }
       this.stationINFOManager_.addNewLine({
@@ -70,22 +67,15 @@ export default class SectionManagerUI {
       this.updateLinesTable();
     });
   }
-  isLineINFOValid_(lineName, startStationName, endStationName) {
-    const lineNameCheckMessage = getMessageToCheckLineInput(lineName);
-    const equalityCheckMessage = getMessageToCheckNotEquality(
-      startStationName,
-      endStationName
-    );
-    let ret_bool = true;
-    if (lineNameCheckMessage !== "성공") {
-      alert(lineNameCheckMessage);
-      ret_bool = false;
+
+  isValidLineInput_(lineName, startStationName, endStationName) {
+    const condition1 = isValidLine(lineName, startStationName, endStationName);
+    const condition2 = this.stationINFOManager_.isNotOverlapNameInLinesArray(lineName);
+    let boolToReturn = true;
+    if (!(condition1 && condition2)) {
+      boolToReturn = false;
     }
-    if (equalityCheckMessage !== "성공") {
-      alert(equalityCheckMessage);
-      ret_bool = false;
-    }
-    return ret_bool;
+    return boolToReturn;
   }
   getSelectedOptionInSelector_(id) {
     const selector = document.getElementById(id);

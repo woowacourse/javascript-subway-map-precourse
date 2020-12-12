@@ -1,4 +1,4 @@
-import { getMessageToCheckStationName } from "../../utility/string-check-utility.js";
+import { isValidStation } from "../../utility/string-check-utility.js";
 import {
   getInputTextByID,
   getAllElementsByClass,
@@ -31,9 +31,7 @@ export default class StationManagerUI {
     const button = document.getElementById(STATION_ADD_BUTTON_ID);
     button.addEventListener("click", () => {
       const name = getInputTextByID(STATION_NAME_INPUT_ID);
-      const message = getMessageToCheckStationName(name);
-      if (message !== "성공") {
-        alert(message);
+      if (!this.isValidStationInput_(name)) {
         return;
       }
       this.stationINFOManager_.addNewStation({
@@ -53,6 +51,15 @@ export default class StationManagerUI {
         this.updateStationsTable();
       });
     });
+  }
+  isValidStationInput_(name) {
+    const condition1 = isValidStation(name);
+    const condition2 = this.stationINFOManager_.isNotOverlapNameInStationsArray(name);
+    let boolToReturn = true;
+    if (!(condition1 && condition2)) {
+      boolToReturn = false;
+    }
+    return boolToReturn;
   }
   createNewTableRowHTML_(name) {
     const newTableRow = `

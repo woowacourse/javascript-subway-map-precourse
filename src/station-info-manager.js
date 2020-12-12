@@ -5,10 +5,6 @@ export default class StationINFOManager {
   }
 
   addNewStation({ name }) {
-    if (this.isOverlapName_(this.stations_, name)) {
-      alert(OVERLAP_STATION_ERROR_MESSAGE);
-      return;
-    }
     const newStation = {
       name: name,
       linesOfStation: new Set(),
@@ -38,16 +34,11 @@ export default class StationINFOManager {
       return nameToDelete === name;
     });
     if (stationIndexToDelete === -1) {
-      alert(NOT_EXIST_NAME_ERROR_MESSAGE);
       return;
     }
     this.stations_.splice(stationIndexToDelete, 1);
   }
   addNewLine({ lineName, startStationName, endStationName }) {
-    if (this.isOverlapName_(this.lines_, lineName)) {
-      alert(OVERLAP_LINE_ERROR_MESSAGE);
-      return;
-    }
     const startStationPtr = this.getPointerFromStationsArray_(startStationName);
     const endStationPtr = this.getPointerFromStationsArray_(endStationName);
     const newLine = {
@@ -63,13 +54,32 @@ export default class StationINFOManager {
       return nameToDelete === name;
     });
     if (lineIndexToDelete === -1) {
-      alert(NOT_EXIST_NAME_ERROR_MESSAGE);
       return;
     }
     this.deleteLineINFOInAllStations_(this.lines_[lineIndexToDelete]);
     this.lines_.splice(lineIndexToDelete, 1);
   }
+  isNotOverlapNameInStationsArray(inputName) {
+    const isValid = this.isNotOverlapName_(this.stations_, inputName);
+    if (!isValid) {
+      alert(OVERLAP_STATION_ERROR_MESSAGE);
+    }
+    return isValid;
+  }
+  isNotOverlapNameInLinesArray(inputName) {
+    const isValid = this.isNotOverlapName_(this.lines_, inputName);
+    if (!isValid) {
+      alert(OVERLAP_LINE_ERROR_MESSAGE);
+    }
+    return isValid;
+  }
 
+  isNotOverlapName_(targetToFindOverlap, inputName) {
+    const overlapIndex = targetToFindOverlap.findIndex(
+      ({ name }) => name === inputName
+    );
+    return overlapIndex === -1;
+  }
   deleteLineINFOInAllStations_(lineToDelete) {
     const { name, stationsOfLine } = lineToDelete;
     stationsOfLine.forEach((station) => {
@@ -82,14 +92,7 @@ export default class StationINFOManager {
     });
     return this.stations_[targetIndex];
   }
-  isOverlapName_(targetToFindOverlap, inputName) {
-    const overlapIndex = targetToFindOverlap.findIndex(
-      ({ name }) => name === inputName
-    );
-    return overlapIndex !== -1;
-  }
 }
 
 const OVERLAP_STATION_ERROR_MESSAGE = "기존 역 이름과 중복되는 이름입니다.";
 const OVERLAP_LINE_ERROR_MESSAGE = "기존 노선 이름과 중복되는 이름입니다.";
-const NOT_EXIST_NAME_ERROR_MESSAGE = "제거할 요소가 이미 존재하지 않습니다.";
