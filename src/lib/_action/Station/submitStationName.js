@@ -1,9 +1,13 @@
-// 성공 시 콘솔 창에 출력, 실패 시 alert 메시지로 에러 띄움
-// 요거 구현하고, 성공 시 UI 목록에 띄우는거 해보자.
+import StationNameInputValidation from "../../controllers/station/stationNameInputValidation.js";
 
 export default (inputValue) => {
-  console.log(inputValue);
-  // try로 로컬 스토리지에 등록 (먼저 콘솔에 출력)
-  
-  // catch 로 에러가 잡히면 에러 메시지 출력
+  const checkInput = new StationNameInputValidation(inputValue);
+  console.log(checkInput);
+  return new Promise((resolve, reject) => {
+    if (checkInput.getInputResult().ok) {
+      resolve(console.log("성공적으로 입력받았습니다. 스토리지에 저장합니다."));
+    } else {
+      reject(alert(checkInput.getInputResult().message));
+    }
+  });
 };
