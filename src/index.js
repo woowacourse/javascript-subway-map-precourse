@@ -1,7 +1,7 @@
-import { canAccessLinePage } from './Controller/lineManager.js';
 import { canAccessSectionPage } from './Controller/sectionManager.js';
 import { canAccessMapPrintPage } from './Controller/mapPrintManager.js';
 import viewContainers from './View/index.js';
+import { canAccessLinePage } from './Controller/lineManager.js';
 
 const stationManagerButton = document.getElementById('station-manager-button');
 const lineManagerButton = document.getElementById('line-manager-button');
@@ -14,18 +14,18 @@ const container = document.querySelector('.container');
 
 const SubwayStationInit = () => {
 	stationManagerButton.addEventListener('click', () => {
-		viewContainers.STATION_CONTAINER(container);
+		(new viewContainers.STATION_CONTAINER(container)).initializer();
 	});
 	lineManagerButton.addEventListener('click', () => {
-		if (canAccessLinePage()) viewContainers.LINE_CONTAINER(container);
+		if (canAccessLinePage()) (new viewContainers.LINE_CONTAINER(container)).initializer();
 	});
 	sectionManagerButton.addEventListener('click', () => {
-		if (canAccessSectionPage()) viewContainers.SECTION_CONTAINER(container);
+		if (canAccessSectionPage()) (new viewContainers.SECTION_CONTAINER(container)).initializer();
 	});
 	mapPrintManagerButton.addEventListener('click', (e) => {
-		if (canAccessMapPrintPage) viewContainers.MAP_PRINT_CONTAINER(container);
+		if (canAccessMapPrintPage) (new viewContainers.MAP_PRINT_CONTAINER(container)).initializer();
 	});
-	viewContainers.STATION_CONTAINER(container);
+	(new viewContainers.STATION_CONTAINER(container)).initializer();
 };
 
 SubwayStationInit();

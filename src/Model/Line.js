@@ -17,7 +17,7 @@ Line.isValidLineName = (lineName, inputElement) => {
 		alertAndClear(errorAlertMessages.ALERT_SPACE_LINE_NAME, inputElement);
 		return false;
 	}
-	if (isDupliateLineName) {
+	if (Line.isDupliateLineName(lineName)) {
 		alertAndClear(errorAlertMessages.ALERT_EXISTED_LINE_NAME, inputElement);
 		return false;
 	}

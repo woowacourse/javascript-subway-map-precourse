@@ -1,4 +1,7 @@
-import { addLine, canAccessThisPage, tableSynchronizer } from '../Controller/lineManager.js';
+import {
+	lineAddButtonCallBack,
+	tableSynchronizer,
+} from '../Controller/lineManager.js';
 import { getAllStation } from '../Controller/stationManager.js';
 import {
 	alertAndClear,
@@ -11,55 +14,50 @@ import { makeSelectBox, makeTable } from './template.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
 import cssText from '../key/cssText.js';
 
-class LineContainer {
-	constructor(container) {
-
-	}
-	const titleElement = makeElement({
+const LineContainer = function (container) {
+	this.titleElement = makeElement({
 		tag: 'p',
 		innerText: words.LINE_NAME,
 		style: cssText.marginBottom(0),
 	});
-	const inputElement = makeElement({
+	this.inputElement = makeElement({
 		tag: 'input',
 		placeholder: words.LINE_PLACEHOLDER,
 		id: words.STATION_NAME_INPUT_ID,
 		style: 'display:block;' + cssText.marginBottom(15),
 	});
-	const startPointElement = makeElement({
+	this.startPointElement = makeElement({
 		tag: 'div',
 		style: cssText.marginBottom(0),
 	});
-	const endPointElement = makeElement({
+	this.endPointElement = makeElement({
 		tag: 'div',
 		style: cssText.marginBottom(15),
 	});
-	const startPointTextElement = makeElement({
+	this.startPointTextElement = makeElement({
 		tag: 'span',
 		innerText: words.LINE_START_POINT,
 		style: cssText.marginRight(5),
 	});
-	const startPointSelectBoxElement = makeSelectBox(
+	this.startPointSelectBoxElement = makeSelectBox(
 		getAllStation().map((item) => item.name),
 		{ classes: [words.LINE_START_STATION_SELECTOR_ID] }
 	);
-	const endPointTextElement = makeElement({
+	this.endPointTextElement = makeElement({
 		tag: 'span',
 		innerText: words.LINE_END_POINT,
 		style: cssText.marginRight(5),
 	});
-	const endPointSelectBoxElement = makeSelectBox(
+	this.endPointSelectBoxElement = makeSelectBox(
 		getAllStation().map((item) => item.name),
 		{ classes: [words.LINE_END_STATION_SELECTOR_ID] }
 	);
-
-	const lineAddButtonElement = makeElement({
+	this.lineAddButtonElement = makeElement({
 		tag: 'button',
 		innerText: words.LINE_ADD_BUTTON,
 		id: words.LINE_ADD_BUTTON_ID,
 	});
-
-	const talbeTitleElement = makeElement({
+	this.talbeTitleElement = makeElement({
 		tag: 'p',
 		innerText: words.LINE_TABLE_TITLE,
 		style:
@@ -67,44 +65,40 @@ class LineContainer {
 			cssText.marginBottom(15) +
 			cssText.marginTop(15),
 	});
+	this.tableElement = makeTable(words.LINE_TABLE_COLUMNS);
 
-	const tableElement = makeTable(words.LINE_TABLE_COLUMNS);
+	this.lineAddButtonElement.addEventListener('click', () =>
+		lineAddButtonCallBack(
+			this.inputElement,
+			this.startPointSelectBoxElement,
+			this.endPointSelectBoxElement,
+			this.tableElement
+		)
+	);
 
-	appendChilds(startPointElement, [
-		startPointTextElement,
-		startPointSelectBoxElement,
-	]);
-	appendChilds(endPointElement, [
-		endPointTextElement,
-		endPointSelectBoxElement,
-	]);
+	this.getAllElements = () => [
+		this.titleElement,
+		this.inputElement,
+		this.startPointElement,
+		this.endPointElement,
+		this.lineAddButtonElement,
+		this.talbeTitleElement,
+		this.tableElement,
+	];
 
-	lineAddButtonElement.addEventListener('click', () => {
-		const lineName = inputElement.value;
-		const lineStartStation =
-			startPointSelectBoxElement.options[
-				startPointSelectBoxElement.selectedIndex
-			].text;
-		const lineEndStation =
-			endPointSelectBoxElement.options[endPointSelectBoxElement.selectedIndex]
-				.text;
-		addLine(lineName, lineStartStation, lineEndStation, inputElement);
-		clearAllContents(tableElement.querySelector('tbody'));
-		tableSynchronizer(tableElement);
-	});
-
-	clearAllContents(container);
-	appendChilds(container, [
-		titleElement,
-		inputElement,
-		startPointElement,
-		endPointElement,
-		lineAddButtonElement,
-		talbeTitleElement,
-		tableElement,
-	]);
-
-	tableSynchronizer(tableElement);
+	this.initializer = () => {
+		clearAllContents(container);
+		appendChilds(this.startPointElement, [
+			this.startPointTextElement,
+			this.startPointSelectBoxElement,
+		]);
+		appendChilds(this.endPointElement, [
+			this.endPointTextElement,
+			this.endPointSelectBoxElement,
+		]);
+		appendChilds(container, this.getAllElements());
+		tableSynchronizer(this.tableElement);
+	};
 };
 
-export default lineContainer;
+export default LineContainer;

@@ -8,15 +8,14 @@ import {
 import words from '../key/words.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
 import cssText from '../key/cssText.js';
-import { canAccessThisPage } from '../Controller/mapPrintManager.js';
 
-const mapPrintContainer = (container) => {
-	const allLines = getAllLines();
-	const mapContainer = makeElement({
+const MapPrintContainer = function (container) {
+	this.allLines = getAllLines();
+	this.mapContainer = makeElement({
 		tag: 'div',
 		classes: [words.MAP_CONTAINER_CLASS],
 	});
-	allLines.forEach((line) => {
+	this.allLines.forEach((line) => {
 		const lineNameElement = makeElement({
 			tag: 'b',
 			innerText: line.name,
@@ -29,10 +28,13 @@ const mapPrintContainer = (container) => {
 				makeElement({ tag: 'li', innerText: stationName })
 			)
 		);
-		appendChilds(mapContainer, [lineNameElement, ulElement]);
+		appendChilds(this.mapContainer, [lineNameElement, ulElement]);
 	});
-	clearAllContents(container);
-	appendChilds(container, [mapContainer]);
+
+	this.initializer = () => {
+		clearAllContents(container);
+		appendChilds(container, [this.mapContainer]);
+	};
 };
 
-export default mapPrintContainer;
+export default MapPrintContainer;

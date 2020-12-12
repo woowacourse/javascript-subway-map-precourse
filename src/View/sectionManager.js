@@ -15,89 +15,109 @@ import { getAllLines } from '../Controller/lineManager.js';
 import { errorAlertMessages } from '../key/alertMessages.js';
 import cssText from '../key/cssText.js';
 
-const lineButtonHandler = (subContainer, lineName) => {
-	const allStations = getAllStation();
-	const lineHandleTitleElement = makeElement({
+const sectionAddButtonHandler = (
+	stationSelectBox,
+	lineName,
+	inputElement,
+	tableElement
+) => {
+	const stationName =
+		stationSelectBox.options[stationSelectBox.selectedIndex].text;
+	insertStation(lineName, stationName, inputElement);
+	clearAllContents(tableElement.querySelector('tbody'));
+	tableSynchronizer(tableElement, lineName);
+};
+
+const SubSectionContainer = function (subContainer, lineName) {
+	this.allStations = getAllStation();
+	this.lineHandleTitleElement = makeElement({
 		tag: 'p',
 		innerText: `${lineName} ${words.SECTION_HANDLE_TEXT}`,
 		style: cssText.boldText(1.3, 800),
 	});
-	const sectionRegisterTextElement = makeElement({
+	this.sectionRegisterTextElement = makeElement({
 		tag: 'p',
 		innerText: words.SECTION_REGISTER_TEXT,
 		style: cssText.boldText(1, 800),
 	});
-	const inputAreaElement = makeElement({
+	this.inputAreaElement = makeElement({
 		tag: 'div',
 		style: cssText.marginBottom(35),
 	});
-	const stationSelectBox = makeSelectBox(
-		allStations.map((station) => station.name),
+	this.stationSelectBox = makeSelectBox(
+		this.allStations.map((station) => station.name),
 		{ id: words.SECTION_STATION_SELECTOR_ID, style: cssText.marginRight(5) }
 	);
-	const inputElement = makeElement({
+	this.inputElement = makeElement({
 		tag: 'input',
 		id: words.SECTION_ORDER_INPUT_ID,
 		placeholder: words.SECTION_PLACEHOLDER,
 		type: 'number',
 		style: cssText.marginRight(5),
 	});
-	const sectionAddButtonElement = makeElement({
+	this.sectionAddButtonElement = makeElement({
 		tag: 'button',
 		innerText: words.SECTION_ADD_BUTTON,
 		id: words.SECTION_ADD_BUTTON_ID,
 	});
-	const tableElement = makeTable(words.SECTION_TABLE_COLUMNS);
+	this.tableElement = makeTable(words.SECTION_TABLE_COLUMNS);
 
-	sectionAddButtonElement.addEventListener('click', () => {
-		const stationName =
-			stationSelectBox.options[stationSelectBox.selectedIndex].text;
-		insertStation(lineName, stationName, inputElement);
-		clearAllContents(tableElement.querySelector('tbody'));
-		tableSynchronizer(tableElement, lineName);
-	});
+	this.sectionAddButtonElement.addEventListener('click', () =>
+		sectionAddButtonHandler(
+			this.stationSelectBox,
+			lineName,
+			this.inputElement,
+			this.tableElement
+		)
+	);
 
-	clearAllContents(subContainer);
-	appendChilds(inputAreaElement, [
-		stationSelectBox,
-		inputElement,
-		sectionAddButtonElement,
-	]);
-	appendChilds(subContainer, [
-		lineHandleTitleElement,
-		sectionRegisterTextElement,
-		inputAreaElement,
-		tableElement,
-	]);
+	this.initializer = () => {
+		clearAllContents(subContainer);
+		appendChilds(this.inputAreaElement, [
+			this.stationSelectBox,
+			this.inputElement,
+			this.sectionAddButtonElement,
+		]);
+		appendChilds(subContainer, [
+			this.lineHandleTitleElement,
+			this.sectionRegisterTextElement,
+			this.inputAreaElement,
+			this.tableElement,
+		]);
 
-	tableSynchronizer(tableElement, lineName);
+		tableSynchronizer(this.tableElement, lineName);
+	};
 };
 
-const sectionContainer = (container) => {
-	if (getAllLines().length < 1) {
-		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_LINE);
-		return;
-	}
-	const titleElement = makeElement({
+const SectionContainer = function (container) {
+	this.titleElement = makeElement({
 		tag: 'p',
 		innerText: words.SECTION_TITLE,
 		style: cssText.boldText(1.3, 800) + cssText.marginTop(35),
 	});
-	const subContainer = makeElement({ tag: 'div' });
-	const lineButtonElements = getAllLines().map((line) => {
+	this.subContainer = makeElement({ tag: 'div' });
+	this.lineButtonElements = getAllLines().map((line) => {
 		const lineButtonElement = makeElement({
 			tag: 'button',
 			innerText: line.name,
 			id: line.name,
 			classes: [words.SECTION_LINE_MENU_BUTTON_CLASS],
+			style: cssText.marginRight(5)
 		});
 		lineButtonElement.addEventListener('click', () =>
-			lineButtonHandler(subContainer, line.name)
+			new SubSectionContainer(this.subContainer, line.name).initializer()
 		);
 		return lineButtonElement;
 	});
-	clearAllContents(container);
-	appendChilds(container, [titleElement, ...lineButtonElements, subContainer]);
+
+	this.initializer = () => {
+		clearAllContents(container);
+		appendChilds(container, [
+			this.titleElement,
+			...this.lineButtonElements,
+			this.subContainer,
+		]);
+	};
 };
 
-export default sectionContainer;
+export default SectionContainer;

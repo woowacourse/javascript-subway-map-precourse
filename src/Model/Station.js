@@ -19,7 +19,7 @@ Station.isValidStationName = (stationName, inputElement) => {
 	} else if (stationName.length < 2) {
 		alertAndClear(errorAlertMessages.ALERT_STATION_NAME_LENGTH, inputElement);
 		return false;
-	} else if (isDuplitedStationName(stationName)) {
+	} else if (Station.isDuplitedStationName(stationName)) {
 		alertAndClear(errorAlertMessages.ALERT_EXISTED_ADDED_STATION, inputElement);
 		return false;
 	}
@@ -66,8 +66,7 @@ Station.isOnLine = (stationName) => {
 	return (
 		allLines
 			.map((line) => line.name)
-			.filter((lineName) => Line.hasThisStation(lineName, stationName)).length >
-		0
+			.filter((lineName) => Line.hasThisStation(lineName, stationName)).length > 0
 	);
 };
 

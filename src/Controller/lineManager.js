@@ -1,7 +1,7 @@
 import Line from '../Model/Line.js';
 import words from '../key/words.js';
 import { addTableRow } from '../View/template.js';
-import { alertAndClear, confirmAlert, makeElement } from './utils.js';
+import { alertAndClear, clearAllContents, confirmAlert, makeElement } from './utils.js';
 import {
 	confirmAlertMessage,
 	errorAlertMessages,
@@ -21,7 +21,10 @@ export const addLine = (lineName, startStation, endStation, inputElement) => {
 	const newLine = new Line(lineName);
 	if (!Line.isValidLineName(lineName, inputElement)) return;
 	if (startStation === endStation) {
-		alertAndClear(errorAlertMessages.ALERT_SAME_START_WITH_END_STATION, inputElement);
+		alertAndClear(
+			errorAlertMessages.ALERT_SAME_START_WITH_END_STATION,
+			inputElement
+		);
 		return;
 	}
 	newLine.stations = [startStation, endStation];
@@ -69,9 +72,25 @@ export const applyDeleteEventForAllDeleteButton = () => {
 };
 
 export const canAccessLinePage = () => {
-    if (Station.readAllStations().length <= 1) {
+	if (Station.readAllStations().length <= 1) {
 		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_STATION);
 		return false;
-    }
-    return true;
-}
+	}
+	return true;
+};
+
+export const lineAddButtonCallBack = (
+	inputElement,
+	startPointSelectBoxElement,
+    endPointSelectBoxElement,
+    tableElement
+) => {
+	const lineName = inputElement.value;
+	const lineStartStation =
+		startPointSelectBoxElement.options[startPointSelectBoxElement.selectedIndex].text;
+	const lineEndStation =
+		endPointSelectBoxElement.options[endPointSelectBoxElement.selectedIndex].text;
+	addLine(lineName, lineStartStation, lineEndStation, inputElement);
+	clearAllContents(tableElement.querySelector('tbody'));
+	tableSynchronizer(tableElement);
+};
