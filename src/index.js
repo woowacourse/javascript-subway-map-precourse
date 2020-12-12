@@ -96,12 +96,12 @@ export function onLoadSection(e) {
 export function onAddSection(e) {
   const sectionValue = getSectionValue(e.target.dataset.line);
   const selectedSection = getSelectedSection(sectionValue.lineName);
-  console.log(selectedSection);
   if (isSectionValid(sectionValue, selectedSection.station)) {
     addSectionOnLocalStorage('line', sectionValue);
     loadSectionTable();
     showSectionScreen(e.target.dataset.line);
   }
+  $sectionNumber.value = '';
 }
 
 export function onRemoveSection(e) {
