@@ -40,7 +40,60 @@ const createInputArea = () => {
 
 const addStation = (name, nameInput) => {
   nameInput.value = '';
-  console.log(name);
+  const currStations = JSON.parse(localStorage.getItem('stations'));
+  const updatedStations = [...currStations, name];
+  localStorage.setItem('stations', JSON.stringify(updatedStations));
+  console.log(JSON.parse(localStorage.getItem('stations')));
+  addTable(name);
 };
 
-const createResultArea = () => {};
+const createResultArea = () => {
+  const tableName = document.createElement('h2');
+  tableName.innerHTML = '🚉 지하철 역 목록';
+  app.appendChild(tableName);
+
+  const stationTable = document.createElement('table');
+  stationTable.setAttribute('border', 1);
+  stationTable.setAttribute('id', 'station-table');
+
+  const stationNameHeader = document.createElement('th');
+  stationNameHeader.innerHTML = '역 이름';
+  const stationSettingHeader = document.createElement('th');
+  stationSettingHeader.innerHTML = '설정';
+
+  stationTable.appendChild(stationNameHeader);
+  stationTable.appendChild(stationSettingHeader);
+
+  const stations = JSON.parse(localStorage.getItem('stations'));
+
+  stations.map(name => {
+    const tableRow = document.createElement('tr');
+    const nameData = document.createElement('td');
+    nameData.innerHTML = name;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = '삭제';
+
+    tableRow.appendChild(nameData);
+    tableRow.appendChild(deleteBtn);
+
+    stationTable.appendChild(tableRow);
+  });
+
+  app.appendChild(stationTable);
+};
+
+const addTable = name => {
+  const stationTable = document.getElementById('station-table');
+  const newRow = document.createElement('tr');
+  const newData = document.createElement('td');
+  newData.innerHTML = name;
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.innerHTML = '삭제';
+
+  newRow.appendChild(newData);
+  newRow.appendChild(deleteBtn);
+
+  stationTable.appendChild(newRow);
+};
