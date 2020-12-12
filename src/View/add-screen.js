@@ -46,5 +46,6 @@ const addSectionButton = (section) => {
   const $sectionButton = document.createElement('button');
   $sectionButton.className = 'section-line-menu-button';
   $sectionButton.textContent = section;
+  setButtonOption(section, $sectionButton);
   $sectionButtonContainer.appendChild($sectionButton);
 };

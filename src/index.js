@@ -1,7 +1,7 @@
 import Station from './Model/station.js';
 import Line from './Model/line.js';
 import {hideScreen} from './View/hide-screen.js';
-import {showScreen} from './View/show-screen.js';
+import {showScreen, showSectionScreen} from './View/show-screen.js';
 import {
   addStationScreen,
   addStationSelectOption,
@@ -72,6 +72,10 @@ export function onRemoveLine(e) {
   removeLocalStorage('line', e.target.dataset.line);
   lineInstance.removeLine(e.target.dataset.line);
   removeLineScreen(e.target);
+}
+
+export function onLoadSection() {
+  showSectionScreen();
 }
 
 export const loadStation = () => {

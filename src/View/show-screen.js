@@ -3,6 +3,7 @@ import {
   $lineContainer,
   $sectionContainer,
   $mapContainer,
+  $subwaySectionContainer,
 } from './input.js';
 
 export const showScreen = (e) => {
@@ -18,4 +19,8 @@ export const showScreen = (e) => {
   if (e.target.id === 'map-print-manager-button') {
     return ($mapContainer.style.display = 'block');
   }
+};
+
+export const showSectionScreen = () => {
+  $subwaySectionContainer.style.display = 'block';
 };

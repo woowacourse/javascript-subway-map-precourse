@@ -4,6 +4,7 @@ import {
   onRemoveStation,
   onAddLine,
   onRemoveLine,
+  onLoadSection,
 } from '../index.js';
 
 export const $screenButton = document.body.querySelectorAll('#app > button');
@@ -11,6 +12,9 @@ export const $stationContainer = document.body.querySelector('#station');
 export const $lineContainer = document.body.querySelector('#line');
 export const $sectionContainer = document.body.querySelector('#subway-section');
 export const $mapContainer = document.body.querySelector('#map-section');
+export const $subwaySectionContainer = document.body.querySelector(
+  '#subway-section-edit',
+);
 export const $stationAddInput = document.body.querySelector(
   '#station-name-input',
 );
@@ -37,6 +41,10 @@ export const setButtonOption = (value, button) => {
   if (button.className === 'line-delete-button') {
     button.dataset.line = value;
     return button.addEventListener('click', onRemoveLine);
+  }
+  if ((button.className = 'section-line-menu-button')) {
+    button.dataset.section = value;
+    return button.addEventListener('click', onLoadSection);
   }
 };
 
