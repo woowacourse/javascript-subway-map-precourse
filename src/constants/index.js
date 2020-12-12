@@ -30,4 +30,5 @@ export const ALERT = {
   VALID_STATION_NAME_LENGTH: '2글자 이상으로 적어주세요.',
   DUPLICATED_NAME: '중복된 이름이 존재합니다.',
   DUPLICATED_STATION: '중복된 역이 존재합니다.',
+  DELETE_ERROR: '삭제가 불가능합니다.',
 };

@@ -128,8 +128,14 @@ export default class StationManager {
   }
 
   deleteStation(event) {
-    this.stations.splice(event.target.parentNode.dataset.index, 1);
-    localStorage.setItem(NAME.LOCALSTORAGE_STATION_KEY, JSON.stringify(this.stations));
-    this.render();
+    const index = event.target.parentNode.dataset.index;
+
+    if (this.stations[index].line.length > 0) {
+      alert(ALERT.DELETE_ERROR);
+    } else {
+      this.stations.splice(index, 1);
+      localStorage.setItem(NAME.LOCALSTORAGE_STATION_KEY, JSON.stringify(this.stations));
+      this.render();
+    }
   }
 }

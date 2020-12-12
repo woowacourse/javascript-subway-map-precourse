@@ -1,8 +1,8 @@
 export class Station {
-  constructor(name, line, section) {
+  constructor(name) {
     this.name = name;
-    this.line = line;
-    this.section = section;
+    this.line = [];
+    this.section = [];
   }
 }
 

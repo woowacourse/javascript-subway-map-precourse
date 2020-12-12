@@ -114,6 +114,7 @@ export default class LineManager {
     } else {
       this.saveLine(lineName, lineStartStation, lineEndStation);
       this.render();
+      this.saveLineToStation(lineName, lineStartStation, lineEndStation);
     }
   }
 
@@ -128,5 +129,18 @@ export default class LineManager {
 
   addLine() {
     return new Line();
+  }
+
+  saveLineToStation(lineName, lineStartStation, lineEndStation) {
+    this.stations.forEach((station) => {
+      if (station.name === lineStartStation) {
+        station.line.push(lineName);
+        station.section.push(0);
+      } else if (station.name === lineEndStation) {
+        station.line.push(lineName);
+        station.section.push(1);
+      }
+    });
+    localStorage.setItem(NAME.LOCALSTORAGE_STATION_KEY, JSON.stringify(this.stations));
   }
 }
