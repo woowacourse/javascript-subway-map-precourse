@@ -9,6 +9,7 @@ import {
   addLineScreen,
   addSectionScreen,
   addSectionButton,
+  addLineTitle,
 } from './View/add-screen.js';
 import {
   removeStationSelectOption,
@@ -112,6 +113,7 @@ export function onRemoveLine(e) {
 export function onLoadSection(e) {
   hideSectionLine();
   loadSectionTable();
+  addLineTitle(e.target.dataset.line);
   showSectionScreen(e.target.dataset.line);
   $sectionAddButton.dataset.line = e.target.dataset.line;
 }

@@ -2,6 +2,7 @@ import {
   $stationContainer,
   $lineContainer,
   $sectionContainer,
+  $subwaySectionContainer,
   setButtonOption,
 } from './input.js';
 
@@ -61,4 +62,9 @@ export const addSectionScreen = (line) => {
     setButtonOption(sectionData, $sectionTr.querySelector('button'));
     $sectionTbody.appendChild($sectionTr);
   }
+};
+
+export const addLineTitle = (line) => {
+  const $lineTitle = $subwaySectionContainer.querySelector('h2');
+  $lineTitle.textContent = `${line} 관리`;
 };
