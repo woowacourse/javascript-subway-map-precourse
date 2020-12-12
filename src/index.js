@@ -14,7 +14,7 @@ export default class SubwayManager {
     DOMs.stationManagerButton.addEventListener('click', this.openStationManager.bind(this));
     DOMs.lineManagerButton.addEventListener('click', this.openLineManager.bind(this));
     DOMs.sectionManagerButton.addEventListener('click', this.openSectionManager.bind(this));
-    DOMs.mapPrintManagerButton.addEventListener('click', this.openMapPrintManager);
+    DOMs.mapPrintManagerButton.addEventListener('click', this.openMapPrintManager.bind(this));
     DOMs.managerContainer.addEventListener('click', this.addStation.bind(this));
     DOMs.managerContainer.addEventListener('click', this.deleteStation.bind(this));
     DOMs.managerContainer.addEventListener('click', this.addLine.bind(this));
@@ -115,11 +115,19 @@ export default class SubwayManager {
   }
 
   openMapPrintManager() {
-    const mapPrintManager = `
-      <div id="map-print-manager"></div>
-    `;
+    const map = `<div class="map">
+      ${this.lines
+        .map(
+          line => `
+        <h3>${line.lineName}</h3><ul>${line.stations
+            .map(station => `<li>${station}</li>`)
+            .join('')}</ul>
+      `
+        )
+        .join('')}
+    </div>`;
     DOMCtrl.clearManagerContainer();
-    DOMs.managerContainer.innerHTML = mapPrintManager;
+    DOMs.managerContainer.innerHTML = map;
   }
 
   addStation(event) {
