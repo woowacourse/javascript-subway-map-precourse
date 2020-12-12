@@ -1,4 +1,7 @@
-import { getMessageToCheckLineInput } from "../../utility/string-check-utility.js";
+import {
+  getMessageToCheckLineInput,
+  getMessageToCheckNotEquality,
+} from "../../utility/string-check-utility.js";
 import { getInputTextByID } from "../../utility/handle-document-utility.js";
 
 export default class SectionManagerUI {
@@ -37,22 +40,39 @@ export default class SectionManagerUI {
     const button = document.getElementById(ADD_BUTTON_ID);
     button.addEventListener("click", () => {
       const lineName = getInputTextByID(NAME_INPUT_ID);
-      const message = getMessageToCheckLineInput(lineName);
-      if (message !== "성공") {
-        alert(message);
+      const startStationName = this.getSelectedOptionInSelector_(
+        START_STATION_SELECTOR_ID
+      );
+      const endStationName = this.getSelectedOptionInSelector_(
+        END_STATION_SELECTOR_ID
+      );
+      if (!this.isLineINFOValid_(lineName, startStationName, endStationName)) {
         return;
       }
       this.stationINFOManager_.addNewLine({
         lineName: lineName,
-        startStationName: this.getSelectedOptionInSelector_(
-          START_STATION_SELECTOR_ID
-        ),
-        endStationName: this.getSelectedOptionInSelector_(
-          END_STATION_SELECTOR_ID
-        ),
+        startStationName: startStationName,
+        endStationName: endStationName,
       });
       this.updateLinesTable_();
     });
+  }
+  isLineINFOValid_(lineName, startStationName, endStationName) {
+    const lineNameCheckMessage = getMessageToCheckLineInput(lineName);
+    const equalityCheckMessage = getMessageToCheckNotEquality(
+      startStationName,
+      endStationName
+    );
+    let ret_bool = true;
+    if (lineNameCheckMessage !== "성공") {
+      alert(lineNameCheckMessage);
+      ret_bool = false;
+    }
+    if (equalityCheckMessage !== "성공") {
+      alert(equalityCheckMessage);
+      ret_bool = false;
+    }
+    return ret_bool;
   }
   getSelectedOptionInSelector_(id) {
     const selector = document.getElementById(id);
