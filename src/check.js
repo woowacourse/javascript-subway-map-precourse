@@ -1,5 +1,5 @@
 export function isSpecialCharacter(inputValue) {
-  const rSpecialCharacter = /[^가-힣ㄱ-하-ㅣ]/;
+  const rSpecialCharacter = /[^가-힣ㄱ-하-ㅣ0-9]/;
   return rSpecialCharacter.test(inputValue);
 }
 
