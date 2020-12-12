@@ -12,6 +12,16 @@ const State = function () {
   this.isEmptyPage = () => this.state.currentPage === "0";
   this.isAlreadyRenderedPage = (page) => this.state.currentPage === page;
 
+  this.getFormattedStations = () => this.state.stations.split(",");
+  this.getFormattedLines = () => {
+    const imperfectLineArray = this.state.lines.split("},");
+    const perfectLineArray = imperfectLineArray.map((line, index) => {
+      const object = index !== lineArray.length - 1 ? line + "}" : line;
+      return JSON.parse(object);
+    });
+    return perfectLineArray;
+  };
+
   this.setState = (dataName, nextState) => {
     this.state[dataName] = nextState;
   };
