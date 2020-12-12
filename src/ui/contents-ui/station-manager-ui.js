@@ -13,12 +13,12 @@ export default class StationManagerUI {
     this.addEventToNameInputButton_();
   }
   updateStationsTable() {
-    const stationNames = this.stationINFOManager_.getStationsNames();
+    const stationsNames = this.stationINFOManager_.getStationsNames();
     const tableContainer = this.contentsContainer_.querySelector(
       "#" + STATION_NAME_TABLE_ID
     );
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
-    for (let name of stationNames) {
+    for (let name of stationsNames) {
       innerHTMLOfTable += this.createNewTableRowHTML_(name);
     }
     tableContainer.innerHTML = innerHTMLOfTable;

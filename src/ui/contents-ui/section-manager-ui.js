@@ -10,6 +10,7 @@ export default class SectionManagerUI {
     this.setStationSelector_(START_STATION_SELECTOR_ID);
     this.setStationSelector_(END_STATION_SELECTOR_ID);
     this.addEventToLineAddButton_();
+    this.updateLinesTable_();
   }
 
   setStationSelector_(selectorID) {
@@ -41,6 +42,7 @@ export default class SectionManagerUI {
           END_STATION_SELECTOR_ID
         ),
       });
+      this.updateLinesTable_();
     });
   }
   getHTMLElementByID_(id) {
@@ -50,6 +52,29 @@ export default class SectionManagerUI {
     const selector = this.getHTMLElementByID_(id);
     return selector[selector.selectedIndex].value;
   }
+  updateLinesTable_() {
+    const linesINFOs = this.stationINFOManager_.getLinesNames();
+    const tableContainer = this.contentsContainer_.querySelector(
+      "#" + TABLE_ID
+    );
+    let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
+    linesINFOs.forEach((lineINFOs) => {
+      innerHTMLOfTable += this.createNewTableRowHTML_(lineINFOs);
+    });
+    tableContainer.innerHTML = innerHTMLOfTable;
+  }
+  createNewTableRowHTML_({ name, startStationName, endStationName }) {
+    return `
+    <tr>
+    <td>${name}</td>
+    <td>${startStationName}</td>
+    <td>${endStationName}</td>
+    <td>
+      <button class="${DELETE_BUTTON_CLASS}">삭제</button>
+    </td>
+    <tr>
+    `;
+  }
 }
 const NAME_INPUT_ID = "line-name-input";
 const START_STATION_SELECTOR_ID = "line-start-station-selector";
@@ -57,7 +82,14 @@ const END_STATION_SELECTOR_ID = "line-end-station-selector";
 const ADD_BUTTON_ID = "line-add-button";
 const DELETE_BUTTON_CLASS = "line-delete-button";
 const TABLE_ID = "line-table";
+
 const SELECTOR_TEMPLATE = `<option value="none">--선택--</option>`;
+const TABLE_HEADER_TEMPLATE = `
+<th>노선 이름</th>
+<th>상행 종점역</th>
+<th>하행 종점역</th>
+<th>설정</th>
+`;
 const TEMPLATE = `
 <span>노선 이름</span><br>
 <input type="text" id="${NAME_INPUT_ID}" placeholder="노선 이름을 입력해주세요."/>
@@ -72,17 +104,5 @@ const TEMPLATE = `
 <button id="${ADD_BUTTON_ID}">노선추가</button>
 <h2>🚉 지하철 노선 목록</h2>
 <table border="1" id="${TABLE_ID}">
-<th>노선 이름</th>
-<th>상행 종점역</th>
-<th>하행 종점역</th>
-<th>설정</th>
-<tr>
-  <td>1</td>
-  <td>2</td>
-  <td>3</td>
-  <td>
-    <button class="${DELETE_BUTTON_CLASS}">삭제</button>
-  </td>
-<tr>
 </table>
 `;

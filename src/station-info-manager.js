@@ -16,11 +16,22 @@ export default class StationINFOManager {
     this.stations_.push(newStation);
   }
   getStationsNames() {
-    let stationNames = [];
+    const stationNames = [];
     this.stations_.forEach(({ name }) => {
       stationNames.push(name);
     });
     return stationNames;
+  }
+  getLinesNames() {
+    const linesINFOs = [];
+    this.lines_.forEach(({ name, stationsOfLine }) => {
+      linesINFOs.push({
+        name: name,
+        startStationName: stationsOfLine[0].name,
+        endStationName: stationsOfLine[stationsOfLine.length - 1].name,
+      });
+    });
+    return linesINFOs;
   }
   deleteStation(nameToDelete) {
     const stationIndexToDelete = this.stations_.findIndex(({ name }) => {
