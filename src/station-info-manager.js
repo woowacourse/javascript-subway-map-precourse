@@ -11,7 +11,7 @@ export default class StationINFOManager {
     };
     this.stations_.push(newStation);
   }
-  getStationsByCondition(condition) {
+  getStationNamesByCondition(condition) {
     const returnStations = [];
     this.stations_.forEach((station) => {
       if (condition(station)) {
@@ -32,11 +32,19 @@ export default class StationINFOManager {
     this.lines_.forEach(({ name, stationsOfLine }) => {
       linesINFOs.push({
         name: name,
-        startStationName: stationsOfLine[0].name,
-        endStationName: stationsOfLine[stationsOfLine.length - 1].name,
+        stationsOfLine: stationsOfLine,
       });
     });
     return linesINFOs;
+  }
+  getLineINFOsByCondition(condition) {
+    const returnlines = [];
+    this.lines_.forEach((line) => {
+      if (condition(line)) {
+        returnlines.push(line);
+      }
+    });
+    return returnlines;
   }
   deleteStation(nameToDelete) {
     const stationIndexToDelete = this.stations_.findIndex(({ name }) => {

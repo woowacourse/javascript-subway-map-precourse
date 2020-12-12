@@ -53,10 +53,23 @@ class SectionRegisterUI {
     manageDiv.innerHTML =
       this.makeTitleHTML_(this.lineName_) + SECTION_REGISTER_TEMPLATE;
     this.setComboboxOption_();
+    this.updateLineStationsTable();
   }
+  updateLineStationsTable() {
+    const table = document.getElementById(SECTION_REGISTER_TABLE_ID);
+    const myLine = this.stationINFOManager_.getLineINFOsByCondition((line) => {
+      return line.name === this.lineName_;
+    })[0];
+    let tableInnerHTML = TABLE_HEADER_TEMPLATE;
+    myLine.stationsOfLine.forEach((station, index) => {
+      tableInnerHTML += this.makeNewTableRowHTML(index, station.name);
+    });
+    table.innerHTML = tableInnerHTML;
+  }
+
   setComboboxOption_() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);
-    const optionNames = this.stationINFOManager_.getStationsByCondition(
+    const optionNames = this.stationINFOManager_.getStationNamesByCondition(
       (station) => {
         return !station.linesOfStation.has(this.lineName_);
       }
@@ -67,7 +80,6 @@ class SectionRegisterUI {
     });
     seletor.innerHTML = seletorInnerHTML;
   }
-
   makeNewOptionHTML_(name) {
     return `
     <option value="${name}">${name}</option>
@@ -76,29 +88,37 @@ class SectionRegisterUI {
   makeTitleHTML_(name) {
     return `<h2>${name} 관리<h2>`;
   }
+  makeNewTableRowHTML(index, name) {
+    return `
+    <tr>
+      <td>${index}</td>
+      <td>${name}</td>
+      <td>
+        <button class="${SECTION_DELETE_BUTTON_CLASS}" data-name="${name}">삭제</button>
+      </td>
+    <tr>
+    `;
+  }
 }
 
 const SECTION_REGISTER_DIV_ID = "section-register-div";
 const SECTION_STATION_SELECTOR_ID = "section-station-selector";
+const SECTION_REGISTER_TABLE_ID = "section-register-table";
+const SECTION_DELETE_BUTTON_CLASS = "section-delete-button";
+const TABLE_HEADER_TEMPLATE = `
+<th>순서</th>
+<th>이름</th>
+<th>설정</th>
+`;
 const SECTION_REGISTER_TEMPLATE = `
   <h3>구간 등록</h3>
   <p>
     <select id="${SECTION_STATION_SELECTOR_ID}">
     </select>
-    <input type="text" id="section-order-input" placeholder="순서" />
+    <input type="number" id="section-order-input" placeholder="순서" />
     <button id="section-add-button">등록</button>
   </p>
-  <table border="1">
-    <th>순서</th>
-    <th>이름</th>
-    <th>설정</th>
-    <tr>
-      <td>1</td>
-      <td>2</td>
-      <td>
-        <button class="section-delete-button">노선에서 제거</button>
-      </td>
-    </tr>
+  <table border="1" id="${SECTION_REGISTER_TABLE_ID}">
   </table>
 `;
 

@@ -79,15 +79,15 @@ export default class LineManagerUI {
       });
     });
   }
-  makeNewTableRowHTML_({ name, startStationName, endStationName }) {
+  makeNewTableRowHTML_({ name, stationsOfLine }) {
     return `
     <tr>
-    <td>${name}</td>
-    <td>${startStationName}</td>
-    <td>${endStationName}</td>
-    <td>
-      <button class="${LINE_DELETE_BUTTON_CLASS}" data-name="${name}">삭제</button>
-    </td>
+      <td>${name}</td>
+      <td>${stationsOfLine[0].name}</td>
+      <td>${stationsOfLine[stationsOfLine.length - 1].name}</td>
+      <td>
+        <button class="${LINE_DELETE_BUTTON_CLASS}" data-name="${name}">삭제</button>
+      </td>
     <tr>
     `;
   }
