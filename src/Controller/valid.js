@@ -68,7 +68,7 @@ const isLengthRight = (value) => {
 };
 
 const isMatched = (value) => {
-  if (value.match(/[^가-힣1-9]/)) {
+  if (value.match(/[^가-힣0-9]/)) {
     return alert('띄어쓰기 없이 한글과 숫자만 입력해주세요.');
   }
 
