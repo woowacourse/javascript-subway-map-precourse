@@ -18,9 +18,10 @@ import words from "./common/words.js";
 export default class LineManager {
     constructor() {
         this.setPage();
-        this.lineTableTbody = document.getElementById("line-table-tbody");
-        // this.setTableContent();
-       addClickEventListener(document.getElementById(words.LINE_ADD_BUTTON), () => {this.addLine()});
+        this.lineTableTbody = document.getElementById(words.LINE_TABLE_TBODY);
+        this.setTableContent();
+        addClickEventListener(document.getElementById(words.LINE_ADD_BUTTON), () => {this.addLine()});
+        // addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.deleteLine());
     }
 
     setPage() {
@@ -36,6 +37,28 @@ export default class LineManager {
         addElement("button", words.LINE_ADD, "id",words.LINE_ADD_BUTTON, null);
         addElement("h2", words.LINE_LIST, null, null, null);
         addTableElement([words.LINE_NAME, `${words.LINE_START_STATION}역`, `${words.LINE_END_STATION}역`, words.SETTING], words.LINE_TABLE_TBODY);
+    }
+    // 수정해야함
+    deleteLine() {
+        console.log("delete");
+    }
+
+    setTableContent() {
+        const lineList = getItemList(words.LINES);
+        if(lineList !== null) {
+            lineList.forEach(line => {
+                const lineSectionList = getItemList(line);
+                const row = this.lineTableTbody.insertRow(this.lineTableTbody.length);
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                const cell4 = row.insertCell(3);
+                cell1.innerHTML = line;
+                cell2.innerHTML = lineSectionList[0];
+                cell3.innerHTML = lineSectionList[lineSectionList.length - 1];
+                addElement("button", words.DELETE, "class", words.LINE_DELETE_BUTTON, cell4);
+            });
+        }
     }
 
     addLineSection(stationInputName, lineStartStationName, lineEndStationName) {

@@ -11,7 +11,7 @@ import {
     addItem,
     getItemList,
     removeWhiteSpaceValue} 
-from "./common/items.js?ver=102";
+from "./common/items.js";
 import words from "./common/words.js";
 
 export default class StationManager{
