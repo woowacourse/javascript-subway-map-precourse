@@ -64,6 +64,14 @@ export default class Station {
     this._failToSaveNewStation(isValidLength, isSavedStation);
   };
 
+  setStationOptions = select => {
+    select.innerHTML = "";
+    this._stationList.forEach(station => {
+      const option = `<option value="${station.name}">${station.name}</option>`;
+      select.innerHTML += option;
+    });
+  };
+
   getStationList = () => {
     return this._stationList;
   };
