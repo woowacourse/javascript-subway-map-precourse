@@ -1,3 +1,9 @@
+import {
+  getInputTextByID,
+  getAllElementsByClass,
+  getSelectedOptionByID,
+} from "../../utility/handle-document-utility.js";
+
 export default class SectionManagerUI {
   constructor(contentsID, stationINFOManager) {
     this.contentsID_ = contentsID;
@@ -22,9 +28,7 @@ export default class SectionManagerUI {
     this.addEventToSelectLineButton_();
   }
   addEventToSelectLineButton_() {
-    const buttons = document.querySelectorAll(
-      "." + SECTION_LINE_MENU_BUTTON_CLASS
-    );
+    const buttons = getAllElementsByClass(SECTION_LINE_MENU_BUTTON_CLASS);
     Array.prototype.forEach.call(buttons, (button) => {
       button.addEventListener("click", (e) => {
         this.sectionRegisterUI = new SectionRegisterUI(
@@ -52,6 +56,10 @@ class SectionRegisterUI {
     const manageDiv = document.getElementById(SECTION_REGISTER_DIV_ID);
     manageDiv.innerHTML =
       this.makeTitleHTML_(this.lineName_) + SECTION_REGISTER_TEMPLATE;
+    this.addEventToSectionAddButton_();
+    this.updateAllContents();
+  }
+  updateAllContents() {
     this.setComboboxOption_();
     this.updateLineStationsTable();
   }
@@ -67,6 +75,19 @@ class SectionRegisterUI {
     table.innerHTML = tableInnerHTML;
   }
 
+  addEventToSectionAddButton_() {
+    const button = document.getElementById(SECTION_ADD_BUTTON_ID);
+    button.addEventListener("click", () => {
+      const indexToRegister = getInputTextByID(SECTION_ORDER_INPUT_ID);
+      const stationName = getSelectedOptionByID(SECTION_STATION_SELECTOR_ID);
+      this.stationINFOManager_.registerStationToLine(
+        this.lineName_,
+        indexToRegister,
+        stationName
+      );
+      this.updateAllContents();
+    });
+  }
   setComboboxOption_() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);
     const optionNames = this.stationINFOManager_.getStationNamesByCondition(
@@ -105,6 +126,8 @@ const SECTION_REGISTER_DIV_ID = "section-register-div";
 const SECTION_STATION_SELECTOR_ID = "section-station-selector";
 const SECTION_REGISTER_TABLE_ID = "section-register-table";
 const SECTION_DELETE_BUTTON_CLASS = "section-delete-button";
+const SECTION_ORDER_INPUT_ID = "section-order-input";
+const SECTION_ADD_BUTTON_ID = "section-add-button";
 const TABLE_HEADER_TEMPLATE = `
 <th>순서</th>
 <th>이름</th>
@@ -115,8 +138,8 @@ const SECTION_REGISTER_TEMPLATE = `
   <p>
     <select id="${SECTION_STATION_SELECTOR_ID}">
     </select>
-    <input type="number" id="section-order-input" placeholder="순서" />
-    <button id="section-add-button">등록</button>
+    <input type="number" id="${SECTION_ORDER_INPUT_ID}" placeholder="순서" />
+    <button id="${SECTION_ADD_BUTTON_ID}">등록</button>
   </p>
   <table border="1" id="${SECTION_REGISTER_TABLE_ID}">
   </table>

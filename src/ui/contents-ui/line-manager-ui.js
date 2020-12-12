@@ -2,6 +2,7 @@ import { isValidLine } from "../../utility/string-check-utility.js";
 import {
   getInputTextByID,
   getAllElementsByClass,
+  getSelectedOptionByID,
 } from "../../utility/handle-document-utility.js";
 
 export default class LineManagerUI {
@@ -37,12 +38,8 @@ export default class LineManagerUI {
     const button = document.getElementById(LINE_ADD_BUTTON_ID);
     button.addEventListener("click", () => {
       const lineName = getInputTextByID(NAME_INPUT_ID);
-      const startStationName = this.getSelectedOptionInSelector_(
-        START_STATION_SELECTOR_ID
-      );
-      const endStationName = this.getSelectedOptionInSelector_(
-        END_STATION_SELECTOR_ID
-      );
+      const startStationName = getSelectedOptionByID(START_STATION_SELECTOR_ID);
+      const endStationName = getSelectedOptionByID(END_STATION_SELECTOR_ID);
       if (!this.isValidLineInput_(lineName, startStationName, endStationName)) {
         return;
       }
@@ -56,16 +53,14 @@ export default class LineManagerUI {
   }
   isValidLineInput_(lineName, startStationName, endStationName) {
     const condition1 = isValidLine(lineName, startStationName, endStationName);
-    const condition2 = this.stationINFOManager_.isNotOverlapNameInLinesArray(lineName);
+    const condition2 = this.stationINFOManager_.isNotOverlapNameInLinesArray(
+      lineName
+    );
     let boolToReturn = true;
     if (!(condition1 && condition2)) {
       boolToReturn = false;
     }
     return boolToReturn;
-  }
-  getSelectedOptionInSelector_(id) {
-    const selector = document.getElementById(id);
-    return selector[selector.selectedIndex].value;
   }
   addEventToAllTableDeleteButton_() {
     const deleteButtons = getAllElementsByClass(LINE_DELETE_BUTTON_CLASS);

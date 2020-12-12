@@ -11,6 +11,42 @@ export default class StationINFOManager {
     };
     this.stations_.push(newStation);
   }
+  addNewLine({ lineName, startStationName, endStationName }) {
+    const startStationPtr = this.getPointerFromStationsArray_(startStationName);
+    const endStationPtr = this.getPointerFromStationsArray_(endStationName);
+    const newLine = {
+      name: lineName,
+      stationsOfLine: [startStationPtr, endStationPtr],
+    };
+    startStationPtr.linesOfStation.add(lineName);
+    endStationPtr.linesOfStation.add(lineName);
+    this.lines_.push(newLine);
+  }
+  registerStationToLine(lineName, indexToRegister, stationName) {
+    const targetLine = this.getOneLineINFOByCondition((line) => {
+      return line.name === lineName;
+    });
+    const targetStation = this.getOneStationINFOByCondition((station) => {
+      return station.name === stationName;
+    });
+    targetLine.stationsOfLine.splice(indexToRegister, 0, targetStation);
+    targetStation.linesOfStation.add(lineName);
+  }
+  getStationsNames() {
+    const stationNames = [];
+    this.stations_.forEach(({ name }) => {
+      stationNames.push(name);
+    });
+    return stationNames;
+  }
+  getOneStationINFOByCondition(condition) {
+    for (let station of this.stations_) {
+      if (condition(station)) {
+        return station;
+      }
+    }
+    return -1;
+  }
   getStationNamesByCondition(condition) {
     const returnStations = [];
     this.stations_.forEach((station) => {
@@ -19,13 +55,6 @@ export default class StationINFOManager {
       }
     });
     return returnStations;
-  }
-  getStationsNames() {
-    const stationNames = [];
-    this.stations_.forEach(({ name }) => {
-      stationNames.push(name);
-    });
-    return stationNames;
   }
   getLineINFOs() {
     const linesINFOs = [];
@@ -36,6 +65,14 @@ export default class StationINFOManager {
       });
     });
     return linesINFOs;
+  }
+  getOneLineINFOByCondition(condition) {
+    for (let line of this.lines_) {
+      if (condition(line)) {
+        return line;
+      }
+    }
+    return -1;
   }
   getLineINFOsByCondition(condition) {
     const returnlines = [];
@@ -54,17 +91,6 @@ export default class StationINFOManager {
       return;
     }
     this.stations_.splice(stationIndexToDelete, 1);
-  }
-  addNewLine({ lineName, startStationName, endStationName }) {
-    const startStationPtr = this.getPointerFromStationsArray_(startStationName);
-    const endStationPtr = this.getPointerFromStationsArray_(endStationName);
-    const newLine = {
-      name: lineName,
-      stationsOfLine: [startStationPtr, endStationPtr],
-    };
-    startStationPtr.linesOfStation.add(lineName);
-    endStationPtr.linesOfStation.add(lineName);
-    this.lines_.push(newLine);
   }
   deleteLine(nameToDelete) {
     const lineIndexToDelete = this.lines_.findIndex(({ name }) => {
@@ -91,6 +117,7 @@ export default class StationINFOManager {
     return isValid;
   }
 
+  //private
   isNotOverlapName_(targetToFindOverlap, inputName) {
     const overlapIndex = targetToFindOverlap.findIndex(
       ({ name }) => name === inputName
