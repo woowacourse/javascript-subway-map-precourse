@@ -21,6 +21,12 @@ export const showScreen = (e) => {
   }
 };
 
-export const showSectionScreen = () => {
+export const showSectionScreen = (line) => {
+  const $allSectionTr = $subwaySectionContainer.querySelectorAll('tr');
   $subwaySectionContainer.style.display = 'block';
+  $allSectionTr.forEach((tr) => {
+    if (tr.dataset.line === line) {
+      tr.style.display = 'table-row';
+    }
+  });
 };

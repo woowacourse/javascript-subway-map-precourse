@@ -1,7 +1,7 @@
 import Station from './Model/station.js';
 import Line from './Model/line.js';
 import Section from './Model/section.js';
-import {hideScreen} from './View/hide-screen.js';
+import {hideScreen, hideSectionLine} from './View/hide-screen.js';
 import {showScreen, showSectionScreen} from './View/show-screen.js';
 import {
   addStationScreen,
@@ -76,8 +76,9 @@ export function onRemoveLine(e) {
   removeLineScreen(e.target);
 }
 
-export function onLoadSection() {
-  showSectionScreen();
+export function onLoadSection(e) {
+  hideSectionLine();
+  showSectionScreen(e.target.dataset.line);
 }
 
 export const loadStation = () => {

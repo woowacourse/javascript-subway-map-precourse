@@ -60,7 +60,7 @@ const addSectionTable = (line) => {
       <td>${line.station[i]}</td>
       <td><button class="section-delete-button">노선에서 삭제</button></td>
     `;
-    $sectionTr.dataset.section = line.lineName;
+    $sectionTr.dataset.line = line.lineName;
     $sectionTr.style.display = 'none';
     const sectionData = {line: line.lineName, station: line.station[i]};
     setButtonOption(sectionData, $sectionTr.querySelector('button'));
