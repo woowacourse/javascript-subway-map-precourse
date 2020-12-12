@@ -9,6 +9,18 @@ export const createDiv = (text, style = "") => {
   return div;
 };
 
+export const createDivContainer = (elementArray, style = "") => {
+  const container = document.createElement("div");
+
+  elementArray.forEach((element) => {
+    container.appendChild(element);
+  });
+
+  container.style = style;
+
+  return container;
+};
+
 export const createInput = (idValue = "", placeholder = "", type = "text") => {
   const input = document.createElement("input");
 
@@ -53,6 +65,32 @@ export const createTable = (colTitleArray) => {
   table.appendChild(tr);
 
   return table;
+};
+
+export const createLabel = (forValue, text) => {
+  const label = document.createElement("label");
+
+  label.setAttribute("for", forValue);
+  label.innerText = text;
+
+  return label;
+};
+
+export const createSelect = (selectId, optionArray) => {
+  const select = document.createElement("select");
+
+  select.setAttribute("id", selectId);
+
+  optionArray.forEach((option) => {
+    const optionE = document.createElement("option");
+
+    optionE.setAttribute("value", option);
+    optionE.innerText = option;
+
+    select.appendChild(optionE);
+  });
+
+  return select;
 };
 
 export const createStationTableRow = (stationName) => {

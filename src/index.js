@@ -1,4 +1,5 @@
 import stationManager from "./Station/index.js";
+import lineManager from "./Section/index.js";
 
 const app = document.getElementById("app");
 
@@ -11,7 +12,7 @@ const init = () => {
   );
 
   stationMenuButton.addEventListener("click", stationManager);
-  // lineMenuButton.addEventListener('click')
+  lineMenuButton.addEventListener("click", lineManager);
   // sectionMenuButton.addEventListener('click')
   // mapPrintMenuButton.addEventListener('click')
 };
