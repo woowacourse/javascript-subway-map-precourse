@@ -1,4 +1,9 @@
-import {$stationContainer, $lineContainer, setButtonOption} from './input.js';
+import {
+  $stationContainer,
+  $lineContainer,
+  $sectionContainer,
+  setButtonOption,
+} from './input.js';
 
 export const addStationScreen = (value) => {
   const $stationTbody = $stationContainer.querySelector('table > tbody');
@@ -33,4 +38,19 @@ export const addLineScreen = (line) => {
   `;
   setButtonOption(line.lineName, $lineTr.querySelector('button'));
   $lineTbody.appendChild($lineTr);
+};
+
+export const addSectionScreen = (line) => {
+  addSectionButton(line.lineName);
+  addSectionTable(line);
+};
+
+const addSectionButton = (section) => {
+  const $sectionButtonContainer = $sectionContainer.querySelector(
+    '#section-select-button',
+  );
+  const $sectionButton = document.createElement('button');
+  $sectionButton.className = 'section-line-menu-button';
+  $sectionButton.textContent = section;
+  $sectionButtonContainer.appendChild($sectionButton);
 };

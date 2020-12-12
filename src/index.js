@@ -6,6 +6,7 @@ import {
   addStationScreen,
   addLastStopScreen,
   addLineScreen,
+  addSectionScreen,
 } from './View/add-screen.js';
 import {
   removeLastStopScreen,
@@ -78,7 +79,10 @@ export const loadStation = () => {
 
 export const loadLine = () => {
   lineInstance.loadLine();
-  lineInstance.lines.forEach((line) => addLineScreen(line));
+  lineInstance.lines.forEach((line) => {
+    addLineScreen(line);
+    addSectionScreen(line);
+  });
 };
 
 const getLineValue = () => {
