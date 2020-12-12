@@ -42,7 +42,7 @@ export const setButtonOption = (value, button) => {
     button.dataset.line = value;
     return button.addEventListener('click', onRemoveLine);
   }
-  if ((button.className = 'section-line-menu-button')) {
+  if (button.className === 'section-line-menu-button') {
     button.dataset.section = value;
     return button.addEventListener('click', onLoadSection);
   }
