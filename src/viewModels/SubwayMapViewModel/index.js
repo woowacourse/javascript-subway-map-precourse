@@ -1,3 +1,5 @@
+import { message } from '../../constants';
+
 export default class SubwayMapViewModel {
   constructor(subwayMapModel) {
     this.subwayMapModel = subwayMapModel;
@@ -20,11 +22,17 @@ export default class SubwayMapViewModel {
   }
   validStationName(stationId) {
     if (this.isEmpty(stationId)) {
-      console.log('공백');
+      return message.ALERT_FOR_EMPTY;
     }
-    // if (!/^[0-9a-zA-Z가-힣]/g.test(stationId)) {
-    //   console.log('이상한 이름');
-    // }
+    if (!/^[가-힣a-zA-z0-9]+$/.test(stationId)) {
+      return message.ALERT_FOR_WRONG_NAME;
+    }
+    if (stationId.length < 2) {
+      return message.ALERT_FOR_LENGTH;
+    }
+    if (stationId in this.getStations()) {
+      return message.ALERT_FOR_OVERLAPED_NAME;
+    }
 
     return '';
   }
@@ -34,8 +42,11 @@ export default class SubwayMapViewModel {
   }
 
   addStation(stationId) {
-    console.log(stationId);
-    this.validStationName(stationId);
+    const errorMessage = this.validStationName(stationId);
+    if (errorMessage) {
+      alert(errorMessage);
+      return;
+    }
     this.subwayMapModel.addStation(stationId);
   }
 
