@@ -7,6 +7,7 @@ export const ID = {
 
   LINE_MANAGER_BUTTON: 'line-manager-button',
   LINE_MANAGER: 'line-manager',
+  LINE_TABLE: 'line-table',
   LINE_NAME_INPUT: 'line-name-input',
   LINE_START_STATION_SELECTOR: 'line-start-station-selector',
   LINE_END_STATION_SELECTOR: 'line-end-station-selector',
@@ -15,10 +16,12 @@ export const ID = {
 
 export const CLASS = {
   STATION_DELETE_BUTTON: 'station-delete-button',
+  LINE_DELETE_BUTTON: 'line-delete-button',
 };
 
 export const NAME = {
-  LOCALSTORAGE_KEY: 'subway',
+  LOCALSTORAGE_STATION_KEY: 'station',
+  LOCALSTORAGE_LINE_KEY: 'line',
   STATION_MANAGER_BUTTON_NAME: '1. 역 관리',
   LINE_MANAGER_BUTTON_NAME: '2. 노선 관리',
 };

@@ -1,34 +1,33 @@
-import Subway from './subway.js';
 import UserException from '../util/userException.js';
+import { Station } from '../model/subway.js';
 import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
 import { stationManagerTemplate, stationTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
 
-export default class Station {
+export default class StationManager {
   userException = new UserException();
 
   constructor($target, $functionButtonContainer) {
-    this.subways = this.loadSubways();
+    this.stations = this.loadStations();
 
     this.start($target, $functionButtonContainer);
   }
 
-  loadSubways() {
-    const loadedSubways = localStorage.getItem(NAME.LOCALSTORAGE_KEY);
-    let parsedSubways = [];
+  loadStations() {
+    const loadedStations = localStorage.getItem(NAME.LOCALSTORAGE_STATION_KEY);
+    let parsedStations = [];
 
-    if (loadedSubways !== null) {
-      parsedSubways = JSON.parse(loadedSubways);
+    if (loadedStations !== null) {
+      parsedStations = JSON.parse(loadedStations);
     }
 
-    return parsedSubways;
+    return parsedStations;
   }
 
   start($target, $functionButtonContainer) {
     this.createStationManagerButton($functionButtonContainer);
     this.createStationManager($target);
     this.handleStationManagerButton();
-    this.handleStationAddButton();
   }
 
   createStationManagerButton($functionButtonContainer) {
@@ -44,9 +43,24 @@ export default class Station {
 
     stationManager.id = ID.STATION_MANAGER;
     stationManager.style.display = 'none';
-    stationManager.innerHTML = stationManagerTemplate();
     $target.appendChild(stationManager);
+  }
 
+  handleStationManagerButton() {
+    const stationManagerButton = document.querySelector(`#${ID.STATION_MANAGER_BUTTON}`);
+
+    stationManagerButton.addEventListener('click', () => {
+      initialize();
+      this.updateStations();
+      this.showStationManager();
+      this.handleStationAddButton();
+    });
+  }
+
+  updateStations() {
+    const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
+    this.stations = this.loadStations();
+    stationManager.innerHTML = stationManagerTemplate();
     this.createStationTable(stationManager);
   }
 
@@ -59,25 +73,10 @@ export default class Station {
   }
 
   render() {
-    const stationManager = document.querySelector(`#${ID.STATION_TABLE}`);
+    const stationTable = document.querySelector(`#${ID.STATION_TABLE}`);
 
-    stationManager.innerHTML = stationTableTemplate(this.subways);
+    stationTable.innerHTML = stationTableTemplate(this.stations);
     this.handleStationDeleteButton();
-  }
-
-  handleStationManagerButton() {
-    const stationManagerButton = document.querySelector(`#${ID.STATION_MANAGER_BUTTON}`);
-
-    stationManagerButton.addEventListener('click', () => {
-      initialize();
-      this.updateSubways();
-      this.showStationManager();
-    });
-  }
-
-  updateSubways() {
-    this.subways = this.loadSubways();
-    this.render();
   }
 
   showStationManager() {
@@ -98,7 +97,7 @@ export default class Station {
   hasValidName(stationName) {
     if (!this.userException.isValidNameLength(stationName)) {
       alert(ALERT.VALID_STATION_NAME_LENGTH);
-    } else if (this.userException.isDuplicatedName(this.subways, stationName)) {
+    } else if (this.userException.isDuplicatedName(this.stations, stationName)) {
       alert(ALERT.DUPLICATED_STATION_NAME);
     } else {
       this.saveStation(stationName);
@@ -106,16 +105,16 @@ export default class Station {
     }
   }
 
-  saveStation(station) {
-    const subway = this.addSubway();
+  saveStation(stationName) {
+    const station = this.addStation();
 
-    subway.station = station;
-    this.subways.push(subway);
-    localStorage.setItem(NAME.LOCALSTORAGE_KEY, JSON.stringify(this.subways));
+    station.name = stationName;
+    this.stations.push(station);
+    localStorage.setItem(NAME.LOCALSTORAGE_STATION_KEY, JSON.stringify(this.stations));
   }
 
-  addSubway() {
-    return new Subway();
+  addStation() {
+    return new Station();
   }
 
   handleStationDeleteButton() {
@@ -129,8 +128,8 @@ export default class Station {
   }
 
   deleteStation(event) {
-    this.subways.splice(event.target.parentNode.dataset.index, 1);
-    localStorage.setItem(NAME.LOCALSTORAGE_KEY, JSON.stringify(this.subways));
+    this.stations.splice(event.target.parentNode.dataset.index, 1);
+    localStorage.setItem(NAME.LOCALSTORAGE_STATION_KEY, JSON.stringify(this.stations));
     this.render();
   }
 }

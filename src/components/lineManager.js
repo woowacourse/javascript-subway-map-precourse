@@ -1,25 +1,38 @@
+import { Line } from '../model/subway.js';
 import { ID, NAME } from '../constants/index.js';
-import { lineManagerTemplate } from '../view/template.js';
+import { lineManagerTemplate, lineTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
 
-export default class Line {
+export default class LineManager {
   constructor($target, $functionButtonContainer) {
-    this.subways = this.loadSubways();
+    this.stations = this.loadStations();
+    this.lines = this.loadLines();
 
     this.createLineManagerButton($functionButtonContainer);
     this.createLineManager($target);
     this.handleLineManagerButton();
   }
 
-  loadSubways() {
-    const loadedSubways = localStorage.getItem(NAME.LOCALSTORAGE_KEY);
-    let parsedSubways = [];
+  loadStations() {
+    const loadedStations = localStorage.getItem(NAME.LOCALSTORAGE_STATION_KEY);
+    let parsedStations = [];
 
-    if (loadedSubways !== null) {
-      parsedSubways = JSON.parse(loadedSubways);
+    if (loadedStations !== null) {
+      parsedStations = JSON.parse(loadedStations);
     }
 
-    return parsedSubways;
+    return parsedStations;
+  }
+
+  loadLines() {
+    const loadedLines = localStorage.getItem(NAME.LOCALSTORAGE_LINE_KEY);
+    let parsedLines = [];
+
+    if (loadedLines !== null) {
+      parsedLines = JSON.parse(loadedLines);
+    }
+
+    return parsedLines;
   }
 
   createLineManagerButton($functionButtonContainer) {
@@ -38,6 +51,20 @@ export default class Line {
     $target.appendChild(lineManager);
   }
 
+  createLineTable(lineManager) {
+    const lineTable = document.createElement('div');
+
+    lineTable.id = ID.LINE_TABLE;
+    lineManager.appendChild(lineTable);
+    this.render();
+  }
+
+  render() {
+    const lineTable = document.querySelector(`#${ID.LINE_TABLE}`);
+
+    lineTable.innerHTML = lineTableTemplate(this.lines);
+  }
+
   handleLineManagerButton() {
     const lineManagerButton = document.querySelector(`#${ID.LINE_MANAGER_BUTTON}`);
 
@@ -51,9 +78,9 @@ export default class Line {
 
   updateOption() {
     const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
-
-    this.subways = this.loadSubways();
-    lineManager.innerHTML = lineManagerTemplate(this.subways);
+    this.lines = this.loadLines();
+    lineManager.innerHTML = lineManagerTemplate(this.stations);
+    this.createLineTable(lineManager);
   }
 
   showLineManager() {
@@ -68,8 +95,17 @@ export default class Line {
     const lineEndStationSelector = document.querySelector(`#${ID.LINE_END_STATION_SELECTOR}`);
 
     lineAddButton.addEventListener('click', () => {
-      console.log(lineNameInput.value);
-      console.log(lineStartStationSelector.value);
+      // this.lines[lineStartStationSelector.value].line = lineNameInput.value;
+      // this.lines[lineStartStationSelector.value].section = 0;
+      // this.lines[lineEndStationSelector.value].line = lineNameInput.value;
+      // this.lines[lineEndStationSelector.value].section = 1;
+      console.log(this.lines);
+      this.saveSubways();
+      this.render();
     });
+  }
+
+  saveSubways() {
+    localStorage.setItem(NAME.LOCALSTORAGE_KEY, JSON.stringify(this.subways));
   }
 }
