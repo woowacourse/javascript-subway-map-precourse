@@ -30,7 +30,7 @@
 
 ### 🛤 지하철 노선 관리
 
-- [ ] 지하철 노선 관리에 필요한 요소들이 사용자에게 보이도록 구현해야 한다.
+- [X] 지하철 노선 관리에 필요한 요소들이 사용자에게 보이도록 구현해야 한다.
   - 노선의 이름을 입력하는 input 태그 : ```#line-name-input```
   - 노선의 상행 종점을 선택하는 slect 태그 : ```#line-start-station-selector```
   - 노선의 하행 종점을 선택하는 slect 태그 : ```#line-end-station-selector```
@@ -51,7 +51,7 @@
 
 ### 🚉 지하철 구간 관리
 
-- [ ] 지하철 구간 관리에 필요한 요소들이 사용자에게 보이도록 구현해야 한다.
+- [X] 지하철 구간 관리에 필요한 요소들이 사용자에게 보이도록 구현해야 한다.
   - 관리할 노선을 선택하는 button 태그 : ```.section-line-menu-button```
   - 구간에 새로 등록할 역을 선택하는 select. 태그. : ```#section-station-selector```
   - 구간의 순서를 입력하는 input 태그 : ```#section-order-input```
