@@ -36,9 +36,14 @@ export const insertStation = (lineName, stationName, insertElement) => {
 	const targetStationIndex = allStations
 		.map((station) => station.name)
         .indexOf(stationName);
-    const insertIndex = insertElement.value;
+    const insertIndex = parseInt(insertElement.value);
+    const lengthOfstationsOnLine = Line.getStationLength(lineName);
     if(!insertIndex){
         alertAndClear(errorAlertMessages.ALERT_NOTHING_ORDER_INPUT);
+        return;
+    }
+    if( !(0<=insertIndex && insertIndex <= lengthOfstationsOnLine)){
+        alertAndClear(errorAlertMessages.alertExceedRangeOrdrerInput(lengthOfstationsOnLine));
         return;
     }
     if(Line.hasThisStation(lineName, stationName)){

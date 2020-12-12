@@ -15,9 +15,9 @@ export const errorAlertMessages = {
 
     // 구간
     ALERT_EXISTED_ADDED_STATION: "❌ 이미 추가된 역입니다.",
-    ALERT_EXCEED_ORDER_INPUT: "❌ 순서 입력값은 노선의 길이보다 클 수 없습니다.",
     ALERT_NOTHING_ORDER_INPUT: "❌ 순서를 입력해주세요.",
-
+    alertExceedRangeOrdrerInput: (length) => `❌ 순서 입력값은 0~${length}이내 여야 합니다.`,
+    
 }
 
 export const confirmAlertMessage = {
