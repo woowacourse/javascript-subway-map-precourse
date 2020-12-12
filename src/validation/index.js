@@ -25,3 +25,6 @@ export const checkDuplicateLine = (lineName) => {
 
 export const checkSameStation = (startStation, endStation) =>
   startStation === endStation ? true : false;
+
+export const checkRange = (rangeRefrence, orderInputValue) =>
+  orderInputValue < 0 || orderInputValue >= rangeRefrence ? true : false;
