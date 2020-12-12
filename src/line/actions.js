@@ -1,3 +1,4 @@
+import Line from "./models.js";
 import { loadStations, useStation } from "../station/actions.js";
 import {
   lineInputForm,
@@ -5,6 +6,18 @@ import {
   lineListHeader,
   lineDeleteBtn,
 } from "./templates.js";
+
+const lineManagerBtn = document.getElementById("line-manager-button");
+
+const loadLines = () => {
+  return JSON.parse(lineManagerBtn.dataset.stations).map(
+    (x) => new Line(x.name, x.inLineStations)
+  );
+};
+
+const saveLines = (_lines) => {
+  lineManagerBtn.dataset.stations = JSON.stringify(_lines);
+};
 
 const printLayout = () => {
   const managerContainer = document.getElementById("manager-container");
@@ -26,7 +39,7 @@ const createStationSelector = (_stations) => {
   }
 };
 
-const createStationList = () => {
+const createStationList = (_lines) => {
   const lineNames = document.getElementById("line-names");
   lineNames.innerHTML = lineListHeader;
 };
@@ -58,18 +71,18 @@ const createLine = () => {
     useStation(startStation);
     useStation(endStation);
 
-    console.log(lineName, [startStation, endStation]);
+    return new Line(lineName, [startStation, endStation]);
   }
 };
 
 export default function LineManager() {
   printLayout();
   createStationSelector(loadStations());
-  createStationList();
+  createStationList(loadLines());
 
   const lineAddBtn = document.getElementById("line-add-button");
 
   lineAddBtn.addEventListener("click", () => {
-    createLine();
+    console.log(createLine());
   });
 }
