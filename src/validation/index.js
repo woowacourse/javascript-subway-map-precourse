@@ -1,5 +1,5 @@
 import { REFRENCE_STATION_LENGTH } from "../constants/index.js";
-import { loadLines } from "../Section/lineContainer.js";
+import { loadLines } from "../Line/lineContainer.js";
 import { loadStations } from "../Station/stationContainer.js";
 
 export const checkEmpty = (inputValue) =>

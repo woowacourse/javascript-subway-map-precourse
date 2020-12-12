@@ -1,5 +1,5 @@
 import stationManager from "./Station/index.js";
-import lineManager from "./Section/index.js";
+import lineManager from "./Line/index.js";
 
 const app = document.getElementById("app");
 
