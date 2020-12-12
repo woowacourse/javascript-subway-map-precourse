@@ -1,4 +1,5 @@
 import Station from "./station.js";
+import Line from "./line.js";
 
 class ManageSubwayLine {
   constructor() {
@@ -38,3 +39,4 @@ class ManageSubwayLine {
 
 new ManageSubwayLine();
 new Station();
+new Line();
