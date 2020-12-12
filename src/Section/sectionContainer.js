@@ -6,6 +6,7 @@ const sectionMenuClicked = (event) => {
     target: { innerText: line },
   } = event;
 
+  console.log(line);
   displaySectionUtil(line);
 };
 

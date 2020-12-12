@@ -10,7 +10,7 @@ import {
   createSelect,
   createTable,
 } from "../utils/createTag.js";
-import { clearChilds, displayChilds } from "../utils/display.js";
+import { clearChilds, displayChilds, removeElement } from "../utils/display.js";
 import { initialSection } from "./sectionContainer.js";
 
 export const displayInitialSection = () => {
@@ -70,8 +70,14 @@ export const displaySectionUtil = (line) => {
   sectionDataArray.forEach((section, index) => {
     displayAddedSection(table, section, index);
   });
+  const content = [sectionTitle, addTitle, inputDiv, table];
+  const sectionWrapper = createDivContainer(content, "", "section");
+  const previousSection = document.getElementById("section");
 
-  displayChilds("root", [sectionTitle, addTitle, inputDiv, table]);
+  if (previousSection) {
+    removeElement("section");
+  }
+  displayChilds("root", [sectionWrapper]);
 
   return true;
 };

@@ -9,3 +9,9 @@ export const clearChilds = (idValue) => {
 
   target.innerHTML = "";
 };
+
+export const removeElement = (idValue) => {
+  const element = document.getElementById(idValue);
+
+  element.parentNode.removeChild(element);
+};
