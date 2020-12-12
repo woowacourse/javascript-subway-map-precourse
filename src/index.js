@@ -13,6 +13,8 @@ import {
   removeStationSelectOption,
   removeStationScreen,
   removeLineScreen,
+  removeSectionLine,
+  removeSectionButton,
 } from './View/remove-screen.js';
 import {
   $stationAddInput,
@@ -89,7 +91,8 @@ export function onLoadSection(e) {
 export function onAddSection(e) {
   const sectionValue = getSectionValue(e.target.dataset.line);
   addSectionOnLocalStorage('line', sectionValue);
-  sectionInstance.addSectionLine(sectionValue);
+  loadSectionTable();
+  showSectionScreen(e.target.dataset.line);
 }
 
 export const loadStation = () => {
@@ -110,6 +113,8 @@ export const loadLine = () => {
 };
 
 export const loadSectionTable = () => {
+  removeSectionButton();
+  removeSectionLine();
   sectionInstance.loadSection();
   sectionInstance.sections.forEach((section) => {
     addSectionScreen(section);
