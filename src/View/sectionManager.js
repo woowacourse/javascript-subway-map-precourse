@@ -39,7 +39,7 @@ const lineButtonHandler = (subContainer, lineName) => {
 	sectionAddButtonElement.addEventListener('click', () => {
 		const stationName =
 			stationSelectBox.options[stationSelectBox.selectedIndex].text;
-		insertStation(lineName, stationName, inputElement.value);
+		insertStation(lineName, stationName, inputElement);
 		clearAllContents(tableElement.querySelector("tbody"));
 		tableSynchronizer(tableElement, lineName);
 	});

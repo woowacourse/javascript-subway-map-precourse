@@ -14,13 +14,18 @@ export const saveAllLines = (lines) => {
 };
 
 export const addLine = (lineName, startStation, endStation, inputElement) => {
-	if (Line.isValidLineName(lineName,inputElement)) {
-		const allLines = getAllLines();
-		const newLine = new Line(lineName);
-		newLine.stations = [startStation, endStation];
-		allLines.push(newLine);
-		Line.saveAllLines(allLines);
-	}
+	if (!Line.isValidLineName(lineName,inputElement)) {
+		return;
+    }
+    if(startStation === endStation){
+        alertAndClear(errorAlertMessages.ALERT_SAME_START_WITH_END_STATION, inputElement);
+        return;
+    }
+    const allLines = getAllLines();
+    const newLine = new Line(lineName);
+    newLine.stations = [startStation, endStation];
+    allLines.push(newLine);
+    Line.saveAllLines(allLines);
 };
 
 export const makeNewLineDeleteButtonElement = (id) =>

@@ -25,20 +25,18 @@ export const tableSynchronizer = (tableElement, lineName) => {
 	});
 };
 
-export const insertStation = (lineName, stationName, insertIndex) => {
-    console.log(lineName, stationName, insertIndex);
+export const insertStation = (lineName, stationName, insertElement) => {
 	const allLines = getAllLines();
 	const allStations = getAllStation();
 	const targetLineIndex = allLines.map((line) => line.name).indexOf(lineName);
 	const targetStationIndex = allStations
 		.map((station) => station.name)
-		.indexOf(stationName);
+        .indexOf(stationName);
+    const insertIndex = insertElement.value;
 	allLines[targetLineIndex].stations.splice(
 		parseInt(insertIndex),
 		0,
 		allStations[targetStationIndex].name
 	);
 	saveAllLines(allLines);
-	console.log(allLines);
-	console.log(getAllLines());
 };
