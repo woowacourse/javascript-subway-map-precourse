@@ -7,10 +7,10 @@ import {
 } from "../validation/index.js";
 import { displayAddedLine, removeDisplayLine } from "./linePresenter.js";
 
-const saveLines = (stationArray) =>
+export const saveLines = (stationArray) =>
   localStorage.setItem(KEY.LINE, JSON.stringify(stationArray));
 
-const clearLines = () => localStorage.removeItem(KEY.Line);
+const clearLines = () => localStorage.removeItem(KEY.LINE);
 
 export const loadLines = () => JSON.parse(localStorage.getItem(KEY.LINE));
 
