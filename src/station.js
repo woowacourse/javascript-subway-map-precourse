@@ -4,7 +4,6 @@ import {
   createValueTd,
   createButtonTd,
 } from "./table.js";
-
 class Station {
   constructor() {
     this.stations = [];
@@ -97,4 +96,4 @@ class Station {
   };
 }
 
-export default Station;
+export default new Station();

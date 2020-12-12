@@ -1,5 +1,9 @@
+import Station from "./station.js";
+
 class Line {
-  constructor() {}
+  constructor() {
+    this.station = Station.stations;
+  }
 }
 
-export default Line;
+export default new Line();

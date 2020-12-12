@@ -38,5 +38,3 @@ class ManageSubwayLine {
 }
 
 new ManageSubwayLine();
-new Station();
-new Line();
