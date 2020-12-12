@@ -138,3 +138,5 @@ export default function StationManager() {
     setStationDeleteBtn();
   });
 }
+
+export { loadStations, saveStations };
