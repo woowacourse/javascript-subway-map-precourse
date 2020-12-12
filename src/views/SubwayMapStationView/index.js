@@ -56,7 +56,8 @@ export default class SubwayMapStationView {
     // this.addEventListenerToStationManagerButton(this);
     new StationViewEventDelegation(
       this.stationManagerButton,
-      this.this.subwayMapViewModel,
+      this,
+      this.subwayMapViewModel,
     );
   }
 
@@ -125,6 +126,7 @@ export default class SubwayMapStationView {
   }
 
   renderStationManager() {
+    this.renderStationInputContainer();
     this.managerContainer.innerHTML += `
       <p>${message.STATION_NAME}</p>
       <input id="#station-name-input"></input>
@@ -138,9 +140,16 @@ export default class SubwayMapStationView {
     );
   }
 
-  // renderStationInputContainer() {
-
-  // }
+  renderStationInputContainer() {
+    this.managerContainer.innerHTML += `
+      <div id="#station-input-container">
+        <p>${message.STATION_NAME}</p>
+        <input id="#station-name-input"></input>
+        <button id="#station-add-button">${message.ADD_STATION}</button>
+        <h2>${message.LIST_OF_STATIONS}</h2>
+      </div>
+    `;
+  }
 
   renderStationTable(stations) {
     const stationThead = this.renderStationThead();
