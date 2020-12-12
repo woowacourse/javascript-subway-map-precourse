@@ -4,6 +4,7 @@ import SubwayLine from './subway_line.js';
 export default class SubwayMap {
   constructor() {
     this.stationList = [];
+    this.lineList = [];
   }
 
   // 지하철 역 조회
@@ -14,11 +15,11 @@ export default class SubwayMap {
   // 지하철 역 등록
   addStation(name) {
     if (name.length < 2 || this.stationList.find(element => element.name === name) !== undefined) {
-      return null;
+      return false;
     }
     let station = new SubwayStation(name);
     this.stationList.push(station);
-    return station;
+    return true;
   }
 
   // 지하철 역 삭제
@@ -28,6 +29,13 @@ export default class SubwayMap {
       return false;
     }
     this.stationList.splice(index, 1);
+    return true;
+  }
+
+  // 지하철 노선 등록
+  addLine(name, upTerminus, downTerminus) {
+    let line = new SubwayLine(name, upTerminus, downTerminus);
+    this.lineList.push(line);
     return true;
   }
 }
