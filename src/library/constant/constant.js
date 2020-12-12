@@ -11,11 +11,13 @@ export const STATION_MANAGER = 'station-manager';
 export const STATION_MANAGER_BUTTON = 'station-manager-button';
 export const STATION_ADD_BUTTON = 'station-add-button';
 export const STATION_DELETE_BUTTON = 'station-delete-button';
+export const STATION_NAME = 'station-name';
 export const STATION_NAME_INPUT = 'station-name-input';
 export const STATION_NAME_TABLE = 'table-station-name';
 export const STATION_NAME_ROW = 'station-name-row';
-export const STATION_NAME_ALERT_MESSAGE =
+export const STATION_NAME_ALERT_INVALID =
   '일치하는 역 이름이 없네요. 😅\n실제 지하철 역만 추가할 수 있어요!';
+export const STATION_NAME_ALERT_OVERLAP = '이미 추가한 역이에요. 😅';
 // line manage;
 export const LINE_MANAGER_BUTTON = 'line-manager-button';
 export const LINE_ADD_BUTTON = 'line-add-button';

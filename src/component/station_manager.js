@@ -1,5 +1,6 @@
 import Role from './role.js';
 import { nodeSelector } from '../util/selector/node_selector.js';
+import StationValidator from '../util/validator/station_validator.js';
 import {
   DELETE_K,
   STATION_ADD_BUTTON,
@@ -7,6 +8,7 @@ import {
   STATION_MANAGER,
   STATION_MANAGER_BUTTON,
   STATION_MANAGER_K,
+  STATION_NAME,
   STATION_NAME_INPUT,
   STATION_NAME_TABLE,
   STATION_NAME_ROW,
@@ -15,27 +17,29 @@ import {
 export default class StationManager extends Role {
   constructor() {
     super(STATION_MANAGER, STATION_MANAGER_BUTTON, STATION_MANAGER_K);
-    this.handleStationNameInput();
+    this.addStationName();
   }
 
-  handleStationNameInput() {
+  addStationName() {
     this.eventHandler.handleButtonEvent(
       STATION_ADD_BUTTON,
-      this.addStationNameInput,
+      this.handleStationNameInput,
       this
     );
   }
 
-  addStationNameInput() {
+  handleStationNameInput() {
     const stationNameInput = nodeSelector.selectId(STATION_NAME_INPUT);
-    const value = stationNameInput.value;
-    const response = this.validator.checkStationName(value);
+    const validator = new StationValidator(stationNameInput);
+    const response = validator.checkStationName();
 
-    response.then(isValidate =>
-      isValidate
-        ? this.renderStationName(value)
-        : this.errorHandler.handleStationNameError(stationNameInput)
-    );
+    if (response) {
+      response.then(isValidate => {
+        if (isValidate) {
+          this.renderStationName(stationNameInput.value);
+        }
+      });
+    }
   }
 
   renderStationName(stationName) {
@@ -56,6 +60,7 @@ export default class StationManager extends Role {
     const nameBlank = document.createElement('td');
     const buttonBlank = document.createElement('td');
 
+    nameBlank.className = STATION_NAME;
     row.appendChild(nameBlank);
     row.appendChild(buttonBlank);
     row.className = STATION_NAME_ROW;

@@ -1,29 +1,15 @@
-import { STATION_FETCH_URL } from '../../library/constant/constant.js';
+import { nodeSelector } from '../selector/node_selector.js';
 
 export default class Validator {
-  checkStationName(name) {
-    const stationData = this.getStationData();
+  isOverlapped(value, compareKey) {
+    const compareValues = nodeSelector.selectClassAll(compareKey);
 
-    return stationData.then(data => {
-      for (const stationInfo of data) {
-        if (name === stationInfo.STATION_NM) {
-          return true;
-        }
+    for (const compareValue of compareValues) {
+      if (value === compareValue.innerHTML) {
+        return true;
       }
+    }
 
-      return false;
-    });
-  }
-
-  getStationData() {
-    return fetch(STATION_FETCH_URL)
-      .then(response => response.json())
-      .then(data => {
-        const {
-          SearchSTNBySubwayLineInfo: { row },
-        } = data;
-
-        return row;
-      });
+    return false;
   }
 }

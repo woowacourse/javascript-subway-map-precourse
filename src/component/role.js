@@ -1,7 +1,5 @@
 import { nodeSelector } from '../util/selector/node_selector.js';
-import Validator from '../util/validator/validator.js';
 import EventHandler from '../util/handler/event_handler.js';
-import ErrorHandler from '../util/handler/error_handler.js';
 import {
   ROLE,
   ROLE_BUTTON_SECTION,
@@ -13,9 +11,7 @@ export default class Role {
     this.roleId = roleId;
     this.buttonId = buttonId;
     this._roleName = roleName;
-    this.validator = new Validator();
     this.eventHandler = new EventHandler();
-    this.errorHandler = new ErrorHandler();
     this.renderRoleButton();
   }
 

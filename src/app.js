@@ -1,4 +1,4 @@
-import SubwayMap from './subway-map.js';
+import SubwayMap from './subway_map.js';
 
 export default class App {
   constructor() {
