@@ -1,43 +1,5 @@
 import { message } from '../../constants';
-
-class StationViewEventDelegation {
-  constructor(element, stationView, subwayMapViewModel) {
-    this.stationView = stationView;
-    this.subwayMapViewModel = subwayMapViewModel;
-    element.addEventListener('click', this.onClick.bind(this));
-  }
-
-  onClick(event) {
-    let dataSet = event.target.dataset;
-
-    if (dataSet.purpose) {
-      this[dataSet.purpose](dataSet);
-    }
-  }
-
-  stationManager() {
-    this.stationView.resetManagerContainer();
-    this.stationView.renderStationManager();
-  }
-
-  addStation() {
-    const stationId = document.getElementById('#station-name-input').value;
-    this.subwayMapViewModel.addStation(stationId);
-
-    this.stationView.resetStationTable();
-    this.stationView.renderStationTable(
-      Object.entries(this.subwayMapViewModel.getStations()),
-    );
-  }
-
-  // deleteLine(dataSet) {
-  //   this.subwayMapViewModel.deleteLine(dataSet.lineid);
-  //   this.lineView.resetLineTable();
-  //   this.lineView.renderLineTable(
-  //     Object.entries(this.subwayMapViewModel.getLines()),
-  //   );
-  // }
-}
+import { StationViewEventDelegator } from '../../eventDelegators';
 
 export default class SubwayMapStationView {
   constructor(subwayMapViewModel, managerContainer, stationManagerButton) {
@@ -45,67 +7,11 @@ export default class SubwayMapStationView {
     this.managerContainer = managerContainer;
     this.stationManagerButton = stationManagerButton;
 
-    new StationViewEventDelegation(
+    new StationViewEventDelegator(
       this.stationManagerButton,
       this,
       this.subwayMapViewModel,
     );
-  }
-
-  addEventListenerToStationManagerButton(self) {
-    this.stationManagerButton.addEventListener(
-      'click',
-      this.handleStationManagerButton.bind(self),
-    );
-  }
-
-  addEventListenerToStationDeleteButtons(self) {
-    const stationDeleteButtons = document.getElementsByClassName(
-      '.station-delete-button',
-    );
-
-    for (let i = 0; i < stationDeleteButtons.length; i++) {
-      stationDeleteButtons[i].addEventListener(
-        'click',
-        this.handleStationDeleteButton.bind(self),
-      );
-    }
-  }
-
-  addEventListenerToStationAddButton(self) {
-    const stationAddButton = document.getElementById('#station-add-button');
-    stationAddButton.addEventListener(
-      'click',
-      this.handleStationAddButton.bind(self),
-    );
-  }
-
-  handleStationManagerButton() {
-    this.resetManagerContainer();
-    this.renderStationManager();
-    this.addEventListenerToStationAddButton(this);
-  }
-
-  handleStationAddButton() {
-    const stationId = document.getElementById('#station-name-input').value;
-    this.subwayMapViewModel.addStation(stationId);
-
-    this.resetStationTable();
-    this.renderStationTable(
-      Object.entries(this.subwayMapViewModel.getStations()),
-    );
-
-    this.addEventListenerToStationDeleteButtons(this);
-  }
-
-  handleStationDeleteButton(event) {
-    this.subwayMapViewModel.deleteStation(event.target.dataset.id);
-
-    this.resetStationTable();
-    this.renderStationTable(
-      Object.entries(this.subwayMapViewModel.getStations()),
-    );
-    this.addEventListenerToStationDeleteButtons(this);
   }
 
   resetManagerContainer() {
@@ -120,12 +26,12 @@ export default class SubwayMapStationView {
     this.renderStationInputContainer();
     this.renderStationTableContainer();
 
-    new StationViewEventDelegation(
+    new StationViewEventDelegator(
       document.getElementById('#station-input-container'),
       this,
       this.subwayMapViewModel,
     );
-    new StationViewEventDelegation(
+    new StationViewEventDelegator(
       document.getElementById('#station-table-container'),
       this,
       this.subwayMapViewModel,
@@ -182,12 +88,12 @@ export default class SubwayMapStationView {
 
   renderStationTbody(stations) {
     let stationTbody = ``;
-    stations.forEach(stationId => {
+    stations.forEach(station => {
       stationTbody += `
       <tr>
-        <td>${stationId[0]}</td>
+        <td>${station[0]}</td>
         <td>
-          <button data-id="${stationId[0]}" class=".station-delete-button">${message.OPTION_DELETE}</button>
+          <button class=".station-delete-button" data-stationid="${station[0]}" data-purpose="deleteStation">${message.OPTION_DELETE}</button>
         </td>
       </tr>
     `;

@@ -20,7 +20,6 @@ export default class SubwayMapModel {
   deleteStation(stationId) {
     const stations = { ...this.stations };
     delete stations[stationId];
-
     this.stations = stations;
   }
 
