@@ -20,23 +20,15 @@ class StationViewEventDelegation {
     this.stationView.renderStationManager();
   }
 
-  // addLine() {
-  //   const lineObject = {
-  //     lineId: document.getElementById('#line-name-input').value,
-  //     startStation: document.getElementById('#line-start-station-selector')[
-  //       document.getElementById('#line-start-station-selector').selectedIndex
-  //     ].dataset.id,
-  //     endStation: document.getElementById('#line-end-station-selector')[
-  //       document.getElementById('#line-end-station-selector').selectedIndex
-  //     ].dataset.id,
-  //   };
+  addStation() {
+    const stationId = document.getElementById('#station-name-input').value;
+    this.subwayMapViewModel.addStation(stationId);
 
-  //   this.subwayMapViewModel.addLine(lineObject);
-  //   this.lineView.resetLineTable();
-  //   this.lineView.renderLineTable(
-  //     Object.entries(this.subwayMapViewModel.getLines()),
-  //   );
-  // }
+    this.stationView.resetStationTable();
+    this.stationView.renderStationTable(
+      Object.entries(this.subwayMapViewModel.getStations()),
+    );
+  }
 
   // deleteLine(dataSet) {
   //   this.subwayMapViewModel.deleteLine(dataSet.lineid);
@@ -145,7 +137,7 @@ export default class SubwayMapStationView {
       <div id="#station-input-container">
         <p>${message.STATION_NAME}</p>
         <input id="#station-name-input"></input>
-        <button id="#station-add-button">${message.ADD_STATION}</button>
+        <button id="#station-add-button" data-purpose="addStation">${message.ADD_STATION}</button>
         <h2>${message.LIST_OF_STATIONS}</h2>
       </div>
     `;
