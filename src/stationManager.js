@@ -1,6 +1,6 @@
 const app = document.getElementById('app');
 
-export const initStationManage = () => {
+export const initStationManager = () => {
   createInputArea();
   createResultArea();
 };

@@ -1,4 +1,4 @@
-import { initStationManage } from './stationManage.js';
+import { initStationManager } from './stationManager.js';
 
 export default function SubwayMap() {
   const stationMngBtn = document.getElementById('station-manager-button');
@@ -6,7 +6,7 @@ export default function SubwayMap() {
   // const sectionMngBtn = document.getElementById('section-manager-button');
   // const mapPrintMngBtn = document.getElementById('map-print-manager-button');
 
-  stationMngBtn.addEventListener('click', () => initStationManage());
+  stationMngBtn.addEventListener('click', () => initStationManager());
 }
 
 new SubwayMap();
