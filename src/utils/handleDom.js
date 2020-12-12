@@ -15,3 +15,22 @@ export const hideOrShow = (selectedDom, doms) => {
 export const showErrors = (error) => {
   alert(error);
 };
+
+export const addRow = (table, name, index) => {
+  const tr = document.createElement("tr");
+
+  addCell(tr, name);
+  addCell(tr, addDeleteButton(index, "삭제"));
+  table.appendChild(tr);
+};
+
+const addCell = (tr, value) => {
+  const td = document.createElement("td");
+
+  td.innerHTML = value;
+  tr.appendChild(td);
+};
+
+const addDeleteButton = (index, buttonName) => {
+  return `<button value=${index}>${buttonName}</button>`;
+};
