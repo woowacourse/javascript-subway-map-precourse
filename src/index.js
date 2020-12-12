@@ -1,12 +1,7 @@
 import Station from "./station.js";
-import {
-  addStationToList,
-  isCorrectStationName,
-  isOverlappedStationName,
-  showAllStationInManager,
-} from "./station-manager.js";
+import { showAllStationInManager } from "./station-manager.js";
 import Line from "./line.js";
-import { addLineToList, showAllLineInLineManager } from "./line-manager.js";
+import { showAllLineInLineManager } from "./line-manager.js";
 import { showLineMenuInSectionManager } from "./section-manager.js";
 import { showMapList } from "./map-print-manager.js";
 import { manager } from "./manager.js";
@@ -86,20 +81,6 @@ export const makeStationOption = (optionName) => {
     newOption.innerHTML = StationListInOption[idx].name;
     optionList.appendChild(newOption);
   }
-};
-const btnAddStation = document.getElementById("station-add-button");
-btnAddStation.onclick = () => {
-  const newStationName = document.getElementById("station-name-input").value;
-  if (
-    isCorrectStationName(newStationName) &&
-    !isOverlappedStationName(newStationName)
-  ) {
-    addStationToList(newStationName);
-  }
-};
-const btnAddLine = document.getElementById("line-add-button");
-btnAddLine.onclick = () => {
-  addLineToList();
 };
 btnStationManager.onclick = () => {
   makeResultBlock(0);

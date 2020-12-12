@@ -78,3 +78,14 @@ export const addStationToList = (newStationName) => {
   manager.setStationInManager(station);
   showAllStationInManager(makeStationList());
 };
+
+const btnAddStation = document.getElementById("station-add-button");
+btnAddStation.onclick = () => {
+  const newStationName = document.getElementById("station-name-input").value;
+  if (
+    isCorrectStationName(newStationName) &&
+    !isOverlappedStationName(newStationName)
+  ) {
+    addStationToList(newStationName);
+  }
+};

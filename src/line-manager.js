@@ -108,3 +108,8 @@ export const addLineToList = () => {
     makeStationOption("line-end-station-selector");
   }
 };
+
+const btnAddLine = document.getElementById("line-add-button");
+btnAddLine.onclick = () => {
+  addLineToList();
+};
