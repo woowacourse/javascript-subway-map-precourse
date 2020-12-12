@@ -38,11 +38,14 @@ export function isValidOrder(order) {
   }
   return retBool;
 }
-export function isValidOption(inputOption) {
+export function isValidOption(inputOptions) {
   let retBool = true;
-  if (inputOption === SELECTEOR_NONE) {
-    alert(NOT_SELECTED_OPTION_ERROR_MESSAGE);
-    retBool = false;
+  for (let inputOption of inputOptions) {
+    if (inputOption === SELECTEOR_NONE) {
+      alert(NOT_SELECTED_OPTION_ERROR_MESSAGE);
+      retBool = false;
+      break;
+    }
   }
   return retBool;
 }

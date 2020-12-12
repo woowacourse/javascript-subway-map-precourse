@@ -1,4 +1,4 @@
-import { isValidStation } from "../../utility/string-check-utility.js";
+import { isValidStation } from "../../utility/input-check-utility.js";
 import {
   getInputTextByID,
   getAllElementsByClass,

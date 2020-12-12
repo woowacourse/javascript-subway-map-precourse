@@ -1,4 +1,5 @@
-import { isValidLine } from "../../utility/string-check-utility.js";
+import { isValidLine, isValidOption } from "../../utility/input-check-utility.js";
+import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.js";
 import {
   getInputTextByID,
   getAllElementsByClass,
@@ -56,8 +57,9 @@ export default class LineManagerUI {
     const condition2 = this.stationINFOManager_.isNotOverlapNameInLinesArray(
       lineName
     );
+    const condition3 = isValidOption([startStationName, endStationName]);
     let boolToReturn = true;
-    if (!(condition1 && condition2)) {
+    if (!(condition1 && condition2 && condition3)) {
       boolToReturn = false;
     }
     return boolToReturn;
@@ -88,7 +90,7 @@ export default class LineManagerUI {
   }
   makeSelectorInnerHTML_() {
     const stationNames = this.stationINFOManager_.getStationsNames();
-    let selectorInnerHTML = "";
+    let selectorInnerHTML = SELECTOR_DEFAULT_TEMPLATE;
     stationNames.forEach((name) => {
       selectorInnerHTML += this.makeNewSelectorOptionHTML_(name);
     });

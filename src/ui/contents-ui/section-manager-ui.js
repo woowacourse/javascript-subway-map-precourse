@@ -3,8 +3,11 @@ import {
   getAllElementsByClass,
   getSelectedOptionByID,
 } from "../../utility/handle-document-utility.js";
+import {
+  isValidOrder,
+  isValidOption,
+} from "../../utility/input-check-utility.js";
 import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.js";
-import { isValidOrder, isValidOption } from "../../utility/string-check-utility.js";
 
 export default class SectionManagerUI {
   constructor(contentsID, stationINFOManager) {
@@ -83,7 +86,7 @@ class SectionRegisterUI {
     button.addEventListener("click", () => {
       const orderToRegister = getInputTextByID(SECTION_ORDER_INPUT_ID);
       const stationName = getSelectedOptionByID(SECTION_STATION_SELECTOR_ID);
-      if (!(isValidOrder(orderToRegister) && isValidOption(stationName))) {
+      if (!this.isValidSectionAddInput_(orderToRegister, stationName)) {
         return;
       }
       this.stationINFOManager_.registerStationToLine(
@@ -94,6 +97,16 @@ class SectionRegisterUI {
       this.updateAllContents();
     });
   }
+  isValidSectionAddInput_(orderToRegister, stationName) {
+    const condition1 = isValidOrder(orderToRegister);
+    const condition2 = isValidOption([stationName]);
+    let boolToReturn = true;
+    if (!(condition1 && condition2)) {
+      boolToReturn = false;
+    }
+    return boolToReturn;
+  }
+  
   setComboboxOption_() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);
     const optionNames = this.stationINFOManager_.getStationNamesByCondition(
