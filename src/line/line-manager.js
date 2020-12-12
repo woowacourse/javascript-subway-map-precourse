@@ -53,7 +53,7 @@ export default class LineManager {
 			return;
 		}
 
-		const tableRowToDelete = event.target.parentNode.parentNode.parentNode;
+		const tableRowToDelete = event.target.parentNode.parentNode;
 		const lineNameToDelete = tableRowToDelete.dataset.lineName;
 		
 		tableRowToDelete.remove();
