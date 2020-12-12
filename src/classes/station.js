@@ -12,8 +12,11 @@ export class Station {
 
   unableToAdd() {
     const stationList = getLocalStorageAsArray('station');
-
-    if (this.name.length < STATION_NAME_LENGTH_LOW_LIMIT) {
+    console.log(this.name);
+    if (this.name.replace(/ /g, '').length == 0) {
+      return EXCEPTION_MESSAGE['stationNameOnlySpace'];
+    }
+    if (this.name.replace(/ /g, '').length < STATION_NAME_LENGTH_LOW_LIMIT) {
       return EXCEPTION_MESSAGE['stationNameTooShort'];
     }
     if (stationList?.map((v) => v.name).includes(this.name)) {

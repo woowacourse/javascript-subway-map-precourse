@@ -1,7 +1,8 @@
 export const STATION_NAME_LENGTH_LOW_LIMIT = 2;
 
 export const EXCEPTION_MESSAGE = {
-  stationNameTooShort: `입력해주신 역 이름이 너무 짧아 등록할 수 없습니다.😥\n${STATION_NAME_LENGTH_LOW_LIMIT}글자 이상으로 다시 입력해주세요 `,
+  stationNameOnlySpace: `공백만으로는 역 이름을 등록할 수 없습니다.😥\n유효한 이름으로 다시 입력해주세요`,
+  stationNameTooShort: `입력해주신 역 이름이 너무 짧아 등록할 수 없습니다.😥\n${STATION_NAME_LENGTH_LOW_LIMIT}글자 이상으로 다시 입력해주세요`,
   stationNameAlreadyExist:
     '입력해주신 역은 이미 등록된 역입니다.😥 다른 역으로 다시 입력해주세요',
   stationRegisteredToLine:
