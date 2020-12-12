@@ -93,19 +93,24 @@ export const createSelect = (selectId, optionArray) => {
   return select;
 };
 
+const createTd = (text = "") => {
+  const td = document.createElement("td");
+
+  td.innerText = text;
+  td.style = "border: 1px solid black";
+
+  return td;
+};
+
 export const createStationTableRow = (stationName) => {
   const tr = document.createElement("tr");
-  const td1 = document.createElement("td");
-  const td2 = document.createElement("td");
+  const td1 = createTd(stationName);
+  const td2 = createTd();
   const button = createButton(
     "",
     "station-delete-button",
     WORDS.STATION.DELETE_BUTTON
   );
-
-  td1.innerText = stationName;
-  td1.style = "border: 1px solid black";
-  td2.style = "border: 1px solid black";
 
   td2.appendChild(button);
   tr.appendChild(td1);
@@ -115,20 +120,18 @@ export const createStationTableRow = (stationName) => {
 };
 
 export const createLineTableRow = (lineInfo) => {
+  const lineName = Object.keys(lineInfo)[0];
+  const stations = Object.values(lineInfo)[0];
   const tr = document.createElement("tr");
-  const td1 = document.createElement("td");
-  const td2 = document.createElement("td");
-  const td3 = document.createElement("td");
-  const td4 = document.createElement("td");
+  const td1 = createTd(lineName);
+  const td2 = createTd(stations[0]);
+  const td3 = createTd(stations[1]);
+  const td4 = createTd();
   const button = createButton(
     "",
     "line-delete-button",
     WORDS.LINE.DELETE_BUTTON
   );
-
-  td1.innerText = Object.keys(lineInfo)[0];
-  td2.innerText = Object.values(lineInfo)[0][0];
-  td3.innerText = Object.values(lineInfo)[0][1];
 
   td4.appendChild(button);
   tr.appendChild(td1);
