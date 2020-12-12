@@ -1,5 +1,5 @@
 import { getAllStation } from '../Controller/stationManager.js';
-import { appendChilds, clearAllContents, makeElement } from '../Controller/utils.js';
+import { alertAndClear, appendChilds, clearAllContents, makeElement } from '../Controller/utils.js';
 import words from '../key/words.js';
 import { addTableRow, makeSelectBox, makeTable } from './template.js';
 import {
@@ -8,6 +8,9 @@ import {
 	tableSynchronizer,
 } from '../Controller/sectionManager.js';
 import { getAllLines } from '../Controller/lineManager.js';
+import Station from '../Model/Station.js';
+import { errorAlertMessages } from '../key/alertMessages.js';
+import Line from '../Model/Line.js';
 
 const lineButtonHandler = (subContainer, lineName) => {
 	const allStations = getAllStation();
@@ -59,6 +62,10 @@ const lineButtonHandler = (subContainer, lineName) => {
 };
 
 const sectionContainer = (container) => {
+	if(Line.readAllLines().length<1){
+		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_LINE);
+		return;
+	}
 	const titleElement = makeElement({
 		tag: 'p',
 		innerText: words.SECTION_TITLE,

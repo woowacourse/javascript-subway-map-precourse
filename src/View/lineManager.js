@@ -1,14 +1,21 @@
 import { addLine, makeNewLineDeleteButtonElement, tableSynchronizer } from '../Controller/lineManager.js';
 import { getAllStation } from '../Controller/stationManager.js';
 import {
+	alertAndClear,
 	appendChilds,
 	clearAllContents,
 	makeElement,
 } from '../Controller/utils.js';
 import words from '../key/words.js';
 import { addTableRow, makeSelectBox, makeTable } from './template.js';
+import Station from '../Model/Station.js';
+import { errorAlertMessages } from '../key/alertMessages.js';
 
 const lineContainer = (container) => {
+	if(Station.readAllStations().length<=1){
+		alertAndClear(errorAlertMessages.ALERT_NOT_ENOUGH_STATION);
+		return;
+	}
 	const titleElement = makeElement({ tag: 'p', innerText: words.LINE_NAME });
 	const inputElement = makeElement({
 		tag: 'input',
