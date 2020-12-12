@@ -22,3 +22,6 @@ export const checkDuplicateLine = (lineName) => {
 
   return isDuplicate;
 };
+
+export const checkSameStation = (startStation, endStation) =>
+  startStation === endStation ? true : false;

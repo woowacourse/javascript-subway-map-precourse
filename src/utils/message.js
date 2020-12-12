@@ -21,12 +21,14 @@ export const checkStationList = (checkList, input) => {
 };
 
 export const checkLineList = (checkList, input) => {
-  const { isEmpty, isDuplicate } = checkList;
+  const { isEmpty, isDuplicate, isSameStation } = checkList;
 
   if (isEmpty) {
     alertMessage(input, MESSAGE.EMPTY);
   } else if (isDuplicate) {
     alertMessage(input, MESSAGE.DUPLICATE);
+  } else if (isSameStation) {
+    alertMessage(input, MESSAGE.SAME_STATION);
   } else {
     return true;
   }
