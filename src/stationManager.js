@@ -1,6 +1,9 @@
+import { clearPage } from './utils.js';
+
 const app = document.getElementById('app');
 
 export const initStationManager = () => {
+  clearPage();
   createInputArea();
   createResultArea();
 };
