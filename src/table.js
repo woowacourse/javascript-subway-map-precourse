@@ -36,6 +36,14 @@ class Table {
 
     return td;
   };
+
+  createSelect = (selectContainer, values) => {
+    values.forEach(value => {
+      const option = document.createElement("option");
+      option.innerHTML = value;
+      selectContainer.appendChild(option);
+    });
+  };
 }
 
 export const {
@@ -43,4 +51,5 @@ export const {
   createTr,
   createValueTd,
   createButtonTd,
+  createSelect,
 } = new Table();
