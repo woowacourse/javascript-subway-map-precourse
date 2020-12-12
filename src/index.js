@@ -25,7 +25,7 @@ const subwayStationInit = () => {
 		if (canAccessSectionPage()) new viewContainers.SECTION_CONTAINER(container).initializer();
 	});
 	mapPrintPageButton.addEventListener('click', (e) => {
-		if (canAccessMapPrintPage) new viewContainers.MAP_PRINT_CONTAINER(container).initializer();
+		if (canAccessMapPrintPage()) new viewContainers.MAP_PRINT_CONTAINER(container).initializer();
 	});
 	new viewContainers.STATION_CONTAINER(container).initializer();
 };
