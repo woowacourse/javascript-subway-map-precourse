@@ -2,6 +2,13 @@ import { HeaderButtons } from "./HeaderButtons.js";
 import { ContentContainer } from "./ContentContainer.js";
 import { StationManager } from "./station-manager/StationManager.js";
 import { LineManager } from "./line-manager/LineManager.js";
+
+const buttonContentMap = {
+  "station-manager-button": "station-manager-container",
+  "line-manager-button": "line-manager-container",
+  "section-manager-button": "section-manager-container",
+  "map-print-manager-button": "map-print-manager-container",
+};
 export class SubwayMap {
   constructor() {
     this.initiateDOM();
@@ -10,7 +17,7 @@ export class SubwayMap {
 
   initiateDOM = () => {
     this.contentContainer = new ContentContainer();
-    new HeaderButtons({ clickHeaders: this.clickHeaders });
+    new HeaderButtons({ clickHeaders: this.onHeaderClick });
     new StationManager({
       setStations: this.setStations,
       getStations: this.getStations,
@@ -18,9 +25,10 @@ export class SubwayMap {
     });
     new LineManager({ getStations: this.getStations });
   };
-
-  clickHeaders = (index) => {
-    this.contentContainer.changeVisiblity(index);
+  onHeaderClick = (e) => {
+    const { id } = e.currentTarget;
+    const contentId = buttonContentMap[id];
+    this.contentContainer.render({ id: contentId });
   };
 
   setStations = (names) => {

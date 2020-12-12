@@ -1,34 +1,22 @@
-import { hideOrShow } from "../utils/handleDom.js";
+import { displayShow, displayhide } from "../utils/handleDom.js";
+
+const contentIds = [
+  "station-manager-container",
+  "line-manager-container",
+  "section-manager-container",
+  "map-print-manager-container",
+];
 export class ContentContainer {
-  constructor() {
-    this.containers = [];
-    this.initiateDOM();
-    this.handleContainerList();
-  }
+  constructor() {}
 
-  initiateDOM = () => {
-    this.stationManagerContainer = document.getElementById(
-      "station-manager-container"
-    );
-    this.lineManagerContainer = document.getElementById(
-      "line-manager-container"
-    );
-    this.sectionManagerContainer = document.getElementById(
-      "section-manager-container"
-    );
-    this.mapPrintManagerContainer = document.getElementById(
-      "map-print-manager-container"
-    );
-  };
-
-  handleContainerList = () => {
-    this.containers.push(this.stationManagerContainer);
-    this.containers.push(this.lineManagerContainer);
-    this.containers.push(this.sectionManagerContainer);
-    this.containers.push(this.mapPrintManagerContainer);
-  };
-
-  changeVisiblity = (number) => {
-    hideOrShow(this.containers[number], this.containers);
+  render = ({ id }) => {
+    contentIds.forEach((contentId) => {
+      const content = document.getElementById(contentId);
+      if (contentId === id) {
+        displayShow(content);
+      } else {
+        displayhide(content);
+      }
+    });
   };
 }
