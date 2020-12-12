@@ -24,6 +24,7 @@ export class StationManagerInput {
     if (!isValidStationManager(stationName, stations)) {
       return;
     }
+    stations.push(stationName);
     this.setStationNames(stations);
   };
 
