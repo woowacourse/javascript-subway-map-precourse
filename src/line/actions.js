@@ -1,4 +1,5 @@
 import Line from "./models.js";
+import { isNull, isDuplication, isEmpty } from "../utils.js";
 import { disUseStation, loadStations, useStation } from "../station/actions.js";
 import {
   lineInputForm,
@@ -60,13 +61,27 @@ const updateLineList = (_lines) => {
   createLineList(_lines);
 };
 
+const isValid = (_lineName) => {
+  if (isNull(_lineName)) {
+    alert("노선 이름을 입력해주세요.");
+    return;
+  } else if (isDuplication(loadLines(), _lineName)) {
+    alert("중복된 노선 이름입니다.");
+    return;
+  }
+
+  return true;
+};
+
 const getLineName = () => {
   const lineNameInput = document.getElementById("line-name-input");
   const lineName = lineNameInput.value;
 
   lineNameInput.value = "";
 
-  return lineName;
+  if (isValid(lineName)) {
+    return lineName;
+  }
 };
 
 const getStartStation = () => {
@@ -78,6 +93,11 @@ const getEndStation = () => {
 };
 
 const createLine = () => {
+  if (isEmpty(loadStations())) {
+    alert("지하철 역 목록 비어있습니다.");
+    return;
+  }
+
   const lineName = getLineName();
 
   if (lineName) {
