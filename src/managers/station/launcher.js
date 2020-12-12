@@ -17,14 +17,14 @@ export const launchStationManager = (menu, container) => {
 const createStationManagerUI = (menu, container) => {
   const table = makeTable(menu);
 
-  appendNew('label', container, '역 이름', `${menu}-manager-header`);
+  appendNew('label', container, '역 이름', `${menu}-input-label`);
   appendNew('br', container);
   appendNew('input', container, null, `${menu}-name-input`);
   appendNew('button', container, '역 추가', `${menu}-add-button`);
   addEventListenerOnAddButton(menu, requestToAdd);
   appendNew('br', container);
-  appendNew('h2', container, '🚉지하철 역 목록', `${menu}-list-header`);
-  appendNew('div', container, table.outerHTML, `${menu}-list`);
+  appendNew('h2', container, '🚉지하철 역 목록');
+  appendNew('div', container, table.outerHTML);
   document
     .querySelectorAll(`.${menu}-delete-button`)
     .forEach((button) =>

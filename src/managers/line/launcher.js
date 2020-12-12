@@ -16,15 +16,15 @@ export const launchLineManager = (menu, container) => {
 };
 
 const createLineManagerUI = (menu, container) => {
+  const form = makeForm(menu);
   const table = makeTable(menu);
-  let form = appendNew('form', container);
 
-  appendFormComposition(menu, form);
+  appendNew('div', container, form.outerHTML);
   appendNew('button', container, '노선 추가', `${menu}-add-button`);
   addEventListenerOnAddButton(menu, requestToAdd);
   appendNew('br', container);
-  appendNew('h2', container, '🚉지하철 노선 목록', `${menu}-list-header`);
-  appendNew('div', container, table.outerHTML, `${menu}-list`);
+  appendNew('h2', container, '🚉지하철 노선 목록');
+  appendNew('div', container, table.outerHTML);
   document
     .querySelectorAll(`.${menu}-delete-button`)
     .forEach((button) =>
@@ -32,8 +32,10 @@ const createLineManagerUI = (menu, container) => {
     );
 };
 
-const appendFormComposition = (menu, form) => {
-  appendNew('label', form, '노선 이름', `${menu}-name-header`);
+const makeForm = (menu) => {
+  const form = document.createElement('form');
+
+  appendNew('label', form, '노선 이름', `${menu}-input-label`);
   appendNew('br', form);
   appendNew('input', form, null, `${menu}-name-input`).placeholder =
     '노선 이름을 입력해주세요';
@@ -41,5 +43,5 @@ const appendFormComposition = (menu, form) => {
   appendSelector(form, 'startStation');
   appendNew('br', form);
   appendSelector(form, 'endStation');
-  console.log(form);
+  return form;
 };

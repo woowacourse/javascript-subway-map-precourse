@@ -9,7 +9,7 @@ import { Station } from '../../classes/station.js';
 
 // 1. 역 관리 - 신규 역 추가 요청
 export const requestToAdd = (menu) => {
-  const stationNameInput = document.getElementById('station-name-input');
+  const stationNameInput = document.getElementById(`${menu}-name-input`);
   const station = new Station(stationNameInput.value);
   const exception = station.unableToAdd();
   let button;
