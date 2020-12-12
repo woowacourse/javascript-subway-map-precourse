@@ -23,7 +23,7 @@ class App {
 
   mountComponents() {
     this.managerContainer = new ManagerContainer({
-      $target: this.$target,
+      $target: this.$managerContainer,
     });
 
     this.menu = new Menu({

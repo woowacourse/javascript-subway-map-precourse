@@ -1,56 +1,37 @@
-import { clearInnerHTML, makeElement } from "../utils/domUtil.js";
 import { DOM } from "../constants/index.js";
+import { clearInnerHTML, makeElement } from "../utils/domUtil.js";
+import { StationManagerInnerHTML } from "../utils/templates/stationManager.js";
 import StationManager from "./StationManager.js";
 
 class ManagerContainer {
   constructor({ $target }) {
     this.$target = $target;
 
-    this.mountDOMs();
-    this.mountComponents();
-
-    this.innerHTML = ``;
-    this.render();
+    this.createDOMs();
   }
 
-  mountDOMs() {
-    this.$stationManager = makeElement("div", { id: "station-manager" });
+  createDOMs() {
+    this.$stationManager = makeElement(
+      "div",
+      { id: `station-manager` },
+      StationManagerInnerHTML(),
+    );
   }
 
-  mountComponents() {
-    this.stationManager = new StationManager({
-      $target: this.$stationManager,
-    });
-  }
+  mountComponent(targetId) {
+    clearInnerHTML(this.$target);
 
-  setInnerHTML(targetId) {
     switch (targetId) {
       case DOM.STATION_MANAGER_BUTTON:
-        this.innerHTML = this.$stationManager.outerHTML;
-        break;
-
-      case DOM.LINE_MANAGER_BUTTON:
-        this.innerHTML = `라인`;
-        break;
-
-      case DOM.SECTION_MANAGER_BUTTON:
-        this.innerHTML = `섹션`;
-        break;
-
-      case DOM.MAP_PRINT_MANAGER_BUTTON:
-        this.innerHTML = `맵`;
+        this.$target.appendChild(this.$stationManager);
+        this.stationManager = new StationManager({
+          $target: this.$stationManager,
+        });
         break;
 
       default:
         return;
     }
-
-    this.render();
-  }
-
-  render() {
-    clearInnerHTML(this.$target);
-    this.$target.innerHTML = this.innerHTML;
   }
 }
 
