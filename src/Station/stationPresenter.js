@@ -9,7 +9,7 @@ import {
 } from "../utils/createTag.js";
 import { clearChilds, displayChilds } from "../utils/displayRoot.js";
 
-export const displayStationUtil = () => {
+export const displayInitialStation = () => {
   const COL_TITLE_ARRAY = [WORDS.STATION.LIST_COL1, WORDS.STATION.LIST_COL2];
   const div = createDiv(WORDS.STATION.INPUT_TITLE, "margin-top:20px;");
   const input = createInput(

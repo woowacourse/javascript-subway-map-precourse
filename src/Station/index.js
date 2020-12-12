@@ -1,8 +1,8 @@
 import { stationStart } from "./stationContainer.js";
-import { displayStationUtil } from "./stationPresenter.js";
+import { displayInitialStation } from "./stationPresenter.js";
 
 const stationManager = () => {
-  const isDisplayed = displayStationUtil();
+  const isDisplayed = displayInitialStation();
 
   if (isDisplayed) {
     stationStart();
