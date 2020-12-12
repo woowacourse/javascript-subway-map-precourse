@@ -5,6 +5,7 @@ import { showAllLineInLineManager } from "./line-manager.js";
 import { showLineMenuInSectionManager } from "./section-manager.js";
 import { showMapList } from "./map-print-manager.js";
 import { manager } from "./manager.js";
+import { makeStationOption, makeStationList } from "./make-selector-list.js";
 
 const btnStationManager = document.getElementById("station-manager-button");
 const btnLineManager = document.getElementById("line-manager-button");
@@ -48,40 +49,43 @@ const makeResultBlock = (idx) => {
   }
 };
 showAllStationInManager(manager.stationList);
-export const makeStationList = () => {
-  const finalStationList = [];
-  const nowStationList = manager.stationList;
-  const stationName = [];
-  nowStationList.forEach((station) => {
-    stationName.push(station.name);
-  });
-  const stationNameSet = Array.from(new Set(stationName));
-  stationNameSet.forEach((name) => {
-    const sameName = nowStationList.filter(
-      (station) => station.name === name && station.isIncluded !== null
-    );
-    if (sameName.length === 0) {
-      finalStationList.push(
-        nowStationList.filter(
-          (station) => station.name === name && station.isIncluded === null
-        )[0]
-      );
-    } else {
-      finalStationList.push(sameName[0]);
-    }
-  });
-  return finalStationList;
-};
-export const makeStationOption = (optionName) => {
-  const StationListInOption = makeStationList();
-  const optionList = document.getElementById(optionName);
-  optionList.innerHTML = ""; // 선택 노선 변경 시 지하철 역 새로 load
-  for (let idx in StationListInOption) {
-    const newOption = document.createElement("option");
-    newOption.innerHTML = StationListInOption[idx].name;
-    optionList.appendChild(newOption);
-  }
-};
+// export const pushStation = (sameName, finalStationList, stationList) => {
+//   if (sameName.length === 0) {
+//     finalStationList.push(
+//       stationList.filter(
+//         (station) => station.name === name && station.isIncluded === null
+//       )[0]
+//     );
+//   } else {
+//     finalStationList.push(sameName[0]);
+//   }
+// };
+// export const makeStationList = () => {
+//   const finalStationList = [];
+//   const stationList = manager.stationList;
+//   const stationName = stationList.map((station) => {
+//     return station.name;
+//   });
+//   const stationNameSet = Array.from(new Set(stationName));
+//   stationNameSet.forEach((name) => {
+//     const sameName = stationList.filter(
+//       (station) => station.name === name && station.isIncluded !== null
+//     );
+//     pushStation(sameName, finalStationList, stationList);
+//   });
+
+//   return finalStationList;
+// };
+// export const makeStationOption = (optionName) => {
+//   const StationListInOption = makeStationList();
+//   const optionList = document.getElementById(optionName);
+//   optionList.innerHTML = ""; // 선택 노선 변경 시 지하철 역 새로 load
+//   for (let idx in StationListInOption) {
+//     const newOption = document.createElement("option");
+//     newOption.innerHTML = StationListInOption[idx].name;
+//     optionList.appendChild(newOption);
+//   }
+// };
 btnStationManager.onclick = () => {
   makeResultBlock(0);
   showAllStationInManager(makeStationList());

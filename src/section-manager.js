@@ -1,4 +1,4 @@
-import { makeStationOption } from "./index.js";
+import { makeStationOption } from "./make-selector-list.js";
 import { manager } from "./manager.js";
 import Station from "./station.js";
 

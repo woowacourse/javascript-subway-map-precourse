@@ -1,6 +1,6 @@
 import { manager } from "./manager.js";
 import Station from "./station.js";
-import { makeStationList } from "./index.js";
+import { makeStationList } from "./make-selector-list.js";
 
 export const isCorrectStationName = (newStationName) => {
   const rHangel = /^[0-9A-Za-z가-힣]*$/;
@@ -49,6 +49,7 @@ export const deleteStationInList = (stationName) => {
   }
 };
 export const makeStationBox = (newStationName) => {
+  console.log(newStationName);
   const newStation = document.createElement("tr");
   const stationName = document.createElement("td");
   const deleteButton = document.createElement("td");
@@ -68,6 +69,7 @@ export const showAllStationInManager = (stationList) => {
   const table = document.getElementById("station-list");
   table.innerHTML = "";
   stationList.forEach((station) => {
+    console.log(station);
     const newStation = makeStationBox(station.name);
     table.appendChild(newStation);
   });
