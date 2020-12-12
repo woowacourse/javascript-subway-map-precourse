@@ -30,6 +30,18 @@ export const getLocalStorage = (key) => {
   return localStorageValue;
 };
 
+export const removeSectionOnLocalStorage = (key, value) => {
+  const localStorageValue = getLocalStorage(key);
+  const sectionIndex = localStorageValue.findIndex(
+    (line) => line.lineName === value.lineName,
+  );
+  localStorageValue[sectionIndex].station = localStorageValue[
+    sectionIndex
+  ].station.filter((station) => station !== value.station);
+
+  return localStorage.setItem(key, JSON.stringify([...localStorageValue]));
+};
+
 export const removeLocalStorage = (key, value) => {
   const localStorageValue = getLocalStorage(key);
   const filteredStorage = localStorageValue.filter((storage) => {

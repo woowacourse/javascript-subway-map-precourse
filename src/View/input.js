@@ -6,6 +6,7 @@ import {
   onRemoveLine,
   onLoadSection,
   onAddSection,
+  onRemoveSection,
 } from '../index.js';
 
 export const $screenButton = document.body.querySelectorAll('#app > button');
@@ -59,7 +60,7 @@ export const setButtonOption = (value, button) => {
   }
   if (button.className === 'section-delete-button') {
     button.dataset.sectionLine = JSON.stringify(value);
-    return button.addEventListener('click', () => console.log('remove'));
+    return button.addEventListener('click', onRemoveSection);
   }
 };
 

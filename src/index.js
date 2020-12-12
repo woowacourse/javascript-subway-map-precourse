@@ -31,6 +31,7 @@ import {
   setLocalStorage,
   addSectionOnLocalStorage,
   removeLocalStorage,
+  removeSectionOnLocalStorage,
 } from './Controller/local-storage.js';
 
 const stationInstance = new Station();
@@ -93,6 +94,14 @@ export function onAddSection(e) {
   addSectionOnLocalStorage('line', sectionValue);
   loadSectionTable();
   showSectionScreen(e.target.dataset.line);
+}
+
+export function onRemoveSection(e) {
+  const parsedData = JSON.parse(e.target.dataset.sectionLine);
+  const removedData = {lineName: parsedData.line, station: parsedData.station};
+  removeSectionOnLocalStorage('line', removedData);
+  loadSectionTable();
+  showSectionScreen(parsedData.line);
 }
 
 export const loadStation = () => {
