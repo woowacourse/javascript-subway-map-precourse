@@ -1,6 +1,10 @@
-export default class Model {
+export default class StationModel {
 	getStationStorageData = () => {
 		const stationData = JSON.parse(localStorage.getItem('station-data'));
+		
+		if (stationData === null) {
+			return [];
+		}
 		
 		return stationData;
 	}

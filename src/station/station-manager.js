@@ -1,7 +1,7 @@
 import StationInput from './view/input.js';
 import StationOutput from './view/output.js';
 import Station from './station.js';
-import Model from '/src/model/model.js';
+import StationModel from './model/model.js';
 
 export default class StationManager {
 	constructor() {
@@ -16,8 +16,6 @@ export default class StationManager {
 		this.stationInput.stationAddButton.addEventListener('click', this.getStationInputName);	
 	}
 
-
-
 	getStationInputName = () => {
 		const stationName = this.stationInput.stationNameInput.value;
 
@@ -26,11 +24,11 @@ export default class StationManager {
 
 	addStation = stationName => {
 		const station = this.createStation(stationName);
-		const stations = new Model().getStationStorageData();
+		const stations = new StationModel().getStationStorageData();
 
 		stations.push(station);
 
-		new Model().setStationStorageData(stations);
+		new StationModel().setStationStorageData(stations);
 
 		this.stationOutput.showStationTable();
 		this.setStationDeleteButtonHandler();
@@ -63,9 +61,9 @@ export default class StationManager {
 
 		tableRowToDelete.remove();
 
-		const stations = new Model().getStationStorageData();
+		const stations = new StationModel().getStationStorageData();
 
 		stations.splice(stations.indexOf({stationName: stationNameToDelete}), 1);
-		new Model().setStationStorageData(stations);
+		new StationModel().setStationStorageData(stations);
 	}
 }

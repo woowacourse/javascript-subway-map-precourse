@@ -1,4 +1,4 @@
-import Model from '/src/model/model.js';
+import StationModel from '../model/model.js';
 
 export default class StationOutput {
 	constructor() {
@@ -8,7 +8,7 @@ export default class StationOutput {
 	showStationTable = () => {
 		this.clearStationTable();
 
-		const stationData = new Model().getStationStorageData();
+		const stationData = new StationModel().getStationStorageData();
 		const stationContainer = document.getElementById('station-container');
 		const stationTable = this.createStationTable(stationData);
 
@@ -34,7 +34,8 @@ export default class StationOutput {
 				<td><button class="station-delete-button">삭제</button>
 			</tr>
 			`;
-		}		
+		}
+				
 		return stationTable;
 	}
 
