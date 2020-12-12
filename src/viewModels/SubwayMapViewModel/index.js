@@ -9,6 +9,10 @@ export default class SubwayMapViewModel {
     return this.subwayMapModel.getStations();
   }
 
+  setStations(stations) {
+    return this.subwayMapModel.setStations(stations);
+  }
+
   addStation(stationId) {
     const errorMessage = this.validStationId(stationId);
     if (errorMessage) {

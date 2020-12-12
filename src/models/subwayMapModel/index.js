@@ -10,17 +10,25 @@ export default class SubwayMapModel {
     return { ...this.stations };
   }
 
+  setStations(stations) {
+    this.stations = stations;
+  }
+
   addStation(stationId) {
     const stations = { ...this.stations };
     stations[stationId] = stationId;
 
     this.stations = stations;
+
+    localStorage.setItem('stations', JSON.stringify(this.stations));
   }
 
   deleteStation(stationId) {
     const stations = { ...this.stations };
     delete stations[stationId];
     this.stations = stations;
+
+    localStorage.setItem('stations', JSON.stringify(this.stations));
   }
 
   getLines() {

@@ -54,6 +54,12 @@ export default class SubwayMapStationView {
       <div id="#station-table-container"></div>
     `;
 
+    if ('stations' in localStorage) {
+      this.subwayMapViewModel.setStations(
+        JSON.parse(localStorage.getItem('stations')),
+      );
+    }
+
     this.renderStationTable(
       Object.entries(this.subwayMapViewModel.getStations()),
     );
