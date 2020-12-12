@@ -6,7 +6,7 @@ import deleteStationData from "../../_store/Station/deleteStationData.js";
 
 export default (deleteValue) => {
   if (!confirm(DELETE_MESSAGE)) return null;
-  const index = stationSelector.indexOf(deleteValue);
+  const index = stationSelector().indexOf(deleteValue);
   return new Promise((resolve) => {
     resolve(deleteStationData(deleteValue, index));
   });

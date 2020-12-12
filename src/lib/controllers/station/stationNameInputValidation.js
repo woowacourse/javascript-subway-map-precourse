@@ -16,7 +16,7 @@ export default class StationNameInputValidation {
   }
 
   _isUniqueStationName() {
-    return !stationSelector.some(
+    return !stationSelector().some(
       (stationName) => stationName === this.inputValue,
     );
   }

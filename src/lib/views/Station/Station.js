@@ -18,9 +18,9 @@ import {
 
 export default class Station {
   constructor() {
-    this.stationDataList = stationSelector;
+    this.stationDataList = stationSelector();
     this.stationDataListIsEmpty =
-      stationSelector === null || stationSelector.length === 0;
+      this.stationDataList === null || this.stationDataList.length === 0;
     this.element = document.createElement("div");
     this.element.id = STATION_DIV.substring(1);
   }

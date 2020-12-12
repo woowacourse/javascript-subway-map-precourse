@@ -106,3 +106,6 @@
 
 8. **삭제 과정에서 오류 발견** -> 인덱싱 잘못함. 삭제 함수에서 그냥 삭제할 인덱스를 직접 정하자!
   - 삭제 후 상태 업데이트가 안됨 (로컬에서는 삭제됐으나...)
+  - 원인은 기존 로컬 스토리지 값을 정적인 변수에 저장하느냐, 아니면 함수를 호출해서 그때그때 갱신하느냐...
+  - `export const stationSelector = JSON.parse(localStorage.getItem(STATION_STORAGE_NAME));` -> 
+    `export const stationSelector = () => JSON.parse(localStorage.getItem(STATION_STORAGE_NAME));` 로 변경

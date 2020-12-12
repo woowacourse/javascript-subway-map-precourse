@@ -15,7 +15,7 @@ const updateUI = (stationName) => {
 };
 
 export default (stationName) => {
-  stationSelector.push(stationName);
-  stationReducer(stationSelector);
+  const updatedStationDataList = [...stationSelector(), stationName];
+  stationReducer(updatedStationDataList);
   updateUI(stationName);
 };

@@ -19,12 +19,9 @@ const updateUI = (updatedStationList) => {
 };
 
 export default (deleteValue, index) => {
-  const updatedStationList = stationSelector
+  const updatedStationList = stationSelector()
     .slice(0, index)
-    .concat(stationSelector.slice(index + 1, stationSelector.length));
-  console.log(`${index} 번째 ${deleteValue} 역이 삭제될겁니다.`);
-  console.log("before delete", stationSelector);
-  console.log("after delete", updatedStationList);
+    .concat(stationSelector().slice(index + 1, stationSelector().length));
   stationReducer(updatedStationList);
   updateUI(updatedStationList);
 };
