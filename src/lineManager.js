@@ -97,6 +97,8 @@ const getInput = () => {
 };
 
 const addLine = (lineName, lineInput, start, end) => {
+  if (!validateName(lineName)) return;
+
   lineInput.value = '';
   console.log(lineName, start, end);
 
@@ -106,4 +108,13 @@ const addLine = (lineName, lineInput, start, end) => {
   updatedLines[lineName] = [start, end];
   localStorage.setItem('lines', JSON.stringify(updatedLines));
   console.log(JSON.parse(localStorage.getItem('lines')));
+};
+
+const validateName = lineName => {
+  const currLines = JSON.parse(localStorage.getItem('lines'));
+  if (Object.keys(currLines).includes(lineName)) {
+    alert('중복된 노선 이름이 존재합니다.');
+    return false;
+  }
+  return true;
 };
