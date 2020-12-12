@@ -3,7 +3,8 @@ import {
   getAllElementsByClass,
   getSelectedOptionByID,
 } from "../../utility/handle-document-utility.js";
-import { isValidOrder } from "../../utility/string-check-utility.js";
+import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.js";
+import { isValidOrder, isValidOption } from "../../utility/string-check-utility.js";
 
 export default class SectionManagerUI {
   constructor(contentsID, stationINFOManager) {
@@ -82,7 +83,7 @@ class SectionRegisterUI {
     button.addEventListener("click", () => {
       const orderToRegister = getInputTextByID(SECTION_ORDER_INPUT_ID);
       const stationName = getSelectedOptionByID(SECTION_STATION_SELECTOR_ID);
-      if (!isValidOrder(orderToRegister)) {
+      if (!(isValidOrder(orderToRegister) && isValidOption(stationName))) {
         return;
       }
       this.stationINFOManager_.registerStationToLine(
@@ -100,7 +101,7 @@ class SectionRegisterUI {
         return !station.linesOfStation.has(this.lineName_);
       }
     );
-    let seletorInnerHTML = "";
+    let seletorInnerHTML = SELECTOR_DEFAULT_TEMPLATE;
     optionNames.forEach((optionName) => {
       seletorInnerHTML += this.makeNewOptionHTML_(optionName);
     });

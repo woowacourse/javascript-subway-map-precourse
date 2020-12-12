@@ -1,3 +1,5 @@
+import { SELECTEOR_NONE } from "./share-constant-utility.js";
+
 export function isValidStation(name) {
   const condition1 = canSatisfyLengthCondition({
     name: name,
@@ -36,6 +38,14 @@ export function isValidOrder(order) {
   }
   return retBool;
 }
+export function isValidOption(inputOption) {
+  let retBool = true;
+  if (inputOption === SELECTEOR_NONE) {
+    alert(NOT_SELECTED_OPTION_ERROR_MESSAGE);
+    retBool = false;
+  }
+  return retBool;
+}
 
 function canSatisfyLengthCondition({ name, minLength, errorMessage }) {
   let boolToReturn = true;
@@ -63,3 +73,4 @@ const MINIMUM_VAILD_ORDER = 0;
 const NOT_TYPE_OF_NUMBER_ERROR_MESSAGE = "숫자를 입력해주세요.";
 const LESS_THAN_MINIMUM_ORDER_ERROR_MESSAGE = `순서값은 최소 ${MINIMUM_VAILD_ORDER} 이상이어야 합니다.`;
 const HAS_EQUAL_NAME_ERROR_MESSAGE = `상행 종점과 하행 종점이 같은 역입니다.`;
+const NOT_SELECTED_OPTION_ERROR_MESSAGE = "콤보박스의 옵션을 선택해주세요.";
