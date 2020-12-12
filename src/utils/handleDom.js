@@ -11,3 +11,7 @@ export const hideOrShow = (selectedDom, doms) => {
     dom === selectedDom ? displayShow(dom) : displayhide(dom);
   });
 };
+
+export const showErrors = (error) => {
+  alert(error);
+};

@@ -1,4 +1,4 @@
-import { isValid } from "../../utils/validation.js";
+import { isValidStationManager } from "../../utils/validation.js";
 export class StationManagerInput {
   constructor({ setStationNames, getStationNames }) {
     this.initializeDom();
@@ -21,7 +21,7 @@ export class StationManagerInput {
     let stations = this.getStationNames();
 
     this.removeInputs();
-    if (!isValid(stationName, stations)) {
+    if (!isValidStationManager(stationName, stations)) {
       return;
     }
     this.setStationNames(stations);
