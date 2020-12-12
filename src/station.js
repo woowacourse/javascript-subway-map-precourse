@@ -1,6 +1,12 @@
 import { isSpecialCharacter, isDuplicated, isValidLength } from './check.js'
 
 export default function Station() {
+  this.deleteStation = function(dataName) {
+    const deleteTarget = document.querySelector(`#${dataName}`)
+    deleteTarget.remove()
+    localStorage.removeItem(dataName)
+  }
+
   this.confirmDelete = function() {
     const stationDeleteButton = document.getElementsByClassName("station-delete-button");
     let i;
@@ -9,7 +15,7 @@ export default function Station() {
       stationDeleteButton[i].addEventListener("click", () => {
         const returnValue = confirm("정말로 삭제하시겠습니까?")
         if (returnValue) {
-          console.log(dataName)
+          this.deleteStation(dataName);
         }
       })
     }
