@@ -1,8 +1,11 @@
 export default class Station {
-  constructor() {
-    this.name = "";
+  constructor(name) {
+    this.name = name;
     this.order = null;
-    this.isStartStation = "";
-    this.isEndStation = "";
+    this.isStartStation = undefined;
+    this.isEndStation = undefined;
   }
+
+
+
 }

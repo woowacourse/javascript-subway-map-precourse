@@ -44,8 +44,7 @@ export default class Station {
 
   _getStationListViewContainerChildNodes() {
     const $title = new Typography("지하철 역 목록", "h2");
-    // 들어온 정보 출력하는거 개어려울듯..
-    // try catch문 써봐야 하나?
+    // 새로 들어온 정보 여기다 출력
 
     return [$title];
   }

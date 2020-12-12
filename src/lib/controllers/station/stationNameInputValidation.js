@@ -14,7 +14,7 @@ export default class StationNameInputValidation {
     if (!this.isMoreThanTwoCharacters)
       return actionResult(
         false,
-        `역 이름은 최소 ${MIN_LENGTH_OF_STATION_NAME}글자 이상이어야 합니다.`
+        `역 이름은 최소 ${MIN_LENGTH_OF_STATION_NAME}글자 이상이어야 합니다.`,
       );
 
     return actionResult(true);
