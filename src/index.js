@@ -1,5 +1,6 @@
 import Station from './Model/station.js';
 import Line from './Model/line.js';
+import Section from './Model/section.js';
 import {hideScreen} from './View/hide-screen.js';
 import {showScreen, showSectionScreen} from './View/show-screen.js';
 import {
@@ -28,6 +29,7 @@ import {
 
 const stationInstance = new Station();
 const lineInstance = new Line();
+const sectionInstance = new Section();
 
 export function onChangeScreen(e) {
   hideScreen();
@@ -96,6 +98,10 @@ export const loadLine = () => {
   });
 };
 
+export const loadSectionTable = () => {
+  sectionInstance.loadSection();
+};
+
 const getLineValue = () => {
   return {
     lineName: $lineNameInput.value,
@@ -105,3 +111,4 @@ const getLineValue = () => {
 
 loadStation();
 loadLine();
+loadSectionTable();
