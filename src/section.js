@@ -16,6 +16,15 @@ class Section {
 
     this.handleMenuButton();
   };
+
+  handleMenuButton = () => {
+    const sectionMenuBtns = document.getElementsByClassName(
+      "section-line-menu-button"
+    );
+    for (let i = 0; i < sectionMenuBtns.length; i++) {
+      sectionMenuBtns[i].addEventListener("click", this.showSectionLine);
+    }
+  };
 }
 
 export default new Section();
