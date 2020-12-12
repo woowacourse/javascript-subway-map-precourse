@@ -89,6 +89,7 @@ export function onLoadSection(e) {
 export function onAddSection(e) {
   const sectionValue = getSectionValue(e.target.dataset.line);
   addSectionOnLocalStorage('line', sectionValue);
+  sectionInstance.addSectionLine(sectionValue);
 }
 
 export const loadStation = () => {
