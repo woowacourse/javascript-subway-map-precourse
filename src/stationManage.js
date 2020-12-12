@@ -68,11 +68,13 @@ const createResultArea = () => {
 
   stations.map(name => {
     const tableRow = document.createElement('tr');
+    tableRow.setAttribute('data-station', name);
     const nameData = document.createElement('td');
     nameData.innerHTML = name;
 
     const deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = '삭제';
+    deleteBtn.addEventListener('click', () => deleteStation(name));
 
     tableRow.appendChild(nameData);
     tableRow.appendChild(deleteBtn);
@@ -86,14 +88,25 @@ const createResultArea = () => {
 const addTable = name => {
   const stationTable = document.getElementById('station-table');
   const newRow = document.createElement('tr');
+  newRow.setAttribute('data-station', name);
   const newData = document.createElement('td');
   newData.innerHTML = name;
 
   const deleteBtn = document.createElement('button');
   deleteBtn.innerHTML = '삭제';
+  deleteBtn.addEventListener('click', () => deleteStation(name));
 
   newRow.appendChild(newData);
   newRow.appendChild(deleteBtn);
 
   stationTable.appendChild(newRow);
+};
+
+const deleteStation = name => {
+  const stationTable = document.getElementById('station-table');
+  const currStations = JSON.parse(localStorage.getItem('stations'));
+  const updatedStations = currStations.filter(station => station !== name);
+  localStorage.setItem('stations', JSON.stringify(updatedStations));
+  const rowToBeDeleted = stationTable.querySelector(`[data-station=${name}]`);
+  stationTable.removeChild(rowToBeDeleted);
 };
