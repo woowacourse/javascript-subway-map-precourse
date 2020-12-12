@@ -105,7 +105,7 @@ export const loadSectionTable = () => {
 const getLineValue = () => {
   return {
     lineName: $lineNameInput.value,
-    lastStop: [$upStream.value, $downStream.value],
+    station: [$upStream.value, $downStream.value],
   };
 };
 

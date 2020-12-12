@@ -22,7 +22,7 @@ export const isLineInputValid = (userLine, exLine) => {
   if (!isAllDifferentLine(userLine.lineName, exLine)) {
     return false;
   }
-  if (!isLastStopDifferent(userLine.lastStop)) {
+  if (!isLastStopDifferent(userLine.station)) {
     return false;
   }
 
@@ -61,8 +61,8 @@ const isAllDifferentLine = (userLine, allLines) => {
   return true;
 };
 
-const isLastStopDifferent = (lastStop) => {
-  if (lastStop[0] === lastStop[1]) {
+const isLastStopDifferent = (station) => {
+  if (station[0] === station[station.length - 1]) {
     return alert('상행과 하행이 같은 역이 될 수 없습니다.');
   }
 

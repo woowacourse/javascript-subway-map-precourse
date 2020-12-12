@@ -27,8 +27,8 @@ export const addLineScreen = (line) => {
   const $lineTr = document.createElement('tr');
   $lineTr.innerHTML = `
     <td>${line.lineName}</td>
-    <td>${line.lastStop[0]}</td>
-    <td>${line.lastStop[line.lastStop.length - 1]}</td>
+    <td>${line.station[0]}</td>
+    <td>${line.station[line.station.length - 1]}</td>
     <td><button class="line-delete-button">삭제</button></td>
   `;
   setButtonOption(line.lineName, $lineTr.querySelector('button'));
