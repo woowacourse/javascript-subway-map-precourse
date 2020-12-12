@@ -66,6 +66,14 @@ class Line {
     }
   };
 
+  deleteLine = e => {
+    const removeNode = e.target.parentNode.parentNode;
+    const removeName = removeNode.querySelector("td").innerHTML;
+    delete this.lines[removeName];
+
+    this.showLines();
+  };
+
   handleAddLineClick = () => {
     const lineAddBtn = document.getElementById("line-add-button");
     lineAddBtn.addEventListener("click", this.addLine);
