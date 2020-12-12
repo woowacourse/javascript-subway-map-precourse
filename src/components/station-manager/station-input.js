@@ -45,7 +45,10 @@ class StationInput extends Component {
   }
 
   isValidInput(input) {
-    return hasStringEnoughLength(input, 2);
+    return (
+      hasStringEnoughLength(input, 2) &&
+      !this._props.stations.value.includes(input)
+    );
   }
 
   alertByCase(input) {
@@ -53,7 +56,10 @@ class StationInput extends Component {
     if (!hasStringEnoughLength(input, 2)) {
       alertCases.push('2글자 이상');
     }
-    alert(`${alertCases.join(', ')} 입력해야 합니다. 다시 입력 해주세요.`);
+    if (this._props.stations.value.includes(input)) {
+      alertCases.push('중복되지 않은 역 이름');
+    }
+    alert(`${alertCases.join(', ')}을 입력해야 합니다. 다시 입력 해주세요.`);
   }
 }
 
