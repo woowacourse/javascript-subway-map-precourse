@@ -40,7 +40,8 @@ const inputPart = () => {
   const select = createSelect("section-station-selector", stations);
   const input = createInput(
     "section-order-input",
-    WORDS.SECTION.INPUT_PLACEHOLDER
+    WORDS.SECTION.INPUT_PLACEHOLDER,
+    "number"
   );
   const button = createButton(
     "section-add-button",
