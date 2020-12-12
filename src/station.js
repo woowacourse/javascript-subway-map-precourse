@@ -1,10 +1,15 @@
-import { isSpecialCharacter, isDuplicated, isValidLength } from './check.js'
+import { isSpecialCharacter, isDuplicated, isValidLength, isRegistered } from './check.js'
 
 export default function Station() {
   this.deleteStation = function(dataName) {
-    const deleteTarget = document.querySelector(`#${dataName}`)
-    deleteTarget.remove()
-    localStorage.removeItem(dataName)
+    if (isRegistered(dataName)) {
+      const deleteTarget = document.querySelector(`#${dataName}`)
+      deleteTarget.remove()
+      localStorage.removeItem(dataName)
+    } else {
+      const alertText = "노선에 등록된 역은 삭제할 수 없습니다."
+      alert(alertText)
+    }
   }
 
   this.confirmDelete = function() {
