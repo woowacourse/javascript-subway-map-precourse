@@ -15,6 +15,11 @@ class SectionViewEventDelegation {
     }
   }
 
+  sectionManager() {
+    this.sectionView.resetManagerContainer();
+    this.sectionView.renderSectionManager();
+  }
+
   selectLine(dataSet) {
     this.sectionView.renderSelectedLineSectionManager(
       this.subwayMapViewModel.getLine(dataSet.id),
@@ -53,19 +58,11 @@ export default class SubwayMapSectionView {
     this.managerContainer = managerContainer;
     this.sectionManagerButton = sectionManagerButton;
 
-    this.addEventListenerToSectionManagerButton(this);
-  }
-
-  addEventListenerToSectionManagerButton(self) {
-    this.sectionManagerButton.addEventListener(
-      'click',
-      this.handleSectionManagerButton.bind(this),
+    new SectionViewEventDelegation(
+      sectionManagerButton,
+      this,
+      this.subwayMapViewModel,
     );
-  }
-
-  handleSectionManagerButton() {
-    this.resetManagerContainer();
-    this.renderSectionManager();
   }
 
   resetManagerContainer() {

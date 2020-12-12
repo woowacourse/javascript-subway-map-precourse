@@ -5,17 +5,17 @@ class MapPrintViewEventDelegation {
     element.addEventListener('click', this.onClick.bind(this));
   }
 
-  mapPrintManager() {
-    this.mapPrintView.resetManagerContainer();
-    this.mapPrintView.renderMapPrintManager();
-  }
-
   onClick(event) {
     let dataSet = event.target.dataset;
 
     if (dataSet.purpose) {
       this[dataSet.purpose](dataSet);
     }
+  }
+
+  mapPrintManager() {
+    this.mapPrintView.resetManagerContainer();
+    this.mapPrintView.renderMapPrintManager();
   }
 }
 
