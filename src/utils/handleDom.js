@@ -20,7 +20,7 @@ export const addRow = (table, name, index) => {
   const tr = document.createElement("tr");
 
   addCell(tr, name);
-  addCell(tr, addDeleteButton(index, "삭제"));
+  addCell(tr, addDeleteButton(name, "삭제"));
   table.appendChild(tr);
 };
 
@@ -31,6 +31,11 @@ const addCell = (tr, value) => {
   tr.appendChild(td);
 };
 
-const addDeleteButton = (index, buttonName) => {
-  return `<button value=${index}>${buttonName}</button>`;
+const addDeleteButton = (name, buttonName) => {
+  return `<button class="delete-button" data-station="${name}">${buttonName}</button>`;
+};
+
+export const getStationsTableHeader = () => {
+  return `<th>역 이름</th>
+          <th>설정</th>`;
 };

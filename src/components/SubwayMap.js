@@ -11,8 +11,9 @@ export class SubwayMap {
     this.contentContainer = new ContentContainer();
     new HeaderButtons({ clickHeaders: this.clickHeaders });
     new StationManager({
-      setStationNames: this.setStationNames,
-      getStationNames: this.getStationNames,
+      setStations: this.setStations,
+      getStations: this.getStations,
+      deleteStation: this.deleteStation,
     });
   };
 
@@ -20,11 +21,19 @@ export class SubwayMap {
     this.contentContainer.changeVisiblity(index);
   };
 
-  setStationNames = (names) => {
+  setStations = (names) => {
     localStorage.setItem("stations", JSON.stringify(names));
   };
 
-  getStationNames = () => {
+  getStations = () => {
     return JSON.parse(localStorage.getItem("stations"));
+  };
+
+  deleteStation = (target) => {
+    let stations = this.getStations();
+    stations = stations.filter((station) => {
+      return station !== target;
+    });
+    this.setStations(stations);
   };
 }
