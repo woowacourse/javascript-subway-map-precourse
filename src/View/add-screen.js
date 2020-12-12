@@ -28,7 +28,7 @@ export const addLineScreen = (line) => {
   $lineTr.innerHTML = `
     <td>${line.lineName}</td>
     <td>${line.lastStop[0]}</td>
-    <td>${line.lastStop[1]}</td>
+    <td>${line.lastStop[line.lastStop.length - 1]}</td>
     <td><button class="line-delete-button">삭제</button></td>
   `;
   setButtonOption(line.lineName, $lineTr.querySelector('button'));
