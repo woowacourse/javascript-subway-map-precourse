@@ -1,4 +1,4 @@
-import { makeStationOption } from "./index.js";
+import { makeStationOption, makeStationList } from "./index.js";
 import { manager } from "./manager.js";
 import Station from "./station.js";
 
@@ -50,7 +50,7 @@ export const onClickedLine = (lineName) => {
   sectionManagerTitle.innerHTML = `${selectedLineName} 관리`;
   const stationListBox = document.getElementById("station-in-selected-line");
   stationListBox.innerHTML = ""; // 선택 노선 변경 시 역 계속 나열 안되게 초기화
-  makeStationOption(manager.stationList, "section-station-selector");
+  makeStationOption(makeStationList(), "section-station-selector");
   const selectedLine = manager.lineList.find(
     (line) => line.name === selectedLineName
   );
@@ -76,18 +76,39 @@ export const showLineMenuInSectionManager = (lineList) => {
     lineMenu.appendChild(lineMenuButton);
   });
 };
+export const isCorrectAddIdx = (idx, addSectionIdx) => {
+  if (
+    idx > 0 &&
+    idx < manager.getSelectedLine().length &&
+    !isNaN(idx) &&
+    idx % 10 === 0
+  ) {
+    return true;
+  } else {
+    alert("올바른 구간 번호를 입력하세요");
+    addSectionIdx.value = "";
+    makeStationOption(makeStationList(), "section-station-selector");
+
+    return false;
+  }
+};
 const btnAddSection = document.getElementById("section-add-button");
 btnAddSection.onclick = () => {
-  const addSectionIdx = document.getElementById("section-order-input").value;
-  const addStationName = document.getElementById("section-station-selector")
-    .value;
-  const selectedLine = manager.getSelectedLine();
-  const inputStation = new Station(addStationName);
-  inputStation.addIncludedLine(selectedLine.name);
-  manager.setStationInManager(inputStation);
-  selectedLine.addStationInIdx(inputStation, addSectionIdx);
+  const addSectionIdx = document.getElementById("section-order-input");
+  const inputIdx = addSectionIdx.value;
+  if (isCorrectAddIdx(inputIdx, addSectionIdx)) {
+    const addStationName = document.getElementById("section-station-selector")
+      .value;
+    const selectedLine = manager.getSelectedLine();
+    const inputStation = new Station(addStationName);
+    inputStation.addIncludedLine(selectedLine.name);
+    manager.setStationInManager(inputStation);
+    selectedLine.addStationInIdx(inputStation, addSectionIdx);
 
-  const stationList = document.getElementById("station-in-selected-line");
-  stationList.innerHTML = "";
-  showStationList(manager.getSelectedLine().getAllStationName());
+    const stationList = document.getElementById("station-in-selected-line");
+    stationList.innerHTML = "";
+    showStationList(manager.getSelectedLine().getAllStationName());
+    addSectionIdx.value = "";
+    makeStationOption(makeStationList(), "section-station-selector");
+  }
 };
