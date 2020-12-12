@@ -47,4 +47,14 @@ const Visualization = function () {
     this.appendChildrenToParent(table, thead);
     return table;
   };
+
+  this.convertDataArrayToElementArray = (
+    elementType,
+    attributes,
+    dataArray
+  ) => {
+    return dataArray.map((data) =>
+      createElementWithOption(elementType, attributes, data)
+    );
+  };
 };
