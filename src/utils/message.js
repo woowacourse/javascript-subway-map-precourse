@@ -33,3 +33,15 @@ export const checkLineList = (checkList, input) => {
     return true;
   }
 };
+
+export const checkSectionList = (checkList, input) => {
+  const { isEmpty, isWrongRange } = checkList;
+
+  if (isEmpty) {
+    alertMessage(input, MESSAGE.EMPTY);
+  } else if (isWrongRange) {
+    alertMessage(input, MESSAGE.WRONG_RANGE);
+  } else {
+    return true;
+  }
+};

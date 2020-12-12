@@ -70,7 +70,7 @@ const lineAddClicked = () => {
   const isDuplicate = checkDuplicateLine(lineInputValue);
   const isSameStation = checkSameStation(startStation, endStation);
   const checkList = { isEmpty, isDuplicate, isSameStation };
-  const isValid = checkLineList(checkList, lineInput, isSameStation);
+  const isValid = checkLineList(checkList, lineInput);
 
   if (isValid) {
     const newLine = addLine(lineInputValue, startStation, endStation);

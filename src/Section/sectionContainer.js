@@ -1,4 +1,5 @@
 import { loadLines, saveLines } from "../Line/lineContainer.js";
+import { checkSectionList } from "../utils/message.js";
 import { checkEmpty, checkRange } from "../validation/index.js";
 import { displaySectionUtil } from "./sectionPresenter.js";
 
@@ -24,14 +25,19 @@ const addLine = (selectLine, station, index) => {
 const sectionAddClicked = (line) => {
   const stationSelectValue = document.getElementById("section-station-selector")
     .value;
-  const orderInputValue = document.getElementById("section-order-input").value;
+  const orderInput = document.getElementById("section-order-input");
+  const orderInputValue = orderInput.value;
   const table = document.querySelector("table");
   const rangeRefrence = table.childNodes.length;
 
-  const isEmpty = checkEmpty(lineInputValue);
+  const isEmpty = checkEmpty(orderInputValue);
   const isWrongRange = checkRange(rangeRefrence, orderInputValue);
+  const checkList = { isEmpty, isWrongRange };
+  const isValid = checkSectionList(checkList, orderInput);
 
-  addLine(line, stationSelectValue, orderInputValue);
+  if (isValid) {
+    addLine(line, stationSelectValue, orderInputValue);
+  }
 };
 
 const sectionUtilHandler = (line) => {
