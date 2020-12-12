@@ -11,7 +11,7 @@ import {
   createSelect,
   createTable,
 } from "../utils/createTag.js";
-import { clearChilds, displayChilds } from "../utils/displayRoot.js";
+import { clearChilds, displayChilds } from "../utils/display.js";
 
 const lineRow1 = () => {
   const inputTitle = createDiv(WORDS.LINE.INPUT_TITLE, "margin-top:20px;");
@@ -67,8 +67,8 @@ export const displayInitialLine = () => {
   const h2 = createHeader(2, WORDS.LINE.LIST_TITLE);
   const table = createTable(WORDS.LINE.LIST_COL_ARRAY);
 
-  clearChilds();
-  displayChilds([InputPart, SelectStart, SelectEnd, button, h2, table]);
+  clearChilds("root");
+  displayChilds("root", [InputPart, SelectStart, SelectEnd, button, h2, table]);
 
   return true;
 };

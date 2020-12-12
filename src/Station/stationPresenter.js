@@ -7,7 +7,7 @@ import {
   createTable,
   createStationTableRow,
 } from "../utils/createTag.js";
-import { clearChilds, displayChilds } from "../utils/displayRoot.js";
+import { clearChilds, displayChilds } from "../utils/display.js";
 
 export const displayInitialStation = () => {
   const COL_TITLE_ARRAY = [WORDS.STATION.LIST_COL1, WORDS.STATION.LIST_COL2];
@@ -24,8 +24,8 @@ export const displayInitialStation = () => {
   const h2 = createHeader(2, WORDS.STATION.LIST_TITLE);
   const table = createTable(COL_TITLE_ARRAY);
 
-  clearChilds();
-  displayChilds([div, input, button, h2, table]);
+  clearChilds("root");
+  displayChilds("root", [div, input, button, h2, table]);
 
   return true;
 };
