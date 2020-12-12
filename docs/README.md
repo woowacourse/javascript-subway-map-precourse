@@ -122,6 +122,9 @@ git clone https://github.com/sunhpark42/javascript-subway-map-precourse.git; cd 
 ### 기능 연결
 - [x] 기능 연결
 
+### 기타
+- [ ] 로컬 스토리지에 값이 없는 경우 default 값 삽입, 있는 경우 기존의 스토리지 값을 이용.
+
 ## ✔️ 커밋 규칙
 * feat : 새로운 기능 추가
 * fix : 버그 수정
