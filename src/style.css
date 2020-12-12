@@ -6,3 +6,19 @@ input {
     margin-right: 5px;
 }
 
+select {
+    margin-left: 5px;
+}
+
+#line-name-input {
+    margin-bottom: 20px;
+    display: block;
+}
+
+.line-station-text {
+    display: inline;
+}
+
+
+
+
