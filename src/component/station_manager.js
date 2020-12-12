@@ -8,10 +8,10 @@ import {
   STATION_MANAGER,
   STATION_MANAGER_BUTTON,
   STATION_MANAGER_K,
-  STATION_NAME,
+  STATION,
   STATION_NAME_INPUT,
-  STATION_NAME_TABLE,
-  STATION_NAME_ROW,
+  STATION_TABLE,
+  STATION_ROW,
 } from '../library/constant/constant.js';
 
 export default class StationManager extends Role {
@@ -21,11 +21,9 @@ export default class StationManager extends Role {
   }
 
   addStationName() {
-    this.eventHandler.handleButtonEvent(
-      STATION_ADD_BUTTON,
-      this.handleStationNameInput,
-      this
-    );
+    const addButton = nodeSelector.selectId(STATION_ADD_BUTTON);
+
+    addButton.addEventListener('click', this.handleStationNameInput.bind(this));
   }
 
   handleStationNameInput() {
@@ -37,13 +35,14 @@ export default class StationManager extends Role {
       response.then(isValidate => {
         if (isValidate) {
           this.renderStationName(stationNameInput.value);
+          // 로컬 스토리지에 추가하는 로직.
         }
       });
     }
   }
 
   renderStationName(stationName) {
-    const stationNameTable = nodeSelector.selectId(STATION_NAME_TABLE);
+    const stationNameTable = nodeSelector.selectId(STATION_TABLE);
     const row = this.getStationNameRow();
     const stationDeleteButton = document.createElement('button');
 
@@ -60,10 +59,10 @@ export default class StationManager extends Role {
     const nameBlank = document.createElement('td');
     const buttonBlank = document.createElement('td');
 
-    nameBlank.className = STATION_NAME;
+    nameBlank.className = STATION;
     row.appendChild(nameBlank);
     row.appendChild(buttonBlank);
-    row.className = STATION_NAME_ROW;
+    row.className = STATION_ROW;
 
     return row;
   }

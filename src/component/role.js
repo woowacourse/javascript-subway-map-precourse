@@ -1,6 +1,6 @@
 import { nodeSelector } from '../util/selector/node_selector.js';
-import EventHandler from '../util/handler/event_handler.js';
 import {
+  ACTIVE,
   ROLE,
   ROLE_BUTTON_SECTION,
   ROLE_NAMES,
@@ -11,7 +11,6 @@ export default class Role {
     this.roleId = roleId;
     this.buttonId = buttonId;
     this._roleName = roleName;
-    this.eventHandler = new EventHandler();
     this.renderRoleButton();
   }
 
@@ -33,14 +32,14 @@ export default class Role {
     const role = nodeSelector.selectId(this.roleId);
 
     this.resetDisplay();
-    role.classList.add('active');
+    role.classList.add(ACTIVE);
   }
 
   resetDisplay() {
     const roles = nodeSelector.selectClassAll(ROLE);
 
     roles.forEach(role => {
-      role.classList.remove('active');
+      role.classList.remove(ACTIVE);
     });
   }
 }
