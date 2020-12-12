@@ -1,9 +1,9 @@
 import Validator from './validator.js';
 import {
   STATION_FETCH_URL,
-  STATION_NAME,
-  STATION_NAME_ALERT_INVALID,
-  STATION_NAME_ALERT_OVERLAP,
+  STATION,
+  STATION_ALERT_INVALID,
+  STATION_ALERT_OVERLAP,
 } from '../../library/constant/constant.js';
 
 export default class StationValidator extends Validator {
@@ -13,7 +13,7 @@ export default class StationValidator extends Validator {
   }
 
   checkStationName() {
-    if (this.isOverlapped(this._input.value, STATION_NAME)) {
+    if (this.isOverlapped(this._input.value, STATION)) {
       this.alertStationNameOverlap(this._input);
 
       return;
@@ -24,7 +24,7 @@ export default class StationValidator extends Validator {
 
   alertStationNameOverlap() {
     this._input.value = '';
-    alert(STATION_NAME_ALERT_OVERLAP);
+    alert(STATION_ALERT_OVERLAP);
   }
 
   checkValidStation() {
@@ -56,6 +56,6 @@ export default class StationValidator extends Validator {
 
   alertStationNameInvalid() {
     this._input.value = '';
-    alert(STATION_NAME_ALERT_INVALID);
+    alert(STATION_ALERT_INVALID);
   }
 }
