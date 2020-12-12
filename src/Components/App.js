@@ -1,5 +1,7 @@
 import { MenuInnerHTML } from "../utils/templates/main.js";
 import { makeElement } from "../utils/domUtil.js";
+import Menu from "./Menu.js";
+import ManagerContainer from "./ManagerContainer.js";
 
 class App {
   constructor($target) {
@@ -16,6 +18,17 @@ class App {
   mountDOMs() {
     this.$target.appendChild(this.$menu);
     this.$target.appendChild(this.$managerContainer);
+  }
+
+  mountComponents() {
+    this.managerContainer = new ManagerContainer({
+      $target: this.$target,
+    });
+
+    this.menu = new Menu({
+      $target: this.$menu,
+      managerContainer: this.managerContainer,
+    });
   }
 }
 
