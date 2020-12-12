@@ -2,6 +2,8 @@ import LineInput from './view/input.js';
 import LineOutput from './view/output.js';
 import Line from './line.js';
 import LineModel from './model/model.js';
+import SectionManager from '../section/section-manager.js';
+import SectionModel from '../section/model/model.js';
 
 export default class LineManager {
 	constructor() {
@@ -21,7 +23,6 @@ export default class LineManager {
 		const lineStartStation = this.lineInput.lineStartStationSelector.value;
 		const lineEndStation = this.lineInput.lineEndStationSelector.value;
 		const line = this.createLine(lineNameInput, lineStartStation, lineEndStation);
-
 		const lines = new LineModel().getLineStorageData();
 
 		lines.push(line);
@@ -29,6 +30,11 @@ export default class LineManager {
 		new LineModel().setLineStorageData(lines);
 
 		this.lineOutput.showLineTable();
+
+		const defaultSection = new SectionManager().createSection(line.lineName, line.startStation, line.endStation);
+
+		new SectionModel().setSectionStorageData(defaultSection);
+		console.log(defaultSection);
 	}
 
 	createLine = (lineNameInput, lineStartStation, lineEndStation) => {

@@ -24,7 +24,7 @@ export default class LineOutput {
 
 		for (let station of stations) {
 			let option = document.createElement('option');
-			let optionText = document.createTextNode(`${station.stationName}`);
+			let optionText = document.createTextNode(station.stationName);
 			option.appendChild(optionText);
 			selector.appendChild(option);	
 		}
