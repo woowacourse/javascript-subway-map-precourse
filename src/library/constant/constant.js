@@ -61,6 +61,7 @@ export const STATION_ROW_END = '730';
 export const STATION_FETCH_URL = `${STATION_URL}/${STATION_KEY}/${STATION_FORMAT}/${STATION_INFO}/${STATION_ROW_START}/${STATION_ROW_END}`;
 
 // constants (kor)
+export const NONE_K = '없음';
 export const DELETE_K = '삭제';
 export const STATION_MANAGER_K = '역 관리';
 export const LINE_MANAGER_K = '노선 관리';
@@ -74,4 +75,30 @@ export const ROLE_NAMES = [
   LINE_MANAGER_K,
   SECTION_LINE_MANAGER_K,
   MAP_PRINT_MANAGER_K,
+];
+
+export const LINE_NAMES = [
+  '1호선',
+  '2호선',
+  '3호선',
+  '4호선',
+  '5호선',
+  '6호선',
+  '7호선',
+  '8호선',
+  '9호선',
+  '인천1호선',
+  '인천2호선',
+  '신분당',
+  '경의중앙선',
+  '경춘선',
+  '수인분당',
+  '공항',
+  '의정부',
+  '에버라인',
+  '자기부상',
+  '경강선',
+  '우이신설',
+  '서해선',
+  '김포골드',
 ];

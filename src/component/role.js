@@ -42,4 +42,15 @@ export default class Role {
       role.classList.remove(ACTIVE);
     });
   }
+
+  renderSelectOption(value, ...selectIds) {
+    for (const selectId of selectIds) {
+      const selector = nodeSelector.selectId(selectId);
+      const option = document.createElement('option');
+
+      option.value = value;
+      option.append(value);
+      selector.append(option);
+    }
+  }
 }

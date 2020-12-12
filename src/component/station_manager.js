@@ -13,6 +13,8 @@ import {
   STATION_TABLE,
   STATION_ROW,
   STATIONS_LS,
+  LINE_START_STATION_SELECTOR,
+  LINE_END_STATION_SELECTOR,
 } from '../library/constant/constant.js';
 
 export default class StationManager extends Role {
@@ -50,8 +52,12 @@ export default class StationManager extends Role {
   }
 
   addStation(station) {
+    const lineStartSelect = LINE_START_STATION_SELECTOR;
+    const lineEndSelect = LINE_END_STATION_SELECTOR;
+
     this._stations.push(station);
     localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
+    this.renderSelectOption(station, lineStartSelect, lineEndSelect);
   }
 
   renderStation(station) {
@@ -99,6 +105,7 @@ export default class StationManager extends Role {
       return;
     }
     this.deleteStation(target);
+    this.deleteStationOption(target);
   }
 
   deleteStation(target) {
@@ -112,6 +119,19 @@ export default class StationManager extends Role {
 
         return;
       }
+    }
+  }
+
+  deleteStationOption(target) {
+    const selectorIds = [
+      LINE_START_STATION_SELECTOR,
+      LINE_END_STATION_SELECTOR,
+    ];
+
+    for (const selectorId of selectorIds) {
+      const options = nodeSelector.selectId(selectorId).childNodes;
+
+      options.forEach(option => target === option.innerHTML && option.remove());
     }
   }
 }
