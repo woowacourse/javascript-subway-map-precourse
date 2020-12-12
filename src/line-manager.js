@@ -8,7 +8,7 @@ export const deleteLineInList = (lineName) => {
     return line.name === lineName;
   });
   manager.lineList[deleteIdx].deleteAllStationInLine();
-  parent.removeChild(document.querySelector(`tbody#line-list tr#${lineName}`));
+  parent.removeChild(document.querySelector(`#line-list [id = ${lineName}]`));
   manager.lineList.splice(deleteIdx, 1);
 };
 export const makeChildInLine = (line) => {
@@ -51,6 +51,14 @@ export const showAllLineInLineManager = (lineList) => {
   });
   document.getElementById("line-name-input").value = "";
 };
+export const isPossibleLineName = (name) => {
+  const rHangel = /^[0-9A-Za-z가-힣]*$/;
+  if (name.length > 0 && rHangel.exec(name) !== null) {
+    return true;
+  }
+  alert("노선 이름을 입력 해주세요");
+  return false;
+};
 export const isPossibleLine = (startName, endName) => {
   if (startName === endName) {
     alert("상행 종점과 다른 하행 종점을 선택 해주세요.");
@@ -79,6 +87,7 @@ export const addLineToList = () => {
   const endStationName = document.getElementById("line-end-station-selector")
     .value;
   if (
+    isPossibleLineName(newLineName) &&
     isPossibleLine(startStationName, endStationName) &&
     !isOverlappedLineName(newLineName)
   ) {
