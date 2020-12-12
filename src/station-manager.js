@@ -30,7 +30,8 @@ export const isPossibleToDeleteStation = (stationName) => {
   });
   if (deleteStation.isIncluded !== null) {
     alert("이미 노선에 등록되어 있는 역입니다.");
-    return false; // 이미 노선에 등록되어있어서 삭제 불가
+
+    return false;
   }
   return true;
 };
@@ -49,7 +50,6 @@ export const deleteStationInList = (stationName) => {
   }
 };
 export const makeStationBox = (newStationName) => {
-  console.log(newStationName);
   const newStation = document.createElement("tr");
   const stationName = document.createElement("td");
   const deleteButton = document.createElement("td");
@@ -69,16 +69,16 @@ export const showAllStationInManager = (stationList) => {
   const table = document.getElementById("station-list");
   table.innerHTML = "";
   stationList.forEach((station) => {
-    console.log(station);
     const newStation = makeStationBox(station.name);
     table.appendChild(newStation);
   });
-  document.getElementById("station-name-input").value = "";
 };
 export const addStationToList = (newStationName) => {
   const station = new Station(newStationName);
   manager.setStationInManager(station);
-  showAllStationInManager(makeStationList());
+  const stationList = makeStationList(); // 중복 제거 된 지하철 역 리스트
+  showAllStationInManager(stationList);
+  document.getElementById("station-name-input").value = "";
 };
 
 const btnAddStation = document.getElementById("station-add-button");
