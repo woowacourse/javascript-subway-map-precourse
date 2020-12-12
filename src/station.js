@@ -7,11 +7,21 @@ import {
 class Station {
   constructor() {
     this.stations = [];
+    this.loadStation();
     this.handleAddNameClick();
   }
 
   saveStation = () => {
     localStorage.setItem("stations", this.stations);
+  };
+
+  loadStation = () => {
+    const stations = localStorage.getItem("stations");
+    if (stations !== null) {
+      this.stations = stations;
+    }
+
+    this.showStation();
   };
 
   createStationTable = () => {
