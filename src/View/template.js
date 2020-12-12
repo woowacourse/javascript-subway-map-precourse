@@ -12,24 +12,30 @@ export const makeTable = (columns) => {
 	return tableElement;
 };
 
-export const addTableRow = (tableElement, values = []) => {
+export const addTableRow = (
+	tableElement,
+	{ order, dataName, startPointName, endPointName, deleteButton }
+) => {
 	const tableTBodyElement = tableElement.querySelector('tbody');
-	const tableRowElement = makeElement({ tag: 'tr' });
-	const tableCells = values.map((value, index) => {
-		if (index === values.length - 1) {
-            const tdElement = makeElement({ tag: 'td' });
-            appendChilds(tdElement, [value]);
-            return tdElement;
-		} else {
-			return makeElement({ tag: 'td', innerText: value });
+    const tableRowElement = makeElement({ tag: 'tr', dataName });
+    const values = [order, dataName, startPointName, endPointName, deleteButton].filter(value=>value)
+	const tableCells = values.map(
+		(value, index) => {
+			if (index === values.length - 1) {
+				const tdElement = makeElement({ tag: 'td' });
+				appendChilds(tdElement, [value]);
+				return tdElement;
+			} else {
+				return makeElement({ tag: 'td', innerText: value });
+			}
 		}
-	});
+	);
 	appendChilds(tableRowElement, tableCells);
 	appendChilds(tableTBodyElement, [tableRowElement]);
 };
 
-export const makeSelectBox = (list, {classes, id, style}) => {
-	const selectBoxElement = makeElement({ tag: 'select', classes, id, style});
+export const makeSelectBox = (list, { classes, id, style }) => {
+	const selectBoxElement = makeElement({ tag: 'select', classes, id, style });
 	const optionElements = list.map((item) =>
 		makeElement({ tag: 'option', value: item, innerText: item })
 	);

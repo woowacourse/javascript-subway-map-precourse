@@ -1,4 +1,7 @@
-import { confirmAlertMessage, errorAlertMessages } from '../key/alertMessages.js';
+import {
+	confirmAlertMessage,
+	errorAlertMessages,
+} from '../key/alertMessages.js';
 import words from '../key/words.js';
 import Station from '../Model/Station.js';
 import { addTableRow } from '../View/template.js';
@@ -17,38 +20,39 @@ export const getAllStation = () => {
 export const tableSynchronizer = (tableElement) => {
 	const allStations = getAllStation();
 	allStations.forEach((station) => {
-		addTableRow(tableElement, [
-			station.name,
-			makeNewStationDeleteButtonElement(station.name),
-		]);
-    });
-    applyDeleteEventForAllDeleteButton();
+		addTableRow(tableElement, {
+			dataName: station.name,
+			deleteButton: makeNewStationDeleteButtonElement(),
+		});
+	});
+	applyDeleteEventForAllDeleteButton();
 };
 
-export const makeNewStationDeleteButtonElement = (id) =>
+export const makeNewStationDeleteButtonElement = () =>
 	makeElement({
 		tag: 'button',
 		innerText: words.STATION_DELETE_BUTTON,
 		classes: [words.STATION_DELETE_CLASS],
-		id,
 	});
 
 export const deleteCallbackFunction = (e) => {
-    const {target:buttonElement} = e;
-    const {id:stationName} = buttonElement;
-    if(confirmAlert(confirmAlertMessage.ALERT_DELETE_CONFIRM)){
-        if(Station.isOnLine(stationName)){
-            alertAndClear(errorAlertMessages.ALERT_STATION_REGISTED_ON_LINE);
-            return;
-        }
-        Station.removeOneStation(stationName);
-        buttonElement.parentNode.parentElement.remove();
-    }
-}
+	const { target: buttonElement } = e;
+	const parentElement = buttonElement.parentNode.parentElement;
+	if (confirmAlert(confirmAlertMessage.ALERT_DELETE_CONFIRM)) {
+		if (Station.isOnLine(parentElement.getAttribute('data-station-name'))) {
+			alertAndClear(errorAlertMessages.ALERT_STATION_REGISTED_ON_LINE);
+			return;
+		}
+		Station.removeOneStation(parentElement.getAttribute('data-station-name'));
+		parentElement.remove();
+	}
+};
 
 export const applyDeleteEventForAllDeleteButton = () => {
-    const allDeleteButtons = document.querySelectorAll(`.${words.STATION_DELETE_CLASS}`);
-    allDeleteButtons.forEach(deleteButton => {
-        deleteButton.addEventListener("click", deleteCallbackFunction)
-    });
-}
+	const allDeleteButtons = document.querySelectorAll(
+		`.${words.STATION_DELETE_CLASS}`
+	);
+	allDeleteButtons.forEach((deleteButton) => {
+		deleteButton.addEventListener('click', deleteCallbackFunction);
+	});
+};

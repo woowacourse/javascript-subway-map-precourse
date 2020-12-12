@@ -27,8 +27,9 @@ export const makeElement = ({
 	placeholder,
 	type,
 	value,
-    innerHTML,
-    style
+	innerHTML,
+	style,
+	dataName,
 }) => {
 	let element = document.createElement(tag);
 	if (innerText) element.innerText = innerText;
@@ -37,8 +38,9 @@ export const makeElement = ({
 	if (placeholder) element.placeholder = placeholder;
 	if (type) element.type = type;
 	if (value) element.value = value;
-    if (innerHTML) element.innerHTML = innerHTML;
-    if(style) element.style.cssText = style;
+	if (innerHTML) element.innerHTML = innerHTML;
+	if (style) element.style.cssText = style;
+	if (dataName) element.setAttribute('data-station-name', dataName);
 	return element;
 };
 

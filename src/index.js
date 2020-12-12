@@ -27,7 +27,7 @@ const SubwayStationInit = () => {
 	// Station.saveAllStations([]);
 	// Line.saveAllLines([]);
 
-	viewContainers.MAP_PRINT_CONTAINER(container);
+	viewContainers.STATION_CONTAINER(container);
 };
 
 SubwayStationInit();

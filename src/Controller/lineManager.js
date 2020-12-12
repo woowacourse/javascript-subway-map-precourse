@@ -17,9 +17,9 @@ export const saveAllLines = (lines) => {
 };
 
 export const addLine = (lineName, startStation, endStation, inputElement) => {
-    const allLines = Line.readAllLines();
-    const newLine = new Line(lineName);
-    
+	const allLines = Line.readAllLines();
+	const newLine = new Line(lineName);
+
 	if (!Line.isValidLineName(lineName, inputElement)) {
 		return;
 	}
@@ -29,41 +29,40 @@ export const addLine = (lineName, startStation, endStation, inputElement) => {
 			inputElement
 		);
 		return;
-    }
+	}
 
 	newLine.stations = [startStation, endStation];
 	allLines.push(newLine);
 	Line.saveAllLines(allLines);
 };
 
-export const makeNewLineDeleteButtonElement = (id) =>
+export const makeNewLineDeleteButtonElement = () =>
 	makeElement({
 		tag: 'button',
 		innerText: words.LINE_DELETE_BUTTON,
 		classes: [words.LINE_DELETE_BUTTON_CLASS],
-		id,
 	});
 
 export const tableSynchronizer = (tableElement) => {
 	const allLines = getAllLines();
 	if (allLines.length === 0) return;
 	allLines.forEach((line) => {
-		addTableRow(tableElement, [
-			line.name,
-			line.stations[0],
-			line.stations[line.stations.length - 1],
-			makeNewLineDeleteButtonElement(line.name),
-		]);
+		addTableRow(tableElement, {
+			dataName: line.name,
+			startPointName: line.stations[0],
+			endPointName: line.stations[line.stations.length - 1],
+			deleteButton: makeNewLineDeleteButtonElement(),
+		});
 	});
 	applyDeleteEventForAllDeleteButton();
 };
 
 export const deleteCallbackFunction = (e) => {
 	const { target: buttonElement } = e;
-	const { id: lineName } = buttonElement;
+	const parentElement = buttonElement.parentNode.parentElement;
 	if (confirmAlert(confirmAlertMessage.ALERT_DELETE_CONFIRM)) {
-		Line.removeOneLine(lineName);
-		buttonElement.parentNode.parentElement.remove();
+		Line.removeOneLine(parentElement.getAttribute('data-station-name'));
+		parentElement.remove();
 	}
 };
 
