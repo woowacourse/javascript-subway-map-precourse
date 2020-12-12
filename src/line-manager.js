@@ -57,14 +57,19 @@ export const isPossibleLineName = (name) => {
   if (name.length > 0 && rHangel.exec(name) !== null) {
     return true;
   }
-  alert("노선 이름을 입력 해주세요");
+  alert("올바른 노선 이름을 입력 해주세요");
+
   return false;
+};
+export const resetLineInput = () => {
+  document.getElementById("line-name-input").value = "";
+  makeStationOption("line-start-station-selector");
+  makeStationOption("line-end-station-selector");
 };
 export const isPossibleLine = (startName, endName) => {
   if (startName === endName) {
     alert("상행 종점과 다른 하행 종점을 선택 해주세요.");
-    makeStationOption("line-start-station-selector");
-    makeStationOption("line-end-station-selector");
+    resetLineInput();
 
     return false;
   }
@@ -76,9 +81,7 @@ export const isOverlappedLineName = (newLineName) => {
   );
   if (overlappedName) {
     alert("이미 등록된 노선입니다.");
-    document.getElementById("line-name-input").value = "";
-    makeStationOption("line-start-station-selector");
-    makeStationOption("line-end-station-selector");
+    resetLineInput();
 
     return true;
   }
@@ -104,8 +107,7 @@ export const addLineToList = () => {
     line.addLine(startStation, endStation);
     manager.setLineInManager(line);
     showAllLineInLineManager(manager.lineList);
-    makeStationOption("line-start-station-selector");
-    makeStationOption("line-end-station-selector");
+    resetLineInput();
   }
 };
 
