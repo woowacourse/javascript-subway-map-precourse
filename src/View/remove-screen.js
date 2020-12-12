@@ -20,11 +20,11 @@ export const removeLineScreen = (button) => {
   $lineTbody.removeChild($lineTr);
 };
 
-export const removeSectionLine = () => {
-  const $sectionTbody = $sectionContainer.querySelector('table > tbody');
-  const $sectionLines = $sectionContainer.querySelectorAll('tr');
-  for (let i = 1; i < $sectionLines.length; i++) {
-    $sectionTbody.removeChild($sectionLines[i]);
+export const removeTableScreen = ($container) => {
+  const $tbody = $container.querySelector('table > tbody');
+  const $tr = $container.querySelectorAll('tr');
+  for (let i = 1; i < $tr.length; i++) {
+    $tbody.removeChild($tr[i]);
   }
 };
 
@@ -34,5 +34,11 @@ export const removeSectionButton = () => {
   );
   while ($sectionButtonContainer.firstChild) {
     $sectionButtonContainer.removeChild($sectionButtonContainer.firstChild);
+  }
+};
+
+export const removeOption = ($select) => {
+  while ($select.firstChild) {
+    $select.removeChild($select.firstChild);
   }
 };

@@ -35,12 +35,7 @@ export const addLineScreen = (line) => {
   $lineTbody.appendChild($lineTr);
 };
 
-export const addSectionScreen = (line) => {
-  addSectionButton(line.lineName);
-  addSectionTable(line);
-};
-
-const addSectionButton = (line) => {
+export const addSectionButton = (line) => {
   const $sectionButtonContainer = $sectionContainer.querySelector(
     '#section-select-button',
   );
@@ -51,7 +46,7 @@ const addSectionButton = (line) => {
   $sectionButtonContainer.appendChild($sectionButton);
 };
 
-const addSectionTable = (line) => {
+export const addSectionScreen = (line) => {
   const $sectionTbody = $sectionContainer.querySelector('table > tbody');
   for (let i = 0; i < line.station.length; i++) {
     const $sectionTr = document.createElement('tr');

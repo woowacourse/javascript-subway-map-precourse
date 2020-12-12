@@ -8,23 +8,31 @@ import {
   addStationSelectOption,
   addLineScreen,
   addSectionScreen,
+  addSectionButton,
 } from './View/add-screen.js';
 import {
   removeStationSelectOption,
   removeStationScreen,
   removeLineScreen,
-  removeSectionLine,
+  removeTableScreen,
   removeSectionButton,
+  removeOption,
 } from './View/remove-screen.js';
 import {
   $stationAddInput,
+  $stationContainer,
   $upStream,
   $downStream,
   $lineNameInput,
   $sectionStation,
+  $lineContainer,
   $sectionNumber,
   $sectionLineSelect,
   $sectionAddButton,
+  $sectionContainer,
+  $upStreamOption,
+  $downStreamOption,
+  $sectionOption,
 } from './View/input.js';
 import {
   isStationInputVaild,
@@ -45,6 +53,16 @@ const sectionInstance = new Section();
 export function onChangeScreen(e) {
   hideScreen();
   showScreen(e);
+  stationInstance.loadStation();
+  if (e.target.id === 'station-manager-button') {
+    return loadStation();
+  }
+  if (e.target.id === 'line-manager-button') {
+    return loadLine();
+  }
+  if (e.target.id === 'section-manager-button') {
+    return loadSectionButton();
+  }
 }
 
 export function onAddStation() {
@@ -89,6 +107,7 @@ export function onRemoveLine(e) {
 
 export function onLoadSection(e) {
   hideSectionLine();
+  loadSectionTable();
   showSectionScreen(e.target.dataset.line);
   $sectionAddButton.dataset.line = e.target.dataset.line;
 }
@@ -113,28 +132,41 @@ export function onRemoveSection(e) {
 }
 
 export const loadStation = () => {
-  stationInstance.loadStation();
-  stationInstance.stations.forEach((station) => {
-    addStationScreen(station);
-    addStationSelectOption($upStream, station);
-    addStationSelectOption($downStream, station);
-    addStationSelectOption($sectionStation, station);
-  });
+  removeTableScreen($stationContainer);
+  stationInstance.stations.forEach((station) => addStationScreen(station));
 };
 
 export const loadLine = () => {
+  removeTableScreen($lineContainer);
+  removeOption($upStreamOption);
+  removeOption($downStreamOption);
   lineInstance.loadLine();
+  stationInstance.stations.forEach((station) => {
+    addStationSelectOption($upStream, station);
+    addStationSelectOption($downStream, station);
+  });
   lineInstance.lines.forEach((line) => {
     addLineScreen(line);
   });
 };
 
 export const loadSectionTable = () => {
-  removeSectionButton();
-  removeSectionLine();
+  removeTableScreen($sectionContainer);
+  removeOption($sectionOption);
   sectionInstance.loadSection();
+  stationInstance.stations.forEach((station) =>
+    addStationSelectOption($sectionStation, station),
+  );
   sectionInstance.sections.forEach((section) => {
     addSectionScreen(section);
+  });
+};
+
+export const loadSectionButton = () => {
+  removeSectionButton();
+  sectionInstance.loadSection();
+  sectionInstance.sections.forEach((section) => {
+    addSectionButton(section.lineName);
   });
 };
 
@@ -160,7 +192,3 @@ const getSelectedSection = (lineName) => {
 
   return sectionInstance.sections[sectionIndex];
 };
-
-loadStation();
-loadLine();
-loadSectionTable();

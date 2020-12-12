@@ -44,6 +44,15 @@ export const $sectionNumber = document.body.querySelector(
 export const $sectionLineSelect = document.body.querySelector(
   '#section-station-selector',
 );
+export const $upStreamOption = document.body.querySelector(
+  '#line-start-station-selector',
+);
+export const $downStreamOption = document.body.querySelector(
+  '#line-end-station-selector',
+);
+export const $sectionOption = document.body.querySelector(
+  '#section-station-selector',
+);
 
 export const setButtonOption = (value, button) => {
   if (button.className === 'station-delete-button') {
