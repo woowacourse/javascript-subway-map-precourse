@@ -5,6 +5,11 @@ export default class SubwayMap {
     this.stationList = [];
   }
 
+  // 지하철 역 조회
+  getStationList() {
+    return this.stationList.map(element => element.name);
+  }
+
   // 지하철 역 등록
   addStation(name) {
     if (name.length < 2 || this.stationList.find(element => element.name === name) !== undefined) {
