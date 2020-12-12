@@ -1,8 +1,6 @@
 export const StationManagerHTML = () => `
-  <div id="station-manager">
-    ${InputHTML()}
-    ${TableHTML()}
-  <div>
+  ${InputHTML()}
+  ${TableHTML()}
 `;
 
 const InputHTML = () => `
