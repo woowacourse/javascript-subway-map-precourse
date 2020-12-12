@@ -36,7 +36,7 @@ export default function SubwayMapManagement() {
   new ManagerButtonContainer({ selectMenu: this.selectMenu });
   this.menu = [
     new StationManagerContainer({ stations: this.subwayStations }),
-    new LineManagerContainer(),
+    new LineManagerContainer({ lines: this.subwayLines }),
     new SectionManagerContainer(),
     new MapPrintContainer(),
   ];
