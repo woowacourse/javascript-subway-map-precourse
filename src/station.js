@@ -12,13 +12,13 @@ class Station {
   }
 
   saveStation = () => {
-    localStorage.setItem("stations", this.stations);
+    localStorage.setItem("stations", JSON.stringify(this.stations));
   };
 
   loadStation = () => {
     const stations = localStorage.getItem("stations");
     if (stations !== null) {
-      this.stations = stations;
+      this.stations = JSON.parse(stations);
     }
 
     this.showStation();
@@ -63,6 +63,7 @@ class Station {
     const name = this.getNameInput();
     if (this.checkVaildName(name)) {
       this.stations.push(name);
+      this.saveStation();
       this.showStation();
     } else {
       alert("잘못된 역 이름입니다");
