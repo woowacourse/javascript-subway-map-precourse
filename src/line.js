@@ -66,12 +66,19 @@ class Line {
     return lineName.length > 0 && !this.lines.hasOwnProperty(lineName);
   };
 
-  addLine = () => {
+  getLineInput = () => {
     const lineName = document.getElementById("line-name-input").value;
     const upStation = document.getElementById("line-start-station-selector")
       .value;
     const downStation = document.getElementById("line-end-station-selector")
       .value;
+
+    document.getElementById("line-name-input").value = "";
+    return { lineName, upStation, downStation };
+  };
+
+  addLine = () => {
+    const { lineName, upStation, downStation } = this.getLineInput();
     if (this.checkLineVaild(lineName)) {
       this.lines[lineName] = [upStation, downStation];
       this.saveLines();
