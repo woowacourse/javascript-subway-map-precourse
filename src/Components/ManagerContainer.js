@@ -11,19 +11,19 @@ class ManagerContainer {
 
   setInnerHTML(targetId) {
     switch (targetId) {
-      case DOM.STATION_MANAGER:
+      case DOM.STATION_MANAGER_BUTTON:
         this.innerHTML = `역`;
         break;
 
-      case DOM.LINE_MANAGER:
+      case DOM.LINE_MANAGER_BUTTON:
         this.innerHTML = `라인`;
         break;
 
-      case DOM.SECTION_MANAGER:
+      case DOM.SECTION_MANAGER_BUTTON:
         this.innerHTML = `섹션`;
         break;
 
-      case DOM.MAP_PRINT_MANAGER:
+      case DOM.MAP_PRINT_MANAGER_BUTTON:
         this.innerHTML = `맵`;
         break;
 
