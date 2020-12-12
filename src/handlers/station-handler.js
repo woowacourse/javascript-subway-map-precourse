@@ -1,5 +1,5 @@
 import StationListener
-  from '../listeners/subway-station/station-listener.js';
+  from '../listeners/station-listener.js';
 import SubwayStation from '../main/subway-station.js';
 import {renderSubWayStation} from '../views/subway-station-view.js';
 
