@@ -1,4 +1,4 @@
-import {REGISTER, RESULT} from '../constants.js';
+import {REGISTER, RESULT, STATION} from '../constants.js';
 import StationRegisterComponent
   from '../components/subway-station/station-register.js';
 import StationResultComponent
@@ -31,6 +31,8 @@ class SubwayStationView {
 
   renderStation = (stationList) => {
     const tbody = this.result.getElementsByTagName('tbody')[0];
+
+    document.getElementById(STATION.INPUT.ID).value = '';
 
     tbody.innerHTML += StationList.template(
         stationList[stationList.length - 1],
