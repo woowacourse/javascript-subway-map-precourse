@@ -16,7 +16,7 @@ export default class SubwayLine {
     const endLine = document.getElementById(LINE.SELECT.END.ID);
 
     if (!this.isValidLine(lineName)) {
-      return alert(LINE.ALERT.DUPLICATION);
+      return this.alert(lineName);
     }
 
     this.lineList.push({
@@ -44,15 +44,34 @@ export default class SubwayLine {
     return confirm(LINE.ALERT.DELETE);
   }
 
-  isValidLine(line) {
-    return this.hasValidName(line);
+  isValidLine(lineName) {
+    return this.hasValidName(lineName);
   }
 
-  hasValidName(line) {
+  hasValidName(lineName) {
     const lineNames = this.lineList.map(line => line.name);
 
-    if (lineNames.includes(line)) return false;
+    if (lineNames.includes(lineName)) return false;
+
+    if (lineName.length === 0) return false;
+
+    if (this.stationList.length === 0) return false;
 
     return true;
+  }
+
+  alert(lineName) {
+    console.log(lineName.length);
+    if (lineName.length === 0) {
+      return alert(LINE.ALERT.EMPTY);
+    }
+
+    const lineNames = this.lineList.map(line => line.name);
+
+    if (lineNames.includes(lineName)) {
+      alert(LINE.ALERT.DUPLICATION);
+    }
+
+    alert(LINE.ALERT.EMPTY_STATION);
   }
 }
