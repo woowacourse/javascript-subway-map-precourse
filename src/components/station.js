@@ -70,8 +70,14 @@ export default class Station {
 
     stationManagerButton.addEventListener('click', () => {
       initialize();
+      this.updateSubways();
       this.showStationManager();
     });
+  }
+
+  updateSubways() {
+    this.subways = this.loadSubways();
+    this.render();
   }
 
   showStationManager() {

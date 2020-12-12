@@ -35,7 +35,6 @@ export default class Line {
 
     lineManager.id = ID.LINE_MANAGER;
     lineManager.style.display = 'none';
-    lineManager.innerHTML = lineManagerTemplate(this.subways);
     $target.appendChild(lineManager);
   }
 
@@ -44,12 +43,33 @@ export default class Line {
 
     lineManagerButton.addEventListener('click', () => {
       initialize();
+      this.updateOption();
       this.showLineManager();
+      this.handleLineAddButton();
     });
+  }
+
+  updateOption() {
+    const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
+
+    this.subways = this.loadSubways();
+    lineManager.innerHTML = lineManagerTemplate(this.subways);
   }
 
   showLineManager() {
     const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
     lineManager.style.display = 'block';
+  }
+
+  handleLineAddButton() {
+    const lineAddButton = document.querySelector(`#${ID.LINE_ADD_BUTTON}`);
+    const lineNameInput = document.querySelector(`#${ID.LINE_NAME_INPUT}`);
+    const lineStartStationSelector = document.querySelector(`#${ID.LINE_START_STATION_SELECTOR}`);
+    const lineEndStationSelector = document.querySelector(`#${ID.LINE_END_STATION_SELECTOR}`);
+
+    lineAddButton.addEventListener('click', () => {
+      console.log(lineNameInput.value);
+      console.log(lineStartStationSelector.value);
+    });
   }
 }
