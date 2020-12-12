@@ -57,10 +57,25 @@ export default class StationINFOManager {
     startStationPtr.linesOfStation.add(lineName);
     endStationPtr.linesOfStation.add(lineName);
     this.lines_.push(newLine);
-    console.log(this.stations_);
-    console.log(this.lines_);
+  }
+  deleteLine(nameToDelete) {
+    const lineIndexToDelete = this.lines_.findIndex(({ name }) => {
+      return nameToDelete === name;
+    });
+    if (lineIndexToDelete === -1) {
+      alert(NOT_EXIST_NAME_ERROR_MESSAGE);
+      return;
+    }
+    this.deleteLineINFOInAllStations_(this.lines_[lineIndexToDelete]);
+    this.lines_.splice(lineIndexToDelete, 1);
   }
 
+  deleteLineINFOInAllStations_(lineToDelete) {
+    const { name, stationsOfLine } = lineToDelete;
+    stationsOfLine.forEach((station) => {
+      station.linesOfStation.delete(name);
+    });
+  }
   getPointerFromStationsArray_(targetName) {
     const targetIndex = this.stations_.findIndex(({ name }) => {
       return name === targetName;
@@ -77,4 +92,4 @@ export default class StationINFOManager {
 
 const OVERLAP_STATION_ERROR_MESSAGE = "기존 역 이름과 중복되는 이름입니다.";
 const OVERLAP_LINE_ERROR_MESSAGE = "기존 노선 이름과 중복되는 이름입니다.";
-const NOT_EXIST_NAME_ERROR_MESSAGE = "제거할 역이 이미 존재하지 않습니다.";
+const NOT_EXIST_NAME_ERROR_MESSAGE = "제거할 요소가 이미 존재하지 않습니다.";
