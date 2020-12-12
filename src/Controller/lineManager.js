@@ -2,8 +2,8 @@ import Station from '../Model/Station.js';
 import Line from '../Model/Line.js';
 import words from '../key/words.js';
 import { addTableRow } from '../View/template.js';
-import { alertAndClear, makeElement } from './utils.js';
-import { errorAlertMessages } from '../key/alertMessages.js';
+import { alertAndClear, confirmAlert, makeElement } from './utils.js';
+import { confirmAlertMessage, errorAlertMessages } from '../key/alertMessages.js';
 
 export const getAllLines = () => {
 	return Line.readAllLines();
@@ -32,7 +32,7 @@ export const makeNewLineDeleteButtonElement = (id) =>
 	makeElement({
 		tag: 'button',
 		innerText: words.LINE_DELETE_BUTTON,
-		classes: [words.LINE_DELETE_CLASS],
+		classes: [words.LINE_DELETE_BUTTON_CLASS],
 		id,
 	});
 
@@ -46,5 +46,22 @@ export const tableSynchronizer = (tableElement) => {
 			line.stations[line.stations.length - 1],
 			makeNewLineDeleteButtonElement(line.name),
 		]);
-	});
+    });
+    applyDeleteEventForAllDeleteButton();
 };
+
+export const deleteCallbackFunction = (e) => {
+    const {target:buttonElement} = e;
+    const {id:lineName} = buttonElement;
+    if(confirmAlert(confirmAlertMessage.ALERT_DELETE_CONFIRM)){
+        Line.removeOneLine(lineName);
+        buttonElement.parentNode.parentElement.remove();
+    }
+}
+
+export const applyDeleteEventForAllDeleteButton = () => {
+    const allDeleteButtons = document.querySelectorAll(`.${words.LINE_DELETE_BUTTON_CLASS}`);
+    allDeleteButtons.forEach(deleteButton => {
+        deleteButton.addEventListener("click", deleteCallbackFunction)
+    });
+}

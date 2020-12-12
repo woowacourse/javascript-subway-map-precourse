@@ -51,7 +51,7 @@ Line.addOneLine = (line) => {
 Line.removeOneLine = (targetLine) => {
 	const allLines = Line.readAllLines();
 	const targetIndex = allLines.findIndex((line) => {
-		return targetLine.name === line.name;
+		return targetLine === line.name;
 	});
 	if (targetIndex !== -1) {
 		allLines.splice(targetIndex, 1);

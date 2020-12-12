@@ -5,7 +5,7 @@ import {
 	clearAllContents,
 	makeElement,
 } from '../Controller/utils.js';
-import { addStation, makeNewStationDeleteButtonElement, tableSynchronizer } from '../Controller/stationManager.js';
+import { addStation, applyDeleteEventForAllDeleteButton, makeNewStationDeleteButtonElement, tableSynchronizer } from '../Controller/stationManager.js';
 
 const stationContainer = (container) => {
 	const titleElement = makeElement({ tag: 'p', innerText: words.STATION_NAME });
@@ -30,7 +30,7 @@ const stationContainer = (container) => {
 		addStation(inputValue, inputElement);
 		clearAllContents(tableElement.querySelector("tbody"));
 		tableSynchronizer(tableElement);
-		// addTableRow(tableElement, [inputValue, makeNewStationDeleteButtonElement(inputValue)]);
+		applyDeleteEventForAllDeleteButton();
 	});
 
 	clearAllContents(container);
@@ -42,6 +42,7 @@ const stationContainer = (container) => {
 		tableElement,
 	]);
 	tableSynchronizer(tableElement);
+	applyDeleteEventForAllDeleteButton();
 };
 
 export default stationContainer;

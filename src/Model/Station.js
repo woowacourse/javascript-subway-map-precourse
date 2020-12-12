@@ -49,7 +49,7 @@ Station.addOneStation = (station) => {
 Station.removeOneStation = (targetStation) => {
 	const allStations = Station.readAllStations();
 	const targetIndex = allStations.findIndex((station) => {
-		return targetStation.name === station.name;
+		return targetStation === station.name;
 	});
 	if (targetIndex !== -1) {
 		allStations.splice(targetIndex, 1);

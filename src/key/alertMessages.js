@@ -12,7 +12,7 @@ export const errorAlertMessages = {
     ALERT_RULE_OF_LINE_NAME: "❌ 노선이름은 숫자+'호선' 형식이어야 합니다. \nex) 9호선",
     ALERT_EXISTED_START_END_LINE: "❌ 같은 상/하행 종착적을 가진 노선이 이미 존재합니다.",
     ALERT_UNDER_TWO_STATION_ON_LINE: "❌ 노선에 포함된 역이 2개 이하일 때에는 역을 삭제할 수 없습니다.",
-    
+
     // 구간
     ALERT_EXISTED_ADDED_STATION: "❌ 이미 추가된 역입니다.",
     ALERT_EXCEED_ORDER_INPUT: "❌ 순서 입력값은 노선의 길이보다 클 수 없습니다.",
@@ -21,7 +21,7 @@ export const errorAlertMessages = {
 }
 
 export const confirmAlertMessage = {
-
+    ALERT_DELETE_CONFIRM : "정말로 삭제하시겠습니까?",
 }
 
 export const successAlertMessages = {
