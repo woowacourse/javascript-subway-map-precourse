@@ -1,4 +1,4 @@
-import { addOptionTag } from "../../utils/handleDom.js";
+import { addOptionTag, initSelector } from "../../utils/handleDom.js";
 
 export class LineManagerInput {
   constructor({ getStations }) {
@@ -23,6 +23,8 @@ export class LineManagerInput {
 
   render = () => {
     const stations = this.getStations();
+    initSelector(this.lineStartSelector);
+    initSelector(this.lineEndSelector);
 
     stations.forEach((station) => {
       addOptionTag(this.lineStartSelector, station);

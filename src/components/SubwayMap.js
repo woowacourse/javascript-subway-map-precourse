@@ -9,22 +9,30 @@ const buttonContentMap = {
   "section-manager-button": "section-manager-container",
   "map-print-manager-button": "map-print-manager-container",
 };
+
 export class SubwayMap {
   constructor() {
     this.initiateDOM();
     localStorage.setItem("stations", JSON.stringify([]));
   }
 
+  // props = {
+  //   setStations: this.setStations,
+  //   getStations: this.getStations,
+  //   deleteStation: this.deleteStation,
+  // };
+
   initiateDOM = () => {
     this.contentContainer = new ContentContainer();
     new HeaderButtons({ clickHeaders: this.onHeaderClick });
-    new StationManager({
+    this.stationManager = new StationManager({
       setStations: this.setStations,
       getStations: this.getStations,
       deleteStation: this.deleteStation,
     });
-    new LineManager({ getStations: this.getStations });
+    this.lineManager = new LineManager({ getStations: this.getStations });
   };
+
   onHeaderClick = (e) => {
     const { id } = e.currentTarget;
     const contentId = buttonContentMap[id];
@@ -33,6 +41,7 @@ export class SubwayMap {
 
   setStations = (names) => {
     localStorage.setItem("stations", JSON.stringify(names));
+    this.updateView();
   };
 
   getStations = () => {
@@ -46,5 +55,14 @@ export class SubwayMap {
       return station !== target;
     });
     this.setStations(stations);
+  };
+
+  updateView = () => {
+    this.stationManager.render({
+      setStations: this.setStations,
+      getStations: this.getStations,
+      deleteStation: this.deleteStation,
+    });
+    this.lineManager.render();
   };
 }

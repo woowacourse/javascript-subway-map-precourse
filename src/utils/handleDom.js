@@ -42,3 +42,7 @@ export const addOptionTag = (selector, station) => {
   option.innerHTML = station;
   selector.appendChild(option);
 };
+
+export const initSelector = (selector) => {
+  selector.innerHTML = "";
+};
