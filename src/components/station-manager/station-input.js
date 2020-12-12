@@ -1,4 +1,5 @@
 import Component from '../../library/core/component.js';
+import { hasStringEnoughLength } from '../../library/utils/validation.js';
 
 class StationInput extends Component {
   constructor($target, props) {
@@ -17,20 +18,42 @@ class StationInput extends Component {
   initializeEventListener() {
     this._$target.addEventListener('click', event => {
       if (event.target.id === 'station-add-button') {
-        this.addStation();
+        this.handleEvent();
       }
     });
     this._$target.addEventListener('keyup', event => {
       if (event.target.id === 'station-name-input' && event.key === 'Enter') {
-        this.addStation();
+        this.handleEvent();
       }
     });
   }
 
-  addStation() {
+  handleEvent() {
     const $stationNameInput = document.querySelector('#station-name-input');
     const newStation = $stationNameInput.value;
+    $stationNameInput.focus();
+    if (!this.isValidInput(newStation)) {
+      this.alertByCase(newStation);
+      return;
+    }
+    this.addStation(newStation);
+    $stationNameInput.value = '';
+  }
+
+  addStation(newStation) {
     this._props.stations.value = [...this._props.stations.value, newStation];
+  }
+
+  isValidInput(input) {
+    return hasStringEnoughLength(input, 2);
+  }
+
+  alertByCase(input) {
+    const alertCases = [];
+    if (!hasStringEnoughLength(input, 2)) {
+      alertCases.push('2글자 이상');
+    }
+    alert(`${alertCases.join(', ')} 입력해야 합니다. 다시 입력 해주세요.`);
   }
 }
 
