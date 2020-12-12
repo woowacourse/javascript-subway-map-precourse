@@ -18,13 +18,17 @@ const Line = function (lineName) {
 
 Line.isValidLineName = (lineName, inputElement) => {
 	if (isOnlySpaceString(lineName)) {
-        alertAndClear(errorAlertMessages.ALERT_SPACE_LINE_NAME, inputElement);
-        return false;
+		alertAndClear(errorAlertMessages.ALERT_SPACE_LINE_NAME, inputElement);
+		return false;
 	}
-    if(Line.readAllLines().map(line=>line.name).includes(lineName)){
-        alertAndClear(errorAlertMessages.ALERT_EXISTED_LINE_NAME, inputElement);
-        return false;
-    }
+	if (
+		Line.readAllLines()
+			.map((line) => line.name)
+			.includes(lineName)
+	) {
+		alertAndClear(errorAlertMessages.ALERT_EXISTED_LINE_NAME, inputElement);
+		return false;
+	}
 	// 형식이 숫자+'호선' 인지 검사하기
 
 	return true;
@@ -60,8 +64,21 @@ Line.removeOneLine = (targetLine) => {
 };
 
 Line.searchLinesByName = (lineName) => {
-	const targetIndex = Line.readAllLines().indexOf(lineName);
+	// const targetLine = Line.readAllLines().filter(line=>line.name===lineName);
+	// return targetLine;
+	const targetIndex = Line.readAllLines()
+		.map((line) => line.name)
+		.indexOf(lineName);
 	return targetIndex;
+};
+
+Line.removeStationOnLine = (lineName, stationName) => {
+	const allLines = Line.readAllLines();
+    const targetIndex = Line.searchLinesByName(lineName);
+	allLines[targetIndex].stations = allLines[targetIndex].stations.filter(
+		(station) => station !== stationName
+    );
+    Line.saveAllLines(allLines)
 };
 
 export default Line;
