@@ -19,5 +19,4 @@ export default () => {
     initState.lines = lineSelector;
   }
   localStorage.setItem("isChanged", "false");
-  console.log(localStorage);
 };

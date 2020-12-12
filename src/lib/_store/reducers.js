@@ -3,7 +3,8 @@ import {
   LINE_STORAGE_NAME,
 } from "../common/constants.js";
 
-export const annulChangedState = () => localStorage.setItem("isChanged", "false");
+export const annulChangedState = () =>
+  localStorage.setItem("isChanged", "false");
 
 export const stationReducer = (updatedSelectorArray) => {
   localStorage.setItem(

@@ -3,7 +3,7 @@ import Button from "../components/Button.js";
 import Input from "../components/Input.js";
 import Div from "../components/Div.js";
 import submitStationName from "../../_action/Station/submitStationName.js";
-import { stationSelector } from "../../_store/selectors.js";
+import { stationSelector, isStateChanged } from "../../_store/selectors.js";
 
 import {
   STATION_DIV,
@@ -45,9 +45,10 @@ export default class Station {
 
   _getStationListViewContainerChildNodes() {
     const $title = new Typography("지하철 역 목록", "h2");
-    // 새로 들어온 정보 여기다 출력
+    const $isChanged = new Typography(isStateChanged, "h4");
+    // 새로 들어온 정보 여기다 출력(데이터 이용해야 할 듯ㅠㅠ)
 
-    return [$title];
+    return [$title, $isChanged];
   }
 
   _getStationListViewContainer() {
