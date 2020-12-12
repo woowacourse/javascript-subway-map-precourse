@@ -53,10 +53,10 @@ class Line {
   };
 
   showLines = () => {
-    const linenContainer = document.querySelector(".line-list");
+    const lineContainer = document.querySelector(".line-list");
     const lineTable = this.createLineTable();
-    linenContainer.innerHTML = "";
-    linenContainer.appendChild(lineTable);
+    lineContainer.innerHTML = "";
+    lineContainer.appendChild(lineTable);
 
     this.handleDeleteLineClick();
   };
