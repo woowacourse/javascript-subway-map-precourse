@@ -1,3 +1,4 @@
+import { makeStationOption, makeStationList } from "./index.js";
 import { manager } from "./manager.js";
 import Line from "./line.js";
 import Station from "./station.js";
@@ -62,6 +63,8 @@ export const isPossibleLineName = (name) => {
 export const isPossibleLine = (startName, endName) => {
   if (startName === endName) {
     alert("상행 종점과 다른 하행 종점을 선택 해주세요.");
+    makeStationOption(makeStationList(), "line-start-station-selector");
+    makeStationOption(makeStationList(), "line-end-station-selector");
 
     return false;
   }
@@ -74,6 +77,8 @@ export const isOverlappedLineName = (newLineName) => {
   if (overlappedName) {
     alert("이미 등록된 노선입니다.");
     document.getElementById("line-name-input").value = "";
+    makeStationOption(makeStationList(), "line-start-station-selector");
+    makeStationOption(makeStationList(), "line-end-station-selector");
 
     return true;
   }
@@ -99,5 +104,7 @@ export const addLineToList = () => {
     line.addLine(startStation, endStation);
     manager.setLineInManager(line);
     showAllLineInLineManager(manager.lineList);
+    makeStationOption(makeStationList(), "line-start-station-selector");
+    makeStationOption(makeStationList(), "line-end-station-selector");
   }
 };
