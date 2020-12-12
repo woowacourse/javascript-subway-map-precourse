@@ -24,7 +24,7 @@ function checkDuplicateLineName(lines, inputLineName) {
   return true;
 }
 
-function checkInputLineName(inputLineName) {
+function checkValidNameLength(inputLineName) {
   if (inputLineName.length < MINIMUN_LINE_LENGTH) {
     return false;
   }
@@ -51,7 +51,7 @@ function checkValidInput() {
   const lines = JSON.parse(localStorage.getItem('lines'));
   const inputLineName = document.querySelector('#line-name-input').value;
 
-  if (!checkInputLineName(inputLineName)) {
+  if (!checkValidNameLength(inputLineName)) {
     return alert(`역 이름은 ${MINIMUN_LINE_LENGTH}글자 이상이어야 합니다.`);
   }
   if (!checkDuplicateLineName(lines, inputLineName)) {
