@@ -26,7 +26,7 @@ class LineManager extends Component {
       stations: this._props.stations,
       lines: this._props.lines,
     });
-    new LineList($lineListContainer);
+    new LineList($lineListContainer, { lines: this._props.lines });
   }
 }
 
