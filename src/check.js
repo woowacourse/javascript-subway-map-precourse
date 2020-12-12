@@ -12,3 +12,8 @@ export function isValidLength(inputValue) {
 export function isDuplicated(inputValue) {
   return (localStorage.getItem(inputValue))
 }
+
+export function isRegistered(stationName) {
+  const stationNameValue = localStorage.getItem(stationName)
+  return (stationNameValue === 'false')
+}
