@@ -3,11 +3,39 @@ export default class SubwayMapViewModel {
     this.subwayMapModel = subwayMapModel;
   }
 
+  isEmpty(stationId) {
+    if (stationId === '') {
+      return true;
+    }
+
+    stationId = Array.from(new Set(stationId));
+    if (
+      (stationId.length === 1 && stationId[0] === ' ') ||
+      stationId.length === 0
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+  validStationName(stationId) {
+    if (this.isEmpty(stationId)) {
+      console.log('공백');
+    }
+    // if (!/^[0-9a-zA-Z가-힣]/g.test(stationId)) {
+    //   console.log('이상한 이름');
+    // }
+
+    return '';
+  }
+
   getStations() {
     return this.subwayMapModel.getStations();
   }
 
   addStation(stationId) {
+    console.log(stationId);
+    this.validStationName(stationId);
     this.subwayMapModel.addStation(stationId);
   }
 
