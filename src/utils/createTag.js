@@ -113,3 +113,28 @@ export const createStationTableRow = (stationName) => {
 
   return tr;
 };
+
+export const createLineTableRow = (lineInfo) => {
+  const tr = document.createElement("tr");
+  const td1 = document.createElement("td");
+  const td2 = document.createElement("td");
+  const td3 = document.createElement("td");
+  const td4 = document.createElement("td");
+  const button = createButton(
+    "",
+    "line-delete-button",
+    WORDS.LINE.DELETE_BUTTON
+  );
+
+  td1.innerText = Object.keys(lineInfo)[0];
+  td2.innerText = Object.values(lineInfo)[0][0];
+  td3.innerText = Object.values(lineInfo)[0][1];
+
+  td4.appendChild(button);
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  tr.appendChild(td3);
+  tr.appendChild(td4);
+
+  return tr;
+};

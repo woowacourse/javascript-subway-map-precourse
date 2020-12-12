@@ -7,6 +7,7 @@ import {
   createHeader,
   createInput,
   createLabel,
+  createLineTableRow,
   createSelect,
   createTable,
 } from "../utils/createTag.js";
@@ -47,6 +48,14 @@ const lineRow3 = (stations) => {
   );
 
   return container;
+};
+
+export const displayAddedLine = (lineInfo) => {
+  const table = document.querySelector("table");
+
+  const tr = createLineTableRow(lineInfo);
+
+  table.appendChild(tr);
 };
 
 export const displayInitialLine = () => {

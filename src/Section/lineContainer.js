@@ -1,6 +1,7 @@
 import { KEY } from "../constants/index.js";
 import { checkTheList } from "../utils/message.js";
 import { checkEmpty } from "../validation/index.js";
+import { displayAddedLine } from "./linePresenter.js";
 
 const saveLines = (stationArray) =>
   localStorage.setItem(KEY.LINE, JSON.stringify(stationArray));
@@ -15,6 +16,8 @@ const addLine = (lineName, startStation, endStation) => {
   lines.push(newLine);
 
   saveLines(lines);
+
+  return newLine;
 };
 
 const lineAddClicked = () => {
@@ -29,7 +32,8 @@ const lineAddClicked = () => {
   const isValid = checkTheList(checkList, lineInput);
 
   if (isValid) {
-    addLine(lineInputValue, startStation, endStation);
+    const newLine = addLine(lineInputValue, startStation, endStation);
+    displayAddedLine(newLine);
   }
 };
 
