@@ -20,15 +20,15 @@ export default class StationManager extends Role {
     super(STATION_MANAGER, STATION_MANAGER_BUTTON, STATION_MANAGER_K);
     this._stations = stations;
     this.renderStations();
-    this.addStation();
-    this.deleteStation();
+    this.clickAddButton();
+    this.clickDeleteButton();
   }
 
   renderStations() {
     this._stations.forEach(station => this.renderStation(station));
   }
 
-  addStation() {
+  clickAddButton() {
     const addButton = nodeSelector.selectId(STATION_ADD_BUTTON);
 
     addButton.addEventListener('click', this.onClickAddButton.bind(this));
@@ -36,18 +36,22 @@ export default class StationManager extends Role {
 
   onClickAddButton() {
     const stationNameInput = nodeSelector.selectId(STATION_NAME_INPUT);
-    const validator = new StationValidator(stationNameInput);
-    const response = validator.checkStationName();
+    const validator = new StationValidator();
+    const response = validator.checkStationName(stationNameInput);
 
     if (response) {
       response.then(isValidate => {
         if (isValidate) {
           this.renderStation(stationNameInput.value);
-          this._stations.push(stationNameInput.value);
-          localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
+          this.addStation(stationNameInput.value);
         }
       });
     }
+  }
+
+  addStation(station) {
+    this._stations.push(station);
+    localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
   }
 
   renderStation(station) {
@@ -76,7 +80,7 @@ export default class StationManager extends Role {
     return row;
   }
 
-  deleteStation() {
+  clickDeleteButton() {
     const deleteButtons = nodeSelector.selectClassAll(STATION_DELETE_BUTTON);
 
     deleteButtons.forEach(deleteButton => {
@@ -88,14 +92,23 @@ export default class StationManager extends Role {
   }
 
   onClickDeleteButton(event) {
-    const stations = nodeSelector.selectClassAll(STATION);
     const target = event.target.dataset.station;
+    const validator = new StationValidator();
 
+    if (!validator.canDelete(target)) {
+      return;
+    }
+    this.deleteStation(target);
+  }
+
+  deleteStation(target) {
+    const stations = nodeSelector.selectClassAll(STATION);
+
+    this._stations = this._stations.filter(station => station !== target);
+    localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
     for (const station of stations) {
       if (target === station.innerHTML) {
         station.parentNode.remove();
-        this._stations = this._stations.filter(station => station !== target);
-        localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
 
         return;
       }

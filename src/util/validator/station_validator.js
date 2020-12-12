@@ -4,39 +4,40 @@ import {
   STATION,
   STATION_ALERT_INVALID,
   STATION_ALERT_OVERLAP,
+  STATION_ALERT_HAS_LINE,
+  LINES_LS,
 } from '../../library/constant/constant.js';
 
 export default class StationValidator extends Validator {
-  constructor(input) {
+  constructor() {
     super();
-    this._input = input;
   }
 
-  checkStationName() {
-    if (this.isOverlapped(this._input.value, STATION)) {
-      this.alertStationNameOverlap(this._input);
+  checkStationName(input) {
+    if (this.isOverlapped(input.value, STATION)) {
+      this.alertStationOverlap(input);
 
       return;
     }
 
-    return this.checkValidStation();
+    return this.checkValidStation(input);
   }
 
-  alertStationNameOverlap() {
-    this._input.value = '';
+  alertStationOverlap(input) {
+    input.value = '';
     alert(STATION_ALERT_OVERLAP);
   }
 
-  checkValidStation() {
+  checkValidStation(input) {
     const response = this.getStationData();
 
     return response.then(data => {
       for (const stationInfo of data) {
-        if (this._input.value === stationInfo.STATION_NM) {
+        if (input.value === stationInfo.STATION_NM) {
           return true;
         }
       }
-      this.alertStationNameInvalid();
+      this.alertStationInvalid(input);
 
       return false;
     });
@@ -54,8 +55,37 @@ export default class StationValidator extends Validator {
       });
   }
 
-  alertStationNameInvalid() {
-    this._input.value = '';
+  alertStationInvalid(input) {
+    input.value = '';
     alert(STATION_ALERT_INVALID);
+  }
+
+  canDelete(target) {
+    if (this.hasLine(target)) {
+      this.alertStationHasLine();
+
+      return false;
+    }
+
+    return true;
+  }
+
+  hasLine(station) {
+    const loadedLines = localStorage.getItem(LINES_LS);
+    const lines = loadedLines ? JSON.parse(loadedLines) : [];
+
+    for (const line of lines) {
+      const section = Object.values(line)[0];
+
+      if (section.indexOf(station) != -1) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  alertStationHasLine() {
+    alert(STATION_ALERT_HAS_LINE);
   }
 }

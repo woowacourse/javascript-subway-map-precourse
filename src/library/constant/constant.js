@@ -28,6 +28,7 @@ export const STATION_ROW = 'station-row';
 export const STATION_ALERT_INVALID =
   '일치하는 역 이름이 없네요. 😅\n실제 지하철 역만 추가할 수 있어요!';
 export const STATION_ALERT_OVERLAP = '이미 추가한 역이에요. 😅';
+export const STATION_ALERT_HAS_LINE = '노선에 추가한 역은 삭제할 수 없어요!';
 
 // line manager;
 export const LINE_MANAGER_BUTTON = 'line-manager-button';
