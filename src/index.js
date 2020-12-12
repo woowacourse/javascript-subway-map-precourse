@@ -4,7 +4,7 @@ import {hideScreen} from './View/hide-screen.js';
 import {showScreen} from './View/show-screen.js';
 import {
   addStationScreen,
-  addLastStopScreen,
+  addStationSelectOption,
   addLineScreen,
   addSectionScreen,
 } from './View/add-screen.js';
@@ -38,8 +38,8 @@ export function onAddStation() {
     setLocalStorage('station', $stationAddInput.value);
     stationInstance.addStation($stationAddInput.value);
     addStationScreen($stationAddInput.value);
-    addLastStopScreen($upStream, $stationAddInput.value);
-    addLastStopScreen($downStream, $stationAddInput.value);
+    addStationSelectOption($upStream, $stationAddInput.value);
+    addStationSelectOption($downStream, $stationAddInput.value);
   }
   $stationAddInput.value = '';
 }
@@ -74,8 +74,8 @@ export const loadStation = () => {
   stationInstance.loadStation();
   stationInstance.stations.forEach((station) => {
     addStationScreen(station);
-    addLastStopScreen($upStream, station);
-    addLastStopScreen($downStream, station);
+    addStationSelectOption($upStream, station);
+    addStationSelectOption($downStream, station);
   });
 };
 

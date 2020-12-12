@@ -16,7 +16,7 @@ export const addStationScreen = (value) => {
   $stationTbody.appendChild($stationTr);
 };
 
-export const addLastStopScreen = ($lastStop, station) => {
+export const addStationSelectOption = ($lastStop, station) => {
   const $optionLastStopStation = document.createElement('option');
   $optionLastStopStation.textContent = station;
   $lastStop.appendChild($optionLastStopStation);
