@@ -1,3 +1,17 @@
+export const addSectionOnLocalStorage = (key, value) => {
+  const localStorageValue = getLocalStorage(key);
+  const sectionIndex = localStorageValue.findIndex(
+    (line) => line.lineName === value.lineName,
+  );
+  localStorageValue[sectionIndex].station.splice(
+    value.number,
+    0,
+    value.sectionName,
+  );
+
+  return localStorage.setItem(key, JSON.stringify([...localStorageValue]));
+};
+
 export const setLocalStorage = (key, value) => {
   const localStorageValue = getLocalStorage(key);
   if (localStorageValue === null) {

@@ -5,6 +5,7 @@ import {
   onAddLine,
   onRemoveLine,
   onLoadSection,
+  onAddSection,
 } from '../index.js';
 
 export const $screenButton = document.body.querySelectorAll('#app > button');
@@ -30,8 +31,18 @@ export const $downStream = document.body.querySelector(
 export const $sectionStation = document.body.querySelector(
   '#section-station-selector',
 );
+
 export const $lineAddButton = document.body.querySelector('#line-add-button');
 export const $lineNameInput = document.body.querySelector('#line-name-input');
+export const $sectionAddButton = document.body.querySelector(
+  '#section-add-button',
+);
+export const $sectionNumber = document.body.querySelector(
+  '#section-order-input',
+);
+export const $sectionLineSelect = document.body.querySelector(
+  '#section-station-selector',
+);
 
 export const setButtonOption = (value, button) => {
   if (button.className === 'station-delete-button') {
@@ -59,3 +70,5 @@ $screenButton.forEach((button) =>
 $stationAddButton.addEventListener('click', onAddStation);
 
 $lineAddButton.addEventListener('click', onAddLine);
+
+$sectionAddButton.addEventListener('click', onAddSection);

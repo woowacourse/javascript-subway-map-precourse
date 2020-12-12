@@ -20,10 +20,14 @@ import {
   $downStream,
   $lineNameInput,
   $sectionStation,
+  $sectionNumber,
+  $sectionLineSelect,
+  $sectionAddButton,
 } from './View/input.js';
 import {isStationInputVaild, isLineInputValid} from './Controller/valid.js';
 import {
   setLocalStorage,
+  addSectionOnLocalStorage,
   removeLocalStorage,
 } from './Controller/local-storage.js';
 
@@ -79,6 +83,12 @@ export function onRemoveLine(e) {
 export function onLoadSection(e) {
   hideSectionLine();
   showSectionScreen(e.target.dataset.line);
+  $sectionAddButton.dataset.line = e.target.dataset.line;
+}
+
+export function onAddSection(e) {
+  const sectionValue = getSectionValue(e.target.dataset.line);
+  addSectionOnLocalStorage('line', sectionValue);
 }
 
 export const loadStation = () => {
@@ -109,6 +119,14 @@ const getLineValue = () => {
   return {
     lineName: $lineNameInput.value,
     station: [$upStream.value, $downStream.value],
+  };
+};
+
+const getSectionValue = (lineName) => {
+  return {
+    lineName,
+    sectionName: $sectionLineSelect.value,
+    number: $sectionNumber.value,
   };
 };
 
