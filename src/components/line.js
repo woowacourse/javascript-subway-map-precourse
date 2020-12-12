@@ -4,9 +4,22 @@ import { initialize } from '../util/initialize.js';
 
 export default class Line {
   constructor($target, $functionButtonContainer) {
+    this.subways = this.loadSubways();
+
     this.createLineManagerButton($functionButtonContainer);
     this.createLineManager($target);
     this.handleLineManagerButton();
+  }
+
+  loadSubways() {
+    const loadedSubways = localStorage.getItem(NAME.LOCALSTORAGE_KEY);
+    let parsedSubways = [];
+
+    if (loadedSubways !== null) {
+      parsedSubways = JSON.parse(loadedSubways);
+    }
+
+    return parsedSubways;
   }
 
   createLineManagerButton($functionButtonContainer) {
@@ -22,7 +35,7 @@ export default class Line {
 
     lineManager.id = ID.LINE_MANAGER;
     lineManager.style.display = 'none';
-    lineManager.innerHTML = lineManagerTemplate();
+    lineManager.innerHTML = lineManagerTemplate(this.subways);
     $target.appendChild(lineManager);
   }
 
