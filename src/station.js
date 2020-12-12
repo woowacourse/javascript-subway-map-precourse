@@ -1,4 +1,4 @@
-import { isSpecialCharacter, isValidLength } from './check.js'
+import { isSpecialCharacter, isDuplicated, isValidLength } from './check.js'
 
 export default function Station() {
   this.confirmDelete = function() {
@@ -28,8 +28,8 @@ export default function Station() {
     const stationAddButton = document.querySelector("#station-add-button");
     stationAddButton.addEventListener("click", () => {
       const stationName = document.querySelector("#station-name-input").value;
-      const alertText = "2글자 이상의 단어를 입력해 주세요."
-      if (!isSpecialCharacter(stationName) && isValidLength(stationName)) {
+      const alertText = "지하철 역 목록에 없는 2글자 이상의 단어를 입력해 주세요."
+      if (!isSpecialCharacter(stationName) && !isDuplicated(stationName) && isValidLength(stationName)) {
         this.addStation(stationName);
       } else {
         alert(alertText)
