@@ -5,15 +5,15 @@ export function isSpecialCharacter(inputValue) {
 
 export function isValidLength(inputValue) {
   const validLength = 2;
-  const inputValueLength = inputValue.length
+  const inputValueLength = inputValue.length;
   return (inputValueLength >= validLength);
 }
 
 export function isDuplicated(inputValue) {
-  return (localStorage.getItem(inputValue))
+  return (localStorage.getItem(inputValue));
 }
 
 export function isRegistered(stationName) {
-  const stationNameValue = localStorage.getItem(stationName)
-  return (stationNameValue === 'false')
+  const stationNameValue = localStorage.getItem(stationName);
+  return (stationNameValue === 'false');
 }
