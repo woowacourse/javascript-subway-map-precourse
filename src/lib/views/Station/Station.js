@@ -62,7 +62,7 @@ export default class Station {
   }
 
   _getStationListViewContainerChildNodes() {
-    const $title = new Typography("지하철 역 목록", "h2");
+    const $title = new Typography("🚉 지하철 역 목록", "h2");
     const $stationDataListTable = new Table(STATION_LIST);
     $stationDataListTable.insertTableHeader(["역 이름", "설정"]);
     $stationDataListTable.insertTableData(this._getStationListDataSet());
