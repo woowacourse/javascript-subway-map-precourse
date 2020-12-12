@@ -19,6 +19,7 @@ import {
   removeTableScreen,
   removeSectionButton,
   removeOption,
+  removeMapPrint,
 } from './View/remove-screen.js';
 import {
   $stationAddInput,
@@ -67,7 +68,7 @@ export function onChangeScreen(e) {
     return loadSectionButton();
   }
   if (e.target.id === 'map-print-manager-button') {
-    return addMapPrint(sectionInstance.sections);
+    return loadMapPrint();
   }
 }
 
@@ -186,6 +187,12 @@ export const loadSectionButton = () => {
   sectionInstance.sections.forEach((section) => {
     addSectionButton(section.lineName);
   });
+};
+
+export const loadMapPrint = () => {
+  removeMapPrint();
+  sectionInstance.loadSection();
+  addMapPrint(sectionInstance.sections);
 };
 
 const getLineValue = () => {

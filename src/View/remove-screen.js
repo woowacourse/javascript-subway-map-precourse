@@ -1,4 +1,9 @@
-import {$stationContainer, $lineContainer, $sectionContainer} from './input.js';
+import {
+  $stationContainer,
+  $lineContainer,
+  $sectionContainer,
+  $mapContainer,
+} from './input.js';
 
 export const removeStationScreen = (button) => {
   const $stationTbody = $stationContainer.querySelector('table > tbody');
@@ -40,5 +45,11 @@ export const removeSectionButton = () => {
 export const removeOption = ($select) => {
   while ($select.firstChild) {
     $select.removeChild($select.firstChild);
+  }
+};
+
+export const removeMapPrint = () => {
+  while ($mapContainer.firstChild) {
+    $mapContainer.removeChild($mapContainer.firstChild);
   }
 };
