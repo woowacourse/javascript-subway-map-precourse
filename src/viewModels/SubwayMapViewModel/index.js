@@ -5,44 +5,12 @@ export default class SubwayMapViewModel {
     this.subwayMapModel = subwayMapModel;
   }
 
-  isEmpty(stationId) {
-    if (stationId === '') {
-      return true;
-    }
-
-    stationId = Array.from(new Set(stationId));
-    if (
-      (stationId.length === 1 && stationId[0] === ' ') ||
-      stationId.length === 0
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-  validStationName(stationId) {
-    if (this.isEmpty(stationId)) {
-      return message.ALERT_FOR_EMPTY;
-    }
-    if (!/^[가-힣a-zA-z0-9]+$/.test(stationId)) {
-      return message.ALERT_FOR_WRONG_NAME;
-    }
-    if (stationId.length < 2) {
-      return message.ALERT_FOR_LENGTH;
-    }
-    if (stationId in this.getStations()) {
-      return message.ALERT_FOR_OVERLAPED_NAME;
-    }
-
-    return '';
-  }
-
   getStations() {
     return this.subwayMapModel.getStations();
   }
 
   addStation(stationId) {
-    const errorMessage = this.validStationName(stationId);
+    const errorMessage = this.validStationId(stationId);
     if (errorMessage) {
       alert(errorMessage);
       return;
@@ -67,6 +35,11 @@ export default class SubwayMapViewModel {
   }
 
   addLine(lineObject) {
+    const errorMessage = this.validLineObject(lineObject);
+    if (errorMessage) {
+      alert(errorMessage);
+      return;
+    }
     this.subwayMapModel.addLine(lineObject);
   }
 
@@ -80,5 +53,58 @@ export default class SubwayMapViewModel {
 
   getSections(lineId) {
     return this.subwayMapModel.getsectionsFromLine(lineId);
+  }
+
+  isEmpty(id) {
+    if (id === '') {
+      return true;
+    }
+
+    id = Array.from(new Set(id));
+    if ((id.length === 1 && id[0] === ' ') || id.length === 0) {
+      return true;
+    }
+
+    return false;
+  }
+  validStationId(stationId) {
+    if (this.isEmpty(stationId)) {
+      return message.ALERT_FOR_EMPTY;
+    }
+
+    if (!/^[가-힣a-zA-z0-9]+$/.test(stationId)) {
+      return message.ALERT_FOR_WRONG_NAME;
+    }
+
+    if (stationId.length < 2) {
+      return message.ALERT_FOR_LENGTH;
+    }
+
+    if (stationId in this.getStations()) {
+      return message.ALERT_FOR_OVERLAPED_NAME;
+    }
+
+    return '';
+  }
+
+  validLineObject(lineObject) {
+    console.log(lineObject);
+    if (this.isEmpty(lineObject.lineId)) {
+      return message.ALERT_FOR_EMPTY;
+    }
+
+    if (!/^[가-힣a-zA-z0-9]+$/.test(lineObject.lineId)) {
+      return message.ALERT_FOR_WRONG_NAME;
+    }
+
+    if (lineObject.lineId in this.getLines()) {
+      return message.ALERT_FOR_OVERLAPED_NAME;
+    }
+
+    if (lineObject.startStation === lineObject.endStation) {
+      return message.ALERT_FOR_OVERLAPED_STATION;
+    }
+
+    return '';
   }
 }
