@@ -1,19 +1,12 @@
-import {STATION} from '../constants.js';
+import {STATION, STORAGE} from '../constants.js';
+import {getList, saveList} from './subway-local-storage.js';
 import {
   renderStationList, renderStation,
 } from '../views/subway-station-view.js';
 
 export default class SubwayStation {
   constructor() {
-    this.stationList = this.getStations();
-  }
-
-  getStations() {
-    const stationList = JSON.parse(localStorage.getItem('station'));
-
-    if (stationList) return stationList;
-
-    return [];
+    this.stationList = getList(STORAGE.STATION.KEY);
   }
 
   addStation = () => {
@@ -25,8 +18,7 @@ export default class SubwayStation {
 
     this.stationList.push(station);
 
-    localStorage.setItem('station', JSON.stringify(this.stationList));
-
+    saveList(STORAGE.STATION.KEY, this.stationList);
     renderStation(this.stationList);
   }
 
@@ -37,8 +29,7 @@ export default class SubwayStation {
 
     this.stationList = this.stationList.filter((station, i) => i !== id);
 
-    localStorage.setItem('station', JSON.stringify(this.stationList));
-
+    saveList(STORAGE.STATION.KEY, this.stationList);
     renderStationList(this.stationList);
   }
 

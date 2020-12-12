@@ -1,6 +1,6 @@
 import {STATION} from '../constants.js';
 
-export default class StationRegistListener {
+export default class StationListener {
   constructor(subwayStation) {
     this.subwayStation = subwayStation;
     this.setElement();
