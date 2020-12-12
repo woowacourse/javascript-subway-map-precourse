@@ -1,4 +1,4 @@
-import Station from "../models/Station.js";
+import { Station } from "../models/index.js";
 
 export default {
   eventBinded: false,

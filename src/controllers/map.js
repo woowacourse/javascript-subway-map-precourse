@@ -1,4 +1,4 @@
-import Line from "../models/Line.js";
+import { Line } from "../models/index.js"
 
 export default {
   init(element) {

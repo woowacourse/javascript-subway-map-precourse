@@ -1,7 +1,6 @@
 import Tab from "./views/Tab.js";
-import stationController from "./controllers/station.js";
-import lineController from "./controllers/line.js";
-import sectionController from "./controllers/section.js";
-import mapController from "./controllers/map.js";
+import { station, line, section, map } from './controllers/index.js';
 
-new Tab("main", [stationController, lineController, sectionController, mapController]);
+const mainTabContollers = [station, line, section, map];
+
+new Tab("main", mainTabContollers);

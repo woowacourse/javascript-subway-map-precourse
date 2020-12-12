@@ -1,5 +1,4 @@
-import Line from "../models/Line.js";
-import Station from "../models/Station.js";
+import { Line, Station } from "../models/index.js"
 
 export default {
   init(element) {
