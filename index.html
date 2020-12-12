@@ -96,6 +96,23 @@
           <select id="section-station-selector"></select>
           <input type="text" id="section-order-input" placeholder="순서" />
           <button id="section-add-button">등록</button>
+          <br />
+          <table style="margin-top: 30px">
+            <captoin class="hidden">선택한 노선에 속한 구간 목록</captoin>
+            <colgroup>
+              <col width="40px" />
+              <col width="80px" />
+              <col />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">순서</th>
+                <th scope="col">이름</th>
+                <th scope="col">설정</th>
+              </tr>
+            </thead>
+            <tbody id="line-section-tbody"></tbody>
+          </table>
         </div>
       </div>
       <div id="map-print-manager" class="managers">
