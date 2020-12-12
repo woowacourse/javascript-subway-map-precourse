@@ -34,6 +34,9 @@ export default class SubwayMap {
 
   // 지하철 노선 등록
   addLine(name, upTerminus, downTerminus) {
+    if (name.length <= 0 || this.lineList.find(element => element.name === name) !== undefined) {
+      return false;
+    }
     let line = new SubwayLine(name, upTerminus, downTerminus);
     this.lineList.push(line);
     return true;
