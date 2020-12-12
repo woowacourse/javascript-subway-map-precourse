@@ -105,3 +105,4 @@
 7. [경고 메시지??](https://stackoverflow.com/questions/51094117/dependency-cycle-detected-import-no-cycle)
 
 8. **삭제 과정에서 오류 발견** -> 인덱싱 잘못함. 삭제 함수에서 그냥 삭제할 인덱스를 직접 정하자!
+  - 삭제 후 상태 업데이트가 안됨 (로컬에서는 삭제됐으나...)

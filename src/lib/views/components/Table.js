@@ -20,10 +20,10 @@ export default class Table {
     </thead>`;
   }
 
-  insertTableData(tableDataSetArray) {
+  insertTableData(tableDataSetArray, isEmptyDataList) {
     const $tbody = document.createElement("tbody");
     this.element.appendChild($tbody);
-    if (!tableDataSetArray || tableDataSetArray.length === 0) return;
+    if (isEmptyDataList) return;
     tableDataSetArray.forEach((tableRowSet) => {
       $tbody.appendChild(convertTableRowDataToDOM(tableRowSet));
     });

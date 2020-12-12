@@ -25,7 +25,6 @@ export default (deleteValue, index) => {
   console.log(`${index} 번째 ${deleteValue} 역이 삭제될겁니다.`);
   console.log("before delete", stationSelector);
   console.log("after delete", updatedStationList);
-
   stationReducer(updatedStationList);
   updateUI(updatedStationList);
 };

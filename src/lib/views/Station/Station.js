@@ -19,6 +19,8 @@ import {
 export default class Station {
   constructor() {
     this.stationDataList = stationSelector;
+    this.stationDataListIsEmpty =
+      stationSelector === null || stationSelector.length === 0;
     this.element = document.createElement("div");
     this.element.id = STATION_DIV.substring(1);
   }
@@ -51,7 +53,10 @@ export default class Station {
     const $stationDataListTable = new Table(STATION_LIST);
     $stationDataListTable.insertTableHeader(["역 이름", "설정"]);
     $stationDataListTable.insertTableData(
-      getNewStationDataRowSet(this.stationDataList),
+      getNewStationDataRowSet(
+        this.stationDataList,
+        this.stationDataListIsEmpty,
+      ),
     );
     return [$title, $stationDataListTable];
   }
