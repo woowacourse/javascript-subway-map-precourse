@@ -26,7 +26,11 @@ import {
   $sectionLineSelect,
   $sectionAddButton,
 } from './View/input.js';
-import {isStationInputVaild, isLineInputValid} from './Controller/valid.js';
+import {
+  isStationInputVaild,
+  isLineInputValid,
+  isSectionValid,
+} from './Controller/valid.js';
 import {
   setLocalStorage,
   addSectionOnLocalStorage,
@@ -91,9 +95,11 @@ export function onLoadSection(e) {
 
 export function onAddSection(e) {
   const sectionValue = getSectionValue(e.target.dataset.line);
-  addSectionOnLocalStorage('line', sectionValue);
-  loadSectionTable();
-  showSectionScreen(e.target.dataset.line);
+  if (isSectionValid(sectionValue, sectionInstance.sections)) {
+    addSectionOnLocalStorage('line', sectionValue);
+    loadSectionTable();
+    showSectionScreen(e.target.dataset.line);
+  }
 }
 
 export function onRemoveSection(e) {

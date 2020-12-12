@@ -29,6 +29,20 @@ export const isLineInputValid = (userLine, exLine) => {
   return true;
 };
 
+export const isSectionValid = (userSection, exSection) => {
+  if (!isNumber(userSection.number)) {
+    return false;
+  }
+  if (!isAllDifferentSection(userSection, exSection)) {
+    return false;
+  }
+  if (!isMoreThanMaxNumber(userSection, exSection)) {
+    return false;
+  }
+
+  return true;
+};
+
 const isLengthRight = (value) => {
   if (value.length < 2) {
     return alert('2글자 이상으로 입력해주세요.');
@@ -61,9 +75,47 @@ const isAllDifferentLine = (userLine, allLines) => {
   return true;
 };
 
+const isAllDifferentSection = (userSection, allSection) => {
+  const sectionIndex = allSection.findIndex(
+    (section) => section.lineName === userSection.lineName,
+  );
+
+  if (
+    allSection[sectionIndex].station.find(
+      (station) => station === userSection.sectionName,
+    )
+  ) {
+    return alert('이미 역이 추가되어 있습니다.');
+  }
+
+  return true;
+};
+
 const isLastStopDifferent = (station) => {
   if (station[0] === station[station.length - 1]) {
     return alert('상행과 하행이 같은 역이 될 수 없습니다.');
+  }
+
+  return true;
+};
+
+const isNumber = (number) => {
+  if (number.match(/\D/) || number === '') {
+    return alert('숫자를 입력해주세요.');
+  }
+
+  return true;
+};
+
+const isMoreThanMaxNumber = (userSection, allSection) => {
+  const sectionIndex = allSection.findIndex(
+    (section) => section.lineName === userSection.lineName,
+  );
+
+  if (allSection[sectionIndex].station.length < userSection.number) {
+    return alert(
+      `${allSection[sectionIndex].station.length}이하의 수를 입력해주세요.`,
+    );
   }
 
   return true;
