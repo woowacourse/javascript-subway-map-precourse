@@ -1,6 +1,11 @@
 import actionResult from "../actionResult.js";
 import { stationSelector } from "../../_store/selectors.js";
 import { MIN_LENGTH_OF_STATION_NAME } from "../../common/constants.js";
+import {
+  NAME_LENGTH_ERROR,
+  SAME_NAME_ERROR,
+  SPACE_ERROR,
+} from "../../common/alertMessages.js";
 
 export default class StationNameInputValidation {
   constructor(inputValue) {
@@ -18,14 +23,10 @@ export default class StationNameInputValidation {
 
   getInputResult() {
     if (!this._isMoreThanTwoCharacters)
-      return actionResult(
-        false,
-        `역 이름은 최소 ${MIN_LENGTH_OF_STATION_NAME}글자 이상이어야 합니다.`,
-      );
-    if (!this._isNotHaveSpace)
-      return actionResult(false, `공백은 입력받을 수 없습니다.`);
+      return actionResult(false, NAME_LENGTH_ERROR);
+    if (!this._isNotHaveSpace) return actionResult(false, SPACE_ERROR);
     if (!this._isUniqueStationName())
-      return actionResult(false, `지하철 역 이름은 중복될 수 없습니다.`);
+      return actionResult(false, SAME_NAME_ERROR);
     return actionResult(true);
   }
 }
