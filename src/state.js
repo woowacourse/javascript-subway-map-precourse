@@ -1,8 +1,6 @@
 import { getLocalStorageDataBy } from "./local_storage.js";
 
 const State = function () {
-  // 스토리지에서 state로 데이터 가져옴 -> 값 필요할 때
-
   this.state = {
     stations: getLocalStorageDataBy("stations"),
     lines: getLocalStorageDataBy("lines"),
