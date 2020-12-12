@@ -1,4 +1,4 @@
-import Station from "./model.js";
+import Station from "./models.js";
 import {
   stationInputForm,
   stationList,
@@ -9,7 +9,9 @@ import {
 const stationManagerBtn = document.getElementById("station-manager-button");
 
 const loadStations = () => {
-  return JSON.parse(stationManagerBtn.dataset.stations);
+  return JSON.parse(stationManagerBtn.dataset.stations).map(
+    (x) => new Station(x.name, x.usedCount)
+  );
 };
 
 const saveStations = (_stations) => {
@@ -31,18 +33,9 @@ const createStationList = (_stations) => {
   }
 };
 
-const updateStationList = (_stations, _newStation) => {
-  if (!_stations) {
-    return;
-  }
-
-  if (_newStation) {
-    saveStations([..._stations, _newStation]);
-  } else {
-    saveStations(_stations);
-  }
-
-  createStationList(loadStations());
+const updateStationList = (_stations) => {
+  saveStations(_stations);
+  createStationList(_stations);
 };
 
 const isNull = (value) => {
@@ -91,12 +84,12 @@ const createStation = () => {
   const stationName = getStationName();
 
   if (stationName) {
-    return new Station(stationName);
+    return new Station(stationName, 1);
   }
 };
 
 const isUsed = (_station) => {
-  return _station.used !== 0;
+  return _station.usedCount !== 0;
 };
 
 const deleteStation = (_stationDeletebtn) => {
@@ -120,8 +113,12 @@ const setStationDeleteBtn = () => {
 
   for (let i = 0; i < stationDeleteBtn.length; i++) {
     stationDeleteBtn[i].addEventListener("click", (e) => {
-      updateStationList(deleteStation(e));
-      setStationDeleteBtn();
+      const stationsWithoutDeleteStation = deleteStation(e);
+
+      if (stationsWithoutDeleteStation) {
+        updateStationList(stationsWithoutDeleteStation);
+        setStationDeleteBtn();
+      }
     });
   }
 };
@@ -134,8 +131,12 @@ export default function StationManager() {
   const stationAddBtn = document.getElementById("station-add-button");
 
   stationAddBtn.addEventListener("click", () => {
-    updateStationList(loadStations(), createStation());
-    setStationDeleteBtn();
+    const newStation = createStation();
+
+    if (newStation) {
+      updateStationList([...loadStations(), newStation]);
+      setStationDeleteBtn();
+    }
   });
 }
 
