@@ -3,6 +3,7 @@ import {
   getAllElementsByClass,
   getSelectedOptionByID,
 } from "../../utility/handle-document-utility.js";
+import { isValidOrder } from "../../utility/string-check-utility.js";
 
 export default class SectionManagerUI {
   constructor(contentsID, stationINFOManager) {
@@ -69,20 +70,24 @@ class SectionRegisterUI {
       return line.name === this.lineName_;
     })[0];
     let tableInnerHTML = TABLE_HEADER_TEMPLATE;
-    myLine.stationsOfLine.forEach((station, index) => {
-      tableInnerHTML += this.makeNewTableRowHTML(index, station.name);
+    myLine.stationsOfLine.forEach((station, order) => {
+      tableInnerHTML += this.makeNewTableRowHTML(order, station.name);
     });
     table.innerHTML = tableInnerHTML;
   }
 
+  //private
   addEventToSectionAddButton_() {
     const button = document.getElementById(SECTION_ADD_BUTTON_ID);
     button.addEventListener("click", () => {
-      const indexToRegister = getInputTextByID(SECTION_ORDER_INPUT_ID);
+      const orderToRegister = getInputTextByID(SECTION_ORDER_INPUT_ID);
       const stationName = getSelectedOptionByID(SECTION_STATION_SELECTOR_ID);
+      if (!isValidOrder(orderToRegister)) {
+        return;
+      }
       this.stationINFOManager_.registerStationToLine(
         this.lineName_,
-        indexToRegister,
+        orderToRegister,
         stationName
       );
       this.updateAllContents();
@@ -109,10 +114,10 @@ class SectionRegisterUI {
   makeTitleHTML_(name) {
     return `<h2>${name} 관리<h2>`;
   }
-  makeNewTableRowHTML(index, name) {
+  makeNewTableRowHTML(order, name) {
     return `
     <tr>
-      <td>${index}</td>
+      <td>${order}</td>
       <td>${name}</td>
       <td>
         <button class="${SECTION_DELETE_BUTTON_CLASS}" data-name="${name}">삭제</button>

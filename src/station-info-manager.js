@@ -22,14 +22,14 @@ export default class StationINFOManager {
     endStationPtr.linesOfStation.add(lineName);
     this.lines_.push(newLine);
   }
-  registerStationToLine(lineName, indexToRegister, stationName) {
+  registerStationToLine(lineName, orderToRegister, stationName) {
     const targetLine = this.getOneLineINFOByCondition((line) => {
       return line.name === lineName;
     });
     const targetStation = this.getOneStationINFOByCondition((station) => {
       return station.name === stationName;
     });
-    targetLine.stationsOfLine.splice(indexToRegister, 0, targetStation);
+    targetLine.stationsOfLine.splice(orderToRegister, 0, targetStation);
     targetStation.linesOfStation.add(lineName);
   }
   getStationsNames() {
