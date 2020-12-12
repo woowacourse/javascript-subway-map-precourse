@@ -1,3 +1,8 @@
+import {
+  DUPLICATE_STATION_MESSAGE,
+  LEFTOVER_MESSAGE,
+  SHORT_INPUT_MESSAGE,
+} from '../../library/constants/station-alert.js';
 import Component from '../../library/core/component.js';
 import { hasStringEnoughLength } from '../../library/utils/validation.js';
 
@@ -54,12 +59,12 @@ class StationInput extends Component {
   alertByCase(input) {
     const alertCases = [];
     if (!hasStringEnoughLength(input, 2)) {
-      alertCases.push('2글자 이상');
+      alertCases.push(SHORT_INPUT_MESSAGE);
     }
     if (this._props.stations.value.includes(input)) {
-      alertCases.push('중복되지 않은 역 이름');
+      alertCases.push(DUPLICATE_STATION_MESSAGE);
     }
-    alert(`${alertCases.join(', ')}을 입력해야 합니다. 다시 입력 해주세요.`);
+    alert(alertCases.join(', ') + LEFTOVER_MESSAGE);
   }
 }
 
