@@ -13,12 +13,15 @@ export default class SubwayManager {
   setEventListeners() {
     DOMs.stationManagerButton.addEventListener('click', this.openStationManager.bind(this));
     DOMs.lineManagerButton.addEventListener('click', this.openLineManager.bind(this));
-    DOMs.sectionManagerButton.addEventListener('click', this.openSectionManager);
+    DOMs.sectionManagerButton.addEventListener('click', this.openSectionManager.bind(this));
     DOMs.mapPrintManagerButton.addEventListener('click', this.openMapPrintManager);
     DOMs.managerContainer.addEventListener('click', this.addStation.bind(this));
     DOMs.managerContainer.addEventListener('click', this.deleteStation.bind(this));
     DOMs.managerContainer.addEventListener('click', this.addLine.bind(this));
     DOMs.managerContainer.addEventListener('click', this.deleteLine.bind(this));
+    DOMs.managerContainer.addEventListener('click', this.selectLine.bind(this));
+    DOMs.managerContainer.addEventListener('click', this.addSection.bind(this));
+    DOMs.managerContainer.addEventListener('click', this.deleteSection.bind(this));
   }
 
   openStationManager() {
@@ -53,8 +56,8 @@ export default class SubwayManager {
       ${this.lines
         .map(
           line =>
-            `<tr><td>${line.lineName}</td><td>${line.start.stationName}</td>
-          <td>${line.end.stationName}</td><td><button class="line-delete-button" 
+            `<tr><td>${line.lineName}</td><td>${line.start}</td>
+          <td>${line.end}</td><td><button class="line-delete-button" 
           data-line="${line.lineName}">삭제</button></td></tr>`
         )
         .join('')}</table></div>
@@ -64,18 +67,51 @@ export default class SubwayManager {
   }
 
   openSectionManager() {
-    const sectionManager = `
-      <div id="section-manager">
+    const sectionContainer = `
+      <div id="section-container">
         <h2>구간을 수정할 노선을 선택해주세요.</h2>
-        <!--
-          <button class="section-line-menu-button">1호선</button>
-          <button class="section-line-menu-button">2호선</button>
-          <button class="section-line-menu-button">3호선</button>
-        -->
+        ${this.lines
+          .map(
+            line =>
+              `<button class="section-line-menu-button" data-line="${line.lineName}">${line.lineName}</button>`
+          )
+          .join(' ')}
+        <div id="section-manager"></div>
       </div>
     `;
     DOMCtrl.clearManagerContainer();
-    DOMs.managerContainer.innerHTML = sectionManager;
+    DOMs.managerContainer.innerHTML = sectionContainer;
+  }
+
+  selectLine(event) {
+    const {
+      target: { className },
+    } = event;
+    if (className === 'section-line-menu-button') {
+      const lineSelect = event.target.dataset['line'];
+      const lineIndex = this.lines.findIndex(line => line.lineName === lineSelect);
+      this.openSection(lineSelect, lineIndex);
+    }
+  }
+
+  openSection(lineSelect, lineIndex) {
+    const sectionManager = `
+      <h2 data-target="${lineSelect}">${lineSelect} 관리</h2><h3>구간 등록</h3>
+      <select id="section-station-selector">${this.stations
+        .map(station => `<option>${station}</option>`)
+        .join('')}</select>
+      <input type="number" id="section-order-input" placeholder="순서">&nbsp;
+      <button id="section-add-button">등록</button><br><br><br><table id="sections"><tr><th><b>순서</b>
+      </th><th><b>이름</b></th><th><b>설정</b></th></tr>
+      ${this.lines[lineIndex].stations
+        .map(
+          (station, index) => `<tr><td>${index}</td><td>${station}</td>
+        <td><button class="section-delete-button" data-index="${index}">노선에서 제거</button></td></tr>`
+        )
+        .join('')}
+      </table>
+    `;
+    document.getElementById('section-manager').innerHTML = sectionManager;
   }
 
   openMapPrintManager() {
@@ -135,11 +171,31 @@ export default class SubwayManager {
       target: { className },
     } = event;
     if (className === 'line-delete-button') {
-      const targetLineName = event.target.dataset['line'];
-      const index = this.lines.findIndex(line => line.lineName === targetLineName);
+      const targetLine = event.target.dataset['line'];
+      const index = this.lines.findIndex(line => line.lineName === targetLine);
       this.lines.splice(index, 1);
       localStorage.setItem('lines', JSON.stringify(this.lines));
       this.openLineManager();
+    }
+  }
+
+  addSection(event) {
+    const {
+      target: { id },
+    } = event;
+    if (id === 'section-add-button') {
+      const targetLine = document.getElementById('section-manager').querySelector('h2').dataset[
+        'target'
+      ];
+      const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
+      const stationOrder = document.getElementById('section-order-input').value;
+      const stationName = document.getElementById('section-station-selector').value;
+      this.lines[targetLineIndex].stations = this.lines[targetLineIndex].stations
+        .slice(0, stationOrder)
+        .concat(stationName, this.lines[targetLineIndex].stations.slice(stationOrder));
+      localStorage.setItem('lines', JSON.stringify(this.lines));
+      this.openSectionManager();
+      this.openSection(targetLine, targetLineIndex);
     }
   }
 }
