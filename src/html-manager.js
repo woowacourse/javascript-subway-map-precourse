@@ -5,40 +5,38 @@ import LineManagerUI from "./ui/contents-ui/line-manager-ui.js";
 import MapPrintManagerUI from "./ui/contents-ui/map-print-manager-ui.js";
 
 export default class HTMLManager {
-  constructor({ htmlOfBody, stationINFOManager }) {
-    this.htmlOfBody = htmlOfBody;
+  constructor(stationINFOManager) {
     this.stationINFOManager = stationINFOManager;
-
     this.menubarUI_ = new MenubarUI({
       htmlManager: this,
-      menubarContainer: htmlOfBody.querySelector("#" + MENUBAR_ID),
+      menubarID: MENUBAR_ID,
     });
     this.setContentsUIOnStationUI();
   }
 
   setContentsUIOnStationUI() {
-    this.contentsUI_ = new StationManagerUI({
-      contentsContainer: this.htmlOfBody.querySelector("#" + CONTENTS_ID),
-      stationINFOManager: this.stationINFOManager,
-    });
+    this.contentsUI_ = new StationManagerUI(
+      CONTENTS_ID,
+      this.stationINFOManager
+    );
   }
   setContentsUIOnSectionUI() {
-    this.contentsUI_ = new SectionManagerUI({
-      contentsContainer: this.htmlOfBody.querySelector("#" + CONTENTS_ID),
-      stationINFOManager: this.stationINFOManager,
-    });
+    this.contentsUI_ = new SectionManagerUI(
+      CONTENTS_ID,
+      this.stationINFOManager
+    );
   }
   setContentsUIOnLineUI() {
-    this.contentsUI_ = new LineManagerUI({
-      contentsContainer: this.htmlOfBody.querySelector("#" + CONTENTS_ID),
-      stationINFOManager: this.stationINFOManager,
-    });
+    this.contentsUI_ = new LineManagerUI(
+      CONTENTS_ID, 
+      this.stationINFOManager
+      );
   }
   setContentsUIOnMapPrintUI() {
-    this.contentsUI_ = new MapPrintManagerUI({
-      contentsContainer: this.htmlOfBody.querySelector("#" + CONTENTS_ID),
-      stationINFOManager: this.stationINFOManager,
-    });
+    this.contentsUI_ = new MapPrintManagerUI(
+      CONTENTS_ID,
+      this.stationINFOManager
+    );
   }
 }
 

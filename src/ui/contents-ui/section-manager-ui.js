@@ -1,14 +1,15 @@
 import { getMessageToCheckLineInput } from "../../utility/string-check-utility.js";
+import { getInputTextByID } from "../../utility/handle-document-utility.js";
 
 export default class SectionManagerUI {
-  constructor({ contentsContainer, stationINFOManager }) {
-    this.contentsContainer_ = contentsContainer;
+  constructor(contentsID, stationINFOManager) {
+    this.contentsID_ = contentsID;
     this.stationINFOManager_ = stationINFOManager;
-    this.setHTML();
+    this.setContentsHTML();
   }
 
-  setHTML() {
-    this.contentsContainer_.innerHTML = TEMPLATE;
+  setContentsHTML() {
+    document.getElementById(this.contentsID_).innerHTML = TEMPLATE;
     this.setStationSelector_(START_STATION_SELECTOR_ID);
     this.setStationSelector_(END_STATION_SELECTOR_ID);
     this.addEventToLineAddButton_();
@@ -16,7 +17,7 @@ export default class SectionManagerUI {
   }
 
   setStationSelector_(selectorID) {
-    const selector = this.contentsContainer_.querySelector("#" + selectorID);
+    const selector = document.getElementById(selectorID);
     selector.innerHTML = this.createSelectorInnerHTML_();
   }
   createSelectorInnerHTML_() {
@@ -33,9 +34,9 @@ export default class SectionManagerUI {
     `;
   }
   addEventToLineAddButton_() {
-    const button = this.contentsContainer_.querySelector("#" + ADD_BUTTON_ID);
+    const button = document.getElementById(ADD_BUTTON_ID);
     button.addEventListener("click", () => {
-      const lineName = this.getHTMLElementByID_(NAME_INPUT_ID).value;
+      const lineName = getInputTextByID(NAME_INPUT_ID);
       const message = getMessageToCheckLineInput(lineName);
       if (message !== "성공") {
         alert(message);
@@ -53,18 +54,13 @@ export default class SectionManagerUI {
       this.updateLinesTable_();
     });
   }
-  getHTMLElementByID_(id) {
-    return this.contentsContainer_.querySelector("#" + id);
-  }
   getSelectedOptionInSelector_(id) {
-    const selector = this.getHTMLElementByID_(id);
+    const selector = document.getElementById(id);
     return selector[selector.selectedIndex].value;
   }
   updateLinesTable_() {
     const linesINFOs = this.stationINFOManager_.getLinesNames();
-    const tableContainer = this.contentsContainer_.querySelector(
-      "#" + TABLE_ID
-    );
+    const tableContainer = document.getElementById(TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     linesINFOs.forEach((lineINFOs) => {
       innerHTMLOfTable += this.createNewTableRowHTML_(lineINFOs);

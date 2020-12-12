@@ -1,22 +1,24 @@
 import { getMessageToCheckStationName } from "../../utility/string-check-utility.js";
+import {
+  getInputTextByID,
+  getAllElementsByClass,
+} from "../../utility/handle-document-utility.js";
 
 export default class StationManagerUI {
-  constructor({ contentsContainer, stationINFOManager }) {
-    this.contentsContainer_ = contentsContainer;
+  constructor(contentsID, stationINFOManager) {
+    this.contentsID_ = contentsID;
     this.stationINFOManager_ = stationINFOManager;
-    this.setHTML();
+    this.setContentsHTML();
     this.updateStationsTable();
   }
 
-  setHTML() {
-    this.contentsContainer_.innerHTML = TEMPLATE;
+  setContentsHTML() {
+    document.getElementById(this.contentsID_).innerHTML = TEMPLATE;
     this.addEventToNameInputButton_();
   }
   updateStationsTable() {
     const stationsNames = this.stationINFOManager_.getStationsNames();
-    const tableContainer = this.contentsContainer_.querySelector(
-      "#" + STATION_NAME_TABLE_ID
-    );
+    const tableContainer = document.getElementById(STATION_NAME_TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     for (let name of stationsNames) {
       innerHTMLOfTable += this.createNewTableRowHTML_(name);
@@ -26,14 +28,9 @@ export default class StationManagerUI {
   }
 
   addEventToNameInputButton_() {
-    const button = this.contentsContainer_.querySelector(
-      "#" + STATION_ADD_BUTTON_ID
-    );
-    const nameInput = this.contentsContainer_.querySelector(
-      "#" + STATION_NAME_INPUT_ID
-    );
+    const button = document.getElementById(STATION_ADD_BUTTON_ID);
     button.addEventListener("click", () => {
-      const name = nameInput.value;
+      const name = getInputTextByID(STATION_NAME_INPUT_ID);
       const message = getMessageToCheckStationName(name);
       if (message !== "성공") {
         alert(message);
@@ -46,9 +43,7 @@ export default class StationManagerUI {
     });
   }
   addEventToAllTableDeleteButton_() {
-    const deleteButtons = this.contentsContainer_.querySelectorAll(
-      "." + STATION_DELETE_BUTTON_CLASS
-    );
+    const deleteButtons = getAllElementsByClass(STATION_DELETE_BUTTON_CLASS);
     Array.prototype.forEach.call(deleteButtons, (deleteButton) => {
       deleteButton.addEventListener("click", (e) => {
         if (!confirm(DELETE_CONFIRM_MESSAGE)) {

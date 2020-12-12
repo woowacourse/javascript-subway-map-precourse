@@ -1,12 +1,12 @@
 export default class LineManagerUI {
-  constructor({ contentsContainer, stationINFOManager }) {
-    this.contentsContainer_ = contentsContainer;
+  constructor(contentsID, stationINFOManager) {
+    this.contentsID_ = contentsID;
     this.stationINFOManager_ = stationINFOManager;
-    this.setHTML();
+    this.setContentsHTML();
   }
 
-  setHTML() {
-    this.contentsContainer_.innerHTML = TEMPLATE;
+  setContentsHTML() {
+    document.getElementById(this.contentsID_).innerHTML = TEMPLATE;
   }
 }
 

@@ -1,12 +1,12 @@
 export default class MenubarUI {
-  constructor({ htmlManager, menubarContainer }) {
+  constructor({ htmlManager, menubarID }) {
     this.htmlManager_ = htmlManager;
-    this.menubarContainer_ = menubarContainer;
+    this.menubarID_ = menubarID;
     this.setMenubar();
   }
 
   setMenubar() {
-    this.menubarContainer_.innerHTML = MENU_TEMPLATE;
+    document.getElementById(this.menubarID_).innerHTML = MENU_TEMPLATE;
     this.addEventToStationButton_();
     this.addEventToLineButton_();
     this.addEventToSectionButton_();
@@ -14,25 +14,25 @@ export default class MenubarUI {
   }
 
   addEventToStationButton_() {
-    const button = this.menubarContainer_.querySelector("#" + STATION_ID);
+    const button = document.getElementById(STATION_ID);
     button.addEventListener("click", () => {
       this.htmlManager_.setContentsUIOnStationUI();
     });
   }
   addEventToLineButton_() {
-    const button = this.menubarContainer_.querySelector("#" + LINE_ID);
+    const button = document.getElementById(LINE_ID);
     button.addEventListener("click", () => {
       this.htmlManager_.setContentsUIOnSectionUI();
     });
   }
   addEventToSectionButton_() {
-    const button = this.menubarContainer_.querySelector("#" + SECTION_ID);
+    const button = document.getElementById(SECTION_ID);
     button.addEventListener("click", () => {
       this.htmlManager_.setContentsUIOnLineUI();
     });
   }
   addEventToMapPrintButton_() {
-    const button_ = this.menubarContainer_.querySelector("#" + MAP_PRINT_ID);
+    const button_ = document.getElementById(MAP_PRINT_ID);
     button_.addEventListener("click", () => {
       this.htmlManager_.setContentsUIOnMapPrintUI();
     });
