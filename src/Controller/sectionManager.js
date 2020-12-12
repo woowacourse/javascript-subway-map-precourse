@@ -64,6 +64,7 @@ export const deleteCallbackFunction = (e) => {
 		}
         Line.removeStationOnLine(lineName, stationName);
         buttonElement.parentNode.parentElement.remove();
+        console.log(buttonElement.parentNode.parentElement.parentElement)
     }
 }
 

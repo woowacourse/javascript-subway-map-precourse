@@ -51,7 +51,10 @@ export const tableSynchronizer = (tableElement) => {
 			line.stations[0],
 			line.stations[line.stations.length - 1],
 			makeNewLineDeleteButtonElement(line.name),
-		]);
+        ]);
+        console.log(line.name,
+			line.stations[0],
+			line.stations[line.stations.length - 1],)
 	});
 	applyDeleteEventForAllDeleteButton();
 };
