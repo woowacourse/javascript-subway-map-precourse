@@ -4,6 +4,8 @@ import {
   SECTION_MANAGER_CONTAINERS_ID,
   SELECTORS_ID,
   TBODY_ID,
+  ADD_BUTTONS_ID,
+  INPUT_FORM_ID,
 } from "../html-constants/html-id-values.js";
 import {
   SECTION_LINE_MENU_BUTTON,
@@ -23,7 +25,7 @@ const renderSelectedLineManagerHeader = ($selectedLineManager, lineIndex) => {
 const renderStationSelectorOptions = ($select, lineIndex) => {
   const stationList = new StationManager().stationList;
   const section = new LineManager().lineList[lineIndex].section;
-  $select.innerHTML = "<option value='.'>--선택--</option>";
+  $select.innerHTML = "<option value=''>--선택--</option>";
   $select.innerHTML += stationList
     .map((_station) => {
       if (!section.find((_inSection) => _inSection === _station)) {
@@ -31,6 +33,16 @@ const renderStationSelectorOptions = ($select, lineIndex) => {
       }
     })
     .join("\n");
+};
+
+const addLineIndexAsDatasetToSectionAddButton = (
+  $selectedLineManager,
+  lineIndex
+) => {
+  getChildById(
+    $selectedLineManager,
+    ADD_BUTTONS_ID.sectionAddButton
+  ).dataset.lineIndex = lineIndex;
 };
 
 const renderLineSectionTbody = (currentLine) => {
@@ -57,7 +69,61 @@ const showSelectedLineManager = ($selectedLineManager, lineIndex) => {
     getChildById($selectedLineManager, SELECTORS_ID.sectionStationSelector),
     lineIndex
   );
+  addLineIndexAsDatasetToSectionAddButton($selectedLineManager, lineIndex);
   renderLineSectionTbody(new LineManager().lineList[lineIndex]);
+};
+
+const isSectionSelectorValid = ($selectedLineManager) => {
+  const $select = getChildById(
+    $selectedLineManager,
+    SELECTORS_ID.sectionStationSelector
+  );
+  if ($select.value === "") {
+    alert("구간으로 추가할 역을 선택해주세요.");
+    return false;
+  }
+  return true;
+};
+
+const isSectionOrderInputEmpty = (sectionOrderInputValue) => {
+  if (sectionOrderInputValue === "") {
+    alert("순서(숫자)를 입력해주세요");
+    return true;
+  }
+  return false;
+};
+
+const isInputInRange = (input, lineIndex) => {
+  const numberOfSection = new LineManager().lineList[lineIndex].section.length;
+  const inputAsNumber = input * 1;
+  if (inputAsNumber < 0 || inputAsNumber > numberOfSection) {
+    alert(`0이상 ${numberOfSection}이하의 수를 입력해주세요.`);
+    return false;
+  }
+  return true;
+};
+
+const isInteger = (input) => {
+  if (input * 1 !== parseInt(input)) {
+    alert("0이상의 정수만 입력 가능합니다.");
+    return false;
+  }
+  return true;
+};
+
+const isSectionOrderInputValid = ($selectedLineManager, lineIndex) => {
+  const sectionOrderInput = getChildById(
+    $selectedLineManager,
+    INPUT_FORM_ID.sectionOrderInput
+  );
+  const sectionOrderInputValue = sectionOrderInput.value;
+  sectionOrderInput.value = "";
+
+  return (
+    !isSectionOrderInputEmpty(sectionOrderInputValue) &&
+    isInputInRange(sectionOrderInputValue, lineIndex) &&
+    isInteger(sectionOrderInputValue)
+  );
 };
 
 const selectedLineManagerHandler = (e) => {
@@ -71,8 +137,20 @@ const selectedLineManagerHandler = (e) => {
   );
 };
 
+const sectionAddButtonHandler = (e) => {
+  const $selectedLineManager = e.target.parentElement;
+  if (
+    isSectionSelectorValid($selectedLineManager) &&
+    isSectionOrderInputValid($selectedLineManager, e.target.dataset.lineIndex)
+  ) {
+    console.log(true);
+  }
+};
+
 export default function sectionManagerClickHandler(e) {
   if (e.target.className === SECTION_LINE_MENU_BUTTON) {
     selectedLineManagerHandler(e);
+  } else if (e.target.id === ADD_BUTTONS_ID.sectionAddButton) {
+    sectionAddButtonHandler(e);
   }
 }
