@@ -5,6 +5,10 @@
 - 각 버튼에 대해서 처리할 함수 `handleStationManager`, `handleLineManager`, `handleSectionManager`, `handleMapPrintManager`
 - 기능을 넘어가기 전에 HTML 부분을 비워주는 함수 `clearContainer`
 - 역 관리 기능을 시작할 함수 `initStationManager`
+- 역 관리 기능에서 입력값을 검증할 함수 `inputValidator`
+- 역 관리 기능에서 추가 버튼의 동작을 관여할 함수 `handleStationAddButton`
+- 역 관리 기능에서 제거 버튼의 동작을 관여할 함수 `handleStationDeleteButton`
+- 역 관리 기능에서 테이블에 역의 이름과 삭제 버튼을 추가하는 함수 `insertTable`
 
 ## 🚀 기능 요구사항
 
