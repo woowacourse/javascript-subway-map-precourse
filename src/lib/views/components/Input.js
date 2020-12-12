@@ -15,10 +15,6 @@ export default class Input {
     return this.element.value;
   }
 
-  removeValue() {
-    this.element.value = "";
-  }
-
   render() {
     return this.element.outerHTML;
   }

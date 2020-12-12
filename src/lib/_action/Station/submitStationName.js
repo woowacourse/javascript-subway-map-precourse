@@ -1,5 +1,5 @@
 import StationNameInputValidation from "../../controllers/station/stationNameInputValidation.js";
-import {STATION_NAME_INPUT} from "../../common/IdAndClassNames.js";
+import { STATION_NAME_INPUT } from "../../common/IdAndClassNames.js";
 import saveNewStation from "../../_store/Station/saveNewStation.js";
 
 export default (inputValue) => {
