@@ -198,6 +198,23 @@ export default class SubwayManager {
       this.openSection(targetLine, targetLineIndex);
     }
   }
+
+  deleteSection(event) {
+    const {
+      target: { className },
+    } = event;
+    if (className === 'section-delete-button') {
+      const targetLine = document.getElementById('section-manager').querySelector('h2').dataset[
+        'target'
+      ];
+      const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
+      const targetSectionIndex = event.target.dataset['index'];
+      this.lines[targetLineIndex].stations.splice(targetSectionIndex, 1);
+      localStorage.setItem('lines', JSON.stringify(this.lines));
+      this.openSectionManager();
+      this.openSection(targetLine, targetLineIndex);
+    }
+  }
 }
 
 new SubwayManager();
