@@ -35,12 +35,14 @@ export const checkLineList = (checkList, input) => {
 };
 
 export const checkSectionList = (checkList, input) => {
-  const { isEmpty, isWrongRange } = checkList;
+  const { isEmpty, isWrongRange, isDuplicate } = checkList;
 
   if (isEmpty) {
     alertMessage(input, MESSAGE.EMPTY);
   } else if (isWrongRange) {
     alertMessage(input, MESSAGE.WRONG_RANGE);
+  } else if (isDuplicate) {
+    alertMessage(input, MESSAGE.DUPLICATE);
   } else {
     return true;
   }

@@ -28,3 +28,15 @@ export const checkSameStation = (startStation, endStation) =>
 
 export const checkRange = (rangeRefrence, orderInputValue) =>
   orderInputValue < 0 || orderInputValue >= rangeRefrence ? true : false;
+
+export const checkDuplicateSection = (selectLine, stationName) => {
+  const lines = loadLines() || [];
+  const filteredLine = lines.filter(
+    (line) => selectLine === Object.keys(line)[0]
+  );
+  const currentSection = Object.values(filteredLine[0])[0];
+
+  if (currentSection.includes(stationName)) {
+    return true;
+  }
+};

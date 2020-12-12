@@ -1,6 +1,10 @@
 import { loadLines, saveLines } from "../Line/lineContainer.js";
 import { checkSectionList } from "../utils/message.js";
-import { checkEmpty, checkRange } from "../validation/index.js";
+import {
+  checkDuplicateSection,
+  checkEmpty,
+  checkRange,
+} from "../validation/index.js";
 import { displaySectionUtil } from "./sectionPresenter.js";
 
 const addLine = (selectLine, station, index) => {
@@ -32,7 +36,8 @@ const sectionAddClicked = (line) => {
 
   const isEmpty = checkEmpty(orderInputValue);
   const isWrongRange = checkRange(rangeRefrence, orderInputValue);
-  const checkList = { isEmpty, isWrongRange };
+  const isDuplicate = checkDuplicateSection(line, stationSelectValue);
+  const checkList = { isEmpty, isWrongRange, isDuplicate };
   const isValid = checkSectionList(checkList, orderInput);
 
   if (isValid) {
