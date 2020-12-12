@@ -49,12 +49,16 @@ export default class Station {
 
   _getStationListDataSet() {
     return this.stationDataList.map((stationName, index) => {
+      const $stationName = new Typography(stationName, "p");
       const $deleteStationButton = new Button(
         DELETE_STATION_INPUT,
         "삭제",
         () => deleteStationName(stationName, index),
       );
-      return [stationName, $deleteStationButton.element];
+      $deleteStationButton.element.id = `${DELETE_STATION_INPUT.substring(
+        1,
+      )}-${String(index)}`;
+      return [$stationName.element, $deleteStationButton.element];
     });
   }
 

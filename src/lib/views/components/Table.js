@@ -20,9 +20,20 @@ export default class Table {
   }
 
   // 데이터 삽입(인덱스, 데이터, 삭제버튼)
+  _getTableRow(tableRowSet) {
+    return tableRowSet.reduce(($tr, $tdData) => {
+      const $td = document.createElement("td");
+      $td.appendChild($tdData);
+      return $tr.appendChild($td);
+    }, document.createElement("tr"));
+  }
+
+  // 걍 td는 다른 private함수로 빼자
   insertTableData(tableDataSetArray) {
-    tableDataSetArray.forEach(([stationName, $deleteButton]) => {
-      console.log(stationName, $deleteButton);
+    const $tbody = document.createElement("tbody");
+    tableDataSetArray.forEach((tableRowSet) => {
+      $tbody.appendChild(this._getTableRow(tableRowSet));
     });
+    this.element.appendChild($tbody);
   }
 }
