@@ -10,7 +10,7 @@ class LineManager extends Component {
 
   render = () => {
     this.mountTemplate();
-    this.initializeComponents();
+    this.mountComponents();
   };
 
   mountTemplate() {
@@ -20,7 +20,7 @@ class LineManager extends Component {
     `;
   }
 
-  initializeComponents() {
+  mountComponents() {
     const $lineInputContainer = this._$target.querySelector(
       '#line-input-container'
     );

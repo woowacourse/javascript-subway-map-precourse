@@ -21,7 +21,7 @@ class Component {
 
   initializeStates() {}
 
-  initializeComponents() {}
+  mountComponents() {}
 
   render() {}
 }

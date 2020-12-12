@@ -9,7 +9,7 @@ class SectionManager extends Component {
 
   render = () => {
     this.mountTemplate();
-    this.initializeComponents();
+    this.mountComponents();
   };
 
   mountTemplate() {
@@ -19,7 +19,7 @@ class SectionManager extends Component {
     `;
   }
 
-  initializeComponents() {
+  mountComponents() {
     const $lineSelector = this._$target.querySelector('#line-selector');
     new LineSelector($lineSelector);
   }

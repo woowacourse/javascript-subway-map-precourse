@@ -10,7 +10,7 @@ class StationManager extends Component {
 
   render = () => {
     this.mountTemplate();
-    this.initializeComponents();
+    this.mountComponents();
   };
 
   mountTemplate() {
@@ -20,7 +20,7 @@ class StationManager extends Component {
     `;
   }
 
-  initializeComponents() {
+  mountComponents() {
     const $stationInputContainer = this._$target.querySelector(
       '#station-input-container'
     );

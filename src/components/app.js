@@ -19,7 +19,7 @@ class App extends Component {
 
   render = () => {
     this.mountTemplate();
-    this.initializeComponents();
+    this.mountComponents();
   };
 
   mountTemplate() {
@@ -30,7 +30,7 @@ class App extends Component {
     `;
   }
 
-  initializeComponents() {
+  mountComponents() {
     const $navigator = this._$target.querySelector('#navigator');
     new Navigator($navigator, { routeTo: this.routeTo });
   }
