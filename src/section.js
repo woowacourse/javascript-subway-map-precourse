@@ -17,6 +17,12 @@ class Section {
     this.handleMenuButton();
   };
 
+  showSectionLine = e => {
+    const lineName = e.target.innerHTML;
+    this.showSectionInput(lineName);
+    this.showSectionTable();
+  };
+
   handleMenuButton = () => {
     const sectionMenuBtns = document.getElementsByClassName(
       "section-line-menu-button"
