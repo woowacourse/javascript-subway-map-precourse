@@ -50,7 +50,8 @@ export const insertStation = (lineName, stationName, insertElement) => {
 		0,
 		allStations[targetStationIndex].name
 	);
-	saveAllLines(allLines);
+    saveAllLines(allLines);
+    insertElement.value='';
 };
 
 export const deleteCallbackFunction = (e) => {
@@ -64,7 +65,10 @@ export const deleteCallbackFunction = (e) => {
 		}
         Line.removeStationOnLine(lineName, stationName);
         buttonElement.parentNode.parentElement.remove();
-        console.log(buttonElement.parentNode.parentElement.parentElement)
+        document.querySelectorAll("tbody > tr").forEach((row, rowIndex) => {
+            const orderCell = row.childNodes[0];
+            orderCell.innerText = rowIndex;
+        });
     }
 }
 
