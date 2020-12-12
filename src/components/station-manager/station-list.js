@@ -12,19 +12,38 @@ class StationList extends Component {
     this._$target.innerHTML += this.createTableTemplate();
   }
 
+  // eslint-disable-next-line max-lines-per-function
   createTableTemplate() {
-    let tableTemplate = `<table>
-                            <tr>
-                              <th>역 이름</th>
-                              <th>설정</th>
-                            <tr>`;
+    let tableTemplate = `
+      <table>
+        <tr>
+          <th>역 이름</th>
+          <th>설정</th>
+        <tr>
+      `;
     this._props.stations?.value.forEach(station => {
-      tableTemplate += `<tr>
-                          <td>${station}</td>
-                          <td><button>삭제</button></td>
-                        </tr>`;
+      tableTemplate += `
+        <tr>
+          <td>${station}</td>
+          <td data-key=${station}><button class="station-delete-button">삭제</button></td>
+        </tr>
+      `;
     });
     return tableTemplate + `</table>`;
+  }
+
+  initializeEventListener() {
+    this._$target.addEventListener('click', event => {
+      if (event.target.classList.contains('station-delete-button')) {
+        this.removeStation(event.target.parentNode.dataset.key);
+      }
+    });
+  }
+
+  removeStation(target) {
+    this._props.stations.value = this._props.stations.value.filter(
+      station => station !== target
+    );
   }
 }
 
