@@ -132,12 +132,10 @@ export const createLineTableRow = (lineInfo) => {
     "line-delete-button",
     WORDS.LINE.DELETE_BUTTON
   );
+  const tdArray = [td1, td2, td3, td4];
 
   td4.appendChild(button);
-  tr.appendChild(td1);
-  tr.appendChild(td2);
-  tr.appendChild(td3);
-  tr.appendChild(td4);
+  tdArray.forEach((td) => tr.appendChild(td));
 
   return tr;
 };
