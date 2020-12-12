@@ -21,6 +21,7 @@ const message = {
   ALERT_FOR_LENGTH: '2글자 이상의 이름을 입력해주세요.',
   ALERT_FOR_OVERLAPED_STATION:
     '상행 종점역과 하행 종점역을 중복되지 않게 입력해주세요.',
+  ALERT_FOR_STATION_IN_LINES: '노선에 등록된 역은 삭제할 수 없습니다.',
 };
 
 export { message };
