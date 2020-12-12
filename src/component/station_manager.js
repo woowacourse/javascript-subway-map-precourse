@@ -21,6 +21,7 @@ export default class StationManager extends Role {
     this._stations = stations;
     this.renderStations();
     this.addStation();
+    this.deleteStation();
   }
 
   renderStations() {
@@ -30,10 +31,10 @@ export default class StationManager extends Role {
   addStation() {
     const addButton = nodeSelector.selectId(STATION_ADD_BUTTON);
 
-    addButton.addEventListener('click', this.handleStationNameInput.bind(this));
+    addButton.addEventListener('click', this.onClickAddButton.bind(this));
   }
 
-  handleStationNameInput() {
+  onClickAddButton() {
     const stationNameInput = nodeSelector.selectId(STATION_NAME_INPUT);
     const validator = new StationValidator(stationNameInput);
     const response = validator.checkStationName();
@@ -42,7 +43,8 @@ export default class StationManager extends Role {
       response.then(isValidate => {
         if (isValidate) {
           this.renderStation(stationNameInput.value);
-          this.updateStations(stationNameInput.value);
+          this._stations.push(stationNameInput.value);
+          localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
         }
       });
     }
@@ -74,9 +76,29 @@ export default class StationManager extends Role {
     return row;
   }
 
-  updateStations(station) {
-    this._stations.push(station);
+  deleteStation() {
+    const deleteButtons = nodeSelector.selectClassAll(STATION_DELETE_BUTTON);
 
-    localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
+    deleteButtons.forEach(deleteButton => {
+      deleteButton.addEventListener(
+        'click',
+        this.onClickDeleteButton.bind(this)
+      );
+    });
+  }
+
+  onClickDeleteButton(event) {
+    const stations = nodeSelector.selectClassAll(STATION);
+    const target = event.target.dataset.station;
+
+    for (const station of stations) {
+      if (target === station.innerHTML) {
+        station.parentNode.remove();
+        this._stations = this._stations.filter(station => station !== target);
+        localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
+
+        return;
+      }
+    }
   }
 }
