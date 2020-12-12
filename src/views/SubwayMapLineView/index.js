@@ -38,17 +38,11 @@ class LineViewEventDelegation {
     );
   }
 
-  // deleteLine(dataSet) {
-  //   this.subwayMapViewModel.deleteLine(dataSet.lineid)
-
-  // }
-
-  deleteSection(dataSet) {
-    this.subwayMapViewModel.deleteSection(dataSet.lineid, dataSet.sectionid);
-    this.sectionView.resetSectionTable();
-    this.sectionView.renderSectionTable(
-      dataSet.lineid,
-      this.subwayMapViewModel.getSections(dataSet.lineid),
+  deleteLine(dataSet) {
+    this.subwayMapViewModel.deleteLine(dataSet.lineid);
+    this.lineView.resetLineTable();
+    this.lineView.renderLineTable(
+      Object.entries(this.subwayMapViewModel.getLines()),
     );
   }
 }
