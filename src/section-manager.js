@@ -2,14 +2,24 @@ import { makeStationOption, makeStationList } from "./index.js";
 import { manager } from "./manager.js";
 import Station from "./station.js";
 
+export const isPossibleDeleteIdx = () => {
+  if (manager.getSelectedLine().length <= 2) {
+    alert("더 이상 지하철 역을 제거 할 수 없습니다.");
+
+    return false;
+  }
+  return true;
+};
 export const deleteSectionInList = (idx) => {
-  const stationInSelecteLine = document.getElementById(
-    "station-in-selected-line"
-  );
-  stationInSelecteLine.innerHTML = "";
-  manager.selectedLine.deleteStationInIdx(idx, manager.getSelectedLine().name);
-  manager.setSelectedLine(manager.selectedLine);
-  showStationList(manager.getSelectedLine().getAllStationName());
+  if (isPossibleDeleteIdx()) {
+    const stationInSelecteLine = document.getElementById(
+      "station-in-selected-line"
+    );
+    stationInSelecteLine.innerHTML = "";
+    manager.getSelectedLine().deleteStationInIdx(idx);
+    manager.setSelectedLine(manager.selectedLine);
+    showStationList(manager.getSelectedLine().getAllStationName());
+  }
 };
 export const makeStationBox = (station, idx) => {
   const oneStation = document.createElement("tr");
@@ -81,7 +91,7 @@ export const isCorrectAddIdx = (idx, addSectionIdx) => {
     idx > 0 &&
     idx < manager.getSelectedLine().length &&
     !isNaN(idx) &&
-    idx % 10 === 0
+    Number.isInteger(Number(idx))
   ) {
     return true;
   } else {

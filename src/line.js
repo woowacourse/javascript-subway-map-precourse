@@ -49,15 +49,19 @@ export default function Line(name) {
 
     station.addIncludedLine(this.name);
   };
-  this.deleteStationInIdx = (idx, selectedLine) => {
+  this.deleteStationInIdx = (idx) => {
     let currentIdx = 0;
     let currentStation = this.head;
-    while (currentIdx < idx - 1) {
-      currentStation = currentStation.next;
-      currentIdx++;
+    if (idx === "0") {
+      this.head = currentStation.next;
+    } else {
+      while (currentIdx < idx - 1) {
+        currentStation = currentStation.next;
+        currentIdx++;
+      }
+      this.deleteOneStationInLine(currentStation.next);
+      currentStation.next = currentStation.next.next;
     }
-    this.deleteOneStationInLine(currentStation.next);
-    currentStation.next = currentStation.next.next;
     this.length--;
     manager.setChangedLine(this);
   };
