@@ -25,16 +25,19 @@ export default class HTMLManager {
   setContentsUIOnSectionUI() {
     this.contentsUI_ = new SectionManagerUI({
       contentsContainer: this.htmlOfBody.querySelector("#" + CONTENTS_ID),
+      stationINFOManager: this.stationINFOManager,
     });
   }
   setContentsUIOnLineUI() {
     this.contentsUI_ = new LineManagerUI({
       contentsContainer: this.htmlOfBody.querySelector("#" + CONTENTS_ID),
+      stationINFOManager: this.stationINFOManager,
     });
   }
   setContentsUIOnMapPrintUI() {
     this.contentsUI_ = new MapPrintManagerUI({
       contentsContainer: this.htmlOfBody.querySelector("#" + CONTENTS_ID),
+      stationINFOManager: this.stationINFOManager,
     });
   }
 }

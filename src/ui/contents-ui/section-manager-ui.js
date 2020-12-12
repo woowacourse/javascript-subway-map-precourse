@@ -1,11 +1,54 @@
 export default class SectionManagerUI {
-  constructor({ contentsContainer }) {
+  constructor({ contentsContainer, stationINFOManager }) {
     this.contentsContainer_ = contentsContainer;
+    this.stationINFOManager_ = stationINFOManager;
     this.setHTML();
   }
 
   setHTML() {
     this.contentsContainer_.innerHTML = TEMPLATE;
+    this.setStationSelector_(START_STATION_SELECTOR_ID);
+    this.setStationSelector_(END_STATION_SELECTOR_ID);
+    this.addEventToLineAddButton_();
+  }
+
+  setStationSelector_(selectorID) {
+    const selector = this.contentsContainer_.querySelector("#" + selectorID);
+    selector.innerHTML = this.createSelectorInnerHTML_();
+  }
+  createSelectorInnerHTML_() {
+    const stationNames = this.stationINFOManager_.getStationsNames();
+    let selectorInnerHTML = SELECTOR_TEMPLATE;
+    stationNames.forEach((name) => {
+      selectorInnerHTML += this.createNewSelectorOptionHTML_(name);
+    });
+    return selectorInnerHTML;
+  }
+  createNewSelectorOptionHTML_(name) {
+    return `
+    <option value="${name}">${name}</option>
+    `;
+  }
+  addEventToLineAddButton_() {
+    const button = this.contentsContainer_.querySelector("#" + ADD_BUTTON_ID);
+    button.addEventListener("click", () => {
+      this.stationINFOManager_.addNewLine({
+        lineName: this.getHTMLElementByID_(NAME_INPUT_ID).value,
+        startStationName: this.getSelectedOptionInSelector_(
+          START_STATION_SELECTOR_ID
+        ),
+        endStationName: this.getSelectedOptionInSelector_(
+          END_STATION_SELECTOR_ID
+        ),
+      });
+    });
+  }
+  getHTMLElementByID_(id) {
+    return this.contentsContainer_.querySelector("#" + id);
+  }
+  getSelectedOptionInSelector_(id) {
+    const selector = this.getHTMLElementByID_(id);
+    return selector[selector.selectedIndex].value;
   }
 }
 const NAME_INPUT_ID = "line-name-input";
@@ -14,21 +57,16 @@ const END_STATION_SELECTOR_ID = "line-end-station-selector";
 const ADD_BUTTON_ID = "line-add-button";
 const DELETE_BUTTON_CLASS = "line-delete-button";
 const TABLE_ID = "line-table";
+const SELECTOR_TEMPLATE = `<option value="none">--선택--</option>`;
 const TEMPLATE = `
 <span>노선 이름</span><br>
 <input type="text" id="${NAME_INPUT_ID}" placeholder="노선 이름을 입력해주세요."/>
 <p></p>
 <span>상행 종점</span>
 <select id="${START_STATION_SELECTOR_ID}">
-    <option value="학생">학생</option>
-    <option value="회사원">회사원</option>
-    <option value="기타">기타</option>
 </select><br>
 <span>하행 종점</span>
 <select id="${END_STATION_SELECTOR_ID}">
-    <option value="학생">학생</option>
-    <option value="회사원">회사원</option>
-    <option value="기타">기타</option>
 </select>
 <p></p>
 <button id="${ADD_BUTTON_ID}">노선추가</button>

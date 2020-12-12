@@ -32,7 +32,6 @@ export default class StationINFOManager {
     }
     this.stations_.splice(stationIndexToDelete, 1);
   }
-
   addNewLine({ lineName, startStationName, endStationName }) {
     if (this.isOverlapName_(this.lines_, lineName)) {
       alert(OVERLAP_LINE_ERROR_MESSAGE);

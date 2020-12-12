@@ -1,6 +1,7 @@
 export default class LineManagerUI {
-  constructor({ contentsContainer }) {
+  constructor({ contentsContainer, stationINFOManager }) {
     this.contentsContainer_ = contentsContainer;
+    this.stationINFOManager_ = stationINFOManager;
     this.setHTML();
   }
 
