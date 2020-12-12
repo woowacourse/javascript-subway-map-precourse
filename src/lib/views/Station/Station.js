@@ -4,6 +4,7 @@ import Input from "../components/Input.js";
 import Table from "../components/Table.js";
 import Div from "../components/Div.js";
 import submitStationName from "../../_action/Station/submitStationName.js";
+import deleteStationName from "../../_action/Station/deleteStationName.js";
 import { stationSelector } from "../../_store/selectors.js";
 
 import {
@@ -47,16 +48,23 @@ export default class Station {
   }
 
   _getStationListDataSet() {
-    const $stationDataListTable = new Table(STATION_LIST);
-    $stationDataListTable.insertTableHeader(['역 이름', '설정']);
-    console.log(this.stationDataList);
-
-    return $stationDataListTable;
+    return this.stationDataList.map((stationName, index) => {
+      const $deleteStationButton = new Button(
+        DELETE_STATION_INPUT,
+        "삭제",
+        () => deleteStationName(stationName, index),
+      );
+      return [stationName, $deleteStationButton.element];
+    });
   }
 
   _getStationListViewContainerChildNodes() {
     const $title = new Typography("지하철 역 목록", "h2");
-    return [$title, this._getStationListDataSet()];
+    const $stationDataListTable = new Table(STATION_LIST);
+    $stationDataListTable.insertTableHeader(["역 이름", "설정"]);
+    $stationDataListTable.insertTableData(this._getStationListDataSet());
+
+    return [$title, $stationDataListTable];
   }
 
   _getStationListViewContainer() {

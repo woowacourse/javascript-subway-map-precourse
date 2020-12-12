@@ -20,5 +20,9 @@ export default class Table {
   }
 
   // 데이터 삽입(인덱스, 데이터, 삭제버튼)
-  insertTableData() {}
+  insertTableData(tableDataSetArray) {
+    tableDataSetArray.forEach(([stationName, $deleteButton]) => {
+      console.log(stationName, $deleteButton);
+    });
+  }
 }
