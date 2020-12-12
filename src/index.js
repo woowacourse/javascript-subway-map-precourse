@@ -1,5 +1,7 @@
-import { buttonIdArray } from "./consts/consts";
-import { handlerArray } from "./utils/handler";
+import { buttonIdArray } from "./consts/consts.js";
+import { handlerArray } from "./utils/handler.js";
+
+export const stationArray = [];
 
 const App = () => {
   bindHandler();
