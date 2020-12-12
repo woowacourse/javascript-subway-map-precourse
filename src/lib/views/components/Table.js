@@ -19,7 +19,7 @@ export default class Table {
         </tr>
     </thead>`;
   }
-  
+
   insertTableData(tableDataSetArray) {
     const $tbody = document.createElement("tbody");
     tableDataSetArray.forEach((tableRowSet) => {
