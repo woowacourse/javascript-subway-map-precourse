@@ -120,7 +120,7 @@ git clone https://github.com/sunhpark42/javascript-subway-map-precourse.git; cd 
   - [x] 역 목록을 출력한다.
 
 ### 기능 연결
-- [ ] 기능 연결
+- [x] 기능 연결
 
 ## ✔️ 커밋 규칙
 * feat : 새로운 기능 추가
