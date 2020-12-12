@@ -84,6 +84,28 @@ const hideSelectedLineManager = ($sectionManager) => {
   ).style.display = "none";
 };
 
+const getMapElementString = (line) => {
+  return `
+    <div class="map">
+      <h2 style="font-size: 1.1rem;">${line.name}</h2>
+      <ul>
+        ${line.section
+          .map((_station) => {
+            return `<li>${_station}</li>`;
+          })
+          .join("\n")}
+      </ul>
+    </div>
+  `;
+};
+
+const renderMap = ($mapPrintManager, lineList) => {
+  $mapPrintManager.innerHTML = "";
+  lineList.forEach((_line) => {
+    $mapPrintManager.innerHTML += getMapElementString(_line);
+  });
+};
+
 const showStationManagerPage = (appContainer) => {
   showManagerPageById(appContainer, MANAGER_PAGES_ID.stationManager);
   new StationManager().renderStationNameTable();
@@ -105,6 +127,20 @@ const showSectionManagerPage = (appContainer) => {
   hideSelectedLineManager($sectionManager);
 };
 
+const showMapPrintManagerPage = (appContainer) => {
+  showManagerPageById(appContainer, MANAGER_PAGES_ID.mapPrintManager);
+  const lineList = new LineManager().lineList;
+  const $mapPrintManager = getChildById(
+    appContainer,
+    MANAGER_PAGES_ID.mapPrintManager
+  );
+  if (lineList.length === 0) {
+    $mapPrintManager.innerHTML = "노선이 존재하지 않습니다.";
+  } else {
+    renderMap($mapPrintManager, lineList);
+  }
+};
+
 export default function menuButtonHandler(e) {
   const app = e.target.closest("#app");
   const id = e.target.id;
@@ -115,6 +151,6 @@ export default function menuButtonHandler(e) {
   } else if (id === MENU_BUTTONS_ID.sectionManagerButton) {
     showSectionManagerPage(app);
   } else if (id === MENU_BUTTONS_ID.mapPrintManagerButton) {
-    showManagerPageById(app, MANAGER_PAGES_ID.mapPrintManager);
+    showMapPrintManagerPage(app);
   }
 }
