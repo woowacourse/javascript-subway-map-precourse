@@ -14,4 +14,14 @@ export default class SubwayMap {
     this.stationList.push(station);
     return station;
   }
+
+  // 지하철 역 삭제
+  removeStation(name) {
+    let index = this.stationList.findIndex(element => element.name === name);
+    if (index === -1 || this.stationList[index].line.length !== 0) {
+      return false;
+    }
+    this.stationList.splice(index, 1);
+    return true;
+  }
 }
