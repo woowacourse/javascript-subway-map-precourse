@@ -1,4 +1,4 @@
-import { STATION_STORAGE_NAME, LINE_STORAGE_NAME } from "../common/constants";
+import { STATION_STORAGE_NAME, LINE_STORAGE_NAME } from "../common/constants.js";
 
 export const stationSelector = JSON.parse(
   localStorage.getItem(STATION_STORAGE_NAME),

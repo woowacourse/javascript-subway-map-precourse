@@ -1,3 +1,7 @@
+import {
+  STATION_STORAGE_NAME,
+  LINE_STORAGE_NAME,
+} from "../common/constants.js";
 import { stationSelector, lineSelector } from "./selectors.js";
 
 const initState = {
@@ -6,10 +10,14 @@ const initState = {
 };
 
 export default () => {
-  console.log(localStorage);
-
-  initState.stations = stationSelector;
-  initState.lines = lineSelector;
+  if (localStorage.length === 0) {
+    localStorage.setItem(STATION_STORAGE_NAME, "[]");
+    localStorage.setItem(LINE_STORAGE_NAME, "[]");
+    console.log(localStorage);
+  } else {
+    initState.stations = stationSelector;
+    initState.lines = lineSelector;
+  }
 
   console.log(initState);
 };
