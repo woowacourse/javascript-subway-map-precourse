@@ -95,6 +95,9 @@ export default class SectionManagerUI {
     const deleteButtons = getAllElementsByClass(LINE_DELETE_BUTTON_CLASS);
     Array.prototype.forEach.call(deleteButtons, (deleteButton) => {
       deleteButton.addEventListener("click", (e) => {
+        if (!confirm(DELETE_CONFIRM_MESSAGE)) {
+          return;
+        }
         this.stationINFOManager_.deleteLine(e.target.dataset.name);
         this.updateLinesTable();
       });
