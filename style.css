@@ -1,0 +1,42 @@
+/* table */
+table {
+  border: 1px solid gray;
+}
+
+th,
+td {
+  border: 1px solid gray;
+}
+
+/* 역 관리 */
+.station-container {
+  padding-top: 20px;
+  display: none;
+}
+
+/* 노선 관리 */
+.line-container {
+  padding-top: 20px;
+  display: none;
+}
+
+#line-start-end-station {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* 구간 관리 */
+.section-container {
+  padding-top: 20px;
+  display: none;
+}
+
+#section-table {
+  margin-top: 40px;
+}
+
+/* 지하철 노선도 관리 */
+.map-print-container {
+  padding-top: 20px;
+  display: none;
+}
