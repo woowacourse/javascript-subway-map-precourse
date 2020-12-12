@@ -1,0 +1,9 @@
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+.manager-button-container {
+  margin: 20px 0;
+}
