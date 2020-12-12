@@ -12,7 +12,7 @@ export const deleteLineInList = (lineName) => {
   parent.removeChild(document.querySelector(`#line-list [id = ${lineName}]`));
   manager.lineList.splice(deleteIdx, 1);
 };
-export const makeChildInLine = (line) => {
+export const makeLineChildUI = (line) => {
   const lineName = document.createElement("td");
   const startStation = document.createElement("td");
   const endStation = document.createElement("td");
@@ -29,17 +29,13 @@ export const makeChildInLine = (line) => {
 
   return [lineName, startStation, endStation, deleteButton];
 };
-export const makeLineBox = (line) => {
-  const lineName = makeChildInLine(line)[0];
-  const startStation = makeChildInLine(line)[1];
-  const endStation = makeChildInLine(line)[2];
-  const deleteButton = makeChildInLine(line)[3];
+export const makeLineUI = (line) => {
+  const [lineName, startStation, endStation, deleteButton] = makeLineChildUI(
+    line
+  );
   const newLine = document.createElement("tr");
   newLine.setAttribute("id", `${line.name}`);
-  newLine.appendChild(lineName);
-  newLine.appendChild(startStation);
-  newLine.appendChild(endStation);
-  newLine.appendChild(deleteButton);
+  newLine.append(lineName, startStation, endStation, deleteButton);
 
   return newLine;
 };
@@ -47,7 +43,7 @@ export const showAllLineInLineManager = (lineList) => {
   const table = document.getElementById("line-list");
   table.innerHTML = "";
   lineList.forEach((line) => {
-    const newLine = makeLineBox(line);
+    const newLine = makeLineUI(line);
     table.appendChild(newLine);
   });
   document.getElementById("line-name-input").value = "";
