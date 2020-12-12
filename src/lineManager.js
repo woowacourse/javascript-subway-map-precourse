@@ -7,6 +7,7 @@ export const initLineManager = () => {
   createInputArea();
   createSelectbox();
   createSubmitBtn();
+  getInput();
   // createResultArea();
 };
 
@@ -65,4 +66,44 @@ const createSubmitBtn = () => {
 
   app.appendChild(document.createElement('br'));
   app.appendChild(lineSubmit);
+};
+
+const getInput = () => {
+  const lineInput = document.getElementById('line-name-input');
+  const upwardSelect = document.getElementById('line-start-station-selector');
+  let startStation = upwardSelect.options[upwardSelect.selectedIndex].value;
+  upwardSelect.addEventListener('change', () => {
+    startStation = upwardSelect.value;
+  });
+  const downwardSelect = document.getElementById('line-end-station-selector');
+  let endStation = downwardSelect.options[downwardSelect.selectedIndex].value;
+  downwardSelect.addEventListener('change', () => {
+    endStation = downwardSelect.value;
+  });
+
+  const lineSubmit = document.getElementById('line-add-button');
+
+  lineSubmit.addEventListener('keypress', e => {
+    let lineName = lineInput.value;
+    if (e.key === 'Enter') {
+      addLine(lineName, lineInput, startStation, endStation);
+    }
+  });
+
+  lineSubmit.addEventListener('click', () => {
+    let lineName = lineInput.value;
+    addLine(lineName, lineInput, startStation, endStation);
+  });
+};
+
+const addLine = (lineName, lineInput, start, end) => {
+  lineInput.value = '';
+  console.log(lineName, start, end);
+
+  const currLines = JSON.parse(localStorage.getItem('lines'));
+  console.log(currLines);
+  const updatedLines = currLines;
+  updatedLines[lineName] = [start, end];
+  localStorage.setItem('lines', JSON.stringify(updatedLines));
+  console.log(JSON.parse(localStorage.getItem('lines')));
 };
