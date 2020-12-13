@@ -50,6 +50,7 @@ class Section {
     sectionTableContainer.appendChild(sectionTable);
 
     this.handleAddStationSection();
+    this.handleDeleteStationSection();
   };
 
   showMenuButton = () => {
@@ -112,6 +113,13 @@ class Section {
   handleAddStationSection = () => {
     const button = document.getElementById("section-add-button");
     button.addEventListener("click", this.addStationSection);
+  };
+
+  handleDeleteStationSection = () => {
+    const buttons = document.getElementsByClassName("section-delete-button");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", this.deleteStationSection);
+    }
   };
 }
 
