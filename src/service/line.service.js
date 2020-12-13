@@ -22,6 +22,14 @@ class Line {
     const sections = rawSections.split(",");
     return sections;
   }
+
+  hasSameName(newLineName) {
+    const allLines = this.getAllLines();
+    const duplicates = allLines.filter((lineName) => lineName === newLineName);
+    const hasSameName = duplicates.length;
+
+    return hasSameName;
+  }
 }
 
 const line = new Line();

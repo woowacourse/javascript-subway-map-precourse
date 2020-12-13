@@ -4,6 +4,7 @@ import { createLineTableRowHTML, lineManagerViewHTML } from "../common/template.
 export default class LineManager {
   constructor() {
     this.line = line;
+    this.MIN_LINE_NAME_LENGTH = 3;
   }
 
   renderLineTable() {
@@ -43,5 +44,18 @@ export default class LineManager {
     const endStationInput = endStationSelector.value;
 
     return endStationInput;
+  }
+
+  validateLineName(lineName) {
+    const isValidLength = lineName.length >= this.MIN_LINE_NAME_LENGTH;
+    const isUnique = !this.line.hasSameName(lineName);
+
+    if (!isValidLength) {
+      throw new Error(INVALID_LENGTH_LINE_NAME);
+    }
+
+    if (!isUnique) {
+      throw new Error(DUPLICATE_LINE_NAME);
+    }
   }
 }
