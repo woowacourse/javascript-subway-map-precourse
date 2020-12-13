@@ -1,9 +1,8 @@
-import SectionOutput from './view/output.js';
-import SectionInput from './view/input.js';
-import Line from '/src/line/line.js';
-import LineModel from '../line/model/model.js';
+import SectionOutput from '../view/output.js';
+import SectionInput from '../view/input.js';
+import LineModel from '../../line/model/model.js';
 
-export default class SectionManager {
+export default class SectionController {
 	constructor() {
 		this.sectionOutput = new SectionOutput;
 		this.sectionInput = new SectionInput;

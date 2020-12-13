@@ -1,7 +1,7 @@
-import MenuOutput from './view/output.js';
-import MenuInput from './view/input.js';
+import MenuOutput from '../view/output.js';
+import MenuInput from '../view/input.js';
 
-export default class Menu {
+export default class MenuController {
 	constructor() {
 		this.managerInput = new MenuInput();
 		this.managerOutput = new MenuOutput();

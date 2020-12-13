@@ -1,9 +1,9 @@
-import StationInput from './view/input.js';
-import StationOutput from './view/output.js';
-import Station from './station.js';
-import StationModel from './model/model.js';
+import StationInput from '../view/input.js';
+import StationOutput from '../view/output.js';
+import Station from '../station.js';
+import StationModel from '../model/model.js';
 
-export default class StationManager {
+export default class StationController {
 	constructor() {
 		this.stationInput = new StationInput();
 		this.stationOutput = new StationOutput();

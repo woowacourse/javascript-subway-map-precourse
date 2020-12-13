@@ -1,9 +1,9 @@
-import LineInput from './view/input.js';
-import LineOutput from './view/output.js';
-import Line from './line.js';
-import LineModel from './model/model.js';
+import LineInput from '../view/input.js';
+import LineOutput from '../view/output.js';
+import Line from '../line.js';
+import LineModel from '../model/model.js';
 
-export default class LineManager {
+export default class LineController {
 	constructor() {
 		this.lineInput = new LineInput();
 		this.lineOutput = new LineOutput();

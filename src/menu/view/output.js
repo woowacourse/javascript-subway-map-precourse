@@ -1,4 +1,4 @@
-import Toggle from '/src/utils/toggle.js';
+import Toggle from '../services/toggle.js';
 
 export default class MenuOutput {
 	constructor() {
