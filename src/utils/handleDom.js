@@ -40,18 +40,6 @@ const addDeleteButton = (name, buttonName, field) => {
   return `<button class="delete-button" data-${field}="${name}">${buttonName}</button>`;
 };
 
-export const getStationsTableHeader = () => {
-  return `<th>역 이름</th>
-          <th>설정</th>`;
-};
-
-export const getLineTableHeader = () => {
-  return `<th>노선 이름</th>
-          <th>하행 종점역</th>
-          <th>상행 종점역</th>
-          <th>설정</th>`;
-};
-
 export const addOptionTag = (selector, station) => {
   const option = document.createElement("option");
 

@@ -1,7 +1,5 @@
-import {
-  getLineTableHeader,
-  addRowInListTable,
-} from "../../utils/handleDom.js";
+import { addRowInListTable } from "../../utils/handleDom.js";
+import { getLineTableHeader } from "../../utils/templates.js";
 
 export class LineManagerList {
   constructor({ getLines, deleteLine }) {

@@ -2,6 +2,7 @@ import { HeaderButtons } from "./HeaderButtons.js";
 import { ContentContainer } from "./ContentContainer.js";
 import { StationManager } from "./station-manager/StationManager.js";
 import { LineManager } from "./line-manager/LineManager.js";
+import { MapPrint } from "./map-print-manager/MapPrint.js";
 
 const buttonContentMap = {
   "station-manager-button": "station-manager-container",
@@ -17,7 +18,7 @@ export class SubwayMap {
       setStations: this.setStations,
       getStations: this.getStations,
       deleteStation: this.deleteStation,
-      setLines: this.setLines,
+      setLines: this.setNewLines,
       getLines: this.getLines,
       deleteLine: this.deleteLine,
     };
@@ -35,6 +36,7 @@ export class SubwayMap {
     new HeaderButtons({ clickHeaders: this.onHeaderClick });
     this.stationManager = new StationManager(this.props);
     this.lineManager = new LineManager(this.props);
+    this.mapPrintManager = new MapPrint(this.props);
   };
 
   onHeaderClick = (e) => {
@@ -45,7 +47,7 @@ export class SubwayMap {
 
   setStations = (names) => {
     localStorage.setItem("stations", JSON.stringify(names));
-    this.updateView();
+    this.updateStationView();
   };
 
   getStations = () => {
@@ -61,21 +63,26 @@ export class SubwayMap {
     this.setStations(stations);
   };
 
-  updateView = () => {
+  updateStationView = () => {
     // this.stationManager.render({
     //   setStations: this.setStations,
     //   getStations: this.getStations,
     //   deleteStation: this.deleteStation,
-    // });
+    // })
     this.lineManager.update();
   };
 
-  setLines = (lineName, newLines) => {
+  setNewLines = (lineName, newLines) => {
     let lines = this.getLines();
     let newLine = { lineName: lineName, stations: newLines };
 
     lines.push(newLine);
+    this.setLines(lines);
+  };
+
+  setLines = (lines) => {
     localStorage.setItem("lines", JSON.stringify(lines));
+    this.updateLineView();
   };
 
   getLines = () => {
@@ -88,6 +95,10 @@ export class SubwayMap {
       return line.lineName != lineName;
     });
 
-    localStorage.setItem("lines", JSON.stringify(newLines));
+    this.setLines(newLines);
+  };
+
+  updateLineView = () => {
+    this.mapPrintManager.render();
   };
 }

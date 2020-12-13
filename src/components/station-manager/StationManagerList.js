@@ -1,7 +1,6 @@
-import {
-  addRowInStationTable,
-  getStationsTableHeader,
-} from "../../utils/handleDom.js";
+import { addRowInStationTable } from "../../utils/handleDom.js";
+import { getStationsTableHeader } from "../../utils/templates.js";
+
 export class StationManagerList {
   constructor({ getStations, deleteStation }) {
     this.getStations = getStations;
