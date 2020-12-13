@@ -1,11 +1,24 @@
 import { isSpecialCharacter, isDuplicated } from './check.js'
 
 export default function Line() {
+  this.getEndStationInput = function(lineName, startStationValue) {
+    const endStationSelector = document.querySelector("#line-end-station-selector");
+    endStationSelector.addEventListener("mouseleave", () => {
+      const endStationValue = endStationSelector.value;
+      const alertText = "상행 종점과 하행 종점을 서로 다른 역으로 선택해 주세요.";
+      if (startStationValue !== endStationValue) {
+        console.log(lineName, startStationValue, endStationValue);
+      } else {
+        alert(alertText);
+      }
+    });
+  }
+
   this.getStartStationInput = function(lineName) {
     const startStationSelector = document.querySelector("#line-start-station-selector");
     startStationSelector.addEventListener("mouseleave", () => {
       const startStationValue = startStationSelector.value;   
-      console.log(lineName, startStationValue);
+      this.getEndStationInput(lineName, startStationValue);
     });
   }
 
