@@ -8,28 +8,30 @@ class StationList extends Component {
   }
 
   mountTemplate() {
-    this._$target.innerHTML = `<h2>🚉 지하철 역 목록</h2>`;
-    this._$target.innerHTML += this.createTableTemplate();
-  }
-
-  // eslint-disable-next-line max-lines-per-function
-  createTableTemplate() {
-    let tableTemplate = `
+    this._$target.innerHTML = `
+      <h2>🚉 지하철 역 목록</h2>
       <table>
         <tr>
           <th>역 이름</th>
           <th>설정</th>
         <tr>
-      `;
+        ${this.createTableRowTemplate()}
+      </table>
+    `;
+  }
+
+  createTableRowTemplate() {
+    let template = '';
     this._props.stations?.value.forEach(station => {
-      tableTemplate += `
+      template += `
         <tr data-key=${station}>
           <td>${station}</td>
           <td><button class="station-delete-button">삭제</button></td>
         </tr>
       `;
     });
-    return tableTemplate + `</table>`;
+
+    return template;
   }
 
   initializeEventListener() {
