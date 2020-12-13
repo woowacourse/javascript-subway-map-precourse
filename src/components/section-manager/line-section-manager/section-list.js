@@ -3,6 +3,7 @@ import Component from '../../../library/core/component.js';
 class SectionList extends Component {
   constructor($target, props) {
     super($target, props);
+    props.lines.subscribe(this.render);
     this.render();
   }
 

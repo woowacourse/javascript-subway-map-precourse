@@ -20,7 +20,7 @@ class LineSectionManager extends Component {
     const $sectionInput = this._$target.querySelector('#section-input');
     const $sectionList = this._$target.querySelector('#section-list');
     const { stations, lines, targetLineName } = this._props;
-    new SectionInput($sectionInput, { stations });
+    new SectionInput($sectionInput, { stations, lines, targetLineName });
     new SectionList($sectionList, { lines, targetLineName });
   }
 }
