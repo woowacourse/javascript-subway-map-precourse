@@ -1,4 +1,5 @@
 import { stationAddContainer, stationList } from '../templates/index.js';
+import { isValidStationName } from '../utils/index.js';
 
 export default function StationManagerContainer({ addStation, getStations }) {
   this.mainContainer = document.querySelector('.main-container');
@@ -11,9 +12,12 @@ export default function StationManagerContainer({ addStation, getStations }) {
       return;
     }
 
+    const stations = getStations();
     const stationNameInput = document.getElementById('station-name-input');
-    if (stationNameInput.value !== '') {
-      addStation(stationNameInput.value);
+    const stationName = stationNameInput.value.trim().replace(/\s{2,}/g, ' ');
+    if (isValidStationName(stations, stationName)) {
+      addStation(stationName);
+      stationNameInput.value = '';
     }
   };
 
