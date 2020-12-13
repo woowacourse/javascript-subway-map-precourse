@@ -1,10 +1,18 @@
 import station from "../service/station.service.js";
+import line from "../service/line.service.js";
 import { createStationTableRowHTML } from "../common/template.js";
 import { errorMessage } from "../common/error-message.js";
-const { INVALID_LENGTH_STATION_NAME, DUPLICATE_STAION_NAME, CONFIRM_DELETE } = errorMessage;
+const {
+  INVALID_LENGTH_STATION_NAME,
+  DUPLICATE_STAION_NAME,
+  CONFIRM_DELETE,
+  INVALID_DELETE_STATION_IN_LINE,
+} = errorMessage;
 export default class StationManager {
   constructor() {
+    this.line = line;
     this.station = station;
+
     this.MIN_STATION_NAME_LENGTH = 2;
   }
 
@@ -60,12 +68,24 @@ export default class StationManager {
     }
   }
 
+  validateDeleteStationInLine(stationName) {
+    const isStationInLine = this.line.isStationIncluded(stationName);
+    if (isStationInLine) {
+      throw new Error(INVALID_DELETE_STATION_IN_LINE);
+    }
+  }
+
   deleteStation(targetButton) {
     const targetRow = targetButton.parentNode.parentNode;
     const targetStation = targetRow.dataset.station;
 
-    this.station.deleteStation(targetStation);
-    this.renderStationTable();
+    try {
+      this.validateDeleteStationInLine(targetStation);
+      this.station.deleteStation(targetStation);
+      this.renderStationTable();
+    } catch (error) {
+      alert(error);
+    }
   }
 
   onClickButton(event) {
