@@ -65,3 +65,11 @@ export const createLineTableRowHTML = (lineName, startStationName, endStationNam
     `;
   return sectionRowHTML;
 };
+
+export const insertStationOptionHTML = (targetSelectBox, stationName) => {
+  const stationOptionElement = document.createElement("option");
+  stationOptionElement.setAttribute("value", stationName);
+  stationOptionElement.innerText = stationName;
+
+  targetSelectBox.appendChild(stationOptionElement);
+};

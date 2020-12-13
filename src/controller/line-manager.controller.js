@@ -1,11 +1,28 @@
 import line from "../service/line.service.js";
-import { createLineTableRowHTML, lineManagerViewHTML } from "../common/template.js";
+import station from "../service/station.service.js";
+import {
+  createLineTableRowHTML,
+  lineManagerViewHTML,
+  insertStationOptionHTML,
+} from "../common/template.js";
 import { errorMessage } from "../common/error-message.js";
 const { INVALID_LENGTH_LINE_NAME, DUPLICATE_LINE_NAME, INVALID_START_END_STATION } = errorMessage;
 export default class LineManager {
   constructor() {
     this.line = line;
+    this.station = station;
     this.MIN_LINE_NAME_LENGTH = 3;
+  }
+
+  renderLineStationSelector() {
+    const allStations = this.station.getAllStations();
+    const startStationSelectBox = document.getElementById("line-start-station-selector");
+    const endStationSelectBox = document.getElementById("line-end-station-selector");
+
+    allStations.forEach((station) => {
+      insertStationOptionHTML(startStationSelectBox, station);
+      insertStationOptionHTML(endStationSelectBox, station);
+    });
   }
 
   renderLineTable() {
@@ -23,6 +40,7 @@ export default class LineManager {
 
   renderLineManagerView() {
     document.getElementById("content").innerHTML = lineManagerViewHTML;
+    this.renderLineStationSelector();
     this.renderLineTable();
   }
 
