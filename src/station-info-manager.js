@@ -87,7 +87,11 @@ export default class StationINFOManager {
     const stationIndexToDelete = this.stations_.findIndex(({ name }) => {
       return nameToDelete === name;
     });
-    if (stationIndexToDelete === -1) {
+    if (
+      this.stations_[stationIndexToDelete].linesOfStation.size >
+      MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION
+    ) {
+      alert(STATION_INCLUDE_IN_LINE_ERROR_MESSAGE);
       return;
     }
     this.stations_.splice(stationIndexToDelete, 1);
@@ -171,3 +175,5 @@ const OVERLAP_LINE_ERROR_MESSAGE = "기존 노선 이름과 중복되는 이름�
 
 const MINIMUM_NUMBER_STATIONS_OF_LINE = 2;
 const NOT_MINIMUM_NUMBER_STATIONS_OF_LINE_ERROR_MESSAGE = `노선에는 최소 ${MINIMUM_NUMBER_STATIONS_OF_LINE}개의 역이 포함되어 있어야합니다.`;
+const MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION = 0;
+const STATION_INCLUDE_IN_LINE_ERROR_MESSAGE = `${MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION + 1}개 이상의 노선에 포함되어 있는 역은 삭제할 수 없습니다.`;
