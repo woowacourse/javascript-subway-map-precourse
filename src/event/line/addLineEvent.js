@@ -1,4 +1,5 @@
 import render from '../../render/render.js';
+import selectLineButtonEvent from '../section/selectLineButtonEvent.js';
 
 const MINIMUN_LINE_LENGTH = 2;
 
@@ -70,5 +71,6 @@ export default function addLineEvent() {
   $lineAddButton.addEventListener('click', () => {
     checkValidInput();
     render();
+    selectLineButtonEvent();
   });
 }
