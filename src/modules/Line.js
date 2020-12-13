@@ -62,4 +62,8 @@ export default class Line {
 
     this._failToSaveNewStation(isValidLength, isSavedLine, isValidStation);
   };
+
+  getLineList = () => {
+    return this._lineList;
+  };
 }
