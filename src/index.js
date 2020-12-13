@@ -72,6 +72,7 @@ class SubwayMap {
     const station = new Station(name);
     this.stationList.push(station);
     this.addStationListItemElement(station);
+    this.saveStationList();
 
     this.elements.stationNameInput.value = '';
   }
@@ -85,11 +86,23 @@ class SubwayMap {
     if (index >= 0) {
       this.stationList.splice(index, 1);
       this.deleteStationListItemElement(name);
+      this.saveStationList();
+    }
+  }
+
+  saveStationList() {
+    localStorage.setItem('stationList', JSON.stringify(this.stationList));
+  }
+
+  loadStationList() {
+    const stationListData = JSON.parse(localStorage.getItem('stationList'));
+    if (stationListData) {
+      this.stationList = stationListData;
     }
   }
 
   showStationElementsAll() {
-    if (this.stationList.length < 0) return;
+    if (!this.stationList || this.stationList.length < 0) return;
 
     const stationListDOMItems = this.stationList.map((station) => {
       return `
@@ -139,6 +152,7 @@ class SubwayMap {
     this.elements.stationForm.addEventListener('submit', this.handleSubmitStationAdd.bind(this));
     this.elements.stationList.addEventListener('click', this.handleClickStationDelete.bind(this));
 
+    this.loadStationList();
     this.showStationElementsAll();
   }
 
