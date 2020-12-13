@@ -1,11 +1,11 @@
-import {
-  onChangeScreen,
-  onLoadSection,
-  onAddSection,
-  onRemoveSection,
-} from '../index.js';
+import {onChangeScreen} from '../index.js';
 import {onAddStation, onRemoveStation} from '../Controller/station-control.js';
 import {onAddLine, onRemoveLine} from '../Controller/line-control.js';
+import {
+  onAddSection,
+  onRemoveSection,
+  onLoadSection,
+} from '../Controller/section-control.js';
 
 export const $screenButton = document.body.querySelectorAll('#app > button');
 export const $stationContainer = document.body.querySelector('#station');
