@@ -76,6 +76,7 @@ stationManagerButton.addEventListener('click', showStationManager);
 lineManagerButton.addEventListener('click', showLineManager);
 sectionManagerButton.addEventListener('click', showSectionManager);
 mapPrintManagerButton.addEventListener('click', showMapPrintManager);
+stationAddButton.addEventListener('click', clickStationAddButton);
 
 // 역 관리 탭
 function showStationManager() {
@@ -123,11 +124,23 @@ function showStationList() {
   "use strict";
 
   const stationList = subwayMap.getStationList();
-  const stationDeleteButtonHTML = '<button class="station-delete-button">';
+  const stationDeleteButtonHTML = '<button class="station-delete-button">삭제</button>';
 
   let html = '';
   for (const station of stationList) {
     html += `<tr><td>${station}</td><td>${stationDeleteButtonHTML}</td></tr>`;
   }
   stationResult.innerHTML = html;
+}
+
+// 역 추가 버튼
+function clickStationAddButton() {
+  "use strict";
+
+  if (!subwayMap.addStation(stationNameInput.value)) {
+    alert('다른 역과 중복되지 않은 이름을 2자 이상으로 입력해주세요.');
+    return;
+  }
+  stationNameInput.value = '';
+  showStationList();
 }
