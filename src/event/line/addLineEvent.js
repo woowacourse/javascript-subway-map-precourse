@@ -53,7 +53,7 @@ function checkValidInput() {
   const inputLineName = document.querySelector('#line-name-input').value;
 
   if (!checkValidNameLength(inputLineName)) {
-    return alert(`역 이름은 ${MINIMUN_LINE_LENGTH}글자 이상이어야 합니다.`);
+    return alert(`노선 이름은 ${MINIMUN_LINE_LENGTH}글자 이상이어야 합니다.`);
   }
   if (!checkDuplicateLineName(lines, inputLineName)) {
     return alert('이미 존재하는 노선 이름은 입력할 수 없습니다.');
