@@ -155,7 +155,7 @@ const createResultArea = () => {
       const upwardEndData = document.createElement('td');
       upwardEndData.innerHTML = stations[0];
       const downwardEndData = document.createElement('td');
-      downwardEndData.innerHTML = stations[1];
+      downwardEndData.innerHTML = stations[stations.length - 1];
       const deleteBtn = document.createElement('button');
       deleteBtn.innerHTML = '삭제';
       deleteBtn.addEventListener('click', () => deleteLine(line));
