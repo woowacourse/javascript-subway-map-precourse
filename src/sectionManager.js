@@ -165,10 +165,16 @@ const createResultArea = line => {
 };
 
 const deleteStation = (station, line) => {
+  const sectionTable = document.getElementById('section-table');
+  const currLines = JSON.parse(localStorage.getItem('lines'));
+  const currStations = currLines[line];
+
+  if (currStations.length <= 2) {
+    alert('노선에 포함된 역이 2개 이하일 때는 역을 삭제할 수 없습니다.');
+    return;
+  }
+
   if (confirm('정말 삭제하시겠습니까?')) {
-    const sectionTable = document.getElementById('section-table');
-    const currLines = JSON.parse(localStorage.getItem('lines'));
-    const currStations = currLines[line];
     currStations.splice(currStations.indexOf(station), 1);
     const updatedLines = currLines;
     updatedLines[line] = currStations;
