@@ -11,9 +11,9 @@ export default function app(pageName, subwayDatas) {
   } else if (pageName === "line") {
     app = lineManagerPage(subwayDatas);
   } else if (pageName === "section") {
-    app = sectionManagerPage();
+    app = sectionManagerPage(subwayDatas);
   } else if (pageName === "map") {
-    app = mapPrintManagerPage();
+    app = mapPrintManagerPage(subwayDatas);
   }
 
   return app;

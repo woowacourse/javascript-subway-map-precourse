@@ -3,6 +3,7 @@ import render from "./components/render.js";
 import app from "./components/app.js";
 import { onStationHandler } from "./library/handlers/stationHandlers.js";
 import { onLineHandler } from "./library/handlers/lineHandlers.js";
+import { onSectionHandler } from "./library/handlers/sectionHandler.js";
 
 export default function main() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -24,10 +25,6 @@ function addEventToMainBtns() {
   document.getElementById("line-manager-button").addEventListener("click", onLineHandler);
   document.getElementById("section-manager-button").addEventListener("click", onSectionHandler);
   document.getElementById("map-print-manager-button").addEventListener("click", onMapPrintHandler);
-}
-
-function onSectionHandler() {
-  render(app("section"));
 }
 
 function onMapPrintHandler() {

@@ -29,7 +29,6 @@ function stationManagerPage(subwayDatas) {
     ${table}
     </tbody>
   </table>
- 
   `;
   return stationManager;
 }

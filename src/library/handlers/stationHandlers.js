@@ -39,7 +39,6 @@ function onDeleteStationHandler() {
   subwayDatas.subwayStations.forEach((station, idx) => {
     if (station.name === deleteTarget) {
       subwayDatas.subwayStations.splice(idx, 1);
-      // console.log(subwayDatas.lines);
       localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
       render(app("station", subwayDatas));
       updateEvent();
