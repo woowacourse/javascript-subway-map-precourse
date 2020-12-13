@@ -4,7 +4,7 @@ import Station from '../station.js';
 import StationModel from '../model/model.js';
 import LineModel from '../../line/model/model.js';
 import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
-import {isStationOnLine} from '../service/validation.js';
+import {isStationOnLine, isNotValidStationName, isDuplicatedStationName} from '../service/validation.js';
 
 export default class StationController {
 	constructor() {
@@ -20,14 +20,20 @@ export default class StationController {
 	}
 
 	addStation = () => {
-		const station = this.createStation();
+		const stationName = this.stationInput.stationNameInput.value;
+		const stations = new StationModel().getStationStorageData();
+
+		if (isDuplicatedStationName(stations, stationName) || isNotValidStationName(stationName)) {
+			return;
+		}
+
+		const station = this.createStation(stationName);
 		
 		this.addStationToMemory(station);
 		this.addStationToTable();
 	}
 
-	createStation = () => {
-		const stationName = this.stationInput.stationNameInput.value;
+	createStation = (stationName) => {
 		const station = new Station(stationName);
 
 		return station;
