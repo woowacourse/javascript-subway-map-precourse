@@ -1,3 +1,5 @@
+import removeLineEvent from '../../event/line/removeLineEvent.js';
+
 function lineListContainerTemplate() {
   return `<table class="line-table" border="1">
             <tr>
@@ -20,7 +22,7 @@ function lineListTemplate(line, lineNumber) {
               <td>${line[1]}</td>
               <td>${line[line.length - 1]}</td>
               <td data-number=${lineNumber}>
-                <button class="station-delete-button">삭제</button>
+                <button class="line-delete-button">삭제</button>
               </td>
           </tr>`;
 }
@@ -37,6 +39,7 @@ function initLineList(lines) {
         lineListTemplate(line.split(' '), lineNumber++),
       ),
     );
+  removeLineEvent();
 }
 
 export default function renderLineList() {
