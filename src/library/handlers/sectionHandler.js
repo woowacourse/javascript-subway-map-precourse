@@ -3,6 +3,8 @@ import app from "../../components/app.js";
 
 function onSectionHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  console.log(subwayDatas);
+  subwayDatas.targetLine = ``;
   render(app("section", subwayDatas));
 
   updateEventToLineBtns();
@@ -12,12 +14,12 @@ function onLineSelectHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let targetLine = event.target.innerText;
   //   console.log(targetLine);
-  subwayDatas.targetLine = ``;
   subwayDatas.targetLine = targetLine;
   localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
   //   console.log(subwayDatas);
   render(app("section", subwayDatas));
 
+  updateDeleteToSectionDeleteBtns();
   updateEventToLineBtns();
   updateEventToSectionAddBtns();
 }
@@ -50,8 +52,34 @@ function onAddSectionHandler() {
   });
   localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
   render(app("section", subwayDatas));
+
   updateEventToSectionAddBtns();
   updateEventToLineBtns();
+}
+
+function updateDeleteToSectionDeleteBtns() {
+  let deleteBtns = document.getElementsByClassName(".section-delete-button");
+
+  for (let i = 0; i < deleteBtns.length; i++) {
+    deleteBtns[i].addEventListener("click", onSectionDeleteHandler);
+  }
+}
+function onSectionDeleteHandler() {
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  let deleteTargetIdx = event.target.parentNode.parentNode.childNodes[1].outerText;
+  //   let deleteTargetName = event.target.parentNode.parentNode.childNodes[3].outerText;
+  //   console.log(deleteTargetName);
+
+  subwayDatas.lines.map((line) => {
+    if (line.name === subwayDatas.targetLine) {
+      line.stops.splice(deleteTargetIdx, 1);
+      localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+    }
+  });
+  render(app("section", subwayDatas));
+  updateEventToSectionAddBtns();
+  updateEventToLineBtns();
+  updateDeleteToSectionDeleteBtns();
 }
 
 // / 구간 등록

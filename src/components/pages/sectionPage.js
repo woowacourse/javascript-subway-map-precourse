@@ -21,9 +21,7 @@ function sectionManagerPage(subwayDatas) {
 
   if (subwayDatas.targetLine) {
     let targetLine = subwayDatas.targetLine;
-
     let options = subwayDatas.subwayStations.map((station) => `<option value = "${station.name}">${station.name}</option>`);
-
     let table = ``;
 
     subwayDatas.lines.map((line) => {
@@ -32,7 +30,7 @@ function sectionManagerPage(subwayDatas) {
           table += `<tr>
             <td>${idx}</td>
             <td>${stop}</td>
-            <td><button class="section-delete-button">노선에서 제거</button></td>
+            <td><button class=".section-delete-button">노선에서 제거</button></td>
           </tr>`;
         });
       }
