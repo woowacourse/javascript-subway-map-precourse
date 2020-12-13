@@ -1,6 +1,9 @@
+import { LEFTOVER_MESSAGE } from '../../library/constants/common-alert.js';
+import { EMPTY_INPUT_MESSAGE } from '../../library/constants/line-manager-alert.js';
 import { LINES } from '../../library/constants/localstorage.js';
 import Component from '../../library/core/component.js';
 import { createOptionTemplate } from '../../library/utils/template.js';
+import { hasStringEnoughLength } from '../../library/utils/validation.js';
 
 class LineInput extends Component {
   constructor($target, props) {
@@ -59,14 +62,37 @@ class LineInput extends Component {
   handleAddLineEvent() {
     const $lineNameInput = this._$target.querySelector('#line-name-input');
     const lineName = $lineNameInput.value.trim();
-    const startStation = this._$target.querySelector(
-      '#line-start-station-selector'
-    ).value;
-    const endStation = this._$target.querySelector('#line-end-station-selector')
+    const startStation = document.querySelector('#line-start-station-selector')
       .value;
+    const endStation = document.querySelector('#line-end-station-selector')
+      .value;
+    if (!this.isValidInput(lineName, [startStation, endStation])) {
+      this.alertByCase(lineName, [startStation, endStation]);
+      return;
+    }
     this.addLine(lineName, [startStation, endStation]);
     $lineNameInput.value = '';
     $lineNameInput.focus();
+  }
+
+  isValidInput(lineName, stations) {
+    return (
+      hasStringEnoughLength(lineName, 1) &&
+      hasStringEnoughLength(stations[0], 1) &&
+      hasStringEnoughLength(stations[1], 1)
+    );
+  }
+
+  alertByCase(lineName, stations) {
+    const alertCases = [];
+    if (
+      !hasStringEnoughLength(lineName, 1) ||
+      !hasStringEnoughLength(stations[0], 1) ||
+      !hasStringEnoughLength(stations[1], 1)
+    ) {
+      alertCases.push(EMPTY_INPUT_MESSAGE);
+    }
+    alert(alertCases.join(', ') + LEFTOVER_MESSAGE);
   }
 
   addLine(lineName, terminals) {

@@ -1,5 +1,5 @@
 import { STATIONS } from '../../library/constants/localstorage.js';
-import { HAS_SECTION_MESSAGE } from '../../library/constants/station-alert.js';
+import { HAS_SECTION_MESSAGE } from '../../library/constants/station-manager-alert.js';
 import Component from '../../library/core/component.js';
 
 class StationList extends Component {

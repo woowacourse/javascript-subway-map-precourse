@@ -1,9 +1,9 @@
 import { STATIONS } from '../../library/constants/localstorage.js';
 import {
   DUPLICATE_STATION_MESSAGE,
-  LEFTOVER_MESSAGE,
   SHORT_INPUT_MESSAGE,
-} from '../../library/constants/station-alert.js';
+} from '../../library/constants/station-manager-alert.js';
+import { LEFTOVER_MESSAGE } from '../../library/constants/common-alert.js';
 import Component from '../../library/core/component.js';
 import { hasStringEnoughLength } from '../../library/utils/validation.js';
 
