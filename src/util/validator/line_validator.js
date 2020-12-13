@@ -45,8 +45,8 @@ export default class LineValidator extends Validator {
 
   checkValidOptions(lines, lineStart, lineEnd) {
     if (
-      this.isSameLines(lineStart, lineEnd) &&
-      this.isValidOptions(lines, lineStart, lineEnd)
+      this.isSameLines(lineStart, lineEnd) ||
+      !this.isValidOptions(lines, lineStart, lineEnd)
     ) {
       this.alertOptionsInvalid();
 
@@ -68,7 +68,7 @@ export default class LineValidator extends Validator {
     const lastStations = this.getLastStations(lines);
 
     for (const station of lastStations) {
-      if (lineStart === station || lineEnd === station) {
+      if (lineStart.value === station || lineEnd.value === station) {
         return false;
       }
     }
@@ -80,6 +80,9 @@ export default class LineValidator extends Validator {
     const stations = [];
 
     for (const line of lines) {
+      if (!line) {
+        continue;
+      }
       const section = Object.values(line)[0];
 
       stations.push(section[0], section[section.length - 1]);
