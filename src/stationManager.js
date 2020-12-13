@@ -47,7 +47,7 @@ const addStation = (name, nameInput) => {
   const currStations = JSON.parse(localStorage.getItem('stations'));
   const updatedStations = currStations ? [...currStations, name] : [name];
   localStorage.setItem('stations', JSON.stringify(updatedStations));
-  console.log(JSON.parse(localStorage.getItem('stations')));
+  // console.log(JSON.parse(localStorage.getItem('stations')));
   addTable(name);
 };
 

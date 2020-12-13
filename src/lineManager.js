@@ -100,14 +100,13 @@ const addLine = (lineName, lineInput, start, end) => {
   if (!validateName(lineName)) return;
 
   lineInput.value = '';
-  console.log(lineName, start, end);
 
   const currLines = JSON.parse(localStorage.getItem('lines'));
-  console.log(currLines);
+  // console.log(currLines);
   const updatedLines = currLines ? currLines : {};
   updatedLines[lineName] = [start, end];
   localStorage.setItem('lines', JSON.stringify(updatedLines));
-  console.log(JSON.parse(localStorage.getItem('lines')));
+  // console.log(JSON.parse(localStorage.getItem('lines')));
 
   addTable(lineName, start, end);
 };

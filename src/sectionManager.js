@@ -98,5 +98,13 @@ const addToSection = (line, station, orderInput) => {
   const order = orderInput.value;
   orderInput.value = '';
 
-  console.log(line, station, order);
+  const currLines = JSON.parse(localStorage.getItem('lines'));
+  const currStations = currLines[line];
+  console.log(currStations);
+
+  currStations.splice(order, 0, station);
+  const updatedLines = currLines;
+  updatedLines[line] = currStations;
+  localStorage.setItem('lines', JSON.stringify(updatedLines));
+  console.log(JSON.parse(localStorage.getItem('lines')));
 };
