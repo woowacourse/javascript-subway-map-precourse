@@ -17,8 +17,15 @@ export default class StationManager {
     document.getElementById("station-table").querySelector("tbody").innerHTML = stationTableHTML;
   }
 
+  getStationNameInput() {
+    const stationNameInputField = document.getElementById("station-name-input"); //dom
+    const stationName = stationNameInputField.value;
+
+    return stationName;
+  }
+
   addStation() {
-    //입력값 받기
+    const stationName = this.getStationNameInput();
     //입력값 검사
     //등록
     //뷰추가
