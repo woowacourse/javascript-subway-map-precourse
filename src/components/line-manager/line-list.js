@@ -1,3 +1,4 @@
+import { LINES } from '../../library/constants/localstorage.js';
 import Component from '../../library/core/component.js';
 
 class LineList extends Component {
@@ -47,9 +48,9 @@ class LineList extends Component {
   }
 
   removeLine(target) {
-    this._props.lines.value = this._props.lines.value.filter(
-      line => line.lineName !== target
-    );
+    const { lines } = this._props;
+    lines.value = lines.value.filter(line => line.lineName !== target);
+    localStorage.setItem(LINES, JSON.stringify(lines.value));
   }
 }
 

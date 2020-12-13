@@ -1,3 +1,4 @@
+import { LINES } from '../../library/constants/localstorage.js';
 import Component from '../../library/core/component.js';
 import { createOptionTemplate } from '../../library/utils/template.js';
 
@@ -69,8 +70,10 @@ class LineInput extends Component {
   }
 
   addLine(lineName, terminals) {
+    const { lines } = this._props;
     const newLine = { lineName, sections: terminals };
-    this._props.lines.value = [...this._props.lines.value, newLine];
+    lines.value = [...lines.value, newLine];
+    localStorage.setItem(LINES, JSON.stringify(lines.value));
   }
 }
 

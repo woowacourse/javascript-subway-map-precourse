@@ -1,3 +1,4 @@
+import { STATIONS } from '../../library/constants/localstorage.js';
 import Component from '../../library/core/component.js';
 
 class StationList extends Component {
@@ -43,9 +44,9 @@ class StationList extends Component {
   }
 
   removeStation(target) {
-    this._props.stations.value = this._props.stations.value.filter(
-      station => station !== target
-    );
+    const { stations } = this._props;
+    stations.value = stations.value.filter(station => station !== target);
+    localStorage.setItem(STATIONS, JSON.stringify(stations.value));
   }
 }
 

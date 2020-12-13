@@ -1,3 +1,4 @@
+import { LINES } from '../../../library/constants/localstorage.js';
 import Component from '../../../library/core/component.js';
 import { createOptionTemplate } from '../../../library/utils/template.js';
 
@@ -58,8 +59,10 @@ class SectionInput extends Component {
   }
 
   insertSection(targetLine, { order, sectionToAdd }) {
+    const { lines } = this._props;
     targetLine.sections.splice(order, 0, sectionToAdd);
-    this._props.lines.renderAll();
+    localStorage.setItem(LINES, JSON.stringify(lines.value));
+    lines.renderAll();
   }
 }
 

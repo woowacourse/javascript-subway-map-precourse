@@ -11,6 +11,7 @@ import StationManager from './station-manager/index.js';
 import LineManager from './line-manager/index.js';
 import MapPrintManager from './map-print-manager/index.js';
 import SectionManager from './section-manager/index.js';
+import { LINES, STATIONS } from '../library/constants/localstorage.js';
 
 class App extends Component {
   #stations;
@@ -23,8 +24,10 @@ class App extends Component {
   }
 
   initializeStates() {
-    this.#stations = new State([]);
-    this.#lines = new State([]);
+    const storedStations = JSON.parse(localStorage.getItem(STATIONS));
+    const storedLines = JSON.parse(localStorage.getItem(LINES));
+    this.#stations = new State(storedStations ?? []);
+    this.#lines = new State(storedLines ?? []);
   }
 
   mountTemplate() {

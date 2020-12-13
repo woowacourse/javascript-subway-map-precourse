@@ -1,3 +1,4 @@
+import { STATIONS } from '../../library/constants/localstorage.js';
 import {
   DUPLICATE_STATION_MESSAGE,
   LEFTOVER_MESSAGE,
@@ -46,7 +47,9 @@ class StationInput extends Component {
   }
 
   addStation(newStation) {
-    this._props.stations.value = [...this._props.stations.value, newStation];
+    const { stations } = this._props;
+    stations.value = [...stations.value, newStation];
+    localStorage.setItem(STATIONS, JSON.stringify(stations.value));
   }
 
   isValidInput(input) {

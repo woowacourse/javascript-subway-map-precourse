@@ -1,3 +1,4 @@
+import { LINES } from '../../../library/constants/localstorage.js';
 import Component from '../../../library/core/component.js';
 
 class SectionList extends Component {
@@ -55,8 +56,10 @@ class SectionList extends Component {
   }
 
   removeSection(targetIndex) {
+    const { lines } = this._props;
     this.#targetLine.sections.splice(targetIndex, 1);
-    this._props.lines.renderAll();
+    localStorage.setItem(LINES, JSON.stringify(lines.value));
+    lines.renderAll();
   }
 }
 
