@@ -34,15 +34,19 @@ export default class SubwayMap {
 
   // 지하철 노선 조회
   getLineList() {
-    return this.lineList.map(element => element.name);
+    return this.lineList.map(element => [element.name, element.getLine()]);
   }
 
   // 지하철 노선 등록
-  addLine(name, upTerminus, downTerminus) {
+  addLine(name, startStationName, endStationName) {
     if (name.length <= 0 || this.lineList.find(element => element.name === name) !== undefined) {
       return false;
     }
-    let line = new SubwayLine(name, upTerminus, downTerminus);
+    const startStation = this.stationList.find(element => element.name === startStationName);
+    const endStation = this.stationList.find(element => element.name === endStationName);
+    startStation.semaphore++;
+    endStation.semaphore++;
+    let line = new SubwayLine(name, startStation, endStation);
     this.lineList.push(line);
     return true;
   }
@@ -82,6 +86,7 @@ lineManagerButton.addEventListener('click', showLineManager);
 sectionManagerButton.addEventListener('click', showSectionManager);
 mapPrintManagerButton.addEventListener('click', showMapPrintManager);
 stationAddButton.addEventListener('click', clickStationAddButton);
+lineAddButton.addEventListener('click', clickLineAddButton);
 
 // 역 관리 탭
 function showStationManager() {
@@ -176,7 +181,20 @@ function showLineList() {
 
   let html = '';
   for (const line of lineList) {
-    html += `<tr><td>${line}</td><td>${lineDeleteButtonHTML}</td></tr>`;
+    const endIndex = line[1].length - 1;
+    html += `<tr><td>${line[0]}</td><td>${line[1][0]}</td><td>${line[1][endIndex]}</td><td>${lineDeleteButtonHTML}</td></tr>`;
   }
   lineResult.innerHTML = html;
+}
+
+// 노선 추가 버튼
+function clickLineAddButton() {
+  "use strict";
+
+  if (!subwayMap.addLine(lineNameInput.value, lineStartStationSelector.value, lineEndStationSelector.value)) {
+    alert('다른 노선과 중복되지 않은 이름으로 입력해주세요.');
+    return;
+  }
+  lineNameInput.value = '';
+  showLineList();
 }

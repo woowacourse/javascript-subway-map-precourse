@@ -1,7 +1,7 @@
 export default class SubwayLine {
-  constructor(name, upTerminus, downTerminus) {
+  constructor(name, startStation, endStation) {
     this.name = name;
-    this.line = [upTerminus, downTerminus];
+    this.line = [startStation, endStation];
   }
 
   // 노선에 역 추가. index를 지정하지 않으면 하행 종점 앞에 추가됨
