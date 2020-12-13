@@ -3,12 +3,9 @@ import deleteLineName from "../../_action/Line/deleteLineName.js";
 import Button from "../components/Button.js";
 
 export default (lineDataList) => lineDataList ?
-  lineDataList.map(({ lineName, startStation, endStation }, index) => {
+  lineDataList.map(({ lineName, stations }) => {
     const $deleteStationButton = new Button(DELETE_LINE_BUTTON, "삭제", () =>
       deleteLineName(lineName),
     );
-    $deleteStationButton.element.id = `${DELETE_LINE_BUTTON.substring(
-      1,
-    )}-${String(index)}`;
-    return [lineName, startStation, endStation, $deleteStationButton.element];
+    return [lineName, stations[0], stations[stations.length-1], $deleteStationButton.element];
   }) : [];

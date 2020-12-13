@@ -4,9 +4,9 @@ import { SAME_START_END_STATION_ERROR } from "../../common/alertMessages.js";
 
 export default class AddNewLineInfoValidation {
   constructor(newLineInfo) {
+    const { stations } = newLineInfo;
     this.lineName = newLineInfo.lineName;
-    this.isSameStartStationAndEndStation =
-      newLineInfo.startStation === newLineInfo.endStation;
+    this.isSameStartStationAndEndStation = stations[0] === stations[1];
   }
 
   getInputResult() {
