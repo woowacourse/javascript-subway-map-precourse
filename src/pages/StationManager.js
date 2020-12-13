@@ -16,6 +16,11 @@ export default class StationManager {
       this.state.stations.push(newStation);
       this.setState({ stations: [...this.state.stations] });
     };
+
+    this.handleDeleteButtonClick = (index) => {
+      this.state.stations.splice(index, 1);
+      this.setState({ stations: [...this.state.stations] });
+    };
   }
 
   setState(state) {
@@ -33,6 +38,15 @@ export default class StationManager {
     stationAddButton.addEventListener("click", () => {
       this.handleAddButtonClick(stationNameInput.value);
       console.log(this.state.stations);
+    });
+    const stationDeleteButtons = document.getElementsByClassName(
+      elementMap.stationDeleteButton
+    );
+    [...stationDeleteButtons].forEach((stationDeleteButton, index) => {
+      stationDeleteButton.addEventListener("click", () => {
+        this.handleDeleteButtonClick(index);
+        console.log(this.state.stations);
+      });
     });
   }
 
