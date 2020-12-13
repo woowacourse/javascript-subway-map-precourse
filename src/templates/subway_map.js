@@ -1,14 +1,13 @@
 export const mapContainer = lines => {
   return `<div class="map">
-    ${lines.map(line => lineList(line)).join('')}
+    ${lines.map(line => lineHeading(line.name) + lineList(line)).join('')}
   </div>`;
 };
 
-const lineList = ({ name, stations }) => {
-  return `<ol>
-    ${lineHeading(name)}
+const lineList = ({ stations }) => {
+  return `<ul>
     ${stations.map(station => stationLi(station.name)).join('')}
-  </ol>`;
+  </ul>`;
 };
 
 const lineHeading = name => {

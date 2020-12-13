@@ -1,9 +1,10 @@
 import { mapContainer } from '../templates/index.js';
 
-export default function MapPrintContainer({ lines }) {
+export default function MapPrintContainer({ getLines }) {
   this.mainContainer = document.querySelector('.main-container');
 
   this.render = () => {
-    this.mainContainer.innerHTML = mapContainer([]);
+    const lines = getLines();
+    this.mainContainer.innerHTML = mapContainer(lines);
   };
 }

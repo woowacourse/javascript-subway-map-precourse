@@ -68,8 +68,6 @@ export default function SubwayMapManagement() {
     this.selectedMenu.renderTable();
   };
 
-  this.getSubwayMap = () => {};
-
   new ManagerButtonContainer({ selectMenu: this.selectMenu });
   this.menu = [
     new StationManagerContainer({
@@ -90,7 +88,7 @@ export default function SubwayMapManagement() {
       addSection: this.addSubwaySection,
       deleteSection: this.deleteSubwaySection,
     }),
-    new MapPrintContainer({ lines: this.subwayLines }),
+    new MapPrintContainer({ getLines: this.getSubwayLines }),
   ];
 }
 
