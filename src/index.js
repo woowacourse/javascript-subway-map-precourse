@@ -218,6 +218,12 @@ class SubwayMap {
     `;
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  deleteLineListItemElement(name) {
+    const element = document.querySelector(`tr[data-name="${name}"]`);
+    element.remove();
+  }
+
   handleSubmitLineAdd(e) {
     e.preventDefault();
 
@@ -232,6 +238,18 @@ class SubwayMap {
     this.addLineListItemElement(line);
 
     this.elements.lineNameInput.value = '';
+  }
+
+  handleClickLineDelete(e) {
+    if (e.target.className !== 'line-delete-button') return;
+
+    const { name } = e.target.dataset;
+    const index = this.lineList.findIndex((line) => line.name === name);
+
+    if (index >= 0) {
+      this.lineList.splice(index, 1);
+      this.deleteLineListItemElement(name);
+    }
   }
 
   isValidLineManager() {
@@ -287,6 +305,7 @@ class SubwayMap {
     this.elements.lineEndStationSelector.innerHTML = this.getStationSelectorOptions();
 
     this.elements.lineForm.addEventListener('submit', this.handleSubmitLineAdd.bind(this));
+    this.elements.lineList.addEventListener('click', this.handleClickLineDelete.bind(this));
   }
 
   showSectionManager() {
