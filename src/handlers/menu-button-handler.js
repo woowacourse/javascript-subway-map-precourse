@@ -2,6 +2,7 @@ import StationManager from "../station-manager.js";
 import LineManager from "../line-manager.js";
 import {
   getChildById,
+  getStationNameInput,
   getLineNameInput,
   getStartStationSelector,
   getEndStationSelector,
@@ -109,6 +110,7 @@ const renderMap = ($mapPrintManager, lineList) => {
 
 const showStationManagerPage = (appContainer) => {
   showManagerPageById(appContainer, MANAGER_PAGES_ID.stationManager);
+  getStationNameInput(appContainer).value = "";
   new StationManager().renderStationNameTable();
 };
 
