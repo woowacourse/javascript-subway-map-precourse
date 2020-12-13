@@ -1,3 +1,7 @@
+import {
+  EMPTY_INPUT_MESSAGE,
+  LEFTOVER_MESSAGE,
+} from '../../../library/constants/common-alert.js';
 import { LINES } from '../../../library/constants/localstorage.js';
 import Component from '../../../library/core/component.js';
 import { createOptionTemplate } from '../../../library/utils/template.js';
@@ -45,7 +49,27 @@ class SectionInput extends Component {
     const sectionToAdd = this._$target.querySelector(
       '#section-station-selector'
     ).value;
+    if (!this.isValidInput(order, sectionToAdd)) {
+      this.alertByCase(order, sectionToAdd);
+      return;
+    }
     this.insertSection(this._props.targetLine, { order, sectionToAdd });
+  }
+
+  isValidInput(order, sectionToAdd) {
+    return !this.hasEmptyInput(order, sectionToAdd);
+  }
+
+  hasEmptyInput(order, sectionToAdd) {
+    return !order === '' && sectionToAdd !== '';
+  }
+
+  alertByCase(order, sectionToAdd) {
+    const alertCases = [];
+    if (this.hasEmptyInput(order, sectionToAdd)) {
+      alertCases.push(EMPTY_INPUT_MESSAGE);
+    }
+    alert(alertCases.join(', ') + LEFTOVER_MESSAGE);
   }
 
   insertSection(targetLine, { order, sectionToAdd }) {
