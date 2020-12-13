@@ -68,27 +68,43 @@ export default class StationManager extends Component {
 
   addClickEventListener() {
     this.$component.addEventListener("click", e => {
-      const { target } = e;
+      const { target: { id, classList } } = e;
+      const { target: { dataset: { stationNameIndex } } } = e;
 
-      if (target.id === this.$stationAddButton.id) {
+      if (id === this.$stationAddButton.id) {
         this.handleStationAdd();
-      } else if (target.classList.contains(this.STATION_DELETE_BUTTON_CLASSNAME)) {
-      // TODO: 사용자가 삭제 버튼을 누를 경우, 역 이름을 삭제하여 지하철 역 목록을 재표시하는 기능 구현
-        console.log(`삭제 버튼이 클릭되었습니다. ${target.dataset.stationNameIndex}`);
+      } else if (classList.contains(this.STATION_DELETE_BUTTON_CLASSNAME)) {
+        this.handleDeleteButton(stationNameIndex);
       }
     });
   }
 
   handleStationAdd() {
     const newStationName = this.$stationNameInput.value;
+    this.addNewStationName(newStationName);    
+    clearInputValue(this.$stationNameInput);
+  }
+
+  addNewStationName(newStationName) {
     this.setState({
       stationName: [
         ...this.state.stationName,
         newStationName
       ]
     });
-    
-    clearInputValue(this.$stationNameInput);
+  }
+
+  handleDeleteButton(targetIndex) {
+    const targetStationName = this.state.stationName[targetIndex];
+      
+    if (confirm(`${targetStationName}을 삭제하시겠습니까?`)) {
+      const targetExcluded = this.state.stationName.filter(stationName => stationName !== targetStationName);
+      this.setStationNameArray(targetExcluded);
+    }
+  }
+
+  setStationNameArray(stationName) {
+    this.setState({ stationName });
   }
 
   appendChildNodes() {
