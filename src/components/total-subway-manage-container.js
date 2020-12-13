@@ -1,5 +1,6 @@
 import stationManageContainer from "./station-manage-container.js";
 import lineManageContainer from "./line-manage-container.js";
+import sectionManageContainer from "./section-manage-container.js";
 import { state } from "../index.js";
 
 const menuIDs = {
@@ -110,6 +111,8 @@ export default function totalSubwayManageContainer() {
         new stationManageContainer(state);
       } else if (index === 1) {
         new lineManageContainer(state);
+      } else if (index === 2) {
+        new sectionManageContainer();
       }
     });
   }

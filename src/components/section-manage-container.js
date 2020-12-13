@@ -1,14 +1,16 @@
-import { makeSelectOptions } from "../utils/display/make-elements.js";
+import { state } from "../index.js";
 
-export default function sectionManageContainer(state) {
-  const addLineInput = document.getElementById("line-name-input");
-  const selectUpLine = document.getElementById("line-start-station-selector");
-  const selectDownLine = document.getElementById("line-end-station-selector");
+function loadEditSectionLines() {
+  const parentDiv = document.getElementById("manage-sections");
 
-  makeSelectOptions(selectUpLine, state.stationArray);
-  makeSelectOptions(selectDownLine, state.stationArray);
+  for (const line of state.subwayLines) {
+    const lineManageBtn = document.createElement("button");
+    lineManageBtn.innerHTML = line.lineName;
+    console.log(line.lineName);
+    parentDiv.append(lineManageBtn);
+  }
+}
 
-  addLineInput.addEventListener("click", () => {
-    const lineNameInputValue = addLineInput.value;
-  });
+export default function sectionManageContainer() {
+  console.log(loadEditSectionLines());
 }

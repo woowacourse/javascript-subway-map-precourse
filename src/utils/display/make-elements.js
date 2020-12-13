@@ -13,11 +13,10 @@ export function makeTdElement(elementToMake) {
 export function makeTdDeleteBtn(objectToMake, tr) {
   const tdDeleteBtn = document.createElement("td");
   const deleteBtn = document.createElement("button");
-  const CONFIRM_DELETE = CONFIRM_MESSAGES.CONFIRM_DELETE;
 
   deleteBtn.innerHTML = "삭제";
   deleteBtn.addEventListener("click", () => {
-    const confirmDelete = confirm(CONFIRM_DELETE);
+    const confirmDelete = confirm(CONFIRM_MESSAGES.CONFIRM_DELETE);
 
     if (confirmDelete) {
       deleteObject(objectToMake, tr);
