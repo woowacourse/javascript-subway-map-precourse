@@ -1,7 +1,4 @@
 export const isStationInputVaild = (station, exStation) => {
-  if (!isLengthRight(station)) {
-    return false;
-  }
   if (!isMatched(station)) {
     return false;
   }
@@ -13,9 +10,6 @@ export const isStationInputVaild = (station, exStation) => {
 };
 
 export const isLineInputValid = (userLine, exLine) => {
-  if (!isLengthRight(userLine.lineName)) {
-    return false;
-  }
   if (!isMatched(userLine.lineName)) {
     return false;
   }
@@ -59,17 +53,12 @@ export const isMoreThanTwoStation = (line) => {
   return true;
 };
 
-const isLengthRight = (value) => {
-  if (value.length < 2) {
-    return alert('2글자 이상으로 입력해주세요.');
-  }
-
-  return true;
-};
-
 const isMatched = (value) => {
   if (value.match(/[^가-힣0-9]/)) {
     return alert('띄어쓰기 없이 한글과 숫자만 입력해주세요.');
+  }
+  if (value.length < 2) {
+    return alert('2글자 이상으로 입력해주세요.');
   }
 
   return true;
