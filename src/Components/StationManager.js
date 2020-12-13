@@ -1,4 +1,5 @@
 import subwayStore from "../models/SubwayStore.js";
+import { clearInput } from "../utils/domUtil.js";
 import {
   TableHeaderHTML,
   TableRow,
@@ -33,7 +34,9 @@ class StationManager {
       return;
     }
 
+    clearInput(this.$input);
     subwayStore.addStation(name);
+
     this.render(subwayStore.getStations());
   }
 

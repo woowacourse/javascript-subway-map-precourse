@@ -14,8 +14,12 @@ export const makeElement = (type, props = {}, innerHTML = ``) => {
   return $element;
 };
 
-export const alertMessage = ($input, message) => {
-  alert(message);
+export const clearInput = $input => {
   $input.value = ``;
   $input.focus();
+};
+
+export const alertMessage = ($input, message) => {
+  alert(message);
+  clearInput($input);
 };
