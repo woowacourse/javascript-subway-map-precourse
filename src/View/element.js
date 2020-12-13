@@ -21,7 +21,9 @@ export const $downStream = document.body.querySelector(
 export const $sectionStation = document.body.querySelector(
   '#section-station-selector',
 );
-
+export const $sectionButtonContainer = document.body.querySelector(
+  '#section-select-button',
+);
 export const $lineAddButton = document.body.querySelector('#line-add-button');
 export const $lineNameInput = document.body.querySelector('#line-name-input');
 export const $sectionAddButton = document.body.querySelector(

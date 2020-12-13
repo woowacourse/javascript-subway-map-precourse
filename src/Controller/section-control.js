@@ -12,11 +12,7 @@ import {
   addSectionScreen,
   addSectionButton,
 } from '../View/add-screen.js';
-import {
-  removeTableScreen,
-  removeOption,
-  removeSectionButton,
-} from '../View/remove-screen.js';
+import {removeTableScreen, removeOption} from '../View/remove-screen.js';
 import {showSectionScreen} from '../View/show-screen.js';
 import {hideSectionLine} from '../View/hide-screen.js';
 import {isSectionValid, isMoreThanTwoStation} from './valid.js';
@@ -70,7 +66,6 @@ export const loadSectionTable = () => {
 };
 
 export const loadSectionButton = () => {
-  removeSectionButton();
   lineInstance.loadLine();
   lineInstance.lines.forEach((section) => {
     addSectionButton(section.lineName);

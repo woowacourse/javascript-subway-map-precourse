@@ -79,6 +79,7 @@ export const addMapPrint = (lines) => {
     const $lineMap = document.createElement('div');
     const $lineTitle = document.createElement('h3');
     const $lineUl = document.createElement('ul');
+    $lineMap.dataset.line = lines[i].lineName;
     $lineTitle.textContent = lines[i].lineName;
     addMapStation($lineUl, lines[i].station);
     $lineMap.appendChild($lineTitle);

@@ -1,7 +1,7 @@
 import {
   $stationContainer,
   $lineContainer,
-  $sectionContainer,
+  $sectionButtonContainer,
   $mapContainer,
 } from './element.js';
 
@@ -33,13 +33,14 @@ export const removeTableScreen = ($container) => {
   }
 };
 
-export const removeSectionButton = () => {
-  const $sectionButtonContainer = $sectionContainer.querySelector(
-    '#section-select-button',
+export const removeSectionButton = (line) => {
+  const $sectionAllLineButton = $sectionButtonContainer.querySelectorAll(
+    'button',
   );
-  while ($sectionButtonContainer.firstChild) {
-    $sectionButtonContainer.removeChild($sectionButtonContainer.firstChild);
-  }
+  const $removedSectionButton = Array.from($sectionAllLineButton).find(
+    (button) => button.textContent === line,
+  );
+  $sectionButtonContainer.removeChild($removedSectionButton);
 };
 
 export const removeOption = ($select) => {
@@ -48,7 +49,15 @@ export const removeOption = ($select) => {
   }
 };
 
-export const removeMapPrint = () => {
+export const removeMapPrint = (line) => {
+  const $mapAllLines = $mapContainer.querySelectorAll('div');
+  const $removedMapLine = Array.from($mapAllLines).find(
+    (map) => map.dataset.line === line,
+  );
+  $mapContainer.removeChild($removedMapLine);
+};
+
+export const removeAllMapPrint = () => {
   while ($mapContainer.firstChild) {
     $mapContainer.removeChild($mapContainer.firstChild);
   }

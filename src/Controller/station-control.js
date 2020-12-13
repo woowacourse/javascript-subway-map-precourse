@@ -1,5 +1,4 @@
 import {
-  $stationContainer,
   $stationAddInput,
   $upStream,
   $downStream,
@@ -7,7 +6,6 @@ import {
 } from '../View/element.js';
 import {addStationScreen, addStationSelectOption} from '../View/add-screen.js';
 import {
-  removeTableScreen,
   removeStationScreen,
   removeStationSelectOption,
 } from '../View/remove-screen.js';
@@ -16,7 +14,6 @@ import {isNotLineHaved, isStationInputVaild} from './valid.js';
 import {stationInstance, lineInstance} from '../index.js';
 
 export const loadStation = () => {
-  removeTableScreen($stationContainer);
   stationInstance.loadStation();
   stationInstance.stations.forEach((station) => addStationScreen(station));
 };

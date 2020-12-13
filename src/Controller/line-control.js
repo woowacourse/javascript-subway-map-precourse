@@ -6,11 +6,18 @@ import {
   $upStream,
   $downStream,
 } from '../View/element.js';
-import {addLineScreen, addStationSelectOption} from '../View/add-screen.js';
+import {
+  addLineScreen,
+  addMapPrint,
+  addSectionButton,
+  addStationSelectOption,
+} from '../View/add-screen.js';
 import {
   removeLineScreen,
   removeTableScreen,
   removeOption,
+  removeSectionButton,
+  removeMapPrint,
 } from '../View/remove-screen.js';
 import {setLocalStorage, removeLocalStorage} from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
@@ -22,6 +29,8 @@ export function onAddLine() {
     setLocalStorage('line', lineValue);
     lineInstance.addLine(lineValue);
     addLineScreen(lineValue);
+    addSectionButton(lineValue.lineName);
+    addMapPrint([lineValue]);
   }
   $lineNameInput.value = '';
 }
@@ -32,6 +41,8 @@ export function onRemoveLine(e) {
     removeLocalStorage('line', e.target.dataset.line);
     lineInstance.removeLine(e.target.dataset.line);
     removeLineScreen(e.target);
+    removeSectionButton(e.target.dataset.line);
+    removeMapPrint(e.target.dataset.line);
   }
 }
 
