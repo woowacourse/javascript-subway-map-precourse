@@ -48,7 +48,7 @@ export default class LineController {
 		new LineModel().setLineStorageData(lines);
 	}
 
-	addStationToTable = () => {
+	addLineToTable = () => {
 		this.lineOutput.showLineTable();
 		this.setLineDeleteButtonHandler();
 	}

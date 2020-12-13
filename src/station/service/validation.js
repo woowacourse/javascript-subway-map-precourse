@@ -1,7 +1,8 @@
 import {
 	STATION_ON_LINE_ALERT_MESSAGE,
+	MINIMUM_STATION_NAME_LENGTH,
 	NOT_VALID_STATION_NAME_ALERT_MESSAGE,
-	DUPLICATED_STATION_NAME_ALERT_MESSAGE,
+	DUPLICATED_STATION_NAME_ALERT_MESSAGE
 } from '../constants.js';
 
 const stationOnLineAlert = () => {
@@ -45,7 +46,7 @@ const notValidNameAlert = () => {
 };
 
 const notValidStationName = stationName => {
-	if (stationName.length < 2) {
+	if (stationName.length < MINIMUM_STATION_NAME_LENGTH) {
 		return notValidNameAlert();
 	}
 };

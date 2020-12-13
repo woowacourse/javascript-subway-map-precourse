@@ -2,7 +2,11 @@ import SectionOutput from '../view/output.js';
 import SectionInput from '../view/input.js';
 import LineModel from '../../line/model/model.js';
 import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
-import {isMinimumLineLength} from '../service/validation.js';
+import {
+	isMinimumLineLength, 
+	isDuplicatedStationInLine, 
+	isNotValidSectionOrderInput
+} from '../service/validation.js';
 
 export default class SectionController {
 	constructor() {
@@ -37,8 +41,16 @@ export default class SectionController {
 	}
 
 	addSection = () => {
+		const lines = new LineModel().getLineStorageData();
 		const sectionStationSelect = document.getElementById('section-station-selector').value;
 		const sectionOrderInput = Number(document.getElementById('section-order-input').value);
+
+		if (
+			isDuplicatedStationInLine(lines[this.selectedLine], sectionStationSelect) || 
+			isNotValidSectionOrderInput(lines[this.selectedLine], sectionOrderInput)
+		) {
+			return;
+		}
 
 		this.addSectionToMemory(sectionStationSelect, sectionOrderInput);
 		this.addSectionToTable();
@@ -65,7 +77,9 @@ export default class SectionController {
 	}
 
 	deleteSection = event => {
-		if (isMinimumLineLength() || isUnconfirmedDelete()) {
+		const lines = new LineModel().getLineStorageData();
+
+		if (isMinimumLineLength(lines[this.selectedLine]) || isUnconfirmedDelete()) {
 			return;
 		}
 
@@ -85,7 +99,7 @@ export default class SectionController {
 		new LineModel().setLineStorageData(lines);
 	}
 
-	deleteSectionFromTalbe = (selectedLineNameToDelete) => {
+	deleteSectionFromTable = (selectedLineNameToDelete) => {
 		this.sectionOutput.showSelectedLineSectionContainer(selectedLineNameToDelete);
 		this.setSectionAddButtonHandler();
 		this.setDeleteButtonsHandler();

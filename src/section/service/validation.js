@@ -1,7 +1,55 @@
 import {
+	DUPLICATED_STATION_IN_LINE_MESSAGE,
+	NOT_VALID_ORDER_INPUT_MESSAGE,
 	MINIMUM_LINE_LENGTH_ALERT_MESSAGE, 
-	MINIMUM_LINE_LENGTH,
+	MINIMUM_LINE_LENGTH
 } from '../constants.js';
+
+const alertDuplicatedStationInLine = () => {
+	alert(DUPLICATED_STATION_IN_LINE_MESSAGE);
+
+	return true;
+};
+
+const duplicatedStationInline = (line, sectionStationSelect) => {
+	if (line.includes(sectionStationSelect)) {
+		return alertDuplicatedStationInLine();
+	}
+};
+
+export const isDuplicatedStationInLine = (line, sectionStationSelect) => {
+	return duplicatedStationInline(line, sectionStationSelect);
+};
+
+const alertNotValidSectionOrderInput = () => {
+	alert(NOT_VALID_ORDER_INPUT_MESSAGE);
+
+	return true;
+};
+
+const outOfIndex = (line, sectionOrderInput) => {
+	if (sectionOrderInput >= line.length || 0 > sectionOrderInput) {
+		return true;
+	}
+};
+
+const isOutOfIndex = (line, sectionOrderInput) => {
+	return outOfIndex(line, sectionOrderInput);
+};
+
+const isNotInteger = sectionOrderInput => {
+	return !Number.isInteger(sectionOrderInput);
+};
+
+const notValidSectionOrderInput = (line, sectionOrderInput) => {
+	if (isNotInteger(sectionOrderInput) || isOutOfIndex(line, sectionOrderInput)) {
+		return alertNotValidSectionOrderInput();
+	}
+};
+
+export const isNotValidSectionOrderInput = (line, sectionOrderInput) => {
+	return notValidSectionOrderInput(line, sectionOrderInput);
+};
 
 const alertMinimumLineLength = () => {
 	alert(MINIMUM_LINE_LENGTH_ALERT_MESSAGE);
@@ -16,5 +64,5 @@ const minimumLineLength = (lines) => {
 };
 
 export const isMinimumLineLength = (lines) => {
-	return minimumLineLength();
+	return minimumLineLength(lines);
 };
