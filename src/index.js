@@ -34,7 +34,7 @@ export default class SubwayMap {
 
   // 지하철 노선 조회
   getLineList() {
-    return this.lineList.map(element => [element.name, element.getLine()]);
+    return this.lineList.map(element => [element.name, element.getSection()]);
   }
 
   // 지하철 노선 등록
@@ -59,6 +59,12 @@ export default class SubwayMap {
     }
     this.lineList.splice(index, 1);
     return true;
+  }
+
+  // 지하철 노선 조회
+  getSection(lineName) {
+    const line = this.lineList.find(element => element.name === lineName);
+    return line.getSection();
   }
 
   // 데이터 직렬화
@@ -131,27 +137,28 @@ document.body.addEventListener('click', clickInstanceButton);
 function showStationManager() {
   "use strict";
 
-  changeTab(station);
   stationNameInput.value = '';
   showStationList();
+  changeTab(station);
 }
 
 // 노선 관리 탭
 function showLineManager() {
   "use strict";
 
-  changeTab(line);
   lineNameInput.value = '';
   showStationSelect();
   showLineList();
+  changeTab(line);
 }
 
 // 구간 관리 탭
 function showSectionManager() {
   "use strict";
 
-  changeTab(section);
   showLineButton();
+  sectionDiv.classList.add('d-none');
+  changeTab(section);
 }
 
 // 지하철 노선도 출력 탭
@@ -180,8 +187,8 @@ function showStationList() {
 
   let html = '';
   for (const station of stationList) {
-    const stationDeleteButtonHTML = `<button class="station-delete-button" data-station="${station}">삭제</button>`;
-    html += `<tr><td>${station}</td><td>${stationDeleteButtonHTML}</td></tr>`;
+    const button = `<button class="station-delete-button" data-station="${station}">삭제</button>`;
+    html += `<tr><td>${station}</td><td>${button}</td></tr>`;
   }
   stationResult.innerHTML = html;
 }
@@ -234,8 +241,8 @@ function showLineList() {
   let html = '';
   for (const line of lineList) {
     const endIndex = line[1].length - 1;
-    const lineDeleteButtonHTML = `<button class="line-delete-button" data-line="${line[0]}">삭제</button>`;
-    html += `<tr><td>${line[0]}</td><td>${line[1][0]}</td><td>${line[1][endIndex]}</td><td>${lineDeleteButtonHTML}</td></tr>`;
+    const button = `<button class="line-delete-button" data-line="${line[0]}">삭제</button>`;
+    html += `<tr><td>${line[0]}</td><td>${line[1][0]}</td><td>${line[1][endIndex]}</td><td>${button}</td></tr>`;
   }
   lineResult.innerHTML = html;
 }
@@ -270,11 +277,45 @@ function showLineButton() {
 
   let html = '';
   for (const line of lineList) {
-    html += `<button class="section-line-menu-button">${line[0]}</button> `;
+    html += `<button class="section-line-menu-button" data-line="${line[0]}">${line[0]}</button> `;
   }
   sectionList.innerHTML = html;
 }
 
+// 구간을 수정할 노선 버튼
+function clickLineSectionButton(event) {
+  "use strict";
+
+  const line = event.target.dataset.line;
+  sectionName.textContent = `${line} 관리`;
+  const stationList = subwayMap.getStationList();
+  let html = '';
+  for (const station of stationList) {
+    html += `<option value="${station}">${station}</option>`;
+  }
+  sectionStationSelector.innerHTML = html;
+  sectionOrderInput.value = '';
+  sectionOrderInput.max = subwayMap.getSection(line).length - 1;
+  showSectionList(line);
+  sectionDiv.classList.remove('d-none');
+}
+
+// 노선 역 목록 출력
+function showSectionList(line) {
+  "use strict";
+
+  const stationList = subwayMap.getSection(line);
+
+  let html = '';
+  for (let i = 0; i < stationList.length; i++) {
+    const station = stationList[i];
+    const button = `<button class="section-delete-button" data-line="${line}" data-station="${station}">노선에서 제거</button>`;
+    html += `<tr><td class="text-center">${i}</td><td>${station}</td><td>${button}</td></tr>`;
+  }
+  sectionResult.innerHTML = html;
+}
+
+// 동적으로 생성된 버튼
 function clickInstanceButton(event) {
   "use strict";
 
@@ -285,5 +326,7 @@ function clickInstanceButton(event) {
     clickStationDelButton(event);
   } else if (event.target.classList.contains('line-delete-button')) {
     clickLineDelButton(event);
+  } else if (event.target.classList.contains('section-line-menu-button')) {
+    clickLineSectionButton(event);
   }
 }
