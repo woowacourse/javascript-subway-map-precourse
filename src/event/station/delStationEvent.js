@@ -1,9 +1,15 @@
 import renderStation from "../../render/renderStation.js";
+import { isStationOnLine } from "../../inputCheck.js";
 import { alertMessage } from "../../alertMessage.js";
 
 function delStation(station) {
   const stations = JSON.parse(localStorage.stations);
+  const lines = JSON.parse(localStorage.lines);
   stations.splice(stations.indexOf(station), 1);
+
+  if (isStationOnLine(lines, station)) {
+    return alert(alertMessage.DELETE_STATION_ON_LINE_MESSAGE);
+  }
 
   localStorage.stations = JSON.stringify(stations);
 
