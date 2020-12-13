@@ -79,3 +79,20 @@ const lineTable = (lines) => {
     )
     .join('');
 };
+
+export const sectionLineMenuTemplate = (lines) => {
+  return `
+    <h2>구간을 수정할 노선을 선택해주세요.</h2>
+    ${sectionLineMenuButton(lines)}
+    `;
+};
+
+const sectionLineMenuButton = (lines) => {
+  return lines
+    .map(
+      (line) => `
+      <button class='${CLASS.SECTION_LINE_MENU_BUTTON}'>${line.name}</button>
+      `
+    )
+    .join('');
+};

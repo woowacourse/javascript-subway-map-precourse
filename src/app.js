@@ -1,13 +1,15 @@
 import StationManager from './components/stationManager.js';
 import LineManager from './components/lineManager.js';
+import SectionManager from './components/sectionManager.js';
 
 export default class App {
   constructor($target) {
     this.$target = $target;
     this.$functionButtonContainer = this.createFunctionButtonContainer();
 
-    this.station = new StationManager($target, this.$functionButtonContainer);
-    this.line = new LineManager($target, this.$functionButtonContainer);
+    this.stationManager = new StationManager($target, this.$functionButtonContainer);
+    this.lineManager = new LineManager($target, this.$functionButtonContainer);
+    this.sectionManager = new SectionManager($target, this.$functionButtonContainer);
   }
 
   createFunctionButtonContainer() {

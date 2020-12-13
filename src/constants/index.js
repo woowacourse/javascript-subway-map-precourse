@@ -12,11 +12,16 @@ export const ID = {
   LINE_START_STATION_SELECTOR: 'line-start-station-selector',
   LINE_END_STATION_SELECTOR: 'line-end-station-selector',
   LINE_ADD_BUTTON: 'line-add-button',
+
+  SECTION_MANAGER_BUTTON: 'section-manager-button',
+  SECTION_MANAGER: 'section-manager',
+  SECTION_LINE_MENU_BUTTON_CONTAINER: 'section-line-menu-button-container',
 };
 
 export const CLASS = {
   STATION_DELETE_BUTTON: 'station-delete-button',
   LINE_DELETE_BUTTON: 'line-delete-button',
+  SECTION_LINE_MENU_BUTTON: 'section-line-menu-button',
 };
 
 export const NAME = {
@@ -24,6 +29,7 @@ export const NAME = {
   LOCALSTORAGE_LINE_KEY: 'line',
   STATION_MANAGER_BUTTON_NAME: '1. 역 관리',
   LINE_MANAGER_BUTTON_NAME: '2. 노선 관리',
+  SECTION_MANAGER_BUTTON_NAME: '3. 구간 관리',
 };
 
 export const ALERT = {

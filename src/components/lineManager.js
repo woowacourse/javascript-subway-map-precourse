@@ -47,7 +47,7 @@ export default class LineManager {
       this.handleLineAddButton();
     });
   }
-
+  // TODO: 함수 기능 이름이랑 안맞음.
   updateOption() {
     const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
     this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
@@ -87,6 +87,7 @@ export default class LineManager {
         lineStartStationSelector.value,
         lineEndStationSelector.value
       );
+      lineNameInput.value = '';
     });
   }
 
