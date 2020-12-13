@@ -42,7 +42,7 @@ export default class SubwayMapStationView {
     this.managerContainer.innerHTML += `
       <div id="#station-input-container">
         <p>${message.STATION_NAME}</p>
-        <input id="#station-name-input"></input>
+        <input id="#station-name-input" placeholder="${message.STATION_INPUT_PLACEHOLDER}"></input>
         <button id="#station-add-button" data-purpose="addStation">${message.ADD_STATION}</button>
         <h2>${message.LIST_OF_STATIONS}</h2>
       </div>

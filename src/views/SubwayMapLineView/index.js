@@ -54,7 +54,7 @@ export default class SubwayMapLineView {
   renderLineNameInput() {
     document.getElementById('line-input-container').innerHTML = `
       <p>${message.LINE_NAME}</p>
-      <input id="#line-name-input"></input>
+      <input id="#line-name-input" placeholder="${message.LINE_INPUT_PLACEHOLDER}"></input>
     `;
   }
 

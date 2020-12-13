@@ -30,6 +30,9 @@ const message = {
   ALERT_FOR_NOT_A_NUMBER: '숫자를 입력해주세요.',
   ASK_WANT_TO_DELETE: '정말로 삭제하시겠습니까?',
   ASK_WANT_TO_DELETE_IN_LINE: '정말로 노선에서 삭제하시겠습니까?',
+  STATION_INPUT_PLACEHOLDER: '역 이름을 입력해주세요.',
+  LINE_INPUT_PLACEHOLDER: '노선 이름을 입력해주세요.',
+  SECTION_INPUT_PLACEHOLDER: '순서',
 };
 
 export { message };
