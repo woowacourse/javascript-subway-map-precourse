@@ -70,7 +70,12 @@
       "error",
       "consistent"
     ],
-    "object-property-newline": "error",
+    "object-property-newline": [
+      "error",
+      {
+        "allowAllPropertiesOnSameLine": true
+      }
+    ],
     "lines-between-class-members": "error",
     "prefer-arrow-callback": "error",
     "arrow-parens": [
