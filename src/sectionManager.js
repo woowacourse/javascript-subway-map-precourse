@@ -58,7 +58,6 @@ const manageLineSection = line => {
 
   app.appendChild(sectionInputArea);
   createSelectArea(line);
-  // createResultArea();
 };
 
 const createSelectArea = line => {
@@ -109,6 +108,14 @@ const addToSection = (line, station, orderInput) => {
   updatedLines[line] = currStations;
   localStorage.setItem('lines', JSON.stringify(updatedLines));
   console.log(JSON.parse(localStorage.getItem('lines')));
+
+  removeCurrResult();
+  createResultArea(line);
+};
+
+const removeCurrResult = () => {
+  const sectionTable = document.getElementById('section-table');
+  app.removeChild(sectionTable);
 };
 
 const createResultArea = line => {
@@ -144,6 +151,7 @@ const createResultArea = line => {
       nameData.innerHTML = station;
       const deleteBtn = document.createElement('button');
       deleteBtn.innerHTML = '노선에서 제거';
+      deleteBtn.addEventListener('click', () => deleteStation(station, line));
 
       tableRow.appendChild(indexData);
       tableRow.appendChild(nameData);
@@ -154,4 +162,23 @@ const createResultArea = line => {
   }
 
   app.appendChild(sectionTable);
+};
+
+const deleteStation = (station, line) => {
+  if (confirm('정말 삭제하시겠습니까?')) {
+    const sectionTable = document.getElementById('section-table');
+    const currLines = JSON.parse(localStorage.getItem('lines'));
+    const currStations = currLines[line];
+    currStations.splice(currStations.indexOf(station), 1);
+    const updatedLines = currLines;
+    updatedLines[line] = currStations;
+    localStorage.setItem('lines', JSON.stringify(updatedLines));
+    console.log(JSON.parse(localStorage.getItem('lines')));
+
+    const rowToBeDeleted = sectionTable.querySelector(`[data-station=${station}]`);
+    sectionTable.removeChild(rowToBeDeleted);
+
+    removeCurrResult();
+    createResultArea(line);
+  }
 };
