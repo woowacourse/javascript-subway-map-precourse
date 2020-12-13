@@ -6,9 +6,9 @@ export default class SubwayMap {
     this.#allStations.push(station);
   }
 
-  checkIsDuplicatedStationName(station) {
+  checkIsDuplicatedStationName(stationName) {
     const isDuplicatedStationName = this.#allStations.some(
-      (registerdStation) => registerdStation.name === station.name
+      (registerdStation) => registerdStation.name === stationName
     );
 
     return isDuplicatedStationName;
