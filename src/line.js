@@ -5,7 +5,7 @@ export default function Line() {
     const lineAddButton = document.querySelector("#line-add-button");
     lineAddButton.addEventListener("click", () => {
       const lineList = document.querySelector("#line-list");
-      lineList.innerHTML += `<tr><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button>삭제</button></td></tr>`;
+      lineList.innerHTML += `<tr><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button class="line-delete-button">삭제</button></td></tr>`;
       localStorage.setItem(lineName, JSON.stringify([startStationInput, endStationInput]));
     }, {once: true});
   }
@@ -58,11 +58,27 @@ export default function Line() {
     }
   }
 
+  this.printLineList = function() {
+    let lineList = document.querySelector("#line-list");
+    let i;
+    
+    for (i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const parsedObject = JSON.parse(localStorage.getItem(key));
+
+      if (parsedObject[0] !== "station") {
+        lineList.innerHTML += `<tr id="${key}"><td>${key}</td><td>${parsedObject[0]}</td><td>${parsedObject[1]}</td><td><button data-name="${key}" class="line-delete-button">삭제</button></td></tr>`;
+      }
+    }
+  }
+
   this.init = function() {
     const startStationSelector = document.querySelector("#line-start-station-selector");
     const endStationSelector = document.querySelector("#line-end-station-selector");
+
     this.addOption(startStationSelector, endStationSelector);
     this.getLineName();
+    this.printLineList();
   }
 
   this.init();
