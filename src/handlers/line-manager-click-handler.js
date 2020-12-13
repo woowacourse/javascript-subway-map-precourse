@@ -42,15 +42,12 @@ const isLineFormValid = (appContainer) => {
 };
 
 const addLineToList = (appContainer) => {
-  const $lineNameInput = getLineNameInput(appContainer);
   const lineManager = new LineManager();
   lineManager.addLine(
-    $lineNameInput.value,
+    getLineNameInput(appContainer).value,
     getStartStationSelector(appContainer).value,
     getEndStationSelector(appContainer).value
   );
-  $lineNameInput.value = "";
-  setStartStationSelector(appContainer);
   lineManager.renderLineNameTable();
 };
 
@@ -58,6 +55,8 @@ const lineAddButtonHandler = (e) => {
   const app = e.target.closest("#app");
   if (isLineFormValid(app)) {
     addLineToList(app);
+    getLineNameInput(app).value = "";
+    setStartStationSelector(app);
   }
 };
 
