@@ -10,7 +10,7 @@ const tabList = [
   mapPrintManagerScreen,
 ];
 
-export const tabController = value => {
+export const tabManager = value => {
   for (let i = 0; i < tabList.length; i++) {
     if (i == parseInt(value)) {
       tabList[i].classList.add('active');
