@@ -1,12 +1,15 @@
 import Station from "./Station.js";
+import Line from "./Line.js";
 
 const initialState = {
   stations: [],
+  lines: [],
 };
 
 class SubwayStore {
-  constructor({ stations }) {
+  constructor({ stations, lines }) {
     this.stations = stations;
+    this.lines = lines;
   }
 
   getStations() {
@@ -29,6 +32,28 @@ class SubwayStore {
   removeStation(name) {
     const stations = this.getStations();
     this.stations = stations.filter(station => station.name !== name);
+  }
+
+  getLines() {
+    return [...this.lines];
+  }
+
+  getLine(name) {
+    return this.getLines().find(line => line.name === name);
+  }
+
+  getLineNames() {
+    return this.getLines().map(line => line.name);
+  }
+
+  addLine(name, startStation, EndStation) {
+    const newLine = new Line(name, startStation, EndStation);
+    this.lines = [...this.getLines(), newLine];
+  }
+
+  removeLine(name) {
+    const lines = this.getLines();
+    this.lines = lines.filter(line => line.name !== name);
   }
 }
 
