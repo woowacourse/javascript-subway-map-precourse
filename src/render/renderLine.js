@@ -50,7 +50,6 @@ function lineListTemplate(line, lineNumber) {
 function initLineList(lines) {
   const $lineTable = document.querySelector(".line-table");
   let lineNumber = 0;
-  console.log(lines);
 
   lines.forEach((line) =>
     $lineTable.insertAdjacentHTML("beforeend", lineListTemplate(line, lineNumber++))

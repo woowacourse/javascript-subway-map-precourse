@@ -2,6 +2,7 @@ import render from "../render/render.js";
 import checkLocalStorageItem from "./common/checkStorageItem.js";
 import addStationEvent from "./station/addStationEvent.js";
 import addLineEvent from "./line/addLineEvent.js";
+import renderMapPrint from "../render/renderMapPrint.js";
 
 function setHiddenPages() {
   const $page = document.querySelectorAll(".page");
@@ -22,6 +23,7 @@ function changeManagerContainer({ target }) {
     document.getElementById("section-page").style.display = "block";
   } else if (target.id === "map-print-manager-button") {
     document.getElementById("map-print-page").style.display = "block";
+    render("mapPrint");
   }
 }
 
