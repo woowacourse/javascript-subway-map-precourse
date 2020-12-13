@@ -37,6 +37,24 @@ export const createDivHTMLElement = ({ innerText = "" }) => {
   return $div;
 };
 
+const createOptionHTMLElement = value => {
+  const $option = document.createElement("option");
+  $option.value = value;
+  $option.innerText = value;
+
+  return $option;
+};
+
+export const createSelectHTMLElement = ({ id, options = [] }) => {
+  const $select = document.createElement("select");
+  $select.id = id;
+
+  const $options = options.map(optionValue => createOptionHTMLElement(optionValue));
+  $select.append(...$options);
+
+  return $select;
+};
+
 export const clearInputValue = $input => {
   $input.value = "";
   $input.focus();
