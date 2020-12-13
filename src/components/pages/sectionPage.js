@@ -3,7 +3,7 @@
 function sectionManagerPage(subwayDatas) {
   let lines = ``;
 
-  console.log(subwayDatas);
+  // console.log("sectionn", subwayDatas);
   subwayDatas.lines &&
     subwayDatas.lines.map(
       (line) =>
@@ -11,8 +11,6 @@ function sectionManagerPage(subwayDatas) {
             ${line.name}
           </button> `)
     );
-
-  let targetLine = subwayDatas.targetLine;
 
   let sectionManager = `
   <h4>구간을 수정할 노선을 선택해주세요.</h4>
@@ -22,13 +20,30 @@ function sectionManagerPage(subwayDatas) {
   `;
 
   if (subwayDatas.targetLine) {
+    let targetLine = subwayDatas.targetLine;
+
+    let options = subwayDatas.subwayStations.map((station) => `<option value = "${station.name}">${station.name}</option>`);
+
+    let table = ``;
+
+    subwayDatas.lines.map((line) => {
+      if (line.name === targetLine) {
+        line.stops.map((stop, idx) => {
+          table += `<tr>
+            <td>${idx}</td>
+            <td>${stop}</td>
+            <td><button class="section-delete-button">노선에서 제거</button></td>
+          </tr>`;
+        });
+      }
+    });
+
     sectionManager += `
     <div id = "selected-line-section-manager">
-    <h4>${targetLine} 관리</h4>
+    <h4 id = "target-line">${targetLine} 관리</h4>
     <h5>구간 등록<h5>
     <select id="section-station-selector">
-      <option value = "인천">인천</option>
-      <option value = "인천">회기</option>
+    ${options}
     </select>
     <input id = "section-order-input"></input>
     <button id = "section-add-button">등록</button>
@@ -43,11 +58,7 @@ function sectionManagerPage(subwayDatas) {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>0</td>
-          <td>인천</td>
-          <td><button class="section-delete-button">노선에서 제거</button></td>
-        </tr>
+        ${table}
       </tbody>
     </table>
     </div>`;
@@ -55,14 +66,5 @@ function sectionManagerPage(subwayDatas) {
 
   return sectionManager;
 }
-
-console.log(document.getElementById("selected-line-section-manager"));
-
-// function onLineSelectHandler() {
-//   let targetLine = event.target.innerText;
-//   console.log(targetLine);
-// }
-// let targetLine = onLineSelectHandler();
-// console.log(targetLine);
 
 export default sectionManagerPage;
