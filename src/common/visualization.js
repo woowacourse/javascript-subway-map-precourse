@@ -61,4 +61,12 @@ const Visualization = function () {
       }
       return this.getAdvancedEle(elementType, iterableAttributeObj, data);
     });
+
+  this.createStationOptions = (stations) => {
+    return convertDataArrayToElementArray(
+      "option",
+      { value: VALUE_IN_ARRAY },
+      stations
+    );
+  };
 };
