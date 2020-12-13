@@ -12,11 +12,12 @@ export const createButtonHTMLElement = ({ id = "", name, onClick, classList = []
   return $button;
 };
 
-export const createInputTextHTMLElement = ({ id = "", onKeydown }) => {
+export const createInputTextHTMLElement = ({ id = "", onKeydown, placeholder = "" }) => {
   const $input = document.createElement("input");
   $input.type = "text";
   $input.id = id;
   $input.addEventListener("keydown", onKeydown);
+  $input.placeholder = placeholder;
 
   return $input;
 };

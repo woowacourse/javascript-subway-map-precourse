@@ -82,7 +82,8 @@ export default class LineManager extends Component {
 
   createLineNameInput() {
     return createInputTextHTMLElement({
-      id: "line-name-input"
+      id: "line-name-input",
+      placeholder: "노선 이름을 입력해주세요."
     });
   }
 

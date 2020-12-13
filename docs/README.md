@@ -16,6 +16,7 @@
 
 ### 지하철 역 관리
 - [x] 지하철 역 이름을 입력할 수 있는 input tag(`#station-name-input`), 지하철 역 이름을 추가하는 button tag(`#station-add-button`)를 생성한다.
+  - [x] `#station-name-input`의 placeholder는 "역 이름을 입력해주세요" 이다.
 - [x] 사용자가 입력한 지하철 역 이름을 검증하는 함수를 구현한다.
   - [x] 중복된 지하철 역 이름은 등록될 수 없다.
   - [x] 지하철 역은 2글자 이상이어야 한다.
@@ -33,6 +34,7 @@
 ### 지하철 노선 관리
 - [x] 아래의 태그를 생성한다.
   - [x] 지하철 노선의 이름을 입력하는 input 태그(`#line-name-input`)
+    - [x] `#line-name-input`의 placeholder는 "노선 이름을 입력해주세요" 이다.
   - [x] 지하철 노선의 상행 종점을 선택하는 select 태그(`#line-start-station-selector`)
     - [x] 지하철 역 관리 목록에서 추가된 지하철 열 목록이 option으로 표시된다.
   - [x] 지하철 노선의 하행 종점을 선택하는 select 태그(`#line-end-station-selector`)
@@ -54,3 +56,5 @@
       삭제 여부가 확인되면 해당 지하철 노선을 삭제하여 지하철 노선 목록을 재표시한다.
 
 - [x] localStorage를 이용하여, 새로고침하더라도 가장 최근에 작업한 지하철 노선 정보들을 불러올 수 있도록 한다.
+
+- [ ] 지하철 노선 관련 기능의 화면이 프로그램 실행결과와 유사하게 표시되게끔 CSS설정

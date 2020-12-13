@@ -58,6 +58,7 @@ export default class StationManager extends Component {
   createStationNameInput() {
     return createInputTextHTMLElement({
       id: "station-name-input",
+      placeholder: "역 이름을 입력해주세요.",
       onKeydown: e => {
         if (e.key === "Enter") {
           this.handleStationAdd();
