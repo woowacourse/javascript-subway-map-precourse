@@ -12,25 +12,21 @@ const buttonContentMap = {
 
 export class SubwayMap {
   constructor() {
+    this.props = {
+      setStations: this.setStations,
+      getStations: this.getStations,
+      deleteStation: this.deleteStation,
+    };
+
     this.initiateDOM();
     localStorage.setItem("stations", JSON.stringify([]));
     localStorage.setItem("lines", JSON.stringify([]));
   }
 
-  // props = {
-  //   setStations: this.setStations,
-  //   getStations: this.getStations,
-  //   deleteStation: this.deleteStation,
-  // };
-
   initiateDOM = () => {
     this.contentContainer = new ContentContainer();
     new HeaderButtons({ clickHeaders: this.onHeaderClick });
-    this.stationManager = new StationManager({
-      setStations: this.setStations,
-      getStations: this.getStations,
-      deleteStation: this.deleteStation,
-    });
+    this.stationManager = new StationManager(this.props);
     this.lineManager = new LineManager({ getStations: this.getStations });
   };
 
