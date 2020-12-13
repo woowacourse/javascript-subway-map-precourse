@@ -1,7 +1,7 @@
 export const sectionMenuContainer = lines => {
   return `<div>
     <h3>구간을 수정할 노선을 선택해주세요.</h3>
-    ${lines.map((line, idx) => sectionLineMenuButton(line.name, idx))}
+    ${lines.map((line, idx) => sectionLineMenuButton(line.name, idx)).join('')}
   </div>`;
 };
 
@@ -44,7 +44,7 @@ export const sectionTable = sections => {
         return `<tr>
         ${sectionOrder(idx)}
         ${sectionName(section.name)}
-        ${sectionDeleteButton}
+        ${sectionDeleteButton(idx)}
       </tr>`;
       })
       .join('')}
@@ -52,8 +52,11 @@ export const sectionTable = sections => {
 };
 
 const sectionTableHeader = '<tr><th>순서</th><th>이름</th><th>설정</th></tr>';
-const sectionDeleteButton =
-  '<td><button class="section-delete-button">노선에서 제거</button></td>';
+const sectionDeleteButton = index => {
+  return `<td>
+    <button class="section-delete-button" data-item=${index}>노선에서 제거</button>
+  </td>`;
+};
 
 const sectionOrder = name => {
   return `<td>${name}</td>`;

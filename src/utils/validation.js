@@ -66,3 +66,12 @@ export const isValidSection = (stations, name) => {
 
   return true;
 };
+
+export const isValidDeleteSection = stations => {
+  if (stations.length <= 2) {
+    alert('포함된 역이 두개 이하일 때는 역을 제거할 수 없습니다');
+    return false;
+  }
+
+  return true;
+};

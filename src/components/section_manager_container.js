@@ -3,12 +3,17 @@ import {
   sectionMenuContainer,
   sectionTable,
 } from '../templates/index.js';
-import { isValidSectionOrder, isValidSection } from '../utils/index.js';
+import {
+  isValidSectionOrder,
+  isValidSection,
+  isValidDeleteSection,
+} from '../utils/index.js';
 
 export default function SectionManagerContainer({
   getLines,
   getStations,
   addSection,
+  deleteSection,
 }) {
   this.mainContainer = document.querySelector('.main-container');
 
@@ -27,6 +32,10 @@ export default function SectionManagerContainer({
     if (id === 'section-add-button') {
       this.addSection();
     }
+
+    if (className === 'section-delete-button') {
+      this.deleteSection(Number(item));
+    }
   };
 
   this.addSection = () => {
@@ -40,6 +49,15 @@ export default function SectionManagerContainer({
       isValidSection(stations, station)
     ) {
       addSection(this.selectedLineNumber, order, station);
+    }
+  };
+
+  this.deleteSection = index => {
+    const lines = getLines();
+    const targetLine = lines[this.selectedLineNumber];
+    const stations = targetLine.stations;
+    if (isValidDeleteSection(stations)) {
+      deleteSection(this.selectedLineNumber, index);
     }
   };
 
