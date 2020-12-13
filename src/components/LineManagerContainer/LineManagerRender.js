@@ -5,22 +5,27 @@ export default class LineManagerRender extends Component {
   constructor(stateId) {
     super(stateId);
     console.log("--LineManagerRender--");
+    this.initDOM();
     this.render();
   }
 
+  initDOM() {
+    this.lineInputElement = document.createElement("div");
+  }
+
   render() {
-    const lineInputElement = document.createElement("div");
+    this.lineInputElement.innerHTML = this.lineInputRender();
 
-    lineInputElement.innerHTML = this.lineInputRender();
-
-    this._app.append(lineInputElement);
+    this._app.append(this.lineInputElement);
   }
 
   lineInputRender() {
     return `
     <label for=${DOM_LINE.LINE_NAME_INPUT_ID}>노선 이름</label>
-    <form id="">
-      <input type="text" id=${DOM_LINE.LINE_NAME_INPUT_ID} />
+    <form id=${DOM_LINE.LINE_NAME_FORM_ID}>
+      <input type="text" id=${
+        DOM_LINE.LINE_NAME_INPUT_ID
+      } placeholder="노선 이름을 입력해 주세요" autocomplete="off"/>
       <div>
         <label for=${DOM_LINE.LINE_START_STATION_SELECTOR_ID}>상행 종점</label>
         <select name="start-station" id=${

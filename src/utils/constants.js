@@ -20,6 +20,7 @@ export const DOM_LINE = {
   LINE_END_STATION_SELECTOR_ID: "line-end-station-selector",
   LINE_ADD_BUTTON_ID: "line-add-button",
   LINE_DELETE_BUTTON_CLASS: "line-delete-button",
+  LINE_NAME_FORM_ID: "line-name-form",
 };
 
 export const DOM_SECTION = {
