@@ -33,3 +33,5 @@ export const DOM_SECTION = {
 export const DOM_ID = {
   ID: "app",
 };
+
+export const INITIAL_STATE_ID = "station-manager-button";

@@ -1,12 +1,18 @@
 import MenuComponentRender from "./MenuComponentRender.js";
+import { INITIAL_STATE_ID } from "../utils/constants.js";
+import selectMenuComponent from "../utils/selectMenuComponent.js";
 
 export default class MenuComponentEvent extends MenuComponentRender {
   constructor() {
     super();
     console.log("--MenuComponentEvent--");
-    this.selectState = "";
-    this.selectMenuComponent = "";
+    this.initState(INITIAL_STATE_ID);
     this.eventDOM();
+  }
+
+  initState(stateId) {
+    this.selectedStateId = stateId;
+    this.selectedMenuComponent = selectMenuComponent(this.selectedStateId);
   }
 
   eventDOM() {
@@ -19,6 +25,7 @@ export default class MenuComponentEvent extends MenuComponentRender {
 
     if (!this.isButton(target.localName)) return;
     console.log(targetId);
+    this.initState(targetId);
   }
 
   isButton(element) {
