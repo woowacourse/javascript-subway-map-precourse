@@ -1,43 +1,34 @@
-import { clearPage } from './utils.js';
+import { clearPage, createSubmitBtn, createTextInput } from './utils.js';
 
 const app = document.getElementById('app');
 
 export const initStationManager = () => {
   clearPage();
-  createInputArea();
+  createPage();
+};
+
+const createPage = () => {
+  createTextInput('역 이름', 'station-name-input', '역 이름을 입력해주세요');
+  const submitBtn = createSubmitBtn('station-add-button', '역 추가');
+  handleSubmit(submitBtn);
   createResultArea();
 };
 
-const createInputArea = () => {
-  const nameInputArea = document.createElement('p');
-  const nameLabel = document.createElement('b');
-  nameLabel.innerHTML = '역 이름';
+const handleSubmit = submitBtn => {
+  const inputArea = document.getElementById('input-container');
+  inputArea.appendChild(submitBtn);
+  const inputText = document.getElementById('station-name-input');
 
-  const nameInput = document.createElement('input');
-  nameInput.setAttribute('id', 'station-name-input');
-  nameInput.setAttribute('placeholder', '역 이름을 입력해주세요');
-
-  const nameSubmit = document.createElement('button');
-  nameSubmit.setAttribute('id', 'station-add-button');
-  nameSubmit.innerHTML = '역 추가';
-
-  nameInputArea.appendChild(nameLabel);
-  nameInputArea.appendChild(document.createElement('br'));
-  nameInputArea.appendChild(nameInput);
-  nameInputArea.appendChild(nameSubmit);
-
-  app.appendChild(nameInputArea);
-
-  nameInput.addEventListener('keypress', e => {
-    let name = nameInput.value;
+  inputText.addEventListener('keypress', e => {
+    let name = inputText.value;
     if (e.key === 'Enter') {
-      addStation(name, nameInput);
+      addStation(name, inputText);
     }
   });
 
-  nameSubmit.addEventListener('click', () => {
-    let name = nameInput.value;
-    addStation(name, nameInput);
+  submitBtn.addEventListener('click', () => {
+    let name = inputText.value;
+    addStation(name, inputText);
   });
 };
 

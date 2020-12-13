@@ -7,3 +7,38 @@ export const clearPage = () => {
     app.removeChild(contents[i]);
   }
 };
+
+export const createTextInput = (labelName, inputId, placeHolder) => {
+  const inputArea = document.createElement('p');
+  inputArea.setAttribute('id', 'input-container');
+  const inputLabel = document.createElement('b');
+  inputLabel.innerHTML = labelName;
+
+  const inputText = document.createElement('input');
+  inputText.setAttribute('id', inputId);
+  inputText.setAttribute('placeholder', placeHolder);
+
+  inputArea.appendChild(inputLabel);
+  inputArea.appendChild(document.createElement('br'));
+  inputArea.appendChild(inputText);
+
+  app.appendChild(inputArea);
+};
+
+export const createSubmitBtn = (btnId, btnText) => {
+  const submitBtn = document.createElement('button');
+  submitBtn.setAttribute('id', btnId);
+  submitBtn.innerHTML = btnText;
+
+  return submitBtn;
+};
+
+export const createSelectbox = (select, selectorId, options) => {
+  select.setAttribute('id', selectorId);
+  options.map(val => {
+    const option = document.createElement('option');
+    option.value = val;
+    option.text = val;
+    select.options.add(option);
+  });
+};

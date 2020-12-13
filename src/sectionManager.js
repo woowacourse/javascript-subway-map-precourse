@@ -1,18 +1,23 @@
-import { clearPage } from './utils.js';
+import { clearPage, createTextInput, createSubmitBtn, createSelectbox } from './utils.js';
 
 const app = document.getElementById('app');
 
 export const initSectionManager = () => {
   clearPage();
-  createInputArea();
+  printGuideText();
 };
 
-const createInputArea = () => {
+const printGuideText = () => {
   const sectionHeader = document.createElement('div');
   const sectionTitle = document.createElement('h3');
   sectionTitle.innerText = '구간을 수정할 노선을 선택해주세요.';
   sectionHeader.appendChild(sectionTitle);
+  createMenuButtons(sectionHeader);
 
+  app.appendChild(sectionHeader);
+};
+
+const createMenuButtons = sectionHeader => {
   const currLines = JSON.parse(localStorage.getItem('lines'));
   if (currLines) {
     Object.keys(currLines).map(line => {
@@ -28,8 +33,6 @@ const createInputArea = () => {
       sectionHeader.appendChild(lineBtn);
     });
   }
-
-  app.appendChild(sectionHeader);
 };
 
 const clearInputs = () => {
@@ -66,13 +69,7 @@ const createSelectArea = line => {
 
   const currStations = JSON.parse(localStorage.getItem('stations'));
   const stationSelect = document.createElement('select');
-  stationSelect.setAttribute('id', 'section-station-selector');
-  currStations.map(station => {
-    const option = document.createElement('option');
-    option.value = station;
-    option.text = station;
-    stationSelect.options.add(option);
-  });
+  createSelectbox(stationSelect, 'section-station-selector', currStations);
 
   let selectedStation = stationSelect.options[stationSelect.selectedIndex].value;
   stationSelect.addEventListener('change', () => {
@@ -82,15 +79,14 @@ const createSelectArea = line => {
   const orderInput = document.createElement('input');
   orderInput.type = 'number';
   orderInput.setAttribute('id', 'section-order-input');
+  orderInput.setAttribute('placholder', '순서');
 
-  const sectionSubmit = document.createElement('button');
-  sectionSubmit.setAttribute('id', 'section-add-button');
-  sectionSubmit.innerHTML = '등록';
-  sectionSubmit.addEventListener('click', () => addToSection(line, selectedStation, orderInput));
+  const submitBtn = createSubmitBtn('section-add-button', '등록');
+  submitBtn.addEventListener('click', () => addToSection(line, selectedStation, orderInput));
 
-  selectArea.appendChild(stationSelect);
-  selectArea.appendChild(orderInput);
-  selectArea.appendChild(sectionSubmit);
+  [stationSelect, orderInput, submitBtn].map(elem => {
+    selectArea.appendChild(elem);
+  });
 
   app.appendChild(selectArea);
 };
