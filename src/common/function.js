@@ -17,4 +17,5 @@ const Function = function () {
   this.clearResultDIV = () => {
     resultDIV.innerHTML = "";
   };
+  this.isBiggerThanTwo = (target) => target > 2;
 };
