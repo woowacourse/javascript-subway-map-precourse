@@ -12,6 +12,7 @@ export default class SectionOutput {
 		const lines = new LineModel().getLineStorageData();
 		const sectionContainer = document.getElementById('section-container');
 		const sectionLineMenuButtonContainer = document.createElement('div');
+
 		sectionContainer.appendChild(sectionLineMenuButtonContainer);
 		sectionLineMenuButtonContainer.setAttribute('id', 'section-line-menu-button-container');
 		
@@ -21,6 +22,8 @@ export default class SectionOutput {
 	}
 
 	showSelectedLineSectionContainer = selectedLine => {
+		this.clearSelectedLineSectionContainer();
+
 		const sectionContainer = document.getElementById('section-container');
 		const selectedLineSectionContainer = document.createElement('div');
 
@@ -40,6 +43,16 @@ export default class SectionOutput {
 		this.showSelectedLineSectionTable(sectionContainer, selectedLine);
 	}
 
+	clearSelectedLineSectionContainer = () => {
+		const sectionContainer = document.getElementById('selected-line-section-container');
+
+		if (sectionContainer === null) {
+			return;
+		}
+
+		sectionContainer.remove();
+	}
+
 	addStationsToSelectorTag = () => {
 		const stations = new StationModel().getStationStorageData();
 		const sectionStationSelector = document.getElementById('section-station-selector');
@@ -53,7 +66,9 @@ export default class SectionOutput {
 	}
 
 	showSelectedLineSectionTable = (sectionContainer, selectedLine) => {
+		this.clearSelectedSectionTable();
 		const sectionTable = document.createElement('table');
+		sectionTable.setAttribute('id', 'section-table');
 		sectionTable.innerHTML = 
 		`
 		<tr>
@@ -77,5 +92,15 @@ export default class SectionOutput {
 			`;
 		}
 		sectionContainer.appendChild(sectionTable);
+	}
+
+	clearSelectedSectionTable = () => {
+		const selectedSectionTable = document.getElementById('section-table');
+
+		if (selectedSectionTable === null) {
+			return;
+		}
+
+		selectedSectionTable.remove();
 	}
 }

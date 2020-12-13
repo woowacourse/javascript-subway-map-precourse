@@ -23,7 +23,6 @@ export default class SectionManager {
 		this.selectedLine = event.target.getAttribute('data-lineName');
 		
 		this.sectionOutput.showSelectedLineSectionContainer(this.selectedLine);
-
 		this.setSectionAddButtonHandler();
 	}
 
