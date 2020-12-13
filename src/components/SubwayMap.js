@@ -3,6 +3,7 @@ import { ContentContainer } from "./ContentContainer.js";
 import { StationManager } from "./station-manager/StationManager.js";
 import { LineManager } from "./line-manager/LineManager.js";
 import { MapPrint } from "./map-print-manager/MapPrint.js";
+import { SectionManager } from "./section-manager/SectionManager.js";
 
 const buttonContentMap = {
   "station-manager-button": "station-manager-container",
@@ -37,6 +38,7 @@ export class SubwayMap {
     this.stationManager = new StationManager(this.props);
     this.lineManager = new LineManager(this.props);
     this.mapPrintManager = new MapPrint(this.props);
+    this.sectionManager = new SectionManager(this.props);
   };
 
   onHeaderClick = (e) => {
@@ -94,6 +96,7 @@ export class SubwayMap {
   };
 
   updateLineView = () => {
+    this.sectionManager.render();
     this.mapPrintManager.render();
   };
 }

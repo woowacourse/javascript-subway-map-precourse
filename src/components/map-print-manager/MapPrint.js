@@ -15,11 +15,8 @@ export class MapPrint {
   render = () => {
     let lines = this.getLines();
     let mapHTML = ``;
-    console.log(lines);
     lines.forEach((line) => {
-      console.log(line);
       mapHTML += printLine(line);
-      console.log(mapHTML);
     });
     this.mapPrintManager.innerHTML = mapHTML;
   };

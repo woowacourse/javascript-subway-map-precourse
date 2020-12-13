@@ -11,7 +11,6 @@ export const getLineTableHeader = () => {
 };
 
 export const printLine = (line) => {
-  console.log(line.lineName);
   let lineHTML = `<div class="map"> 
                   <h3>${line.lineName}</h3>`;
   lineHTML += printStations(line.stations);
@@ -24,4 +23,8 @@ const printStations = (stations) => {
     stationsHTML += `<li>${station}</li>`;
   });
   return stationsHTML;
+};
+
+export const getLineNameButton = (lineName) => {
+  return `<button class="section-line-menu-button" data-name="${lineName}">${lineName}</button>\n`;
 };
