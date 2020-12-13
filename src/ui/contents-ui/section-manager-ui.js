@@ -75,7 +75,7 @@ class SectionRegisterUI extends contentsUI {
       tableInnerHTML += this.makeNewTableRowHTML_(order, station.name);
     });
     table.innerHTML = tableInnerHTML;
-    //this.addEventToAllDeleteButtons_();
+    this.addEventToAllDeleteButtons_();
   }
 
   //private
@@ -147,7 +147,7 @@ class SectionRegisterUI extends contentsUI {
       <td>${order}</td>
       <td>${name}</td>
       <td>
-        <button class="${SECTION_DELETE_BUTTON_CLASS}" data-name="${name}">삭제</button>
+        <button class="${SECTION_DELETE_BUTTON_CLASS}" data-name="${name}">노선에서 제거</button>
       </td>
     <tr>
     `;

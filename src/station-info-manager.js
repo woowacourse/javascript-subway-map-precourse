@@ -140,7 +140,7 @@ export default class StationINFOManager {
     });
     const targetStationIndex = targetLine.stationsOfLine.findIndex(
       (stationName) => {
-        return stationName === targetStationName;
+        return stationName.name === targetStationName;
       }
     );
     targetLine.stationsOfLine.splice(targetStationIndex, 1);
