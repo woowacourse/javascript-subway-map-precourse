@@ -1,5 +1,5 @@
-import { makeElement, appendElements } from './Controllers/utils.js';
-import { tabController } from './Controllers/tabController.js';
+import { makeElement, appendElements } from './controllers/utils.js';
+import { tabController } from './controllers/tabController.js';
 
 const stationManagerBtn = document.querySelector('#station-manager-button');
 const lineManagerBtn = document.querySelector('#line-manager-button');
