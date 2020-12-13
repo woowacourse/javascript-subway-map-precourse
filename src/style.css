@@ -1,0 +1,11 @@
+.d-none {
+  display: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+table, th, td {
+  border: 1px solid;
+}
