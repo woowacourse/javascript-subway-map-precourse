@@ -12,6 +12,8 @@ import {
   DELETE_SECTION_BUTTON,
 } from "../../common/IdAndClassNames.js";
 
+// 버튼 누르면 현재 구간이 노출된다. 이전 뷰는 지우기
+
 export default class Section {
   constructor() {
     this.element = document.createElement("div");

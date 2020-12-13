@@ -50,11 +50,11 @@ export default class InputNewLineInfo {
       "노선 추가",
       () =>
         submitNewLine(
-          new Line(
-            this.lineNameInput.getValue(),
-            this.selectStartStation.getSelectedValue(),
-            this.selectEndStation.getSelectedValue(),
-          ),
+          new Line({
+            lineName: this.lineNameInput.getValue(),
+            startStation: this.selectStartStation.getSelectedValue(),
+            endStation: this.selectEndStation.getSelectedValue(),
+          }),
         ),
     );
     return $submitNewLineInfoButton.element;

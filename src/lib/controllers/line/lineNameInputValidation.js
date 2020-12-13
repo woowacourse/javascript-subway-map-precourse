@@ -1,9 +1,13 @@
 import actionResult from "../actionResult.js";
+import { lineSelector } from "../../_store/selectors.js";
 import {
   NAME_LENGTH_ERROR,
   SAME_LINE_EXISTS_ERROR,
   SPACE_ERROR,
 } from "../../common/alertMessages.js";
+
+const getLineNameList = () =>
+  lineSelector() ? lineSelector().map((lineInfo) => lineInfo.lineName) : [];
 
 export default class LineNameInputValidation {
   constructor(inputValue) {
@@ -12,14 +16,16 @@ export default class LineNameInputValidation {
     this._isNotHaveSpace = !/\s+/g.test(inputValue);
   }
 
-  // 라인 이름 중복 검사 만들기 (이미 존재하는 노선인지?, 따로 모듈화해서 외부에서 불러오자)
+  _isUniqueLineName() {
+    return !getLineNameList().some((lineName) => lineName === this.inputValue);
+  }
 
   getInputResult() {
     if (!this._isMoreThanTwoCharacters)
       return actionResult(false, NAME_LENGTH_ERROR);
     if (!this._isNotHaveSpace) return actionResult(false, SPACE_ERROR);
-    // if (!this._isUniqueStationName())
-    //   return actionResult(false, SAME_NAME_ERROR);
+    if (!this._isUniqueLineName())
+      return actionResult(false, SAME_LINE_EXISTS_ERROR);
     return actionResult(true);
   }
 }
