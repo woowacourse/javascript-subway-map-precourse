@@ -138,7 +138,7 @@
   - stationRepository에 새로운 역에 대한 행을 추가한다.
 
   ##### (삭제)
-  <br>**(예외처리)**<br>
+  **(예외처리)**<br>
     - 지하철 노선에 등록된 역인지 확인한다.
   - 표에서 삭제한다.
   - stationRepository에서 역을 삭제한다.
@@ -171,7 +171,7 @@
   - update된 lineRepository에서 Data를 가져와 표를 다시 보여준다.
 
   #### (삭제)
-  <br>**(예외처리)**<br>
+  **(예외처리)**<br>
     - 지금 호선의 역들의 수가 3이상인지 확인한다.(2라면 지우는 것은 불허한다.)
   - lineRepository에서 선택된 노선의 삭제할 구간 순서를 삭제한다.
   - update된 lineRepository에서 Data를 가져와 표를 다시 보여준다.
