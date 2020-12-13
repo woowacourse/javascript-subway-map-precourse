@@ -5,12 +5,10 @@ import getNewLineDataRowSet from "../../views/Line/getNewLineDataRowSet.js";
 import convertTableRowDataToDOM from "../../views/components/subComponents/convertTableRowDataToDOM.js";
 
 const updateUI = (updatedLineList) => {
-  const $dataTable = document
-    .querySelector(LINE_LIST)
-    .querySelector("tbody");
+  const $dataTable = document.querySelector(LINE_LIST).querySelector("tbody");
   const updatedLineDataList = getNewLineDataRowSet(updatedLineList);
-  const $updatedLineDataList = updatedLineDataList.map(
-    (updatedStationData) => convertTableRowDataToDOM(updatedStationData),
+  const $updatedLineDataList = updatedLineDataList.map((updatedStationData) =>
+    convertTableRowDataToDOM(updatedStationData),
   );
 
   $dataTable.innerHTML = "";

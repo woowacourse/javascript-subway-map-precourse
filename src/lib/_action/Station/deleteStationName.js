@@ -1,6 +1,7 @@
 import { DELETE_MESSAGE } from "../../common/alertMessages.js";
 import { stationSelector } from "../../_store/selectors.js";
 import deleteStationData from "../../_store/Station/deleteStationData.js";
+import DeleteStationFromLineValidation from "../../controllers/section/deleteStationFromLineValidation.js";
 
 // 삭제 가능한지 체크
 // 지울 역이 포함된 노선들을 찾는다.
