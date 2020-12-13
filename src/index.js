@@ -60,6 +60,15 @@ export default class SubwayMap {
     this.lineList.splice(index, 1);
     return true;
   }
+
+  // 데이터 직렬화
+  serialize() {
+    const data = {
+      station: this.getStationList(),
+      line: this.getLineList()
+    };
+    return JSON.stringify(data);
+  }
 }
 
 const stationManagerButton = document.getElementById('station-manager-button');
