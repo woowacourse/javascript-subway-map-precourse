@@ -28,7 +28,6 @@ export default function Line() {
   this.showOptions = () => {
     const startStationSelector = document.getElementById("line-start-station-selector");
     const endStationSelector = document.getElementById("line-end-station-selector");
-    console.log(stations);
     const startHTML = `${stations
       .map((station) => `<option value=${station}>${station}</option>`)
       .join("")}`;
