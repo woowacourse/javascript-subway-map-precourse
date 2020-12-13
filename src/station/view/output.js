@@ -20,7 +20,7 @@ export default class StationOutput {
 		<br />
 		<input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요.">
 		<button id="station-add-button">역 추가</button>
-		<h2>지하철 역 목록</h2>
+		<h2>🚉 지하철 역 목록</h2>
 		`;
 	}
 

@@ -25,7 +25,7 @@ export default class LineOutput {
 		하행 종점
 		<select id="line-end-station-selector"></select><br /><br />
 		<button id="line-add-button">노선 추가</button>
-		<h2>지하철 노선 목록</h2>
+		<h2>🚉 지하철 노선 목록</h2>
 		`;
 	}
 
