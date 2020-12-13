@@ -58,3 +58,13 @@
 - [x] localStorage를 이용하여, 새로고침하더라도 가장 최근에 작업한 지하철 노선 정보들을 불러올 수 있도록 한다.
 
 - [ ] 지하철 노선 관련 기능의 화면이 프로그램 실행결과와 유사하게 표시되게끔 CSS설정
+
+### 지하철 구간 관리
+- [ ] 아래의 태그를 생성한다.
+  - [x] 지하철 노선을 선택하는 button 태그(`.section-line-menu-button`)
+    - [x] 지하철 노선 관리 목록에서 추가된 지하철 노선이 각각 button으로 표시된다.
+    - [ ] 각 지하철 노선 버튼을 누르면 구간 등록 화면이 표시된다.
+  - [ ] 지하철 구간을 설정할 역 select 태그(`#section-station-selector`)
+  - [ ] 지하철 구간의 순서를 입력하는 input 태그(`#section-order-input`)
+  - [ ] 지하철 구간을 등록하는 button 태그 (`#section-add-button`)
+  - [ ] 지하철 구간을 제거하는 button 태그 (`.section-delete-button`)
