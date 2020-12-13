@@ -104,7 +104,7 @@ const addLine = (lineName, lineInput, start, end) => {
 
   const currLines = JSON.parse(localStorage.getItem('lines'));
   console.log(currLines);
-  const updatedLines = currLines;
+  const updatedLines = currLines ? currLines : {};
   updatedLines[lineName] = [start, end];
   localStorage.setItem('lines', JSON.stringify(updatedLines));
   console.log(JSON.parse(localStorage.getItem('lines')));
@@ -114,7 +114,7 @@ const addLine = (lineName, lineInput, start, end) => {
 
 const validateName = lineName => {
   const currLines = JSON.parse(localStorage.getItem('lines'));
-  if (Object.keys(currLines).includes(lineName)) {
+  if (currLines && Object.keys(currLines).includes(lineName)) {
     alert('중복된 노선 이름이 존재합니다.');
     return false;
   }
@@ -146,26 +146,28 @@ const createResultArea = () => {
 
   const lines = JSON.parse(localStorage.getItem('lines'));
 
-  Object.entries(lines).map(([line, stations]) => {
-    const tableRow = document.createElement('tr');
-    tableRow.setAttribute('data-line', line);
+  if (lines) {
+    Object.entries(lines).map(([line, stations]) => {
+      const tableRow = document.createElement('tr');
+      tableRow.setAttribute('data-line', line);
 
-    const nameData = document.createElement('td');
-    nameData.innerHTML = line;
-    const upwardEndData = document.createElement('td');
-    upwardEndData.innerHTML = stations[0];
-    const downwardEndData = document.createElement('td');
-    downwardEndData.innerHTML = stations[1];
-    const deleteBtn = document.createElement('button');
-    deleteBtn.innerHTML = '삭제';
+      const nameData = document.createElement('td');
+      nameData.innerHTML = line;
+      const upwardEndData = document.createElement('td');
+      upwardEndData.innerHTML = stations[0];
+      const downwardEndData = document.createElement('td');
+      downwardEndData.innerHTML = stations[1];
+      const deleteBtn = document.createElement('button');
+      deleteBtn.innerHTML = '삭제';
 
-    tableRow.appendChild(nameData);
-    tableRow.appendChild(upwardEndData);
-    tableRow.appendChild(downwardEndData);
-    tableRow.appendChild(deleteBtn);
+      tableRow.appendChild(nameData);
+      tableRow.appendChild(upwardEndData);
+      tableRow.appendChild(downwardEndData);
+      tableRow.appendChild(deleteBtn);
 
-    lineTable.appendChild(tableRow);
-  });
+      lineTable.appendChild(tableRow);
+    });
+  }
 
   app.appendChild(lineTable);
 };

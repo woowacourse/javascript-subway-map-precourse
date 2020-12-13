@@ -45,7 +45,7 @@ const addStation = (name, nameInput) => {
   if (!validateName(name)) return;
   nameInput.value = '';
   const currStations = JSON.parse(localStorage.getItem('stations'));
-  const updatedStations = [...currStations, name];
+  const updatedStations = currStations ? [...currStations, name] : [name];
   localStorage.setItem('stations', JSON.stringify(updatedStations));
   console.log(JSON.parse(localStorage.getItem('stations')));
   addTable(name);
@@ -53,7 +53,7 @@ const addStation = (name, nameInput) => {
 
 const validateName = name => {
   const currStations = JSON.parse(localStorage.getItem('stations'));
-  if (currStations.includes(name)) {
+  if (currStations && currStations.includes(name)) {
     alert('중복된 역 이름이 존재합니다.');
     return false;
   } else if (name.length < 2) {
@@ -82,21 +82,23 @@ const createResultArea = () => {
 
   const stations = JSON.parse(localStorage.getItem('stations'));
 
-  stations.map(name => {
-    const tableRow = document.createElement('tr');
-    tableRow.setAttribute('data-station', name);
-    const nameData = document.createElement('td');
-    nameData.innerHTML = name;
+  if (stations) {
+    stations.map(name => {
+      const tableRow = document.createElement('tr');
+      tableRow.setAttribute('data-station', name);
+      const nameData = document.createElement('td');
+      nameData.innerHTML = name;
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.innerHTML = '삭제';
-    deleteBtn.addEventListener('click', () => deleteStation(name));
+      const deleteBtn = document.createElement('button');
+      deleteBtn.innerHTML = '삭제';
+      deleteBtn.addEventListener('click', () => deleteStation(name));
 
-    tableRow.appendChild(nameData);
-    tableRow.appendChild(deleteBtn);
+      tableRow.appendChild(nameData);
+      tableRow.appendChild(deleteBtn);
 
-    stationTable.appendChild(tableRow);
-  });
+      stationTable.appendChild(tableRow);
+    });
+  }
 
   app.appendChild(stationTable);
 };
