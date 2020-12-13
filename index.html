@@ -16,14 +16,16 @@
       <div id="content">
         <div class="" id="station-manager-content">
           <div>역 이름</div>
-          <input type="text" />
-          <button>역 추가</button>
+          <input type="text" id="station-name-input" />
+          <button id="station-add-button">역 추가</button>
           <h2>🚉 지하철 역 목록</h2>
-          <table>
-            <tr>
-              <th>역 이름</th>
-              <th>설정</th>
-            </tr>
+          <table id="station-table">
+            <tbody id="station-table-body">
+              <tr>
+                <th>역 이름</th>
+                <th>설정</th>
+              </tr>
+            </tbody>
           </table>
         </div>
         <div class="hide" id="line-manager-content">노선 관리 내용</div>
