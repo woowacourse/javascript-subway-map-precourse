@@ -5,6 +5,7 @@ import {
   createInputNumberHTMLElement,
   createLabelHTMLElement,
   createSelectHTMLElement,
+  getStationNameArray,
   getStations
 } from "./util.js";
 
@@ -12,8 +13,8 @@ export default class SectionMain extends Component {
   constructor({ $parent, lineName }) {
     super({ $parent, lineName });
     this.declareConstants();
-    this.initializeVariables();
     this.initializeState();
+    this.initializeVariables();
 
     this.constructHTMLElements();
     this.appendChildNodes();
@@ -27,12 +28,12 @@ export default class SectionMain extends Component {
   
   initializeState() {
     this.state = {
-      stations: this.stationsArray
+      stations: getStations(this.props.lineName)
     };
   }
 
   initializeVariables() {
-    this.stationsArray = getStations(this.props.lineName);
+    this.stationsArray = getStationNameArray();
   }
 
   constructHTMLElements() {
@@ -50,8 +51,14 @@ export default class SectionMain extends Component {
   createSectionStationSelector() {
     return createSelectHTMLElement({
       id: "section-station-selector",
-      options: this.stationsArray
+      options: this.getExcludedStationsArray()
     });
+  }
+
+  getExcludedStationsArray() {
+    const { stations } = this.state;
+    
+    return this.stationsArray.filter(stationName => !stations.includes(stationName));
   }
 
   createSectionStationLabel() {
