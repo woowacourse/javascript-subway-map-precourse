@@ -1,0 +1,29 @@
+.tab-page {
+  display: none;
+  padding: 20px 0;
+}
+
+table {
+  border: 1px solid gray;
+  margin-top: 10px;
+}
+
+table th,
+table td {
+  border: 1px solid gray;
+}
+
+.line-start {
+  margin-top: 20px;
+}
+.line-end {
+  margin-bottom: 20px;
+}
+
+.manage-section {
+  display: none;
+}
+
+input[type="number"] {
+  width: 100px;
+}
