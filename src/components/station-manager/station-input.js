@@ -24,17 +24,17 @@ class StationInput extends Component {
   initializeEventListener() {
     this._$target.addEventListener('click', event => {
       if (event.target.id === 'station-add-button') {
-        this.handleEvent();
+        this.handleAddStationEvent();
       }
     });
     this._$target.addEventListener('keyup', event => {
       if (event.target.id === 'station-name-input' && event.key === 'Enter') {
-        this.handleEvent();
+        this.handleAddStationEvent();
       }
     });
   }
 
-  handleEvent() {
+  handleAddStationEvent() {
     const $stationNameInput = document.querySelector('#station-name-input');
     const newStation = $stationNameInput.value.trim();
     $stationNameInput.focus();

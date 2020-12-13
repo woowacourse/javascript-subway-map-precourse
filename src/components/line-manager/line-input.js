@@ -51,12 +51,12 @@ class LineInput extends Component {
   initializeEventListener() {
     this._$target.addEventListener('click', event => {
       if (event.target.id === 'line-add-button') {
-        this.handleEvent();
+        this.handleAddLineEvent();
       }
     });
   }
 
-  handleEvent() {
+  handleAddLineEvent() {
     const $lineNameInput = this._$target.querySelector('#line-name-input');
     const lineName = $lineNameInput.value.trim();
     const startStation = this._$target.querySelector(
