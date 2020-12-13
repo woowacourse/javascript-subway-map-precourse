@@ -29,7 +29,6 @@ function initLineList(lines) {
   const $lineTable = document.querySelector('.line-table');
   let lineNumber = 0;
 
-  console.log(lines.split(','));
   lines
     .split(',')
     .forEach((line) =>
@@ -47,13 +46,4 @@ export default function renderLineList() {
   if (lines !== null) {
     initLineList(lines);
   }
-}
-
-{
-  /* <tr>
-              <th>노선 이름</th>
-              <th>상행 종점역</th>
-              <th>하행 종점역</th>
-              <th>설정</th>
-            </tr> */
 }
