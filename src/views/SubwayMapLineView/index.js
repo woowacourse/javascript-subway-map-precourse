@@ -106,8 +106,10 @@ export default class SubwayMapLineView {
   }
 
   renderLineTable(lines) {
-    const lineThead = this.renderLineThead();
-    const lineTbody = this.renderLineTbody(lines);
+    const [lineThead, lineTbody] = [
+      this.getLineThead(),
+      this.getLineTbody(lines),
+    ];
 
     const lineTable = `
       <table id="#line-name-table">
@@ -119,7 +121,7 @@ export default class SubwayMapLineView {
     document.getElementById('#line-table-container').innerHTML += lineTable;
   }
 
-  renderLineThead() {
+  getLineThead() {
     const lineThead = `
       <tr>
         <th>${message.LINE_NAME}</th>
@@ -132,7 +134,7 @@ export default class SubwayMapLineView {
     return lineThead;
   }
 
-  renderLineTbody(lines) {
+  getLineTbody(lines) {
     let lineTbody = ``;
     lines.forEach(line => {
       lineTbody += `
