@@ -230,11 +230,11 @@ function showLineList() {
   "use strict";
 
   const lineList = subwayMap.getLineList();
-  const lineDeleteButtonHTML = '<button class="line-delete-button">삭제</button>';
 
   let html = '';
   for (const line of lineList) {
     const endIndex = line[1].length - 1;
+    const lineDeleteButtonHTML = `<button class="line-delete-button" data-line="${line[0]}">삭제</button>`;
     html += `<tr><td>${line[0]}</td><td>${line[1][0]}</td><td>${line[1][endIndex]}</td><td>${lineDeleteButtonHTML}</td></tr>`;
   }
   lineResult.innerHTML = html;
@@ -253,6 +253,15 @@ function clickLineAddButton() {
   localStorage.setItem('subwayMap', subwayMap.serialize());
 }
 
+// 노선 삭제 버튼
+function clickLineDelButton(event) {
+  "use strict";
+
+  subwayMap.delLine(event.target.dataset.line);
+  showLineList();
+  localStorage.setItem('subwayMap', subwayMap.serialize());
+}
+
 // 지하철 노선 button 출력
 function showLineButton() {
   "use strict";
@@ -261,7 +270,7 @@ function showLineButton() {
 
   let html = '';
   for (const line of lineList) {
-    html += `<button class="section-line-menu-button">${line[0]}</option> `;
+    html += `<button class="section-line-menu-button">${line[0]}</button> `;
   }
   sectionList.innerHTML = html;
 }
@@ -274,5 +283,7 @@ function clickInstanceButton(event) {
   }
   if (event.target.classList.contains('station-delete-button')) {
     clickStationDelButton(event);
+  } else if (event.target.classList.contains('line-delete-button')) {
+    clickLineDelButton(event);
   }
 }
