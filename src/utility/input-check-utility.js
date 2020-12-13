@@ -1,27 +1,27 @@
 import { SELECTEOR_NONE } from "./share-constant-utility.js";
 
-export function isValidStation(name) {
-  const condition1 = canSatisfyLengthCondition({
+export function isValidStationName(name) {
+  const isValidLength = canSatisfyLengthCondition({
     name: name,
     minLength: MINIMUM_LENGTH_OF_STATION_NAME,
     errorMessage: MINIMUM_LENGTH_STATION_NAME_ERROR_MESSAGE,
   });
 
-  if (!condition1) {
+  if (!isValidLength) {
     return false;
   }
   return true;
 }
 export function isValidLine(name, startStationName, endStationName) {
-  const condition1 = canSatisfyLengthCondition({
+  const isValidLength = canSatisfyLengthCondition({
     name: name,
     minLength: MINIMUM_LENGTH_OF_LINE_NAME,
     errorMessage: MINIMUM_LENGTH_LINE_NAME_ERROR_MESSAGE,
   });
-  const condition2 = hasNotEqualName(startStationName, endStationName);
+  const isNotEqualName = hasNotEqualName(startStationName, endStationName);
   let boolToReturn = true;
 
-  if (!(condition1 && condition2)) {
+  if (!(isValidLength && isNotEqualName)) {
     boolToReturn = false;
   }
   return boolToReturn;

@@ -115,10 +115,10 @@ class SectionRegisterUI extends contentsUI {
     this.updateAllContents();
   }
   _isValidSectionAddInput(orderToRegister, stationName) {
-    const condition1 = isValidOrder(orderToRegister);
-    const condition2 = isValidOption([stationName]);
+    const hasValidOrder = isValidOrder(orderToRegister);
+    const hasValidOption = isValidOption([stationName]);
     let boolToReturn = true;
-    if (!(condition1 && condition2)) {
+    if (!(hasValidOrder && hasValidOption)) {
       boolToReturn = false;
     }
     return boolToReturn;

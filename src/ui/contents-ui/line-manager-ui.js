@@ -69,13 +69,17 @@ export default class LineManagerUI extends contentsUI {
     this.updateLinesTable();
   }
   _isValidLineInput(lineName, startStationName, endStationName) {
-    const condition1 = isValidLine(lineName, startStationName, endStationName);
-    const condition2 = this._stationINFOManager.hasNotOverlapNameAmongLines(
+    const hasValidLine = isValidLine(
+      lineName,
+      startStationName,
+      endStationName
+    );
+    const isNotOverlapName = this._stationINFOManager.hasNotOverlapNameAmongLines(
       lineName
     );
-    const condition3 = isValidOption([startStationName, endStationName]);
+    const hasValidOption = isValidOption([startStationName, endStationName]);
     let boolToReturn = true;
-    if (!(condition1 && condition2 && condition3)) {
+    if (!(hasValidLine && isNotOverlapName && hasValidOption)) {
       boolToReturn = false;
     }
     return boolToReturn;

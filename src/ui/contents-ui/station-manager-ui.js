@@ -1,4 +1,4 @@
-import { isValidStation } from "../../utility/input-check-utility.js";
+import { isValidStationName } from "../../utility/input-check-utility.js";
 import { contentsUI } from "./contents-ui.js";
 
 export default class StationManagerUI extends contentsUI {
@@ -54,12 +54,12 @@ export default class StationManagerUI extends contentsUI {
     this.updateStationsTable();
   }
   _isValidStationInput(name) {
-    const condition1 = isValidStation(name);
-    const condition2 = this._stationINFOManager.hasNotOverlapNameAmongStations(
+    const hasValidStationName = isValidStationName(name);
+    const isNotOverlapName = this._stationINFOManager.hasNotOverlapNameAmongStations(
       name
     );
     let boolToReturn = true;
-    if (!(condition1 && condition2)) {
+    if (!(hasValidStationName && isNotOverlapName)) {
       boolToReturn = false;
     }
     return boolToReturn;
