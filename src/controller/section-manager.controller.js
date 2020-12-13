@@ -61,6 +61,20 @@ export default class SectionManager {
     this.renderSectionStationSelector();
   }
 
+  getSectionStationInput() {
+    const sectionStationSelector = document.getElementById("section-station-selector");
+    const selectedStation = sectionStationSelector.value;
+
+    return selectedStation;
+  }
+
+  getSectionOrderInput() {
+    const sectionOrderInputField = document.getElementById("section-order-input");
+    const sectionOrder = sectionOrderInputField.value;
+
+    return sectionOrder;
+  }
+
   onClickButton(event) {
     const target = event.target;
 
