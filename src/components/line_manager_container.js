@@ -3,14 +3,25 @@ import { isValidLine, isValidLineName } from '../utils/index.js';
 
 export default function LineManagerContainer({
   addLine,
+  deleteLine,
   getLines,
   getStations,
 }) {
   this.mainContainer = document.querySelector('.main-container');
 
-  this.handleClickMainContainer = ({ target: { id } }) => {
+  this.handleClickMainContainer = ({
+    target: {
+      id,
+      className,
+      dataset: { item },
+    },
+  }) => {
     if (id === 'line-add-button') {
       this.addLine();
+    }
+
+    if (className === 'line-delete-button') {
+      this.deleteLine(item);
     }
   };
 
@@ -26,6 +37,10 @@ export default function LineManagerContainer({
     if (isValidLineName(lines, newLine) && isValidLine(newLine)) {
       addLine(newLine);
     }
+  };
+
+  this.deleteLine = index => {
+    deleteLine(Number(index));
   };
 
   this.render = () => {

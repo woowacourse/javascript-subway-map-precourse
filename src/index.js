@@ -39,7 +39,13 @@ export default function SubwayMapManagement() {
     this.selectedMenu.render();
   };
 
-  this.deleteSubwayLine = () => {};
+  this.deleteSubwayLine = idx => {
+    this.subwayLines = [
+      ...this.subwayLines.slice(0, idx),
+      ...this.subwayLines.slice(idx + 1),
+    ];
+    this.selectedMenu.render();
+  };
 
   this.getSubwayLines = () => {
     return this.subwayLines;
@@ -60,6 +66,7 @@ export default function SubwayMapManagement() {
     }),
     new LineManagerContainer({
       addLine: this.addSubwayLine,
+      deleteLine: this.deleteSubwayLine,
       getLines: this.getSubwayLines,
       getStations: this.getSubwayStations,
     }),

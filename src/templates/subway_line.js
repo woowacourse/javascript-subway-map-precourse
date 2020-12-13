@@ -25,7 +25,6 @@ const lineEndSelector = options => {
 const lineAddButton = '<button id="line-add-button">노선 추가</button>';
 
 export const lineList = lines => {
-  console.log(lines);
   return `<div> 
     <h2>🚉지하철 노선 목록</h2>
     ${lineTable(lines)}
@@ -37,12 +36,12 @@ const lineTable = lines => {
     ${lineTableHeader}
     ${lines
       .map(
-        line =>
+        (line, idx) =>
           `<tr>
           ${lineName(line.name)}
           ${lineStartName(line.getStart().name)}
           ${lineEndName(line.getEnd().name)}
-          ${lineDeleteButton}
+          ${lineDeleteButton(idx)}
         </tr>`
       )
       .join('')}
@@ -52,8 +51,11 @@ const lineTable = lines => {
 const lineTableHeader =
   '<tr><th>노선 이름</th><th>상행 종점역</th><th>하행 종점역</th><th>설정</th></tr>';
 
-const lineDeleteButton =
-  '<td><button class="line-delete-button">삭제</button></td>';
+const lineDeleteButton = index => {
+  return `<td>
+    <button class="line-delete-button" data-item=${index}>삭제</button>
+  </td>`;
+};
 
 const lineName = name => {
   return `<td>${name}</td>`;
