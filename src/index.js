@@ -69,6 +69,25 @@ export default class SubwayMap {
     };
     return JSON.stringify(data);
   }
+
+  // 데이터 역직렬화
+  deserialize(json) {
+    const data = JSON.parse(json);
+    this.stationList = [];
+    this.lineList = [];
+    for (const station of data.station) {
+      this.addStation(station);
+    }
+    for (const line of data.line) {
+      const endIndex = line[1].length - 1;
+      this.addLine(line[0], line[1][0], line[1][endIndex]);
+      const lineObj = this.lineList.find(element => element.name === line[0]);
+      for (let i = 1; i < endIndex; i++) {
+        const station = this.stationList.find(element => element.name === line[1][i]);
+        lineObj.addStation(station);
+      }
+    }
+  }
 }
 
 const stationManagerButton = document.getElementById('station-manager-button');
