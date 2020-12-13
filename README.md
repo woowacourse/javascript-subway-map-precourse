@@ -21,7 +21,6 @@
   - :wrench: 해결(예외 #1,#2) - 추가하려는 역의 이름이 다른 역과 중복되는지, 2글자 미만인지를 검사
 - 지하철 역 삭제 가능 여부 검사 (check if the subway station can be deleted)
   - :wrench: 해결(예외 #3) - 삭제할 수 없는 역을 삭제하려는 것인지를 검사
-- 전체 지하철 역의 목록을 조회 (get all subway stations)
 
 <br/>
 
@@ -34,7 +33,13 @@
 - 지하철 노선 추가 가능 여부 검사 (check if the subway line can be added)
   - :wrench: 해결(예외 #4,#5) - 추가하려는 노선이 다른 노선과 중복된 이름을 가지는지, 해당 노선의 상행, 하행 종점역이 같은지를 검사
 - 지하철 노선의 상행 종점부터 하행 종점까지 연결된 순서대로 역 목록을 조회 (get all subway stations in subway line)
-- 전체 지하철 노선의 목록을 조회 (get all subway lines)
+
+<br/>
+
+### 지하철 전체 정보 조회 기능
+
+- 전체 지하철 역의 목록 조회 (get all subway stations)
+- 전체 지하철 노선의 목록 조회 (get all subway lines)
 
 <br/>
 
@@ -97,7 +102,7 @@
 
 ### 노선도 출력 인터페이스 기능
 
-- 노선도 정보 조회 기능 호출 & 조회한 노선도 보여주기 (trigger 'get all subway lines' & show subway map)
+- 전체 지하철 노선의 목록 조회 기능 호출 & 조회한 노선도 보여주기 (trigger 'get all subway lines' & show subway map)
 
 <br/>
 
