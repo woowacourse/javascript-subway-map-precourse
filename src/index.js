@@ -48,6 +48,10 @@ class SubwayMap {
     return this.lineList.find((line) => line.name === name);
   }
 
+  getLineIndex(name) {
+    return this.lineList.findIndex((line) => line.name === name);
+  }
+
   isRegisteredStation(station) {
     return this.lineList.some((line) => {
       const index = line.sectionList.findIndex((section) => section.name === station.name);
@@ -354,6 +358,27 @@ class SubwayMap {
     return order >= 0 && order <= this.selectedLine.sectionList.length;
   }
 
+  validateSection(stationName, order) {
+    if (this.isExistSection(stationName)) {
+      alert('이미 같은 노선에 등록되어 있는 역입니다');
+      return false;
+    }
+
+    if (!this.isValidOrder(order)) {
+      alert(`0 부터 ${this.selectedLine.sectionList.length} 사이에서 입력해주세요`);
+      return false;
+    }
+
+    return true;
+  }
+
+  saveSelectedLine() {
+    const selectedLineIndex = this.getLineIndex(this.selectedLine.name);
+    const nextLineList = [...this.lineList];
+    nextLineList[selectedLineIndex] = this.selectedLine;
+    save('lineList', nextLineList);
+  }
+
   handleSubmitSectionAdd(e) {
     e.preventDefault();
 
@@ -361,18 +386,11 @@ class SubwayMap {
     const selectedStation = this.getStation(selectedStationName);
     const order = parseInt(this.elements.sectionOrderInput.value.trim(), 10);
 
-    if (this.isExistSection(selectedStationName)) {
-      alert('이미 같은 노선에 등록되어 있는 역입니다');
-      return;
-    }
-
-    if (!this.isValidOrder(order)) {
-      alert(`0 부터 ${this.selectedLine.sectionList.length} 사이에서 입력해주세요`);
-      return;
-    }
+    if (!this.validateSection(selectedStationName, order)) return;
 
     this.selectedLine.sectionList.splice(order, 0, selectedStation);
     this.updateSectionListElement();
+    this.saveSelectedLine();
   }
 
   handleClickSectionDelete(e) {
@@ -389,6 +407,7 @@ class SubwayMap {
     if (index >= 0) {
       this.selectedLine.sectionList.splice(index, 1);
       this.updateSectionListElement(name);
+      this.saveSelectedLine();
     }
   }
 
