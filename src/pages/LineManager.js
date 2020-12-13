@@ -20,13 +20,19 @@ export default class LineManager {
     };
 
     this.handleLineAddButton = () => {
-      const { lineEndStation, lineStartStation, lineName } = this.state;
+      const { lineEndStation, lineStartStation, lineName, lines } = this.state;
       const newLine = {
         name: lineName,
         start: lineStartStation,
         end: lineEndStation,
       };
-      this.setState({ ...this.state, lines: [...this.state.lines, newLine] });
+      console.log(this.state.lines);
+      if (isDuplicateLine(lines, lineName)) {
+        alert("중복된 노선이 존재합니다");
+      } else {
+        this.setState({ ...this.state, lines: [...this.state.lines, newLine] });
+        console.log(this.state.lines);
+      }
     };
 
     this.handleLineDeleteButton = (index) => {
@@ -142,4 +148,8 @@ export default class LineManager {
         </div>
       `;
   }
+}
+
+function isDuplicateLine(lines, lineName) {
+  return lines.find((line) => line.name === lineName);
 }
