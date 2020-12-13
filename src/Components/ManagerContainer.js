@@ -40,7 +40,7 @@ class ManagerContainer {
       case DOM.LINE_MANAGER_BUTTON:
         this.$target.appendChild(this.$lineManager);
         this.lineManager = new LineManager({
-          $target: this.$stationManager,
+          $target: this.$lineManager,
         });
         break;
 
