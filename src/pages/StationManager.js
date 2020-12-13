@@ -1,4 +1,5 @@
 import { dispatchReRender } from "../utils/events.js";
+import Component from "../core/Component.js";
 
 const elementMap = {
   stationNameInput: "station-name-input",
@@ -6,11 +7,9 @@ const elementMap = {
   stationDeleteButton: "station-delete-button",
 };
 
-export default class StationManager {
+export default class StationManager extends Component {
   constructor() {
-    this.store = {
-      stations: [],
-    };
+    super();
 
     this.handleAddButtonClick = (newStation) => {
       if (
@@ -19,8 +18,10 @@ export default class StationManager {
         hasNotSpaceInStationName(newStation) &&
         isOnlyWord(newStation)
       ) {
-        this.store.stations.push(newStation);
-        this.setStore({ ...this.store });
+        const stations = this.store.stations
+          ? [...this.store.stations, newStation]
+          : [newStation];
+        this.setStore({ ...this.store, stations });
       } else {
         alert("다시 입력해 주세요");
       }
@@ -64,7 +65,7 @@ export default class StationManager {
   }
 
   render() {
-    const stations = this.store.stations;
+    const { stations = [] } = this.store;
     return `
     <div>
       <h4 style="margin-bottom: 0;">역 이름</h4>
@@ -110,7 +111,7 @@ function isMoreThanTwoWords(stationName) {
   }
 }
 
-function isNotDuplicateSatationName(stationName, stations) {
+function isNotDuplicateSatationName(stationName, stations = []) {
   if (!stations.includes(stationName)) {
     return true;
   }
