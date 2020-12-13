@@ -20,7 +20,7 @@ const isEmptyLineName = (input) => {
 }
 
 const hasEmptyLineName = (input) => {
-    return input === text.EMPTY;
+    return input.trim() === text.EMPTY;
 }
 
 const isSameLineExite = (input) => {
