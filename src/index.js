@@ -63,6 +63,7 @@ export default function SubwayMapManagement() {
       addStation: this.addSubwayStation,
       deleteStation: this.deleteSubwayStation,
       getStations: this.getSubwayStations,
+      getLines: this.getSubwayLines,
     }),
     new LineManagerContainer({
       addLine: this.addSubwayLine,

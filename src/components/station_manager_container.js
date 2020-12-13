@@ -1,10 +1,11 @@
 import { stationAddContainer, stationList } from '../templates/index.js';
-import { isValidStationName } from '../utils/index.js';
+import { isValidStationName, isAddedStation } from '../utils/index.js';
 
 export default function StationManagerContainer({
   addStation,
   deleteStation,
   getStations,
+  getLines,
 }) {
   this.mainContainer = document.querySelector('.main-container');
   this.stationAddButton = document.getElementById('station-add-button');
@@ -21,7 +22,7 @@ export default function StationManagerContainer({
     }
 
     if (className === 'station-delete-button') {
-      this.deleteStation(item);
+      this.deleteStation(Number(index));
     }
   };
 
@@ -37,8 +38,10 @@ export default function StationManagerContainer({
 
   this.deleteStation = index => {
     const isSure = confirm('정말로 삭제하시겠습니까?');
-    if (isSure) {
-      deleteStation(Number(index));
+    const lines = getLines();
+    const stations = getStations();
+    if (isSure && isAddedStation(lines, stations[index])) {
+      deleteStation(index);
     }
   };
 

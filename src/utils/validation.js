@@ -12,6 +12,20 @@ export const isValidStationName = (stations, name) => {
   return true;
 };
 
+export const isAddedStation = (lines, station) => {
+  const stationsNameInLines = lines
+    .map(line => line.stations)
+    .map(stations => stations.map(station => station.name));
+  for (const stationsNameInLine of stationsNameInLines) {
+    if (stationsNameInLine.includes(station.name)) {
+      alert('등록된 역은 삭제 불가능 합니다.');
+      return false;
+    }
+  }
+
+  return true;
+};
+
 export const isValidLineName = (lines, newLine) => {
   if (newLine.name.length < 1) {
     alert('노선은 1글자 이상이어야 합니다.');
