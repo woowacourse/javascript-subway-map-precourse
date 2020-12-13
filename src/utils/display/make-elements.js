@@ -1,5 +1,5 @@
 import { state, saveToLocalStorage } from "../../index.js";
-import { STATION_ARRAY_KEY } from "../../global/constant.js";
+import { LINE_ARRAY_KEY, STATION_ARRAY_KEY } from "../../global/constant.js";
 import { CONFIRM_MESSAGES } from "../../global/messages.js";
 
 export function makeTdElement(elementToMake) {
@@ -20,12 +20,7 @@ export function makeTdDeleteBtn(objectToMake, tr) {
     const confirmDelete = confirm(CONFIRM_DELETE);
 
     if (confirmDelete) {
-      const deleteStation = state.stationArray.filter((station) => {
-        return station.id !== objectToMake.id;
-      });
-      tr.remove();
-      state.stationArray = deleteStation;
-      saveToLocalStorage(STATION_ARRAY_KEY, JSON.stringify(state.stationArray));
+      deleteObject(objectToMake, tr);
     }
   });
   tdDeleteBtn.appendChild(deleteBtn);
@@ -33,12 +28,32 @@ export function makeTdDeleteBtn(objectToMake, tr) {
   return tdDeleteBtn;
 }
 
-export default function makeOneRowWithDeleteBtn(objectToMake) {
+function deleteObject(object, tr) {
+  if (object.type === "STATION") {
+    const deleteStation = state.stationArray.filter((station) => {
+      return station.id !== object.id;
+    });
+    tr.remove();
+    state.stationArray = deleteStation;
+    saveToLocalStorage(STATION_ARRAY_KEY, JSON.stringify(state.stationArray));
+  } else if (object.type === "LINE") {
+    const deleteLine = state.subwayLines.filter((line) => {
+      return line.id !== object.id;
+    });
+    tr.remove();
+    state.subwayLines = deleteLine;
+    saveToLocalStorage(LINE_ARRAY_KEY, JSON.stringify(state.subwayLines));
+  }
+}
+
+export default function makeOneRowWithDeleteBtn(objectToMake, [...args]) {
   const tr = document.createElement("tr");
   const deleteBtn = makeTdDeleteBtn(objectToMake, tr);
 
-  tr.appendChild(makeTdElement(objectToMake.stationName));
-  tr.id = objectToMake.id;
+  for (const arg of [...args]) {
+    tr.appendChild(makeTdElement(arg));
+    tr.id = objectToMake.id;
+  }
   tr.appendChild(deleteBtn);
 
   return tr;

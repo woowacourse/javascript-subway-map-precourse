@@ -9,12 +9,12 @@ const STATION_TBODY_ID = "stations";
 
 function loadStations(state) {
   for (const station of state.stationArray) {
-    showNewRow(STATION_TBODY_ID, station);
+    showNewRow(STATION_TBODY_ID, station, [station.stationName]);
   }
 }
 
-function showNewRow(parentID, rowToShow) {
-  const oneRowWithDeleteBtn = makeOneRowWithDeleteBtn(rowToShow);
+export function showNewRow(parentID, rowToShow, [...args]) {
+  const oneRowWithDeleteBtn = makeOneRowWithDeleteBtn(rowToShow, [...args]);
   const locationOfRow = document.getElementById(parentID);
 
   return locationOfRow.appendChild(oneRowWithDeleteBtn);
@@ -37,10 +37,9 @@ export default function stationManageContainer(state) {
       } else {
         stationId = state.stationArray[state.stationArray.length - 1].id + 1;
       }
-
       const station = new Station(stationNameInputValue, stationId);
 
-      showNewRow(STATION_TBODY_ID, station);
+      showNewRow(STATION_TBODY_ID, station, [station.stationName]);
       state.stationArray.push(station);
       saveToLocalStorage(STATION_ARRAY_KEY, JSON.stringify(state.stationArray));
       clearInput(stationNameInput);
