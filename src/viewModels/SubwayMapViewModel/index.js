@@ -56,7 +56,6 @@ export default class SubwayMapViewModel {
   }
 
   addSection(sectionId, lineId, order) {
-    console.log(order);
     if (isNaN(order)) {
       alert(message.ALERT_FOR_NOT_A_NUMBER);
       return;
@@ -85,7 +84,6 @@ export default class SubwayMapViewModel {
   }
 
   getSections(lineId) {
-    console.log(lineId, 'viewModel');
     return this.subwayMapModel.getSectionsFromLine(lineId);
   }
 

@@ -50,7 +50,6 @@ export default class SubwayMapModel {
     const linesInstances = {};
 
     Object.entries(lines).forEach(line => {
-      console.log(line[1]);
       linesInstances[`${line[0]}`] = new Line({
         lineId: line[1].lineId,
         sections: line[1].sections.map(section => {
@@ -58,7 +57,6 @@ export default class SubwayMapModel {
         }),
       });
     });
-    console.log(linesInstances, 'call');
 
     this.lines = linesInstances;
   }

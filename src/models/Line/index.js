@@ -14,7 +14,6 @@ export default class Line {
   }
 
   addSection(sectionId, order) {
-    console.log('call add');
     const sections = [...this.sections];
     sections.splice(order, 0, new Station(sectionId));
 
@@ -22,7 +21,6 @@ export default class Line {
   }
 
   deleteSection(order) {
-    console.log('call delete');
     const sections = [...this.sections];
     sections.splice(order, 1);
 
