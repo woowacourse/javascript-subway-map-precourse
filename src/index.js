@@ -375,6 +375,23 @@ class SubwayMap {
     this.updateSectionListElement();
   }
 
+  handleClickSectionDelete(e) {
+    if (e.target.className !== 'section-delete-button') return;
+
+    if (this.selectedLine.sectionList.length <= 2) {
+      alert('각 노선은 상행 종점, 하행 종점을 하나씩 포함해야 합니다');
+      return;
+    }
+
+    const { name } = e.target.dataset;
+    const index = this.selectedLine.sectionList.findIndex((station) => station.name === name);
+
+    if (index >= 0) {
+      this.selectedLine.sectionList.splice(index, 1);
+      this.updateSectionListElement(name);
+    }
+  }
+
   getSectionStationSelectorOptions() {
     return this.stationList.map((station) => `<option value="${station.name}">${station.name}</options>`).join('');
   }
@@ -432,6 +449,7 @@ class SubwayMap {
     };
 
     this.elements.sectionForm.addEventListener('submit', this.handleSubmitSectionAdd.bind(this));
+    this.elements.sectionListTableBody.addEventListener('click', this.handleClickSectionDelete.bind(this));
   }
 
   isValidSectionManager() {
