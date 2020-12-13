@@ -1,43 +1,47 @@
-import inputStationValidator from "../utils/inputs/validator/validator.js";
 import Station from "../domain/station.js";
+import inputStationValidator from "../utils/inputs/validator/validator.js";
 import clearInput from "../utils/inputs/clear-input.js";
+import makeOneRowWithDeleteBtn from "../utils/display/make-elements.js";
+import { saveToLocalStorage } from "../index.js";
 import { STATION_ARRAY_KEY } from "../global/constant.js";
-import { makeOneRowWithDeleteBtn } from "../utils/display/make-elements.js";
 
-const STATION_TBODY_ID = "stations";
 const addStationBtn = document.getElementById("station-add-button");
 const stationNameInput = document.getElementById("station-name-input");
+const STATION_TBODY_ID = "stations";
 
-function initStationManagement(state) {
+function loadStations(state) {
   for (const station of state.stationArray) {
     showNewRow(STATION_TBODY_ID, station);
   }
 }
 
 function showNewRow(parentID, rowToShow) {
-  const oneRow = makeOneRowWithDeleteBtn(rowToShow);
+  const oneRowWithDeleteBtn = makeOneRowWithDeleteBtn(rowToShow);
   const locationOfRow = document.getElementById(parentID);
 
-  return locationOfRow.insertAdjacentHTML("beforeend", oneRow);
+  return locationOfRow.appendChild(oneRowWithDeleteBtn);
 }
 
 export default function stationManageContainer(state) {
-  initStationManagement(state);
+  loadStations(state);
 
   addStationBtn.addEventListener("click", () => {
     const stationNameInputValue = stationNameInput.value.trim();
 
     if (inputStationValidator(stationNameInputValue)) {
-      const station = new Station(stationNameInputValue);
-      state.stationArray.push(station);
+      let stationId = 0;
+
+      if (state.stationArray.length === 0) {
+        stationId = 0;
+      } else {
+        stationId = state.stationArray[state.stationArray.length - 1].id + 1;
+      }
+
+      const station = new Station(stationNameInputValue, stationId);
 
       showNewRow(STATION_TBODY_ID, station);
-
-      // TODO - 로컬 스토리지 저장은 마지막에 한 번만 할 수 있도록 하는 것도 좋을 것 같다.
-      localStorage.setItem(
-        STATION_ARRAY_KEY,
-        JSON.stringify(state.stationArray)
-      );
+      state.stationArray.push(station);
+      saveToLocalStorage(STATION_ARRAY_KEY, JSON.stringify(state.stationArray));
       clearInput(stationNameInput);
     } else {
       clearInput(stationNameInput);

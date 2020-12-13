@@ -1,6 +1,7 @@
 export default class Station {
-  constructor(stationName) {
+  constructor(stationName, id) {
     this.stationName = stationName;
+    this.id = id;
   }
 }
 
