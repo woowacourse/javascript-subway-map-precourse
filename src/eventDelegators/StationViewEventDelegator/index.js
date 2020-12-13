@@ -1,3 +1,5 @@
+import { message } from '../../constants';
+
 export default class StationViewEventDelegator {
   constructor(element, stationView, subwayMapViewModel) {
     this.stationView = stationView;
@@ -29,10 +31,12 @@ export default class StationViewEventDelegator {
   }
 
   deleteStation(dataSet) {
-    this.subwayMapViewModel.deleteStation(dataSet.stationid);
-    this.stationView.resetStationTable();
-    this.stationView.renderStationTable(
-      Object.entries(this.subwayMapViewModel.getStations()),
-    );
+    if (confirm(message.ASK_WANT_TO_DELETE)) {
+      this.subwayMapViewModel.deleteStation(dataSet.stationid);
+      this.stationView.resetStationTable();
+      this.stationView.renderStationTable(
+        Object.entries(this.subwayMapViewModel.getStations()),
+      );
+    }
   }
 }

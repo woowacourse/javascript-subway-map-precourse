@@ -56,12 +56,13 @@ export default class SubwayMapViewModel {
   }
 
   addSection(sectionId, lineId, order) {
+    console.log(order);
     if (isNaN(order)) {
       alert(message.ALERT_FOR_NOT_A_NUMBER);
       return;
     }
 
-    if (order < 0 || order === this.getSections(lineId).length) {
+    if (order < 0 || order >= this.getSections(lineId).length) {
       alert(message.ALERT_FOR_BETWEEN_STATION_AND_STATION);
       return;
     }

@@ -28,6 +28,8 @@ const message = {
     '역과 역 사이에 새로운 역을 추가해주세요.',
   ALERT_FOR_STATION_IS_IN_LINE: '노선에 중복된 역을 추가할 수 없습니다.',
   ALERT_FOR_NOT_A_NUMBER: '숫자를 입력해주세요.',
+  ASK_WANT_TO_DELETE: '정말로 삭제하시겠습니까?',
+  ASK_WANT_TO_DELETE_IN_LINE: '정말로 노선에서 삭제하시겠습니까?',
 };
 
 export { message };

@@ -1,3 +1,5 @@
+import { message } from '../../constants';
+
 export default class LineViewEventDelegator {
   constructor(element, lineView, subwayMapViewModel) {
     this.lineView = lineView;
@@ -39,10 +41,12 @@ export default class LineViewEventDelegator {
   }
 
   deleteLine(dataSet) {
-    this.subwayMapViewModel.deleteLine(dataSet.lineid);
-    this.lineView.resetLineTable();
-    this.lineView.renderLineTable(
-      Object.entries(this.subwayMapViewModel.getLines()),
-    );
+    if (confirm(message.ASK_WANT_TO_DELETE)) {
+      this.subwayMapViewModel.deleteLine(dataSet.lineid);
+      this.lineView.resetLineTable();
+      this.lineView.renderLineTable(
+        Object.entries(this.subwayMapViewModel.getLines()),
+      );
+    }
   }
 }

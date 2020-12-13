@@ -1,3 +1,5 @@
+import { message } from '../../constants';
+
 export default class SectionViewEventDelegator {
   constructor(element, sectionView, subwayMapViewModel) {
     this.sectionView = sectionView;
@@ -29,10 +31,7 @@ export default class SectionViewEventDelegator {
     const sectionId = document.getElementById('#section-station-selector')[
       document.getElementById('#section-station-selector').selectedIndex
     ].dataset.id;
-    const sectionOrder = parseInt(
-      document.getElementById('#section-order-input').value,
-    );
-
+    const sectionOrder = document.getElementById('#section-order-input').value;
     this.subwayMapViewModel.addSection(sectionId, dataSet.lineid, sectionOrder);
     this.sectionView.resetSectionTable();
     this.sectionView.renderSectionTable(
@@ -42,11 +41,13 @@ export default class SectionViewEventDelegator {
   }
 
   deleteSection(dataSet) {
-    this.subwayMapViewModel.deleteSection(dataSet.lineid, dataSet.sectionid);
-    this.sectionView.resetSectionTable();
-    this.sectionView.renderSectionTable(
-      dataSet.lineid,
-      this.subwayMapViewModel.getSections(dataSet.lineid),
-    );
+    if (confirm(message.ASK_WANT_TO_DELETE_IN_LINE)) {
+      this.subwayMapViewModel.deleteSection(dataSet.lineid, dataSet.sectionid);
+      this.sectionView.resetSectionTable();
+      this.sectionView.renderSectionTable(
+        dataSet.lineid,
+        this.subwayMapViewModel.getSections(dataSet.lineid),
+      );
+    }
   }
 }
