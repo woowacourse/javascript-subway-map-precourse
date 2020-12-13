@@ -11,6 +11,7 @@ export default class MenuComponentEvent extends MenuComponentRender {
   }
 
   initState(stateId) {
+    this._clear();
     this.selectedStateId = stateId;
     this.selectedMenuComponent = selectMenuComponent(this.selectedStateId);
   }

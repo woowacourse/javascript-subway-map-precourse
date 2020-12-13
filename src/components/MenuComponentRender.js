@@ -24,4 +24,10 @@ export default class MenuComponentRender {
     this.menuNav.innerHTML = menuInnerHTML;
     this._app.appendChild(this.menuNav);
   }
+
+  _clear() {
+    while (this._app.children.length > 2) {
+      this._app.children[this._app.children.length - 1].remove();
+    }
+  }
 }
