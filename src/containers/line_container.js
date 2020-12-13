@@ -1,0 +1,1 @@
+const LineContainer = function () {};
