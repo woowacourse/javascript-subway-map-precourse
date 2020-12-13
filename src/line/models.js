@@ -15,4 +15,12 @@ export default class Line {
   endStation() {
     return this.inLineStations[this.lineLength() - 1];
   }
+
+  add(_sectionName, _sectionOrder) {
+    this.inLineStations = [
+      ...this.inLineStations.slice(undefined, _sectionOrder),
+      _sectionName,
+      ...this.inLineStations.slice(_sectionOrder, undefined),
+    ];
+  }
 }

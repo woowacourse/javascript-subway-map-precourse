@@ -8,7 +8,7 @@ import {
   sectionDeleteBtn,
 } from "./templates.js";
 
-let sectionline;
+let sectionLineName;
 
 const printLayout = () => {
   const managerContainer = document.getElementById("manager-container");
@@ -20,17 +20,21 @@ const createSectionLineMenu = (_lines) => {
   const sectionLineMenu = document.getElementById("section-line-menu");
 
   for (let i = 0; i < _lines.length; i++) {
-    sectionLineMenu.innerHTML += `<button class="section-line-menu-button">${_lines[i].name}</button>`;
+    sectionLineMenu.innerHTML += `<button class="section-line-menu-button">${_lines[i].name}</button>\n`;
   }
 };
 
-const createSectionLineContainer = (_lineName) => {
+const getSectionLine = () => {
+  return loadLines().find((x) => x.name === sectionLineName);
+};
+
+const createSectionLineContainer = () => {
   const sectionLineContainer = document.getElementById(
     "section-line-container"
   );
 
   sectionLineContainer.innerHTML =
-    `<h3>${sectionline.name} 관리</h3>` + sectionStationInputForm + sectionList;
+    `<h3>${sectionLineName} 관리</h3>` + sectionStationInputForm + sectionList;
 };
 
 const createSectionStationSelector = (_stations) => {
@@ -44,7 +48,7 @@ const createSectionStationSelector = (_stations) => {
 };
 
 const createSectionList = () => {
-  const sections = sectionline.inLineStations;
+  const sections = getSectionLine().inLineStations;
   const sectionNames = document.getElementById("section-names");
 
   sectionNames.innerHTML = sectionListHeader;
@@ -60,8 +64,30 @@ const createSectionList = () => {
   }
 };
 
-const setSectionLine = (_lineName) => {
-  sectionline = loadLines().find((x) => x.name === _lineName);
+const getSectionStationName = () => {
+  return document.getElementById("section-station-selector").value;
+};
+
+const getSectionStationOrder = () => {
+  return document.getElementById("section-order-input").value;
+};
+
+const addSection = () => {
+  const lines = loadLines();
+
+  lines
+    .find((x) => x.name === sectionLineName)
+    .add(getSectionStationName(), getSectionStationOrder());
+  saveLines(lines);
+};
+
+const setSectionAddBtn = () => {
+  const sectionAddBtn = document.getElementById("section-add-button");
+
+  sectionAddBtn.addEventListener("click", () => {
+    addSection();
+    createSectionList();
+  });
 };
 
 const setSectionLineMenuBtn = () => {
@@ -71,9 +97,11 @@ const setSectionLineMenuBtn = () => {
 
   for (let i = 0; i < sectionLineMenuBtn.length; i++) {
     sectionLineMenuBtn[i].addEventListener("click", (e) => {
-      setSectionLine(e.target.innerText);
+      sectionLineName = e.target.innerText;
+
       createSectionLineContainer();
       createSectionStationSelector(loadStations());
+      setSectionAddBtn();
       createSectionList();
     });
   }
