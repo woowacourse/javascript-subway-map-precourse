@@ -2,6 +2,8 @@ import SubwayLine from './line.js';
 import { DOMs, DOMCtrl, DOMStrings } from './doms.js';
 import { isValidStationName, isValidLineName, isInvalidSectionDeletion } from './valid.js';
 
+const CONFIRM_DELETION = '정말로 삭제하시겠습니까?';
+
 export default class SubwayManager {
   constructor() {
     this.stations = JSON.parse(localStorage.getItem(dataStrings.DATA_STATIONS)) || [];
@@ -44,6 +46,9 @@ export default class SubwayManager {
       target: { className },
     } = event;
     if (className === DOMStrings.STATION_DELETE_BUTTON) {
+      if (!confirm(CONFIRM_DELETION)) {
+        return;
+      }
       const targetStationName = event.target.dataset[dataStrings.DATA_STATION];
       const index = this.stations.indexOf(targetStationName);
       this.stations.splice(index, 1);
@@ -73,6 +78,9 @@ export default class SubwayManager {
       target: { className },
     } = event;
     if (className === DOMStrings.LINE_DELETE_BUTTON) {
+      if (!confirm(CONFIRM_DELETION)) {
+        return;
+      }
       const targetLine = event.target.dataset[dataStrings.DATA_LINE];
       const index = this.lines.findIndex(line => line.lineName === targetLine);
       this.lines.splice(index, 1);
@@ -105,6 +113,9 @@ export default class SubwayManager {
       target: { className },
     } = event;
     if (className === DOMStrings.SECTION_DELETE_BUTTON) {
+      if (!confirm(CONFIRM_DELETION)) {
+        return;
+      }
       const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2')
         .dataset[dataStrings.DATA_TARGET];
       const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
