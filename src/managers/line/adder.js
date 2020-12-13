@@ -45,8 +45,8 @@ const addNewLine = (menu, line, startStationName, endStationName) => {
   let button;
 
   addItemToLocalStroage(menu, line);
-  addSubItemToLocalStroage('station', 'lineList', startStationName, line);
-  addSubItemToLocalStroage('station', 'lineList', endStationName, line);
+  addSubItemToLocalStroage('station', 'lineList', startStationName, line.name);
+  addSubItemToLocalStroage('station', 'lineList', endStationName, line.name);
   addItemToTable(menu, line);
   button = document.querySelector(`[data-${menu}="${line.name}"]`);
   addEventListenerOnDeleteButton(button, menu, requestToDelete);

@@ -17,10 +17,10 @@ export const getItemFromLocalStorage = (key, target) => {
   return list.filter((item) => item.name === target)[0];
 };
 
-export const addItemToLocalStroage = (key, item) => {
+export const addItemToLocalStroage = (key, itemName) => {
   let list = getArrayFromLocalStorage(key);
 
-  list.push(item);
+  list.push(itemName);
   localStorage.setItem(key, JSON.stringify(list));
 };
 
