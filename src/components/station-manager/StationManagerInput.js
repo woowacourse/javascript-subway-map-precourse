@@ -20,7 +20,7 @@ export class StationManagerInput {
     let stationName = this.stationNameInput.value;
     let stations = this.getStations();
 
-    this.removeInputs();
+    this.initInputStatus();
     if (!isValidStationManager(stationName, stations)) {
       return;
     }
@@ -28,7 +28,7 @@ export class StationManagerInput {
     this.addNewStation(stations);
   };
 
-  removeInputs = () => {
+  initInputStatus = () => {
     this.stationNameInput.value = "";
   };
 }

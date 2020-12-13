@@ -39,10 +39,17 @@ export class LineManagerInput {
     let start = this.lineStartSelector.value;
     let end = this.lineEndSelector.value;
 
+    this.initInputStatus();
     if (!isValidLineInfo(lineName, start, end)) {
       return;
     }
     let newLine = [start, end];
     this.setLines(lineName, newLine);
+  };
+
+  initInputStatus = () => {
+    this.lineNameInput.value = "";
+    this.lineStartSelector.selectedIndex = 0;
+    this.lineEndSelector.selectedIndex = 0;
   };
 }

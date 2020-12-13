@@ -25,6 +25,7 @@ export class LineManagerList {
   render = () => {
     this.lineTable.innerHTML = getLineTableHeader();
     this.lines = this.getLines();
+
     this.lines.forEach((line) => {
       let lastIndex = line.stations.length - 1;
 
