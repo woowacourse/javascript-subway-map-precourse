@@ -78,6 +78,13 @@ const lineStartStationSelector = document.getElementById('line-start-station-sel
 const lineEndStationSelector = document.getElementById('line-end-station-selector');
 const lineAddButton = document.getElementById('line-add-button');
 const lineResult = document.getElementById('line-result');
+const sectionList = document.getElementById('section-list');
+const sectionDiv = document.getElementById('section-div');
+const sectionName = document.getElementById('section-name');
+const sectionStationSelector = document.getElementById('section-station-selector');
+const sectionOrderInput = document.getElementById('section-order-input');
+const sectionAddButton = document.getElementById('section-add-button');
+const sectionResult = document.getElementById('section-result');
 
 const subwayMap = new SubwayMap();
 
@@ -112,6 +119,7 @@ function showSectionManager() {
   "use strict";
 
   changeTab(section);
+  showLineButton();
 }
 
 // 지하철 노선도 출력 탭
@@ -197,4 +205,17 @@ function clickLineAddButton() {
   }
   lineNameInput.value = '';
   showLineList();
+}
+
+// 지하철 노선 button 출력
+function showLineButton() {
+  "use strict";
+
+  const lineList = subwayMap.getLineList();
+
+  let html = '';
+  for (const line of lineList) {
+    html += `<button class="section-line-menu-button">${line[0]}</option> `;
+  }
+  sectionList.innerHTML = html;
 }
