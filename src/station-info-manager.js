@@ -103,6 +103,13 @@ export default class StationINFOManager {
     this.lines_.splice(lineIndexToDelete, 1);
   }
   deleteSection(targetStationName, targetLineName) {
+    const targetLine = this.getOneLineINFOByCondition((line) => {
+      return line.name === targetLineName;
+    });
+    if (targetLine.stationsOfLine.length <= MINIMUM_NUMBER_STATIONS_OF_LINE) {
+      alert(NOT_MINIMUM_NUMBER_STATIONS_OF_LINE_ERROR_MESSAGE);
+      return;
+    }
     this.deleteLineInStation_(targetStationName, targetLineName);
     this.deleteStationInLine_(targetStationName, targetLineName);
   }
@@ -161,3 +168,6 @@ export default class StationINFOManager {
 
 const OVERLAP_STATION_ERROR_MESSAGE = "기존 역 이름과 중복되는 이름입니다.";
 const OVERLAP_LINE_ERROR_MESSAGE = "기존 노선 이름과 중복되는 이름입니다.";
+
+const MINIMUM_NUMBER_STATIONS_OF_LINE = 2;
+const NOT_MINIMUM_NUMBER_STATIONS_OF_LINE_ERROR_MESSAGE = `노선에는 최소 ${MINIMUM_NUMBER_STATIONS_OF_LINE}개의 역이 포함되어 있어야합니다.`;
