@@ -12,7 +12,7 @@ class Section {
   constructor() {
     this.stations = Station.stations;
     this.lines = Line.lines;
-    this.lineName = [];
+    this.lineName = null;
     this.showMenuButton();
     this.resetSection();
   }
@@ -87,9 +87,19 @@ class Section {
     }
   };
 
+  addStationSection = () => {
+    const station = document.getElementById("section-station-select").value;
+    const index = document.getElementById("section-order-input").value;
+    if (this.checkSectionVaild(station, index)) {
+      Line.lines[this.lineName].splice(index, 0, station);
+      Line.saveLines();
+      this.showSectionTable();
+    }
+  };
+
   handleAddStationSection = () => {
     const button = document.getElementById("section-add-button");
-    button.addEventListener("click", this.addSationSection);
+    button.addEventListener("click", this.addStationSection);
   };
 }
 
