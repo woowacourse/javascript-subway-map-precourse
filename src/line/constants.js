@@ -1,0 +1,1 @@
+export const DUPLICATED_LINE_ALERT_MESSAGE = '이미 등록된 노선 이름입니다.';

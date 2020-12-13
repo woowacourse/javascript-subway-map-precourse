@@ -3,6 +3,7 @@ import LineOutput from '../view/output.js';
 import Line from '../line.js';
 import LineModel from '../model/model.js';
 import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
+import {isDuplicatedLine} from '../service/validation.js';
 
 export default class LineController {
 	constructor() {
@@ -18,17 +19,22 @@ export default class LineController {
 	}
 
 	addLine = () => {
-		const line = this.createLine();
+		const lineNameInput = this.lineInput.lineNameInput.value;
+		const lineStartStation = this.lineInput.lineStartStationSelector.value;
+		const lineEndStation = this.lineInput.lineEndStationSelector.value;
+		const lines = new LineModel().getLineStorageData();
+
+		if (isDuplicatedLine(lines, lineNameInput)) {
+			return;
+		}
+
+		const line = this.createLine(lineNameInput, lineStartStation, lineEndStation);
 
 		this.addLineToMemory(line);
 		this.addLineToTable();
 	}
 
-	createLine = () => {
-		const lineNameInput = this.lineInput.lineNameInput.value;
-		const lineStartStation = this.lineInput.lineStartStationSelector.value;
-		const lineEndStation = this.lineInput.lineEndStationSelector.value;
-
+	createLine = (lineNameInput, lineStartStation, lineEndStation) => {
 		const line = new Line(lineNameInput, lineStartStation, lineEndStation);
 
 		return line;
@@ -59,11 +65,12 @@ export default class LineController {
 	deleteLine = event => {
 		const tableRowToDelete = event.target.parentNode.parentNode;
 		const lineNameToDelete = tableRowToDelete.dataset.linename;
-		
+		const lines = new LineModel().getLineStorageData();
+
 		if (isUnconfirmedDelete()) {
 			return;
 		}
-		
+
 		this.deleteLineFromMemory(lineNameToDelete);
 		tableRowToDelete.remove();
 	}
