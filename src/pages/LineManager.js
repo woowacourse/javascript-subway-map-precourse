@@ -110,6 +110,19 @@ export default class LineManager {
               </tr>
             </thead>
             <tbody>
+              ${lines
+                .map(
+                  (line) =>
+                    `<tr>
+                       <td>${line.name}</td>
+                       <td>${line.start}</td>
+                       <td>${line.end}</td>
+                       <td>
+                        <button class=${elementMap.lineDeleteButton}>삭제</button>
+                       </td>
+                     </tr>`
+                )
+                .join("")}
             </tbody>
           </table>
         </div>
