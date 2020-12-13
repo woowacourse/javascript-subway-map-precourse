@@ -1,3 +1,4 @@
+import Line from "../models/Line.js";
 import Station from "../models/Station.js";
 
 const loadStorage = key => {
@@ -30,6 +31,25 @@ export const saveStations = (key, stations) => {
     );
 
     localStorage.setItem(key, saveData);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const loadLines = key => {
+  const lines = Array.from(loadStorage(key));
+
+  return lines.map(({ name, sections }) => {
+    const line = new Line(name, sections[0], sections[sections.lenght - 1]);
+    line.sections = sections;
+
+    return line;
+  });
+};
+
+export const saveLines = (key, lines) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(lines));
   } catch (err) {
     console.error(err);
   }
