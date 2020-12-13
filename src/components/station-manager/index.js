@@ -16,13 +16,13 @@ class StationManager extends Component {
   }
 
   mountComponents() {
-    const { stations } = this._props;
+    const { stations, lines } = this._props;
     const $stationInputContainer = this._$target.querySelector(
       '#station-input-container'
     );
     const $stationList = this._$target.querySelector('#station-list');
     new StationInput($stationInputContainer, { stations });
-    new StationList($stationList, { stations });
+    new StationList($stationList, { stations, lines });
   }
 }
 

@@ -48,7 +48,7 @@ class App extends Component {
     const lines = this.#lines;
     const stations = this.#stations;
     if (destination === STATION_MANAGER) {
-      new StationManager($routerView, { stations });
+      new StationManager($routerView, { stations, lines });
     } else if (destination === LINE_MANAGER) {
       new LineManager($routerView, { lines, stations });
     } else if (destination === MAP_PRINT_MANAGER) {

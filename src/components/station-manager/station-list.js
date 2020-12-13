@@ -1,4 +1,5 @@
 import { STATIONS } from '../../library/constants/localstorage.js';
+import { HAS_SECTION_MESSAGE } from '../../library/constants/station-alert.js';
 import Component from '../../library/core/component.js';
 
 class StationList extends Component {
@@ -38,9 +39,31 @@ class StationList extends Component {
   initializeEventListener() {
     this._$target.addEventListener('click', event => {
       if (event.target.classList.contains('station-delete-button')) {
-        this.removeStation(event.target.closest('[data-key]').dataset.key);
+        this.handleRemoveStationEvent(
+          event.target.closest('[data-key]').dataset.key
+        );
       }
     });
+  }
+
+  handleRemoveStationEvent(targetStation) {
+    if (this.hasStationAsSection(targetStation)) {
+      alert(HAS_SECTION_MESSAGE);
+      return;
+    }
+    this.removeStation(targetStation);
+  }
+
+  hasStationAsSection(station) {
+    const { lines } = this._props;
+    let result = false;
+    lines.value.forEach(line => {
+      if (line.sections.includes(station)) {
+        result = true;
+      }
+    });
+
+    return result;
   }
 
   removeStation(target) {
