@@ -1,18 +1,20 @@
 import {
   $sectionAddButton,
   $sectionNumber,
-  $sectionContainer,
   $sectionStation,
-  $sectionOption,
   $sectionLineSelect,
+  $subwaySectionContainer,
+  $lineContainer,
 } from '../View/element.js';
 import {
   addLineTitle,
   addStationSelectOption,
   addSectionScreen,
   addSectionButton,
+  addLineScreen,
+  addMapPrint,
 } from '../View/add-screen.js';
-import {removeTableScreen, removeOption} from '../View/remove-screen.js';
+import {removeAllMapPrint, removeTableScreen} from '../View/remove-screen.js';
 import {showSectionScreen} from '../View/show-screen.js';
 import {hideSectionLine} from '../View/hide-screen.js';
 import {isSectionValid, isMoreThanTwoStation} from './valid.js';
@@ -24,7 +26,6 @@ import {stationInstance, lineInstance} from '../index.js';
 
 export function onLoadSection(e) {
   hideSectionLine();
-  loadSectionTable();
   addLineTitle(e.target.dataset.line);
   showSectionScreen(e.target.dataset.line);
   $sectionAddButton.dataset.line = e.target.dataset.line;
@@ -35,7 +36,8 @@ export function onAddSection(e) {
   const selectedSection = getSelectedSection(sectionValue.lineName);
   if (isSectionValid(sectionValue, selectedSection.station)) {
     addSectionOnLocalStorage('line', sectionValue);
-    loadSectionTable();
+    lineInstance.updateLine(selectedSection, sectionValue);
+    updateSectionTable();
     showSectionScreen(e.target.dataset.line);
   }
   $sectionNumber.value = '';
@@ -48,14 +50,11 @@ export function onRemoveSection(e) {
   const selectedSection = getSelectedSection(removedData.lineName);
   if (removeConfirm && isMoreThanTwoStation(selectedSection.station)) {
     removeSectionOnLocalStorage('line', removedData);
-    loadSectionTable();
     showSectionScreen(parsedData.line);
   }
 }
 
 export const loadSectionTable = () => {
-  removeTableScreen($sectionContainer);
-  removeOption($sectionOption);
   lineInstance.loadLine();
   stationInstance.stations.forEach((station) =>
     addStationSelectOption($sectionStation, station),
@@ -70,6 +69,17 @@ export const loadSectionButton = () => {
   lineInstance.lines.forEach((section) => {
     addSectionButton(section.lineName);
   });
+};
+
+export const updateSectionTable = () => {
+  removeTableScreen($subwaySectionContainer);
+  removeTableScreen($lineContainer);
+  removeAllMapPrint();
+  lineInstance.lines.forEach((section) => {
+    addLineScreen(section);
+    addSectionScreen(section);
+  });
+  addMapPrint(lineInstance.lines);
 };
 
 const getSectionValue = (lineName) => {
