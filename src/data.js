@@ -1,12 +1,11 @@
 export class Data {
-    static EMPTY_REPOSITORY = {};
 
     // stationRepository 접근 
     static getStationRepository = () => {
         let stationRepository = JSON.parse(localStorage.getItem("stationRepository"))
         if (stationRepository === null) {
 
-            return this.EMPTY_REPOSITORY;
+            return {};
         }
 
         return stationRepository;
@@ -38,8 +37,7 @@ export class Data {
         let lineRepository = localStorage.getItem("lineRepository");
 
         if (lineRepository === null) {
-
-            return this.EMPTY_REPOSITORY;
+            return {};
         }
 
         return JSON.parse(lineRepository);
@@ -67,4 +65,21 @@ export class Data {
         return localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
     }
 
+    // 특정line에 새로운 역을 삽입
+    static insertStationToLine = (lineName, stationName, order) => {
+        let lineRepository = this.getLineRepository();
+
+        lineRepository[lineName]["stationArray"].splice(order, 0, stationName);
+
+        localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
+    }
+
+    // 특정line에 기존 역을 삭제
+    static removeStationFromLine = (lineName, order) => {
+        let lineRepository = this.getLineRepository()
+
+        lineRepository[lineName]["stationArray"].splice(order, 1)
+
+        localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
+    }
 }
