@@ -1,42 +1,62 @@
 import { Data } from "../data.js"
-import { makeLineIfPossible } from "../lineFactory.js"
+import { makeLineIfPossible } from "./lineController.js"
+import { alertText } from "../text.js"
 import {
-    makeLineManagerHTML,
-    addLineHTMLtoBody,
-    removeLineHTML,
-    addLineToTable
-} from "./lineManagerView.js"
+    makeLineHTML,
+    showLineHTML,
+    hideLineHTML
+} from "./lineView.js"
 
 export class LineManager {
 
     static hide = () => {
-        removeLineHTML();
+        hideLineHTML();
     }
 
     static show = () => {
-        addLineHTMLtoBody(makeLineManagerHTML(Data.getStationRepository(), Data.getLineRepository()));
+        showLineHTML(makeLineHTML(Data.getStationRepository(), Data.getLineRepository()));
         addEventToLineAddButton();
+        addEventToDeleteButton();
     }
+
 }
 
 const addEventToLineAddButton = () => {
     const lineAddButton = document.querySelector("#line-add-button");
 
     lineAddButton.addEventListener("click", () => {
-        const lineNameInput = document.querySelector("#line-name-input").value;
-        const selectedStartStation = getSelectedStation("start");
-        const selectedEndStation = getSelectedStation("end");
+        const lineName = document.querySelector("#line-name-input").value;
+        const startStation = getSelectedStation("start");
+        const endStation = getSelectedStation("end");
 
-        getInputAndAddLine(lineNameInput, selectedStartStation, selectedEndStation);
-        addLineToTable(lineNameInput, selectedStartStation, selectedEndStation);
-    })
+        getInputAndAddLine(lineName, startStation, endStation);
+    });
 }
 
-const getInputAndAddLine = (lineNameInput, selectedStartStation, selectedEndStation) => {
-    Data.addLine(makeLineIfPossible(lineNameInput, selectedStartStation, selectedEndStation));
+const getInputAndAddLine = (lineName, startStation, endStation) => {
+    Data.addLine(makeLineIfPossible(lineName, startStation, endStation));
+    hideLineHTML();
+    showLineHTML(makeLineHTML(Data.getStationRepository(), Data.getLineRepository()));
+    addEventToLineAddButton();
+    addEventToDeleteButton();
 }
 
 const getSelectedStation = (startOrEnd) => {
     const selectOption = document.getElementById(`line-${startOrEnd}-station-selector`)
     return selectOption.options[selectOption.selectedIndex].value;
+}
+
+
+const addEventToDeleteButton = () => {
+    let deleteButtons = document.querySelectorAll(".line-delete-button")
+
+    Array.prototype.forEach.call(deleteButtons, function (button) {
+        button.addEventListener("click", function (button) {
+            if (confirm(alertText.CONFIRM_MESSAGE)) {
+                Data.removeLine(button.target.parentNode.parentNode.dataset.lineName);
+                document.querySelector("#line-table tbody").removeChild(this.parentElement.parentElement);
+            }
+        })
+    })
+
 }
