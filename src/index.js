@@ -19,6 +19,7 @@ stationManagerButton.addEventListener("click", () => {
 
 function reRenderPage() {
   pages.innerHTML = page.render();
+  page.mount();
 }
 
 window.addEventListener(RE_RENDER_EVENT, reRenderPage);

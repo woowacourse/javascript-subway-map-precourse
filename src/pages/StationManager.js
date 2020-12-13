@@ -1,24 +1,41 @@
 const elementMap = {
-  stationNameInnput: "station-name-input",
+  stationNameInput: "station-name-input",
   stationAddButton: "station-add-button",
   stationDeleteButton: "station-delete-button",
 };
 
 export default class StationManager {
   constructor() {
-    this.state = {};
+    this.state = {
+      stations: [],
+    };
+
+    this.handleAddButtonClick = (newStation) => {
+      this.state.stations.push(newStation);
+    };
   }
 
   setState() {}
 
-  mount() {}
+  mount() {
+    const stationNameInput = document.getElementById(
+      elementMap.stationNameInput
+    );
+    const stationAddButton = document.getElementById(
+      elementMap.stationAddButton
+    );
+    stationAddButton.addEventListener("click", () => {
+      this.handleAddButtonClick(stationNameInput.value);
+      console.log(this.state.stations);
+    });
+  }
 
   render() {
     return `
     <div>
       <h4 style="margin-bottom: 0;">역 이름</h4>
         <div>
-          <input id=${elementMap.stationNameInnput} placeholder="역 이름을 입력해 주세요.">
+          <input id=${elementMap.stationNameInput} placeholder="역 이름을 입력해 주세요.">
           <button id=${elementMap.stationAddButton}>역 추가</button>
         </div>
         <div>
