@@ -61,12 +61,15 @@ const updateLineList = (_lines) => {
   createLineList(_lines);
 };
 
-const isValid = (_lineName) => {
+const isValid = (_lineName, _startStation, _endStation) => {
   if (isNull(_lineName)) {
     alert("노선 이름을 입력해주세요.");
     return;
   } else if (isDuplication(loadLines(), _lineName)) {
     alert("중복된 노선 이름입니다.");
+    return;
+  } else if (_startStation === _endStation) {
+    alert("상행 종점과 하행 종점은 서로 다른 역을 선택해주세요.");
     return;
   }
 
@@ -79,9 +82,7 @@ const getLineName = () => {
 
   lineNameInput.value = "";
 
-  if (isValid(lineName)) {
-    return lineName;
-  }
+  return lineName;
 };
 
 const getStartStation = () => {
@@ -99,11 +100,10 @@ const createLine = () => {
   }
 
   const lineName = getLineName();
+  const startStation = getStartStation();
+  const endStation = getEndStation();
 
-  if (lineName) {
-    const startStation = getStartStation();
-    const endStation = getEndStation();
-
+  if (isValid(lineName, startStation, endStation)) {
     useStation(startStation);
     useStation(endStation);
 
