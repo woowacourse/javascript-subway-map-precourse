@@ -34,4 +34,4 @@ export const DOM_ID = {
   ID: "app",
 };
 
-export const INITIAL_STATE_ID = "station-manager-button";
+export const INITIAL_STATE_ID = "line-manager-button";
