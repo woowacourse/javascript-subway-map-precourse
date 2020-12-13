@@ -23,7 +23,7 @@ export default class SubwayMap {
   }
 
   // 지하철 역 삭제
-  removeStation(name) {
+  delStation(name) {
     let index = this.stationList.findIndex(element => element.name === name);
     if (index === -1 || this.stationList[index].semaphore !== 0) {
       return false;
@@ -52,7 +52,7 @@ export default class SubwayMap {
   }
 
   // 지하철 노선 삭제
-  removeLine(name) {
+  delLine(name) {
     let index = this.lineList.findIndex(element => element.name === name);
     if (index === -1) {
       return false;
@@ -125,6 +125,7 @@ sectionManagerButton.addEventListener('click', showSectionManager);
 mapPrintManagerButton.addEventListener('click', showMapPrintManager);
 stationAddButton.addEventListener('click', clickStationAddButton);
 lineAddButton.addEventListener('click', clickLineAddButton);
+document.body.addEventListener('click', clickInstanceButton);
 
 // 역 관리 탭
 function showStationManager() {
@@ -176,10 +177,10 @@ function showStationList() {
   "use strict";
 
   const stationList = subwayMap.getStationList();
-  const stationDeleteButtonHTML = '<button class="station-delete-button">삭제</button>';
 
   let html = '';
   for (const station of stationList) {
+    const stationDeleteButtonHTML = `<button class="station-delete-button" data-station="${station}">삭제</button>`;
     html += `<tr><td>${station}</td><td>${stationDeleteButtonHTML}</td></tr>`;
   }
   stationResult.innerHTML = html;
@@ -194,6 +195,18 @@ function clickStationAddButton() {
     return;
   }
   stationNameInput.value = '';
+  showStationList();
+  localStorage.setItem('subwayMap', subwayMap.serialize());
+}
+
+// 역 삭제 버튼
+function clickStationDelButton(event) {
+  "use strict";
+
+  if (!subwayMap.delStation(event.target.dataset.station)) {
+    alert('노선에 등록된 역은 삭제할 수 없습니다.');
+    return;
+  }
   showStationList();
   localStorage.setItem('subwayMap', subwayMap.serialize());
 }
@@ -251,4 +264,15 @@ function showLineButton() {
     html += `<button class="section-line-menu-button">${line[0]}</option> `;
   }
   sectionList.innerHTML = html;
+}
+
+function clickInstanceButton(event) {
+  "use strict";
+
+  if (event.target.tagName.toLowerCase() !== 'button') {
+    return;
+  }
+  if (event.target.classList.contains('station-delete-button')) {
+    clickStationDelButton(event);
+  }
 }

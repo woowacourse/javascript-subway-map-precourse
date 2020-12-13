@@ -10,7 +10,7 @@ export default class SubwayLine {
   }
 
   // 노선에서 역 제거
-  removeStation(station) {
+  delStation(station) {
     let index = this.line.indexOf(station);
     if (this.line <= 2 || index === -1) {
       return false;
