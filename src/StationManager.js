@@ -1,4 +1,5 @@
 import Component from "./Component.js";
+import { STATION_INFO_LOCAL_STORAGE_KEY } from "./constant.js";
 import {
   clearInputValue,
   createButtonHTMLElement,
@@ -10,7 +11,6 @@ import {
 export default class StationManager extends Component {
   constructor({ $parent }) {
     super({ $parent });
-
     this.declareConstants();
     this.initializeState(); 
 
@@ -19,6 +19,10 @@ export default class StationManager extends Component {
     this.appendChildNodes();
     
     clearInputValue(this.$stationNameInput);
+
+    if (this.state.stationName.length > 0) {
+      this.render();
+    }
   }
 
   declareConstants() {
@@ -26,9 +30,9 @@ export default class StationManager extends Component {
   }
 
   initializeState() {
-    this.state = {
-      stationName: []
-    };
+    const storedState = JSON.parse(localStorage.getItem(STATION_INFO_LOCAL_STORAGE_KEY));
+
+    this.state = storedState || { stationName: [] };
   }
 
   constructHTMLElements() {
@@ -124,7 +128,7 @@ export default class StationManager extends Component {
     ].join("\n");
 
     alert(alertMessage);
-    clearInputValue(stationNameUserInput);
+    clearInputValue(this.$stationNameInput);
   }
 
   addNewStationName(newStationName) {
@@ -151,6 +155,12 @@ export default class StationManager extends Component {
 
   appendChildNodes() {
     this.$component.append(...this.childNodes);
+  }
+
+  setState(state) {
+    super.setState(state);
+
+    localStorage.setItem(STATION_INFO_LOCAL_STORAGE_KEY, JSON.stringify(this.state));
   }
 
   render() {

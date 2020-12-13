@@ -1,0 +1,1 @@
+export const STATION_INFO_LOCAL_STORAGE_KEY = "station-name-local-storage-key";
