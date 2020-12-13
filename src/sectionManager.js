@@ -23,6 +23,7 @@ const createInputArea = () => {
       lineBtn.addEventListener('click', () => {
         clearInputs();
         manageLineSection(line);
+        createResultArea(line);
       });
       sectionHeader.appendChild(lineBtn);
     });
@@ -34,10 +35,12 @@ const createInputArea = () => {
 const clearInputs = () => {
   const sectionInputArea = document.getElementById('section-input');
   const selectArea = document.getElementById('section-selector');
+  const sectionTable = document.getElementById('section-table');
 
-  if (sectionInputArea && selectArea) {
+  if (sectionInputArea && selectArea && sectionTable) {
     app.removeChild(sectionInputArea);
     app.removeChild(selectArea);
+    app.removeChild(sectionTable);
   }
 };
 
@@ -52,7 +55,6 @@ const manageLineSection = line => {
 
   sectionInputArea.appendChild(manageTitle);
   sectionInputArea.appendChild(registerText);
-  sectionInputArea.appendChild(document.createElement('br'));
 
   app.appendChild(sectionInputArea);
   createSelectArea(line);
@@ -107,4 +109,49 @@ const addToSection = (line, station, orderInput) => {
   updatedLines[line] = currStations;
   localStorage.setItem('lines', JSON.stringify(updatedLines));
   console.log(JSON.parse(localStorage.getItem('lines')));
+};
+
+const createResultArea = line => {
+  const sectionTable = document.createElement('table');
+  sectionTable.setAttribute('border', 1);
+  sectionTable.setAttribute('id', 'section-table');
+  sectionTable.style.marginTop = '20px';
+
+  const sectionOrder = document.createElement('th');
+  sectionOrder.innerHTML = '순서';
+  const sectionName = document.createElement('th');
+  sectionName.innerHTML = '이름';
+  const sectionSettingHeader = document.createElement('th');
+  sectionSettingHeader.innerHTML = '설정';
+
+  sectionTable.appendChild(sectionOrder);
+  sectionTable.appendChild(sectionName);
+  sectionTable.appendChild(sectionSettingHeader);
+
+  app.appendChild(sectionTable);
+
+  const currLines = JSON.parse(localStorage.getItem('lines'));
+  if (currLines) {
+    const currStations = currLines[line];
+    currStations.map((station, idx) => {
+      const tableRow = document.createElement('tr');
+      tableRow.setAttribute('data-line', line);
+      tableRow.setAttribute('data-station', station);
+
+      const indexData = document.createElement('td');
+      indexData.innerHTML = idx;
+      const nameData = document.createElement('td');
+      nameData.innerHTML = station;
+      const deleteBtn = document.createElement('button');
+      deleteBtn.innerHTML = '노선에서 제거';
+
+      tableRow.appendChild(indexData);
+      tableRow.appendChild(nameData);
+      tableRow.appendChild(deleteBtn);
+
+      sectionTable.appendChild(tableRow);
+    });
+  }
+
+  app.appendChild(sectionTable);
 };
