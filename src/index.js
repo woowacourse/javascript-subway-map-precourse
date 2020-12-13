@@ -133,23 +133,21 @@ class SubwayMap {
     }
   }
 
-  showStationElementsAll() {
-    if (!this.stationList || this.stationList.length < 0) return;
-
-    const stationListDOMItems = this.stationList.map((station) => {
-      return `
-        <tr data-name="${station.name}">
-          <td>${station.name}</td>
-          <td>
-            <button class="station-delete-button" data-name="${station.name}">
-              삭제
-            </button>
-          </td>
-        </tr>
-      `;
-    });
-
-    this.elements.stationListTableBody.innerHTML += stationListDOMItems.join('');
+  generateStationListItems() {
+    return this.stationList
+      .map((station) => {
+        return `
+          <tr data-name="${station.name}">
+            <td>${station.name}</td>
+            <td>
+              <button class="station-delete-button" data-name="${station.name}">
+                삭제
+              </button>
+            </td>
+          </tr>
+        `;
+      })
+      .join('');
   }
 
   showStationManager() {
@@ -168,7 +166,7 @@ class SubwayMap {
             <th>설정</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>${this.generateStationListItems()}</tbody>
       </table>
     `;
 
@@ -177,18 +175,11 @@ class SubwayMap {
       stationForm: document.querySelector('#station-form'),
       stationNameInput: document.querySelector('#station-name-input'),
       stationAddButton: document.querySelector('#station-add-button'),
-      stationList: document.querySelector('#station-list'),
       stationListTableBody: document.querySelector('#station-list tbody'),
     };
 
     this.elements.stationForm.addEventListener('submit', this.handleSubmitStationAdd.bind(this));
-    this.elements.stationList.addEventListener('click', this.handleClickStationDelete.bind(this));
-
-    this.showStationElementsAll();
-  }
-
-  getStationSelectorOptions() {
-    return this.stationList.map((station) => `<option value="${station.name}">${station.name}</options>`).join('');
+    this.elements.stationListTableBody.addEventListener('click', this.handleClickStationDelete.bind(this));
   }
 
   isExistLine(name) {
@@ -266,26 +257,28 @@ class SubwayMap {
     }
   }
 
-  showLineElementsAll() {
-    if (!this.lineList || this.lineList.length < 0) return;
+  generateStationSelectorOptions() {
+    return this.stationList.map((station) => `<option value="${station.name}">${station.name}</options>`).join('');
+  }
 
-    const lineListDOMItems = this.lineList.map((line) => {
-      const endIndex = line.sectionList.length - 1;
-      return `
-        <tr data-name="${line.name}">
-          <td>${line.name}</td>
-          <td>${line.sectionList[0].name}</td>
-          <td>${line.sectionList[endIndex].name}</td>
-          <td>
-            <button class="line-delete-button" data-name="${line.name}">
-              삭제
-            </button>
-          </td>
-        </tr>
-      `;
-    });
-
-    this.elements.lineListTableBody.innerHTML += lineListDOMItems.join('');
+  generateLineListItems() {
+    return this.lineList
+      .map((line) => {
+        const endIndex = line.sectionList.length - 1;
+        return `
+          <tr data-name="${line.name}">
+            <td>${line.name}</td>
+            <td>${line.sectionList[0].name}</td>
+            <td>${line.sectionList[endIndex].name}</td>
+            <td>
+              <button class="line-delete-button" data-name="${line.name}">
+                삭제
+              </button>
+            </td>
+          </tr>
+        `;
+      })
+      .join('');
   }
 
   isValidLineManager() {
@@ -305,10 +298,10 @@ class SubwayMap {
         <input type="text" id="line-name-input" placeholder="노선 이름을 입력해주세요"  />
         <p>
           <label for="line-start-station-selector">상행 종점</label>
-          <select id="line-start-station-selector"></select>
+          <select id="line-start-station-selector">${this.generateStationSelectorOptions()}</select>
           <br />
           <label for="line-end-station-selector">하행 종점</label>
-          <select id="line-end-station-selector"></select>
+          <select id="line-end-station-selector">${this.generateStationSelectorOptions()}</select>
         </p>
         <button id="line-add-button">노선 추가</button>
       </form>
@@ -322,8 +315,7 @@ class SubwayMap {
             <th>설정</th>
           </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody>${this.generateLineListItems()}</tbody>
       </table>
     `;
 
@@ -333,21 +325,15 @@ class SubwayMap {
       lineNameInput: document.querySelector('#line-name-input'),
       lineStartStationSelector: document.querySelector('#line-start-station-selector'),
       lineEndStationSelector: document.querySelector('#line-end-station-selector'),
-      lineList: document.querySelector('#line-list'),
       lineListTableBody: document.querySelector('#line-list tbody'),
     };
 
-    this.elements.lineStartStationSelector.innerHTML = this.getStationSelectorOptions();
-    this.elements.lineEndStationSelector.innerHTML = this.getStationSelectorOptions();
-
     this.elements.lineForm.addEventListener('submit', this.handleSubmitLineAdd.bind(this));
-    this.elements.lineList.addEventListener('click', this.handleClickLineDelete.bind(this));
-
-    this.showLineElementsAll();
+    this.elements.lineListTableBody.addEventListener('click', this.handleClickLineDelete.bind(this));
   }
 
   updateSectionListElement() {
-    this.elements.sectionListTableBody.innerHTML = this.getSectionElementAll();
+    this.elements.sectionListTableBody.innerHTML = this.generateSectionListItems();
   }
 
   isExistSection(station) {
@@ -411,11 +397,11 @@ class SubwayMap {
     }
   }
 
-  getSectionStationSelectorOptions() {
+  generateSectionStationSelectorOptions() {
     return this.stationList.map((station) => `<option value="${station.name}">${station.name}</options>`).join('');
   }
 
-  getSectionElementAll() {
+  generateSectionListItems() {
     return this.selectedLine.sectionList
       .map(
         (section, index) => `
@@ -439,7 +425,7 @@ class SubwayMap {
       <h4>구간 등록</h4>
       <form id="section-form">
         <select id="section-station-selector">
-          ${this.getSectionStationSelectorOptions()}
+          ${this.generateSectionStationSelectorOptions()}
         </select>
         <input type="number" id="section-order-input" placeholder="순서" />
         <button id="section-add-button">등록</button>
@@ -453,7 +439,7 @@ class SubwayMap {
           </tr>
         </thead>
         <tbody>
-          ${this.getSectionElementAll()}
+          ${this.generateSectionListItems()}
         </tbody>
       </table>
     `;
