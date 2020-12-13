@@ -6,6 +6,7 @@ import {
   MapPrintContainer,
 } from './components/index.js';
 import Station from './station.js';
+import Line from './line.js';
 
 export default function SubwayMapManagement() {
   this.subwayStations = [];
@@ -33,11 +34,16 @@ export default function SubwayMapManagement() {
     return this.subwayStations;
   };
 
-  this.addSubwayLine = () => {};
+  this.addSubwayLine = subwayLine => {
+    this.subwayLines = [...this.subwayLines, new Line(subwayLine)];
+    this.selectedMenu.render();
+  };
 
   this.deleteSubwayLine = () => {};
 
-  this.getSubwayLines = () => {};
+  this.getSubwayLines = () => {
+    return this.subwayLines;
+  };
 
   this.addSubwaySection = () => {};
 
@@ -52,7 +58,11 @@ export default function SubwayMapManagement() {
       deleteStation: this.deleteSubwayStation,
       getStations: this.getSubwayStations,
     }),
-    new LineManagerContainer({ lines: this.subwayLines }),
+    new LineManagerContainer({
+      addLine: this.addSubwayLine,
+      getLines: this.getSubwayLines,
+      getStations: this.getSubwayStations,
+    }),
     new SectionManagerContainer({ lines: this.subwayLines }),
     new MapPrintContainer({ lines: this.subwayLines }),
   ];

@@ -1,14 +1,14 @@
 import Station from './station.js';
 
-export default function Line(name, upward, downward) {
+export default function Line({ name, start, end }) {
   this.name = name;
-  this.stations = [new Station(upward), new Station(downward)];
+  this.stations = [new Station(start), new Station(end)];
 
-  this.getUpward = () => {
+  this.getStart = () => {
     return this.stations[0];
   };
 
-  this.getDownward = () => {
+  this.getEnd = () => {
     return this.stations[this.stations.length - 1];
   };
 
