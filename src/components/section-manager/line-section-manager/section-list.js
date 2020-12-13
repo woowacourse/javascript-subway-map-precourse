@@ -1,10 +1,20 @@
 import Component from '../../../library/core/component.js';
 
 class SectionList extends Component {
+  #targetLine;
+
   constructor($target, props) {
     super($target, props);
     props.lines.subscribe(this.render);
+    this.initializeStates();
     this.render();
+  }
+
+  initializeStates() {
+    const { targetLineName, lines } = this._props;
+    this.#targetLine = lines.value.find(
+      line => line.lineName === targetLineName
+    );
   }
 
   mountTemplate() {
@@ -21,12 +31,7 @@ class SectionList extends Component {
   }
 
   createTableRowsTemplate() {
-    const { targetLineName, lines } = this._props;
-    const targetLine = lines.value.find(
-      line => line.lineName === targetLineName
-    );
-
-    return targetLine.sections
+    return this.#targetLine.sections
       .map((section, index) => this.createTableRowTemplate(index, section))
       .join('');
   }
@@ -36,9 +41,22 @@ class SectionList extends Component {
 			<tr data-key=${key}>
 				<td>${key}</td>
 				<td>${value}</td>
-				<td><button>노선에서 제거</button></td>
+				<td><button class="section-delete-button">노선에서 제거</button></td>
 			</tr>
 		`;
+  }
+
+  initializeEventListener() {
+    this._$target.addEventListener('click', event => {
+      if (event.target.classList.contains('section-delete-button')) {
+        this.removeSection(event.target.closest('[data-key]').dataset.key);
+      }
+    });
+  }
+
+  removeSection(targetIndex) {
+    this.#targetLine.sections.splice(targetIndex, 1);
+    this._props.lines.renderAll();
   }
 }
 
