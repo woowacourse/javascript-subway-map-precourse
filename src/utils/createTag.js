@@ -1,12 +1,21 @@
 import { WORDS } from "../constants/index.js";
 
-export const createDiv = (text, style = "") => {
+export const createDiv = (text, style = "", id = "") => {
   const div = document.createElement("div");
 
   div.innerText = text;
   div.style = style;
+  div.setAttribute("id", id);
 
   return div;
+};
+
+export const createList = (text) => {
+  const li = document.createElement("li");
+
+  li.innerText = text;
+
+  return li;
 };
 
 export const createDivContainer = (elementArray, style = "", id = "") => {

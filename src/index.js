@@ -1,6 +1,7 @@
 import stationManager from "./Station/index.js";
 import lineManager from "./Line/index.js";
 import sectionManager from "./Section/index.js";
+import mapManager from "./Map/index.js";
 
 const app = document.getElementById("app");
 
@@ -15,7 +16,7 @@ const init = () => {
   stationMenuButton.addEventListener("click", stationManager);
   lineMenuButton.addEventListener("click", lineManager);
   sectionMenuButton.addEventListener("click", sectionManager);
-  // mapPrintMenuButton.addEventListener('click')
+  mapPrintMenuButton.addEventListener("click", mapManager);
 };
 
 if (app) {
