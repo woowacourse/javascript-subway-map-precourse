@@ -140,8 +140,7 @@ export default class LineManager extends Component {
       if (id === this.$lineAddButton.id) {
         this.handleLineAdd();
       } else if (classList.contains(this.LINE_DELETE_BUTTON_CLASSNAME)) {
-        console.log(lineName);
-        // this.handleDeleteButton(lineName);
+        this.handleDeleteButton(lineName);
       }
     });
   }
@@ -165,6 +164,17 @@ export default class LineManager extends Component {
         }
       ]
     });
+  }
+
+  handleDeleteButton(targetLineName) {      
+    if (confirm(`${targetLineName}을 삭제하시겠습니까?`)) {
+      const targetExcluded = this.state.lineInfo.filter(({ lineName }) => lineName !== targetLineName);
+      this.setLineInfoArray(targetExcluded);
+    }
+  }
+
+  setLineInfoArray(lineInfo) {
+    this.setState({ lineInfo });
   }
 
   setState(state) {
