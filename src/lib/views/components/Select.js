@@ -1,9 +1,10 @@
 import { stationSelector } from "../../_store/selectors.js";
+import { getComponentIdOrClassQuerySelectorName } from "../utils/utils.js";
 
 export default class Select {
   constructor(id) {
     this.element = document.createElement("select");
-    this.element.id = id;
+    this.element.id = getComponentIdOrClassQuerySelectorName(id);
   }
 
   appendOptions() {
