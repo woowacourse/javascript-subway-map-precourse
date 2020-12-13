@@ -1,11 +1,8 @@
 import StationManager from "../station-manager.js";
 import LineManager from "../line-manager.js";
-import { getChildById } from "./custom-dom-handler.js";
+import { getStationNameInput } from "./custom-dom-handler.js";
 import { DELETE_BUTTONS_CLASS } from "../html-constants/html-classnames.js";
-import {
-  ADD_BUTTONS_ID,
-  INPUT_FORM_ID,
-} from "../html-constants/html-id-values.js";
+import { ADD_BUTTONS_ID } from "../html-constants/html-id-values.js";
 
 const isInputStringLengthTwoOrGreater = (input) => {
   if (input.length < 2) {
@@ -42,15 +39,11 @@ const isStationInLine = (station) => {
 };
 
 const stationAddButtonHandler = (e) => {
-  const stationNameInputElement = getChildById(
-    e.target.parentElement.children[0],
-    INPUT_FORM_ID.stationNameInput
-  );
-  const stationNameInputValue = stationNameInputElement.value;
-  stationNameInputElement.value = "";
+  const $stationNameInput = getStationNameInput(e.target.closest("#app"));
+  const stationNameInputValue = $stationNameInput.value;
+  $stationNameInput.value = "";
   if (isStationNameValid(stationNameInputValue)) {
-    const stationManager = new StationManager();
-    stationManager.addStation(stationNameInputValue);
+    new StationManager().addStation(stationNameInputValue);
   }
 };
 
