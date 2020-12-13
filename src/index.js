@@ -1,6 +1,7 @@
 import Station from "./station.js";
 import Line from "./line.js";
 import Section from "./section.js";
+import Show from "./show.js";
 
 class ManageSubwayLine {
   constructor() {
