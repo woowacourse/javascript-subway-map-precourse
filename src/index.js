@@ -5,6 +5,7 @@ export let stationArray = [];
 export let lineData = {};
 
 const App = () => {
+  getLocalStorage();
   bindHandler();
 };
 
