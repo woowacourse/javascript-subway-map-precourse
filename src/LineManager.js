@@ -67,6 +67,7 @@ export default class LineManager extends Component {
 
   constructHTMLElements() {
     this.$lineNameInput = this.createLineNameInput();
+    this.$lineNameLabel = this.createLineNameLabel();
 
     this.$lineStartStationSelectorLabel = this.createLineStartStationSelectorLabel();
     this.$lineStartStationSelector = this.createLineStartStationSelector();
@@ -82,6 +83,13 @@ export default class LineManager extends Component {
   createLineNameInput() {
     return createInputTextHTMLElement({
       id: "line-name-input"
+    });
+  }
+
+  createLineNameLabel() {
+    return createLabelHTMLElement({
+      name: "노선 이름",
+      htmlFor: this.$lineNameInput.id
     });
   }
 
@@ -122,6 +130,7 @@ export default class LineManager extends Component {
 
   appendChildNodes() {
     this.$component.append(
+      this.$lineNameLabel,
       this.$lineNameInput,
       this.$lineStartStationSelectorLabel,
       this.$lineStartStationSelector,
