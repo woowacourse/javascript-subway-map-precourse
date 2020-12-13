@@ -7,7 +7,7 @@ export default class MapPrintManager extends contentsUI {
   }
 
   setContentsHTML(initialTemplate) {
-    const lines = this.stationINFOManager_.getLineINFOs();
+    const lines = this.stationINFOManager_.getLines();
     lines.forEach((line) => {
       initialTemplate += this.makeLineINFOHTML_(line);
     });
@@ -29,7 +29,7 @@ export default class MapPrintManager extends contentsUI {
   makeStationListHTML_(line) {
     let listHTML = "";
     line.stationsOfLine.forEach((station) => {
-      listHTML += `<li>${station.name}</li>`;
+      listHTML += `<li>${station}</li>`;
     });
     return listHTML;
   }

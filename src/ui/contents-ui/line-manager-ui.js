@@ -20,10 +20,10 @@ export default class LineManagerUI extends contentsUI {
   }
 
   updateLinesTable() {
-    const linesINFOs = this.stationINFOManager_.getLineINFOs();
+    const liness = this.stationINFOManager_.getLines();
     const tableContainer = document.getElementById(TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
-    linesINFOs.forEach((lineINFOs) => {
+    liness.forEach((lineINFOs) => {
       innerHTMLOfTable += this.makeNewTableRowHTML_(lineINFOs);
     });
     tableContainer.innerHTML = innerHTMLOfTable;
@@ -88,8 +88,8 @@ export default class LineManagerUI extends contentsUI {
     return `
     <tr>
       <td>${name}</td>
-      <td>${stationsOfLine[0].name}</td>
-      <td>${stationsOfLine[stationsOfLine.length - 1].name}</td>
+      <td>${stationsOfLine[0]}</td>
+      <td>${stationsOfLine[stationsOfLine.length - 1]}</td>
       <td>
         <button class="${LINE_DELETE_BUTTON_CLASS}" data-name="${name}">삭제</button>
       </td>

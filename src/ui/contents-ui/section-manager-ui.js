@@ -20,9 +20,9 @@ export default class SectionManagerUI extends contentsUI {
 
   updateLineButtons_() {
     const buttonDiv = document.getElementById(SECTION_LINE_MENU_DIV_ID);
-    const lineINFOs = this.stationINFOManager_.getLineINFOs();
+    const lines = this.stationINFOManager_.getLines();
     let buttonDivInnerHTML = "";
-    lineINFOs.forEach(({ name }) => {
+    lines.forEach(({ name }) => {
       buttonDivInnerHTML += this.makeNewSelectLineButtonHTML_(name);
     });
     buttonDiv.innerHTML = buttonDivInnerHTML;
@@ -67,12 +67,12 @@ class SectionRegisterUI extends contentsUI {
   }
   updateLineStationsTable() {
     const table = document.getElementById(SECTION_REGISTER_TABLE_ID);
-    const myLine = this.stationINFOManager_.getLineINFOsByCondition((line) => {
+    const myLine = this.stationINFOManager_.getAllLineByCondition((line) => {
       return line.name === this.lineName_;
     })[0];
     let tableInnerHTML = TABLE_HEADER_TEMPLATE;
     myLine.stationsOfLine.forEach((station, order) => {
-      tableInnerHTML += this.makeNewTableRowHTML_(order, station.name);
+      tableInnerHTML += this.makeNewTableRowHTML_(order, station);
     });
     table.innerHTML = tableInnerHTML;
     this.addEventToAllDeleteButtons_();
