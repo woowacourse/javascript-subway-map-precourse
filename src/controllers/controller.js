@@ -31,7 +31,11 @@ export default class Controller {
     return view;
   }
 
-  addStationData(station) {
-    this.modelList.station.addData(station);
+  insertStationData(stationName) {
+    this.modelList.station.insertData(stationName);
+  }
+
+  deleteStationData(stationName) {
+    this.modelList.station.deleteData(stationName);
   }
 }

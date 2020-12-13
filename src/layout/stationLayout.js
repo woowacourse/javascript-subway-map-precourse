@@ -85,24 +85,49 @@ export default class StationLayout extends PageLayout {
     return stationResultTable;
   }
 
-  addRow(stationName) {
+  createDeleteButton() {
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = '삭제';
+    deleteButton.className = 'station-delete-button';
+    deleteButton.addEventListener('click', e =>
+      this.handleDeleteButton(e.target),
+    );
+
+    return deleteButton;
+  }
+
+  deleteRow(index) {
+    // TODO: do something
+    const table = this.elements.resultContainer.querySelector('table');
+    table.deleteRow(index);
+  }
+
+  handleDeleteButton(target) {
+    // TODO: 삭제버튼을 눌렀을때
+    const tr = target.parentElement.parentElement;
+    console.log(tr.dataset.stationName);
+    this.deleteRow(tr.rowIndex);
+    this.controller.deleteStationData(tr.dataset.stationName);
+    console.log('delete button clicked');
+  }
+
+  insertRow(stationName) {
     // TODO: 자식구조도 object로 돌릴수있겠는데?
     // TODO: controller 로 옮기기
     // TODO: VDOM 쓰면 한번에 append하지않는방향으로..
     const row = this.elements.resultContainer
       .querySelector('table')
       .insertRow();
+    row.dataset.stationName = stationName;
     row.insertCell(0).innerHTML = stationName;
-    row.insertCell(
-      1,
-    ).innerHTML = `<button class='.station-delete-button'>삭제</button>`;
+    row.insertCell(1).append(this.createDeleteButton());
   }
 
   // override
   handleAddButton() {
     const input = this.controller.getInputFromUser(this);
     console.log(input);
-    this.addRow(input);
+    this.insertRow(input);
     this.controller.addStationData(input);
     this.clearInput();
   }
@@ -126,7 +151,7 @@ export default class StationLayout extends PageLayout {
     // TODO: storageData 비동기?
     const stationList = this.controller.modelList.station.getList();
     for (const station of stationList) {
-      this.addRow(station);
+      this.insertRow(station);
     }
   }
 

@@ -5,9 +5,16 @@ export default class StationModel {
    * localStorage
    * stations: []
    */
-  addData(station) {
+  insertData(stationName) {
     const stationList = this.getList();
-    stationList.push(station);
+    stationList.push(stationName);
+    localStorage.setItem('stationList', JSON.stringify(stationList));
+  }
+
+  deleteData(stationName) {
+    const stationList = this.getList();
+    const index = stationList.findIndex(name => name === stationName);
+    stationList.splice(index, 1);
     localStorage.setItem('stationList', JSON.stringify(stationList));
   }
 
