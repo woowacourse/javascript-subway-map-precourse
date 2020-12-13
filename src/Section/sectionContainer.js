@@ -8,16 +8,23 @@ import {
 import { displaySectionUtil } from "./sectionPresenter.js";
 
 const filterTargetRow = (targetRow, selectLine, lines) => {
+  const deleteRefrence = 2;
   const deleteTargetStation = targetRow.childNodes[1].innerText;
 
   const filteredLine = lines.filter(
     (line) => selectLine === Object.keys(line)[0]
   );
   const currentSection = Object.values(filteredLine[0])[0];
+  let filteredSection = [];
 
-  const filteredSection = currentSection.filter(
-    (station) => station !== deleteTargetStation
-  );
+  if (currentSection.length > deleteRefrence) {
+    filteredSection = currentSection.filter(
+      (station) => station !== deleteTargetStation
+    );
+  } else {
+    filteredSection = currentSection;
+    alert("구간에서 역이 2개 이하일 경우 삭제할 수 없습니다.");
+  }
 
   return filteredSection;
 };
