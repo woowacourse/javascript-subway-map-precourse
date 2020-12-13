@@ -6,7 +6,7 @@ export const EXCEPTION_MESSAGE = {
   stationNameAlreadyRegistered:
     '입력해주신 역은 이미 등록된 역 이름입니다.😥\n다른 역 이름으로 다시 입력해주세요',
   stationRegisteredToLine:
-    '해당 역은 노선에 등록되어 있어 삭제할 수 없습니다.😥\n노선 관리에서 해당 역에 등록된 노선을 먼저 삭제하신 뒤 다시 시도해주세요',
+    '해당 역은 노선에 등록되어 있어 삭제할 수 없습니다.😥\n노선 관리메뉴에서 노선을 먼저 삭제하신 뒤 다시 시도해주세요',
   bothStartEndSame:
     '상행 종점과 하행 종점은 서로 같을 수 없습니다.😥\n상행 종점과 하행 종점을 다르게 선택해주세요.',
   lineNameOnlySpace: `공백만으로는 노선 이름을 등록할 수 없습니다.😥\n유효한 이름으로 다시 입력해주세요`,

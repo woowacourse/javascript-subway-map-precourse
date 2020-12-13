@@ -1,4 +1,5 @@
 import { STATION_NAME_LENGTH_LOW_LIMIT } from '../configuration.js';
+import { getItemFromLocalStorage } from '../util/util-local-storage.js';
 
 export class Station {
   constructor(name) {
@@ -20,7 +21,9 @@ export class Station {
   }
 
   unableToDeleteStation() {
-    if (this.lineList.length) {
+    const station = getItemFromLocalStorage('station', this.name);
+
+    if (station.lineList.length) {
       return 'stationRegisteredToLine';
     }
   }
