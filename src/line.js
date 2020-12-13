@@ -1,17 +1,26 @@
 import { isSpecialCharacter, isDuplicated } from './check.js'
 
 export default function Line() {
+  this.addLine = function(lineName, startStationInput, endStationInput) {
+    const lineAddButton = document.querySelector("#line-add-button");
+    lineAddButton.addEventListener("click", () => {
+      const lineList = document.querySelector("#line-list");
+      lineList.innerHTML += `<tr><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button>삭제</button></td></tr>`;
+      localStorage.setItem(lineName, JSON.stringify([startStationInput, endStationInput]));
+    }, {once: true});
+  }
+
   this.getEndStationInput = function(lineName, startStationValue) {
     const endStationSelector = document.querySelector("#line-end-station-selector");
     endStationSelector.addEventListener("mouseleave", () => {
       const endStationValue = endStationSelector.value;
       const alertText = "상행 종점과 하행 종점을 서로 다른 역으로 선택해 주세요.";
       if (startStationValue !== endStationValue) {
-        console.log(lineName, startStationValue, endStationValue);
+        this.addLine(lineName, startStationValue, endStationValue);
       } else {
         alert(alertText);
       }
-    });
+    }, {once: true});
   }
 
   this.getStartStationInput = function(lineName) {
@@ -19,7 +28,7 @@ export default function Line() {
     startStationSelector.addEventListener("mouseleave", () => {
       const startStationValue = startStationSelector.value;   
       this.getEndStationInput(lineName, startStationValue);
-    });
+    }, {once: true});
   }
 
   this.getLineName = function() {
