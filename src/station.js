@@ -28,10 +28,11 @@ export default function Station() {
 
   this.addStation = function(stationName) {
     const key = stationName;
-    const value = false;
+    const position = "station";
+    const register = false;
     let stationList = document.querySelector("#station-list");
-    localStorage.setItem(key, value);
-    stationList.innerHTML += `<tr id="${key}"><td>${key}</td><td><button data-name="${key}" class="station-delete-button">삭제</button></td></tr>`;
+    localStorage.setItem(key, JSON.stringify([position, register]));
+    stationList.innerHTML += `<tr id="${stationName}"><td>${stationName}</td><td><button data-name="${stationName}" class="station-delete-button">삭제</button></td></tr>`;
     this.confirmDelete();
   }
 
@@ -51,9 +52,15 @@ export default function Station() {
   this.printStationList = function() {
     let stationList = document.querySelector("#station-list");
     let i;
+    
     for (i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      stationList.innerHTML += `<tr id="${key}"><td>${key}</td><td><button data-name="${key}" class="station-delete-button">삭제</button></td></tr>`;
+      const position = "station"
+      const parsedStationObject = JSON.parse(localStorage.getItem(key))
+
+      if (parsedStationObject[0] === position) {
+        stationList.innerHTML += `<tr id="${key}"><td>${key}</td><td><button data-name="${key}" class="station-delete-button">삭제</button></td></tr>`;
+      }
     }
   }
 
