@@ -39,13 +39,13 @@ export default class StationManager extends Role {
   onClickAddButton() {
     const stationNameInput = nodeSelector.selectId(STATION_NAME_INPUT);
     const validator = new StationValidator();
-    const response = validator.checkStationName(stationNameInput);
+    const response = validator.checkValidInput(stationNameInput);
 
     if (response) {
       response.then(isValidate => {
         if (isValidate) {
-          this.renderStation(stationNameInput.value);
           this.addStation(stationNameInput.value);
+          this.renderStation(stationNameInput.value);
         }
       });
     }

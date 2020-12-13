@@ -26,11 +26,12 @@ export const STATION_NAME_INPUT = 'station-name-input';
 export const STATION_TABLE = 'station-table';
 export const STATION_ROW = 'station-row';
 export const STATION_ALERT_INVALID =
-  '일치하는 역 이름이 없네요. 😅\n실제 지하철 역만 추가할 수 있어요!';
+  '일치하는 역 이름이 없네요. 😅\n실제 (서울) 지하철 역만 추가할 수 있어요!';
 export const STATION_ALERT_OVERLAP = '이미 추가한 역이에요. 😅';
 export const STATION_ALERT_HAS_LINE = '노선에 추가한 역은 삭제할 수 없어요!';
 
 // line manager;
+export const LINE = 'line';
 export const LINE_MANAGER = 'line-manager';
 export const LINE_MANAGER_BUTTON = 'line-manager-button';
 export const LINE_ADD_BUTTON = 'line-add-button';
@@ -38,6 +39,11 @@ export const LINE_DELETE_BUTTON = 'line-delete-button';
 export const LINE_NAME_INPUT = 'line-name-input';
 export const LINE_START_STATION_SELECTOR = 'line-start-station-selector';
 export const LINE_END_STATION_SELECTOR = 'line-end-station-selector';
+export const LINE_ALERT_INVALID =
+  '일치하는 호선 이름이 없네요. 😅\n실제 (서울) 지하철 호선만 추가할 수 있어요!';
+export const LINE_ALERT_OVERLAP = '이미 추가한 노선이에요. 😅';
+export const OPTION_ALERT_INVALID =
+  '상행 종점과 하행 종점에 들어갈 역은 중복되지 않게 한 번씩만 추가할 수 있어요.';
 
 // section manager;
 export const SECTION_MANAGER = 'section-manager';

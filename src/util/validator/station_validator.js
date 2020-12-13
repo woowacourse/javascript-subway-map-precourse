@@ -13,7 +13,7 @@ export default class StationValidator extends Validator {
     super();
   }
 
-  checkStationName(input) {
+  checkValidInput(input) {
     if (this.isOverlapped(input.value, STATION)) {
       this.alertStationOverlap(input);
 
