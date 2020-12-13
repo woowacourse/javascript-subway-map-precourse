@@ -1,4 +1,5 @@
 import DomUtils from './dom_utils.js';
+import EventUtils from './event_utils.js';
 
 export default class TableUtils {
   constructor() {
@@ -9,6 +10,7 @@ export default class TableUtils {
 
   setPrivateVariable() {
     this._privateDomUtils = new DomUtils();
+    this._privateEventUtils = new EventUtils();
   }
 
   setTableType() {
@@ -95,5 +97,6 @@ export default class TableUtils {
     this.addDataAttribute(deleteButton, rowArray);
     this._privateDomUtils.setInnerHtml(deleteButton, this.DELETE_BUTTON_TEXT);
     this._privateDomUtils.appendToVarName(cell, deleteButton);
+    this._privateEventUtils.addEventToButton(deleteButton);
   }
 }

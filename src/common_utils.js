@@ -18,6 +18,5 @@ export default class CommonUtils {
 
     this._privateDomUtils.appendToIdName(toIdName, newline);
   }
-
-
+  
 }
