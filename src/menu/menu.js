@@ -1,10 +1,10 @@
-import ManagerOutput from './view/output.js';
-import ManagerInput from './view/input.js';
+import MenuOutput from './view/output.js';
+import MenuInput from './view/input.js';
 
-export default class Controller {
+export default class Menu {
 	constructor() {
-		this.managerInput = new ManagerInput();
-		this.managerOutput = new ManagerOutput();
+		this.managerInput = new MenuInput();
+		this.managerOutput = new MenuOutput();
 
 		this.setManagerButtonHandlers();
 	}

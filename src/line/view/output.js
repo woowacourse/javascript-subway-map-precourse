@@ -6,9 +6,9 @@ export default class LineOutput {
 	constructor() {
 		this.lineInput = new LineInput();
 		
-		this.showLineTable();
 		this.addStationToLineStartStationSelector();
 		this.addStationToLineEndStationSelector();
+		this.showLineTable();
 	}
 
 	addStationToLineStartStationSelector = () => {

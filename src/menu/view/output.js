@@ -1,6 +1,6 @@
 import Toggle from '/src/utils/toggle.js';
 
-export default class ManagerOutput {
+export default class MenuOutput {
 	constructor() {
 		this.managerOutputToggle = new Toggle();
 		this.managerContainer = document.getElementById('manager-container');

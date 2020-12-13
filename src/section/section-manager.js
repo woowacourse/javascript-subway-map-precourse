@@ -23,7 +23,9 @@ export default class SectionManager {
 		this.selectedLine = event.target.getAttribute('data-lineName');
 		
 		this.sectionOutput.showSelectedLineSectionContainer(this.selectedLine);
+
 		this.setSectionAddButtonHandler();
+		this.setDeleteButtonsHandler();
 	}
 
 	setSectionAddButtonHandler = () => {
@@ -46,5 +48,44 @@ export default class SectionManager {
 		}
 
 		new LineModel().setLineStorageData(lines);
+
+		this.sectionOutput.showSelectedLineSectionContainer(this.selectedLine);
+	}
+
+	setDeleteButtonsHandler = () => {
+		const deleteButtons = document.getElementsByClassName('section-delete-button');
+		for (let deleteButton of deleteButtons) {
+			deleteButton.addEventListener('click', this.deleteSection);
+		}
+	}
+
+	deleteSection = event => {
+		const checkDelete = confirm('정말로 삭제하시겠습니까?');
+		
+		if (checkDelete === false) {
+			return;
+		}
+
+		const tableRowToDelete = event.target.parentNode.parentNode;
+		const selectedLineNameToDelete = tableRowToDelete.dataset.selectedlinename;
+		const stationIndexToDelete = tableRowToDelete.dataset.stationindex;
+
+		const lines = new LineModel().getLineStorageData();
+
+		const selectedLineStationsIndex = this.getSelectedLineStationsIndex(lines, selectedLineNameToDelete);
+		
+		lines[selectedLineStationsIndex]['lineStations'].splice(stationIndexToDelete, 1);
+
+		new LineModel().setLineStorageData(lines);
+		this.sectionOutput.showSelectedLineSectionContainer(this.selectedLine);
+	}
+	
+	getSelectedLineStationsIndex = (lines, selectedLineNameToDelete) => {
+		for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+			if (lines[lineIndex]['lineName'] === selectedLineNameToDelete) {
+				return lineIndex;
+			}
+		}
 	}
 }
+

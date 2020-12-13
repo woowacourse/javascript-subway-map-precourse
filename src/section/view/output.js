@@ -1,6 +1,5 @@
 import StationModel from '../../station/model/model.js';
 import LineModel from '../../line/model/model.js';
-import SectionModel from '../model/model.js';
 
 export default class SectionOutput {
 	constructor() {
@@ -40,17 +39,17 @@ export default class SectionOutput {
 		`;
 
 		this.addStationsToSelectorTag();
-		this.showSelectedLineSectionTable(sectionContainer, selectedLine);
+		this.showSelectedLineSectionTable(selectedLineSectionContainer, selectedLine);
 	}
 
 	clearSelectedLineSectionContainer = () => {
-		const sectionContainer = document.getElementById('selected-line-section-container');
+		const selectedLineSectionContainer = document.getElementById('selected-line-section-container');
 
-		if (sectionContainer === null) {
+		if (selectedLineSectionContainer === null) {
 			return;
 		}
 
-		sectionContainer.remove();
+		selectedLineSectionContainer.remove();
 	}
 
 	addStationsToSelectorTag = () => {
@@ -65,8 +64,7 @@ export default class SectionOutput {
 		}
 	}
 
-	showSelectedLineSectionTable = (sectionContainer, selectedLine) => {
-		this.clearSelectedSectionTable();
+	showSelectedLineSectionTable = (selectedLineSectionContainer, selectedLine) => {
 		const sectionTable = document.createElement('table');
 		sectionTable.setAttribute('id', 'section-table');
 		sectionTable.innerHTML = 
@@ -84,23 +82,13 @@ export default class SectionOutput {
 		for (let stationIndex = 0; stationIndex < line.lineStations.length; stationIndex++) {
 			sectionTable.innerHTML += 
 			`
-			<tr>
+			<tr data-selectedLineName="${line.lineName}" data-stationIndex="${stationIndex}">
 				<td>${stationIndex}</td>
 				<td>${line.lineStations[stationIndex]}</td>
 				<td><button class="section-delete-button">노선에서 제거</button></td>
 			</tr>
 			`;
 		}
-		sectionContainer.appendChild(sectionTable);
-	}
-
-	clearSelectedSectionTable = () => {
-		const selectedSectionTable = document.getElementById('section-table');
-
-		if (selectedSectionTable === null) {
-			return;
-		}
-
-		selectedSectionTable.remove();
+		selectedLineSectionContainer.appendChild(sectionTable);
 	}
 }

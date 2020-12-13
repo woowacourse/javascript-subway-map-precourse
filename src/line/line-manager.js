@@ -2,8 +2,6 @@ import LineInput from './view/input.js';
 import LineOutput from './view/output.js';
 import Line from './line.js';
 import LineModel from './model/model.js';
-import SectionManager from '../section/section-manager.js';
-import SectionModel from '../section/model/model.js';
 
 export default class LineManager {
 	constructor() {
@@ -55,7 +53,7 @@ export default class LineManager {
 		}
 
 		const tableRowToDelete = event.target.parentNode.parentNode;
-		const lineNameToDelete = tableRowToDelete.dataset.lineName;
+		const lineNameToDelete = tableRowToDelete.dataset.linename;
 		
 		tableRowToDelete.remove();
 

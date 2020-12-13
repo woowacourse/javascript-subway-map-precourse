@@ -57,7 +57,7 @@ export default class StationManager {
 		}
 
 		const tableRowToDelete = event.target.parentNode.parentNode;
-		const stationNameToDelete = tableRowToDelete.dataset.stationName;
+		const stationNameToDelete = tableRowToDelete.dataset.stationname;
 
 		tableRowToDelete.remove();
 

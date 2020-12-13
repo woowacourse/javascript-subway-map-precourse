@@ -1,4 +1,4 @@
-export default class ManagerInput {
+export default class MenuInput {
 	constructor() {
 		this.stationManagerButton = document.getElementById('station-manager-button');
 		this.lineManagerButton = document.getElementById('line-manager-button');
