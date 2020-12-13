@@ -1,10 +1,6 @@
 import LineManager from "./pages/lineManager.js";
 import StationManager from "./pages/StationManager.js";
-
-const RE_RENDER_EVENT = "customRender";
-const reRenderEvent = new CustomEvent(RE_RENDER_EVENT);
-const dispatchReRender = () => window.dispatchEvent(reRenderEvent);
-export { dispatchReRender };
+import { dispatchReRender, RE_RENDER_EVENT } from "./utils/events.js";
 
 const stationManager = new StationManager();
 const lineManager = new LineManager();

@@ -1,4 +1,4 @@
-import { dispatchReRender } from "../index.js";
+import { dispatchReRender } from "../utils/events.js";
 
 const elementMap = {
   stationNameInput: "station-name-input",

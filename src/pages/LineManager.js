@@ -1,3 +1,5 @@
+import { dispatchReRender } from "../utils/events.js";
+
 const stations = ["인천", "소요산", "시청", "신도림", "대화", "오금"];
 
 const elementMap = {
