@@ -14,4 +14,12 @@ const isEmpty = (arr) => {
   return arr.length === 0;
 };
 
-export { isNull, isUnderTwo, isDuplication, isEmpty };
+const isNegative = (value) => {
+  return value < 0;
+};
+
+const isInLine = (arr, value) => {
+  return arr.indexOf(value) !== -1;
+};
+
+export { isNull, isUnderTwo, isDuplication, isEmpty, isNegative, isInLine };

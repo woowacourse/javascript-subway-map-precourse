@@ -16,10 +16,10 @@ export default class Line {
     return this.inLineStations[this.lineLength() - 1];
   }
 
-  add(_sectionName, _sectionOrder) {
+  add(_sectionStationName, _sectionOrder) {
     this.inLineStations = [
       ...this.inLineStations.slice(undefined, _sectionOrder),
-      _sectionName,
+      _sectionStationName,
       ...this.inLineStations.slice(_sectionOrder, undefined),
     ];
   }

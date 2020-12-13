@@ -1,3 +1,4 @@
+import { isNegative, isInLine } from "../utils.js";
 import { loadLines, saveLines } from "../line/actions.js";
 import { loadStations, useStation, disUseStation } from "../station/actions.js";
 import {
@@ -9,6 +10,10 @@ import {
 } from "./templates.js";
 
 let sectionLineName;
+
+const getSectionLine = () => {
+  return loadLines().find((x) => x.name === sectionLineName);
+};
 
 const printLayout = () => {
   const managerContainer = document.getElementById("manager-container");
@@ -22,10 +27,6 @@ const createSectionLineMenu = (_lines) => {
   for (let i = 0; i < _lines.length; i++) {
     sectionLineMenu.innerHTML += `<button class="section-line-menu-button">${_lines[i].name}</button>\n`;
   }
-};
-
-const getSectionLine = () => {
-  return loadLines().find((x) => x.name === sectionLineName);
 };
 
 const createSectionLineContainer = () => {
@@ -68,17 +69,39 @@ const getSectionStationName = () => {
   return document.getElementById("section-station-selector").value;
 };
 
-const getSectionStationOrder = () => {
-  return document.getElementById("section-order-input").value;
+const getSectioOrder = () => {
+  const sectionOrder = document.getElementById("section-order-input").value;
+
+  document.getElementById("section-order-input").value = "";
+
+  return sectionOrder;
+};
+
+const isValid = (_sectionStationName, _sectionOrder) => {
+  if (isInLine(getSectionLine().inLineStations, _sectionStationName)) {
+    alert("노선의 구간은 중복일 수 없습니다.");
+    return;
+  }
+
+  if (isNegative(_sectionOrder) || !Number.isInteger(Number(_sectionOrder))) {
+    alert("순서는 0 이상의 자연수를 입력해주세요.");
+    return;
+  }
+
+  return true;
 };
 
 const addSection = () => {
   const lines = loadLines();
+  const sectionStationName = getSectionStationName();
+  const sectionOrder = getSectioOrder();
 
-  lines
-    .find((x) => x.name === sectionLineName)
-    .add(getSectionStationName(), getSectionStationOrder());
-  saveLines(lines);
+  if (isValid(sectionStationName, sectionOrder)) {
+    lines
+      .find((x) => x.name === sectionLineName)
+      .add(sectionStationName, sectionOrder);
+    saveLines(lines);
+  }
 };
 
 const setSectionAddBtn = () => {
