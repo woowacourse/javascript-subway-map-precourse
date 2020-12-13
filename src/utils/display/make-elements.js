@@ -43,3 +43,12 @@ export default function makeOneRowWithDeleteBtn(objectToMake) {
 
   return tr;
 }
+
+export function makeSelectOptions(selectBox, optionToMakeArray) {
+  for (const optionValue of optionToMakeArray) {
+    const option = document.createElement("option");
+    option.value = optionValue.stationName;
+    option.text = optionValue.stationName;
+    selectBox.appendChild(option);
+  }
+}
