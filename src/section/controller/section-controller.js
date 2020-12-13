@@ -29,7 +29,6 @@ export default class SectionController {
 		this.selectedLine = event.target.getAttribute('data-lineName');
 		
 		this.sectionOutput.showSelectedLineSectionContainer(this.selectedLine);
-
 		this.setSectionAddButtonHandler();
 		this.setDeleteButtonsHandler();
 	}
@@ -41,9 +40,7 @@ export default class SectionController {
 	}
 
 	addSection = () => {
-		const lines = new LineModel().getLineStorageData();
-		const sectionStationSelect = document.getElementById('section-station-selector').value;
-		const sectionOrderInput = Number(document.getElementById('section-order-input').value);
+		const [lines, sectionStationSelect, sectionOrderInput] = this.getSectionComponents();
 
 		if (
 			isDuplicatedStationInLine(lines[this.selectedLine], sectionStationSelect) || 
@@ -54,6 +51,14 @@ export default class SectionController {
 
 		this.addSectionToMemory(sectionStationSelect, sectionOrderInput);
 		this.addSectionToTable();
+	}
+
+	getSectionComponents = () => {
+		const lines = new LineModel().getLineStorageData();
+		const sectionStationSelect = document.getElementById('section-station-selector').value;
+		const sectionOrderInput = Number(document.getElementById('section-order-input').value);
+
+		return [lines, sectionStationSelect, sectionOrderInput];
 	}
 
 	addSectionToMemory = (sectionStationSelect, sectionOrderInput) => {
@@ -71,6 +76,7 @@ export default class SectionController {
 
 	setDeleteButtonsHandler = () => {
 		const deleteButtons = document.getElementsByClassName('section-delete-button');
+		
 		for (let deleteButton of deleteButtons) {
 			deleteButton.addEventListener('click', this.deleteSection);
 		}

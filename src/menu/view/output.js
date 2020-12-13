@@ -7,9 +7,7 @@ export default class MenuOutput {
 		this.stationContainer = document.getElementById('station-container');
 		this.lineContainer = document.getElementById('line-container');
 		this.sectionContainer = document.getElementById('section-container');
-		this.mapContainer = document.getElementById('map-container');
-		
-		this.hideAllContainers();
+		this.mapContainer = document.getElementById('map-container');		
 	}
 
 	hideAllContainers = () => {

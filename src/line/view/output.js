@@ -40,9 +40,25 @@ export default class LineOutput {
 		lineContainer.appendChild(lineTable);
 	}
 
+	clearLineTable = () => {
+		const lineTable = document.getElementById('line-table');
+
+		if (lineTable != null) {
+			lineTable.remove();
+		}
+	}
+
 	createLineTable = lines => {
 		const lineTable = document.createElement('table');
 		lineTable.setAttribute('id', 'line-table');
+		
+		this.createLineTableHeader(lineTable);
+		this.createLineTableData(lineTable, lines);
+
+		return lineTable;
+	}
+
+	createLineTableHeader = lineTable => {
 		lineTable.innerHTML = 
 		`
 		<tr>
@@ -52,7 +68,9 @@ export default class LineOutput {
 			<th>설정</th>
 		</tr>
 		`;
+	}
 
+	createLineTableData = (lineTable, lines) => {
 		for (let line in lines) {
 			lineTable.innerHTML += 
 			`
@@ -63,16 +81,6 @@ export default class LineOutput {
 				<td><button class="line-delete-button">삭제</button>
 			</tr>
 			`;
-		}
-
-		return lineTable;
-	}
-
-	clearLineTable = () => {
-		const lineTable = document.getElementById('line-table');
-
-		if (lineTable != null) {
-			lineTable.remove();
 		}
 	}
 }

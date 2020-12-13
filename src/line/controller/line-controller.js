@@ -19,9 +19,7 @@ export default class LineController {
 	}
 
 	addLine = () => {
-		const lineNameInput = this.lineInput.lineNameInput.value;
-		const lineStartStation = this.lineInput.lineStartStationSelector.value;
-		const lineEndStation = this.lineInput.lineEndStationSelector.value;
+		const [lineNameInput, lineStartStation, lineEndStation] = this.getLineComponents();
 		const lines = new LineModel().getLineStorageData();
 
 		if (isDuplicatedLine(lines, lineNameInput)) {
@@ -32,6 +30,14 @@ export default class LineController {
 
 		this.addLineToMemory(line);
 		this.addLineToTable();
+	}
+
+	getLineComponents = () => {
+		const lineNameInput = this.lineInput.lineNameInput.value;
+		const lineStartStation = this.lineInput.lineStartStationSelector.value;
+		const lineEndStation = this.lineInput.lineEndStationSelector.value;
+
+		return [lineNameInput, lineStartStation, lineEndStation];
 	}
 
 	createLine = (lineNameInput, lineStartStation, lineEndStation) => {
