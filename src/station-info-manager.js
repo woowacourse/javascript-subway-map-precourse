@@ -2,7 +2,7 @@ export default class StationINFOManager {
   constructor() {
     this._stations = [];
     this._lines = [];
-    //this._loadAllFromLocalStorage();
+    this._loadAllFromLocalStorage();
   }
   addNewStation({ name }) {
     const newStation = {
@@ -11,8 +11,6 @@ export default class StationINFOManager {
     };
     this._stations.push(newStation);
     this._saveAllToLocalStorage();
-    console.log(this._stations);
-    console.log(this._lines);
   }
   addNewLine({ lineName, startStationName, endStationName }) {
     const newLine = {
