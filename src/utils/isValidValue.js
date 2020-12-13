@@ -1,8 +1,14 @@
-const rEmpty = /[\s]/g;
+const rEmpty = "";
+const rSpace = /[\s]/g;
 const rWord = /[^0-9a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g;
 
 export default (word) => {
-  if (rEmpty.test(word)) {
+  if (word === rEmpty) {
+    window.alert("값을 입력해 주세요.");
+    return false;
+  }
+
+  if (rSpace.test(word)) {
     window.alert("공백을 제거해 주세요.");
     return false;
   }
