@@ -90,6 +90,20 @@ export default class SectionManager {
     }
   }
 
+  validateSectionOrder(lineName, sectionOrder) {
+    const sectionOrderNumber = convertStringToNumber(sectionOrder);
+    const isValidNumber = isPositiveInteger(sectionOrderNumber);
+    const isValidRange = sectionOrderNumber <= this.line.getSectionsByLineName(lineName).length;
+
+    if (!isValidNumber) {
+      throw new Error(INVALID_NUMBER_SECTION_ORDER);
+    }
+
+    if (!isValidRange) {
+      throw new Error(INVALID_RANGE_SECTION_ORDER);
+    }
+  }
+
   addSection(targetButton) {
     try {
       const targetLine = targetButton.dataset.line;
@@ -97,6 +111,7 @@ export default class SectionManager {
       const sectionOrder = this.getSectionOrderInput();
 
       this.validateSectionExist(targetLine, sectionStation);
+      this.validateSectionOrder(targetLine, sectionOrder);
     } catch (error) {
       alert(error);
     }
