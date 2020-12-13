@@ -1,16 +1,27 @@
-export const initState = {
-  stations: new Set(),
+import Station from "./Station.js";
+
+const initialState = {
+  stations: [],
 };
 
 class SubwayStore {
-  constructor({ stations, lines }) {
+  constructor({ stations }) {
     this.stations = stations;
-    this.lines = lines;
   }
 
   getStations() {
     return [...this.stations];
   }
+
+  addStation(name) {
+    const newStation = new Station(name);
+    this.stations = [...this.getStations(), newStation];
+  }
+
+  removeStation(name) {
+    const stations = this.getStations();
+    this.stations = stations.filter(station => station.name !== name);
+  }
 }
 
-export default SubwayStore;
+export default new SubwayStore(initialState);
