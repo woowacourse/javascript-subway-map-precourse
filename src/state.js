@@ -2,7 +2,7 @@ import { getLocalStorageDataBy } from "./local_storage.js";
 
 const State = function () {
   this.state = {
-    stations: getLocalStorageDataBy("stations") || "",
+    stations: getLocalStorageDataBy("stations") || "[]",
     lines: getLocalStorageDataBy("lines") || "[]",
     currentPage: "0",
     selectedLineIndex: 0,
@@ -13,7 +13,7 @@ const State = function () {
   this.isEmptyPage = () => this.state.currentPage === "0";
   this.isAlreadyRenderedPage = (page) => this.state.currentPage === page;
 
-  this.getFormattedStations = () => this.state.stations.split(",");
+  this.getFormattedStations = () => JSON.parse(this.state.stations);
   this.getFormattedLines = () => JSON.parse(this.state.lines);
 
   this.setState = (dataName, nextState) => {
