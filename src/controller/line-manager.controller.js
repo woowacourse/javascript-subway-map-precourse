@@ -83,4 +83,25 @@ export default class LineManager {
       throw new Error(INVALID_START_END_STATION);
     }
   }
+
+  addLine() {
+    const lineName = this.getLineNameInput();
+    const startStation = this.getLineStartStationInput();
+    const endStation = this.getLineEndStationInput();
+
+    try {
+      this.validateLineName(lineName);
+      this.validateStartEndStation(startStation, endStation);
+    } catch (message) {
+      alert(message);
+    }
+  }
+
+  onClickButton(event) {
+    const target = event.target;
+
+    if (target.id === "line-add-button") {
+      this.addLine();
+    }
+  }
 }
