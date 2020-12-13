@@ -1,6 +1,8 @@
 import { stationArray } from "../index.js";
 import { container } from "../consts/consts.js";
-import { inputValidator, createElement } from "../utils/utils.js";
+import { createElement } from "../utils/utils.js";
+
+import { textLabel, htmlLabel } from "../consts/consts.js";
 
 const stationInputElement = createElement("input");
 const stationAddButtonElement = createElement("button");
@@ -17,13 +19,13 @@ const stationHTMLElements = [
 
 stationInputElement.setAttribute("id", "station-name-input");
 stationAddButtonElement.setAttribute("id", "station-add-button");
-stationParagraph.innerText = "역 이름";
-stationAddButtonElement.innerText = "역 추가";
-stationHeading.innerText = "지하철 역 목록";
-stationTable.innerHTML = `<tr><th>역 이름</th><th>설정</th></tr>`;
+stationParagraph.innerText = textLabel.STATION_PARAGRAPH;
+stationAddButtonElement.innerText = textLabel.STATION_ADD_BUTTON;
+stationHeading.innerText = textLabel.STATION_HEADING;
+stationTable.innerHTML = htmlLabel.STATION_TABLE;
 
 export const initStationManager = () => {
-  stationInputElement.innerText = "역 이름을 입력해주세요.";
+  stationInputElement.innerText = textLabel.STATION_INPUT;
 
   stationHTMLElements.map((item) => container.appendChild(item));
 
@@ -35,9 +37,9 @@ const handleStationAddButton = () => {
   if (inputValidator(currentValue)) {
     stationArray.push(currentValue);
 
-    const stationDeleteButtonObj = document.createElement("button");
+    const stationDeleteButtonObj = createElement("button");
     stationDeleteButtonObj.setAttribute("class", "station-delete-button");
-    stationDeleteButtonObj.innerText = "삭제";
+    stationDeleteButtonObj.innerText = textLabel.DELETE;
 
     stationDeleteButtonObj.addEventListener("click", () =>
       handleStationDeleteButton(currentValue)
@@ -48,7 +50,7 @@ const handleStationAddButton = () => {
 };
 
 const handleStationDeleteButton = (value) => {
-  if (!confirm("정말로 삭제하시겠습니까?")) return;
+  if (!confirm(textLabel.CONFIRM)) return;
 
   const index = stationArray.indexOf(value);
   stationTable.deleteRow(index + 1);
@@ -70,4 +72,8 @@ const insertTable = (data_1, data_2) => {
 
 const updateStationData = () => {
   window.localStorage.station = stationArray;
+};
+
+const inputValidator = (inputString) => {
+  return inputString.length >= 2 && stationArray.indexOf(inputString) === -1;
 };
