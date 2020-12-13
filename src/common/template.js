@@ -44,6 +44,14 @@ export const lineManagerViewHTML = `
   </table>
 `;
 
+export const sectionManagerViewHTML = `
+  <h3> 구간을 수정할 노선을 선택해주세요. </h3>
+  <div id="section-line-menu"></div>
+
+  <div id = "selected-section-line-container"></div>
+  
+`;
+
 export const createStationTableRowHTML = (stationName) => {
   const sectionRowHTML = `
       <tr data-station = ${stationName}>
@@ -72,4 +80,10 @@ export const insertStationOptionHTML = (targetSelectBox, stationName) => {
   stationOptionElement.innerText = stationName;
 
   targetSelectBox.appendChild(stationOptionElement);
+};
+
+export const createSectionLineButtonHTML = (lineName) => {
+  const sectionLineButtonHTML = `<button class="section-line-menu-button" 
+                                         data-line="${lineName}"> ${lineName} </button> `;
+  return sectionLineButtonHTML;
 };

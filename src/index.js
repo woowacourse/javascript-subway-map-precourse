@@ -1,12 +1,15 @@
 import StationManager from "./controller/station-manager.controller.js";
-import LineManagerController from "./controller/line-manager.controller.js";
+import LineManager from "./controller/line-manager.controller.js";
+import SectionManager from "./controller/section-manager.controller.js";
+
 import { stationManagerViewHTML } from "./common/template.js";
 
 export default class App {
   constructor() {
     this.contentView = document.getElementById("content");
     this.stationManager = new StationManager();
-    this.lineManager = new LineManagerController();
+    this.lineManager = new LineManager();
+    this.sectionManger = new SectionManager();
   }
 
   onClickMenuButton(event) {
@@ -21,7 +24,7 @@ export default class App {
     }
 
     if (target.id === "section-manager-button") {
-      //
+      this.sectionManger.renderSectionManagerView();
     }
 
     if (target.id === "map-print-manager-button") {
