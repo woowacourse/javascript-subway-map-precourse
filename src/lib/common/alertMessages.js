@@ -5,8 +5,7 @@ export const SAME_NAME_ERROR = `중복된 이름은 입력받을 수 없습니�
 export const SPACE_ERROR = `공백은 입력받을 수 없습니다.`;
 
 export const ADD_LINE_INFO_ALERT = "상행 종점과 하행 종점을 입력해주세요.";
-export const START_STATION_EMPTY_ERROR = "상행 종점을 입력해주세요.";
-export const END_STATION_EMPTY_ERROR = "하행 종점을 입력해주세요.";
+export const SAME_LINE_EXISTS_ERROR = "해당 이름을 가진 노선이 이미 존재합니다.";
 export const SAME_START_END_STATION_ERROR =
   "상행 종점과 하행 종점은 같은 역이 될 수 없습니다.";
 

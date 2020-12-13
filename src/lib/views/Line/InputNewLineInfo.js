@@ -1,4 +1,6 @@
+import Line from "../../models/line.js";
 import Select from "../components/Select.js";
+import Button from "../components/Button.js";
 import Typography from "../components/Typography.js";
 import Input from "../components/Input.js";
 
@@ -42,6 +44,22 @@ export default class InputNewLineInfo {
     return $selectEndStationHelper.element;
   }
 
+  _getNewLineSubmitInfoButton() {
+    const $submitNewLineInfoButton = new Button(
+      ADD_LINE_BUTTON,
+      "노선 추가",
+      () =>
+        submitNewLine(
+          new Line(
+            this.lineNameInput.getValue(),
+            this.selectStartStation.getSelectedValue(),
+            this.selectEndStation.getSelectedValue(),
+          ),
+        ),
+    );
+    return $submitNewLineInfoButton.element;
+  }
+
   render() {
     const $lineNameHelperText = new Typography("노선 이름");
     [
@@ -49,6 +67,7 @@ export default class InputNewLineInfo {
       this.lineNameInput.element,
       this._getSelectStartStation(),
       this._getSelectEndStation(),
+      this._getNewLineSubmitInfoButton(),
     ].forEach(($element) => this.element.appendChild($element));
 
     return this.element;

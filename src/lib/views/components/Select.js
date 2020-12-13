@@ -17,4 +17,8 @@ export default class Select {
       })
       .forEach(($option) => this.element.appendChild($option));
   }
+
+  getSelectedValue() {
+    return this.element.options[this.element.selectedIndex].value;
+  }
 }

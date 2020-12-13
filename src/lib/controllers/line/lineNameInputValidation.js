@@ -1,7 +1,7 @@
 import actionResult from "../actionResult.js";
 import {
   NAME_LENGTH_ERROR,
-  //  SAME_NAME_ERROR,
+  SAME_LINE_EXISTS_ERROR,
   SPACE_ERROR,
 } from "../../common/alertMessages.js";
 
@@ -12,7 +12,7 @@ export default class LineNameInputValidation {
     this._isNotHaveSpace = !/\s+/g.test(inputValue);
   }
 
-  // 라인 이름 중복 검사 만들기
+  // 라인 이름 중복 검사 만들기 (이미 존재하는 노선인지?, 따로 모듈화해서 외부에서 불러오자)
 
   getInputResult() {
     if (!this._isMoreThanTwoCharacters)

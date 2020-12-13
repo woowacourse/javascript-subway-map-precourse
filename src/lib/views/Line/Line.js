@@ -24,9 +24,10 @@ export default class Line {
   }
 
   render() {
-    [this._getLineInfoInputFormContainer(), this._getLineInfoList()].forEach(($element) =>
-      this.element.appendChild($element),
-    );
+    [
+      this._getLineInfoInputFormContainer(),
+      this._getLineInfoList(),
+    ].forEach(($element) => this.element.appendChild($element));
     return this.element;
   }
 }
