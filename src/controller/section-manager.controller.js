@@ -126,6 +126,19 @@ export default class SectionManager {
     }
   }
 
+  deleteSection(targetButton) {
+    try {
+      const targetRow = targetButton.parentNode.parentNode;
+      const targetLine = targetRow.dataset.line;
+      const targetStation = targetRow.dataset.station;
+      this.line.removeSection(targetLine, targetStation);
+
+      this.renderSectionTable(targetLine);
+    } catch (error) {
+      alert(error);
+    }
+  }
+
   onClickButton(event) {
     const target = event.target;
 
@@ -135,6 +148,12 @@ export default class SectionManager {
 
     if (target.id === "section-add-button") {
       this.addSection(target);
+    }
+
+    if (target.className === "section-delete-button") {
+      if (confirm(CONFIRM_DELETE)) {
+        this.deleteSection(target);
+      }
     }
   }
 }

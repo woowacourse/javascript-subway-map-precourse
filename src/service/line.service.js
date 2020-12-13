@@ -1,8 +1,9 @@
 class Line {
   constructor() {
     this.storage = window.localStorage;
-    this.DELETED_LINE_COUNT = 1;
+    this.DELETED_ITEM_COUNT = 1;
     this.START_SECTION_ORDER = 0;
+    this.MIN_SECTION_STATION_COUNT = 2;
   }
 
   getAllLines() {
@@ -27,7 +28,7 @@ class Line {
     const allLines = this.getAllLines();
     const index = allLines.indexOf(lineName);
 
-    allLines.splice(index, this.DELETED_LINE_COUNT);
+    allLines.splice(index, this.DELETED_ITEM_COUNT);
 
     this.storage.setItem(`lines`, allLines);
     this.storage.removeItem(lineName);
@@ -70,6 +71,15 @@ class Line {
   addSection(lineName, stationName, order) {
     const sections = this.getSectionsByLineName(lineName);
     sections.splice(order, this.START_SECTION_ORDER, stationName);
+
+    this.storage.setItem(lineName, sections);
+  }
+
+  removeSection(lineName, stationName) {
+    const sections = this.getSectionsByLineName(lineName);
+    const order = sections.indexOf(stationName);
+
+    sections.splice(order, this.DELETED_ITEM_COUNT);
 
     this.storage.setItem(lineName, sections);
   }
