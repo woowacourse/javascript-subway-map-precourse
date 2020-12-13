@@ -28,6 +28,11 @@ export default class LineManager {
       };
       this.setState({ ...this.state, lines: [...this.state.lines, newLine] });
     };
+
+    this.handleLineDeleteButton = (index) => {
+      this.state.lines.splice(index, 1);
+      this.setState({ ...this.state });
+    };
   }
 
   setState(state) {
@@ -57,6 +62,15 @@ export default class LineManager {
 
     const lineAddButton = document.getElementById(elementMap.lineAddButton);
     lineAddButton.addEventListener("click", this.handleLineAddButton);
+
+    const lineDeleteButtons = document.getElementsByClassName(
+      elementMap.lineDeleteButton
+    );
+    [...lineDeleteButtons].forEach((lineDeleteButton, index) => {
+      lineDeleteButton.addEventListener("click", () => {
+        this.handleLineDeleteButton(index);
+      });
+    });
   }
 
   render() {
