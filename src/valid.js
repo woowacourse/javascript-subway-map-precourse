@@ -6,6 +6,7 @@ const ERROR_EMPTY_STRING = '값을 입력해야 합니다.';
 const ERROR_SECTION_LENGTH_UNDER_MIN = `노선에 역이 ${MIN_SECTION_LENGTH}개 이하이므로 삭제가 불가능합니다.`;
 const ERROR_STATION_INCLUDED = '노선에 포함되어있는 역은 삭제가 불가능합니다.';
 const ERROR_STATION_ALREADY_EXISTS = '기존의 노선에 해당 역이 존재합니다.';
+const ERROR_SECTION_OUT_OF_RANGE = '구간 범위를 벗어난 숫자입니다.';
 export const VALID_ADDITION = 'addition';
 export const VALID_DELETION = 'deletion';
 
@@ -51,6 +52,14 @@ export const isValidLineName = (list, input) => {
   return true;
 };
 
+export const isInvalidStationOrder = (line, order) => {
+  if (order < 0 || order > line.length) {
+    alert(ERROR_SECTION_OUT_OF_RANGE);
+    return true;
+  }
+  return false;
+};
+
 export const isInvalidStationDeletion = (lines, targetStation) => {
   for (let i = 0; i < lines.length; i++) {
     const index = lines[i].stations.indexOf(targetStation);
@@ -62,8 +71,8 @@ export const isInvalidStationDeletion = (lines, targetStation) => {
   return false;
 };
 
-export const isInvalidSectionDeletion = (lines, targetLineIndex) => {
-  if (lines[targetLineIndex].stations.length <= MIN_SECTION_LENGTH) {
+export const isInvalidSectionDeletion = stations => {
+  if (stations.length <= MIN_SECTION_LENGTH) {
     alert(ERROR_SECTION_LENGTH_UNDER_MIN);
     return true;
   }
@@ -71,11 +80,13 @@ export const isInvalidSectionDeletion = (lines, targetLineIndex) => {
 };
 
 export const isEndSection = (stations, targetIndex, type) => {
-  if (type === 'deletion') {
+  if (type === VALID_DELETION) {
     return targetIndex === stations.length - 1;
-  } else {
+  } else if (type === VALID_ADDITION) {
     return targetIndex === stations.length;
   }
+
+  return false;
 };
 
 export const isStartSection = targetIndex => {

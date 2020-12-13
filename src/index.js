@@ -6,6 +6,7 @@ import {
   isValidStationName,
   isInvalidStationName,
   isValidLineName,
+  isInvalidStationOrder,
   isInvalidSectionDeletion,
   isInvalidStationDeletion,
   isEndSection,
@@ -115,6 +116,9 @@ export default class SubwayManager {
       if (isInvalidStationName(this.lines[targetLineIndex].stations, stationName)) {
         return;
       }
+      if (isInvalidStationOrder(this.lines[targetLineIndex].stations, stationOrder)) {
+        return;
+      }
       if (isEndSection(this.lines[targetLineIndex].stations, stationOrder, VALID_ADDITION)) {
         this.lines[targetLineIndex].end = stationName;
       } else if (isStartSection(stationOrder)) {
@@ -140,7 +144,7 @@ export default class SubwayManager {
       const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2')
         .dataset[dataStrings.DATA_TARGET];
       const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
-      if (isInvalidSectionDeletion(this.lines, targetLineIndex)) {
+      if (isInvalidSectionDeletion(this.lines[targetLineIndex].stations)) {
         return;
       }
       const targetSectionIndex = +event.target.dataset[dataStrings.DATA_INDEX];
