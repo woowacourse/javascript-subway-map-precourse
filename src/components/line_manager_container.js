@@ -40,7 +40,10 @@ export default function LineManagerContainer({
   };
 
   this.deleteLine = index => {
-    deleteLine(Number(index));
+    const isSure = confirm('정말로 삭제하시겠습니까?');
+    if (isSure) {
+      deleteLine(Number(index));
+    }
   };
 
   this.render = () => {

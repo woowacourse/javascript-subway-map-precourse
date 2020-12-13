@@ -56,7 +56,8 @@ export default function SectionManagerContainer({
     const lines = getLines();
     const targetLine = lines[this.selectedLineNumber];
     const stations = targetLine.stations;
-    if (isValidDeleteSection(stations)) {
+    const isSure = confirm('정말로 삭제하시겠습니까?');
+    if (isSure && isValidDeleteSection(stations)) {
       deleteSection(this.selectedLineNumber, index);
     }
   };
