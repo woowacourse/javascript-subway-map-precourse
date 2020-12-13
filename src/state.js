@@ -3,9 +3,10 @@ import { getLocalStorageDataBy } from "./local_storage.js";
 const State = function () {
   this.state = {
     stations: getLocalStorageDataBy("stations") || "",
-    lines: getLocalStorageDataBy("lines") || "",
+    lines: getLocalStorageDataBy("lines") || "[]",
     currentPage: "0",
     selectedLineIndex: 0,
+    alreadySelectionButtonClicked: false,
   };
   // currentPage "0": 초기 상태, "1": 역 관리, "2": 노선 관리, "3": 구간 관리, "4": 지하철 노선도 관리
 
@@ -13,14 +14,7 @@ const State = function () {
   this.isAlreadyRenderedPage = (page) => this.state.currentPage === page;
 
   this.getFormattedStations = () => this.state.stations.split(",");
-  this.getFormattedLines = () => {
-    const imperfectLineArray = this.state.lines.split("},");
-    const perfectLineArray = imperfectLineArray.map((line, index) => {
-      const object = index !== lineArray.length - 1 ? line + "}" : line;
-      return JSON.parse(object);
-    });
-    return perfectLineArray;
-  };
+  this.getFormattedLines = () => JSON.parse(this.state.lines);
 
   this.setState = (dataName, nextState) => {
     this.state[dataName] = nextState;
