@@ -1,15 +1,15 @@
 import {
-  getStations,
-  setStations,
   existStationName,
   pushNewStation,
   removeStation,
 } from "./utils/station.js";
 import { addClickEventFromId, resetStationTable } from "./utils/dom.js";
+import { getStateFromStorage, setStateToStorage } from "./utils/storage.js";
 import {
   INPUT_ALREADY_EXIST_NAME_MESSAGE,
   INPUT_LESS_THAN_2_MESSAGE,
   DELETE_TEXT,
+  LOCAL_STORAGE_STATIONS_KEY,
 } from "./constant.js";
 import Header from "./Header.js";
 
@@ -38,7 +38,7 @@ export default class SubwayMapManager {
   }
 
   renderStationList() {
-    const stations = getStations();
+    const stations = getStateFromStorage(LOCAL_STORAGE_STATIONS_KEY);
     if (!stations) {
       return;
     }
@@ -64,4 +64,4 @@ export default class SubwayMapManager {
 }
 
 new SubwayMapManager();
-setStations(null);
+setStateToStorage(LOCAL_STORAGE_STATIONS_KEY, null);

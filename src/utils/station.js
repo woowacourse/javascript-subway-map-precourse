@@ -1,18 +1,8 @@
-const LOCAL_STORAGE_STATIONS_KEY = "STATIONS";
-
-export const getStations = () => {
-  return JSON.parse(localStorage.getItem(LOCAL_STORAGE_STATIONS_KEY));
-};
-
-export const setStations = (stations) => {
-  return localStorage.setItem(
-    LOCAL_STORAGE_STATIONS_KEY,
-    JSON.stringify(stations)
-  );
-};
+import { LOCAL_STORAGE_STATIONS_KEY } from "../constant.js";
+import { getStateFromStorage, setStateToStorage } from "./storage.js";
 
 export const existStationName = (name) => {
-  const stations = getStations();
+  const stations = getStateFromStorage(LOCAL_STORAGE_STATIONS_KEY);
   if (!stations) {
     return false;
   }
@@ -20,17 +10,20 @@ export const existStationName = (name) => {
 };
 
 export const removeStation = (name) => {
-  const stations = getStations();
+  const stations = getStateFromStorage(LOCAL_STORAGE_STATIONS_KEY);
   if (stations === null) {
     return;
   }
-  setStations(stations.filter((el) => el !== name));
+  setStateToStorage(
+    LOCAL_STORAGE_STATIONS_KEY,
+    stations.filter((el) => el !== name)
+  );
 };
 
 export const pushNewStation = (station) => {
-  const previousStations = getStations();
+  const previousStations = getStateFromStorage(LOCAL_STORAGE_STATIONS_KEY);
   const newStations = previousStations
     ? [...previousStations, station]
     : [station];
-  setStations(newStations);
+  setStateToStorage(LOCAL_STORAGE_STATIONS_KEY, newStations);
 };
