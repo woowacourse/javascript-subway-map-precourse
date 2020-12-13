@@ -36,7 +36,7 @@ export function onAddSection(e) {
   const selectedSection = getSelectedSection(sectionValue.lineName);
   if (isSectionValid(sectionValue, selectedSection.station)) {
     addSectionOnLocalStorage('line', sectionValue);
-    lineInstance.updateLine(selectedSection, sectionValue);
+    lineInstance.updateAddLine(selectedSection, sectionValue);
     updateSectionTable();
     showSectionScreen(e.target.dataset.line);
   }
@@ -50,6 +50,8 @@ export function onRemoveSection(e) {
   const selectedSection = getSelectedSection(removedData.lineName);
   if (removeConfirm && isMoreThanTwoStation(selectedSection.station)) {
     removeSectionOnLocalStorage('line', removedData);
+    lineInstance.updateRemoveLine(selectedSection, parsedData.station);
+    updateSectionTable();
     showSectionScreen(parsedData.line);
   }
 }

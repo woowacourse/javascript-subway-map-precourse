@@ -23,7 +23,14 @@ export default class Line {
     return this.lines.splice(removedLineIndex, 1);
   }
 
-  updateLine(selectedLine, lineValue) {
+  updateAddLine(selectedLine, lineValue) {
     selectedLine.station.splice(lineValue.number, 0, lineValue.sectionName);
+  }
+
+  updateRemoveLine(selectedLine, removedSectionName) {
+    const removedSectionIndex = selectedLine.station.indexOf(
+      removedSectionName,
+    );
+    selectedLine.station.splice(removedSectionIndex, 1);
   }
 }
