@@ -52,49 +52,68 @@ export default class LineManager extends Component {
     return stationNameArray;
   }
 
-  // eslint-disable-next-line max-lines-per-function
   constructHTMLElements() {
-    this.$lineNameInput = createInputTextHTMLElement({
+    this.$lineNameInput = this.createLineNameInput();
+
+    this.$lineStartStationSelectorLabel = this.createLineStartStationSelectorLabel();
+    this.$lineStartStationSelector = this.createLineStartStationSelector();
+
+    this.$lineEndStationSelectorLabel = this.createLineEndStationSelectorLabel();
+    this.$lineEndStationSelector = this.createLineEndStationSelector();
+
+    this.$lineAddButton = this.createLineAddButton();
+  }
+
+  createLineNameInput() {
+    return createInputTextHTMLElement({
       id: "line-name-input"
     });
+  }
 
-    this.$lineStartStationSelectorLabel = createLabelHTMLElement({
+  createLineStartStationSelectorLabel() {
+    return createLabelHTMLElement({
       name: "상행 종점",
       htmlFor: "line-start-station-selector"
     });
-    
-    this.$lineStartStationSelector = createSelectHTMLElement({
+  }
+
+  createLineStartStationSelector() {
+    return createSelectHTMLElement({
       id: "line-start-station-selector",
       options: this.stationNameArray
     });
+  }
 
-    this.$lineEndStationSelectorLabel = createLabelHTMLElement({
+  createLineEndStationSelectorLabel() {
+    return createLabelHTMLElement({
       name: "하행 종점",
       htmlFor: "line-end-station-selector"
     });
-    
-    this.$lineEndStationSelector = createSelectHTMLElement({
+  }
+
+  createLineEndStationSelector() {
+    return createSelectHTMLElement({
       id: "line-end-station-selector",
       options: this.stationNameArray
     });
+  }
 
-    this.$lineAddButton = createButtonHTMLElement({
+  createLineAddButton() {
+    return createButtonHTMLElement({
       id: "line-add-button",
       name: "노선 추가"
     });
+  }
 
-    this.childNodes = [
+  appendChildNodes() {
+    this.$component.append(
       this.$lineNameInput,
       this.$lineStartStationSelectorLabel,
       this.$lineStartStationSelector,
       this.$lineEndStationSelectorLabel,
       this.$lineEndStationSelector,
       this.$lineAddButton
-    ];
-  }
-
-  appendChildNodes() {
-    this.$component.append(...this.childNodes);
+    );
   }
 
   setState(state) {
