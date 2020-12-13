@@ -10,6 +10,7 @@ class SubwayMap {
     this.elements = {};
     this.stationList = [];
     this.lineList = [];
+    this.selectedLine = null;
 
     this.setMenuElements();
     this.setMenuEventListener();
@@ -43,10 +44,12 @@ class SubwayMap {
     return this.stationList.find((station) => station.name === name);
   }
 
+  getLine(name) {
+    return this.lineList.find((line) => line.name === name);
+  }
+
   isRegisteredStation(station) {
-    return this.lineList.some(
-      (line) => line.startStation.name === station.name || line.endStation.name === station.name,
-    );
+    return this.lineList.some((line) => line.stationList.findIndex((item) => item === station) < 0);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -210,11 +213,13 @@ class SubwayMap {
   }
 
   addLineListItemElement(line) {
+    const endIndex = line.sectionList.length - 1;
+
     this.elements.lineListTableBody.innerHTML += `
       <tr data-name="${line.name}">
         <td>${line.name}</td>
-        <td>${line.startStation.name}</td>
-        <td>${line.endStation.name}</td>
+        <td>${line.sectionList[0].name}</td>
+        <td>${line.sectionList[endIndex].name}</td>
         <td>
           <button class="line-delete-button" data-name="${line.name}">
             삭제
@@ -258,11 +263,12 @@ class SubwayMap {
     if (!this.lineList || this.lineList.length < 0) return;
 
     const lineListDOMItems = this.lineList.map((line) => {
+      const endIndex = line.sectionList.length - 1;
       return `
         <tr data-name="${line.name}">
           <td>${line.name}</td>
-          <td>${line.startStation.name}</td>
-          <td>${line.endStation.name}</td>
+          <td>${line.sectionList[0].name}</td>
+          <td>${line.sectionList[endIndex].name}</td>
           <td>
             <button class="line-delete-button" data-name="${line.name}">
               삭제
@@ -333,10 +339,139 @@ class SubwayMap {
     this.showLineElementsAll();
   }
 
+  updateSectionListElement() {
+    this.elements.sectionListTableBody.innerHTML = this.getSectionElementAll();
+  }
+
+  isExistSection(station) {
+    return this.selectedLine.sectionList.some(({ name }) => name === station);
+  }
+
+  isValidOrder(order) {
+    return order >= 0 && order <= this.selectedLine.sectionList.length;
+  }
+
+  handleSubmitSectionAdd(e) {
+    e.preventDefault();
+
+    const selectedStationName = this.elements.sectionStationSelector.value;
+    const selectedStation = this.getStation(selectedStationName);
+    const order = parseInt(this.elements.sectionOrderInput.value.trim(), 10);
+
+    if (this.isExistSection(selectedStationName)) {
+      alert('이미 같은 노선에 등록되어 있는 역입니다');
+      return;
+    }
+
+    if (!this.isValidOrder(order)) {
+      alert(`0 부터 ${this.selectedLine.sectionList.length} 사이에서 입력해주세요`);
+      return;
+    }
+
+    this.selectedLine.sectionList.splice(order, 0, selectedStation);
+    this.updateSectionListElement();
+  }
+
+  getSectionStationSelectorOptions() {
+    return this.stationList.map((station) => `<option value="${station.name}">${station.name}</options>`).join('');
+  }
+
+  getSectionElementAll() {
+    return this.selectedLine.sectionList
+      .map(
+        (section, index) => `
+          <tr data-name="${section.name}">
+            <td>${index}</td>
+            <td>${section.name}</td>
+            <td>
+              <button class="section-delete-button" data-name="${section.name}">
+                삭제
+              </button>
+            </td>
+          </tr>
+        `,
+      )
+      .join('');
+  }
+
+  showSectionManagerForm() {
+    this.elements.sectionLineMenuContainer.innerHTML = `
+      <h3>${this.selectedLine.name} 관리</h3>
+      <h4>구간 등록</h4>
+      <form id="section-form">
+        <select id="section-station-selector">
+          ${this.getSectionStationSelectorOptions()}
+        </select>
+        <input type="number" id="section-order-input" placeholder="순서" />
+        <button id="section-add-button">등록</button>
+      </form>
+      <table id="section-list">
+        <thead>
+          <tr>
+            <th>순서</th>
+            <th>이름</th>
+            <th>설정</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${this.getSectionElementAll()}
+        </tbody>
+      </table>
+    `;
+
+    this.elements = {
+      ...this.elements,
+      sectionForm: document.querySelector('#section-form'),
+      sectionStationSelector: document.querySelector('#section-station-selector'),
+      sectionOrderInput: document.querySelector('#section-order-input'),
+      sectionAddButton: document.querySelector('#section-add-button'),
+      sectionListTableBody: document.querySelector('#section-list tbody'),
+    };
+
+    this.elements.sectionForm.addEventListener('submit', this.handleSubmitSectionAdd.bind(this));
+  }
+
+  isValidSectionManager() {
+    return this.lineList.length >= 1;
+  }
+
+  handleClickLineMenu(e) {
+    if (e.target.className !== 'section-line-menu-button') return;
+
+    const { lineName } = e.target.dataset;
+    const selectedLine = this.lineList.find((line) => line.name === lineName);
+
+    if (selectedLine) {
+      this.selectedLine = selectedLine;
+      this.showSectionManagerForm();
+    }
+  }
+
   showSectionManager() {
+    if (!this.isValidSectionManager()) {
+      alert('등록된 노선이 없습니다');
+      return;
+    }
+
+    const sectionLineMenuButtonsDOM = this.lineList
+      .map((line) => `<button class="section-line-menu-button" data-line-name="${line.name}">${line.name}</button>`)
+      .join('');
+
     this.elements.managerContainer.innerHTML = `
       <h3>구간을 수정할 노선을 선택해주세요</h3>
+      <div id="section-line-menu-button-container">
+        ${sectionLineMenuButtonsDOM}
+      </div>
+      <div id="section-line-menu-container"></div>
     `;
+
+    this.elements = {
+      ...this.elements,
+      sectionLineMenuButtonContainer: document.querySelector('#section-line-menu-button-container'),
+      sectionLineMenuContainer: document.querySelector('#section-line-menu-container'),
+    };
+
+    this.elements.sectionLineMenuButtonContainer.addEventListener('click', this.handleClickLineMenu.bind(this));
   }
 
   showMapPrintManager() {
