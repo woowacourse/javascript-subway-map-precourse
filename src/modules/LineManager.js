@@ -1,6 +1,7 @@
 import Station from "./Station.js";
 import Line from "./Line.js";
 import { DELETE_BUTTON } from "../constant/constant.js";
+import { DELETE_CONFIRM } from "../constant/message.js";
 
 export default class LineManager {
   constructor() {
@@ -60,6 +61,18 @@ export default class LineManager {
     lineList.forEach(({ name, list }) => {
       this._setTableElements(name, list);
     });
+  };
+
+  _deleteLine = e => {
+    const confirmDelete = confirm(DELETE_CONFIRM);
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    const lineName = e.target.dataset.name;
+    this._line.deleteLine(lineName);
+    this._printLineList();
   };
 
   _handleAddButton = e => {
