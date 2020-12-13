@@ -62,9 +62,21 @@ export default class LineManager {
     });
   };
 
+  _handleAddButton = e => {
+    e.preventDefault();
+    const lineName = this._nameInput.value;
+    const startStation = this._startStationSelector.value;
+    const endStation = this._endStationSelector.value;
+    this._nameInput.value = "";
+
+    this._line.saveNewLine(lineName, startStation, endStation);
+    this._printLineList();
+  };
+
   _render = () => {
     this._printLineList();
     this._station.setStationOptions(this._startStationSelector);
     this._station.setStationOptions(this._endStationSelector);
+    this._addButton.addEventListener("click", this._handleAddButton);
   };
 }
