@@ -26,10 +26,15 @@ export default class LineManagerEvent extends LineManagerRender {
       lineName,
       line: [startStation, endStation],
     };
+    target[0].value = "";
+
+    if (!this.isValidLineInfo(lineInfo)) return;
 
     console.log(lineInfo);
 
     this.lines.push(lineInfo);
     this.saveLocalStorageValue(this.localStorageKey, this.lines);
   }
+
+  isValidLineInfo(lineInfo) {}
 }
