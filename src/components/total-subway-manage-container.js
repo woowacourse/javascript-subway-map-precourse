@@ -1,5 +1,5 @@
 import stationManageContainer from "./station-manage-container.js";
-import sectionManageContainer from "./section-manage-container.js";
+import lineManageContainer from "./line-manage-container.js";
 import { state } from "../index.js";
 
 const menuIDs = {
@@ -44,7 +44,7 @@ const menuIDs = {
             />
             <div class="line-select-box">
               상행 종점
-              <select id="line-start-station-selector"></select>
+              <select id="line-start-station-selector"></select><br />
               하행 종점
               <select id="line-end-station-selector"></select>
             </div>
@@ -68,7 +68,13 @@ const menuIDs = {
       </div>
     `,
   },
-  2: { id: "manage-sections", html: `` },
+  2: {
+    id: "manage-sections",
+    html: `
+  <div id="manage-sections">
+    <h4>구간을 수정할 노선을 선택해 주세요.</h4>
+  </div>`,
+  },
   3: { id: "manage-map-print", html: `` },
 };
 
@@ -103,7 +109,7 @@ export default function totalSubwayManageContainer() {
       if (index === 0) {
         new stationManageContainer(state);
       } else if (index === 1) {
-        new sectionManageContainer(state);
+        new lineManageContainer(state);
       }
     });
   }
