@@ -31,7 +31,7 @@ export const STATION_ALERT_OVERLAP = '이미 추가한 역이에요. 😅';
 export const STATION_ALERT_HAS_LINE =
   '노선에 추가한 역은 삭제할 수 없어요!\n해당 역이 추가된 노선이에요:';
 
-// line manager;
+// line manager
 export const LINE = 'line';
 export const LINE_MANAGER = 'line-manager';
 export const LINE_MANAGER_BUTTON = 'line-manager-button';
@@ -48,7 +48,7 @@ export const LINE_ALERT_OVERLAP = '이미 추가한 노선이에요. 😅';
 export const OPTION_ALERT_INVALID =
   '상행 종점과 하행 종점에 들어갈 역은 중복되지 않게 한 번씩만 추가할 수 있어요.';
 
-// section manager;
+// section manager
 export const SECTION_MANAGER = 'section-manager';
 export const SECTION_LINE_MENU_BUTTON = 'section-line-menu-button';
 export const SECTION_ADD_BUTTON = 'section-add-button';
@@ -56,9 +56,15 @@ export const SECTION_DELETE_BUTTON = 'section-delete-button';
 export const SECTION_ORDER_INPUT = 'section-order-input';
 export const SECTION_STAION_SELECTOR = 'section_station_selector';
 
-// map print manager;
+// map print manager
 export const MAP = 'map';
 export const MAP_PRINT_MANAGER_BUTTON = 'map-print-manager-button';
+
+// selectors
+export const SELECTORS = [
+  LINE_START_STATION_SELECTOR,
+  LINE_END_STATION_SELECTOR,
+];
 
 // fetch url
 export const STATION_URL = 'http://openapi.seoul.go.kr:8088';

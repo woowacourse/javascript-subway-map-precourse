@@ -18,6 +18,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-console': 'off',
     'no-alert': 'off',
+    'no-prototype-builtins': 'off',
     'max-depth': ['error', 2],
     'max-lines-per-function': ['error', 15],
   },
