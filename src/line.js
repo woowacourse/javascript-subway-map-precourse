@@ -1,13 +1,21 @@
 import { isSpecialCharacter, isDuplicated } from './check.js'
 
 export default function Line() {
+  this.getStartStationInput = function(lineName) {
+    const startStationSelector = document.querySelector("#line-start-station-selector");
+    startStationSelector.addEventListener("mouseleave", () => {
+      const startStationValue = startStationSelector.value;   
+      console.log(lineName, startStationValue);
+    });
+  }
+
   this.getLineName = function() {
     const lineNameInput = document.querySelector("#line-name-input");
     lineNameInput.addEventListener("change", () => {
       const lineName = document.querySelector("#line-name-input").value;
       const alertText = "노선 목록에 없는 단어를 입력해 주세요."
       if (!isSpecialCharacter(lineName) && !isDuplicated(lineName)) {
-        console.log(lineName);
+        this.getStartStationInput(lineName);
       } else {
         alert(alertText);
       }
