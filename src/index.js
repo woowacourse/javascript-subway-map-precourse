@@ -57,6 +57,12 @@ class SubwayMap {
     `;
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  deleteStationListItemElement(name) {
+    const element = document.querySelector(`tr[data-name="${name}"]`);
+    element.remove();
+  }
+
   handleSubmitStationAdd(e) {
     e.preventDefault();
 
@@ -68,6 +74,18 @@ class SubwayMap {
     this.addStationListItemElement(station);
 
     this.elements.stationNameInput.value = '';
+  }
+
+  handleClickStationDelete(e) {
+    if (e.target.className !== 'station-delete-button') return;
+
+    const { name } = e.target.dataset;
+    const index = this.stationList.findIndex((station) => station.name === name);
+
+    if (index >= 0) {
+      this.stationList.splice(index, 1);
+      this.deleteStationListItemElement(name);
+    }
   }
 
   showStationManager() {
@@ -100,6 +118,7 @@ class SubwayMap {
     };
 
     this.elements.stationForm.addEventListener('submit', this.handleSubmitStationAdd.bind(this));
+    this.elements.stationList.addEventListener('click', this.handleClickStationDelete.bind(this));
   }
 
   showLineManager() {
