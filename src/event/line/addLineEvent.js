@@ -1,5 +1,10 @@
 import renderLine from "../../render/renderLine.js";
-import { isSatisfyLength, isSameDestination, isLineAlreadyExist } from "../../inputCheck.js";
+import {
+  isSatisfyLength,
+  isSameDestination,
+  isLineAlreadyExist,
+  isTransferStation,
+} from "../../inputCheck.js";
 import { alertMessage } from "../../alertMessage.js";
 
 function addLine(line, start, end) {
@@ -21,6 +26,10 @@ function checkValidLine() {
     return alert(alertMessage.SAME_DESTINATION_ERROR);
   } else if (isLineAlreadyExist(lines, line)) {
     return alert(alertMessage.SAME_LINE_EXIST_ERROR);
+  } else if (isTransferStation(lines, start)) {
+    return alert(`${start}` + alertMessage.TRANSFER_STATION_MESSAGE);
+  } else if (isTransferStation(lines, end)) {
+    return alert(`${end}` + alertMessage.TRANSFER_STATION_MESSAGE);
   }
   addLine(line, start, end);
 }

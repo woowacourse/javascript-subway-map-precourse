@@ -1,5 +1,5 @@
 import { renderSection } from "../../render/renderSection.js";
-import { isSectionAlreadyExist } from "../../inputCheck.js";
+import { isSectionAlreadyExist, isTransferStation } from "../../inputCheck.js";
 import { alertMessage } from "../../alertMessage.js";
 
 export function getIndexOfLine(lineName) {
@@ -36,6 +36,8 @@ function checkValidSection(selectedLine) {
     return alert(alertMessage.SAME_SECTION_EXIST_ERROR);
   } else if (stationOrder === "") {
     return alert(alertMessage.ORDERING_INPUT_NOTHING_ERROR);
+  } else if (isTransferStation(lines, selectedStation)) {
+    return alert(`${selectedStation}` + alertMessage.TRANSFER_STATION_MESSAGE);
   }
   addSection(indexOfLine, selectedLine, selectedStation, stationOrder);
 }

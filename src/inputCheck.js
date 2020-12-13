@@ -86,3 +86,27 @@ export function isSatisfyMinNumOfStations(line) {
 
   return result;
 }
+
+export function _isTransferStation(sections, station) {
+  let result = false;
+  for (let i = 0; i < sections.length; i++) {
+    if (station === sections[i]) {
+      result = true;
+      break;
+    }
+  }
+
+  return result;
+}
+
+export function isTransferStation(lines, station) {
+  let result = false;
+  for (let i = 0; i < lines.length; i++) {
+    if (_isTransferStation(lines[i].sections, station)) {
+      result = true;
+      break;
+    }
+  }
+
+  return result;
+}
