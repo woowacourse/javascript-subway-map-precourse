@@ -12,8 +12,6 @@ export default class StationManagerRender extends Component {
 
   initDOM() {
     this.stationNameInputElement = document.createElement("div");
-    this.stationNameForm = "";
-    console.log(this.stationNameForm, "=-=-=-=-");
   }
 
   render() {
