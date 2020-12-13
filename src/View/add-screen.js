@@ -1,11 +1,11 @@
+import {setButtonOption} from './input.js';
 import {
   $stationContainer,
   $lineContainer,
   $sectionContainer,
   $subwaySectionContainer,
   $mapContainer,
-  setButtonOption,
-} from './input.js';
+} from './element.js';
 
 export const addStationScreen = (value) => {
   const $stationTbody = $stationContainer.querySelector('table > tbody');

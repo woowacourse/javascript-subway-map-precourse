@@ -3,7 +3,7 @@ import {
   $lineContainer,
   $sectionContainer,
   $mapContainer,
-} from './input.js';
+} from './element.js';
 
 export const removeStationScreen = (button) => {
   const $stationTbody = $stationContainer.querySelector('table > tbody');

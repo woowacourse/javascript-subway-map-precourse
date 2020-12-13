@@ -5,7 +5,7 @@ import {
   $downStreamOption,
   $upStream,
   $downStream,
-} from '../View/input.js';
+} from '../View/element.js';
 import {addLineScreen, addStationSelectOption} from '../View/add-screen.js';
 import {
   removeLineScreen,

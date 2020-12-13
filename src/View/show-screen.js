@@ -4,7 +4,7 @@ import {
   $sectionContainer,
   $mapContainer,
   $subwaySectionContainer,
-} from './input.js';
+} from './element.js';
 
 export const showScreen = (e) => {
   if (e.target.id === 'station-manager-button') {

@@ -5,7 +5,7 @@ import {
   $sectionStation,
   $sectionOption,
   $sectionLineSelect,
-} from '../View/input.js';
+} from '../View/element.js';
 import {
   addLineTitle,
   addStationSelectOption,

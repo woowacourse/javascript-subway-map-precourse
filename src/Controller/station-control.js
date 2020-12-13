@@ -4,7 +4,7 @@ import {
   $upStream,
   $downStream,
   $sectionStation,
-} from '../View/input.js';
+} from '../View/element.js';
 import {addStationScreen, addStationSelectOption} from '../View/add-screen.js';
 import {
   removeTableScreen,

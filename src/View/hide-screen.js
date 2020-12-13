@@ -1,4 +1,4 @@
-import {$sectionContainer} from './input.js';
+import {$sectionContainer} from './element.js';
 
 export const hideScreen = () => {
   const $allSection = document.body.querySelectorAll('section');
