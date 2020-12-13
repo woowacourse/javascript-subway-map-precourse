@@ -1,5 +1,6 @@
 import Component from "./Component.js";
 import {
+  clearInputValue,
   createButtonHTMLElement,
   createDivHTMLElement,
   createInputNumberHTMLElement,
@@ -18,6 +19,8 @@ export default class SectionMain extends Component {
 
     this.constructHTMLElements();
     this.appendChildNodes();
+
+    this.addClickEventListener();
 
     this.render();
   }
@@ -90,7 +93,88 @@ export default class SectionMain extends Component {
     );
   }
 
+  addClickEventListener() {
+    this.$component.addEventListener("click", e => {
+      const { target: { id, classList } } = e;
+      const { target: { dataset: { stationName, order } } } = e;
+
+      if (id === this.$sectionAddButton.id) {
+        this.handleSectionAdd();
+      } else if (classList.contains(this.SECTION_DELETE_BUTTON_CLASSNAME)) {
+        // TODO: 삭제 기능 추가
+      }
+    });
+  }
+
+  handleSectionAdd() {
+    const stationName = this.$sectionStationSelector.value;
+    const sectionOrderNumber = Number(this.$sectionOrderInput.value);
+
+    if (this.isValidSectionInfo(stationName, sectionOrderNumber)) {
+      this.addNewSection(stationName, sectionOrderNumber);
+      this.updateSectionStationSelectorOptions();
+    }
+  }
+
+  isValidSectionInfo(stationName, sectionOrderNumber) {
+    try {
+      this.validateStationName(stationName);
+      this.validateSectionOrderNumber(sectionOrderNumber);
+
+      return true;
+    } catch (error) {
+      alert(error.message);
+      
+      return false;      
+    } finally {
+      clearInputValue(this.$sectionOrderInput);
+      clearInputValue(this.$sectionStationSelector);
+    }
+  }
+
+  validateStationName(stationName) {
+    if (stationName === "") {
+      const errorMessage = [`구간 등록할 지하철 역을 선택해주세요.`].join("\n");
+      
+      throw new Error(errorMessage);
+    }
+  }
+
+  validateSectionOrderNumber(sectionOrderNumber) {
+    if (!Number.isInteger(sectionOrderNumber)) {
+      const errorMessage = [
+        `구간 순서는 정수이어야 합니다.`,
+        `입력된 구간 순서: ${sectionOrderNumber}`
+      ].join("\n");
+
+      throw new Error(errorMessage);
+    }
+  }
+
+  addNewSection(stationName, sectionOrderInteger) {
+    if (sectionOrderInteger < 0) {
+      sectionOrderInteger = 0;
+    }
+
+    const { stations } = this.state;
+    const before = stations.slice(0, sectionOrderInteger);
+    const after = stations.slice(sectionOrderInteger);
+  
+    this.setState({
+      stations: [...before, stationName, ...after]
+    });
+
+    console.log(this.state.stations);
+  }
+
+  updateSectionStationSelectorOptions() {
+    this.$sectionStationSelector.innerHTML = this.getExcludedStationsArray()
+      .map(stationName => `<option>${stationName}</option>`).join("");
+  }
+
   render() {
+    this.$sectionStationList.innerHTML = "";
+
     const $childNodes = this.state.stations.reduce((acc, stationName, order) => {
       const $order = createDivHTMLElement({ innerText: order });
       const $stationName = createDivHTMLElement({ innerText: stationName });
