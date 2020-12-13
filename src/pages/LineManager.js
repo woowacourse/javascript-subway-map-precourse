@@ -1,6 +1,5 @@
 import { dispatchReRender } from "../utils/events.js";
-
-const stations = ["인천", "소요산", "시청", "신도림", "대화", "오금"];
+import Component from "../core/Component.js";
 
 const elementMap = {
   lineNameInput: "line-name-input",
@@ -10,41 +9,41 @@ const elementMap = {
   lineDeleteButton: "line-delete-button",
 };
 
-export default class LineManager {
+export default class LineManager extends Component {
   constructor() {
+    super();
     this.state = {
       lineName: "",
-      lineStartStation: stations[0],
-      lineEndStation: stations[0],
-      lines: [],
+      lineStartStation: "",
+      lineEndStation: "",
     };
 
     this.handleLineAddButton = () => {
-      const { lineEndStation, lineStartStation, lineName, lines } = this.state;
-      const newLine = {
-        name: lineName,
-        start: lineStartStation,
-        end: lineEndStation,
+      const line = {
+        name: this.state.lineName,
+        start: this.state.lineStartStation,
+        end: this.state.lineEndStation,
       };
-      console.log(this.state.lines);
-      if (isDuplicateLine(lines, lineName)) {
+      const lines = this.store.lines ? [...this.store.lines, line] : [line];
+      if (isDuplicateLine(this.store.lines, line.name)) {
         alert("중복된 노선이 존재합니다");
       } else {
-        this.setState({ ...this.state, lines: [...this.state.lines, newLine] });
-        console.log(this.state.lines);
+        this.setStore({ ...this.store, lines });
       }
     };
 
     this.handleLineDeleteButton = (index) => {
-      this.state.lines.splice(index, 1);
-      this.setState({ ...this.state });
+      this.store.lines.splice(index, 1);
+      this.setStore({ ...this.store });
     };
   }
 
-  setState(state) {
-    this.state = state;
-    console.log(this.state);
-    dispatchReRender();
+  afterCreate() {
+    const { lineStartStation, lineEndStation } = this.state;
+    const { stations } = this.store;
+    if (lineStartStation.length === 0)
+      this.state.lineStartStation = stations[0];
+    if (lineEndStation.length === 0) this.state.lineEndStation = stations[0];
   }
 
   mount() {
@@ -58,7 +57,6 @@ export default class LineManager {
     lineStartStationSelector.addEventListener("change", (event) => {
       this.setState({ ...this.state, lineStartStation: event.target.value });
     });
-
     const lineEndStationSelector = document.getElementById(
       elementMap.lineEndStationSelector
     );
@@ -80,7 +78,8 @@ export default class LineManager {
   }
 
   render() {
-    const { lineName, lineStartStation, lineEndStation, lines } = this.state;
+    const { lines = [], stations = [] } = this.store;
+    const { lineName, lineStartStation, lineEndStation } = this.state;
     return `
         <div>
           <h4 style="margin-bottom: 0;">노선 이름</h4>

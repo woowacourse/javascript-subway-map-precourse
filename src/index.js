@@ -23,6 +23,8 @@ lineManagerButton.addEventListener("click", () => {
 });
 
 function reRenderPage() {
+  page.create();
+  page.afterCreate();
   pages.innerHTML = page.render();
   page.mount();
 }
