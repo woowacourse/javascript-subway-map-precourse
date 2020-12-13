@@ -18,18 +18,25 @@ class Show {
     return ul;
   };
 
-  showLines = () => {
-    const previewContainer = document.getElementById("station-line");
+  mapLines = () => {
+    const mapContainer = createCustomElement({ tag: "div", className: "map" });
     for (let i = 0; i < Object.keys(this.lines).length; i++) {
       const name = Object.keys(this.lines)[i];
-      previewContainer.appendChild(
+      mapContainer.appendChild(
         createCustomElement({
           tag: "h2",
           innerHTML: name,
         })
       );
-      previewContainer.appendChild(this.showLine(name));
+      mapContainer.appendChild(this.showLine(name));
     }
+
+    return mapContainer;
+  };
+
+  showLines = () => {
+    const previewContainer = document.getElementById("station-line");
+    previewContainer.appendChild(this.mapLines());
   };
 }
 
