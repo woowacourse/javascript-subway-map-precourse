@@ -29,4 +29,7 @@ export default class App {
 }
 
 const app = new App();
-document.addEventListener("click", (event) => app.onClickMenuButton(event));
+document.addEventListener("click", (event) => {
+  app.onClickMenuButton(event);
+  app.stationManager.onClickButton(event);
+});
