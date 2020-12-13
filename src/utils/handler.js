@@ -1,5 +1,6 @@
 import { clearContainer } from "./utils.js";
 import { initStationManager } from "../managers/station.js";
+import { initLineManager } from "../managers/line.js";
 
 export const handleStationManager = () => {
   clearContainer();
@@ -8,6 +9,7 @@ export const handleStationManager = () => {
 
 export const handleLineManager = () => {
   clearContainer();
+  initLineManager();
 };
 
 export const handleSectionManager = () => {

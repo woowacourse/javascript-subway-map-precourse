@@ -12,6 +12,8 @@
 - 역 관리 기능에서 테이블에 역의 이름과 삭제 버튼을 추가하는 함수 `insertTable`
 - 역 관리 기능에서 변경한 사항을 localStorage에 반영해주는 함수 `updateStationData`
 
+- 노선 관리 기능을 시작할 함수 `initLineManager`
+
 ## 🚀 기능 요구사항
 
 ### 지하철 역 관련 기능
