@@ -1,10 +1,17 @@
+import StationManager from "./station-manager.js";
+import { stationManagerViewHTML } from "./template.js";
+
 export default class App {
-  constructor() {}
+  constructor() {
+    this.contentView = document.getElementById("content");
+    this.stationManager = new StationManager();
+  }
 
   onClickMenuButton(event) {
     const target = event.target;
     if (target.id === "station-manager-button") {
-      //
+      this.contentView.innerHTML = stationManagerViewHTML;
+      this.stationManager.renderStationTable();
     }
 
     if (target.id === "line-manager-button") {
