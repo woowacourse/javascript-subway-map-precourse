@@ -1,6 +1,5 @@
-import StationModel from '/src/station/model/model.js';
 import LineInput from './input.js';
-import LineModel from '../model/model.js';
+import LocalStorage from '../../shared/service/local-storage.js';
 
 export default class LineOutput {
 	constructor() {
@@ -39,7 +38,7 @@ export default class LineOutput {
 	}
 
 	addStationsToSelectorTag = selector => {
-		const stations = new StationModel().getStationStorageData();
+		const stations = new LocalStorage().loadData('station-data');
 
 		for (let station in stations) {
 			let option = document.createElement('option');
@@ -52,7 +51,7 @@ export default class LineOutput {
 	showLineTable = () => {
 		this.clearLineTable();
 
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 		const lineContainer = document.getElementById('line-container');
 		const lineTable = this.createLineTable(lines);
 

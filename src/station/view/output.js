@@ -1,4 +1,4 @@
-import StationModel from '../model/model.js';
+import LocalStorage from '../../shared/service/local-storage.js';
 
 export default class StationOutput {
 	constructor() {
@@ -27,7 +27,7 @@ export default class StationOutput {
 	showStationTable = () => {
 		this.clearStationTable();
 
-		const stations = new StationModel().getStationStorageData();
+		const stations = new LocalStorage().loadData('station-data');
 		const stationContainer = document.getElementById('station-container');
 		const stationTable = this.createStationTable(stations);
 

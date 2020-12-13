@@ -1,4 +1,4 @@
-import LineModel from '/src/line/model/model.js';
+import LocalStorage from '../../shared/service/local-storage.js';
 
 export default class MapOutput {
 	constructor() {
@@ -18,7 +18,7 @@ export default class MapOutput {
 
 	printAllStations = () => {
 		const mapContainer = document.getElementById('map-container');
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 
 		this.createLineHeader(mapContainer, lines);
 	}

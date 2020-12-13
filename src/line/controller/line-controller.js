@@ -1,7 +1,7 @@
 import LineInput from '../view/input.js';
 import LineOutput from '../view/output.js';
 import Line from '../line.js';
-import LineModel from '../model/model.js';
+import LocalStorage from '../../shared/service/local-storage.js';
 import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
 import {
 	isNotValidLineName, 
@@ -37,7 +37,7 @@ export default class LineController {
 
 	isLineInputError = () => {
 		const [lineNameInput, lineStartStation, lineEndStation] = this.getLineInputValues();
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 
 		if (
 			isNotValidLineName(lineNameInput) || 
@@ -63,11 +63,11 @@ export default class LineController {
 	}
 
 	addLineToMemory = line => {
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 
 		lines[line['lineName']] = line['lineStations'];
 
-		new LineModel().setLineStorageData(lines);
+		new LocalStorage().saveData('line-data', lines);
 	}
 
 	addLineToTable = () => {
@@ -87,7 +87,7 @@ export default class LineController {
 	deleteLine = event => {
 		const tableRowToDelete = event.target.parentNode.parentNode;
 		const lineNameToDelete = tableRowToDelete.dataset.linename;
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 
 		if (isUnconfirmedDelete()) {
 			return;
@@ -98,10 +98,10 @@ export default class LineController {
 	}
 
 	deleteLineFromMemory = lineNameToDelete => {
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 
 		delete lines[lineNameToDelete];
 
-		new LineModel().setLineStorageData(lines);
+		new LocalStorage().saveData('line-data', lines);
 	}
 }

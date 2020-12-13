@@ -1,6 +1,6 @@
 import SectionOutput from '../view/output.js';
 import SectionInput from '../view/input.js';
-import LineModel from '../../line/model/model.js';
+import LocalStorage from '../../shared/service/local-storage.js';
 import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
 import {
 	isMinimumLineLength, 
@@ -51,7 +51,7 @@ export default class SectionController {
 	}
 
 	isSectionInputError = () => {
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 
 		const [sectionStationSelect, sectionOrderInput] = this.getSectionInputValues();
 
@@ -71,11 +71,11 @@ export default class SectionController {
 	}
 
 	addSectionToMemory = (sectionStationSelect, sectionOrderInput) => {
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 		
 		lines[this.selectedLine].splice(sectionOrderInput, 0, sectionStationSelect);
 
-		new LineModel().setLineStorageData(lines);
+		new LocalStorage().saveData('line-data', lines);
 	}
 
 	addSectionToTable = () => {
@@ -92,7 +92,7 @@ export default class SectionController {
 	}
 
 	deleteSection = event => {
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 
 		if (isMinimumLineLength(lines[this.selectedLine]) || isUnconfirmedDelete()) {
 			return;
@@ -107,11 +107,11 @@ export default class SectionController {
 	}
 
 	deleteSectionFromMemory = (selectedLineNameToDelete, stationIndexToDelete) => {
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 		
 		lines[selectedLineNameToDelete].splice(stationIndexToDelete, 1);
 
-		new LineModel().setLineStorageData(lines);
+		new LocalStorage().saveData('line-data', lines);
 	}
 
 	deleteSectionFromTable = (selectedLineNameToDelete) => {

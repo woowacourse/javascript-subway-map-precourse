@@ -1,5 +1,4 @@
-import StationModel from '../../station/model/model.js';
-import LineModel from '../../line/model/model.js';
+import LocalStorage from '../../shared/service/local-storage.js';
 
 export default class SectionOutput {
 	constructor() {
@@ -21,7 +20,7 @@ export default class SectionOutput {
 	}
 
 	showLineNameButtons = () => {
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 		const sectionContainer = document.getElementById('section-container');
 		const sectionLineMenuButtonContainer = document.createElement('div');
 
@@ -74,7 +73,7 @@ export default class SectionOutput {
 	}
 
 	addStationsToSelectorTag = () => {
-		const stations = new StationModel().getStationStorageData();
+		const stations = new LocalStorage().loadData('station-data');
 		const sectionStationSelector = document.getElementById('section-station-selector');
 
 		for (let station in stations) {
@@ -92,7 +91,7 @@ export default class SectionOutput {
 		
 		this.createSectionTableHeader(sectionTable);
 
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 		const lineStations = lines[selectedLine];
 
 		this.createSectionTableData(sectionTable, selectedLine, lineStations);

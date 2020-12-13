@@ -1,8 +1,7 @@
 import StationInput from '../view/input.js';
 import StationOutput from '../view/output.js';
 import Station from '../station.js';
-import StationModel from '../model/model.js';
-import LineModel from '../../line/model/model.js';
+import LocalStorage from '../../shared/service/local-storage.js';
 import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
 import {isStationOnLine, isNotValidStationName, isDuplicatedStationName} from '../service/validation.js';
 
@@ -33,7 +32,7 @@ export default class StationController {
 	}
 
 	isStationInputError = () => {
-		const stations = new StationModel().getStationStorageData();
+		const stations = new LocalStorage().loadData('station-data');
 		const stationName = this.stationInput.stationNameInput.value;
 
 		if (isDuplicatedStationName(stations, stationName) || isNotValidStationName(stationName)) {
@@ -48,11 +47,11 @@ export default class StationController {
 	}
 
 	addStationToMemory = station => {
-		const stations = new StationModel().getStationStorageData();
+		const stations = new LocalStorage().loadData('station-data');
 
 		stations[station['stationName']] = station['stationName'];
 		
-		new StationModel().setStationStorageData(stations);
+		new LocalStorage().saveData('station-data', stations);
 	}
 
 	addStationToTable = () => {
@@ -72,7 +71,7 @@ export default class StationController {
 	deleteStation = event => {
 		const tableRowToDelete = event.target.parentNode.parentNode;
 		const stationNameToDelete = tableRowToDelete.dataset.stationname;
-		const lines = new LineModel().getLineStorageData();
+		const lines = new LocalStorage().loadData('line-data');
 
 		if (isStationOnLine(lines, stationNameToDelete) || isUnconfirmedDelete()) {
 			return;
@@ -83,10 +82,10 @@ export default class StationController {
 	}
 
 	deleteStationFromMemory = stationNameToDelete => {
-		const stations = new StationModel().getStationStorageData();
+		const stations = new LocalStorage().loadData('station-data');
 
 		delete stations[stationNameToDelete];
 		
-		new StationModel().setStationStorageData(stations);
+		new LocalStorage().saveData('station-data', stations);
 	}
 }
