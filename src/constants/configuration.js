@@ -1,0 +1,5 @@
+export const SUBWAY_STATION_NAME_LENGTH_LIMIT = 2;
+
+export default {
+  SUBWAY_STATION_NAME_LENGTH_LIMIT,
+};
