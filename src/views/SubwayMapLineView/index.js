@@ -59,13 +59,12 @@ export default class SubwayMapLineView {
   }
 
   renderStartStationSelector(stations) {
-    let selectorOptions = ``;
-
-    stations.forEach(stationId => {
-      selectorOptions += `
-        <option data-id="${stationId[0]}">${stationId[0]}</option>
-      `;
-    });
+    const selectorOptions = stations
+      .map(station => {
+        let [stationId] = station;
+        return `<option data-id="${stationId}">${stationId}</option>`;
+      })
+      .join('');
 
     document.getElementById('line-input-container').innerHTML += `
     <div>
@@ -76,13 +75,12 @@ export default class SubwayMapLineView {
   }
 
   renderEndStationSelector(stations) {
-    let selectorOptions = ``;
-
-    stations.forEach(stationId => {
-      selectorOptions += `
-        <option data-id="${stationId[0]}">${stationId[0]}</option>
-      `;
-    });
+    const selectorOptions = stations
+      .map(station => {
+        let [stationId] = station;
+        return `<option data-id="${stationId}">${stationId}</option>`;
+      })
+      .join('');
 
     document.getElementById('line-input-container').innerHTML += `
     <div>

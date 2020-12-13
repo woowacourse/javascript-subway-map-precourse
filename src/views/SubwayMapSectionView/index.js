@@ -91,13 +91,12 @@ export default class SubwayMapSectionView {
   }
 
   renderSectionSelector(sections) {
-    let selectorOptions = ``;
-
-    sections.forEach(section => {
-      selectorOptions += `
-        <option data-id="${section[0]}">${section[0]}</option>
-      `;
-    });
+    const selectorOptions = sections
+      .map(section => {
+        let [sectionId] = section;
+        return `<option data-id="${sectionId}">${sectionId}</option>`;
+      })
+      .join('');
 
     const sectionSelector = `
       <select id= "#section-station-selector">
