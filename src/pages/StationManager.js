@@ -8,32 +8,38 @@ const elementMap = {
 
 export default class StationManager {
   constructor() {
-    this.state = {
+    this.store = {
       stations: [],
     };
 
     this.handleAddButtonClick = (newStation) => {
       if (
         isMoreThanTwoWords(newStation) &&
-        isNotDuplicateSatationName(newStation, this.state.stations) &&
+        isNotDuplicateSatationName(newStation, this.store.stations) &&
         hasNotSpaceInStationName(newStation) &&
         isOnlyWord(newStation)
       ) {
-        this.state.stations.push(newStation);
-        this.setState({ stations: [...this.state.stations] });
+        this.store.stations.push(newStation);
+        this.setStore({ ...this.store });
       } else {
         alert("다시 입력해 주세요");
       }
     };
 
     this.handleDeleteButtonClick = (index) => {
-      this.state.stations.splice(index, 1);
-      this.setState({ stations: [...this.state.stations] });
+      this.store.stations.splice(index, 1);
+      this.setStore({ ...this.store });
     };
   }
 
   setState(state) {
     this.state = state;
+    dispatchReRender();
+  }
+
+  setStore(store) {
+    this.store = store;
+    localStorage.setItem("store", JSON.stringify(store));
     dispatchReRender();
   }
 
@@ -46,7 +52,6 @@ export default class StationManager {
     );
     stationAddButton.addEventListener("click", () => {
       this.handleAddButtonClick(stationNameInput.value);
-      console.log(this.state.stations);
     });
     const stationDeleteButtons = document.getElementsByClassName(
       elementMap.stationDeleteButton
@@ -54,13 +59,12 @@ export default class StationManager {
     [...stationDeleteButtons].forEach((stationDeleteButton, index) => {
       stationDeleteButton.addEventListener("click", () => {
         this.handleDeleteButtonClick(index);
-        console.log(this.state.stations);
       });
     });
   }
 
   render() {
-    const stations = this.state.stations;
+    const stations = this.store.stations;
     return `
     <div>
       <h4 style="margin-bottom: 0;">역 이름</h4>
