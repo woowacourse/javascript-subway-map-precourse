@@ -10,6 +10,7 @@
 - 역 관리 기능에서 추가 버튼의 동작을 관여할 함수 `handleStationAddButton`
 - 역 관리 기능에서 제거 버튼의 동작을 관여할 함수 `handleStationDeleteButton`
 - 역 관리 기능에서 테이블에 역의 이름과 삭제 버튼을 추가하는 함수 `insertTable`
+- 역 관리 기능에서 변경한 사항을 localStorage에 반영해주는 함수 `updateStationData`
 
 ## 🚀 기능 요구사항
 

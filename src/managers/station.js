@@ -1,34 +1,37 @@
 import { stationArray } from "../index.js";
 import { container } from "../consts/consts.js";
-import { inputValidator } from "../utils/utils.js";
+import { inputValidator, createElement } from "../utils/utils.js";
 
-const stationInputObj = document.createElement("input");
-const stationAddButtonObj = document.createElement("button");
-const stationParagraph = document.createElement("p");
-const stationHeading = document.createElement("h2");
-const stationTable = document.createElement("table");
+const stationInputElement = createElement("input");
+const stationAddButtonElement = createElement("button");
+const stationParagraph = createElement("p");
+const stationHeading = createElement("h2");
+const stationTable = createElement("table");
+const stationHTMLElements = [
+  stationParagraph,
+  stationInputElement,
+  stationAddButtonElement,
+  stationHeading,
+  stationTable,
+];
 
-stationInputObj.setAttribute("id", "station-name-input");
-stationAddButtonObj.setAttribute("id", "station-add-button");
+stationInputElement.setAttribute("id", "station-name-input");
+stationAddButtonElement.setAttribute("id", "station-add-button");
 stationParagraph.innerText = "역 이름";
-stationAddButtonObj.innerText = "역 추가";
+stationAddButtonElement.innerText = "역 추가";
 stationHeading.innerText = "지하철 역 목록";
 stationTable.innerHTML = `<tr><th>역 이름</th><th>설정</th></tr>`;
 
 export const initStationManager = () => {
-  stationInputObj.innerText = "역 이름을 입력해주세요.";
+  stationInputElement.innerText = "역 이름을 입력해주세요.";
 
-  container.appendChild(stationParagraph);
-  container.appendChild(stationInputObj);
-  container.appendChild(stationAddButtonObj);
-  container.appendChild(stationHeading);
-  container.appendChild(stationTable);
+  stationHTMLElements.map((item) => container.appendChild(item));
 
-  stationAddButtonObj.addEventListener("click", handleStationAddButton);
+  stationAddButtonElement.addEventListener("click", handleStationAddButton);
 };
 
 export const handleStationAddButton = () => {
-  const currentValue = stationInputObj.value;
+  const currentValue = stationInputElement.value;
   if (inputValidator(currentValue)) {
     stationArray.push(currentValue);
 
@@ -40,14 +43,18 @@ export const handleStationAddButton = () => {
       handleStationDeleteButton(currentValue)
     );
 
-    insertTable(stationInputObj.value, stationDeleteButtonObj);
+    insertTable(stationInputElement.value, stationDeleteButtonObj);
   }
 };
 
 export const handleStationDeleteButton = (value) => {
+  if (!confirm("정말로 삭제하시겠습니까?")) return;
+
   const index = stationArray.indexOf(value);
   stationTable.deleteRow(index + 1);
   stationArray.splice(index, 1);
+
+  updateStationData();
 };
 
 export const insertTable = (data_1, data_2) => {
@@ -57,4 +64,10 @@ export const insertTable = (data_1, data_2) => {
 
   cell_1.innerHTML = data_1;
   cell_2.appendChild(data_2);
+
+  updateStationData();
+};
+
+const updateStationData = () => {
+  window.localStorage.station = stationArray;
 };
