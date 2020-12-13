@@ -112,6 +112,8 @@ export default class SectionManager {
 
       this.validateSectionExist(targetLine, sectionStation);
       this.validateSectionOrder(targetLine, sectionOrder);
+
+      this.line.addSection(targetLine, sectionStation, sectionOrder);
     } catch (error) {
       alert(error);
     }

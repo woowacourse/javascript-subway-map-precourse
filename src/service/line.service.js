@@ -66,6 +66,13 @@ class Line {
     const sections = this.getSectionsByLineName(lineName);
     return sections.includes(stationName);
   }
+
+  addSection(lineName, stationName, order) {
+    const sections = this.getSectionsByLineName(lineName);
+    sections.splice(order, this.START_SECTION_ORDER, stationName);
+
+    this.storage.setItem(lineName, sections);
+  }
 }
 
 const line = new Line();
