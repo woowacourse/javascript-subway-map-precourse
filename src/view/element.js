@@ -1,44 +1,58 @@
-import { CONSTANT } from "../util/constant.js";
+import { StationManager } from "../controller/station-manager.js";
+import { StationView } from "./station-view.js";
+import { Constant } from "../util/constant.js";
 
-export const element = {
-  stationManagerButton: document.querySelector(CONSTANT.STATION_MANAGER_BTN_ID),
-  lineManagerButton: document.querySelector(CONSTANT.LINE_MANAGER_BTN_ID),
-  sectionManagerButton: document.querySelector(CONSTANT.SECTION_MANAGER_BTN_ID),
+export const Element = {
+  // 초기 화면 버튼
+  stationManagerButton: document.querySelector(Constant.STATION_MANAGER_BTN_ID),
+  lineManagerButton: document.querySelector(Constant.LINE_MANAGER_BTN_ID),
+  sectionManagerButton: document.querySelector(Constant.SECTION_MANAGER_BTN_ID),
   mapPrintManagerButton: document.querySelector(
-    CONSTANT.MAP_PRINT_MANAGER_BTN_ID
+    Constant.MAP_PRINT_MANAGER_BTN_ID
   ),
 
-  stationContainer: document.querySelector(CONSTANT.STATION_CONTAINER_CLASS),
-  lineContainer: document.querySelector(CONSTANT.LINE_CONTAINER_CLASS),
-  sectionContainer: document.querySelector(CONSTANT.SECTION_CONTAINER_CLASS),
-  mapPrintContainer: document.querySelector(CONSTANT.MAP_PRINT_CONTAINER_CLASS),
+  // 각 화면 container
+  stationContainer: document.querySelector(Constant.STATION_CONTAINER_CLASS),
+  lineContainer: document.querySelector(Constant.LINE_CONTAINER_CLASS),
+  sectionContainer: document.querySelector(Constant.SECTION_CONTAINER_CLASS),
+  mapPrintContainer: document.querySelector(Constant.MAP_PRINT_CONTAINER_CLASS),
+
+  // 역 관리
+  stationAddButton: document.querySelector(Constant.STATION_ADD_BUTTON_ID),
+  stationNameInput: document.querySelector(Constant.STATION_NAME_INPUT_ID),
 };
 
-export const elementControl = {
+export const ElementControl = {
   hideAllManagers() {
-    element.stationContainer.style.display = CONSTANT.NONE;
-    element.lineContainer.style.display = CONSTANT.NONE;
-    element.sectionContainer.style.display = CONSTANT.NONE;
-    element.mapPrintContainer.style.display = CONSTANT.NONE;
+    Element.stationContainer.style.display = Constant.NONE;
+    Element.lineContainer.style.display = Constant.NONE;
+    Element.sectionContainer.style.display = Constant.NONE;
+    Element.mapPrintContainer.style.display = Constant.NONE;
   },
 
   showStataionManger() {
     this.hideAllManagers();
-    element.stationContainer.style.display = CONSTANT.BLOCK;
+    Element.stationContainer.style.display = Constant.BLOCK;
+
+    StationManager.isVisited ? StationView.render() : StationManager.init();
   },
 
   showLineManager() {
     this.hideAllManagers();
-    element.lineContainer.style.display = CONSTANT.BLOCK;
+    Element.lineContainer.style.display = Constant.BLOCK;
   },
 
   showSectionManager() {
     this.hideAllManagers();
-    element.sectionContainer.style.display = CONSTANT.BLOCK;
+    Element.sectionContainer.style.display = Constant.BLOCK;
   },
 
   showMapPrintManager() {
     this.hideAllManagers();
-    element.mapPrintContainer.style.display = CONSTANT.BLOCK;
+    Element.mapPrintContainer.style.display = Constant.BLOCK;
   },
+
+  clearInput(element) {
+    element.value = "";
+  }
 };

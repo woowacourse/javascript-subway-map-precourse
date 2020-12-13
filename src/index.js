@@ -1,28 +1,26 @@
-import { CONSTANT } from "./util/constant.js";
-import { element, elementControl } from "./view/element.js";
+import { Constant } from "./util/constant.js";
+import { Element, ElementControl } from "./view/element.js";
 
-export default class SubwayManager {
-  constructor() {
-    this.setEventListener();
-  }
+const App = () => {
+  SubwayManager();
+};
 
-  setEventListener() {
-    element.stationManagerButton.addEventListener(CONSTANT.CLICK, () => {
-      elementControl.showStataionManger();
-    });
+const SubwayManager = () => {
+  Element.stationManagerButton.addEventListener(Constant.CLICK, () => {
+    ElementControl.showStataionManger();
+  });
 
-    element.lineManagerButton.addEventListener(CONSTANT.CLICK, () => {
-      elementControl.showLineManager();
-    });
+  Element.lineManagerButton.addEventListener(Constant.CLICK, () => {
+    ElementControl.showLineManager();
+  });
 
-    element.sectionManagerButton.addEventListener(CONSTANT.CLICK, () => {
-      elementControl.showSectionManager();
-    });
+  Element.sectionManagerButton.addEventListener(Constant.CLICK, () => {
+    ElementControl.showSectionManager();
+  });
 
-    element.mapPrintManagerButton.addEventListener(CONSTANT.CLICK, () => {
-      elementControl.showMapPrintManager();
-    });
-  }
-}
+  Element.mapPrintManagerButton.addEventListener(Constant.CLICK, () => {
+    ElementControl.showMapPrintManager();
+  });
+};
 
-new SubwayManager();
+App();
