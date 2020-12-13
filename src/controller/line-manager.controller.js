@@ -58,4 +58,10 @@ export default class LineManager {
       throw new Error(DUPLICATE_LINE_NAME);
     }
   }
+
+  validateStartEndStation(startStation, endStation) {
+    if (startStation === endStation) {
+      throw new Error(INVALID_START_END_STATION);
+    }
+  }
 }
