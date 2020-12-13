@@ -12,6 +12,8 @@ export default class LineNameInputValidation {
     this._isNotHaveSpace = !/\s+/g.test(inputValue);
   }
 
+  //중복 검사 만들기
+
   getInputResult() {
     if (!this._isMoreThanTwoCharacters)
       return actionResult(false, NAME_LENGTH_ERROR);

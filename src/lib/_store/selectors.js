@@ -11,3 +11,4 @@ export const lineSelector = () =>
 // export const isStateChanged = localStorage.getItem("isChanged") === "true";
 
 // 지하철 라인 관련은 조금 응용하자...
+// 모델을 여기서 불러와야 할려나ㅠㅠ

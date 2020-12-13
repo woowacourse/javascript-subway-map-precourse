@@ -109,3 +109,10 @@
     `export const stationSelector = () => JSON.parse(localStorage.getItem(STATION_STORAGE_NAME));` 로 변경
 
 9. 일단 역 이름은 구현 완료... 일단 가장 크게 배운건 input 유효성 체크할 때 보다 깔끔하게 유지보수 편하게끔 짜는 것!
+
+
+### day 5
+
+1. 어제 삽질하면서 배운 내용을 살짝 응용해서 다른 부분은 비교적 수월하게 해보자.
+2. 콜백이 여러번 발생한다는 것 염두하자. 모델링만 조금 신경써주면 될 듯.
+3. 단, 유효성 체크는 조금 더 꼼꼼하게!

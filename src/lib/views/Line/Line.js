@@ -6,15 +6,9 @@ import Div from "../components/Div.js";
 import {
   LINE_DIV,
   LINE_NAME_INPUT_CONTAINER_ID,
-  LINE_INFO_INPUT_CONTAINER_ID,
-  LINE_LIST_VIEW_CONTAINER_ID,
   LINE_NAME_INPUT,
-  SELECT_START_STATION,
-  SELECT_END_STATION,
-  ADD_LINE_BUTTON,
+  LINE_LIST_VIEW_CONTAINER_ID,
   DELETE_LINE_BUTTON,
-  STATION_NAME_INPUT,
-  ADD_STATION_INPUT,
 } from "../../common/IdAndClassNames.js";
 
 import submitLineName from "../../_action/Line/submitLineName.js";
@@ -44,8 +38,6 @@ export default class Line {
     });
     this.element.appendChild($lineNameInputContainer.element);
   }
-
-  // 노선 정보 업데이트 - 노선 리스트 중에 종점 선택
 
   // 노선 목록 정보 출력 및 삭제
 
