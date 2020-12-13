@@ -49,9 +49,11 @@ export default class LineManager extends Component {
   }
 
   initializeState() {
-    const storedState = JSON.parse(localStorage.getItem(LINE_INFO_LOCAL_STORAGE_KEY));
+    const storedLineInfo = JSON.parse(localStorage.getItem(LINE_INFO_LOCAL_STORAGE_KEY))|| [];
     
-    this.state = storedState || { lineInfo: [] };
+    this.state = {
+      lineInfo: storedLineInfo
+    };
   }
 
   initializeVariables() {
@@ -59,8 +61,8 @@ export default class LineManager extends Component {
   }
 
   extractStationNameArray() {
-    const { stationInfo } = JSON.parse(localStorage.getItem(STATION_INFO_LOCAL_STORAGE_KEY));
-    const stationNameArray = stationInfo.map(({ stationName }) => stationName);
+    const stationInfo = JSON.parse(localStorage.getItem(STATION_INFO_LOCAL_STORAGE_KEY)) || [];
+    const stationNameArray = stationInfo.map(({ stationName }) => stationName).sort();
 
     return stationNameArray;
   }
@@ -242,7 +244,7 @@ export default class LineManager extends Component {
   setState(state) {
     super.setState(state);
 
-    localStorage.setItem(LINE_INFO_LOCAL_STORAGE_KEY, JSON.stringify(this.state));
+    localStorage.setItem(LINE_INFO_LOCAL_STORAGE_KEY, JSON.stringify(this.state.lineInfo));
   }
 
   render() {

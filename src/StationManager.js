@@ -43,14 +43,15 @@ export default class StationManager extends Component {
   }
 
   initializeState() {
-    const storedState = JSON.parse(localStorage.getItem(STATION_INFO_LOCAL_STORAGE_KEY));
+    const storedStationInfo = JSON.parse(localStorage.getItem(STATION_INFO_LOCAL_STORAGE_KEY)) || [];
     
-    this.state = storedState || { stationInfo: [] };
+    this.state = {
+      stationInfo: storedStationInfo
+    };
   }
 
   initializeVariable() {
-    const { lineInfo } = JSON.parse(localStorage.getItem(LINE_INFO_LOCAL_STORAGE_KEY)) || { lineInfo: [] };
-    this.lineInfo = lineInfo;
+    this.lineInfo = JSON.parse(localStorage.getItem(LINE_INFO_LOCAL_STORAGE_KEY)) || [];
   }
 
   constructHTMLElements() {
@@ -192,7 +193,7 @@ export default class StationManager extends Component {
   setState(state) {
     super.setState(state);
 
-    localStorage.setItem(STATION_INFO_LOCAL_STORAGE_KEY, JSON.stringify(this.state));
+    localStorage.setItem(STATION_INFO_LOCAL_STORAGE_KEY, JSON.stringify(this.state.stationInfo));
   }
 
   render() {
