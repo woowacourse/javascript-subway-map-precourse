@@ -47,17 +47,18 @@ export default class SubwayMapManager {
     stations.forEach((station) => {
       const tableRow = document.createElement("tr");
       const stationTableData = document.createElement("td");
-      stationTableData.innerText = station;
       const tableSetData = document.createElement("td");
-      const stationSetButton = document.createElement("button");
-      stationSetButton.innerText = DELETE_TEXT;
-      stationSetButton.onclick = () => {
+      const stationDeleteButton = document.createElement("button");
+      stationTableData.innerText = station;
+      stationDeleteButton.setAttribute("class", "station-delete-button");
+      stationDeleteButton.innerText = DELETE_TEXT;
+      stationDeleteButton.onclick = () => {
         removeStation(station);
         this.renderStationList();
       };
-      tableSetData.appendChild(stationSetButton);
+      tableSetData.append(stationDeleteButton);
       tableRow.append(stationTableData, tableSetData);
-      stationTableBody.appendChild(tableRow);
+      stationTableBody.append(tableRow);
     });
   }
 }
