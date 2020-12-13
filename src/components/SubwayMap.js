@@ -64,11 +64,6 @@ export class SubwayMap {
   };
 
   updateStationView = () => {
-    // this.stationManager.render({
-    //   setStations: this.setStations,
-    //   getStations: this.getStations,
-    //   deleteStation: this.deleteStation,
-    // })
     this.lineManager.update();
   };
 
