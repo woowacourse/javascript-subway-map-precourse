@@ -20,9 +20,9 @@ import { nodeSelector } from '../util/selector/node_selector.js';
 import LineValidator from '../util/validator/line_validator.js';
 
 export default class LineManager extends Role {
-  constructor(lines) {
+  constructor() {
     super(LINE_MANAGER, LINE_MANAGER_BUTTON, LINE_MANAGER_K);
-    this._lines = lines;
+    this._lines = this.getLines();
     this.initialize();
     this.renderSelectors();
     this.clickAddButton(LINE_ADD_BUTTON, this.onClickAddButton, this);

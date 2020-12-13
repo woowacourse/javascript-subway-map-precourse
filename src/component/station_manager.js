@@ -17,9 +17,9 @@ import {
 } from '../library/constant/constant.js';
 
 export default class StationManager extends Role {
-  constructor(stations) {
+  constructor() {
     super(STATION_MANAGER, STATION_MANAGER_BUTTON, STATION_MANAGER_K);
-    this._stations = stations;
+    this._stations = this.getStations();
     this.initialize();
     this.clickAddButton(STATION_ADD_BUTTON, this.onClickAddButton, this);
   }

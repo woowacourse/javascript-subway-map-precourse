@@ -52,6 +52,7 @@ export const LINE_CONFIRM = '정말로 해당 호선을 삭제하시나요?';
 
 // section manager
 export const SECTION_MANAGER = 'section-manager';
+export const SECTION_MANAGER_BUTTON = 'section-manager-button';
 export const SECTION_LINE_MENU_BUTTON = 'section-line-menu-button';
 export const SECTION_ADD_BUTTON = 'section-add-button';
 export const SECTION_DELETE_BUTTON = 'section-delete-button';
@@ -82,7 +83,7 @@ export const NONE_K = '없음';
 export const DELETE_K = '삭제';
 export const STATION_MANAGER_K = '역 관리';
 export const LINE_MANAGER_K = '노선 관리';
-export const SECTION_LINE_MANAGER_K = '구간 관리';
+export const SECTION_MANAGER_K = '구간 관리';
 export const SECTION_LINE_DELETE_K = '노선에서 제거';
 export const MAP_PRINT_MANAGER_K = '지하철 노선도 출력';
 
@@ -90,7 +91,7 @@ export const ROLE_NAMES = [
   '',
   STATION_MANAGER_K,
   LINE_MANAGER_K,
-  SECTION_LINE_MANAGER_K,
+  SECTION_MANAGER_K,
   MAP_PRINT_MANAGER_K,
 ];
 

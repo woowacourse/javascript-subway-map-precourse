@@ -75,6 +75,20 @@ select {
   text-align: center;
 }
 
+/* section manager */
+#section-line {
+  display: none;
+}
+
+#section-table-container {
+  margin-top: 50px;
+}
+
+#section-name-header,
+#section-update-header {
+  width: 150px;
+}
+
 /* behavior */
 .active {
   display: block;

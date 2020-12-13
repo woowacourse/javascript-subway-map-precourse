@@ -1,6 +1,7 @@
 import { nodeSelector } from '../util/selector/node_selector.js';
 import {
   ACTIVE,
+  LINES_LS,
   NONE_K,
   ROLE,
   ROLE_BUTTON_SECTION,
@@ -15,6 +16,20 @@ export default class Role {
     this.buttonId = buttonId;
     this._roleName = roleName;
     this.renderRoleButton();
+  }
+
+  getStations() {
+    const loadedStations = localStorage.getItem(STATIONS_LS);
+    const stations = loadedStations ? JSON.parse(loadedStations) : [];
+
+    return stations;
+  }
+
+  getLines() {
+    const loadedLines = localStorage.getItem(LINES_LS);
+    const lines = loadedLines ? JSON.parse(loadedLines) : [];
+
+    return lines;
   }
 
   renderRoleButton() {
@@ -76,8 +91,7 @@ export default class Role {
   }
 
   renderSelectOptions(selector) {
-    const loadedStations = localStorage.getItem(STATIONS_LS);
-    const stations = loadedStations ? JSON.parse(loadedStations) : [];
+    const stations = this.getStations();
 
     if (stations.length === 0) {
       this.renderSelectOption(selector, NONE_K);
