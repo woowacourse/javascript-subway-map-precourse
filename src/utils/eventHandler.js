@@ -1,13 +1,23 @@
+import { STATION_DIV, LINE_DIV, SELECTION_DIV } from "../constant.js";
+import { controlDisplay, cleanPreView, cleanView } from "./controlView.js";
+import { getDataFromLocalStorage } from "./getDataFromLocalStorage.js";
+
 export function stationEventHandler(e) {
-  console.log("clickStation");
-  console.log(this);
+  getDataFromLocalStorage(this);
+  cleanPreView(STATION_DIV);
+  controlDisplay(document.getElementById("app").children[STATION_DIV]);
 }
 export function lineEventHandler(e) {
-  console.log("lineEventHandler");
+  getDataFromLocalStorage(this);
+  cleanPreView(LINE_DIV);
+  controlDisplay(document.getElementById("app").children[LINE_DIV]);
 }
 export function sectionEventHandler(e) {
-  console.log("sectionEventHandler");
+  getDataFromLocalStorage(this);
+  cleanPreView(SELECTION_DIV);
+  controlDisplay(document.getElementById("app").children[SELECTION_DIV]);
 }
 export function mapPrintHandler() {
-  console.log("mapPrintHandler");
+  getDataFromLocalStorage(this);
+  cleanView();
 }
