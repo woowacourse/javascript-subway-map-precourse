@@ -1,7 +1,13 @@
-import { isSpecialCharacter, isDuplicated } from './check.js'
+import { isSpecialCharacter, isDuplicatedName } from "./check.js";
 
 export default function Line() {
-  this.confirmDeleteLine = function() {
+  this.deleteLine = function(lineName, dataName) {
+    const deleteTarget = document.querySelector(`#${dataName}`);
+    deleteTarget.remove();
+    localStorage.removeItem(lineName);
+  }
+
+  this.confirmDeleteLine = function(lineName) {
     const lineDeleteButton = document.getElementsByClassName("line-delete-button");
     let i;
     for (i = 0; i < lineDeleteButton.length; i++) {
@@ -9,7 +15,7 @@ export default function Line() {
       lineDeleteButton[i].addEventListener("click", () => {
         const returnValue = confirm("정말로 삭제하시겠습니까?");
         if (returnValue) {
-          console.log(dataName);
+          this.deleteLine(lineName, dataName);
         }
       })
     }
@@ -19,9 +25,9 @@ export default function Line() {
     const lineAddButton = document.querySelector("#line-add-button");
     lineAddButton.addEventListener("click", () => {
       const lineList = document.querySelector("#line-list");
-      lineList.innerHTML += `<tr><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button class="line-delete-button">삭제</button></td></tr>`;
+      lineList.innerHTML += `<tr id="line-${lineName}"><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button data-name="line-${lineName}" class="line-delete-button">삭제</button></td></tr>`;
       localStorage.setItem(lineName, JSON.stringify([startStationInput, endStationInput]));
-      this.confirmDeleteLine();
+      this.confirmDeleteLine(lineName);
     }, {once: true});
   }
 
@@ -50,8 +56,8 @@ export default function Line() {
     const lineNameInput = document.querySelector("#line-name-input");
     lineNameInput.addEventListener("change", () => {
       const lineName = document.querySelector("#line-name-input").value;
-      const alertText = "노선 목록에 없는 단어를 입력해 주세요."
-      if (!isSpecialCharacter(lineName) && !isDuplicated(lineName)) {
+      const alertText = "노선 목록에 없는 단어를 입력해 주세요.";
+      if (!isSpecialCharacter(lineName) && !isDuplicatedName(lineName)) {
         this.getStartStationInput(lineName);
       } else {
         alert(alertText);
@@ -82,7 +88,7 @@ export default function Line() {
       const parsedObject = JSON.parse(localStorage.getItem(key));
 
       if (parsedObject[0] !== "station") {
-        lineList.innerHTML += `<tr id="${key}"><td>${key}</td><td>${parsedObject[0]}</td><td>${parsedObject[1]}</td><td><button data-name="${key}" class="line-delete-button">삭제</button></td></tr>`;
+        lineList.innerHTML += `<tr id="line-${key}"><td>${key}</td><td>${parsedObject[0]}</td><td>${parsedObject[1]}</td><td><button data-name="line-${key}" class="line-delete-button">삭제</button></td></tr>`;
       }
     }
     this.confirmDeleteLine();
