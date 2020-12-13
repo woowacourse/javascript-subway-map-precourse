@@ -107,7 +107,7 @@ class SubwayMap {
     if (index >= 0) {
       this.stationList.splice(index, 1);
       this.deleteListItemElement(name);
-      this.saveStationList();
+      save('stationList', this.stationList);
     }
   }
 
