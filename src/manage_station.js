@@ -54,13 +54,13 @@ export default class ManageStation {
     this._privateCommonUtils.createTitle(this.STATION_INPUT_TITLE_TAG, this.STATION_INPUT_TITLE_TEXT, this.ARTICLE_NAME);
     this.createStationInput();
     this._stationAddButton = this._privateDomUtils.createButton(this.ADD_BUTTON_ID, this.ADD_BUTTON_TEXT);
-    this._privateDomUtils.appendTo(this.ARTICLE_NAME, this._stationAddButton);
+    this._privateDomUtils.appendToIdName(this.ARTICLE_NAME, this._stationAddButton);
     this.addEventToButton(this.ADD_TYPE, this.MENU_TYPE);
   }
 
   stationListSection() {
     this._privateCommonUtils.createTitle(this.STATION_LIST_TITLE_TAG, this.STATION_LIST_TITLE_TEXT, this.ARTICLE_NAME);
-    this.createStationListTable();
+    this._stationTable = this._privateTableUtils.createTable(this.ARTICLE_NAME);
   }
 
   createStationInput() {
@@ -93,10 +93,14 @@ export default class ManageStation {
 
   addStation() {
     if (this.checkStationValidity() === this.IS_VALID) {
+      const rowArray = this.createRowArray(this._stationInput.value);
+      
       this.addToStationList(this._stationInput.value);
+      this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
       this._stationInput.value = '';
     }
-    console.log(this._staionList); 
+    console.log('stationlist',this._staionList);
+    
   }
 
   checkStationValidity() {
@@ -135,12 +139,11 @@ export default class ManageStation {
     alert(errorMessage);
   }
 
-  addToStationList(stationName) {
-    this._staionList.push(stationName);
-    this._privateTableUtils.insertToTable();
+  createRowArray(newStation) {
+    return [newStation, 'delete'];
   }
 
-  createStationListTable() {
-    this._stationTable = this._privateTableUtils.createTable(this.ARTICLE_NAME);
+  addToStationList(stationName) {
+    this._staionList.push(stationName);
   }
 }

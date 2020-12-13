@@ -1,12 +1,13 @@
 export default class DomUtils {
   constructor() {
     this.DO_NOT_APPEND = false;
+    this.ID_ATTRIBUTE = 'id';
   }
 
   createButton(idName, buttonText) {
     const button = document.createElement('button');
 
-    this.setAttribute(button, idName);
+    this.setAttribute(this.ID_ATTRIBUTE, button, idName);
     this.setInnerHtml(button, buttonText);
 
     return button;
@@ -15,22 +16,26 @@ export default class DomUtils {
   createArticle(toIdName, idName) {
     const article = document.createElement('ARTICLE');
 
-    this.setAttribute(article, idName);
-    this.appendTo(toIdName, article);
+    this.setAttribute(this.ID_ATTRIBUTE, article, idName);
+    this.appendToIdName(toIdName, article);
 
     return article
   }
 
-  setAttribute(varName, idName) {
-    varName.setAttribute('id', idName);
+  setAttribute(attribute, varName, idName) {
+    varName.setAttribute(attribute, idName);
   }
 
   setInnerHtml(varName, buttonText) {
     varName.innerHTML = buttonText;
   }
 
-  appendTo(toIdName, varName) {
+  appendToIdName(toIdName, varName) {
     document.getElementById(toIdName).appendChild(varName);
+  }
+
+  appendToVarName(toVarName, varName) {
+    toVarName.appendChild(varName);
   }
 
   appendBefore(toIdName, varName, before) {
@@ -46,16 +51,16 @@ export default class DomUtils {
   createInput(inputObject) {
     const input = document.createElement('input');
 
-    this.setAttribute(input, inputObject['idName']);
+    this.setAttribute(this.ID_ATTRIBUTE, input, inputObject['idName']);
     this.setInputType(input, inputObject['type']);
     this.setPlaceholder(input, inputObject['placeholder']);
-    this.appendTo(inputObject['toIdName'], input)
+    this.appendToIdName(inputObject['toIdName'], input)
 
     return input;
   }
 
   setInputType(input, type) {
-    input.setAttribute('type', type);
+    input.setAttribute(this.ID_ATTRIBUTE, 'type', type);
   }
 
   setPlaceholder(input, placeholder) {
