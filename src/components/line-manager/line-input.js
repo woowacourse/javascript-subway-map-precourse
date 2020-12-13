@@ -81,11 +81,17 @@ class LineInput extends Component {
 
   isValidInput(lineName, stations) {
     return (
-      hasStringEnoughLength(lineName, 1) &&
-      hasStringEnoughLength(stations[0], 1) &&
-      hasStringEnoughLength(stations[1], 1) &&
+      !this.hasEmptyInput(lineName, stations) &&
       !this.hasDuplicateLineName(lineName) &&
       stations[0] !== stations[1]
+    );
+  }
+
+  hasEmptyInput(lineName, stations) {
+    return (
+      !hasStringEnoughLength(lineName, 1) ||
+      !hasStringEnoughLength(stations[0], 1) ||
+      !hasStringEnoughLength(stations[1], 1)
     );
   }
 
@@ -97,11 +103,7 @@ class LineInput extends Component {
 
   alertByCase(lineName, stations) {
     const alertCases = [];
-    if (
-      !hasStringEnoughLength(lineName, 1) ||
-      !hasStringEnoughLength(stations[0], 1) ||
-      !hasStringEnoughLength(stations[1], 1)
-    ) {
+    if (this.hasEmptyInput(lineName, stations)) {
       alertCases.push(EMPTY_INPUT_MESSAGE);
     }
     if (this.hasDuplicateLineName(lineName)) {
