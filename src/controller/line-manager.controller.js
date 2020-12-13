@@ -23,4 +23,25 @@ export default class LineManager {
     document.getElementById("content").innerHTML = lineManagerViewHTML;
     this.renderLineTable();
   }
+
+  getLineNameInput() {
+    const lineNameInputField = this.document.getElementById("line-name-input");
+    const lineName = lineNameInputField.value;
+
+    return lineName;
+  }
+
+  getLineStartStationInput() {
+    const startStationSelector = this.document.getElementById("line-name-input");
+    const startStationInput = startStationSelector.value;
+
+    return startStationInput;
+  }
+
+  getLineEndStationInput() {
+    const endStationSelector = this.document.getElementById("line-name-input");
+    const endStationInput = endStationSelector.value;
+
+    return endStationInput;
+  }
 }
