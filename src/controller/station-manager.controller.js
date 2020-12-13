@@ -1,6 +1,6 @@
-import station from "./station.js";
-import { createStationTableRowHTML } from "./template.js";
-import { errorMessage } from "./error-message.js";
+import station from "../service/station.service.js";
+import { createStationTableRowHTML } from "../common/template.js";
+import { errorMessage } from "../common/error-message.js";
 const { INVALID_LENGTH_STATION_NAME, DUPLICATE_STAION_NAME } = errorMessage;
 export default class StationManager {
   constructor() {
@@ -26,6 +26,11 @@ export default class StationManager {
     return stationName;
   }
 
+  resetStationNameInput() {
+    const stationNameInputField = document.getElementById("station-name-input"); //dom
+    stationNameInputField.value = "";
+  }
+
   validateStationNameLength(stationName) {
     const isValidLength = stationName.length >= this.MIN_STATION_NAME_LENGTH;
     if (!isValidLength) {
@@ -48,8 +53,10 @@ export default class StationManager {
 
       this.station.createStation(stationName);
       this.renderStationTable();
-    } catch (errorMessage) {
-      alert(errorMessage);
+      //
+    } catch (error) {
+      alert(error);
+      this.resetStationNameInput();
     }
   }
 

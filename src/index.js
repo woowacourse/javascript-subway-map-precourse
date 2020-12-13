@@ -1,5 +1,5 @@
-import StationManager from "./station-manager.js";
-import { stationManagerViewHTML } from "./template.js";
+import StationManager from "./controller/station-manager.controller.js";
+import { stationManagerViewHTML } from "./common/template.js";
 
 export default class App {
   constructor() {
