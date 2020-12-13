@@ -1,6 +1,8 @@
-export default function SubwayLine(name, upward, downward) {
+import Station from './station.js';
+
+export default function Line(name, upward, downward) {
   this.name = name;
-  this.stations = [upward, downward];
+  this.stations = [new Station(upward), new Station(downward)];
 
   this.getUpward = () => {
     return this.stations[0];
@@ -13,7 +15,7 @@ export default function SubwayLine(name, upward, downward) {
   this.addStation = (station, idx) => {
     this.stations = [
       ...this.stations.slice(0, idx),
-      station,
+      new Station(station),
       ...this.stations.slice(idx + 1),
     ];
   };
