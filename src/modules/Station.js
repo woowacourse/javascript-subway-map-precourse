@@ -89,4 +89,16 @@ export default class Station {
     this._stationList = newStationList;
     this._setStationList(newStationList);
   };
+
+  saveLineToStation = (lineName, stationName) => {
+    const newStationList = this._stationList.map(({ name, line }) => {
+      if (name === stationName && !line.includes(lineName)) {
+        line.push(lineName);
+      }
+
+      return { name, line };
+    });
+    this._stationList = newStationList;
+    this._setStationList(newStationList);
+  };
 }
