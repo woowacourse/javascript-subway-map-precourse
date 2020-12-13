@@ -2,6 +2,7 @@ import StationManager from "./StationManager.js";
 import LineManager from "./LineManager.js";
 import SectionManager from "./SectionManager.js";
 import MapPrintManager from "./MapPrintManager.js";
+import { createButtonHTMLElement } from "./util.js";
 
 class App {
   constructor() {
@@ -30,7 +31,7 @@ class App {
   }
 
   createStationManagerButton() {
-    return this.createButtonHTMLElement({
+    return createButtonHTMLElement({
       id: "station-manager-button",
       name: "1. 역 관리",
       onClick: () => {
@@ -42,7 +43,7 @@ class App {
   }
 
   createLineManagerButton() {
-    return this.createButtonHTMLElement({
+    return createButtonHTMLElement({
       id: "line-manager-button",
       name: "2. 노선 관리",
       onClick: () => {
@@ -54,7 +55,7 @@ class App {
   }
 
   createSectionManagerButton() {
-    return this.createButtonHTMLElement({
+    return createButtonHTMLElement({
       id: "section-manager-button",
       name: "3. 구간 관리",
       onClick: () => {
@@ -66,7 +67,7 @@ class App {
   }
 
   createMapPrintManagerButton() {
-    return this.createButtonHTMLElement({
+    return createButtonHTMLElement({
       id: "map-print-manager-button",
       name: "4. 지하철 노선도 출력",
       onClick: () => {
@@ -75,15 +76,6 @@ class App {
         new MapPrintManager({ $parent: this.$main });
       },
     });
-  }
-
-  createButtonHTMLElement({ id, name, onClick }) {
-    const button = document.createElement("button");
-    button.innerText = name;
-    button.id = id;
-    button.addEventListener("click", onClick);
-
-    return button;
   }
 }
 
