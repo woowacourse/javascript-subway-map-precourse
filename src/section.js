@@ -4,7 +4,14 @@ class Section {
   constructor() {
     this.lines = Line.lines;
     this.showMenuButton();
+    this.resetSection();
   }
+
+  resetSection = () => {
+    const sectionInput = document.getElementById("sect-main-contents");
+    sectionInput.style.display = "none";
+    this.showStationSelect();
+  };
 
   showMenuButton = () => {
     const sectionMenuContainer = document.getElementById("sect-menus");
@@ -22,8 +29,8 @@ class Section {
     const sectionName = document.querySelector(".sect-main h2");
     sectionName.innerHTML = `${lineName} 관리`;
 
-    const sectionInput = document.getElementById("sect-main-input");
-    sectionInput.style.display = block;
+    const sectionInput = document.getElementById("sect-main-contents");
+    sectionInput.style.display = "block";
   };
 
   showSectionLine = e => {
