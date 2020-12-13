@@ -12,7 +12,7 @@
       <button id="section-manager-button">3. 구간 관리</button>
       <button id="map-print-manager-button">4. 지하철 노선도 출력</button>
     </div>
-    <div id="station-template">
+    <div id="station-template" style = "display: none;">
       <h3>역 이름</h3>
       <input id="station-name-input" type="text" value="역 이름을 입력해주세요." />
       <button id="station-add-button">역 추가</button>
@@ -22,7 +22,7 @@
             <th><strong>설정</strong></th>
         </table>
     </div>
-    <div id="line-template">
+    <div id="line-template" style = "display: none;">
       <p>
         <strong>노선 이름</strong>
         <input id="line-name-input" type="text" value="노선 이름을 입력해주세요" />
@@ -45,10 +45,11 @@
         <th><strong>설정</strong></th>
       </table>
     </div>
-    <div id="section-template">
+    <div id="section-template" style = "display: none;">
       <h3>구간을 수정할 노선을 선택해주세요.</h3>
       <select id="section-station-selector"></select>
-      <strong>구간 등록</strong>
+      <div id="section-register" style = "display: none;">
+        <strong>구간 등록</strong>
         <p>
           <select>
             <input id="section-order-input" type="number"/>
@@ -62,9 +63,10 @@
             <th><strong>설정</strong></th>
           </table>
         </p>
+      </div>
     </div>
-    <div id="map-template">
-
+    <div id="map-template" style = "display: none;">
+      map here
     </div>
     <script type="module" src="src/index.js"></script>
   </body>

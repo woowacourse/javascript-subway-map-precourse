@@ -1,14 +1,16 @@
-import {MANAGEMENT, MENU} from './constants.js';
+import {MENU,TEMPLATE} from './constants.js';
+import {clearTemplate,setTemplateVisible} from './template.js';
 
 MENU.STATION.addEventListener('click', (e) => {
-    MANAGEMENT.innerHTML='<object type="text/html" data="pages/station.html"></object>';
+    clearTemplate();
+    setTemplateVisible(TEMPLATE.STATION);
 });
 MENU.LINE.addEventListener('click', (e) => {
-    MANAGEMENT.innerHTML='<object type="text/html" data="pages/line.html"></object>';
-});
+    clearTemplate();
+    setTemplateVisible(TEMPLATE.LINE);});
 MENU.SECTION.addEventListener('click', (e) => {
-    MANAGEMENT.innerHTML='<object type="text/html" data="pages/section.html"></object>';
-});
-MENU.MAP_PRINT.addEventListener('click', (e) => {
-    MANAGEMENT.innerHTML='<object type="text/html" data="pages/map.html"></object>';
-});
+    clearTemplate();
+    setTemplateVisible(TEMPLATE.SECTION);});
+MENU.MAP.addEventListener('click', (e) => {
+    clearTemplate();
+    setTemplateVisible(TEMPLATE.MAP);});
