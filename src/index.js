@@ -3,7 +3,6 @@ import Line from './Model/line.js';
 import {hideScreen, hideSectionLine} from './View/hide-screen.js';
 import {showScreen, showSectionScreen} from './View/show-screen.js';
 import {
-  addStationScreen,
   addStationSelectOption,
   addLineScreen,
   addSectionScreen,
@@ -12,8 +11,6 @@ import {
   addMapPrint,
 } from './View/add-screen.js';
 import {
-  removeStationSelectOption,
-  removeStationScreen,
   removeLineScreen,
   removeTableScreen,
   removeSectionButton,
@@ -21,8 +18,6 @@ import {
   removeMapPrint,
 } from './View/remove-screen.js';
 import {
-  $stationAddInput,
-  $stationContainer,
   $upStream,
   $downStream,
   $lineNameInput,
@@ -37,10 +32,8 @@ import {
   $sectionOption,
 } from './View/input.js';
 import {
-  isStationInputVaild,
   isLineInputValid,
   isSectionValid,
-  isNotLineHaved,
   isMoreThanTwoStation,
 } from './Controller/valid.js';
 import {
@@ -49,9 +42,10 @@ import {
   removeLocalStorage,
   removeSectionOnLocalStorage,
 } from './Controller/local-storage.js';
+import {loadStation} from './Controller/station-control.js';
 
-const stationInstance = new Station();
-const lineInstance = new Line();
+export const stationInstance = new Station();
+export const lineInstance = new Line();
 
 export function onChangeScreen(e) {
   hideScreen();
@@ -67,33 +61,6 @@ export function onChangeScreen(e) {
   }
   if (e.target.id === 'map-print-manager-button') {
     return loadMapPrint();
-  }
-}
-
-export function onAddStation() {
-  if (isStationInputVaild($stationAddInput.value, stationInstance.stations)) {
-    setLocalStorage('station', $stationAddInput.value);
-    stationInstance.addStation($stationAddInput.value);
-    addStationScreen($stationAddInput.value);
-    addStationSelectOption($upStream, $stationAddInput.value);
-    addStationSelectOption($downStream, $stationAddInput.value);
-    addStationSelectOption($sectionStation, $stationAddInput.value);
-  }
-  $stationAddInput.value = '';
-}
-
-export function onRemoveStation(e) {
-  const removeConfirm = confirm('정말로 삭제하시겠습니까?');
-  if (
-    removeConfirm &&
-    isNotLineHaved(e.target.dataset.station, lineInstance.lines)
-  ) {
-    removeLocalStorage('station', e.target.dataset.station);
-    stationInstance.removeStation(e.target.dataset.station);
-    removeStationScreen(e.target);
-    removeStationSelectOption($upStream, e.target.dataset.station);
-    removeStationSelectOption($downStream, e.target.dataset.station);
-    removeStationSelectOption($sectionStation, e.target.dataset.station);
   }
 }
 
@@ -146,12 +113,6 @@ export function onRemoveSection(e) {
     showSectionScreen(parsedData.line);
   }
 }
-
-export const loadStation = () => {
-  removeTableScreen($stationContainer);
-  stationInstance.loadStation();
-  stationInstance.stations.forEach((station) => addStationScreen(station));
-};
 
 export const loadLine = () => {
   removeTableScreen($lineContainer);
