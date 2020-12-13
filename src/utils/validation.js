@@ -48,3 +48,21 @@ export const isValidLine = newLine => {
 
   return true;
 };
+
+export const isValidSectionOrder = (stations, order) => {
+  if (order <= 0 || stations.length <= order) {
+    alert('구간은 역과 역사이에만 추가할 수 있습니다.');
+    return false;
+  }
+
+  return true;
+};
+
+export const isValidSection = (stations, name) => {
+  if (stations.map(station => station.name).includes(name)) {
+    alert('이미 포함된 구간입니다.');
+    return false;
+  }
+
+  return true;
+};

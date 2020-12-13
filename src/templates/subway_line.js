@@ -35,15 +35,14 @@ const lineTable = lines => {
   return `<table
     ${lineTableHeader}
     ${lines
-      .map(
-        (line, idx) =>
-          `<tr>
+      .map((line, idx) => {
+        return `<tr>
           ${lineName(line.name)}
           ${lineStartName(line.getStart().name)}
           ${lineEndName(line.getEnd().name)}
           ${lineDeleteButton(idx)}
-        </tr>`
-      )
+        </tr>`;
+      })
       .join('')}
   </table>`;
 };

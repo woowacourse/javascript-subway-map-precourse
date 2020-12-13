@@ -3,12 +3,60 @@ import {
   sectionMenuContainer,
   sectionTable,
 } from '../templates/index.js';
+import { isValidSectionOrder, isValidSection } from '../utils/index.js';
 
-export default function SectionManagerContainer({ lines }) {
+export default function SectionManagerContainer({
+  getLines,
+  getStations,
+  addSection,
+}) {
   this.mainContainer = document.querySelector('.main-container');
 
-  this.render = () => {
-    this.mainContainer.innerHTML =
-      sectionMenuContainer([]) + sectionAddContainer() + sectionTable([]);
+  this.handleClickMainContainer = ({
+    target: {
+      className,
+      dataset: { item },
+      id,
+    },
+  }) => {
+    if (className === 'section-line-menu-button') {
+      this.selectedLineNumber = Number(item);
+      this.renderTable(this.selectedLineNumber);
+    }
+
+    if (id === 'section-add-button') {
+      this.addSection();
+    }
   };
+
+  this.addSection = () => {
+    const lines = getLines();
+    const targetLine = lines[this.selectedLineNumber];
+    const stations = targetLine.stations;
+    const station = document.getElementById('section-station-selector').value;
+    const order = Number(document.getElementById('section-order-input').value);
+    if (
+      isValidSectionOrder(stations, order) &&
+      isValidSection(stations, station)
+    ) {
+      addSection(this.selectedLineNumber, order, station);
+    }
+  };
+
+  this.render = () => {
+    const lines = getLines();
+    this.mainContainer.innerHTML = sectionMenuContainer(lines);
+  };
+
+  this.renderTable = () => {
+    const lines = getLines();
+    const stations = getStations();
+    const targetLine = lines[this.selectedLineNumber];
+    this.mainContainer.innerHTML =
+      sectionMenuContainer(lines) +
+      sectionAddContainer(targetLine.name, stations) +
+      sectionTable(targetLine.stations);
+  };
+
+  this.mainContainer.addEventListener('click', this.handleClickMainContainer);
 }

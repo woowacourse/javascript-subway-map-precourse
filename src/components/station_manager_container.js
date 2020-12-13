@@ -22,7 +22,7 @@ export default function StationManagerContainer({
     }
 
     if (className === 'station-delete-button') {
-      this.deleteStation(Number(index));
+      this.deleteStation(Number(item));
     }
   };
 
