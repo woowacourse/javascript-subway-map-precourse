@@ -18,6 +18,16 @@ export default class LineManager {
       lineEndStation: stations[0],
       lines: [],
     };
+
+    this.handleLineAddButton = () => {
+      const { lineEndStation, lineStartStation, lineName } = this.state;
+      const newLine = {
+        name: lineName,
+        start: lineStartStation,
+        end: lineEndStation,
+      };
+      this.setState({ ...this.state, lines: [...this.state.lines, newLine] });
+    };
   }
 
   setState(state) {
@@ -44,6 +54,9 @@ export default class LineManager {
     lineEndStationSelector.addEventListener("change", (event) => {
       this.setState({ ...this.state, lineEndStation: event.target.value });
     });
+
+    const lineAddButton = document.getElementById(elementMap.lineAddButton);
+    lineAddButton.addEventListener("click", this.handleLineAddButton);
   }
 
   render() {
