@@ -2,9 +2,13 @@ import totalSubwayManageContainer from "./components/total-subway-manage-contain
 import stationManageContainer from "./components/station-manage-container.js";
 import { STATION_ARRAY_KEY } from "./global/constant.js";
 
-const state = {
+export const state = {
   stationArray: [],
 };
+
+export function saveToLocalStorage(key, value) {
+  localStorage.setItem(key, value);
+}
 
 function init() {
   if (localStorage.getItem(STATION_ARRAY_KEY)) {
