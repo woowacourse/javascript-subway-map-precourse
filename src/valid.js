@@ -5,6 +5,8 @@ const ERROR_UNDER_MINUMUM_LENGTH = `역 이름은 ${MIN_STRING_LENGTH}글자 이
 const ERROR_EMPTY_STRING = '값을 입력해야 합니다.';
 const ERROR_SECTION_LENGTH_UNDER_MIN = `노선에 역이 ${MIN_SECTION_LENGTH}개 이하이므로 삭제가 불가능합니다.`;
 const ERROR_STATION_INCLUDED = '노선에 포함되어있는 역은 삭제가 불가능합니다.';
+export const VALID_ADDITION = 'addition';
+export const VALID_DELETION = 'deletion';
 
 const isDuplicatedName = (list, input) => list.indexOf(input) !== -1;
 
@@ -59,4 +61,16 @@ export const isInvalidSectionDeletion = (lines, targetLineIndex) => {
     return true;
   }
   return false;
+};
+
+export const isEndSection = (stations, targetIndex, type) => {
+  if (type === 'deletion') {
+    return targetIndex === stations.length - 1;
+  } else {
+    return targetIndex === stations.length;
+  }
+};
+
+export const isStartSection = targetIndex => {
+  return targetIndex === 0;
 };

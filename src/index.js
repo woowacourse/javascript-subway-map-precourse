@@ -1,13 +1,18 @@
 import SubwayLine from './line.js';
 import { DOMs, DOMCtrl, DOMStrings } from './doms.js';
 import {
+  VALID_ADDITION,
+  VALID_DELETION,
   isValidStationName,
   isValidLineName,
   isInvalidSectionDeletion,
   isInvalidStationDeletion,
+  isEndSection,
+  isStartSection,
 } from './valid.js';
 
 const CONFIRM_DELETION = '정말로 삭제하시겠습니까?';
+const CONFIRM_DELETE_FROM_LINE = '정말로 노선에서 제거하시겠습니까?';
 
 export default class SubwayManager {
   constructor() {
@@ -104,8 +109,13 @@ export default class SubwayManager {
       const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2')
         .dataset[dataStrings.DATA_TARGET];
       const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
-      const stationOrder = document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value;
+      const stationOrder = +document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value;
       const stationName = document.getElementById(DOMStrings.SECTION_STATION_SELECTOR).value;
+      if (isEndSection(this.lines[targetLineIndex].stations, stationOrder, VALID_ADDITION)) {
+        this.lines[targetLineIndex].end = stationName;
+      } else if (isStartSection(stationOrder)) {
+        this.lines[targetLineIndex].start = stationName;
+      }
       this.lines[targetLineIndex].stations = this.lines[targetLineIndex].stations
         .slice(0, stationOrder)
         .concat(stationName, this.lines[targetLineIndex].stations.slice(stationOrder));
@@ -120,7 +130,7 @@ export default class SubwayManager {
       target: { className },
     } = event;
     if (className === DOMStrings.SECTION_DELETE_BUTTON) {
-      if (!confirm(CONFIRM_DELETION)) {
+      if (!confirm(CONFIRM_DELETE_FROM_LINE)) {
         return;
       }
       const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2')
@@ -129,7 +139,16 @@ export default class SubwayManager {
       if (isInvalidSectionDeletion(this.lines, targetLineIndex)) {
         return;
       }
-      const targetSectionIndex = event.target.dataset[dataStrings.DATA_INDEX];
+      const targetSectionIndex = +event.target.dataset[dataStrings.DATA_INDEX];
+      if (isEndSection(this.lines[targetLineIndex].stations, targetSectionIndex, VALID_DELETION)) {
+        this.lines[targetLineIndex].end = this.lines[targetLineIndex].stations[
+          targetSectionIndex - 1
+        ];
+      } else if (isStartSection(targetSectionIndex)) {
+        this.lines[targetLineIndex].start = this.lines[targetLineIndex].stations[
+          targetSectionIndex + 1
+        ];
+      }
       this.lines[targetLineIndex].stations.splice(targetSectionIndex, 1);
       localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
       DOMCtrl.openSectionManager.bind(this)();
