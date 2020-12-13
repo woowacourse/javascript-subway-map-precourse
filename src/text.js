@@ -5,10 +5,33 @@ export const alertText = {
     SAME_LINE_EXITE: "똑같은 호선이 존재합니다.",
     EMPTY_LINE_NAME: "호선 이름을 입력해주세요.",
     STATION_ALREADY_IN_LINE: "호선에 등록되어 있는 역은 삭제할 수 없습니다.",
-    CONFIRM_MESSAGE: "정말로 삭제하시겠습니까?"
-}
+    CONFIRM_MESSAGE: "정말로 삭제하시겠습니까?",
+    SECTION_ORDER_NOT_INTEGER: "0을 포함한 자연수를 입력해주세요.",
+    SECTION_HAVE_TO_LARGER_THAN_ZERO: "0보다 작은 수는 입력하실 수 없습니다.",
+    NEIGHBOR_STATION_SAME: "똑같은 역이 2번 연속으로 호선에 등록될 수 없습니다.",
+    OUT_OF_INDEX: "삽입이 가능한 순서를 입력해주세요.",
+    EMPTY_ORDER_INPUT: "순서를 입력해주세요.",
+    SHORT_STATION_ARRAY: "호선에는 적어도 2개의 역이 있어야합니다."
+};
 
 export const text = {
     EMPTY: "",
-    MINIMUM_STATION_LENGTH: 2
+    MINIMUM_STATION_LENGTH: 2,
+    MINIMUM_STATION_ARRAY_LENGTH: 2,
+    ZERO: 0,
+    ONE: 1
+}
+
+export const dataText = {
+    STATION_REPOSITORY: "stationRepository",
+    LINE_REPOSITORY: "lineRepository",
+    STATION_ARRAY: "stationArray"
+}
+
+export const tagText = {
+    STATION_MANAGER_BUTTON: "#station-manager-button",
+    LINE_MANAGER_BUTTON: "#line-manager-button",
+    SECTION_MANAGER_BUTTON: "#section-manager-button",
+    MAP_PRINT_MANAGER_BUTTON: "#map-print-manager-button",
+    MAIN_BODY: "#app",
 }
