@@ -13,6 +13,10 @@ class SubwayStore {
     return [...this.stations];
   }
 
+  getStationNames() {
+    return this.getStations().map(station => station.name);
+  }
+
   addStation(name) {
     const newStation = new Station(name);
     this.stations = [...this.getStations(), newStation];

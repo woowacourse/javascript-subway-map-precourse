@@ -3,6 +3,7 @@ import {
   TableHeaderHTML,
   TableRow,
 } from "../utils/templates/stationManager.js";
+import { isVaildStationName } from "../utils/validation.js";
 
 class StationManager {
   constructor({ $target }) {
@@ -24,7 +25,17 @@ class StationManager {
     this.$table.addEventListener("click", this.onClickDeleteButton.bind(this));
   }
 
-  onClickAddButton({ target }) {}
+  onClickAddButton({ target }) {
+    if (target.id !== `station-add-button`) return;
+
+    const name = this.$input.value.trim();
+    if (!isVaildStationName(this.$input, subwayStore.getStationNames(), name)) {
+      return;
+    }
+
+    subwayStore.addStation(name);
+    this.render(subwayStore.getStations());
+  }
 
   onClickDeleteButton({ target }) {}
 
