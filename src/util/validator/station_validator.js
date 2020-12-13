@@ -61,8 +61,10 @@ export default class StationValidator extends Validator {
   }
 
   canDelete(target) {
-    if (this.hasLine(target)) {
-      this.alertStationHasLine();
+    const includedLines = this.getIncludedLines(target);
+
+    if (includedLines.length > 0) {
+      this.alertStationHasLine(includedLines);
 
       return false;
     }
@@ -70,22 +72,22 @@ export default class StationValidator extends Validator {
     return true;
   }
 
-  hasLine(station) {
+  getIncludedLines(station) {
     const loadedLines = localStorage.getItem(LINES_LS);
     const lines = loadedLines ? JSON.parse(loadedLines) : [];
+    const included = [];
 
-    for (const line of lines) {
-      const section = Object.values(line)[0];
+    for (const lineInfo of lines) {
+      const line = lineInfo ? Object.keys(lineInfo)[0] : '';
+      const section = lineInfo ? Object.values(lineInfo)[0] : [];
 
-      if (section.indexOf(station) != -1) {
-        return true;
-      }
+      section.includes(station) && included.push(line);
     }
 
-    return false;
+    return included;
   }
 
-  alertStationHasLine() {
-    alert(STATION_ALERT_HAS_LINE);
+  alertStationHasLine(lines) {
+    alert(`${STATION_ALERT_HAS_LINE} ${lines.join(', ')}`);
   }
 }

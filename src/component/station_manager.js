@@ -27,7 +27,14 @@ export default class StationManager extends Role {
   }
 
   renderStations() {
+    this.clearStationTable();
     this._stations.forEach(station => this.renderStation(station));
+  }
+
+  clearStationTable() {
+    const table = nodeSelector.selectId(STATION_TABLE);
+
+    table.innerHTML = '';
   }
 
   clickAddButton() {
@@ -44,46 +51,52 @@ export default class StationManager extends Role {
     if (response) {
       response.then(isValidate => {
         if (isValidate) {
-          this.addStation(stationNameInput.value);
-          this.renderStation(stationNameInput.value);
+          this.addStation(stationNameInput);
+          this.renderStations();
+          this.renderStationOptions(this._stations);
         }
       });
     }
   }
 
-  addStation(station) {
-    const lineStartSelect = LINE_START_STATION_SELECTOR;
-    const lineEndSelect = LINE_END_STATION_SELECTOR;
+  addStation(input) {
+    const station = input.value;
 
+    input.value = '';
     this._stations.push(station);
+    this._stations.sort();
     localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
-    this.renderSelectOption(station, lineStartSelect, lineEndSelect);
   }
 
   renderStation(station) {
     const stationTable = nodeSelector.selectId(STATION_TABLE);
     const row = this.getStationRow();
-    const stationDeleteButton = document.createElement('button');
+    const stationDeleteButton = this.getStationDeleteButton(station);
 
-    stationDeleteButton.className = STATION_DELETE_BUTTON;
-    stationDeleteButton.dataset.station = station;
-    stationDeleteButton.innerHTML = DELETE_K;
-    row.childNodes[0].innerHTML = station;
-    row.childNodes[1].appendChild(stationDeleteButton);
-    stationTable.appendChild(row);
+    row.childNodes[0].className = STATION;
+    row.childNodes[0].append(station);
+    row.childNodes[1].append(stationDeleteButton);
+    stationTable.append(row);
   }
 
   getStationRow() {
     const row = document.createElement('tr');
-    const nameBlank = document.createElement('td');
-    const buttonBlank = document.createElement('td');
+    const blank = document.createElement('td');
 
-    nameBlank.className = STATION;
-    row.appendChild(nameBlank);
-    row.appendChild(buttonBlank);
     row.className = STATION_ROW;
+    row.append(blank, blank.cloneNode(true));
 
     return row;
+  }
+
+  getStationDeleteButton(station) {
+    const button = document.createElement('button');
+
+    button.className = STATION_DELETE_BUTTON;
+    button.dataset.station = station;
+    button.append(DELETE_K);
+
+    return button;
   }
 
   clickDeleteButton() {
@@ -106,20 +119,12 @@ export default class StationManager extends Role {
     }
     this.deleteStation(target);
     this.deleteStationOption(target);
+    this.renderStations();
   }
 
   deleteStation(target) {
-    const stations = nodeSelector.selectClassAll(STATION);
-
     this._stations = this._stations.filter(station => station !== target);
     localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
-    for (const station of stations) {
-      if (target === station.innerHTML) {
-        station.parentNode.remove();
-
-        return;
-      }
-    }
   }
 
   deleteStationOption(target) {

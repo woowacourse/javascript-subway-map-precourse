@@ -1,6 +1,8 @@
 import { nodeSelector } from '../util/selector/node_selector.js';
 import {
   ACTIVE,
+  LINE_END_STATION_SELECTOR,
+  LINE_START_STATION_SELECTOR,
   ROLE,
   ROLE_BUTTON_SECTION,
   ROLE_NAMES,
@@ -20,8 +22,8 @@ export default class Role {
     const index = this.getIndex();
 
     button.id = this.buttonId;
-    button.innerHTML = `${index}. ${this._roleName}`;
-    section.appendChild(button);
+    button.append(`${index}. ${this._roleName}`);
+    section.append(button);
   }
 
   getIndex() {
@@ -43,9 +45,22 @@ export default class Role {
     });
   }
 
-  renderSelectOption(value, ...selectIds) {
-    for (const selectId of selectIds) {
-      const selector = nodeSelector.selectId(selectId);
+  renderStationOptions(stations) {
+    const selectorIds = [
+      LINE_START_STATION_SELECTOR,
+      LINE_END_STATION_SELECTOR,
+    ];
+
+    selectorIds.forEach(selectorId => {
+      const selector = nodeSelector.selectId(selectorId);
+
+      selector.innerHTML = '';
+      this.renderSelectOptions(selector, stations);
+    });
+  }
+
+  renderSelectOptions(selector, values) {
+    for (const value of values) {
       const option = document.createElement('option');
 
       option.value = value;

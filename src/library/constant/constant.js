@@ -28,7 +28,8 @@ export const STATION_ROW = 'station-row';
 export const STATION_ALERT_INVALID =
   '일치하는 역 이름이 없네요. 😅\n실제 (서울) 지하철 역만 추가할 수 있어요!';
 export const STATION_ALERT_OVERLAP = '이미 추가한 역이에요. 😅';
-export const STATION_ALERT_HAS_LINE = '노선에 추가한 역은 삭제할 수 없어요!';
+export const STATION_ALERT_HAS_LINE =
+  '노선에 추가한 역은 삭제할 수 없어요!\n해당 역이 추가된 노선이에요:';
 
 // line manager;
 export const LINE = 'line';
@@ -40,6 +41,7 @@ export const LINE_NAME_INPUT = 'line-name-input';
 export const LINE_START_STATION_SELECTOR = 'line-start-station-selector';
 export const LINE_END_STATION_SELECTOR = 'line-end-station-selector';
 export const LINE_TABLE = 'line-table';
+export const LINE_ROW = 'line-row';
 export const LINE_ALERT_INVALID =
   '일치하는 호선 이름이 없네요. 😅\n실제 (서울) 지하철 호선만 추가할 수 있어요!';
 export const LINE_ALERT_OVERLAP = '이미 추가한 노선이에요. 😅';

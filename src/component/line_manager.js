@@ -15,6 +15,7 @@ import {
   LINE,
   LINE_DELETE_BUTTON,
   DELETE_K,
+  LINE_ROW,
 } from '../library/constant/constant.js';
 import { nodeSelector } from '../util/selector/node_selector.js';
 import LineValidator from '../util/validator/line_validator.js';
@@ -55,8 +56,8 @@ export default class LineManager extends Role {
     const row = this.getLineRow();
     const lineDeleteButton = this.getLineDeleteButton(line);
 
-    row.childNodes[0].append(line);
     row.childNodes[0].className = LINE;
+    row.childNodes[0].append(line);
     row.childNodes[1].append(lineStart);
     row.childNodes[2].append(lineEnd);
     row.childNodes[3].append(lineDeleteButton);
@@ -67,6 +68,7 @@ export default class LineManager extends Role {
     const row = document.createElement('tr');
     const blank = document.createElement('td');
 
+    row.className = LINE_ROW;
     row.append(
       blank,
       blank.cloneNode(true),
@@ -98,9 +100,7 @@ export default class LineManager extends Role {
 
       return;
     }
-    stations.forEach(station => {
-      this.renderSelectOption(station, lineStartSelect, lineEndSelect);
-    });
+    this.renderStationOptions(stations);
   }
 
   clickAddButton() {
@@ -131,5 +131,6 @@ export default class LineManager extends Role {
     lineInfo[line.value] = [lineStart.value, lineEnd.value];
     this._lines[index] = lineInfo;
     localStorage.setItem(LINES_LS, JSON.stringify(this._lines));
+    line.value = '';
   }
 }
