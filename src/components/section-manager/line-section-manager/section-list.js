@@ -1,4 +1,5 @@
 import { LINES } from '../../../library/constants/localstorage.js';
+import { TOO_FEW_SECTIONS_MESSAGE } from '../../../library/constants/section-manager-alert.js';
 import Component from '../../../library/core/component.js';
 
 class SectionList extends Component {
@@ -40,9 +41,24 @@ class SectionList extends Component {
   initializeEventListener() {
     this._$target.addEventListener('click', event => {
       if (event.target.classList.contains('section-delete-button')) {
-        this.removeSection(event.target.closest('[data-key]').dataset.key);
+        this.handleRemoveSectionEvent(
+          event.target.closest('[data-key]').dataset.key
+        );
       }
     });
+  }
+
+  handleRemoveSectionEvent(targetSection) {
+    if (!this.hasEnoughSections()) {
+      alert(TOO_FEW_SECTIONS_MESSAGE);
+      return;
+    }
+    this.removeSection(targetSection);
+  }
+
+  hasEnoughSections() {
+    const LEAST_SECTION_COUNT = 2;
+    return this._props.targetLine.sections.length > LEAST_SECTION_COUNT;
   }
 
   removeSection(targetIndex) {
