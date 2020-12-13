@@ -7,3 +7,12 @@ td {
 #menu-nav {
   margin-bottom: 20px;
 }
+
+#line-name-form input {
+  margin-bottom: 20px;
+}
+
+#line-name-form button {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
