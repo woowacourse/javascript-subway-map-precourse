@@ -1,3 +1,5 @@
+import { dispatchReRender } from "../index.js";
+
 const elementMap = {
   stationNameInput: "station-name-input",
   stationAddButton: "station-add-button",
@@ -12,10 +14,14 @@ export default class StationManager {
 
     this.handleAddButtonClick = (newStation) => {
       this.state.stations.push(newStation);
+      this.setState({ stations: [...this.state.stations] });
     };
   }
 
-  setState() {}
+  setState(state) {
+    this.state = state;
+    dispatchReRender();
+  }
 
   mount() {
     const stationNameInput = document.getElementById(
@@ -31,11 +37,14 @@ export default class StationManager {
   }
 
   render() {
+    const stations = this.state.stations;
     return `
     <div>
       <h4 style="margin-bottom: 0;">역 이름</h4>
         <div>
-          <input id=${elementMap.stationNameInput} placeholder="역 이름을 입력해 주세요.">
+          <input id=${
+            elementMap.stationNameInput
+          } placeholder="역 이름을 입력해 주세요.">
           <button id=${elementMap.stationAddButton}>역 추가</button>
         </div>
         <div>
@@ -48,6 +57,18 @@ export default class StationManager {
               </tr>
             </thead>
             <tbody>
+              ${stations
+                .map(
+                  (station) =>
+                    `<tr>
+                       <td>${station}</td>
+                       <td>
+                         <button class=${elementMap.stationDeleteButton}>삭제</button>
+                       </td>
+                     </tr>
+                    `
+                )
+                .join("")}
             </tbody>    
           </table>
         </div>
