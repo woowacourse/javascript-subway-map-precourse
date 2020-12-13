@@ -3,6 +3,7 @@ export const DOM_MENU = {
   LINE_MANAGER_BUTTON_ID: "line-manager-button",
   SECTION_MANAGER_BUTTON_ID: "section-manager-button",
   MAP_PRINT_MANAGER_BUTTON_ID: "map-print-manager-button",
+  MENU_NAV_ID: "menu-nav",
 };
 
 export const DOM_STATION = {

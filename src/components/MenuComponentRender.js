@@ -4,12 +4,16 @@ export default class MenuComponentRender {
   constructor() {
     console.log("--MenuComponentRender--");
     this._app = document.getElementById(DOM_ID.ID);
+    this.initDOM();
     this.render();
   }
 
+  initDOM() {
+    this.menuNav = document.createElement("div");
+    this.menuNav.setAttribute("id", DOM_MENU.MENU_NAV_ID);
+  }
+
   render() {
-    const menuNav = document.createElement("div");
-    menuNav.setAttribute("id", "menu-nav");
     const menuInnerHTML = `
         <button id=${DOM_MENU.STATION_MANAGER_BUTTON_ID}>1. 역 관리</button>
         <button id=${DOM_MENU.LINE_MANAGER_BUTTON_ID}>2. 노선 관리</button>
@@ -17,7 +21,7 @@ export default class MenuComponentRender {
         <button id=${DOM_MENU.MAP_PRINT_MANAGER_BUTTON_ID}>4. 지하철 노선도 출력</button>
     `;
 
-    menuNav.innerHTML = menuInnerHTML;
-    this._app.appendChild(menuNav);
+    this.menuNav.innerHTML = menuInnerHTML;
+    this._app.appendChild(this.menuNav);
   }
 }
