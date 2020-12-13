@@ -1,4 +1,5 @@
 import subwayStore from "../models/SubwayStore.js";
+import stationStore from "../models/StationStore.js";
 import { clearInput } from "../utils/domUtil.js";
 import {
   TableHeaderHTML,
@@ -12,7 +13,7 @@ class StationManager {
 
     this.mountDOMs();
     this.bindEvents();
-    this.render(subwayStore.getStations());
+    this.render(stationStore.getStations());
   }
 
   mountDOMs() {
@@ -30,26 +31,28 @@ class StationManager {
     if (target.id !== `station-add-button`) return;
 
     const name = this.$input.value.trim();
-    if (!isVaildStationName(this.$input, subwayStore.getStationNames(), name)) {
+    if (
+      !isVaildStationName(this.$input, stationStore.getStationNames(), name)
+    ) {
       return;
     }
 
     clearInput(this.$input);
 
-    subwayStore.addStation(name);
-    this.render(subwayStore.getStations());
+    stationStore.addStation(name);
+    this.render(stationStore.getStations());
   }
 
   onClickDeleteButton({ target }) {
     if (target.className !== `station-delete-button`) return;
 
     const name = target.closest("tr").firstElementChild.dataset.name;
-    if (!isRemovableStation(subwayStore.getStation(name))) {
+    if (!isRemovableStation(stationStore.getStation(name))) {
       return;
     }
 
-    subwayStore.removeStation(name);
-    this.render(subwayStore.getStations());
+    stationStore.removeStation(name);
+    this.render(stationStore.getStations());
   }
 
   render(stations) {
