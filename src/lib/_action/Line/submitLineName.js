@@ -1,14 +1,6 @@
-import { LINE_DIV, LINE_NAME_INPUT } from "../../common/IdAndClassNames.js";
-import StartEndStationSelectors from "../../views/Line/StartEndStationSelectors.js";
+import { LINE_NAME_INPUT } from "../../common/IdAndClassNames.js";
+import { ADD_LINE_INFO_ALERT } from "../../common/alertMessages.js";
 import LineNameInputValidation from "../../controllers/line/lineNameInputValidation.js";
-
-const selectStartAndEndStation = (lineName) => {
-  const $lineInputContainer = document.querySelector(LINE_DIV);
-  const $selectStartAndEndStations = new StartEndStationSelectors(lineName);
-  console.log(`${lineName} 이 추가됩니다.`);
-
-  $lineInputContainer.appendChild($selectStartAndEndStations.render());
-};
 
 export default (lineName) => {
   const $inputForm = document.querySelector(LINE_NAME_INPUT);
@@ -16,7 +8,7 @@ export default (lineName) => {
   return new Promise((resolve, reject) => {
     if (checkInput.getInputResult().ok) {
       $inputForm.disabled = true;
-      resolve(selectStartAndEndStation(lineName));
+      resolve(alert(ADD_LINE_INFO_ALERT));
     } else {
       $inputForm.value = "";
       reject(alert(checkInput.getInputResult().message));

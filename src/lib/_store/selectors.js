@@ -8,7 +8,4 @@ export const stationSelector = () =>
 export const lineSelector = () =>
   JSON.parse(localStorage.getItem(LINE_STORAGE_NAME));
 
-// export const isStateChanged = localStorage.getItem("isChanged") === "true";
-
-// 지하철 라인 관련은 조금 응용하자...
-// 모델을 여기서 불러와야 할려나ㅠㅠ
+// 현재 라인이 존재하는지 여부 검사

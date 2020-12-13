@@ -1,29 +1,26 @@
-import Button from "../components/Button.js";
 import Select from "../components/Select.js";
 import Typography from "../components/Typography.js";
-import Line from "../../models/line.js";
-import submitNewLine from "../../_action/Line/submitNewLine.js";
+
 import {
   LINE_INFO_INPUT_CONTAINER_ID,
+  LINE_NAME_INPUT,
+
   SELECT_START_STATION,
   SELECT_END_STATION,
   ADD_LINE_BUTTON,
 } from "../../common/IdAndClassNames.js";
 
-export default class StartEndStationSelectors {
-  constructor(lineName) {
-    this.lineInfo = new Line(lineName);
+export default class InputNewLineInfo {
+  constructor() {
     this.element = document.createElement("div");
     this.element.id = LINE_INFO_INPUT_CONTAINER_ID;
     this.selectStartStation = new Select(SELECT_START_STATION);
     this.selectEndStation = new Select(SELECT_END_STATION);
-    this.submitNewLineButton = new Button(ADD_LINE_BUTTON, "노선 추가", () =>
-      submitNewLine(this.lineInfo),
-    );
   }
 
   _getSelectStartStation() {
-    const $selectStartStationHelper = new Typography("상행 종점");
+    const $selectStartStationHelper = new Typography("상행 종점 ");
+    this.selectStartStation.appendOptions();
     $selectStartStationHelper.element.appendChild(
       this.selectStartStation.element,
     );
@@ -31,7 +28,8 @@ export default class StartEndStationSelectors {
   }
 
   _getSelectEndStation() {
-    const $selectEndStationHelper = new Typography("하행 종점");
+    const $selectEndStationHelper = new Typography("하행 종점 ");
+    this.selectEndStation.appendOptions();
     $selectEndStationHelper.element.appendChild(this.selectEndStation.element);
     return $selectEndStationHelper.element;
   }
@@ -40,7 +38,6 @@ export default class StartEndStationSelectors {
     [
       this._getSelectStartStation(),
       this._getSelectEndStation(),
-      this.submitNewLineButton.element,
     ].forEach(($element) => this.element.appendChild($element));
 
     return this.element;

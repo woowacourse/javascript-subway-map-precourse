@@ -1,4 +1,17 @@
+import {
+  SELECT_START_STATION,
+  SELECT_END_STATION,
+} from "../../common/IdAndClassNames.js";
+import saveNewLine from "../../_store/Line/saveNewLine.js";
+
 export default (newLineInfo) => {
-  // 요기서 내장함수 기반으로 저장하기(이미 등록됐는지 검사!)
-  console.log("새 노선 정보", newLineInfo);
+  const $selectStartStation = document.querySelector(SELECT_START_STATION);
+  const $selectEndStation = document.querySelector(SELECT_END_STATION);
+
+  console.log($selectStartStation);
+
+  // 상행 종점 !== 하행 종점
+  return new Promise((resolve, reject) => {
+    resolve(saveNewLine(newLineInfo));
+  });
 };

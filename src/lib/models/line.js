@@ -1,5 +1,3 @@
-import saveNewLine from "../_store/Line/saveNewLine.js";
-
 export default class Line {
   constructor(lineName) {
     this.lineName = lineName;

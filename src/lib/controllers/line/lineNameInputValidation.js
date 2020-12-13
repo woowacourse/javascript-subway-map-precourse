@@ -12,7 +12,7 @@ export default class LineNameInputValidation {
     this._isNotHaveSpace = !/\s+/g.test(inputValue);
   }
 
-  //중복 검사 만들기
+  // 라인 이름 중복 검사 만들기
 
   getInputResult() {
     if (!this._isMoreThanTwoCharacters)

@@ -45,7 +45,7 @@ export default class Station {
     this._getStationInputContainerChildNodes().forEach(({ element }) => {
       $stationInputContainer.element.appendChild(element);
     });
-    this.element.appendChild($stationInputContainer.element);
+    return $stationInputContainer.element;
   }
 
   _getStationListViewContainerChildNodes() {
@@ -66,12 +66,14 @@ export default class Station {
     this._getStationListViewContainerChildNodes().forEach(({ element }) => {
       $stationListViewContainer.element.appendChild(element);
     });
-    this.element.appendChild($stationListViewContainer.element);
+    return $stationListViewContainer.element;
   }
 
   render() {
-    this._getStationInputContainer();
-    this._getStationListViewContainer();
+    [
+      this._getStationInputContainer(),
+      this._getStationListViewContainer(),
+    ].forEach(($element) => this.element.appendChild($element));
     return this.element;
   }
 }
