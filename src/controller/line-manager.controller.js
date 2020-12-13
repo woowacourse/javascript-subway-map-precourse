@@ -51,6 +51,11 @@ export default class LineManager {
     return lineName;
   }
 
+  resetlineNameInputField() {
+    const lineNameInputField = document.getElementById("line-name-input");
+    lineNameInputField.value = "";
+  }
+
   getLineStartStationInput() {
     const startStationSelector = document.getElementById("line-start-station-selector");
     const startStationInput = startStationSelector.value;
@@ -93,8 +98,10 @@ export default class LineManager {
       this.validateLineName(lineName);
       this.validateStartEndStation(startStation, endStation);
       this.line.createLine(lineName, startStation, endStation);
+      this.renderLineTable();
     } catch (message) {
       alert(message);
+      this.resetLineNameInput();
     }
   }
 
