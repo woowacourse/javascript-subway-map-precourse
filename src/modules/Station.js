@@ -101,4 +101,17 @@ export default class Station {
     this._stationList = newStationList;
     this._setStationList(newStationList);
   };
+
+  deleteLineFromStation = lineName => {
+    const newStationList = this._stationList.map(({ name, line }) => {
+      if (line.includes(lineName)) {
+        const index = line.indexOf(lineName);
+        line.splice(index, 1);
+      }
+
+      return { name, line };
+    });
+    this._stationList = newStationList;
+    this._setStationList(newStationList);
+  };
 }
