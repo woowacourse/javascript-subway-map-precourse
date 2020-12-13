@@ -6,9 +6,6 @@ import {
   SPACE_ERROR,
 } from "../../common/alertMessages.js";
 
-const getLineNameList = () =>
-  lineSelector() ? lineSelector().map((lineInfo) => lineInfo.lineName) : [];
-
 export default class LineNameInputValidation {
   constructor(inputValue) {
     this.inputValue = inputValue;
@@ -17,7 +14,10 @@ export default class LineNameInputValidation {
   }
 
   _isUniqueLineName() {
-    return !getLineNameList().some((lineName) => lineName === this.inputValue);
+    if (!lineSelector()) return false;
+    return !lineSelector()
+      .map((lineInfo) => lineInfo.lineName)
+      .some((lineName) => lineName === this.inputValue);
   }
 
   getInputResult() {

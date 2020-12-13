@@ -1,4 +1,5 @@
-export default (ok, message) => ({
+export default (ok, message, updatedLineList) => ({
   ok,
   message,
+  updatedLineList,
 });

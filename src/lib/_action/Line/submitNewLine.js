@@ -2,7 +2,6 @@ import AddNewLineInfoValidation from "../../controllers/line/addNewLineInfoValid
 import saveNewLine from "../../_store/Line/saveNewLine.js";
 
 export default (newLineInfo) => {
-  console.log(newLineInfo.lineName);
   const checkNewLineInfo = new AddNewLineInfoValidation(newLineInfo);
 
   return new Promise((resolve, reject) => {

@@ -1,6 +1,6 @@
 import { lineSelector } from "../selectors.js";
 import { lineReducer } from "../reducers.js";
-import {LINE_LIST} from "../../common/IdAndClassNames.js";
+import { LINE_LIST } from "../../common/IdAndClassNames.js";
 
 import getNewLineDataRowSet from "../../views/Line/getNewLineDataRowSet.js";
 import convertTableRowDataToDOM from "../../views/components/subComponents/convertTableRowDataToDOM.js";
@@ -10,7 +10,7 @@ const updateUI = (newLineInfo) => {
   const [newLineDataRow] = getNewLineDataRowSet([newLineInfo]);
   const $newLineDataRow = convertTableRowDataToDOM(newLineDataRow);
   $dataTable.appendChild($newLineDataRow);
-}
+};
 
 export default (newLineInfo) => {
   const updatedLineList = lineSelector();
