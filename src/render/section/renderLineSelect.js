@@ -1,5 +1,5 @@
-function selectButtonTemplate(line) {
-  return `<button>
+function selectButtonTemplate(line, lineNumber) {
+  return `<button class="line-select-button" data-number=${lineNumber}}>
             ${line}
           </button>&nbsp`;
 }
@@ -10,11 +10,12 @@ function getLineNames(lines) {
 
 function renderSelectButton(lines, $lineSelectContainer) {
   const lineNames = getLineNames(lines);
+  let lineNumber = 0;
 
   lineNames.forEach((line) => {
     $lineSelectContainer.insertAdjacentHTML(
       'beforeend',
-      selectButtonTemplate(line),
+      selectButtonTemplate(line, lineNumber++),
     );
   });
 }
@@ -26,11 +27,6 @@ export default function renderLineSelector() {
   if (lines === null) {
     return ($lineSelectContainer.innerHTML = `<strong>현재 등록된 노선이 없습니다.</strong>`);
   }
+  $lineSelectContainer.innerHTML = '';
   return renderSelectButton(lines, $lineSelectContainer);
 }
-
-// <div class="section-select-container">
-//   <button>temp 1</button>
-//   <button>temp 2</button>
-//   <button>temp 3</button>
-// </div>;
