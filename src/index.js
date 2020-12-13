@@ -42,6 +42,9 @@ export default class SubwayMap {
     if (name.length <= 0 || this.lineList.find(element => element.name === name) !== undefined) {
       return false;
     }
+    if (startStationName === endStationName) {
+      return false;
+    }
     const startStation = this.stationList.find(element => element.name === startStationName);
     const endStation = this.stationList.find(element => element.name === endStationName);
     startStation.semaphore++;
@@ -76,11 +79,10 @@ export default class SubwayMap {
     const line = this.lineList.find(element => element.name === lineName);
     const station = this.stationList.find(element => element.name === stationName);
     if (index === undefined) {
-      line.addStation(station);
+      return line.addStation(station);
     } else {
-      line.addStation(station, index);
+      return line.addStation(station, index);
     }
-    return true;
   }
 
   // 지하철 구간 제거
@@ -274,7 +276,7 @@ function clickLineAddButton() {
   "use strict";
 
   if (!subwayMap.addLine(lineNameInput.value, lineStartStationSelector.value, lineEndStationSelector.value)) {
-    alert('다른 노선과 중복되지 않은 이름으로 입력해주세요.');
+    alert('중복 역 없이 다른 노선과 중복되지 않은 이름으로 입력해주세요.');
     return;
   }
   lineNameInput.value = '';
@@ -343,8 +345,15 @@ function showSectionList(line) {
 function clickSectionAddButton() {
   "use strict";
 
+  if (Number.isNaN(parseInt(sectionOrderInput.value))) {
+    alert('순서를 입력해주세요.');
+    return;
+  }
   const line = sectionAddButton.dataset.line;
-  subwayMap.addSection(line, sectionStationSelector.value, sectionOrderInput.value);
+  if (!subwayMap.addSection(line, sectionStationSelector.value, sectionOrderInput.value)) {
+    alert('이미 등록된 역입니다.');
+    return;
+  }
   sectionOrderInput.value = '';
   showSectionList(line);
   localStorage.setItem('subwayMap', subwayMap.serialize());
