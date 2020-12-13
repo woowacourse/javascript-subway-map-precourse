@@ -1,5 +1,8 @@
 import Component from "./Component.js";
-import { STATION_INFO_LOCAL_STORAGE_KEY } from "./constant.js";
+import {
+  STATION_INFO_LOCAL_STORAGE_KEY,
+  LINE_INFO_LOCAL_STORAGE_KEY
+} from "./constant.js";
 import {
   clearInputValue,
   createButtonHTMLElement,
@@ -23,11 +26,11 @@ export default class StationManager extends Component {
     super({ $parent });
     this.declareConstants();
     this.initializeState(); 
+    this.initializeVariable();
 
     this.constructHTMLElements();
     this.addClickEventListener();
-    this.appendChildNodes();
-    
+    this.appendChildNodes();    
     clearInputValue(this.$stationNameInput);
 
     if (this.state.stationInfo.length > 0) {
@@ -43,6 +46,11 @@ export default class StationManager extends Component {
     const storedState = JSON.parse(localStorage.getItem(STATION_INFO_LOCAL_STORAGE_KEY));
     
     this.state = storedState || { stationInfo: [] };
+  }
+
+  initializeVariable() {
+    const { lineInfo } = JSON.parse(localStorage.getItem(LINE_INFO_LOCAL_STORAGE_KEY)) || { lineInfo: [] };
+    this.lineInfo = lineInfo;
   }
 
   constructHTMLElements() {
@@ -155,9 +163,22 @@ export default class StationManager extends Component {
 
   handleDeleteButton(targetStationName) {      
     if (confirm(`${targetStationName}을 삭제하시겠습니까?`)) {
-      const targetExcluded = this.state.stationInfo.filter(({ stationName }) => stationName !== targetStationName);
-      this.setStationInfoArray(targetExcluded);
+      const matchedLineNameArray = this.getMatchedLineName(targetStationName);
+
+      if (matchedLineNameArray.length > 0) {
+        alert(`${targetStationName}은 ${matchedLineNameArray.join(", ")}에 등록되어 있어 삭제할 수 없습니다.`);
+      } else {
+        const targetExcludedStationInfo = this.state.stationInfo.filter(({ stationName }) => stationName !== targetStationName);
+        this.setStationInfoArray(targetExcludedStationInfo);
+      }
     }
+  }
+
+  getMatchedLineName(stationName) {
+    const matchedLineInfo = this.lineInfo.filter(({ stations }) => stations.includes(stationName));
+    const matchedLineName = matchedLineInfo.map(({ lineName }) => lineName);
+
+    return matchedLineName;
   }
 
   setStationInfoArray(stationInfo) {
