@@ -19,7 +19,7 @@ export default class StationManagerRender extends Component {
     this.stationNameInputElement.innerHTML = this.stationNameInputRender();
     this.stationListElement.innerHTML = this.stationListRender();
     this._app.append(this.stationNameInputElement, this.stationListElement);
-    this.stationListTrRender();
+    this.stationListTrRender(this.stations);
   }
 
   createDOM() {
@@ -30,7 +30,7 @@ export default class StationManagerRender extends Component {
     return `  
       <label for=${DOM_STATION.STATION_NAME_INPUT_ID}>역 이름</label>
       <form id=${DOM_STATION.STATION_FORM_ID}>
-        <input type="text" id=${DOM_STATION.STATION_NAME_INPUT_ID} placeholder="역 이름을 입력해 주세요" />
+        <input type="text" id=${DOM_STATION.STATION_NAME_INPUT_ID} placeholder="역 이름을 입력해 주세요" autocomplete="off"/>
         <button id=${DOM_STATION.STATION_ADD_BUTTON_ID}>역 추가</button>
       </form>
     `;
@@ -49,10 +49,10 @@ export default class StationManagerRender extends Component {
     `;
   }
 
-  stationListTrRender() {
+  stationListTrRender(info) {
     const tbody = document.getElementById(DOM_STATION.STATION_LIST_TBODY_ID);
 
-    this.stations.forEach((station) => {
+    info.forEach((station) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
       <td>${station}</td>

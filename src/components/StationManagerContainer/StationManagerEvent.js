@@ -23,6 +23,7 @@ export default class StationManagerEvent extends StationManagerRender {
     if (!this.isValidStationName(stationName)) return;
 
     this.localStorageItemAdd(stationName);
+    this.stationListTrRender([stationName]);
   }
 
   isValidStationName() {}
