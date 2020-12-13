@@ -19,9 +19,17 @@ export class contentsUI {
     return selector[selector.selectedIndex].value;
   }
   addClickEventToAllButtonByClassName(className, callback) {
-    const button = document.querySelector("." + className);
-    button.addEventListener("click", (event) => {
-      callback(event);
+    const buttons = document.querySelectorAll("." + className);
+    Array.prototype.forEach.call(buttons, (button) => {
+      button.addEventListener("click", (event) => {
+        callback.call(this, event);
+      });
+    });
+  }
+  addClickEventToButtonByID_(id, callback) {
+    const button = document.getElementById(id);
+    button.addEventListener("click", () => {
+      callback.call(this);
     });
   }
 }

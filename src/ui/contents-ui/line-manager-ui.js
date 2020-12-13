@@ -30,31 +30,48 @@ export default class LineManagerUI extends contentsUI {
     this.addEventToAllTableDeleteButton_();
   }
 
+  //private
   setStationSelector_(selectorID) {
     const selector = document.getElementById(selectorID);
     selector.innerHTML = this.makeSelectorInnerHTML_();
   }
   addEventToLineAddButton_() {
-    const button = document.getElementById(LINE_ADD_BUTTON_ID);
-    button.addEventListener("click", () => {
-      const lineName = this.getInputTextByID(NAME_INPUT_ID);
-      const startStationName = this.getSelectedOptionByID(
-        START_STATION_SELECTOR_ID
-      );
-      const endStationName = this.getSelectedOptionByID(
-        END_STATION_SELECTOR_ID
-      );
-      if (!this.isValidLineInput_(lineName, startStationName, endStationName)) {
-        return;
-      }
-      this.stationINFOManager_.addNewLine({
-        lineName: lineName,
-        startStationName: startStationName,
-        endStationName: endStationName,
-      });
-      this.updateLinesTable();
-    });
+    this.addClickEventToButtonByID_(
+      LINE_ADD_BUTTON_ID,
+      this.callbackLineAddButton
+    );
   }
+  callbackLineAddButton() {
+    const lineName = this.getInputTextByID(NAME_INPUT_ID);
+    const startStationName = this.getSelectedOptionByID(
+      START_STATION_SELECTOR_ID
+    );
+    const endStationName = this.getSelectedOptionByID(END_STATION_SELECTOR_ID);
+    if (!this.isValidLineInput_(lineName, startStationName, endStationName)) {
+      return;
+    }
+    this.stationINFOManager_.addNewLine({
+      lineName: lineName,
+      startStationName: startStationName,
+      endStationName: endStationName,
+    });
+    this.updateLinesTable();
+  }
+
+  addEventToAllTableDeleteButton_() {
+    this.addClickEventToAllButtonByClassName(
+      LINE_DELETE_BUTTON_CLASS,
+      this.callbackOfDeleteButton_
+    );
+  }
+  callbackOfDeleteButton_(event) {
+    if (!confirm(DELETE_CONFIRM_MESSAGE)) {
+      return;
+    }
+    this.stationINFOManager_.deleteLine(event.target.dataset.name);
+    this.updateLinesTable();
+  }
+
   isValidLineInput_(lineName, startStationName, endStationName) {
     const condition1 = isValidLine(lineName, startStationName, endStationName);
     const condition2 = this.stationINFOManager_.isNotOverlapNameInLinesArray(
@@ -66,18 +83,6 @@ export default class LineManagerUI extends contentsUI {
       boolToReturn = false;
     }
     return boolToReturn;
-  }
-  addEventToAllTableDeleteButton_() {
-    const deleteButtons = this.getAllElementsByClass(LINE_DELETE_BUTTON_CLASS);
-    Array.prototype.forEach.call(deleteButtons, (deleteButton) => {
-      deleteButton.addEventListener("click", (e) => {
-        if (!confirm(DELETE_CONFIRM_MESSAGE)) {
-          return;
-        }
-        this.stationINFOManager_.deleteLine(e.target.dataset.name);
-        this.updateLinesTable();
-      });
-    });
   }
   makeNewTableRowHTML_({ name, stationsOfLine }) {
     return `

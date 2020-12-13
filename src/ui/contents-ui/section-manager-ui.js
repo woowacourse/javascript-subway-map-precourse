@@ -35,7 +35,6 @@ export default class SectionManagerUI extends contentsUI {
         this.sectionRegisterUI = new SectionRegisterUI(
           SECTION_REGISTER_DIV_ID,
           this.stationINFOManager_,
-          SECTION_REGISTER_TEMPLATE,
           e.target.dataset.name
         );
       });
@@ -49,10 +48,10 @@ export default class SectionManagerUI extends contentsUI {
 }
 
 class SectionRegisterUI extends contentsUI {
-  constructor(contentsID, stationINFOManager, initialTemplate, lineName) {
+  constructor(contentsID, stationINFOManager, lineName) {
     super(contentsID, stationINFOManager);
     this.lineName_ = lineName;
-    this.setContentsHTML(initialTemplate);
+    this.setContentsHTML(SECTION_REGISTER_TEMPLATE);
   }
 
   setContentsHTML(initialTemplate) {
@@ -76,36 +75,42 @@ class SectionRegisterUI extends contentsUI {
       tableInnerHTML += this.makeNewTableRowHTML_(order, station.name);
     });
     table.innerHTML = tableInnerHTML;
-    this.addClickEventToAllButtonByClassName(
-      SECTION_DELETE_BUTTON_CLASS,
-      this.deleteButtonCallback_
-    );
+    //this.addEventToAllDeleteButtons_();
   }
 
   //private
-  deleteButtonCallback_(event) {
+  addEventToAllDeleteButtons_() {
+    this.addClickEventToAllButtonByClassName(
+      SECTION_DELETE_BUTTON_CLASS,
+      this.callbackOfDeleteButton_
+    );
+  }
+  callbackOfDeleteButton_(event) {
     const targetStationName = event.target.dataset.name;
     this.stationINFOManager_.deleteSection(targetStationName, this.lineName_);
     this.updateAllContents();
   }
+
   addEventToSectionAddButton_() {
-    const button = document.getElementById(SECTION_ADD_BUTTON_ID);
-    button.addEventListener("click", () => {
-      const orderToRegister = this.getInputTextByID(SECTION_ORDER_INPUT_ID);
-      const stationName = this.getSelectedOptionByID(
-        SECTION_STATION_SELECTOR_ID
-      );
-      if (!this.isValidSectionAddInput_(orderToRegister, stationName)) {
-        return;
-      }
-      this.stationINFOManager_.registerStationToLine(
-        this.lineName_,
-        orderToRegister,
-        stationName
-      );
-      this.updateAllContents();
-    });
+    this.addClickEventToButtonByID_(
+      SECTION_ADD_BUTTON_ID,
+      this.callbackOfSectionAddButton_
+    );
   }
+  callbackOfSectionAddButton_() {
+    const orderToRegister = this.getInputTextByID(SECTION_ORDER_INPUT_ID);
+    const stationName = this.getSelectedOptionByID(SECTION_STATION_SELECTOR_ID);
+    if (!this.isValidSectionAddInput_(orderToRegister, stationName)) {
+      return;
+    }
+    this.stationINFOManager_.registerStationToLine(
+      this.lineName_,
+      orderToRegister,
+      stationName
+    );
+    this.updateAllContents();
+  }
+
   isValidSectionAddInput_(orderToRegister, stationName) {
     const condition1 = isValidOrder(orderToRegister);
     const condition2 = isValidOption([stationName]);
@@ -115,7 +120,6 @@ class SectionRegisterUI extends contentsUI {
     }
     return boolToReturn;
   }
-
   setComboboxOption_() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);
     const optionNames = this.stationINFOManager_.getStationNamesByCondition(

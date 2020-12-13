@@ -11,6 +11,7 @@ export default class StationManagerUI extends contentsUI {
   setContentsHTML(initialTemplate) {
     super.setContentsHTML(initialTemplate);
     this.addEventToNameInputButton_();
+    this.updateStationsTable();
   }
 
   updateStationsTable() {
@@ -24,33 +25,38 @@ export default class StationManagerUI extends contentsUI {
     this.addEventToAllTableDeleteButton_();
   }
 
+  //private
   addEventToNameInputButton_() {
-    const button = document.getElementById(STATION_ADD_BUTTON_ID);
-    button.addEventListener("click", () => {
-      const name = this.getInputTextByID(STATION_NAME_INPUT_ID);
-      if (!this.isValidStationInput_(name)) {
-        return;
-      }
-      this.stationINFOManager_.addNewStation({
-        name: name,
-      });
-      this.updateStationsTable();
-    });
-  }
-  addEventToAllTableDeleteButton_() {
-    const deleteButtons = this.getAllElementsByClass(
-      STATION_DELETE_BUTTON_CLASS
+    this.addClickEventToButtonByID_(
+      STATION_ADD_BUTTON_ID,
+      this.callbackOfNameInputButton_
     );
-    Array.prototype.forEach.call(deleteButtons, (deleteButton) => {
-      deleteButton.addEventListener("click", (e) => {
-        if (!confirm(DELETE_CONFIRM_MESSAGE)) {
-          return;
-        }
-        this.stationINFOManager_.deleteStation(e.target.dataset.name);
-        this.updateStationsTable();
-      });
-    });
   }
+  callbackOfNameInputButton_() {
+    const name = this.getInputTextByID(STATION_NAME_INPUT_ID);
+    if (!this.isValidStationInput_(name)) {
+      return;
+    }
+    this.stationINFOManager_.addNewStation({
+      name: name,
+    });
+    this.updateStationsTable();
+  }
+
+  addEventToAllTableDeleteButton_() {
+    this.addClickEventToAllButtonByClassName(
+      STATION_DELETE_BUTTON_CLASS,
+      this.callbackOfTableDeleteButton_
+    );
+  }
+  callbackOfTableDeleteButton_(event) {
+    if (!confirm(DELETE_CONFIRM_MESSAGE)) {
+      return;
+    }
+    this.stationINFOManager_.deleteStation(event.target.dataset.name);
+    this.updateStationsTable();
+  }
+
   isValidStationInput_(name) {
     const condition1 = isValidStation(name);
     const condition2 = this.stationINFOManager_.isNotOverlapNameInStationsArray(
