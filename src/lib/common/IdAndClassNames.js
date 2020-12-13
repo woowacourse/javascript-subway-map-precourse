@@ -27,7 +27,6 @@ export const STATION_LIST_VIEW_CONTAINER_ID = "#station-list-view-container";
 export const STATION_LIST = "#station-list";
 export const DELETE_STATION_INPUT = ".station-delete-button";
 
-export const LINE_NAME_INPUT_CONTAINER_ID = "#line-name-input-container";
 export const LINE_NAME_INPUT = "#Line-name-input";
 
 export const LINE_INFO_INPUT_CONTAINER_ID = "#line-info-input-container";
@@ -35,7 +34,7 @@ export const SELECT_START_STATION = "#Line-start-station-selector";
 export const SELECT_END_STATION = "#Line-end-station-selector";
 export const ADD_LINE_BUTTON = "#Line-add-button";
 
-export const LINE_LIST_VIEW_CONTAINER_ID = "#station-list-view-container";
+export const LINE_LIST_VIEW_CONTAINER_ID = "#line-list-view-container";
 export const LINE_LIST = "#line-list";
 export const DELETE_LINE_BUTTON = ".Line-delete-button";
 

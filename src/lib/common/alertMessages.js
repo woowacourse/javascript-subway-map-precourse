@@ -4,6 +4,7 @@ export const NAME_LENGTH_ERROR = `역 이름은 최소 ${MIN_LENGTH_OF_STATION_N
 export const SAME_NAME_ERROR = `중복된 이름은 입력받을 수 없습니다.`;
 export const SPACE_ERROR = `공백은 입력받을 수 없습니다.`;
 
+export const LINE_NAME_EMPTY_ERROR = "노선 이름을 입력해주세요.";
 export const ADD_LINE_INFO_ALERT = "상행 종점과 하행 종점을 입력해주세요.";
 export const SAME_LINE_EXISTS_ERROR = "해당 이름을 가진 노선이 이미 존재합니다.";
 export const SAME_START_END_STATION_ERROR =

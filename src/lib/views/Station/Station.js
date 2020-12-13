@@ -53,10 +53,8 @@ export default class Station {
     const $stationDataListTable = new Table(STATION_LIST);
     $stationDataListTable.insertTableHeader(["역 이름", "설정"]);
     $stationDataListTable.insertTableData(
-      getNewStationDataRowSet(
-        this.stationDataList,
-        this.stationDataListIsEmpty,
-      ),
+      getNewStationDataRowSet(this.stationDataList),
+      this.stationDataListIsEmpty,
     );
     return [$title, $stationDataListTable];
   }
