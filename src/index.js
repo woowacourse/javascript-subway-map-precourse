@@ -126,7 +126,7 @@ class SubwayMap {
       return;
     }
 
-    if (index >= 0) {
+    if (window.confirm('정말로 삭제하시겠습니까?') && index >= 0) {
       this.stationList.splice(index, 1);
       this.deleteListItemElement(name);
       save('stationList', this.stationList);
@@ -250,7 +250,7 @@ class SubwayMap {
     const { name } = e.target.dataset;
     const index = this.lineList.findIndex((line) => line.name === name);
 
-    if (index >= 0) {
+    if (window.confirm('정말로 삭제하시겠습니까?') && index >= 0) {
       this.lineList.splice(index, 1);
       this.deleteListItemElement(name);
       save('lineList', this.lineList);
@@ -390,7 +390,7 @@ class SubwayMap {
     const { name } = e.target.dataset;
     const index = this.selectedLine.sectionList.findIndex((station) => station.name === name);
 
-    if (index >= 0) {
+    if (window.confirm('정말로 삭제하시겠습니까?') && index >= 0) {
       this.selectedLine.sectionList.splice(index, 1);
       this.updateSectionListElement(name);
       this.saveSelectedLine();
