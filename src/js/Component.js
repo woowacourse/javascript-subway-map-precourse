@@ -25,6 +25,7 @@ export default class Component {
     if (loadedStorage === null) {
       localStorage.setItem(storageKey, JSON.stringify(this.stations));
     } else {
+      this.stations = JSON.parse(localStorage.getItem(storageKey));
     }
   }
 
@@ -35,6 +36,7 @@ export default class Component {
     if (loadedStorage === null) {
       localStorage.setItem(storageKey, JSON.stringify(this.stations));
     } else {
+      this.lines = JSON.parse(localStorage.getItem(storageKey));
     }
   }
 
