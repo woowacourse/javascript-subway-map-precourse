@@ -2,8 +2,9 @@ import { addOptionTag, initSelector } from "../../utils/handleDom.js";
 import { isValidLineInfo } from "../../utils/validation.js";
 
 export class LineManagerInput {
-  constructor({ getStations }) {
+  constructor({ getStations, setLines }) {
     this.getStations = getStations;
+    this.setLines = setLines;
     this.initializeDOM();
     this.initializeEvents();
     this.render();
@@ -37,10 +38,11 @@ export class LineManagerInput {
     let lineName = this.lineNameInput.value;
     let start = this.lineStartSelector.value;
     let end = this.lineEndSelector.value;
-
+    console.log("왜 세번돌아");
     if (!isValidLineInfo(lineName, start, end)) {
       return;
     }
-    //TODOS: 노선 저장하기
+    let newLine = [start, end];
+    this.setLines(lineName, newLine);
   };
 }

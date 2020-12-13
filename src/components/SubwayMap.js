@@ -16,18 +16,24 @@ export class SubwayMap {
       setStations: this.setStations,
       getStations: this.getStations,
       deleteStation: this.deleteStation,
+      setLines: this.setLines,
+      getLines: this.getLines,
     };
 
     this.initiateDOM();
+    this.initiateData();
+  }
+
+  initiateData = () => {
     localStorage.setItem("stations", JSON.stringify([]));
     localStorage.setItem("lines", JSON.stringify([]));
-  }
+  };
 
   initiateDOM = () => {
     this.contentContainer = new ContentContainer();
     new HeaderButtons({ clickHeaders: this.onHeaderClick });
     this.stationManager = new StationManager(this.props);
-    this.lineManager = new LineManager({ getStations: this.getStations });
+    this.lineManager = new LineManager(this.props);
   };
 
   onHeaderClick = (e) => {
@@ -60,6 +66,19 @@ export class SubwayMap {
     //   getStations: this.getStations,
     //   deleteStation: this.deleteStation,
     // });
-    this.lineManager.render();
+    this.lineManager.update();
+  };
+
+  setLines = (lineName, newLines) => {
+    let lines = this.getLines();
+    let newLine = { [lineName]: newLines };
+    console.log(lines);
+
+    lines.push(newLine);
+    localStorage.setItem("lines", JSON.stringify(lines));
+  };
+
+  getLines = () => {
+    return JSON.parse(localStorage.getItem("lines"));
   };
 }
