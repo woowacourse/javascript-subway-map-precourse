@@ -48,6 +48,8 @@ class Section {
     const sectionTableContainer = document.getElementById("sect-main-list");
     sectionTableContainer.innerHTML = "";
     sectionTableContainer.appendChild(sectionTable);
+
+    this.handleAddStationSection();
   };
 
   showMenuButton = () => {
@@ -83,6 +85,11 @@ class Section {
     for (let i = 0; i < sectionMenuBtns.length; i++) {
       sectionMenuBtns[i].addEventListener("click", this.showSectionLine);
     }
+  };
+
+  handleAddStationSection = () => {
+    const button = document.getElementById("section-add-button");
+    button.addEventListener("click", this.addSationSection);
   };
 }
 
