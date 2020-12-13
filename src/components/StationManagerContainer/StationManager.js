@@ -29,4 +29,10 @@ export default class StationManager extends StationManagerEvent {
     this.stations.push(item);
     this.saveLocalStorageValue(this.localStorageKey, this.stations);
   }
+
+  deleteTrData(stationInfo) {
+    super.deleteTrData(stationInfo);
+    this.stations = this.stations.filter((station) => station !== stationInfo);
+    this.saveLocalStorageValue(this.localStorageKey, this.stations);
+  }
 }

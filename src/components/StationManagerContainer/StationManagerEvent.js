@@ -36,10 +36,9 @@ export default class StationManagerEvent extends StationManagerRender {
     const targetTr = e.target.parentNode.parentNode;
     const targetStation = targetTr.children[0].innerText;
 
-    this.stations = this.stations.filter(
-      (station) => station !== targetStation
-    );
-    this.saveLocalStorageValue(this.localStorageKey, this.stations);
+    this.deleteTrData(targetStation);
     targetTr.remove();
   }
+
+  deleteTrData(stationInfo) {}
 }
