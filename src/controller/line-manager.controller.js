@@ -56,7 +56,7 @@ export default class LineManager {
     return lineName;
   }
 
-  resetlineNameInputField() {
+  resetLineNameInput() {
     const lineNameInputField = document.getElementById("line-name-input");
     lineNameInputField.value = "";
   }
