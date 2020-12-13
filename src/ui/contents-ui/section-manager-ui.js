@@ -1,24 +1,20 @@
 import {
-  getInputTextByID,
-  getAllElementsByClass,
-  getSelectedOptionByID,
-} from "../../utility/handle-document-utility.js";
-import {
   isValidOrder,
   isValidOption,
 } from "../../utility/input-check-utility.js";
 import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.js";
+import { contentsUI } from "./contents-ui.js";
 
-export default class SectionManagerUI {
+export default class SectionManagerUI extends contentsUI {
   constructor(contentsID, stationINFOManager) {
-    this.contentsID_ = contentsID;
-    this.stationINFOManager_ = stationINFOManager;
+    super(contentsID, stationINFOManager);
+
     this.sectionRegisterUI = null;
-    this.setContentsHTML();
+    this.setContentsHTML(INITIAL_TEMPLATE);
   }
 
-  setContentsHTML() {
-    document.getElementById(this.contentsID_).innerHTML = TEMPLATE;
+  setContentsHTML(initialTemplate) {
+    super.setContentsHTML(initialTemplate);
     this.updateLineButtons_();
   }
 
@@ -33,12 +29,14 @@ export default class SectionManagerUI {
     this.addEventToSelectLineButton_();
   }
   addEventToSelectLineButton_() {
-    const buttons = getAllElementsByClass(SECTION_LINE_MENU_BUTTON_CLASS);
+    const buttons = this.getAllElementsByClass(SECTION_LINE_MENU_BUTTON_CLASS);
     Array.prototype.forEach.call(buttons, (button) => {
       button.addEventListener("click", (e) => {
         this.sectionRegisterUI = new SectionRegisterUI(
-          e.target.dataset.name,
-          this.stationINFOManager_
+          SECTION_REGISTER_DIV_ID,
+          this.stationINFOManager_,
+          SECTION_REGISTER_TEMPLATE,
+          e.target.dataset.name
         );
       });
     });
@@ -50,20 +48,20 @@ export default class SectionManagerUI {
   }
 }
 
-class SectionRegisterUI {
-  constructor(lineName, stationINFOManager) {
+class SectionRegisterUI extends contentsUI {
+  constructor(contentsID, stationINFOManager, initialTemplate, lineName) {
+    super(contentsID, stationINFOManager);
     this.lineName_ = lineName;
-    this.stationINFOManager_ = stationINFOManager;
-    this.setContentsHTML();
+    this.setContentsHTML(initialTemplate);
   }
 
-  setContentsHTML() {
-    const manageDiv = document.getElementById(SECTION_REGISTER_DIV_ID);
-    manageDiv.innerHTML =
-      this.makeTitleHTML_(this.lineName_) + SECTION_REGISTER_TEMPLATE;
+  setContentsHTML(initialTemplate) {
+    initialTemplate = this.makeTitleHTML_(this.lineName_) + initialTemplate;
+    super.setContentsHTML(initialTemplate);
     this.addEventToSectionAddButton_();
     this.updateAllContents();
   }
+
   updateAllContents() {
     this.setComboboxOption_();
     this.updateLineStationsTable();
@@ -75,17 +73,28 @@ class SectionRegisterUI {
     })[0];
     let tableInnerHTML = TABLE_HEADER_TEMPLATE;
     myLine.stationsOfLine.forEach((station, order) => {
-      tableInnerHTML += this.makeNewTableRowHTML(order, station.name);
+      tableInnerHTML += this.makeNewTableRowHTML_(order, station.name);
     });
     table.innerHTML = tableInnerHTML;
+    this.addClickEventToAllButtonByClassName(
+      SECTION_DELETE_BUTTON_CLASS,
+      this.deleteButtonCallback_
+    );
   }
 
   //private
+  deleteButtonCallback_(event) {
+    const targetStationName = event.target.dataset.name;
+    this.stationINFOManager_.deleteSection(targetStationName, this.lineName_);
+    this.updateAllContents();
+  }
   addEventToSectionAddButton_() {
     const button = document.getElementById(SECTION_ADD_BUTTON_ID);
     button.addEventListener("click", () => {
-      const orderToRegister = getInputTextByID(SECTION_ORDER_INPUT_ID);
-      const stationName = getSelectedOptionByID(SECTION_STATION_SELECTOR_ID);
+      const orderToRegister = this.getInputTextByID(SECTION_ORDER_INPUT_ID);
+      const stationName = this.getSelectedOptionByID(
+        SECTION_STATION_SELECTOR_ID
+      );
       if (!this.isValidSectionAddInput_(orderToRegister, stationName)) {
         return;
       }
@@ -106,7 +115,7 @@ class SectionRegisterUI {
     }
     return boolToReturn;
   }
-  
+
   setComboboxOption_() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);
     const optionNames = this.stationINFOManager_.getStationNamesByCondition(
@@ -128,7 +137,7 @@ class SectionRegisterUI {
   makeTitleHTML_(name) {
     return `<h2>${name} 관리<h2>`;
   }
-  makeNewTableRowHTML(order, name) {
+  makeNewTableRowHTML_(order, name) {
     return `
     <tr>
       <td>${order}</td>
@@ -166,7 +175,7 @@ const SECTION_REGISTER_TEMPLATE = `
 
 const SECTION_LINE_MENU_DIV_ID = "section-line-menu-div";
 const SECTION_LINE_MENU_BUTTON_CLASS = "section-line-menu-button";
-const TEMPLATE = `
+const INITIAL_TEMPLATE = `
 <h2>구간을 수정할 노선을 선택해주세요.</h2>
 <div id="${SECTION_LINE_MENU_DIV_ID}">
 </div>

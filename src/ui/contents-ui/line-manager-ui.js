@@ -1,25 +1,24 @@
-import { isValidLine, isValidOption } from "../../utility/input-check-utility.js";
 import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.js";
 import {
-  getInputTextByID,
-  getAllElementsByClass,
-  getSelectedOptionByID,
-} from "../../utility/handle-document-utility.js";
+  isValidLine,
+  isValidOption,
+} from "../../utility/input-check-utility.js";
+import { contentsUI } from "./contents-ui.js";
 
-export default class LineManagerUI {
+export default class LineManagerUI extends contentsUI {
   constructor(contentsID, stationINFOManager) {
-    this.contentsID_ = contentsID;
-    this.stationINFOManager_ = stationINFOManager;
-    this.setContentsHTML();
+    super(contentsID, stationINFOManager);
+    this.setContentsHTML(INITIAL_TEMPLATE);
   }
 
-  setContentsHTML() {
-    document.getElementById(this.contentsID_).innerHTML = TEMPLATE;
+  setContentsHTML(initialTemplate) {
+    super.setContentsHTML(initialTemplate);
     this.setStationSelector_(START_STATION_SELECTOR_ID);
     this.setStationSelector_(END_STATION_SELECTOR_ID);
     this.addEventToLineAddButton_();
     this.updateLinesTable();
   }
+
   updateLinesTable() {
     const linesINFOs = this.stationINFOManager_.getLineINFOs();
     const tableContainer = document.getElementById(TABLE_ID);
@@ -38,9 +37,13 @@ export default class LineManagerUI {
   addEventToLineAddButton_() {
     const button = document.getElementById(LINE_ADD_BUTTON_ID);
     button.addEventListener("click", () => {
-      const lineName = getInputTextByID(NAME_INPUT_ID);
-      const startStationName = getSelectedOptionByID(START_STATION_SELECTOR_ID);
-      const endStationName = getSelectedOptionByID(END_STATION_SELECTOR_ID);
+      const lineName = this.getInputTextByID(NAME_INPUT_ID);
+      const startStationName = this.getSelectedOptionByID(
+        START_STATION_SELECTOR_ID
+      );
+      const endStationName = this.getSelectedOptionByID(
+        END_STATION_SELECTOR_ID
+      );
       if (!this.isValidLineInput_(lineName, startStationName, endStationName)) {
         return;
       }
@@ -65,7 +68,7 @@ export default class LineManagerUI {
     return boolToReturn;
   }
   addEventToAllTableDeleteButton_() {
-    const deleteButtons = getAllElementsByClass(LINE_DELETE_BUTTON_CLASS);
+    const deleteButtons = this.getAllElementsByClass(LINE_DELETE_BUTTON_CLASS);
     Array.prototype.forEach.call(deleteButtons, (deleteButton) => {
       deleteButton.addEventListener("click", (e) => {
         if (!confirm(DELETE_CONFIRM_MESSAGE)) {
@@ -120,7 +123,7 @@ const TABLE_HEADER_TEMPLATE = `
 <th>설정</th>
 `;
 
-const TEMPLATE = `
+const INITIAL_TEMPLATE = `
 <span>노선 이름</span><br>
 <input type="text" id="${NAME_INPUT_ID}" placeholder="노선 이름을 입력해주세요."/>
 <p></p>

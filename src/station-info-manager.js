@@ -102,6 +102,10 @@ export default class StationINFOManager {
     this.deleteLineINFOInAllStations_(this.lines_[lineIndexToDelete]);
     this.lines_.splice(lineIndexToDelete, 1);
   }
+  deleteSection(targetStationName, targetLineName) {
+    this.deleteLineInStation_(targetStationName, targetLineName);
+    this.deleteStationInLine_(targetStationName, targetLineName);
+  }
   isNotOverlapNameInStationsArray(inputName) {
     const isValid = this.isNotOverlapName_(this.stations_, inputName);
     if (!isValid) {
@@ -123,6 +127,23 @@ export default class StationINFOManager {
       ({ name }) => name === inputName
     );
     return overlapIndex === -1;
+  }
+  deleteLineInStation_(targetStationName, targetLineName) {
+    const targetStation = this.getOneStationINFOByCondition((station) => {
+      return station.name === targetStationName;
+    });
+    targetStation.linesOfStation.delete(targetLineName);
+  }
+  deleteStationInLine_(targetStationName, targetLineName) {
+    const targetLine = this.getOneLineINFOByCondition((line) => {
+      return line.name === targetLineName;
+    });
+    const targetStationIndex = targetLine.stationsOfLine.findIndex(
+      (stationName) => {
+        return stationName === targetStationName;
+      }
+    );
+    targetLine.stationsOfLine.splice(targetStationIndex, 1);
   }
   deleteLineINFOInAllStations_(lineToDelete) {
     const { name, stationsOfLine } = lineToDelete;
