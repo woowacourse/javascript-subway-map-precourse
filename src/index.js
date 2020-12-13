@@ -1,9 +1,21 @@
 import Station from './Station.js';
 import Line from './Line.js';
 import { save, load } from './utils.js';
-
-const MINIMUM_INPUT_LENGTH = 2;
-const MINIMUM_STATION_COUNT = 2;
+import { MINIMUM_INPUT_LENGTH, MINIMUM_STATION_COUNT } from './constants.js';
+import {
+  INPUT_LENGTH_MESSAGE,
+  ALREADY_EXIST_STATION_NAME_MESSAGE,
+  REGISTERED_STATION_MESSAGE,
+  ALREADY_EXIST_LINE_NAME_MESSAGE,
+  NOT_CORRECT_STATION_MESSAGE,
+  SAME_STATION_MESSAGE,
+  VALID_LINE_MANAGER_MESSAGE,
+  ALREADY_EXIST_SECTION_NAME_MESSAGE,
+  VALID_ORDER_MESSAGE,
+  MINIMUM_STATION_MESSAGE,
+  VALID_SECTION_MANAGER_MESSAGE,
+  DELETE_MESSAGE,
+} from './messages.js';
 
 class SubwayMap {
   constructor() {
@@ -76,12 +88,12 @@ class SubwayMap {
 
   isValidStationName(name) {
     if (!this.isValidNameLength(name)) {
-      alert(`${MINIMUM_INPUT_LENGTH}글자 이상 입력해주세요`);
+      alert(INPUT_LENGTH_MESSAGE);
       return false;
     }
 
     if (this.isExistStation(name)) {
-      alert(`이미 존재하는 역 이름입니다`);
+      alert(ALREADY_EXIST_STATION_NAME_MESSAGE);
       return false;
     }
 
@@ -122,11 +134,11 @@ class SubwayMap {
     const index = this.stationList.findIndex((station) => station.name === name);
 
     if (this.isRegisteredStation(this.stationList[index])) {
-      alert('이미 노선에 등록된 역으로 삭제할 수 없습니다');
+      alert(REGISTERED_STATION_MESSAGE);
       return;
     }
 
-    if (window.confirm('정말로 삭제하시겠습니까?') && index >= 0) {
+    if (window.confirm(DELETE_MESSAGE) && index >= 0) {
       this.stationList.splice(index, 1);
       this.deleteListItemElement(name);
       save('stationList', this.stationList);
@@ -188,22 +200,22 @@ class SubwayMap {
 
   isValidLine(name, startStation, endStation) {
     if (!this.isValidNameLength(name)) {
-      alert(`${MINIMUM_INPUT_LENGTH}글자 이상 입력해주세요`);
+      alert(INPUT_LENGTH_MESSAGE);
       return false;
     }
 
     if (this.isExistLine(name)) {
-      alert(`이미 존재하는 노선 이름입니다`);
+      alert(ALREADY_EXIST_LINE_NAME_MESSAGE);
       return false;
     }
 
     if (!startStation || !endStation) {
-      alert('종점역을 올바르게 지정해주세요');
+      alert(NOT_CORRECT_STATION_MESSAGE);
       return false;
     }
 
     if (startStation === endStation) {
-      alert('종점역은 서로 다르게 지정해주세요');
+      alert(SAME_STATION_MESSAGE);
       return false;
     }
 
@@ -250,7 +262,7 @@ class SubwayMap {
     const { name } = e.target.dataset;
     const index = this.lineList.findIndex((line) => line.name === name);
 
-    if (window.confirm('정말로 삭제하시겠습니까?') && index >= 0) {
+    if (window.confirm(DELETE_MESSAGE) && index >= 0) {
       this.lineList.splice(index, 1);
       this.deleteListItemElement(name);
       save('lineList', this.lineList);
@@ -287,7 +299,7 @@ class SubwayMap {
 
   showLineManager() {
     if (!this.isValidLineManager()) {
-      alert('등록된 역이 2개 이상이어야 노선 관리 메뉴에 진입할 수 있습니다.');
+      alert(VALID_LINE_MANAGER_MESSAGE);
       return;
     }
 
@@ -346,12 +358,12 @@ class SubwayMap {
 
   validateSection(stationName, order) {
     if (this.isExistSection(stationName)) {
-      alert('이미 같은 노선에 등록되어 있는 역입니다');
+      alert(ALREADY_EXIST_SECTION_NAME_MESSAGE);
       return false;
     }
 
     if (!this.isValidOrder(order)) {
-      alert(`0 부터 ${this.selectedLine.sectionList.length} 사이에서 입력해주세요`);
+      alert(VALID_ORDER_MESSAGE(this.selectedLine.sectionList.length));
       return false;
     }
 
@@ -383,14 +395,14 @@ class SubwayMap {
     if (e.target.className !== 'section-delete-button') return;
 
     if (this.selectedLine.sectionList.length <= 2) {
-      alert('각 노선은 상행 종점, 하행 종점을 하나씩 포함해야 합니다');
+      alert(MINIMUM_STATION_MESSAGE);
       return;
     }
 
     const { name } = e.target.dataset;
     const index = this.selectedLine.sectionList.findIndex((station) => station.name === name);
 
-    if (window.confirm('정말로 삭제하시겠습니까?') && index >= 0) {
+    if (window.confirm(DELETE_MESSAGE) && index >= 0) {
       this.selectedLine.sectionList.splice(index, 1);
       this.updateSectionListElement(name);
       this.saveSelectedLine();
@@ -475,7 +487,7 @@ class SubwayMap {
 
   showSectionManager() {
     if (!this.isValidSectionManager()) {
-      alert('등록된 노선이 없습니다');
+      alert(VALID_SECTION_MANAGER_MESSAGE);
       return;
     }
 
