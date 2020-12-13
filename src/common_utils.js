@@ -27,4 +27,7 @@ export default class CommonUtils {
     return JSON.parse(localStorage.getItem('lineList'));
   }
 
+  saveToLocalStorage(datasetName, data) {
+    localStorage.setItem(datasetName, JSON.stringify(data));
+  }
 }

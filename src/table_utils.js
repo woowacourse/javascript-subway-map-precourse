@@ -26,6 +26,8 @@ export default class TableUtils {
   setConst() {
     this.DELETE_BUTTON_TEXT = '삭제';
     this.ID_ATTRIBUTE = 'id';
+    this.IS_VALID = true;
+    this.IS_NOT_VALID = false;
   }
 
   initTable(toIdName) {
@@ -34,14 +36,23 @@ export default class TableUtils {
     this._privateDomUtils.setAttribute(this.ID_ATTRIBUTE, table, `${toIdName}Table`);
     this.addTableStyle(table);
     this.createTitleRow(table, toIdName);
-    
     this._privateDomUtils.appendToIdName(toIdName, table);
+    this.initTableData(toIdName);
+  }
+
+  initTableData(articleName) {
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
+
+    for (const station in stationList) {
+      const rowArray = this.createRowArray(station, this.DELETE_BUTTON_TEXT);
+      this.addRow(rowArray, articleName);
+    }
   }
 
   refreshTable(articleName) {
-    if (articleName === 'stationArticle') {
-      this.refreshStationTable(articleName);
-    }
+    // if (articleName === '') {
+    //   this.refreshStationTable(articleName);
+    // }
   }
 
   refreshStationTable(articleName) {
@@ -107,6 +118,7 @@ export default class TableUtils {
       }
       else {
         const cell = this.addCell(row, i);
+
         this.addCellStyle(cell, rowArray[i]);
       }
     })
@@ -118,6 +130,58 @@ export default class TableUtils {
     this.addDataAttribute(deleteButton, rowArray);
     this._privateDomUtils.setInnerHtml(deleteButton, this.DELETE_BUTTON_TEXT);
     this._privateDomUtils.appendToVarName(cell, deleteButton);
-    this._privateEventUtils.addEventToButton(deleteButton, this._privateEventUtils.deleteRowAndData);
+    this.addEventToDeleteButton(deleteButton, rowArray);
+  }
+
+  addEventToDeleteButton(button, rowArray) {
+    button.addEventListener('click', () => {
+      if (this.ifOkay() === this.IS_VALID) {
+        this.deleteRowAndData(button);
+      }
+    });
+  }
+
+  ifOkay() {
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      return this.IS_VALID;
+    }
+    else {
+      return this.IS_NOT_VALID;
+    }
+  }
+
+  deleteRowAndData(button) {
+    const dataset = button.dataset.tracking;
+    const row = document.querySelector(`[data-tracking="${dataset}"]`);
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
+
+    
+    this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
+    this.deleteTableRow(row);
+  }
+
+
+  deleteRowAndData(button) {
+    const dataset = this.getDataAttribute(button);
+    const row = document.querySelector(`[data-tracking="${dataset}"]`);
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
+
+    this.removeFromStationList(stationList, dataset);
+    this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
+    this.deleteTableRow(row);
+  }
+
+  getDataAttribute(button) {
+    return button.dataset.tracking;
+  }
+
+  removeFromStationList(stationList, dataset) {
+    const data = dataset.split(',');
+
+    delete stationList[data[0]];
+  }
+
+  deleteTableRow(row) {
+    row.remove();
   }
 }

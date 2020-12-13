@@ -93,7 +93,7 @@ export default class ManageStation {
       const rowArray = this._privateTableUtils.createRowArray(this._stationInput.value, this.DELETE_BUTTON_TEXT);
       
       this.addToStationList(this._stationInput.value);
-      this.saveToLocalStorage();
+      this._privateCommonUtils.saveToLocalStorage('stationList', this._stationList);
       this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
       this._stationInput.value = '';
     }
@@ -140,7 +140,5 @@ export default class ManageStation {
     this._stationList[stationName] = [];
   }
 
-  saveToLocalStorage() {
-    localStorage.setItem('stationList', JSON.stringify(this._stationList));
-  }
+
 }
