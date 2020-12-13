@@ -4,7 +4,7 @@ import {
   TableHeaderHTML,
   TableRow,
 } from "../utils/templates/stationManager.js";
-import { isVaildStationName } from "../utils/validation.js";
+import { isRemovableStation, isVaildStationName } from "../utils/validation.js";
 
 class StationManager {
   constructor({ $target }) {
@@ -35,12 +35,22 @@ class StationManager {
     }
 
     clearInput(this.$input);
-    subwayStore.addStation(name);
 
+    subwayStore.addStation(name);
     this.render(subwayStore.getStations());
   }
 
-  onClickDeleteButton({ target }) {}
+  onClickDeleteButton({ target }) {
+    if (target.className !== `station-delete-button`) return;
+
+    const name = target.closest("tr").firstElementChild.dataset.name;
+    if (!isRemovableStation(subwayStore.getStation(name))) {
+      return;
+    }
+
+    subwayStore.removeStation(name);
+    this.render(subwayStore.getStations());
+  }
 
   render(stations) {
     this.$table.innerHTML = stations.reduce((html, station) => {
@@ -51,9 +61,3 @@ class StationManager {
 }
 
 export default StationManager;
-
-/*
-  STATION_NAME_INPUT: `station-name-input`,
-  STATION_ADD_BUTTON: `station-add-button`,
-  STATION_DELETE_BUTTON: `station-delete-button`,
-*/

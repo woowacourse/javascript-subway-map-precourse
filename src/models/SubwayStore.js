@@ -13,6 +13,10 @@ class SubwayStore {
     return [...this.stations];
   }
 
+  getStation(name) {
+    return this.getStations().find(station => station.name === name);
+  }
+
   getStationNames() {
     return this.getStations().map(station => station.name);
   }
