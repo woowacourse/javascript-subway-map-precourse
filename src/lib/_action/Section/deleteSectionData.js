@@ -8,11 +8,11 @@ export default (deletedStationName, updatedLineName) => {
     deletedStationName,
     updatedLineName,
   );
-
+  const { ok, message, updatedLineList } = deleteValidationCheck.getDeleteValidationResult();
   return new Promise((resolve, reject) => {
-    if (!deleteValidationCheck.getDeleteValidationResult().ok) {
-      reject(alert(deleteValidationCheck.getDeleteValidationResult().message));
+    if (!ok) {
+      reject(alert(message));
     }
-    resolve(deleteStationFromLine(deletedStationName, updatedLineName)); //나중에 else 추가
+    resolve(deleteStationFromLine(deletedStationName, updatedLineList)); // 나중에 else 추가
   });
 };

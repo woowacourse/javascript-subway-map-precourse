@@ -15,9 +15,8 @@ export default (deletedStation) => {
   const deleteValidationCheck = new DeleteStationFromLineValidation(
     deletedStation,
   );
-  const deleteValidationCheckResult = deleteValidationCheck.getDeleteValidationResult();
   const index = stationSelector().indexOf(deletedStation);
-  const { ok, message, updatedLineList } = deleteValidationCheckResult;
+  const { ok, message, updatedLineList } = deleteValidationCheck.getDeleteValidationResult();
   return new Promise((resolve, reject) => {
     if (!ok) {
       reject(alert(message));

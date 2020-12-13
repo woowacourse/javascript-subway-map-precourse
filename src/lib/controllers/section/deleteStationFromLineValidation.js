@@ -34,7 +34,7 @@ export default class DeleteStationFromLineValidation {
       : this._getLinesContainThisStation();
     console.log(this.isSectionManagement);
     console.log(lineNamesListWillBeUpdated);
-    if (this.isLessThanMinLength)
+    if (this.isLessThanMinLength && lineNamesListWillBeUpdated.length > 0)
       return actionResult(false, DELETE_STATION_ERROR);
     return actionResult(true, null, lineNamesListWillBeUpdated);
   }
