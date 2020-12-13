@@ -1,4 +1,5 @@
 import Line from "./line.js";
+import { createCustomElement } from "./table.js";
 class Section {
   constructor() {
     this.lines = Line.lines;
@@ -15,6 +16,14 @@ class Section {
     }
 
     this.handleMenuButton();
+  };
+
+  showSectionInput = lineName => {
+    const sectionName = document.querySelector(".sect-main h2");
+    sectionName.innerHTML = `${lineName} 관리`;
+
+    const sectionInput = document.getElementById("sect-main-input");
+    sectionInput.style.display = block;
   };
 
   showSectionLine = e => {

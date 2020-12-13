@@ -65,6 +65,7 @@ class Table {
 }
 
 export const {
+  createCustomElement,
   createTable,
   createTr,
   createValueTd,
