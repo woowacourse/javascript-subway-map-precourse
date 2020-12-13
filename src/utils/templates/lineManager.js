@@ -17,11 +17,22 @@ const InputHTML = () => `
   <button id="line-add-button">노선 추가</button>
 `;
 
-export const OptionHTML = () => ``;
+export const SelectInnerHTML = names => {
+  return names.reduce((html, name) => {
+    html += OptionHTML(name);
+    return html;
+  }, ``);
+};
+
+const OptionHTML = name => `
+  <option>${name}</option>
+`;
 
 const TableHTML = () => `
   <h3>🚉 지하철 노선 목록</h3>
-  <table id="line-table"></table>
+  <table id="line-table" border="1">
+    ${TableHeaderHTML()}
+  </table>
 `;
 
 export const TableHeaderHTML = () => `

@@ -1,4 +1,5 @@
 import subwayStore from "../models/SubwayStore.js";
+import { SelectInnerHTML } from "../utils/templates/lineManager.js";
 
 class LineManager {
   constructor({ $target }) {
@@ -6,9 +7,8 @@ class LineManager {
 
     this.mountDOMs();
     this.bindEvents();
-    this.render();
 
-    console.log(this);
+    this.renderSelect(subwayStore.getStationNames());
   }
 
   mountDOMs() {
@@ -41,6 +41,13 @@ class LineManager {
   onChangeStartSelect({ target }) {}
 
   onChangeEndSelect({ target }) {}
+
+  renderSelect(names) {
+    this.$startSelect.innerHTML = SelectInnerHTML(names);
+    this.$endSelect.innerHTML = SelectInnerHTML(names);
+  }
+
+  renderTable(lines) {}
 
   render() {}
 }
