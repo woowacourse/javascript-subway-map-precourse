@@ -43,6 +43,12 @@ class SubwayMap {
     return this.stationList.find((station) => station.name === name);
   }
 
+  isRegisteredStation(station) {
+    return this.lineList.some(
+      (line) => line.startStation.name === station.name || line.endStation.name === station.name,
+    );
+  }
+
   // eslint-disable-next-line class-methods-use-this
   deleteListItemElement(name) {
     const element = document.querySelector(`tr[data-name="${name}"]`);
@@ -104,6 +110,11 @@ class SubwayMap {
 
     const { name } = e.target.dataset;
     const index = this.stationList.findIndex((station) => station.name === name);
+
+    if (this.isRegisteredStation(this.stationList[index])) {
+      alert('이미 노선에 등록된 역으로 삭제할 수 없습니다');
+      return;
+    }
 
     if (index >= 0) {
       this.stationList.splice(index, 1);
