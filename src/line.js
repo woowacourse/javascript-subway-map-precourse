@@ -1,12 +1,27 @@
 import { isSpecialCharacter, isDuplicated } from './check.js'
 
 export default function Line() {
+  this.confirmDeleteLine = function() {
+    const lineDeleteButton = document.getElementsByClassName("line-delete-button");
+    let i;
+    for (i = 0; i < lineDeleteButton.length; i++) {
+      const dataName = lineDeleteButton[i].dataset.name;
+      lineDeleteButton[i].addEventListener("click", () => {
+        const returnValue = confirm("정말로 삭제하시겠습니까?");
+        if (returnValue) {
+          console.log(dataName);
+        }
+      })
+    }
+  }
+
   this.addLine = function(lineName, startStationInput, endStationInput) {
     const lineAddButton = document.querySelector("#line-add-button");
     lineAddButton.addEventListener("click", () => {
       const lineList = document.querySelector("#line-list");
       lineList.innerHTML += `<tr><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button class="line-delete-button">삭제</button></td></tr>`;
       localStorage.setItem(lineName, JSON.stringify([startStationInput, endStationInput]));
+      this.confirmDeleteLine();
     }, {once: true});
   }
 
@@ -70,6 +85,7 @@ export default function Line() {
         lineList.innerHTML += `<tr id="${key}"><td>${key}</td><td>${parsedObject[0]}</td><td>${parsedObject[1]}</td><td><button data-name="${key}" class="line-delete-button">삭제</button></td></tr>`;
       }
     }
+    this.confirmDeleteLine();
   }
 
   this.init = function() {
