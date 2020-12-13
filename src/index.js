@@ -1,6 +1,6 @@
 import SubwayLine from './line.js';
 import { DOMs, DOMCtrl, DOMStrings } from './doms.js';
-import { isValidStationName, isValidLineName } from './valid.js';
+import { isValidStationName, isValidLineName, isInvalidSectionDeletion } from './valid.js';
 
 export default class SubwayManager {
   constructor() {
@@ -108,6 +108,9 @@ export default class SubwayManager {
       const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2')
         .dataset[dataStrings.DATA_TARGET];
       const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
+      if (isInvalidSectionDeletion(this.lines, targetLineIndex)) {
+        return;
+      }
       const targetSectionIndex = event.target.dataset[dataStrings.DATA_INDEX];
       this.lines[targetLineIndex].stations.splice(targetSectionIndex, 1);
       localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
