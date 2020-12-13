@@ -56,7 +56,7 @@ export default class SubwayMapStationView {
   renderStationTable(stations) {
     document.getElementById('#station-table-container').innerHTML += this.combineTheadTbody(
       this.getStationThead(),
-      this.getStationTbody(stations).join(''),
+      this.getStationTbody(stations),
     );
   }
 
@@ -79,10 +79,12 @@ export default class SubwayMapStationView {
   }
 
   getStationTbody(stations) {
-    return stations.map(station => {
-      const [stationId] = station;
-      return this.getSectionTbodyTr(stationId);
-    });
+    return stations
+      .map(station => {
+        const [stationId] = station;
+        return this.getSectionTbodyTr(stationId);
+      })
+      .join('');
   }
 
   getSectionTbodyTr(stationId) {

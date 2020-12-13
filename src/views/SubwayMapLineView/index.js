@@ -6,8 +6,8 @@ export default class SubwayMapLineView {
     this.managerContainer = managerContainer;
     this.subwayMapViewModel = subwayMapViewModel;
     this.lineManagerButton = lineManagerButton;
-
-    new LineViewEventDelegator(lineManagerButton, this, this.subwayMapViewModel);
+    this.eventDelegator = new LineViewEventDelegator(this, this.subwayMapViewModel);
+    this.eventDelegator.bindEvent(this.lineManagerButton);
   }
 
   resetManagerContainer() {
@@ -21,16 +21,8 @@ export default class SubwayMapLineView {
   renderLineManager() {
     this.renderLineInputContainer();
     this.renderLineTableContainer();
-    new LineViewEventDelegator(
-      document.getElementById('#line-add-button'),
-      this,
-      this.subwayMapViewModel,
-    );
-    new LineViewEventDelegator(
-      document.getElementById('#line-table-container'),
-      this,
-      this.subwayMapViewModel,
-    );
+    this.eventDelegator.bindEvent(document.getElementById('#line-add-button'));
+    this.eventDelegator.bindEvent(document.getElementById('#line-table-container'));
   }
 
   renderLineInputContainer() {
@@ -100,7 +92,7 @@ export default class SubwayMapLineView {
   renderLineTable(lines) {
     document.getElementById('#line-table-container').innerHTML += this.combineTheadTbody(
       this.getLineThead(),
-      this.getLineTbody(lines).join(''),
+      this.getLineTbody(lines),
     );
   }
 

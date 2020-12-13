@@ -107,7 +107,7 @@ export default class SubwayMapSectionView {
   renderSectionTable(lineId, sections) {
     document.getElementById('#section-table-container').innerHTML += this.combineTheadTbody(
       this.getSectionThead(),
-      this.getSectionTbody(lineId, sections).join(''),
+      this.getSectionTbody(lineId, sections),
     );
   }
 

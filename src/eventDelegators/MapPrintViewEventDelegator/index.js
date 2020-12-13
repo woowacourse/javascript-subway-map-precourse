@@ -6,10 +6,10 @@ export default class MapPrintViewEventDelegator {
   }
 
   onClick(event) {
-    let dataSet = event.target.dataset;
+    const { dataset } = event.target;
 
-    if (dataSet.purpose) {
-      this[dataSet.purpose](dataSet);
+    if (dataset.purpose) {
+      this[dataset.purpose](dataset);
     }
   }
 

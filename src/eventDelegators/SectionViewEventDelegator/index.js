@@ -8,10 +8,10 @@ export default class SectionViewEventDelegator {
   }
 
   onClick(event) {
-    let dataSet = event.target.dataset;
+    const { dataset } = event.target;
 
-    if (dataSet.purpose) {
-      this[dataSet.purpose](dataSet);
+    if (dataset.purpose) {
+      this[dataset.purpose](dataset);
     }
   }
 
@@ -22,9 +22,7 @@ export default class SectionViewEventDelegator {
 
   selectLine(dataSet) {
     this.sectionView.resetSelectedLineSectionManagerContainer();
-    this.sectionView.renderSelectedLineSectionManager(
-      this.subwayMapViewModel.getLine(dataSet.id),
-    );
+    this.sectionView.renderSelectedLineSectionManager(this.subwayMapViewModel.getLine(dataSet.id));
   }
 
   addSection(dataSet) {

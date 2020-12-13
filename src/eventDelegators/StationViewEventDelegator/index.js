@@ -8,10 +8,10 @@ export default class StationViewEventDelegator {
   }
 
   onClick(event) {
-    let dataSet = event.target.dataset;
+    const { dataset } = event.target;
 
-    if (dataSet.purpose) {
-      this[dataSet.purpose](dataSet);
+    if (dataset.purpose) {
+      this[dataset.purpose](dataset);
     }
   }
 
@@ -25,18 +25,14 @@ export default class StationViewEventDelegator {
     this.subwayMapViewModel.addStation(stationId);
 
     this.stationView.resetStationTable();
-    this.stationView.renderStationTable(
-      Object.entries(this.subwayMapViewModel.getStations()),
-    );
+    this.stationView.renderStationTable(Object.entries(this.subwayMapViewModel.getStations()));
   }
 
   deleteStation(dataSet) {
     if (confirm(message.ASK_WANT_TO_DELETE)) {
       this.subwayMapViewModel.deleteStation(dataSet.stationid);
       this.stationView.resetStationTable();
-      this.stationView.renderStationTable(
-        Object.entries(this.subwayMapViewModel.getStations()),
-      );
+      this.stationView.renderStationTable(Object.entries(this.subwayMapViewModel.getStations()));
     }
   }
 }

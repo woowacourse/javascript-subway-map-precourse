@@ -1,17 +1,20 @@
 import { message } from '../../constants';
 
 export default class LineViewEventDelegator {
-  constructor(element, lineView, subwayMapViewModel) {
+  constructor(lineView, subwayMapViewModel) {
     this.lineView = lineView;
     this.subwayMapViewModel = subwayMapViewModel;
+  }
+
+  bindEvent(element) {
     element.addEventListener('click', this.onClick.bind(this));
   }
 
   onClick(event) {
-    let dataSet = event.target.dataset;
+    const { dataset } = event.target;
 
-    if (dataSet.purpose) {
-      this[dataSet.purpose](dataSet);
+    if (dataset.purpose) {
+      this[dataset.purpose](dataset);
     }
   }
 
@@ -35,18 +38,14 @@ export default class LineViewEventDelegator {
 
     this.subwayMapViewModel.addLine(lineObject);
     this.lineView.resetLineTable();
-    this.lineView.renderLineTable(
-      Object.entries(this.subwayMapViewModel.getLines()),
-    );
+    this.lineView.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
   }
 
   deleteLine(dataSet) {
     if (confirm(message.ASK_WANT_TO_DELETE)) {
       this.subwayMapViewModel.deleteLine(dataSet.lineid);
       this.lineView.resetLineTable();
-      this.lineView.renderLineTable(
-        Object.entries(this.subwayMapViewModel.getLines()),
-      );
+      this.lineView.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
     }
   }
 }
