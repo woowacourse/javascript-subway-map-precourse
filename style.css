@@ -1,0 +1,17 @@
+.tab-screen {
+  display: none;
+}
+
+table {
+  border: 1px solid gray;
+  margin-top: 10px;
+}
+
+table th,
+table td {
+  border: 1px solid gray;
+}
+
+.active {
+  display: block;
+}
