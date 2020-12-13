@@ -1,4 +1,5 @@
 import Typography from "../components/Typography.js";
+import InputNewLineInfo from "./InputNewLineInfo.js";
 
 import {
   LINE_DIV,
@@ -12,13 +13,18 @@ export default class Line {
     this.element.id = LINE_DIV.substring(1);
   }
 
+  _getLineInfoInputFormContainer() {
+    const $lineInfoInputFormContainer = new InputNewLineInfo();
+    return $lineInfoInputFormContainer.render();
+  }
+
   _getLineInfoList() {
     const $title = new Typography("🚉 지하철 역 목록", "h2");
     return $title.element;
   }
 
   render() {
-    [this._getLineInfoList()].forEach(($element) =>
+    [this._getLineInfoInputFormContainer(), this._getLineInfoList()].forEach(($element) =>
       this.element.appendChild($element),
     );
     return this.element;
