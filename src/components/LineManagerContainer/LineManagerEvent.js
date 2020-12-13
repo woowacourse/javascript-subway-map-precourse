@@ -33,6 +33,7 @@ export default class LineManagerEvent extends LineManagerRender {
     console.log(lineInfo);
 
     this.lines.push(lineInfo);
+    this.lineListTrRender([lineInfo]);
     this.saveLocalStorageValue(this.localStorageKey, this.lines);
   }
 
@@ -41,5 +42,16 @@ export default class LineManagerEvent extends LineManagerRender {
   _onClickDeleteLineTr(e) {
     super._onClickDeleteLineTr(e);
     console.dir(e.target);
+
+    const targetTr = e.target.parentNode.parentNode;
+    const lineName = targetTr.dataset["lineName"];
+
+    this.deleteListTrData(lineName);
+    targetTr.remove();
+  }
+
+  deleteListTrData(name) {
+    this.lines = this.lines.filter((line) => line.lineName !== name);
+    this.saveLocalStorageValue(this.localStorageKey, this.lines);
   }
 }
