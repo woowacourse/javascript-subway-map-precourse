@@ -30,4 +30,9 @@ const State = function () {
   this.clearResultDIV = () => {
     resultDIV.innerHTML = "";
   };
+
+  this.VALUE_IN_ARRAY = "valueInArray";
+  this.INDEX_OF_DATA = "indexOfData";
 };
+
+export const { VALUE_IN_ARRAY, INDEX_OF_DATA } = new State();

@@ -1,3 +1,5 @@
+import { VALUE_IN_ARRAY, INDEX_OF_DATA } from "../state.js";
+
 const Visualization = function () {
   this.setAttributes = (tag, attributes) => {
     for (let i in attributes) {
@@ -11,7 +13,7 @@ const Visualization = function () {
     }
   };
 
-  this.createElementWithOption = (typeOfTag, attributes, AnInsertedText) => {
+  this.getAdvancedEle = (typeOfTag, attributes, AnInsertedText) => {
     const result = document.createElement(typeOfTag);
     if (AnInsertedText) {
       const innerText = document.createTextNode(AnInsertedText);
@@ -30,20 +32,20 @@ const Visualization = function () {
     return parent;
   };
 
-  this.getTableHeadByTexts = (texts) => {
+  this.getTableHeadByTexts = (...texts) => {
     const thead = document.createElement("thead");
     const tr = document.createElement("tr");
     texts.forEach((text) => {
-      const th = createElementWithOption("th", null, text);
+      const th = getAdvancedEle("th", null, text);
       this.appendChildrenToParent(tr, th);
     });
     this.appendChildrenToParent(thead, tr);
     return thead;
   };
 
-  this.getTableHavingTableHead = (texts) => {
+  this.getTableHavingTableHead = (...texts) => {
     const table = document.createElement("table");
-    const thead = this.getTableHeadByTexts(texts);
+    const thead = this.getTableHeadByTexts(...texts);
     this.appendChildrenToParent(table, thead);
     return table;
   };
@@ -52,13 +54,11 @@ const Visualization = function () {
     dataArray.map((data, index) => {
       const iterableAttributeObj = { ...attributes };
       for (let i in iterableAttributeObj) {
-        if (iterableAttributeObj[i] === "valueInArray")
+        if (iterableAttributeObj[i] === VALUE_IN_ARRAY)
+          iterableAttributeObj[i] = data;
+        if (iterableAttributeObj[i] === INDEX_OF_DATA)
           iterableAttributeObj[i] = index.toString();
       }
-      return this.createElementWithOption(
-        elementType,
-        iterableAttributeObj,
-        data
-      );
+      return this.getAdvancedEle(elementType, iterableAttributeObj, data);
     });
 };
