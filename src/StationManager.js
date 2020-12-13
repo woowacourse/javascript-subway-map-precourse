@@ -8,6 +8,16 @@ import {
   createLabelHTMLElement
 } from "./util.js";
 
+/* StationManager가 관리하는 상태값을 아래와 같다. 다른 Manager가 관리하는 상태값은 localStorage에서 가져올 수 있다.
+  state: {
+    stationInfo: [
+      {
+        stationName: string // 역 이름
+        lineName   : string // 해당 역이 속한 노선 이름
+      }
+    ]
+  }
+*/
 export default class StationManager extends Component {
   constructor({ $parent }) {
     super({ $parent });
@@ -20,7 +30,7 @@ export default class StationManager extends Component {
     
     clearInputValue(this.$stationNameInput);
 
-    if (this.state.stationName.length > 0) {
+    if (this.state.stationInfo.length > 0) {
       this.render();
     }
   }
@@ -31,8 +41,8 @@ export default class StationManager extends Component {
 
   initializeState() {
     const storedState = JSON.parse(localStorage.getItem(STATION_INFO_LOCAL_STORAGE_KEY));
-
-    this.state = storedState || { stationName: [] };
+    
+    this.state = storedState || { stationInfo: [] };
   }
 
   constructHTMLElements() {
@@ -73,12 +83,12 @@ export default class StationManager extends Component {
   addClickEventListener() {
     this.$component.addEventListener("click", e => {
       const { target: { id, classList } } = e;
-      const { target: { dataset: { stationNameIndex } } } = e;
+      const { target: { dataset: { stationName } } } = e;
 
       if (id === this.$stationAddButton.id) {
         this.handleStationAdd();
       } else if (classList.contains(this.STATION_DELETE_BUTTON_CLASSNAME)) {
-        this.handleDeleteButton(stationNameIndex);
+        this.handleDeleteButton(stationName);
       }
     });
   }
@@ -105,9 +115,9 @@ export default class StationManager extends Component {
   }
 
   validateUniqueStationName(stationNameUserInput) {
-    const { stationName } = this.state;
+    const { stationInfo } = this.state;
 
-    if (stationName.includes(stationNameUserInput)) {
+    if (stationInfo.some(({ stationName }) => stationName === stationNameUserInput)) {
       throw new Error("중복된 지하철 역 이름은 등록될 수 없습니다.");
     }
   }
@@ -133,24 +143,24 @@ export default class StationManager extends Component {
 
   addNewStationName(newStationName) {
     this.setState({
-      stationName: [
-        ...this.state.stationName,
-        newStationName
+      stationInfo: [
+        ...this.state.stationInfo,
+        {
+          stationName: newStationName,
+        }
       ]
     });
   }
 
-  handleDeleteButton(targetIndex) {
-    const targetStationName = this.state.stationName[targetIndex];
-      
+  handleDeleteButton(targetStationName) {      
     if (confirm(`${targetStationName}을 삭제하시겠습니까?`)) {
-      const targetExcluded = this.state.stationName.filter(stationName => stationName !== targetStationName);
-      this.setStationNameArray(targetExcluded);
+      const targetExcluded = this.state.stationInfo.filter(({ stationName }) => stationName !== targetStationName);
+      this.setStationInfoArray(targetExcluded);
     }
   }
 
-  setStationNameArray(stationName) {
-    this.setState({ stationName });
+  setStationInfoArray(stationInfo) {
+    this.setState({ stationInfo });
   }
 
   appendChildNodes() {
@@ -165,12 +175,12 @@ export default class StationManager extends Component {
 
   render() {
     this.$stationNameList.innerHTML = "<div>🚉 지하철 역 목록</div>";
-    const $childNodes = this.state.stationName.reduce((acc, stationName, index) => {
+    const $childNodes = this.state.stationInfo.reduce((acc, { stationName }) => {
       const $stationName = createDivHTMLElement({innerText: stationName});
       const $stationDeleteButton = createButtonHTMLElement({
         name: "삭제",
         classList: [this.STATION_DELETE_BUTTON_CLASSNAME],
-        dataset: { "stationNameIndex": index }
+        dataset: { stationName }
       });
 
       return [...acc, $stationName, $stationDeleteButton];
