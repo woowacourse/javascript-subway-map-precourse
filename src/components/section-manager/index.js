@@ -40,10 +40,10 @@ class SectionManager extends Component {
   }
 
   mountLineSectionManagerComponent(targetLineName) {
+    const { lines, stations } = this._props;
     const $lineSectionManager = this._$target.querySelector(
       '#line-section-manager'
     );
-    const { lines, stations } = this._props;
     new LineSectionManager($lineSectionManager, {
       stations,
       lines,
