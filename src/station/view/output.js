@@ -26,16 +26,16 @@ export default class StationOutput {
 		</tr>
 		`;
 
-		for (let station of stations) {
+		for (let station in stations) {
 			stationTable.innerHTML += 
 			`
-			<tr data-stationName="${station.stationName}">
-				<td>${station.stationName}</td>
+			<tr data-stationName="${station}">
+				<td>${station}</td>
 				<td><button class="station-delete-button">삭제</button>
 			</tr>
 			`;
 		}
-				
+		
 		return stationTable;
 	}
 

@@ -25,9 +25,9 @@ export default class StationManager {
 	addStation = stationName => {
 		const station = this.createStation(stationName);
 		const stations = new StationModel().getStationStorageData();
-
-		stations.push(station);
-
+		
+		stations[station['stationName']] = station['onLine'];
+		
 		new StationModel().setStationStorageData(stations);
 
 		this.stationOutput.showStationTable();
@@ -63,7 +63,7 @@ export default class StationManager {
 
 		const stations = new StationModel().getStationStorageData();
 
-		stations.splice(stations.indexOf({stationName: stationNameToDelete}), 1);
+		delete stations[stationNameToDelete];
 		
 		new StationModel().setStationStorageData(stations);
 	}

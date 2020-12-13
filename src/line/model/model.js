@@ -3,7 +3,7 @@ export default class LineModel {
 		const lineData = JSON.parse(localStorage.getItem('line-data'));
 
 		if (lineData === null) {
-			return [];
+			return {};
 		}
 
 		return lineData;

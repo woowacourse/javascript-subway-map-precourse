@@ -23,11 +23,12 @@ export default class LineManager {
 		const line = this.createLine(lineNameInput, lineStartStation, lineEndStation);
 		const lines = new LineModel().getLineStorageData();
 
-		lines.push(line);
+		lines[line['lineName']] = line['lineStations'];
 
 		new LineModel().setLineStorageData(lines);
 
 		this.lineOutput.showLineTable();
+		this.setLineDeleteButtonHandler();
 	}
 
 	createLine = (lineNameInput, lineStartStation, lineEndStation) => {
@@ -59,7 +60,7 @@ export default class LineManager {
 
 		const lines = new LineModel().getLineStorageData();
 
-		lines.splice(lines.indexOf({lineName: lineNameToDelete}));
+		delete lines[lineNameToDelete];
 
 		new LineModel().setLineStorageData(lines);
 	}

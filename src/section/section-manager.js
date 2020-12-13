@@ -8,6 +8,7 @@ export default class SectionManager {
 		this.sectionOutput = new SectionOutput;
 		this.sectionInput = new SectionInput;
 		this.selectedLine;
+
 		this.setLineNameButtonsHandler();
 	}
 
@@ -40,16 +41,12 @@ export default class SectionManager {
 
 		const lines = new LineModel().getLineStorageData();
 		
-		for (let line of lines) {
-			if (line.lineName === this.selectedLine) {
-				line.lineStations.splice(sectionOrderInput, 0, sectionStationSelect);
-				break;
-			}
-		}
+		lines[this.selectedLine].splice(sectionOrderInput, 0, sectionStationSelect);
 
 		new LineModel().setLineStorageData(lines);
 
 		this.sectionOutput.showSelectedLineSectionContainer(this.selectedLine);
+		this.setDeleteButtonsHandler();
 	}
 
 	setDeleteButtonsHandler = () => {
@@ -71,21 +68,13 @@ export default class SectionManager {
 		const stationIndexToDelete = tableRowToDelete.dataset.stationindex;
 
 		const lines = new LineModel().getLineStorageData();
-
-		const selectedLineStationsIndex = this.getSelectedLineStationsIndex(lines, selectedLineNameToDelete);
 		
-		lines[selectedLineStationsIndex]['lineStations'].splice(stationIndexToDelete, 1);
+		lines[this.selectedLine].splice(stationIndexToDelete, 1);
 
 		new LineModel().setLineStorageData(lines);
 		this.sectionOutput.showSelectedLineSectionContainer(this.selectedLine);
-	}
-	
-	getSelectedLineStationsIndex = (lines, selectedLineNameToDelete) => {
-		for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-			if (lines[lineIndex]['lineName'] === selectedLineNameToDelete) {
-				return lineIndex;
-			}
-		}
+		this.setSectionAddButtonHandler();
+		this.setDeleteButtonsHandler();
 	}
 }
 

@@ -15,8 +15,8 @@ export default class SectionOutput {
 		sectionContainer.appendChild(sectionLineMenuButtonContainer);
 		sectionLineMenuButtonContainer.setAttribute('id', 'section-line-menu-button-container');
 		
-		for (let line of lines) {
-			sectionLineMenuButtonContainer.innerHTML += `<button class="section-line-menu-button" data-lineName=${line.lineName}>${line.lineName}</button> `;
+		for (let line in lines) {
+			sectionLineMenuButtonContainer.innerHTML += `<button class="section-line-menu-button" data-lineName=${line}>${line}</button> `;
 		}
 	}
 
@@ -56,9 +56,9 @@ export default class SectionOutput {
 		const stations = new StationModel().getStationStorageData();
 		const sectionStationSelector = document.getElementById('section-station-selector');
 
-		for (let station of stations) {
+		for (let station in stations) {
 			let option = document.createElement('option');
-			let optionText = document.createTextNode(station.stationName);
+			let optionText = document.createTextNode(station);
 			option.appendChild(optionText);
 			sectionStationSelector.appendChild(option);
 		}
@@ -77,14 +77,14 @@ export default class SectionOutput {
 		`;
 
 		const lines = new LineModel().getLineStorageData();
-		const line = lines.find(line => line.lineName === selectedLine);
+		const lineStations = lines[selectedLine];
 
-		for (let stationIndex = 0; stationIndex < line.lineStations.length; stationIndex++) {
+		for (let stationIndex = 0; stationIndex < lineStations.length; stationIndex++) {
 			sectionTable.innerHTML += 
 			`
-			<tr data-selectedLineName="${line.lineName}" data-stationIndex="${stationIndex}">
+			<tr data-selectedLineName="${selectedLine}" data-stationIndex="${stationIndex}">
 				<td>${stationIndex}</td>
-				<td>${line.lineStations[stationIndex]}</td>
+				<td>${lineStations[stationIndex]}</td>
 				<td><button class="section-delete-button">노선에서 제거</button></td>
 			</tr>
 			`;

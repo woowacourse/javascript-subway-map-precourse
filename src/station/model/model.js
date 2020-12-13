@@ -3,7 +3,7 @@ export default class StationModel {
 		const stationData = JSON.parse(localStorage.getItem('station-data'));
 		
 		if (stationData === null) {
-			return [];
+			return {};
 		}
 		
 		return stationData;

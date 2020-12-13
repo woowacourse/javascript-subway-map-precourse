@@ -22,9 +22,9 @@ export default class LineOutput {
 	addStationsToSelectorTag = selector => {
 		const stations = new StationModel().getStationStorageData();
 
-		for (let station of stations) {
+		for (let station in stations) {
 			let option = document.createElement('option');
-			let optionText = document.createTextNode(station.stationName);
+			let optionText = document.createTextNode(station);
 			option.appendChild(optionText);
 			selector.appendChild(option);	
 		}
@@ -53,13 +53,13 @@ export default class LineOutput {
 		</tr>
 		`;
 
-		for (let line of lines) {
+		for (let line in lines) {
 			lineTable.innerHTML += 
 			`
-			<tr data-lineName=${line.lineName}>
-				<td>${line.lineName}</td>
-				<td>${line.lineStations[0]}</td>
-				<td>${line.lineStations[line.lineStations.length - 1]}</td>
+			<tr data-lineName=${line}>
+				<td>${line}</td>
+				<td>${lines[line][0]}</td>
+				<td>${lines[line][lines[line].length - 1]}</td>
 				<td><button class="line-delete-button">삭제</button>
 			</tr>
 			`;
