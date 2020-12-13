@@ -18,7 +18,6 @@ function findDeleteTarget(event) {
   const $target = event.target;
   const $lineTable = document.getElementsByClassName("line-table-row");
   const targetNumber = $target.closest("tr").dataset.number;
-  console.log(targetNumber);
   const line = $lineTable[targetNumber].querySelector("span").innerText;
 
   delLine(line);

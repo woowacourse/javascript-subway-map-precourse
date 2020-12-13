@@ -2,9 +2,10 @@ import delLineEvent from "../event/line/delLineEvent.js";
 
 function selectListTemplate() {
   const stations = JSON.parse(localStorage.stations);
-  let newTemplate = "";
-  stations.forEach((station) => (newTemplate += `<option>${station}</option>`));
-  return newTemplate;
+  let newHTML = "";
+  stations.forEach((station) => (newHTML += `<option>${station}</option>`));
+
+  return newHTML;
 }
 
 function initSelectContainer() {
@@ -31,7 +32,7 @@ function initLineListContainer() {
 }
 
 function lineListTemplate(line, lineNumber) {
-  return `<tr class="line-table-row"data-number=${lineNumber}>
+  return `<tr class="line-table-row" data-number=${lineNumber}>
               <td>
                 <span>${line.name}</span>
               </td>
