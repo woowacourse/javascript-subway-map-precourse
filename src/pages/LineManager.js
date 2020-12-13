@@ -20,9 +20,18 @@ export default class LineManager {
     };
   }
 
-  setState() {}
+  setState(state) {
+    this.state = state;
+    dispatchReRender();
+  }
 
-  mount() {}
+  mount() {
+    const lineNameInput = document.getElementById(elementMap.lineNameInput);
+    lineNameInput.addEventListener("blur", (event) => {
+      this.setState({ ...this.state, lineName: event.target.value });
+      console.log(this.state);
+    });
+  }
 
   render() {
     const { lineName, lineStartStation, lineEndStation, lines } = this.state;
