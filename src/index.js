@@ -36,6 +36,7 @@ class SubwayMap {
 
   loadData() {
     this.stationList = load('stationList');
+    this.lineList = load('lineList');
   }
 
   getStation(name) {
@@ -224,6 +225,7 @@ class SubwayMap {
     const line = new Line(name, startStation, endStation);
     this.lineList.push(line);
     this.addLineListItemElement(line);
+    save('lineList', this.lineList);
 
     this.elements.lineNameInput.value = '';
   }
@@ -237,7 +239,29 @@ class SubwayMap {
     if (index >= 0) {
       this.lineList.splice(index, 1);
       this.deleteListItemElement(name);
+      save('lineList', this.lineList);
     }
+  }
+
+  showLineElementsAll() {
+    if (!this.lineList || this.lineList.length < 0) return;
+
+    const lineListDOMItems = this.lineList.map((line) => {
+      return `
+        <tr data-name="${line.name}">
+          <td>${line.name}</td>
+          <td>${line.startStation.name}</td>
+          <td>${line.endStation.name}</td>
+          <td>
+            <button class="line-delete-button" data-name="${line.name}">
+              삭제
+            </button>
+          </td>
+        </tr>
+      `;
+    });
+
+    this.elements.lineListTableBody.innerHTML += lineListDOMItems.join('');
   }
 
   isValidLineManager() {
@@ -294,6 +318,8 @@ class SubwayMap {
 
     this.elements.lineForm.addEventListener('submit', this.handleSubmitLineAdd.bind(this));
     this.elements.lineList.addEventListener('click', this.handleClickLineDelete.bind(this));
+
+    this.showLineElementsAll();
   }
 
   showSectionManager() {
