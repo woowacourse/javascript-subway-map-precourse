@@ -10,7 +10,7 @@ function delStation(station) {
   renderStation();
 }
 
-function findRemoveTarget(event) {
+function findDeleteTarget(event) {
   const $target = event.target;
   const $stationTable = document.getElementsByClassName("station-table-row");
   const targetNumber = $target.closest("tr").dataset.number;
@@ -24,7 +24,7 @@ export default function delStationEvent() {
   $delStationBtn.forEach((button) =>
     button.addEventListener("click", (event) => {
       if (confirm(alertMessage.DELETE_CHECK_MESSAGE)) {
-        findRemoveTarget(event);
+        findDeleteTarget(event);
       }
     })
   );

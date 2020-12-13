@@ -22,8 +22,5 @@ function checkValidStation() {
 
 export default function addStationEvent() {
   const $addStationBtn = document.getElementById("station-add-button");
-  if (localStorage.stations === undefined) {
-    localStorage.stations = JSON.stringify([]);
-  }
   $addStationBtn.addEventListener("click", checkValidStation);
 }

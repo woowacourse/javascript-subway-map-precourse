@@ -1,5 +1,7 @@
 import render from "../render/render.js";
+import checkLocalStorageItem from "./common/checkStorageItem.js";
 import addStationEvent from "./station/addStationEvent.js";
+import addLineEvent from "./line/addLineEvent.js";
 
 function setHiddenPages() {
   const $page = document.querySelectorAll(".page");
@@ -14,6 +16,8 @@ function changeManagerContainer({ target }) {
     render("station");
   } else if (target.id === "line-manager-button") {
     document.getElementById("line-page").style.display = "block";
+    addLineEvent();
+    render("line");
   } else if (target.id === "section-manager-button") {
     document.getElementById("section-page").style.display = "block";
   } else if (target.id === "map-print-manager-button") {
@@ -21,8 +25,8 @@ function changeManagerContainer({ target }) {
   }
 }
 
-export default function selectMenuButtonEvent() {
+export default function menuEvent() {
   const $menuButton = document.querySelector(".menu-button");
-
+  checkLocalStorageItem();
   $menuButton.addEventListener("click", changeManagerContainer);
 }

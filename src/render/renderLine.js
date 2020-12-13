@@ -1,3 +1,19 @@
+import delLineEvent from "../event/line/delLineEvent.js";
+
+function selectListTemplate() {
+  const stations = JSON.parse(localStorage.stations);
+  let newTemplate = "";
+  stations.forEach((station) => (newTemplate += `<option>${station}</option>`));
+  return newTemplate;
+}
+
+function initSelectContainer() {
+  const $selectContainers = document.querySelectorAll(".line-station-selector");
+  $selectContainers.forEach(
+    (selectContainer) => (selectContainer.innerHTML = selectListTemplate())
+  );
+}
+
 function lineTableTemplate() {
   return `<table class="line-table" border="1">
     <tr>
@@ -14,16 +30,16 @@ function initLineListContainer() {
   $lineTableContainer.innerHTML = lineTableTemplate();
 }
 
-function lineListTemplate(line, start, end, lineNumber) {
+function lineListTemplate(line, lineNumber) {
   return `<tr class="line-table-row"data-number=${lineNumber}>
               <td>
-                <span>${line}</span>
+                <span>${line.name}</span>
               </td>
               <td>
-                <span>${start}</span>
+                <span>${line.sections[0]}</span>
               </td>
               <td>
-                <span>${end}</span>
+                <span>${line.sections[line.sections.length - 1]}</span>
               </td>
               <td>
                 <button class="line-delete-button">삭제</button>
@@ -31,7 +47,20 @@ function lineListTemplate(line, start, end, lineNumber) {
             </tr>`;
 }
 
+function initLineList(lines) {
+  const $lineTable = document.querySelector(".line-table");
+  let lineNumber = 0;
+  console.log(lines);
+
+  lines.forEach((line) =>
+    $lineTable.insertAdjacentHTML("beforeend", lineListTemplate(line, lineNumber++))
+  );
+
+  delLineEvent();
+}
+
 export default function renderStation() {
+  initSelectContainer();
   initLineListContainer();
   const lines = JSON.parse(localStorage.lines);
   if (lines !== null) {
