@@ -1,13 +1,13 @@
-import { getLocalStorageAsArray } from '../util/util-local-storage.js';
+import { getArrayFromLocalStorage } from '../util/util-local-storage.js';
 
 export class Line {
-  constructor(name, startPoint, endPoint) {
+  constructor(name, stationList) {
     this.name = name;
-    this.stationList = [startPoint, endPoint];
+    this.stationList = stationList;
   }
 
   unableToAdd() {
-    const lineList = getLocalStorageAsArray('line');
+    const lineList = getArrayFromLocalStorage('line');
 
     if (this.stationList[0] === this.stationList[1]) {
       return 'bothStartEndSame';
@@ -21,7 +21,9 @@ export class Line {
     return false;
   }
 
-  unableToDelete() {}
+  unableToDelete() {
+    return false;
+  }
 
   addStation(station, order) {
     this.stationList.splice(order, 0, station);

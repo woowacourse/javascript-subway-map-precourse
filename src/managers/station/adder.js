@@ -1,4 +1,5 @@
 import { Station } from '../../classes/station.js';
+import { requestToDelete } from './remover.js';
 import { addItemToTable } from '../../util/util-table.js';
 import { addItemToLocalStroage } from '../../util/util-local-storage.js';
 import {
@@ -32,5 +33,5 @@ const addNewStation = (menu, station) => {
   addItemToLocalStroage(menu, station);
   addItemToTable(menu, station);
   button = document.querySelector(`[data-${menu}="${station.name}"]`);
-  addEventListenerOnDeleteButton(button, menu);
+  addEventListenerOnDeleteButton(button, menu, requestToDelete);
 };

@@ -1,21 +1,22 @@
 import { Line } from '../../classes/line.js';
-import { addItemToTable } from '../../util/util-table.js';
 import {
   addItemToLocalStroage,
   addSubItemToLocalStroage,
 } from '../../util/util-local-storage.js';
+import { addItemToTable } from '../../util/util-table.js';
 import {
   emptyElement,
   addEventListenerOnDeleteButton,
 } from '../../util/util-ui.js';
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
+import { requestToDelete } from './remover.js';
 
 // 2. 노선 관리 - 신규 노선 추가 요청
 export const requestToAdd = (menu) => {
   const lineNameInput = document.getElementById(`${menu}-name-input`);
   const start = document.getElementById('line-start-station-selector');
   const end = document.getElementById('line-end-station-selector');
-  const line = new Line(lineNameInput.value, start.value, end.value);
+  const line = new Line(lineNameInput.value, [start.value, end.value]);
   const exception = line.unableToAdd();
 
   if (exception) {
@@ -40,13 +41,13 @@ const processException = (exception, input, start) => {
   }
 };
 
-const addNewLine = (menu, line, startStation, endStation) => {
+const addNewLine = (menu, line, startStationName, endStationName) => {
   let button;
 
   addItemToLocalStroage(menu, line);
-  addSubItemToLocalStroage('station', line, startStation, 'lineList');
-  addSubItemToLocalStroage('station', line, endStation, 'lineList');
+  addSubItemToLocalStroage('station', 'lineList', startStationName, line);
+  addSubItemToLocalStroage('station', 'lineList', endStationName, line);
   addItemToTable(menu, line);
   button = document.querySelector(`[data-${menu}="${line.name}"]`);
-  addEventListenerOnDeleteButton(button, menu);
+  addEventListenerOnDeleteButton(button, menu, requestToDelete);
 };

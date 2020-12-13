@@ -1,10 +1,10 @@
-import { getLocalStorageAsArray } from './util-local-storage.js';
+import { getArrayFromLocalStorage } from './util-local-storage.js';
 import { appendNew, createButton } from './util-ui.js';
 import { TABLE } from '../configuration.js';
 
 export const makeTable = (menu) => {
   const table = document.createElement('table');
-  const tableData = getLocalStorageAsArray(menu);
+  const tableData = getArrayFromLocalStorage(menu);
 
   makeTableHeader(table, menu);
   tableData.forEach((item) => {

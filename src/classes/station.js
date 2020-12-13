@@ -1,4 +1,4 @@
-import { getLocalStorageAsArray } from '../util/util-local-storage.js';
+import { getArrayFromLocalStorage } from '../util/util-local-storage.js';
 import { STATION_NAME_LENGTH_LOW_LIMIT } from '../configuration.js';
 
 export class Station {
@@ -8,7 +8,7 @@ export class Station {
   }
 
   unableToAdd() {
-    const stationList = getLocalStorageAsArray('station');
+    const stationList = getArrayFromLocalStorage('station');
 
     if (this.name.replace(/ /g, '').length == 0) {
       return 'stationNameOnlySpace';
