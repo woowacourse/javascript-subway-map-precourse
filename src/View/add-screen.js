@@ -57,8 +57,7 @@ export const addSectionScreen = (line) => {
       <td>${line.station[i]}</td>
       <td><button class="section-delete-button">노선에서 삭제</button></td>
     `;
-    $sectionTr.dataset.line = line.lineName;
-    $sectionTr.style.display = 'none';
+    setSectionTr($sectionTr, line.lineName);
     const sectionData = {line: line.lineName, station: line.station[i]};
     setButtonOption(sectionData, $sectionTr.querySelector('button'));
     $sectionTbody.appendChild($sectionTr);
@@ -81,6 +80,11 @@ export const addMapPrint = (lines) => {
     $lineMap.appendChild($lineUl);
     $mapContainer.appendChild($lineMap);
   }
+};
+
+const setSectionTr = ($sectionTr, lineName) => {
+  $sectionTr.dataset.line = lineName;
+  $sectionTr.style.display = 'none';
 };
 
 const addMapStation = ($ul, stations) => {
