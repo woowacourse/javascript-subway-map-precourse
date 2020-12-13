@@ -1,6 +1,7 @@
 import { clearContainer } from "./utils.js";
 import { initStationManager } from "../managers/station.js";
 import { initLineManager } from "../managers/line.js";
+import { initSectionManager } from "../managers/section.js";
 
 export const handleStationManager = () => {
   clearContainer();
@@ -14,6 +15,7 @@ export const handleLineManager = () => {
 
 export const handleSectionManager = () => {
   clearContainer();
+  initSectionManager();
 };
 
 export const handleMapPrintManager = () => {

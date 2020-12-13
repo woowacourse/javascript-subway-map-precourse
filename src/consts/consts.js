@@ -25,10 +25,17 @@ export const textLabel = {
   LINE_END_SPAN: "하행 종점",
   LINE_ADD_BUTTON: "노선 추가",
   LINE_HEADING: "지하철 노선 목록",
-  LINE_INPUT: "노선 이름을 입력해주세요"
+  LINE_INPUT: "노선 이름을 입력해주세요",
+
+  SECTION_HEADING: "구간을 수정할 노선을 선택해주세요.",
+  SECTION_CONTAINER_PARAGRAPH: "구간 등록",
+  SECTION_ADD_BUTTON: "등록",
+  SECTION_DELETE_BUTTON: "노선에서 제거",
+  SECTION_INPUT: "순서",
 };
 
 export const htmlLabel = {
   STATION_TABLE: `<tr><th>역 이름</th><th>설정</th></tr>`,
   LINE_TABLE: `<tr><th>노선 이름</th><th>상행 종점역</th><th>하행 종점역</th><th>설정</th></tr>`,
+  SECTION_TABLE: `<tr><th>순서</th><th>이름</th><th>설정</th></tr>`,
 };
