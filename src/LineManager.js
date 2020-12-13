@@ -1,15 +1,14 @@
 import Component from "./Component.js";
 import {
-  LINE_INFO_LOCAL_STORAGE_KEY,
-  STATION_INFO_LOCAL_STORAGE_KEY
-} from "./constant.js";
-import {
   createButtonHTMLElement,
   createInputTextHTMLElement,
   createLabelHTMLElement,
   createSelectHTMLElement,
   createDivHTMLElement,
-  clearInputValue
+  clearInputValue,
+  retrieveLineInfo,
+  getStationNameArray,
+  storeLineInfo
 } from "./util.js";
 
 /* LineManager가 관리하는 상태값을 아래와 같다. 
@@ -49,22 +48,13 @@ export default class LineManager extends Component {
   }
 
   initializeState() {
-    const storedLineInfo = JSON.parse(localStorage.getItem(LINE_INFO_LOCAL_STORAGE_KEY))|| [];
-    
     this.state = {
-      lineInfo: storedLineInfo
+      lineInfo: retrieveLineInfo()
     };
   }
 
   initializeVariables() {
-    this.stationNameArray = this.extractStationNameArray();
-  }
-
-  extractStationNameArray() {
-    const stationInfo = JSON.parse(localStorage.getItem(STATION_INFO_LOCAL_STORAGE_KEY)) || [];
-    const stationNameArray = stationInfo.map(({ stationName }) => stationName).sort();
-
-    return stationNameArray;
+    this.stationNameArray = getStationNameArray().sort(); // 역 이름을 사전 순으로 정렬
   }
 
   constructHTMLElements() {
@@ -244,7 +234,7 @@ export default class LineManager extends Component {
   setState(state) {
     super.setState(state);
 
-    localStorage.setItem(LINE_INFO_LOCAL_STORAGE_KEY, JSON.stringify(this.state.lineInfo));
+    storeLineInfo(this.state.lineInfo);
   }
 
   render() {

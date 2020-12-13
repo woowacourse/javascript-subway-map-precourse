@@ -1,14 +1,13 @@
 import Component from "./Component.js";
 import {
-  STATION_INFO_LOCAL_STORAGE_KEY,
-  LINE_INFO_LOCAL_STORAGE_KEY
-} from "./constant.js";
-import {
   clearInputValue,
   createButtonHTMLElement,
   createDivHTMLElement,
   createInputTextHTMLElement,
-  createLabelHTMLElement
+  createLabelHTMLElement,
+  retrieveLineInfo,
+  retrieveStationInfo,
+  storeStationInfo
 } from "./util.js";
 
 /* StationManager가 관리하는 상태값을 아래와 같다. 다른 Manager가 관리하는 상태값은 localStorage에서 가져올 수 있다.
@@ -43,15 +42,13 @@ export default class StationManager extends Component {
   }
 
   initializeState() {
-    const storedStationInfo = JSON.parse(localStorage.getItem(STATION_INFO_LOCAL_STORAGE_KEY)) || [];
-    
     this.state = {
-      stationInfo: storedStationInfo
+      stationInfo: retrieveStationInfo()
     };
   }
 
   initializeVariable() {
-    this.lineInfo = JSON.parse(localStorage.getItem(LINE_INFO_LOCAL_STORAGE_KEY)) || [];
+    this.lineInfo = retrieveLineInfo();
   }
 
   constructHTMLElements() {
@@ -193,7 +190,7 @@ export default class StationManager extends Component {
   setState(state) {
     super.setState(state);
 
-    localStorage.setItem(STATION_INFO_LOCAL_STORAGE_KEY, JSON.stringify(this.state.stationInfo));
+    storeStationInfo(this.state.stationInfo);
   }
 
   render() {

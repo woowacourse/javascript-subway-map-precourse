@@ -1,3 +1,8 @@
+import {
+  LINE_INFO_LOCAL_STORAGE_KEY,
+  STATION_INFO_LOCAL_STORAGE_KEY
+} from "./constant.js";
+
 export const createButtonHTMLElement = ({ id = "", name, onClick, classList = [], dataset = {} }) => {
   const $button = document.createElement("button");
   $button.innerText = name;
@@ -61,3 +66,22 @@ export const clearInputValue = $input => {
   $input.focus();
 };
 
+const retrieveInfoFromLocalStorage = KEY => JSON.parse(localStorage.getItem(KEY)) || [];
+
+export const retrieveStationInfo = () => retrieveInfoFromLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY);
+
+export const retrieveLineInfo = () => retrieveInfoFromLocalStorage(LINE_INFO_LOCAL_STORAGE_KEY);
+
+
+export const getStationNameArray = () => retrieveStationInfo().map(({ stationName }) => stationName);
+  
+export const getStations = targetLineName => {
+  return retrieveLineInfo().filter(({ lineName }) => lineName === targetLineName).map(({ stations }) => stations);
+};
+
+
+const storeInfoToLocalStorage = (LOCAL_STORAGE_KEY, info) => localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(info));
+
+export const storeLineInfo = lineInfo => storeInfoToLocalStorage(LINE_INFO_LOCAL_STORAGE_KEY, lineInfo);
+
+export const storeStationInfo = stationInfo => storeInfoToLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY, stationInfo);
