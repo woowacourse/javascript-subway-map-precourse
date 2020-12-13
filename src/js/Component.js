@@ -1,13 +1,15 @@
 import { DOM_ID } from "../utils/constants.js";
+import myLocalStroageKey from "../utils/myLocalStorageKey.js";
 
 export default class Component {
-  constructor() {
+  constructor(stateId) {
     console.log("-----Component------");
     this._app = document.getElementById(DOM_ID.ID);
 
     this.stations = [];
     this.lines = [];
-
+    console.log(stateId);
+    this.localStorageKey = myLocalStroageKey(stateId);
     this.initLocalStorage();
   }
 

@@ -1,8 +1,8 @@
 import MapPrintManagerRender from "./MapPrintManagerRender.js";
 
 export default class MapPrintManagerEvent extends MapPrintManagerRender {
-  constructor() {
-    super();
+  constructor(stateId) {
+    super(stateId);
     console.log("--MapPrintManagerEvent--");
   }
 }

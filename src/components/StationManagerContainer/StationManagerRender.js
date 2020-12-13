@@ -2,8 +2,8 @@ import Component from "../../js/Component.js";
 import { DOM_STATION } from "../../utils/constants.js";
 
 export default class StationManagerRender extends Component {
-  constructor() {
-    super();
+  constructor(stateId) {
+    super(stateId);
     console.log("--StationManagerRender--");
     this.initDOM();
     this.render();

@@ -1,8 +1,8 @@
 import StationManagerRender from "./StationManagerRender.js";
 
 export default class StationManagerEvent extends StationManagerRender {
-  constructor() {
-    super();
+  constructor(stateId) {
+    super(stateId);
     console.log("--StationManagerEvent--");
     this.eventDOM();
   }
