@@ -13,6 +13,13 @@
 - 역 관리 기능에서 변경한 사항을 localStorage에 반영해주는 함수 `updateStationData`
 
 - 노선 관리 기능을 시작할 함수 `initLineManager`
+- 노선 관리 기능 중 종점들의 옵션을 넣어줄 `initLineSelect`
+- 노선 추가 버튼의 동작을 관여할 함수 `handleLineAddButton`
+- 노선 삭제 버튼의 동작을 관여할 함수 `handleLineDeleteButton`
+- 노선 삭제 버튼을 만들어줄 함수 `createDeleteButton`
+- 추가 버튼 클릭 시 데이터를 직접 추가하는 함수 `insertData`
+- 노선 이름과 종점 두개가 유효한 값인지 판단하는 함수 `inputValidator`
+- 노선 관리 기능에서 변경한 사항을 localStorage에 반영해주는 함수 `updateLocalStorage`
 
 ## 🚀 기능 요구사항
 
