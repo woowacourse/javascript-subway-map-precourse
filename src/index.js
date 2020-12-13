@@ -49,7 +49,10 @@ class SubwayMap {
   }
 
   isRegisteredStation(station) {
-    return this.lineList.some((line) => line.stationList.findIndex((item) => item === station) < 0);
+    return this.lineList.some((line) => {
+      const index = line.sectionList.findIndex((section) => section.name === station.name);
+      return index >= 0;
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this
