@@ -1,6 +1,11 @@
 import SubwayLine from './line.js';
 import { DOMs, DOMCtrl, DOMStrings } from './doms.js';
-import { isValidStationName, isValidLineName, isInvalidSectionDeletion } from './valid.js';
+import {
+  isValidStationName,
+  isValidLineName,
+  isInvalidSectionDeletion,
+  isInvalidStationDeletion,
+} from './valid.js';
 
 const CONFIRM_DELETION = '정말로 삭제하시겠습니까?';
 
@@ -41,7 +46,6 @@ export default class SubwayManager {
   }
 
   deleteStation(event) {
-    // 노선에 등록된 역은 삭제할 수 없음(구현 예정)
     const {
       target: { className },
     } = event;
@@ -50,6 +54,9 @@ export default class SubwayManager {
         return;
       }
       const targetStationName = event.target.dataset[dataStrings.DATA_STATION];
+      if (isInvalidStationDeletion(this.lines, targetStationName)) {
+        return;
+      }
       const index = this.stations.indexOf(targetStationName);
       this.stations.splice(index, 1);
       localStorage.setItem(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
