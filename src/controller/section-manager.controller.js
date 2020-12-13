@@ -126,11 +126,20 @@ export default class SectionManager {
     }
   }
 
+  validateDeleteSectionCount(lineName) {
+    const isValidSectionCount = !this.line.hasMinSectionCount(lineName);
+    if (!isValidSectionCount) {
+      throw new Error(INVALID_DELETE_MIN_SECTION);
+    }
+  }
+
   deleteSection(targetButton) {
     try {
       const targetRow = targetButton.parentNode.parentNode;
       const targetLine = targetRow.dataset.line;
       const targetStation = targetRow.dataset.station;
+      this.validateDeleteSectionCount(targetLine);
+
       this.line.removeSection(targetLine, targetStation);
 
       this.renderSectionTable(targetLine);

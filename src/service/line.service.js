@@ -83,6 +83,12 @@ class Line {
 
     this.storage.setItem(lineName, sections);
   }
+
+  hasMinSectionCount(lineName) {
+    const stationCount = this.getSectionsByLineName(lineName).length;
+
+    return stationCount === this.MIN_SECTION_STATION_COUNT;
+  }
 }
 
 const line = new Line();
