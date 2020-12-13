@@ -19,8 +19,9 @@ export default class StationManager extends StationManagerEvent {
   }
 
   isDuplicate(station) {
-    // 중복 검증 구현 해야함
-    return true;
+    if (!this.stations.includes(station)) return true;
+    window.alert(`${station}은 중복되는 역 이름 입니다.`);
+    return false;
   }
 
   localStorageItemAdd(item) {
