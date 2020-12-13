@@ -149,7 +149,7 @@ const createResultArea = () => {
   if (lines) {
     Object.entries(lines).map(([line, stations]) => {
       const tableRow = document.createElement('tr');
-      tableRow.setAttribute('data-line', line);
+      tableRow.setAttribute('data-line', `_${line}`);
 
       const nameData = document.createElement('td');
       nameData.innerHTML = line;
@@ -159,6 +159,7 @@ const createResultArea = () => {
       downwardEndData.innerHTML = stations[1];
       const deleteBtn = document.createElement('button');
       deleteBtn.innerHTML = '삭제';
+      deleteBtn.addEventListener('click', () => deleteLine(line));
 
       tableRow.appendChild(nameData);
       tableRow.appendChild(upwardEndData);
@@ -175,7 +176,7 @@ const createResultArea = () => {
 const addTable = (lineName, start, end) => {
   const lineTable = document.getElementById('line-table');
   const newRow = document.createElement('tr');
-  newRow.setAttribute('data-line', lineName);
+  newRow.setAttribute('data-line', `_${lineName}`);
 
   const newData = document.createElement('td');
   newData.innerHTML = lineName;
@@ -185,6 +186,7 @@ const addTable = (lineName, start, end) => {
   downwardEndData.innerHTML = end;
   const deleteBtn = document.createElement('button');
   deleteBtn.innerHTML = '삭제';
+  deleteBtn.addEventListener('click', () => deleteLine(lineName));
 
   newRow.appendChild(newData);
   newRow.appendChild(upwardEndData);
@@ -192,4 +194,16 @@ const addTable = (lineName, start, end) => {
   newRow.appendChild(deleteBtn);
 
   lineTable.appendChild(newRow);
+};
+
+const deleteLine = lineName => {
+  if (confirm('정말 삭제하시겠습니까?')) {
+    const lineTable = document.getElementById('line-table');
+    const currLines = JSON.parse(localStorage.getItem('lines'));
+    delete currLines[lineName];
+    localStorage.setItem('lines', JSON.stringify(currLines));
+    console.log(JSON.parse(localStorage.getItem('lines')));
+    const rowToBeDeleted = lineTable.querySelector(`[data-line=_${lineName}]`);
+    lineTable.removeChild(rowToBeDeleted);
+  }
 };
