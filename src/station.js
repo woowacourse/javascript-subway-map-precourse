@@ -13,6 +13,14 @@ class Station {
 
     return stations;
   }
+
+  hasSameName(newStationName) {
+    const allStations = this.getAllStations();
+    const duplicates = allStations.filter((stationName) => stationName === newStationName);
+    const hasSameName = duplicates.length;
+
+    return hasSameName;
+  }
 }
 
 const station = new Station();

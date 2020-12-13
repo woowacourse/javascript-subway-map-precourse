@@ -28,17 +28,23 @@ export default class StationManager {
 
   validateStationNameLength(stationName) {
     const isValidLength = stationName.length >= this.MIN_STATION_NAME_LENGTH;
-
     if (!isValidLength) {
       throw new Error(INVALID_LENGTH_STATION_NAME);
     }
   }
 
+  validateStationNameUnique(stationName) {
+    const isUnique = !this.station.hasSameName(stationName);
+    if (!isUnique) {
+      throw new Error(DUPLICATE_STAION_NAME);
+    }
+  }
+
   addStation() {
     const stationName = this.getStationNameInput();
-
     try {
       this.validateStationNameLength(stationName);
+      this.validateStationNameUnique(stationName);
     } catch (errorMessage) {
       alert(errorMessage);
     }
