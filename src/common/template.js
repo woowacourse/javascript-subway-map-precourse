@@ -56,7 +56,7 @@ export const createStationTableRowHTML = (stationName) => {
 
 export const createLineTableRowHTML = (lineName, startStationName, endStationName) => {
   const sectionRowHTML = `
-      <tr data-station = ${lineName}>
+      <tr data-line= ${lineName}>
         <td> ${lineName} </td>
         <td> ${startStationName} </td>
         <td> ${endStationName} </td>

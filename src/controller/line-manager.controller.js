@@ -105,6 +105,14 @@ export default class LineManager {
     }
   }
 
+  deleteLine(targetButton) {
+    const targetRow = targetButton.parentNode.parentNode;
+    const targetLine = targetRow.dataset.line;
+
+    this.line.deleteLine(targetLine);
+    this.renderLineTable();
+  }
+
   onClickButton(event) {
     const target = event.target;
 

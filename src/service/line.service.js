@@ -1,6 +1,7 @@
 class Line {
   constructor() {
     this.storage = window.localStorage;
+    this.DELETED_ELEMENT_COUNT = 1;
   }
 
   getAllLines() {
@@ -19,6 +20,16 @@ class Line {
 
     this.storage.setItem(`lines`, allLines);
     this.storage.setItem(lineName, `${startStation},${endStation}`);
+  }
+
+  deleteLine(lineName) {
+    const allLines = this.getAllLines();
+    const index = allLines.indexOf(lineName);
+
+    allLines.splice(index, this.DELETED_ELEMENT_COUNT);
+
+    this.storage.setItem(`lines`, allLines);
+    this.storage.removeItem(lineName);
   }
 
   getSectionsByLineName(lineName) {
