@@ -2,6 +2,7 @@ import StationManager from "../station-manager.js";
 import LineManager from "../line-manager.js";
 import {
   getChildById,
+  getLineNameInput,
   getStartStationSelector,
   getEndStationSelector,
 } from "./custom-dom-handler.js";
@@ -113,6 +114,7 @@ const showStationManagerPage = (appContainer) => {
 
 const showLineManagerPage = (appContainer) => {
   showManagerPageById(appContainer, MANAGER_PAGES_ID.lineManager);
+  getLineNameInput(appContainer).value = "";
   setStartStationSelector(appContainer);
   new LineManager().renderLineNameTable();
 };
