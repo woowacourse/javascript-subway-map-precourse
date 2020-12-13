@@ -65,6 +65,7 @@ export default class StationManager {
     const targetStation = targetRow.dataset.station;
 
     this.station.deleteStation(targetStation);
+    this.renderStationTable();
   }
 
   onClickButton(event) {
@@ -72,6 +73,12 @@ export default class StationManager {
 
     if (target.id === "station-add-button") {
       this.addStation();
+    }
+
+    if (target.className === "station-delete-button") {
+      if (confirm(CONFIRM_DELETE)) {
+        this.deleteStation(target);
+      }
     }
   }
 }
