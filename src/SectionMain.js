@@ -101,7 +101,7 @@ export default class SectionMain extends Component {
       if (id === this.$sectionAddButton.id) {
         this.handleSectionAdd();
       } else if (classList.contains(this.SECTION_DELETE_BUTTON_CLASSNAME)) {
-        // TODO: 삭제 기능 추가
+        this.handleSectionDeleteButton(stationName);
       }
     });
   }
@@ -170,6 +170,19 @@ export default class SectionMain extends Component {
   updateSectionStationSelectorOptions() {
     this.$sectionStationSelector.innerHTML = this.getExcludedStationsArray()
       .map(stationName => `<option>${stationName}</option>`).join("");
+  }
+
+  handleSectionDeleteButton(targetStationName) {
+    const MIN_STATIONS_LENGTH = 2;
+    const { stations } = this.state;
+
+    if (stations.length <= MIN_STATIONS_LENGTH) {
+      alert(`노선에 포함된 역이 두개 이하이므로 ${targetStationName}역을 제거할 수 없습니다.`);
+    } else if (confirm(`${targetStationName}을 삭제하시겠습니까?`)) {
+      const targetExcluded = stations.filter(stationName => stationName !== targetStationName);
+
+      this.setState({ stations: targetExcluded });
+    }
   }
 
   render() {
