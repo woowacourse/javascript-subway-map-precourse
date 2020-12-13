@@ -6,6 +6,7 @@ export default class SubwayLine {
 
   // 노선에 역 추가. index를 지정하지 않으면 하행 종점 앞에 추가됨
   addStation(station, index = -1) {
+    station.semaphore++;
     this.section.splice(index, 0, station);
   }
 
@@ -14,6 +15,7 @@ export default class SubwayLine {
     if (this.section.length <= 2) {
       return false;
     }
+    this.section[index].semaphore--;
     this.section.splice(index, 1);
     return true;
   }

@@ -17,14 +17,14 @@ export default class SubwayMap {
     if (name.length < 2 || this.stationList.find(element => element.name === name) !== undefined) {
       return false;
     }
-    let station = new SubwayStation(name);
+    const station = new SubwayStation(name);
     this.stationList.push(station);
     return true;
   }
 
   // 지하철 역 삭제
   delStation(name) {
-    let index = this.stationList.findIndex(element => element.name === name);
+    const index = this.stationList.findIndex(element => element.name === name);
     if (index === -1 || this.stationList[index].semaphore !== 0) {
       return false;
     }
@@ -46,16 +46,20 @@ export default class SubwayMap {
     const endStation = this.stationList.find(element => element.name === endStationName);
     startStation.semaphore++;
     endStation.semaphore++;
-    let line = new SubwayLine(name, startStation, endStation);
+    const line = new SubwayLine(name, startStation, endStation);
     this.lineList.push(line);
     return true;
   }
 
   // 지하철 노선 삭제
   delLine(name) {
-    let index = this.lineList.findIndex(element => element.name === name);
+    const index = this.lineList.findIndex(element => element.name === name);
     if (index === -1) {
       return false;
+    }
+    const stationList = this.lineList[index].section;
+    for (const station of stationList) {
+      station.semaphore--;
     }
     this.lineList.splice(index, 1);
     return true;
