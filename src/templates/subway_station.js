@@ -1,6 +1,6 @@
 export const stationAddContainer = () => {
   return `<div>
-    <div><strong>역 이름<strong></div>
+    <div><strong>역 이름</strong></div>
     ${stationNameInput}
     ${stationAddButton}
   </div>`;
@@ -20,9 +20,11 @@ export const stationList = stations => {
 const stationTable = stations => {
   return `<table>
     ${stationTableHeader}
-    ${stations.map(
-      station => `<tr>${stationName(station.name)}${stationDeleteButton}</tr>`
-    )}
+    ${stations
+      .map(
+        station => `<tr>${stationName(station.name)}${stationDeleteButton}</tr>`
+      )
+      .join('')}
   </table>`;
 };
 
