@@ -4,16 +4,26 @@ import CommonUtils from './common_utils.js';
 
 export default class ManageStation {
   constructor() {
+    this.initStation();
+    this.getLocalStorageStation();
     this.setPrivateVariable();
     this.setConst();
     this.stationInputSection();
     this.stationListSection();
   }
 
+  initStation() {
+    this.getLocalStorageStation();
+    this._privateTableUtils.initTable(this._stationList);  
+  }
+
+  getLocalStorageStation() {
+    this._stationList = JSON.parse(localStorage.getItem('stationList'));
+  }
+
   setPrivateVariable() {
     this._privateDomUtils = new DomUtils();
     this._privateCommonUtils = new CommonUtils();
-    this._staionList = [];
     this._privateTableUtils = new TableUtils();
   }
 
@@ -96,10 +106,11 @@ export default class ManageStation {
       const rowArray = this.createRowArray(this._stationInput.value);
       
       this.addToStationList(this._stationInput.value);
+      this.saveToLocalStorage();
       this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
       this._stationInput.value = '';
     }
-    console.log('stationlist',this._staionList);
+    console.log('stationlist',this._stationList);
     
   }
 
@@ -128,7 +139,7 @@ export default class ManageStation {
   }
 
   overlap() {
-    if (this._staionList.indexOf(this._stationInput.value) !== -1) {
+    if (this._stationList.indexOf(this._stationInput.value) !== -1) {
       return this.IS_NOT_VALID;
     }
 
@@ -144,6 +155,10 @@ export default class ManageStation {
   }
 
   addToStationList(stationName) {
-    this._staionList.push(stationName);
+    this._stationList.push(stationName);
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem('stationList', JSON.stringify(this._stationList));
   }
 }

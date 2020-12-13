@@ -27,12 +27,13 @@ export default class TableUtils {
     this.ID_ATTRIBUTE = 'id';
   }
 
-  createTable(toIdName) {
+  initTable(toIdName) {
     const table = document.createElement('table');
 
     this._privateDomUtils.setAttribute(this.ID_ATTRIBUTE, table, `${toIdName}Table`);
     this.addTableStyle(table);
     this.createTitleRow(table, toIdName);
+    this.add
     this._privateDomUtils.appendToIdName(toIdName, table);
   }
 
