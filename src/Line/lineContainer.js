@@ -1,5 +1,5 @@
 import { KEY } from "../constants/index.js";
-import { checkLineList } from "../utils/message.js";
+import { checkLineList, confirmDelete } from "../utils/message.js";
 import {
   checkDuplicateLine,
   checkEmpty,
@@ -45,8 +45,12 @@ const removeLine = (event) => {
 };
 
 const lineRemoveClicked = (event) => {
-  removeDisplayLine(event);
-  removeLine(event);
+  const isDelete = confirmDelete();
+
+  if (isDelete) {
+    removeDisplayLine(event);
+    removeLine(event);
+  }
 };
 
 const activateRemoveLine = () => {

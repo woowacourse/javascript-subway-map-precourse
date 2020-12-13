@@ -43,6 +43,7 @@ export const MESSAGE = {
   DUPLICATE: "중복된 이름은 허용되지 않습니다.",
   SAME_STATION: "상행선 종점과 하행선 종점은 같을 수 없습니다.",
   WRONG_RANGE: "구간 범위안에서 숫자를 입력해주세요.",
+  CONFIRM: "정말로 삭제하시겠습니까 ?",
 };
 
 export const KEY = {

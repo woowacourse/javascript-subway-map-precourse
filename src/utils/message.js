@@ -6,6 +6,12 @@ const alertMessage = (input, text) => {
   input.focus();
 };
 
+export const confirmDelete = () => {
+  const isDelete = confirm(MESSAGE.CONFIRM);
+
+  return isDelete;
+};
+
 export const checkStationList = (checkList, input) => {
   const { isEmpty, isTooShort, isDuplicate } = checkList;
 

@@ -1,5 +1,5 @@
 import { loadLines, saveLines } from "../Line/lineContainer.js";
-import { checkSectionList } from "../utils/message.js";
+import { checkSectionList, confirmDelete } from "../utils/message.js";
 import {
   checkDuplicateSection,
   checkEmpty,
@@ -36,9 +36,7 @@ const handleDeleteClicked = (event, selectLine) => {
     },
   } = event;
   const lines = loadLines() || [];
-
   const filteredSection = filterTargetRow(parentNode, selectLine, lines);
-
   const changedLine = lines.map((line) => {
     if (selectLine === Object.keys(line)[0]) {
       line[selectLine] = filteredSection;
@@ -47,9 +45,13 @@ const handleDeleteClicked = (event, selectLine) => {
     return line;
   });
 
-  saveLines(changedLine);
-  displaySectionUtil(selectLine);
-  sectionUtilHandler(selectLine);
+  const isDelete = confirmDelete();
+
+  if (isDelete) {
+    saveLines(changedLine);
+    displaySectionUtil(selectLine);
+    sectionUtilHandler(selectLine);
+  }
 };
 
 const activateDeleteButton = (line) => {

@@ -8,7 +8,7 @@ import {
   checkInSection,
   checkLength,
 } from "../validation/index.js";
-import { checkStationList } from "../utils/message.js";
+import { checkStationList, confirmDelete } from "../utils/message.js";
 import { KEY } from "../constants/index.js";
 
 const saveStations = (stationArray) =>
@@ -50,7 +50,11 @@ const removeStation = (event) => {
 };
 
 const stationRemoveClicked = (event) => {
-  removeStation(event);
+  const isDelete = confirmDelete();
+
+  if (isDelete) {
+    removeStation(event);
+  }
 };
 
 const activateRemoveStation = () => {
