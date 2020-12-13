@@ -3,8 +3,6 @@ import {
   LINE_MANAGER,
   LINE_MANAGER_BUTTON,
   LINE_MANAGER_K,
-  STATIONS_LS,
-  NONE_K,
   LINE_START_STATION_SELECTOR,
   LINE_END_STATION_SELECTOR,
   LINE_ADD_BUTTON,
@@ -25,9 +23,8 @@ export default class LineManager extends Role {
     super(LINE_MANAGER, LINE_MANAGER_BUTTON, LINE_MANAGER_K);
     this._lines = lines;
     this.renderLines();
-    this.initSelectOptions();
+    this.renderSelectors();
     this.clickAddButton();
-    // this.clickDeleteButton();
   }
 
   renderLines() {
@@ -43,6 +40,7 @@ export default class LineManager extends Role {
 
       this.renderLine(line, lineStart, lineEnd);
     }
+    this.clickDeleteButton();
   }
 
   clearLineTable() {
@@ -89,20 +87,6 @@ export default class LineManager extends Role {
     return button;
   }
 
-  initSelectOptions() {
-    const loadedStations = localStorage.getItem(STATIONS_LS);
-    const stations = loadedStations ? JSON.parse(loadedStations) : [];
-    const lineStartSelect = LINE_START_STATION_SELECTOR;
-    const lineEndSelect = LINE_END_STATION_SELECTOR;
-
-    if (stations.length == 0) {
-      this.renderSelectOption(NONE_K, lineStartSelect, lineEndSelect);
-
-      return;
-    }
-    this.renderStationOptions(stations);
-  }
-
   clickAddButton() {
     const addButton = nodeSelector.selectId(LINE_ADD_BUTTON);
 
@@ -132,5 +116,36 @@ export default class LineManager extends Role {
     this._lines[index] = lineInfo;
     localStorage.setItem(LINES_LS, JSON.stringify(this._lines));
     line.value = '';
+  }
+
+  clickDeleteButton() {
+    const deleteButtons = nodeSelector.selectClassAll(LINE_DELETE_BUTTON);
+
+    deleteButtons.forEach(deleteButton => {
+      deleteButton.addEventListener(
+        'click',
+        this.onClickDeleteButton.bind(this)
+      );
+    });
+  }
+
+  onClickDeleteButton(event) {
+    const target = event.target.dataset.line;
+
+    this.deleteLine(target);
+    this.renderLines();
+  }
+
+  deleteLine(target) {
+    for (let i = 0; i < this._lines.length; i++) {
+      const lineInfo = this._lines[i] ?? {};
+
+      if (lineInfo.hasOwnProperty(target)) {
+        this._lines.splice(i, 1);
+        localStorage.setItem(LINES_LS, JSON.stringify(this._lines));
+
+        return;
+      }
+    }
   }
 }

@@ -13,8 +13,6 @@ import {
   STATION_TABLE,
   STATION_ROW,
   STATIONS_LS,
-  LINE_START_STATION_SELECTOR,
-  LINE_END_STATION_SELECTOR,
 } from '../library/constant/constant.js';
 
 export default class StationManager extends Role {
@@ -23,12 +21,12 @@ export default class StationManager extends Role {
     this._stations = stations;
     this.renderStations();
     this.clickAddButton();
-    this.clickDeleteButton();
   }
 
   renderStations() {
     this.clearStationTable();
     this._stations.forEach(station => this.renderStation(station));
+    this.clickDeleteButton();
   }
 
   clearStationTable() {
@@ -53,7 +51,7 @@ export default class StationManager extends Role {
         if (isValidate) {
           this.addStation(stationNameInput);
           this.renderStations();
-          this.renderStationOptions(this._stations);
+          this.renderSelectors();
         }
       });
     }
@@ -118,25 +116,12 @@ export default class StationManager extends Role {
       return;
     }
     this.deleteStation(target);
-    this.deleteStationOption(target);
+    this.renderSelectors();
     this.renderStations();
   }
 
   deleteStation(target) {
     this._stations = this._stations.filter(station => station !== target);
     localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
-  }
-
-  deleteStationOption(target) {
-    const selectorIds = [
-      LINE_START_STATION_SELECTOR,
-      LINE_END_STATION_SELECTOR,
-    ];
-
-    for (const selectorId of selectorIds) {
-      const options = nodeSelector.selectId(selectorId).childNodes;
-
-      options.forEach(option => target === option.innerHTML && option.remove());
-    }
   }
 }

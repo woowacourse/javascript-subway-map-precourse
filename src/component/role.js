@@ -1,11 +1,12 @@
 import { nodeSelector } from '../util/selector/node_selector.js';
 import {
   ACTIVE,
-  LINE_END_STATION_SELECTOR,
-  LINE_START_STATION_SELECTOR,
+  NONE_K,
   ROLE,
   ROLE_BUTTON_SECTION,
   ROLE_NAMES,
+  SELECTORS,
+  STATIONS_LS,
 } from '../library/constant/constant.js';
 
 export default class Role {
@@ -45,27 +46,34 @@ export default class Role {
     });
   }
 
-  renderStationOptions(stations) {
-    const selectorIds = [
-      LINE_START_STATION_SELECTOR,
-      LINE_END_STATION_SELECTOR,
-    ];
-
-    selectorIds.forEach(selectorId => {
+  renderSelectors() {
+    SELECTORS.forEach(selectorId => {
       const selector = nodeSelector.selectId(selectorId);
 
       selector.innerHTML = '';
-      this.renderSelectOptions(selector, stations);
+      this.renderSelectOptions(selector);
     });
   }
 
-  renderSelectOptions(selector, values) {
-    for (const value of values) {
-      const option = document.createElement('option');
+  renderSelectOptions(selector) {
+    const loadedStations = localStorage.getItem(STATIONS_LS);
+    const stations = loadedStations ? JSON.parse(loadedStations) : [];
 
-      option.value = value;
-      option.append(value);
-      selector.append(option);
+    if (stations.length === 0) {
+      this.renderSelectOption(selector, NONE_K);
+
+      return;
     }
+    for (const station of stations) {
+      this.renderSelectOption(selector, station);
+    }
+  }
+
+  renderSelectOption(selector, value) {
+    const option = document.createElement('option');
+
+    option.value = value;
+    option.append(value);
+    selector.append(option);
   }
 }
