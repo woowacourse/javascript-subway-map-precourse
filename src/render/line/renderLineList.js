@@ -17,7 +17,7 @@ function initLineListContainer() {
 }
 
 function lineListTemplate(line, lineNumber) {
-  return `<tr data-number=${lineNumber}>
+  return `<tr class="line-table-child" data-number=${lineNumber}>
               <td>${line[0]}</td>
               <td>${line[1]}</td>
               <td>${line[line.length - 1]}</td>
