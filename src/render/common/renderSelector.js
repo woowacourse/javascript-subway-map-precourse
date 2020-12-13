@@ -18,9 +18,7 @@ function addSelectorOption(selector) {
 }
 
 export default function renderSelector() {
-  const $lineStationSelector = document.querySelectorAll(
-    '.station-input-container > div > select',
-  );
+  const $lineStationSelector = document.querySelectorAll('select');
 
   $lineStationSelector.forEach((selector) => addSelectorOption(selector));
 }

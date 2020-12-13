@@ -1,8 +1,9 @@
-import renderLineList from './line/renderLineList.js';
-import renderSelector from './line/renderSelector.js';
-import renderLineSelector from './section/renderLineSelect.js';
-import renderSubwayMap from './station-map/renderSubwayMap.js';
 import renderStationList from './station/renderStationList.js';
+import renderSelector from './common/renderSelector.js';
+import renderLineList from './line/renderLineList.js';
+import renderLineSelector from './section/renderLineSelect.js';
+import renderSectionContainer from './section/renderSectionContainer.js';
+import renderSubwayMap from './station-map/renderSubwayMap.js';
 
 function clearInputValue() {
   const $input = document.querySelectorAll('input');
@@ -12,12 +13,13 @@ function clearInputValue() {
 
 export default function render() {
   clearInputValue();
-  renderStationList();
-
   renderSelector();
+
+  renderStationList();
   renderLineList();
 
   renderLineSelector();
+  renderSectionContainer();
 
   renderSubwayMap();
 }
