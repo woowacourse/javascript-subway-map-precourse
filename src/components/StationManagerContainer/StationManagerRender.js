@@ -12,12 +12,14 @@ export default class StationManagerRender extends Component {
 
   initDOM() {
     this.stationNameInputElement = document.createElement("div");
+    this.stationListElement = document.createElement("div");
   }
 
   render() {
     this.stationNameInputElement.innerHTML = this.stationNameInputRender();
-
-    this._app.append(this.stationNameInputElement);
+    this.stationListElement.innerHTML = this.stationListRender();
+    this._app.append(this.stationNameInputElement, this.stationListElement);
+    this.stationListTrRender();
   }
 
   createDOM() {
@@ -32,5 +34,32 @@ export default class StationManagerRender extends Component {
         <button id=${DOM_STATION.STATION_ADD_BUTTON_ID}>역 추가</button>
       </form>
     `;
+  }
+
+  stationListRender() {
+    return `
+      <h2>🚉 지하철 역 목록</h2>
+      <table>
+        <thead>
+          <th>역 이름</th>
+          <th>설정</th>
+        </thead>
+        <tbody id=${DOM_STATION.STATION_LIST_TBODY_ID}></tbody>
+      </table>
+    `;
+  }
+
+  stationListTrRender() {
+    const tbody = document.getElementById(DOM_STATION.STATION_LIST_TBODY_ID);
+
+    this.stations.forEach((station) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+      <td>${station}</td>
+      <td><button class=${DOM_STATION.STATION_DELETE_BUTTON_CLASS}>삭제</button></td>
+      `;
+
+      tbody.appendChild(tr);
+    });
   }
 }
