@@ -1,5 +1,6 @@
 import DomUtils from './dom_utils.js';
 import EventUtils from './event_utils.js';
+import CommonUtils from './common_utils.js';
 
 export default class TableUtils {
   constructor() {
@@ -11,6 +12,7 @@ export default class TableUtils {
   setPrivateVariable() {
     this._privateDomUtils = new DomUtils();
     this._privateEventUtils = new EventUtils();
+    this._privateCommonUtils = new CommonUtils();
   }
 
   setTableType() {
@@ -22,7 +24,6 @@ export default class TableUtils {
   }
 
   setConst() {
-    this.DELETE_BUTTON_FLAG = 'delete';
     this.DELETE_BUTTON_TEXT = '삭제';
     this.ID_ATTRIBUTE = 'id';
   }
@@ -33,8 +34,23 @@ export default class TableUtils {
     this._privateDomUtils.setAttribute(this.ID_ATTRIBUTE, table, `${toIdName}Table`);
     this.addTableStyle(table);
     this.createTitleRow(table, toIdName);
-    this.add
+    
     this._privateDomUtils.appendToIdName(toIdName, table);
+  }
+
+  refreshTable(articleName) {
+    if (articleName === 'stationArticle') {
+      this.refreshStationTable(articleName);
+    }
+  }
+
+  refreshStationTable(articleName) {
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
+
+    for (const station in stationList) {
+      const rowArray = this.createRowArray(station, this.DELETE_BUTTON_TEXT);
+      this.addRow(rowArray, articleName);
+    }
   }
 
   addTableStyle(table) {
@@ -61,6 +77,10 @@ export default class TableUtils {
     cell.style.textAlign = 'center';
   }
 
+  createRowArray(newStation, deleteText) {
+    return [newStation, deleteText];
+  }
+
   addRow(rowArray, tableType) {
     const table = document.getElementById(`${tableType}Table`);
     const row = table.insertRow();
@@ -80,7 +100,7 @@ export default class TableUtils {
 
   addCellsAndButton(tableType, row, rowArray) {
     this._tableType[tableType].forEach((v, i) => {
-      if (rowArray[i] === this.DELETE_BUTTON_FLAG) {
+      if (rowArray[i] === this.DELETE_BUTTON_TEXT) {
         const cell = row.insertCell();
 
         this.addDeleteButton(cell, rowArray);
@@ -98,6 +118,6 @@ export default class TableUtils {
     this.addDataAttribute(deleteButton, rowArray);
     this._privateDomUtils.setInnerHtml(deleteButton, this.DELETE_BUTTON_TEXT);
     this._privateDomUtils.appendToVarName(cell, deleteButton);
-    this._privateEventUtils.addEventToButton(deleteButton);
+    this._privateEventUtils.addEventToButton(deleteButton, this._privateEventUtils.deleteRowAndData);
   }
 }

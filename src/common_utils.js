@@ -19,4 +19,12 @@ export default class CommonUtils {
     this._privateDomUtils.appendToIdName(toIdName, newline);
   }
   
+  getLocalStorageStation() {
+    return JSON.parse(localStorage.getItem('stationList'));
+  }
+
+  getLocalStorageLine() {
+    return JSON.parse(localStorage.getItem('lineList'));
+  }
+
 }

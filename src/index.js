@@ -6,7 +6,7 @@ export default class SubwayMap {
   constructor() {
     document.body.style.fontFamily = 'Arial';
     new Menu();
-    
+
     new ManageStation();
   }
 }

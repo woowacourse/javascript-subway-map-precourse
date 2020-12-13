@@ -1,12 +1,17 @@
 import DomUtils from './dom_utils.js';
 import StringUtils from './string_utils.js';
+import ManageStation from './manage_station.js';
+import TableUtils from './table_utils.js';
+import CommonUtils from './common_utils.js';
 
 export default class Menu {
   constructor() {
     this._privateDomUtils = new DomUtils();
     this._privateStringUtils = new StringUtils();
+    this._privateTableUtils = new TableUtils();
+    this._privateCommonUtils = new CommonUtils();
     this.setIdNAme();
-    this.managerButton()
+    this.managerButton();
     this.createMenu();
   }
 
@@ -58,7 +63,8 @@ export default class Menu {
 
   addEventToButton(varName, articleName) {
     this[`_${varName}`].addEventListener('click', () => {
-      this.showArticle(articleName)
+      this.showArticle(articleName);
+      this._privateTableUtils.refreshTable(articleName);
     });
   }
 

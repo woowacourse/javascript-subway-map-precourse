@@ -4,21 +4,10 @@ import CommonUtils from './common_utils.js';
 
 export default class ManageStation {
   constructor() {
-    this.initStation();
-    this.getLocalStorageStation();
     this.setPrivateVariable();
+    this._stationList = {};
     this.setConst();
-    this.stationInputSection();
-    this.stationListSection();
-  }
-
-  initStation() {
-    this.getLocalStorageStation();
-    this._privateTableUtils.initTable(this._stationList);  
-  }
-
-  getLocalStorageStation() {
-    this._stationList = JSON.parse(localStorage.getItem('stationList'));
+    this.initPage();
   }
 
   setPrivateVariable() {
@@ -60,18 +49,16 @@ export default class ManageStation {
     this.IS_NOT_VALID = false;
   }
 
-  stationInputSection() {
+  initPage() {
     this._privateCommonUtils.createTitle(this.STATION_INPUT_TITLE_TAG, this.STATION_INPUT_TITLE_TEXT, this.ARTICLE_NAME);
     this.createStationInput();
     this._stationAddButton = this._privateDomUtils.createButton(this.ADD_BUTTON_ID, this.ADD_BUTTON_TEXT);
     this._privateDomUtils.appendToIdName(this.ARTICLE_NAME, this._stationAddButton);
     this.addEventToButton(this.ADD_TYPE, this.MENU_TYPE);
+    this._privateCommonUtils.createTitle(this.STATION_LIST_TITLE_TAG, this.STATION_LIST_TITLE_TEXT, this.ARTICLE_NAME);
+    this._privateTableUtils.initTable(this.ARTICLE_NAME);
   }
 
-  stationListSection() {
-    this._privateCommonUtils.createTitle(this.STATION_LIST_TITLE_TAG, this.STATION_LIST_TITLE_TEXT, this.ARTICLE_NAME);
-    this._stationTable = this._privateTableUtils.createTable(this.ARTICLE_NAME);
-  }
 
   createStationInput() {
     const inputObject = this.stationInputObject();
@@ -103,15 +90,13 @@ export default class ManageStation {
 
   addStation() {
     if (this.checkStationValidity() === this.IS_VALID) {
-      const rowArray = this.createRowArray(this._stationInput.value);
+      const rowArray = this._privateTableUtils.createRowArray(this._stationInput.value, this.DELETE_BUTTON_TEXT);
       
       this.addToStationList(this._stationInput.value);
       this.saveToLocalStorage();
       this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
       this._stationInput.value = '';
     }
-    console.log('stationlist',this._stationList);
-    
   }
 
   checkStationValidity() {
@@ -139,7 +124,7 @@ export default class ManageStation {
   }
 
   overlap() {
-    if (this._stationList.indexOf(this._stationInput.value) !== -1) {
+    if (this._stationInput.value in this._stationList) {
       return this.IS_NOT_VALID;
     }
 
@@ -150,12 +135,9 @@ export default class ManageStation {
     alert(errorMessage);
   }
 
-  createRowArray(newStation) {
-    return [newStation, 'delete'];
-  }
-
   addToStationList(stationName) {
-    this._stationList.push(stationName);
+    this._stationList = this._privateCommonUtils.getLocalStorageStation();
+    this._stationList[stationName] = [];
   }
 
   saveToLocalStorage() {

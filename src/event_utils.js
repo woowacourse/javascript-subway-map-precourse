@@ -1,11 +1,13 @@
+// import ManageStation from "./manage_station";
+
 export default class EventUtils {
   constructor() {
-    
+    // this._privateManageStation = new ManageStation();
   }
 
-  addEventToButton(button) {
+  addEventToButton(button, callback) {
     button.addEventListener('click', () => {
-      this.deleteRowAndData(button);
+      callback(button);
     });
   }
 
@@ -19,4 +21,5 @@ export default class EventUtils {
   deleteTableRow(row) {
     row.remove();
   }
+
 }
