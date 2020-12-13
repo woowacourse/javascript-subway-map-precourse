@@ -43,7 +43,7 @@ export const createLabel = (group, content) => {
   return label;
 };
 
-export const createSelect = (name, id, options) => {
+export const createSelector = (name, id, options) => {
   const select = document.createElement('select');
 
   if (name) select.name = name;
@@ -52,11 +52,11 @@ export const createSelect = (name, id, options) => {
   return select;
 };
 
-export const createOption = (value, content) => {
+export const createOption = (value) => {
   const option = document.createElement('option');
 
   option.setAttribute('value', value);
-  option.innerHTML = content;
+  option.innerHTML = value;
   return option;
 };
 

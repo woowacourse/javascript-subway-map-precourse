@@ -6,37 +6,37 @@ export const makeTable = (menu) => {
   const table = document.createElement('table');
   const tableData = getArrayFromLocalStorage(menu);
 
-  makeTableHeader(table, menu);
+  appendTableHeader(table, menu);
   tableData.forEach((item) => {
-    makeOneRow(table, menu, item);
+    appendOneRow(table, menu, item);
   });
   table.setAttribute('border', 1);
   return table;
 };
 
-const makeTableHeader = (table, menu) => {
+const appendTableHeader = (table, menu) => {
   TABLE.header[menu].forEach((header) => {
     appendNew('th', table, header);
   });
 };
 
-const makeOneRow = (table, menu, item) => {
+const appendOneRow = (table, menu, item) => {
   let row = appendNew('tr', table);
-  let makeMenuCell = {
-    station: makeStationCell,
-    line: makeLineCell,
-    section: makeSectionCell,
+  let appendCell = {
+    station: appendCellForStationManager,
+    line: appendCellForLineManager,
+    section: appendCellForSectionManager,
   }[menu];
 
-  makeMenuCell(row, item);
-  makeDeleteButton(row, menu, item);
+  appendCell(row, item);
+  appendDeleteButton(row, menu, item);
 };
 
-const makeStationCell = (row, item) => {
+const appendCellForStationManager = (row, item) => {
   appendNew('td', row, item.name);
 };
 
-const makeLineCell = (row, item) => {
+const appendCellForLineManager = (row, item) => {
   const firstStation = item.stationList[0];
   const lastStation = item.stationList[item.stationList.length - 1];
   const cells = [item.name, firstStation, lastStation];
@@ -44,7 +44,7 @@ const makeLineCell = (row, item) => {
   cells.forEach((cell) => appendNew('td', row, cell));
 };
 
-const makeSectionCell = (row, item) => {
+const appendCellForSectionManager = (row, item) => {
   [
     item.name,
     item.stationList[0],
@@ -52,7 +52,7 @@ const makeSectionCell = (row, item) => {
   ].forEach((cell) => appendNew('td', row, cell));
 };
 
-const makeDeleteButton = (row, menu, item) => {
+const appendDeleteButton = (row, menu, item) => {
   const className = `${menu}-delete-button`;
   const dataset = `data-${menu}`;
   const button = createButton(className, dataset, item.name);
@@ -61,12 +61,14 @@ const makeDeleteButton = (row, menu, item) => {
   return appendNew('td', row, button.outerHTML);
 };
 
+// 신규 역, 노선, 구간 추가 시 사용
 export const addItemToTable = (menu, item) => {
   const table = document.getElementsByTagName('tbody')[0];
 
-  makeOneRow(table, menu, item);
+  appendOneRow(table, menu, item);
 };
 
+// 기존 역, 노선, 구간 삭제 시 사용
 export const deleteItemFromTable = (button) => {
   const cell = button.parentNode;
   const row = cell.parentNode;

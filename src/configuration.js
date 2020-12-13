@@ -41,7 +41,7 @@ export const TABLE = {
   header: {
     station: ['역 이름', '설정'],
     line: ['노선 이름', '상행 종점역', '하행 종점역', '설정'],
-    section: ['순서, 이름, 설정'],
+    section: ['순서', '이름', '설정'],
   },
   deleteButtonText: { station: '삭제', line: '삭제', section: '노선에서 제거' },
 };

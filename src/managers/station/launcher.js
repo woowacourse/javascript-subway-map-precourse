@@ -17,7 +17,7 @@ export const launchStationManager = (menu, container) => {
 const createStationManagerUI = (menu, container) => {
   const table = makeTable(menu);
 
-  appendNew('label', container, '역 이름', `${menu}-input-label`);
+  appendNew('label', container, '역 이름', `${menu}-name-input-label`);
   appendNew('br', container);
   appendNew('input', container, null, `${menu}-name-input`);
   appendNew('button', container, '역 추가', `${menu}-add-button`);
