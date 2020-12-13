@@ -146,12 +146,64 @@ export default class LineManager extends Component {
   }
 
   handleLineAdd() {
-    const LineName = this.$lineNameInput.value;
+    const lineName = this.$lineNameInput.value;
     const lineStartStation = this.$lineStartStationSelector.value;
     const lineEndStation = this.$lineEndStationSelector.value;
 
-    this.addNewLineName(LineName, lineStartStation, lineEndStation);    
-    clearInputValue(this.$lineNameInput);
+    if (this.isValidLineInfo(lineName, lineStartStation, lineEndStation)) {
+      this.addNewLineName(lineName, lineStartStation, lineEndStation);
+      clearInputValue(this.$lineNameInput);
+    }
+  }
+
+  isValidLineInfo(lineNameUserInput, lineStartStation, lineEndStation) {
+    try {
+      this.validateLineNameLength(lineNameUserInput);
+      this.validateUniqueLineName(lineNameUserInput);
+      this.validateStartEndStationName(lineStartStation, lineEndStation);
+
+      return true;
+    } catch (error) {
+      alert(error.message);
+      clearInputValue(this.$lineNameInput);
+
+      return false;      
+    }
+  }
+
+  validateLineNameLength(lineNameUserInput) {
+    const MIN_LINE_NAME_LENGTH = 1;
+
+    if (lineNameUserInput.length < MIN_LINE_NAME_LENGTH) {
+      const errorMessage = [`지하철 노선은 1글자 이상이어야 합니다.`].join("\n");
+      
+      throw new Error(errorMessage);
+    }
+  }
+
+  validateUniqueLineName(lineNameUserInput) {
+    const { lineInfo } = this.state;
+
+    if (lineInfo.some(({ lineName }) => lineName === lineNameUserInput)) {
+      const errorMessage = [
+        `중복된 지하철 노선 이름은 등록될 수 없습니다.`,
+        `입력된 지하철 노선 이름: ${lineNameUserInput}`
+      ].join("\n");
+
+      throw new Error(errorMessage);
+    }
+  }
+
+  validateStartEndStationName(lineStartStation, lineEndStation) {
+    if (lineStartStation === lineEndStation) {
+      const errorMessage = [
+        `상행 종점과 하행 종점은 서로 다른 역이어야 합니다.`,
+        `상행 종점: ${lineStartStation}`,
+        `하행 종점: ${lineEndStation}`
+      ].join("\n");
+
+      throw new Error(errorMessage);
+    }
   }
 
   addNewLineName(newLineName, lineStartStation, lineEndStation) {
