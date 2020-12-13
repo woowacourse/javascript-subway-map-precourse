@@ -1,5 +1,5 @@
 function selectButtonTemplate(line, lineNumber) {
-  return `<button class="line-select-button" data-number=${lineNumber}}>
+  return `<button class="line-select-button" data-number=${lineNumber}>
             ${line}
           </button>&nbsp`;
 }
