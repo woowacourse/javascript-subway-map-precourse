@@ -1,5 +1,5 @@
 export const clearInnerHTML = $target => {
-  $target.innerHTML = "";
+  $target.innerHTML = ``;
 };
 
 export const makeElement = (type, props = {}, innerHTML = ``) => {
@@ -12,4 +12,10 @@ export const makeElement = (type, props = {}, innerHTML = ``) => {
   $element.innerHTML = innerHTML;
 
   return $element;
+};
+
+export const alertMessage = ($input, message) => {
+  alert(message);
+  $input.value = ``;
+  $input.focus();
 };
