@@ -100,10 +100,6 @@ export default function totalSubwayManageContainer() {
   const content = document.getElementById("content");
 
   for (const [index, child] of menus.entries()) {
-    const elementToHide = menuIndexArray.filter((x) => {
-      return x !== index;
-    });
-
     child.addEventListener("click", () => {
       removeAllChild(content);
       content.appendChild(createDOM(index));
