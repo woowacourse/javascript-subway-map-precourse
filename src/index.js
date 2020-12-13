@@ -56,10 +56,6 @@ class SubwayMap {
     return this.stationList.find((station) => station.name === name);
   }
 
-  getLine(name) {
-    return this.lineList.find((line) => line.name === name);
-  }
-
   getLineIndex(name) {
     return this.lineList.findIndex((line) => line.name === name);
   }
