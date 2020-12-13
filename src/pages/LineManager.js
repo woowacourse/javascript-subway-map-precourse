@@ -22,6 +22,7 @@ export default class LineManager {
 
   setState(state) {
     this.state = state;
+    console.log(this.state);
     dispatchReRender();
   }
 
@@ -29,7 +30,19 @@ export default class LineManager {
     const lineNameInput = document.getElementById(elementMap.lineNameInput);
     lineNameInput.addEventListener("blur", (event) => {
       this.setState({ ...this.state, lineName: event.target.value });
-      console.log(this.state);
+    });
+    const lineStartStationSelector = document.getElementById(
+      elementMap.lineStartStationSelector
+    );
+    lineStartStationSelector.addEventListener("change", (event) => {
+      this.setState({ ...this.state, lineStartStation: event.target.value });
+    });
+
+    const lineEndStationSelector = document.getElementById(
+      elementMap.lineEndStationSelector
+    );
+    lineEndStationSelector.addEventListener("change", (event) => {
+      this.setState({ ...this.state, lineEndStation: event.target.value });
     });
   }
 
