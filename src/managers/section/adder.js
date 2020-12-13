@@ -30,4 +30,16 @@ const processException = (exception, select, input) => {
   return input.focus();
 };
 
-const addNewSection = (menu, line, stationName, order) => {};
+const addNewSection = (menu, line, stationName, order) => {
+  let tableDiv = document.getElementById(`${menu}-table`);
+
+  addSubItemToLocalStroage(
+    'line',
+    'stationList',
+    line.name,
+    stationName,
+    order
+  );
+  addSubItemToLocalStroage('station', 'lineList', stationName, line.name);
+  tableDiv.innerHTML = makeTable(menu, line).outerHTML;
+};
