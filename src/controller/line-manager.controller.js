@@ -92,6 +92,7 @@ export default class LineManager {
     try {
       this.validateLineName(lineName);
       this.validateStartEndStation(startStation, endStation);
+      this.line.createLine(lineName, startStation, endStation);
     } catch (message) {
       alert(message);
     }

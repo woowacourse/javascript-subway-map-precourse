@@ -13,6 +13,14 @@ class Line {
     return lines;
   }
 
+  createLine(lineName, startStation, endStation) {
+    const allLines = this.getAllLines();
+    allLines.push(lineName);
+
+    this.storage.setItem(`lines`, allLines);
+    this.storage.setItem(lineName, `${startStation},${endStation}`);
+  }
+
   getSectionsByLineName(lineName) {
     const rawSections = this.storage.getItem(lineName);
     if (!rawSections) {
