@@ -1,6 +1,6 @@
 function mapPrintTemplate() {
   const lines = JSON.parse(localStorage.lines);
-  let newHTML = "";
+  let newHTML = `<div class="map">`;
   lines.forEach(
     (line) =>
       (newHTML += `<h3>${line.name}</h3><ul>${line.sections
@@ -8,7 +8,7 @@ function mapPrintTemplate() {
         .join("")}</ul>`)
   );
 
-  return newHTML;
+  return newHTML + "</div>";
 }
 
 function initMapPrint() {
