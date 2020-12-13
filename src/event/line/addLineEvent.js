@@ -3,7 +3,8 @@ import render from '../../render/render.js';
 const MINIMUN_LINE_LENGTH = 2;
 
 function checkDuplicateStation() {
-  const startStation = document.querySelector('#line-start-station-selector').value;
+  const startStation = document.querySelector('#line-start-station-selector')
+    .value;
   const endStation = document.querySelector('#line-end-station-selector').value;
 
   if (startStation === endStation) {
@@ -32,9 +33,9 @@ function checkValidNameLength(inputLineName) {
 }
 
 function addLine(lines, inputLineName) {
-  const startStation = document.querySelector('#line-start-station-selector').value;
+  const startStation = document.querySelector('#line-start-station-selector')
+    .value;
   const endStation = document.querySelector('#line-end-station-selector').value;
-
   if (!lines) {
     return localStorage.setItem(
       'lines',

@@ -16,11 +16,14 @@ function removeStation(stationName) {
 
 function checkIncludeLine(stationName) {
   const lines = JSON.parse(localStorage.getItem('lines'));
+  if (lines === null) {
+    return removeStation(stationName);
+  }
+
   const lineList = lines.split(',');
   const includeLineStation = new Set(
     lineList.map((line) => line.split(' ').splice(1)).flat(),
   );
-
   if ([...includeLineStation].includes(stationName)) {
     return alert('노선에 등록된 역은 삭제할 수 없습니다.');
   }

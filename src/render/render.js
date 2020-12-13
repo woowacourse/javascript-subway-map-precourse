@@ -1,5 +1,6 @@
 import renderLineList from './line/renderLineList.js';
 import renderSelector from './line/renderSelector.js';
+import renderSubwayMap from './station-map/renderSubwayMap.js';
 import renderStationList from './station/renderStationList.js';
 
 function clearInputValue() {
@@ -10,7 +11,11 @@ function clearInputValue() {
 
 export default function render() {
   clearInputValue();
-  renderSelector();
+
   renderStationList();
+
+  renderSelector();
   renderLineList();
+
+  renderSubwayMap();
 }

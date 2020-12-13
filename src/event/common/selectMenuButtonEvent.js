@@ -16,7 +16,7 @@ function changeManagerContainer({ target }) {
     document.querySelector('.section-manager-page').removeAttribute('hidden');
   }
   if (target.id === 'map-print-manager-button') {
-    document.querySelector('.map-print-manager-page').removeAttribute('hidden');
+    document.querySelector('.map-print-page').removeAttribute('hidden');
   }
 }
 
