@@ -69,6 +69,11 @@ const mapPrint = document.getElementById('map-print');
 const stationNameInput = document.getElementById('station-name-input');
 const stationAddButton = document.getElementById('station-add-button');
 const stationResult = document.getElementById('station-result');
+const lineNameInput = document.getElementById('line-name-input');
+const lineStartStationSelector = document.getElementById('line-start-station-selector');
+const lineEndStationSelector = document.getElementById('line-end-station-selector');
+const lineAddButton = document.getElementById('line-add-button');
+const lineResult = document.getElementById('line-result');
 
 const subwayMap = new SubwayMap();
 
@@ -92,6 +97,9 @@ function showLineManager() {
   "use strict";
 
   changeTab(line);
+  lineNameInput.value = '';
+  showStationSelect();
+  showLineList();
 }
 
 // 구간 관리 탭
@@ -143,4 +151,32 @@ function clickStationAddButton() {
   }
   stationNameInput.value = '';
   showStationList();
+}
+
+// 지하철 역 select 출력
+function showStationSelect() {
+  "use strict";
+
+  const stationList = subwayMap.getStationList();
+
+  let html = '';
+  for (const station of stationList) {
+    html += `<option value="${station}">${station}</option>`;
+  }
+  lineStartStationSelector.innerHTML = html;
+  lineEndStationSelector.innerHTML = html;
+}
+
+// 지하철 노선 목록 출력
+function showLineList() {
+  "use strict";
+
+  const lineList = subwayMap.getLineList();
+  const lineDeleteButtonHTML = '<button class="line-delete-button">삭제</button>';
+
+  let html = '';
+  for (const line of lineList) {
+    html += `<tr><td>${line}</td><td>${lineDeleteButtonHTML}</td></tr>`;
+  }
+  lineResult.innerHTML = html;
 }
