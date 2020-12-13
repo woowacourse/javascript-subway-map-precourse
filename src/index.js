@@ -210,6 +210,9 @@ function clickStationAddButton() {
 function clickStationDelButton(event) {
   "use strict";
 
+  if (!confirm('정말로 삭제하시겠습니까?')) {
+    return;
+  }
   if (!subwayMap.delStation(event.target.dataset.station)) {
     alert('노선에 등록된 역은 삭제할 수 없습니다.');
     return;
@@ -264,6 +267,9 @@ function clickLineAddButton() {
 function clickLineDelButton(event) {
   "use strict";
 
+  if (!confirm('정말로 삭제하시겠습니까?')) {
+    return;
+  }
   subwayMap.delLine(event.target.dataset.line);
   showLineList();
   localStorage.setItem('subwayMap', subwayMap.serialize());
