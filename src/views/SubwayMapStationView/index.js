@@ -60,8 +60,10 @@ export default class SubwayMapStationView {
   }
 
   renderStationTable(stations) {
-    const stationThead = this.renderStationThead();
-    const stationTbody = this.renderStationTbody(stations);
+    const [stationThead, stationTbody] = [
+      this.getStationThead(),
+      this.getStationTbody(stations),
+    ];
 
     const stationTable = `
       <table id="#station-name-table">
@@ -75,7 +77,7 @@ export default class SubwayMapStationView {
     ).innerHTML += stationTable;
   }
 
-  renderStationThead() {
+  getStationThead() {
     const stationThead = `
       <tr>
         <th>${message.STATION_NAME}</th>
@@ -86,7 +88,7 @@ export default class SubwayMapStationView {
     return stationThead;
   }
 
-  renderStationTbody(stations) {
+  getStationTbody(stations) {
     let stationTbody = ``;
     stations.forEach(station => {
       stationTbody += `
