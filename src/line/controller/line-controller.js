@@ -3,7 +3,11 @@ import LineOutput from '../view/output.js';
 import Line from '../line.js';
 import LineModel from '../model/model.js';
 import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
-import {isDuplicatedLine} from '../service/validation.js';
+import {
+	isNotValidLineName, 
+	isDuplicatedLine, 
+	isSameStartStationAndEndStation
+} from '../service/validation.js';
 
 export default class LineController {
 	constructor() {
@@ -20,9 +24,8 @@ export default class LineController {
 
 	addLine = () => {
 		const [lineNameInput, lineStartStation, lineEndStation] = this.getLineComponents();
-		const lines = new LineModel().getLineStorageData();
 
-		if (isDuplicatedLine(lines, lineNameInput)) {
+		if (this.isLineInputError()) {
 			return;
 		}
 
@@ -30,6 +33,19 @@ export default class LineController {
 
 		this.addLineToMemory(line);
 		this.addLineToTable();
+	}
+
+	isLineInputError = () => {
+		const [lineNameInput, lineStartStation, lineEndStation] = this.getLineComponents();
+		const lines = new LineModel().getLineStorageData();
+
+		if (
+			isNotValidLineName(lineNameInput) || 
+			isDuplicatedLine(lines, lineNameInput) ||
+			isSameStartStationAndEndStation(lineStartStation, lineEndStation)
+		) {
+			return true;
+		}
 	}
 
 	getLineComponents = () => {
