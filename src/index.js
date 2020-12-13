@@ -76,38 +76,37 @@ mapPrintManagerButton.addEventListener('click', showMapPrintManager);
 function showStationManager() {
   "use strict";
 
-  station.classList.remove('d-none');
-  line.classList.add('d-none');
-  section.classList.add('d-none');
-  mapPrint.classList.add('d-none');
+  changeTab(station);
 }
 
 // 노선 관리 탭
 function showLineManager() {
   "use strict";
 
-  station.classList.add('d-none');
-  line.classList.remove('d-none');
-  section.classList.add('d-none');
-  mapPrint.classList.add('d-none');
+  changeTab(line);
 }
 
 // 구간 관리 탭
 function showSectionManager() {
   "use strict";
 
-  station.classList.add('d-none');
-  line.classList.add('d-none');
-  section.classList.remove('d-none');
-  mapPrint.classList.add('d-none');
+  changeTab(section);
 }
 
 // 지하철 노선도 출력 탭
 function showMapPrintManager() {
   "use strict";
 
+  changeTab(mapPrint);
+}
+
+// 탭 교체
+function changeTab(dom) {
+  "use strict";
+
   station.classList.add('d-none');
   line.classList.add('d-none');
   section.classList.add('d-none');
-  mapPrint.classList.remove('d-none');
+  mapPrint.classList.add('d-none');
+  dom.classList.remove('d-none');
 }
