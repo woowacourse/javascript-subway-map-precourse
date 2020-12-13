@@ -25,13 +25,22 @@ export const turnOffNoDataMessage = ($table, $noDataMessage) => {
   $noDataMessage.style.display = "none";
 };
 
+export const getStationNameInput = (appContainer) => {
+  const $stationNameLabel = getChildById(
+    appContainer,
+    MANAGER_PAGES_ID.stationManager
+  ).getElementsByTagName("label")[0];
+
+  return getChildById($stationNameLabel, INPUT_FORM_ID.stationNameInput);
+};
+
 export const getLineNameInput = (appContainer) => {
-  const $startSationLabel = getChildById(
+  const $lineNameLabel = getChildById(
     appContainer,
     MANAGER_PAGES_ID.lineManager
   ).getElementsByTagName("label")[0];
 
-  return getChildById($startSationLabel, INPUT_FORM_ID.lineNameInput);
+  return getChildById($lineNameLabel, INPUT_FORM_ID.lineNameInput);
 };
 
 export const getStartStationSelector = (appContainer) => {
