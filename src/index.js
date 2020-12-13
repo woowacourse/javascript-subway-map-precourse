@@ -485,20 +485,22 @@ class SubwayMap {
     }
   }
 
+  generateLineMenuItems() {
+    return this.lineList
+      .map((line) => `<button class="section-line-menu-button" data-line-name="${line.name}">${line.name}</button>`)
+      .join('');
+  }
+
   showSectionManager() {
     if (!this.isValidSectionManager()) {
       alert(VALID_SECTION_MANAGER_MESSAGE);
       return;
     }
 
-    const sectionLineMenuButtonsDOM = this.lineList
-      .map((line) => `<button class="section-line-menu-button" data-line-name="${line.name}">${line.name}</button>`)
-      .join('');
-
     this.elements.managerContainer.innerHTML = `
       <h3>구간을 수정할 노선을 선택해주세요</h3>
       <div id="section-line-menu-button-container">
-        ${sectionLineMenuButtonsDOM}
+        ${this.generateLineMenuItems()}
       </div>
       <div id="section-line-menu-container"></div>
     `;
