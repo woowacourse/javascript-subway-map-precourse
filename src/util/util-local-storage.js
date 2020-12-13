@@ -58,7 +58,7 @@ export const deleteSubItemFromLocalStorage = (
   let list = getArrayFromLocalStorage(key);
   let item = list.filter((item) => item.name === itemName)[0];
   let secondList = item[secondKey];
-  let index = order || getIndexOf(secondList, subItem.name);
+  let index = order || secondList.indexOf(subItem.name);
 
   secondList.splice(index, 1);
   localStorage.setItem(key, JSON.stringify(list));
@@ -67,10 +67,10 @@ export const deleteSubItemFromLocalStorage = (
 const getIndexOf = (list, target) => {
   let index = 0;
 
-  for (index in list) {
-    if (list[index].name === target) {
-      console.log(index);
-      return index;
+  for (let i in list) {
+    if (list[i].name === target) {
+      index = i;
+      break;
     }
   }
   return index;
