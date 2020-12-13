@@ -1,6 +1,6 @@
-import { Data } from "./data.js"
-import { alertText, text } from "./text.js"
-import { Station } from "./station.js"
+import { Data } from "../data.js"
+import { alertText, text } from "../text.js"
+import { Station } from "../station.js"
 
 export const makeStationIfPossible = (input) => {
     if (isEmptyName(input)) {
@@ -18,12 +18,18 @@ export const makeStationIfPossible = (input) => {
     return new Station(input);
 }
 
+export const checkStationInLine = (input) => {
+    if (isStationInLine(input)) {
+        throw alertText.STATION_ALREADY_IN_LINE;
+    }
+}
+
 const isEmptyName = (input) => {
     return hasEmptyName(input);
 }
 
 const hasEmptyName = (input) => {
-    return input === text.EMPTY;
+    return input.trim() === text.EMPTY;
 }
 
 const isShortName = (input) => {
@@ -42,4 +48,8 @@ const hasSameName = (input) => {
     return Data.getStationRepository().hasOwnProperty(input);
 }
 
-const 
+const isStationInLine = (station) => {
+    return Object.values(Data.getLineRepository())
+        .map((line) => line.stationArray)
+        .some((stationArray) => stationArray.includes(station))
+}
