@@ -6,4 +6,10 @@ export default class Line {
   _setLineList = lineList => {
     localStorage.setItem(LINE_LIST, JSON.stringify(lineList));
   };
+
+  _getSavedLineList = () => {
+    const savedLineList = localStorage.getItem(LINE_LIST);
+
+    return JSON.parse(savedLineList) || [];
+  };
 }
