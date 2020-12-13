@@ -49,6 +49,5 @@ export const SECTION_STATION_SELECTOR = "#section-station-selector";
 export const SECTION_ORDER_INPUT = "#section-order-input";
 export const ADD_SECTION_BUTTON = "#section-add-button";
 
-export const SECTION_LIST_VIEW_CONTAINER_ID = "#section-list-view-container";
 export const SECTION_LIST = "#section-list";
 export const DELETE_SECTION_BUTTON = ".section-delete-button";
