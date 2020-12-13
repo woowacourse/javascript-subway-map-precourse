@@ -1,10 +1,18 @@
 import Station from "./station.js";
 import Line from "./line.js";
-import { createCustomElement, createSelect } from "./table.js";
+import {
+  createCustomElement,
+  createSelect,
+  createTable,
+  createTr,
+  createValueTd,
+  createButtonTd,
+} from "./table.js";
 class Section {
   constructor() {
     this.stations = Station.stations;
     this.lines = Line.lines;
+    this.lineName = [];
     this.showMenuButton();
     this.resetSection();
   }
@@ -20,6 +28,28 @@ class Section {
     createSelect(select, this.stations);
   };
 
+  createSectionTable = () => {
+    const table = createTable(["순서", "이름", "설정"]);
+    const lineStations = this.lines[this.lineName];
+    for (let i = 0; i < lineStations.length; i++) {
+      const tr = createTr([
+        createValueTd(i.toString()),
+        createValueTd(lineStations[i]),
+        createButtonTd("노선에서 제거", "section-delete-button"),
+      ]);
+      table.appendChild(tr);
+    }
+
+    return table;
+  };
+
+  showSectionTable = () => {
+    const sectionTable = this.createSectionTable();
+    const sectionTableContainer = document.getElementById("sect-main-list");
+    sectionTableContainer.innerHTML = "";
+    sectionTableContainer.appendChild(sectionTable);
+  };
+
   showMenuButton = () => {
     const sectionMenuContainer = document.getElementById("sect-menus");
     for (let i = 0; i < Object.keys(this.lines).length; i++) {
@@ -32,17 +62,17 @@ class Section {
     this.handleMenuButton();
   };
 
-  showSectionInput = lineName => {
+  showSectionInput = () => {
     const sectionName = document.querySelector(".sect-main h2");
-    sectionName.innerHTML = `${lineName} 관리`;
+    sectionName.innerHTML = `${this.lineName} 관리`;
 
     const sectionInput = document.getElementById("sect-main-contents");
     sectionInput.style.display = "block";
   };
 
   showSectionLine = e => {
-    const lineName = e.target.innerHTML;
-    this.showSectionInput(lineName);
+    this.lineName = e.target.innerHTML;
+    this.showSectionInput();
     this.showSectionTable();
   };
 
