@@ -7,6 +7,56 @@ import {
 } from "../validation/index.js";
 import { displaySectionUtil } from "./sectionPresenter.js";
 
+const filterTargetRow = (targetRow, selectLine, lines) => {
+  const deleteTargetStation = targetRow.childNodes[1].innerText;
+
+  const filteredLine = lines.filter(
+    (line) => selectLine === Object.keys(line)[0]
+  );
+  const currentSection = Object.values(filteredLine[0])[0];
+
+  const filteredSection = currentSection.filter(
+    (station) => station !== deleteTargetStation
+  );
+
+  return filteredSection;
+};
+
+const handleDeleteClicked = (event, selectLine) => {
+  const {
+    target: {
+      parentNode: { parentNode },
+    },
+  } = event;
+  const lines = loadLines() || [];
+
+  const filteredSection = filterTargetRow(parentNode, selectLine, lines);
+
+  const changedLine = lines.map((line) => {
+    if (selectLine === Object.keys(line)[0]) {
+      line[selectLine] = filteredSection;
+    }
+
+    return line;
+  });
+
+  saveLines(changedLine);
+  displaySectionUtil(selectLine);
+  sectionUtilHandler(selectLine);
+};
+
+const activateDeleteButton = (line) => {
+  const sectionDeleteButtons = document.getElementsByClassName(
+    "section-delete-button"
+  );
+
+  for (let i = 0; i < sectionDeleteButtons.length; i++) {
+    sectionDeleteButtons[i].addEventListener("click", (e) => {
+      handleDeleteClicked(e, line);
+    });
+  }
+};
+
 const addLine = (selectLine, station, index) => {
   const lines = loadLines() || [];
   const filteredLine = lines.filter(
@@ -24,6 +74,7 @@ const addLine = (selectLine, station, index) => {
 
   saveLines(changedLine);
   displaySectionUtil(selectLine);
+  sectionUtilHandler(selectLine);
 };
 
 const sectionAddClicked = (line) => {
@@ -42,16 +93,17 @@ const sectionAddClicked = (line) => {
 
   if (isValid) {
     addLine(line, stationSelectValue, orderInputValue);
+    activateDeleteButton(line);
   }
 };
 
 const sectionUtilHandler = (line) => {
   const sectionAddButton = document.getElementById("section-add-button");
-  const sectionDeleteButton = document.getElementById("section-delete-button");
 
   sectionAddButton.addEventListener("click", () => {
     sectionAddClicked(line);
   });
+  activateDeleteButton(line);
 };
 
 const sectionMenuClicked = (event) => {
