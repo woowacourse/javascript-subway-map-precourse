@@ -110,6 +110,18 @@ class Section {
     document.getElementById("section-order-input").value = "";
   };
 
+  deleteStationSection = e => {
+    const removeIndex = e.target.parentNode.parentNode.querySelector("td")
+      .innerHTML;
+    if (Line.lines[this.lineName].length > 2) {
+      Line.lines[this.lineName].splice(removeIndex, 1);
+      Line.saveLines();
+      this.showSectionTable();
+    } else {
+      alert("노선에는 최소 상행종점, 하행종점 두개의 역이 존재해야 합니다");
+    }
+  };
+
   handleAddStationSection = () => {
     const button = document.getElementById("section-add-button");
     button.addEventListener("click", this.addStationSection);
