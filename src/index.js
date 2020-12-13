@@ -1,6 +1,5 @@
 import Station from './Model/station.js';
 import Line from './Model/line.js';
-import Section from './Model/section.js';
 import {hideScreen, hideSectionLine} from './View/hide-screen.js';
 import {showScreen, showSectionScreen} from './View/show-screen.js';
 import {
@@ -53,7 +52,6 @@ import {
 
 const stationInstance = new Station();
 const lineInstance = new Line();
-const sectionInstance = new Section();
 
 export function onChangeScreen(e) {
   hideScreen();
@@ -172,27 +170,27 @@ export const loadLine = () => {
 export const loadSectionTable = () => {
   removeTableScreen($sectionContainer);
   removeOption($sectionOption);
-  sectionInstance.loadSection();
+  lineInstance.loadLine();
   stationInstance.stations.forEach((station) =>
     addStationSelectOption($sectionStation, station),
   );
-  sectionInstance.sections.forEach((section) => {
+  lineInstance.lines.forEach((section) => {
     addSectionScreen(section);
   });
 };
 
 export const loadSectionButton = () => {
   removeSectionButton();
-  sectionInstance.loadSection();
-  sectionInstance.sections.forEach((section) => {
+  lineInstance.loadLine();
+  lineInstance.lines.forEach((section) => {
     addSectionButton(section.lineName);
   });
 };
 
 export const loadMapPrint = () => {
   removeMapPrint();
-  sectionInstance.loadSection();
-  addMapPrint(sectionInstance.sections);
+  lineInstance.loadLine();
+  addMapPrint(lineInstance.lines);
 };
 
 const getLineValue = () => {
@@ -211,11 +209,11 @@ const getSectionValue = (lineName) => {
 };
 
 const getSelectedSection = (lineName) => {
-  const sectionIndex = sectionInstance.sections.findIndex(
+  const sectionIndex = lineInstance.lines.findIndex(
     (section) => section.lineName === lineName,
   );
 
-  return sectionInstance.sections[sectionIndex];
+  return lineInstance.lines[sectionIndex];
 };
 
 loadStation();
