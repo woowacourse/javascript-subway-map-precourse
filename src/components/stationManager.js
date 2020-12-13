@@ -1,13 +1,11 @@
-import UserException from '../util/userException.js';
 import { Station } from '../model/subway.js';
 import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
 import { stationManagerTemplate, stationTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
 import { loadStorage, saveStorage } from '../util/handleStorage.js';
+import { isValidNameLength, isDuplicatedName } from '../util/userException.js';
 
 export default class StationManager {
-  userException = new UserException();
-
   constructor($target) {
     this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
 
@@ -70,9 +68,9 @@ export default class StationManager {
   }
 
   hasValidName(stationName) {
-    if (!this.userException.isValidNameLength(stationName)) {
+    if (!isValidNameLength(stationName)) {
       alert(ALERT.VALID_STATION_NAME_LENGTH);
-    } else if (this.userException.isDuplicatedName(this.stations, stationName)) {
+    } else if (isDuplicatedName(this.stations, stationName)) {
       alert(ALERT.DUPLICATED_STATION);
     } else {
       this.saveStation(stationName);

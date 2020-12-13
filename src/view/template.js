@@ -111,11 +111,13 @@ export const sectionManagerTemplate = (line, stations) => {
     <h4>구간 등록</h4>
     <select id='${ID.SECTION_STATION_SELECTOR}'>${stationSelectorOption(stations)}</select>
     <input id='${ID.SECTION_ORDER_INPUT}' />
-    <button id='${ID.SECTION_ADD_BUTTON}'>등록</button>`;
+    <button id='${ID.SECTION_ADD_BUTTON}'>등록</button>
+    `;
 };
 
 export const sectionTableTemplate = (sections) => {
   return `
+  <br>
   <table border='1'>
   <th>순서</th>
   <th>이름</th>
@@ -127,12 +129,14 @@ export const sectionTableTemplate = (sections) => {
 
 const sectionTable = (sections) => {
   let count = 0;
-  return sections.map(
-    (section) => `
+  return sections
+    .map(
+      (section) => `
       <tr>
         <td>${count++}</td>
         <td>${section}</td>
         <td><button class='${CLASS.SECTION_DELETE_BUTTON}'>노선에서 제거</button></td>
       </tr>`
-  );
+    )
+    .join('');
 };

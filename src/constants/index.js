@@ -43,4 +43,5 @@ export const ALERT = {
   DUPLICATED_NAME: '중복된 이름이 존재합니다.',
   DUPLICATED_STATION: '중복된 역이 존재합니다.',
   DELETE_ERROR: '삭제가 불가능합니다.',
+  VALID_SECTION_NUMBER: '잘못된 순서입니다.',
 };

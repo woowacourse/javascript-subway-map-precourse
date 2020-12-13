@@ -1,13 +1,11 @@
-import UserException from '../util/userException.js';
 import { Line } from '../model/subway.js';
 import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
 import { lineManagerTemplate, lineTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
 import { loadStorage, saveStorage } from '../util/handleStorage.js';
+import { isDuplicatedName } from '../util/userException.js';
 
 export default class LineManager {
-  userException = new UserException();
-
   constructor($target) {
     this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
     this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
@@ -40,6 +38,7 @@ export default class LineManager {
   updateLines() {
     const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
     this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
+    this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
 
     lineManager.innerHTML = lineManagerTemplate(this.stations);
     this.createLineTable(lineManager);
@@ -77,7 +76,7 @@ export default class LineManager {
   }
 
   hasValidInput(lineName, lineStartStation, lineEndStation) {
-    if (this.userException.isDuplicatedName(this.lines, lineName)) {
+    if (isDuplicatedName(this.lines, lineName)) {
       alert(ALERT.DUPLICATED_NAME);
     } else if (lineStartStation === lineEndStation) {
       alert(ALERT.DUPLICATED_STATION);

@@ -1,6 +1,7 @@
-import { ID, CLASS, NAME } from '../constants/index.js';
+import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
 import { initialize } from '../util/initialize.js';
 import { loadStorage, saveStorage } from '../util/handleStorage.js';
+import { isDuplicatedSection } from '../util/userException.js';
 import {
   sectionLineMenuTemplate,
   sectionManagerTemplate,
@@ -11,6 +12,8 @@ export default class SectionManager {
   constructor($target) {
     this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
     this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
+    this.sections;
+    this.lineIndex;
 
     this.start($target);
   }
@@ -32,7 +35,9 @@ export default class SectionManager {
 
     sectionManagerButton.addEventListener('click', () => {
       initialize();
+      this.updateSections();
       this.createLineMenuButton();
+      this.createSectionAddContainer();
     });
   }
 
@@ -42,15 +47,12 @@ export default class SectionManager {
 
     lineMenuContainer.id = ID.SECTION_LINE_MENU_BUTTON_CONTAINER;
     sectionManager.appendChild(lineMenuContainer);
-    this.updateSections();
+    this.renderLineMenu();
   }
 
   updateSections() {
     this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
     this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
-
-    this.renderLineMenu();
-    this.createSectionAddContainer();
   }
 
   renderLineMenu() {
@@ -85,29 +87,68 @@ export default class SectionManager {
     lineMenuButtons.forEach((button) => {
       button.addEventListener('click', (e) => {
         const lineName = e.target.textContent;
-        const sections = this.getSections(lineName);
+        this.getSections(lineName);
 
         sectionAddContainer.innerHTML = sectionManagerTemplate(lineName, this.stations);
-        this.render(sections);
+        this.handleSectionAddButton();
+        this.render();
       });
     });
   }
 
   getSections(lineName) {
-    let sections = [];
-
-    this.lines.forEach((line) => {
-      if (line.name === lineName) {
-        sections = line.section;
+    for (let i = 0; i < this.lines.length; i++) {
+      if (this.lines[i].name === lineName) {
+        this.sections = this.lines[i].section;
+        this.lineIndex = i;
       }
-    });
-
-    return sections;
+    }
   }
 
-  render(sections) {
+  render() {
     const sectionTable = document.querySelector(`#${ID.SECTION_TABLE}`);
 
-    sectionTable.innerHTML = sectionTableTemplate(sections);
+    sectionTable.innerHTML = sectionTableTemplate(this.sections);
+  }
+
+  handleSectionAddButton() {
+    const sectionAddButton = document.querySelector(`#${ID.SECTION_ADD_BUTTON}`);
+    const sectionStaionSelector = document.querySelector(`#${ID.SECTION_STATION_SELECTOR}`);
+    const sectionOrderInput = document.querySelector(`#${ID.SECTION_ORDER_INPUT}`);
+
+    sectionAddButton.addEventListener('click', () => {
+      const orderInput = sectionOrderInput.value;
+      const stationSelect = sectionStaionSelector.value;
+
+      this.hasValidInput(orderInput, stationSelect);
+    });
+  }
+
+  hasValidInput(orderInput, stationSelect) {
+    if (isDuplicatedSection(this.sections, stationSelect)) {
+      alert(ALERT.DUPLICATED_NAME);
+    } else if (orderInput < 0 || orderInput > this.sections.length || orderInput === '') {
+      alert(ALERT.VALID_SECTION_NUMBER);
+    } else {
+      this.addSectionsToLine(orderInput, stationSelect);
+      this.addLineToStations(stationSelect);
+      this.updateSections();
+      this.render();
+    }
+  }
+
+  addSectionsToLine(orderInput, stationSelect) {
+    this.sections.splice(orderInput, 0, stationSelect);
+    this.lines[this.lineIndex].section = this.sections;
+    saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
+  }
+
+  addLineToStations(stationSelect) {
+    this.stations.forEach((station) => {
+      if (station.name === stationSelect) {
+        station.line += 1;
+      }
+    });
+    saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
   }
 }
