@@ -42,6 +42,8 @@ export const LINE_LIST_VIEW_BUTTON_GROUP_CONTAINER_ID =
   "station-list-view-button-group-container";
 export const SELECT_LINE_BUTTON = ".section-Line-menu-button";
 
+export const SECTION_MANAGER_CONTAINER = "#section-manager";
+
 export const SECTION_INFO_INPUT_CONTAINER_ID = "#section-info-input-container";
 export const SECTION_STATION_SELECTOR = "#section-station-selector";
 export const SECTION_ORDER_INPUT = "#section-order-input";

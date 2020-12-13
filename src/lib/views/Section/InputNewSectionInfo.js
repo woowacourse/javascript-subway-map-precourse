@@ -1,16 +1,23 @@
 import Typography from "../components/Typography.js";
-import { SECTION_INFO_INPUT_CONTAINER_ID } from "../../common/IdAndClassNames.js";
-// 구간 등록 부분 정보 업데이트
+import Div from "../components/Div.js";
+import {
+  SECTION_INFO_INPUT_CONTAINER_ID,
+  SECTION_STATION_SELECTOR,
+  SECTION_ORDER_INPUT,
+  ADD_SECTION_BUTTON,
+} from "../../common/IdAndClassNames.js";
+
 export default class InputNewSectionInfo {
-  constructor(lineName) {
-    this.element = document.createElement("div");
-    this.element.id = SECTION_INFO_INPUT_CONTAINER_ID.substring(1);
-    this.addSectionTitle = new Typography(`${lineName} 관리`, "h3");
+  constructor(props) {
+    const { lineName } = props;
+    this.inputContainer = new Div(SECTION_INFO_INPUT_CONTAINER_ID);
+    this.addSectionTitle = new Typography("구간 등록");
   }
 
   render() {
     [this.addSectionTitle.element].forEach(($element) =>
-      this.element.appendChild($element),
+      this.inputContainer.element.appendChild($element),
     );
+    return this.inputContainer.element;
   }
 }

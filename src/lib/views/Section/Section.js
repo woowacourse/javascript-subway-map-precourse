@@ -1,17 +1,13 @@
 import Typography from "../components/Typography.js";
 import Button from "../components/Button.js";
 import Div from "../components/Div.js";
+import ViewUpdateSectionManager from "./ViewUpdateSectionManager.js";
 import { lineSelector } from "../../_store/selectors.js";
 import {
   SECTION_DIV,
   LINE_LIST_VIEW_BUTTON_GROUP_CONTAINER_ID,
-  SECTION_INFO_INPUT_CONTAINER_ID,
-  SECTION_LIST_VIEW_CONTAINER_ID,
   SELECT_LINE_BUTTON,
-  SECTION_STATION_SELECTOR,
-  SECTION_ORDER_INPUT,
-  ADD_SECTION_BUTTON,
-  DELETE_SECTION_BUTTON,
+  SECTION_MANAGER_CONTAINER,
 } from "../../common/IdAndClassNames.js";
 
 // 버튼 누르면 현재 구간이 노출된다. 이전 뷰는 지우기
@@ -20,12 +16,18 @@ export default class Section {
   constructor() {
     this.element = document.createElement("div");
     this.element.id = SECTION_DIV.substring(1);
+    this.sectionManagerContainer = new Div(SECTION_MANAGER_CONTAINER);
   }
 
-  _renderButton({ lineName }) {
-    const $selectLineButton = new Button(SELECT_LINE_BUTTON, lineName, () =>
-      console.log(lineName),
-    );
+  _renderButton(lineData) {
+    const { lineName } = lineData;
+    const $selectLineButton = new Button(SELECT_LINE_BUTTON, lineName, () => {
+      const $updateSectionManager = new ViewUpdateSectionManager(lineData);
+      this.sectionManagerContainer.element.innerHTML = "";
+      this.sectionManagerContainer.element.appendChild(
+        $updateSectionManager.render(),
+      );
+    });
     return $selectLineButton.element;
   }
 
@@ -53,6 +55,7 @@ export default class Section {
     [
       this._getSelectLineHelperText(),
       this._getLineListViewButtonGroupContainer(),
+      this.sectionManagerContainer.element,
     ].forEach(($element) => this.element.appendChild($element));
     return this.element;
   }
