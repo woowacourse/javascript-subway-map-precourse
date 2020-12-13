@@ -11,37 +11,12 @@ import {
   INPUT_LESS_THAN_2_MESSAGE,
   DELETE_TEXT,
 } from "./constant.js";
-
-const menuIds = [
-  "station-manager-button",
-  "line-manager-button",
-  "section-manager-button",
-  "map-print-manager-button",
-];
+import Header from "./Header.js";
 
 export default class SubwayMapManager {
   constructor() {
-    this.clickMenuEventListener();
+    new Header();
     this.clickAddStationEventListener();
-  }
-
-  clickMenuEventListener() {
-    menuIds.forEach((id) => {
-      addClickEventFromId(id, () => {
-        this.hideContentChildren();
-        this.renderContent(id);
-      });
-    });
-  }
-
-  renderContent(id) {
-    const isMap = Boolean(id.match("map"));
-    if (isMap) {
-      this.renderMapContent();
-      return;
-    }
-    const content = document.getElementById(id.replace("button", "content"));
-    content.style.display = "block";
   }
 
   clickAddStationEventListener() {
@@ -84,25 +59,6 @@ export default class SubwayMapManager {
       tableRow.append(stationTableData, tableSetData);
       stationTableBody.appendChild(tableRow);
     });
-  }
-
-  hideContentChildren() {
-    const contentChildren = Array.from(
-      document.getElementById("content").children
-    );
-    contentChildren.forEach((el) => (el.style.display = "none"));
-    const mapContent = document.getElementsByClassName("map")[0];
-    if (mapContent !== undefined) {
-      mapContent.remove();
-    }
-  }
-
-  renderMapContent() {
-    const newEl = document.createElement("div");
-    newEl.setAttribute("class", "map");
-    newEl.innerHTML = "노선 출력 내용";
-    const contentEl = document.getElementById("content");
-    contentEl.appendChild(newEl);
   }
 }
 
