@@ -34,7 +34,9 @@
 - [x] 아래의 태그를 생성한다.
   - [x] 지하철 노선의 이름을 입력하는 input 태그(`#line-name-input`)
   - [x] 지하철 노선의 상행 종점을 선택하는 select 태그(`#line-start-station-selector`)
+    - [x] 지하철 역 관리 목록에서 추가된 지하철 열 목록이 option으로 표시된다.
   - [x] 지하철 노선의 하행 종점을 선택하는 select 태그(`#line-end-station-selector`)
+    - [x] 지하철 역 관리 목록에서 추가된 지하철 열 목록이 option으로 표시된다.
   - [x] 지하철 노선을 추가하는 button 태그(`#line-add-button`)
   
 - [ ] 사용자가 입력한 지하철 노선 정보를 검증하는 함수를 구현한다.
