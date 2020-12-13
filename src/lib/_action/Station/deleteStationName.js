@@ -12,9 +12,15 @@ import DeleteStationFromLineValidation from "../../controllers/section/deleteSta
 
 export default (deletedStation) => {
   if (!confirm(DELETE_MESSAGE)) return null;
+  const deleteValidationCheck = new DeleteStationFromLineValidation(
+    deletedStation,
+  );
+  const deleteValidationCheckResult = deleteValidationCheck.getDeleteValidationResult();
   const index = stationSelector().indexOf(deletedStation);
-  const updatedLineName = []; // 해당 역이 포함된 노선 검사 후 모두 삭제조건에 해당하면 여기에 넣어주기
+  const { ok, message, updatedLineList } = deleteValidationCheckResult;
   return new Promise((resolve, reject) => {
-    resolve(deleteStationData(deletedStation, index, updatedLineName));
+    if (!ok) {
+      reject(alert(message));
+    } else resolve(deleteStationData(deletedStation, index, updatedLineList));
   });
 };
