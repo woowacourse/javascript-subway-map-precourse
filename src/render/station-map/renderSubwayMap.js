@@ -28,5 +28,6 @@ export default function renderSubwayMap() {
   if (lines === null) {
     return ($mapPrintPage.innerHTML = `<h3>현재 등록된 노선이 없습니다.</h3>`);
   }
+  $mapPrintPage.innerHTML = '';
   return renderLines(lines.split(','), $mapPrintPage);
 }

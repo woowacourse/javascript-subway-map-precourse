@@ -1,4 +1,4 @@
-import renderLineList from '../../render/line/renderLineList.js';
+import render from '../../render/render.js';
 
 function removeLine(lineName) {
   const lines = JSON.parse(localStorage.getItem('lines'));
@@ -13,7 +13,7 @@ function removeLine(lineName) {
   if (lineList.length === 1) {
     localStorage.removeItem('lines');
   }
-  renderLineList();
+  render();
 }
 
 function findRemoveTarget(target) {
