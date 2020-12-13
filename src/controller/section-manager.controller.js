@@ -7,7 +7,14 @@ import {
   createSectionRowHTML,
   insertStationOptionHTML,
 } from "../common/template.js";
-
+import { errorMessage } from "../common/error-message.js";
+const {
+  INVALID_NUMBER_SECTION_ORDER,
+  INVALID_RANGE_SECTION_ORDER,
+  DUPLICATE_SECTION_STATION,
+  INVALID_DELETE_MIN_SECTION,
+  CONFIRM_DELETE,
+} = errorMessage;
 export default class SectionManager {
   constructor() {
     this.line = line;
@@ -75,11 +82,21 @@ export default class SectionManager {
     return sectionOrder;
   }
 
+  addSection(targetButton) {
+    const targetLine = targetButton.dataset.line;
+    const sectionStation = this.getSectionStationInput();
+    const sectionOrder = this.getSectionOrderInput();
+  }
+
   onClickButton(event) {
     const target = event.target;
 
     if (target.className === "section-line-menu-button") {
       this.selectSectionLine(target);
+    }
+
+    if (target.id === "section-add-button") {
+      this.addSection(target);
     }
   }
 }
