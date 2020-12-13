@@ -1,12 +1,10 @@
 import Station from "../domain/station.js";
-import inputStationValidator from "../utils/inputs/validator/validator.js";
+import inputStationValidator from "../utils/inputs/validator/station-name-validator.js";
 import clearInput from "../utils/inputs/clear-input.js";
 import makeOneRowWithDeleteBtn from "../utils/display/make-elements.js";
 import { saveToLocalStorage } from "../index.js";
 import { STATION_ARRAY_KEY } from "../global/constant.js";
 
-const addStationBtn = document.getElementById("station-add-button");
-const stationNameInput = document.getElementById("station-name-input");
 const STATION_TBODY_ID = "stations";
 
 function loadStations(state) {
@@ -23,6 +21,9 @@ function showNewRow(parentID, rowToShow) {
 }
 
 export default function stationManageContainer(state) {
+  const addStationBtn = document.getElementById("station-add-button");
+  const stationNameInput = document.getElementById("station-name-input");
+
   loadStations(state);
 
   addStationBtn.addEventListener("click", () => {
