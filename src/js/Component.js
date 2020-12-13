@@ -23,7 +23,7 @@ export default class Component {
     const loadedStorage = localStorage.getItem(storageKey);
 
     if (loadedStorage === null) {
-      localStorage.setItem(storageKey, JSON.stringify(this.stations));
+      this.saveLocalStorageValue(storageKey, this.stations);
     } else {
       this.stations = JSON.parse(localStorage.getItem(storageKey));
     }
@@ -34,7 +34,7 @@ export default class Component {
     const loadedStorage = localStorage.getItem(storageKey);
 
     if (loadedStorage === null) {
-      localStorage.setItem(storageKey, JSON.stringify(this.stations));
+      this.saveLocalStorageValue(storageKey, this.lines);
     } else {
       this.lines = JSON.parse(localStorage.getItem(storageKey));
     }
