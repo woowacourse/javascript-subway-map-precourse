@@ -41,6 +41,7 @@ export default class LineManager {
     const newLine = new StationLine(lineName, [startStation, endStation]);
     this.lineList.push(newLine);
     this.storeLineListToLocal();
+    this.renderLineNameTable();
   }
 
   removeLine(lineIndex) {

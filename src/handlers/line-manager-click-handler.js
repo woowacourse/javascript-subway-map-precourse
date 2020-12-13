@@ -48,7 +48,6 @@ const addLineToList = (appContainer) => {
     getStartStationSelector(appContainer).value,
     getEndStationSelector(appContainer).value
   );
-  lineManager.renderLineNameTable();
 };
 
 const lineAddButtonHandler = (e) => {
