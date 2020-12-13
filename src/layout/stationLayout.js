@@ -43,7 +43,8 @@ export default class StationLayout extends PageLayout {
     const stationAddButton = document.createElement('button');
     stationAddButton.id = 'station-add-button';
     stationAddButton.innerHTML = '역 추가';
-    stationAddButton.addEventListener('click', () => this.addRow());
+    stationAddButton.addEventListener('click', () => this.handleAddButton());
+
     return stationAddButton;
   }
 
@@ -84,17 +85,29 @@ export default class StationLayout extends PageLayout {
     return stationResultTable;
   }
 
-  addRow() {
+  addRow(stationName) {
     // TODO: 자식구조도 object로 돌릴수있겠는데?
     // TODO: controller 로 옮기기
     // TODO: VDOM 쓰면 한번에 append하지않는방향으로..
     const row = this.elements.resultContainer
       .querySelector('table')
       .insertRow();
-    row.insertCell(0).innerHTML = this.controller.getInputFromUser(this);
+    row.insertCell(0).innerHTML = stationName;
     row.insertCell(
       1,
     ).innerHTML = `<button class='.station-delete-button'>삭제</button>`;
+  }
+
+  // override
+  handleAddButton() {
+    const input = this.controller.getInputFromUser(this);
+    console.log(input);
+    this.addRow(input);
+    this.controller.addStationData(input);
+    this.clearInput();
+  }
+
+  clearInput() {
     this.elements.inputContainer.querySelector('input').value = '';
   }
 
@@ -109,9 +122,17 @@ export default class StationLayout extends PageLayout {
   }
 
   // override
+  displaySavedData() {
+    // TODO: storageData 비동기?
+    const stationList = this.controller.modelList.station.getList();
+    for (const station of stationList) {
+      this.addRow(station);
+    }
+  }
+
+  // override
   buildLayout() {
     const { section, inputContainer, resultContainer } = this.elements;
-
     section.append(inputContainer, resultContainer);
   }
 }

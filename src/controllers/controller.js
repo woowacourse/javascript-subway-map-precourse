@@ -1,7 +1,10 @@
 import StationLayout from '../layout/stationLayout.js';
+import StationModel from '../model/stationModel.js';
 
 export default class Controller {
   constructor() {
+    // TODO: model을 여기서 초기화하는게 맞나?
+    this.modelList = { station: new StationModel() };
     this.viewList = {
       station: new StationLayout(this),
     };
@@ -26,5 +29,9 @@ export default class Controller {
     currentSection.replaceWith(view.elements.section);
 
     return view;
+  }
+
+  addStationData(station) {
+    this.modelList.station.addData(station);
   }
 }
