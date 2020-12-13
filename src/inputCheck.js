@@ -20,7 +20,7 @@ export function isSameDestination(start, end) {
 
 export function isStationAlreadyExist(stations, name) {
   let result = false;
-  for (let i = 0; i < stations.length; i++) {
+  for (let i = 0; i < localStorage.stations.length; i++) {
     if (name === stations[i]) {
       result = true;
       break;
