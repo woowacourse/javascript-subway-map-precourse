@@ -25,4 +25,8 @@ export default class Component {
   }
 
   afterCreate() {}
+
+  mount() {}
+
+  render() {}
 }
