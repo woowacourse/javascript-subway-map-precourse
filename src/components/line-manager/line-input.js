@@ -65,7 +65,7 @@ class LineInput extends Component {
 
   handleEvent() {
     const $lineNameInput = this._$target.querySelector('#line-name-input');
-    const lineName = $lineNameInput.value;
+    const lineName = $lineNameInput.value.trim();
     const startStation = this._$target.querySelector(
       '#line-start-station-selector'
     ).value;

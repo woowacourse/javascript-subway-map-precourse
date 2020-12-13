@@ -35,7 +35,7 @@ class StationInput extends Component {
 
   handleEvent() {
     const $stationNameInput = document.querySelector('#station-name-input');
-    const newStation = $stationNameInput.value;
+    const newStation = $stationNameInput.value.trim();
     $stationNameInput.focus();
     if (!this.isValidInput(newStation)) {
       this.alertByCase(newStation);
