@@ -7,7 +7,9 @@ import {
   createButtonHTMLElement,
   createInputTextHTMLElement,
   createLabelHTMLElement,
-  createSelectHTMLElement
+  createSelectHTMLElement,
+  createDivHTMLElement,
+  clearInputValue
 } from "./util.js";
 
 /* LineManager가 관리하는 상태값을 아래와 같다. 
@@ -28,11 +30,22 @@ import {
 export default class LineManager extends Component {
   constructor({ $parent }) {
     super({ $parent });
+    this.declareConstants();
     this.initializeState();
     this.initializeVariables();
     
     this.constructHTMLElements();
     this.appendChildNodes();
+
+    this.addClickEventListener();
+
+    if (this.state.lineInfo.length > 0) {
+      this.render();
+    }
+  }
+
+  declareConstants() {
+    this.LINE_DELETE_BUTTON_CLASSNAME = "line-delete-button";
   }
 
   initializeState() {
@@ -62,6 +75,8 @@ export default class LineManager extends Component {
     this.$lineEndStationSelector = this.createLineEndStationSelector();
 
     this.$lineAddButton = this.createLineAddButton();
+
+    this.$lineNameList = createDivHTMLElement({});
   }
 
   createLineNameInput() {
@@ -112,8 +127,44 @@ export default class LineManager extends Component {
       this.$lineStartStationSelector,
       this.$lineEndStationSelectorLabel,
       this.$lineEndStationSelector,
-      this.$lineAddButton
+      this.$lineAddButton,
+      this.$lineNameList
     );
+  }
+
+  addClickEventListener() {
+    this.$component.addEventListener("click", e => {
+      const { target: { id, classList } } = e;
+      const { target: { dataset: { lineName } } } = e;
+
+      if (id === this.$lineAddButton.id) {
+        this.handleLineAdd();
+      } else if (classList.contains(this.LINE_DELETE_BUTTON_CLASSNAME)) {
+        console.log(lineName);
+        // this.handleDeleteButton(lineName);
+      }
+    });
+  }
+
+  handleLineAdd() {
+    const LineName = this.$lineNameInput.value;
+    const lineStartStation = this.$lineStartStationSelector.value;
+    const lineEndStation = this.$lineEndStationSelector.value;
+
+    this.addNewLineName(LineName, lineStartStation, lineEndStation);    
+    clearInputValue(this.$lineNameInput);
+  }
+
+  addNewLineName(newLineName, lineStartStation, lineEndStation) {
+    this.setState({
+      lineInfo: [
+        ...this.state.lineInfo,
+        {
+          lineName: newLineName,
+          stations: [lineStartStation, lineEndStation]
+        }
+      ]
+    });
   }
 
   setState(state) {
@@ -122,4 +173,28 @@ export default class LineManager extends Component {
     localStorage.setItem(LINE_INFO_LOCAL_STORAGE_KEY, JSON.stringify(this.state));
   }
 
+  render() {
+    this.$lineNameList.innerHTML = "<div>🚉 지하철 노선 목록</div>";
+    const $childNodes = this.state.lineInfo.reduce((acc, {lineName,stations}) => {
+      const lineNameRowElements = this.createLineNameRowElements({ lineName, stations });
+
+      return [...acc, ...lineNameRowElements];
+    }, []);
+
+    this.$lineNameList.append(...$childNodes);
+  }
+
+  createLineNameRowElements({ lineName, stations }) {
+    const $lineName = createDivHTMLElement({ innerText: lineName });
+    const $lineStartStation = createDivHTMLElement({ innerText: stations[0] });
+    const $lineEndStation = createDivHTMLElement({ innerText: stations[stations.length-1] });
+
+    const $lineDeleteButton = createButtonHTMLElement({
+      name: "삭제",
+      classList: [this.LINE_DELETE_BUTTON_CLASSNAME],
+      dataset: { lineName }
+    });
+
+    return [$lineName, $lineStartStation, $lineEndStation, $lineDeleteButton];
+  }
 }
