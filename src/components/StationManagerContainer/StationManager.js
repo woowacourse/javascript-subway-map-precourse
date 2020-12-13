@@ -1,4 +1,5 @@
 import StationManagerEvent from "./StationManagerEvent.js";
+import isValidValue from "../../utils/isValidValue.js";
 
 export default class StationManager extends StationManagerEvent {
   constructor(stateId) {
@@ -8,7 +9,13 @@ export default class StationManager extends StationManagerEvent {
 
   isValidStationName(station) {
     super.isValidStationName(station);
-    if (this.is2Digits(station) && this.isDuplicate(station)) return true;
+    if (
+      isValidValue(station) &&
+      this.is2Digits(station) &&
+      this.isDuplicate(station)
+    ) {
+      return true;
+    }
     return false;
   }
 

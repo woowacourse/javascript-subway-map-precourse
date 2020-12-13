@@ -1,4 +1,5 @@
 import LineManagerEvent from "./LineManagerEvent.js";
+import isValidValue from "../../utils/isValidValue.js";
 
 export default class LineManager extends LineManagerEvent {
   constructor(stateId) {
@@ -10,6 +11,7 @@ export default class LineManager extends LineManagerEvent {
     super.isValidLineInfo(lineInfo);
     if (
       this.isDuplicateLineName(lineInfo.lineName) &&
+      isValidValue(lineInfo.lineName) &&
       this.isStationDigit() &&
       this.isStartEndSame(lineInfo.line[0], lineInfo.line[1])
     ) {
