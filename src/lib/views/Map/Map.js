@@ -6,7 +6,6 @@ export default class Map {
   constructor() {
     this.element = document.createElement("div");
     this.element.id = MAP_DIV.substring(1);
-    this.lineData = lineSelector();
   }
 
   _renderLineList(stations) {
