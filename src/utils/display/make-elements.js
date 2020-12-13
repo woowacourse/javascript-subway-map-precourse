@@ -1,32 +1,29 @@
+import { STATION_ARRAY_KEY } from "../../global/constant.js";
+
 export function makeTdElement(elementToMake) {
-  const tdForText = document.createElement("td");
+  const tdContent = document.createElement("td");
 
-  tdForText.append(elementToMake);
+  tdContent.append(elementToMake);
 
-  return tdForText;
+  return tdContent;
 }
 
 export function makeTdDeleteBtn() {
-  const tdForDeleteBtn = document.createElement("td");
+  const tdDeleteBtn = document.createElement("td");
   const deleteBtn = document.createElement("button");
 
   deleteBtn.innerHTML = "삭제";
-  tdForDeleteBtn.append(deleteBtn);
+  tdDeleteBtn.appendChild(deleteBtn);
 
-  return tdForDeleteBtn;
+  return tdDeleteBtn;
 }
 
-export function makeOneRowWithDeleteBtn(objectToMake) {
+export default function makeOneRowWithDeleteBtn(objectToMake) {
   const tr = document.createElement("tr");
-  const tdDeleteBtnHTML = makeTdDeleteBtn().outerHTML;
-  let tdHTMLString = "";
+  const deleteBtn = makeTdDeleteBtn();
 
-  for (const [key, value] of Object.entries(objectToMake)) {
-    const tdElementHTML = makeTdElement(value).outerHTML;
+  tr.appendChild(makeTdElement(objectToMake.stationName));
+  tr.appendChild(deleteBtn);
 
-    tdHTMLString += tdElementHTML;
-  }
-  tdHTMLString += tdDeleteBtnHTML;
-
-  return tdHTMLString;
+  return tr;
 }
