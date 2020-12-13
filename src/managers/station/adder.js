@@ -1,7 +1,10 @@
 import { Station } from '../../classes/station.js';
-import { requestToDelete } from './remover.js';
+import { requestToDeleteStation } from './remover.js';
 import { addItemToTable } from '../../util/util-table.js';
-import { addItemToLocalStroage } from '../../util/util-local-storage.js';
+import {
+  addItemToLocalStroage,
+  getArrayFromLocalStorage,
+} from '../../util/util-local-storage.js';
 import {
   emptyElement,
   addEventListenerOnDeleteButton,
@@ -9,10 +12,11 @@ import {
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
 
 // 1. 역 관리 - 신규 역 추가 요청
-export const requestToAdd = (menu) => {
+export const requestToAddStation = (menu) => {
   const stationNameInput = document.getElementById(`${menu}-name-input`);
+  const stationList = getArrayFromLocalStorage('station');
   const station = new Station(stationNameInput.value);
-  const exception = station.unableToAdd();
+  const exception = station.unableToAddStation(stationList);
 
   if (exception) {
     return processException(exception, stationNameInput);
@@ -33,5 +37,5 @@ const addNewStation = (menu, station) => {
   addItemToLocalStroage(menu, station);
   addItemToTable(menu, station);
   button = document.querySelector(`[data-${menu}="${station.name}"]`);
-  addEventListenerOnDeleteButton(button, menu, requestToDelete);
+  addEventListenerOnDeleteButton(button, menu, requestToDeleteStation);
 };

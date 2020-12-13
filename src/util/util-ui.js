@@ -3,14 +3,14 @@ export const requestInputAgain = (element) => {
   element.focus();
 };
 
-const setID = (element, id) => {
+export const setID = (element, id) => {
   if (id) {
     id = id[0] === '#' ? id.slice(1) : id;
     element.id = id;
   }
 };
 
-const setClassName = (element, className) => {
+export const setClassName = (element, className) => {
   if (className) {
     className = className[0] === '.' ? className.slice(1) : className;
     element.className = className;
@@ -27,11 +27,12 @@ export const appendNew = (tagName, parentElement, content, id, className) => {
   return newElement;
 };
 
-export const createButton = (className, datasetKey, datasetValue) => {
+export const createButton = (className, datasetKey, datasetValue, content) => {
   const button = document.createElement('button');
 
   setClassName(button, className);
-  button.setAttribute(datasetKey, datasetValue);
+  if (datasetKey && datasetValue) button.setAttribute(datasetKey, datasetValue);
+  if (content) button.innerHTML = content;
   return button;
 };
 
@@ -43,10 +44,17 @@ export const createLabel = (group, content) => {
   return label;
 };
 
-export const createSelector = (name, id, options) => {
+export const appendSelector = (itemList, form, id, labelContent) => {
+  const options = itemList.map((item) => createOption(item.name));
+  const selector = createSelector(id, options);
+
+  appendNew('label', form, labelContent);
+  form.append(selector);
+};
+
+export const createSelector = (id, options) => {
   const select = document.createElement('select');
 
-  if (name) select.name = name;
   setID(select, id);
   if (options) options.forEach((option) => select.append(option));
   return select;
@@ -69,11 +77,11 @@ export const emptyElement = (elem) => {
   }
 };
 
-export const addEventListenerOnAddButton = (menu, handler) => {
+export const addEventListenerOnAddButton = (menu, handler, key) => {
   document
     .getElementById(`${menu}-add-button`)
     .addEventListener('click', () => {
-      handler(menu);
+      handler(menu, key);
     });
 };
 

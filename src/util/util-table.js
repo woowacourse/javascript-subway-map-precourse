@@ -1,34 +1,53 @@
 import { getArrayFromLocalStorage } from './util-local-storage.js';
 import { appendNew, createButton } from './util-ui.js';
-import { TABLE } from '../configuration.js';
 
-export const makeTable = (menu) => {
+export const makeTable = (menu, key) => {
   const table = document.createElement('table');
-  const tableData = getArrayFromLocalStorage(menu);
+  const tableData = getTableData(menu, key);
 
   appendTableHeader(table, menu);
-  tableData.forEach((item) => {
-    appendOneRow(table, menu, item);
+  tableData.forEach((item, index) => {
+    appendOneRow(table, menu, item, index);
   });
   table.setAttribute('border', 1);
   return table;
 };
 
+const getTableData = (menu, key) => {
+  const DATA_LOCATION = {
+    station: 'station',
+    line: 'line',
+    section: 'line',
+  }[menu];
+  let data = getArrayFromLocalStorage(DATA_LOCATION);
+
+  if (menu && key) {
+    data = data.filter((item) => item.name === key.name)[0].stationList;
+  }
+  return data;
+};
+
 const appendTableHeader = (table, menu) => {
-  TABLE.header[menu].forEach((header) => {
+  const HEADER_LIST = {
+    station: ['역 이름', '설정'],
+    line: ['노선 이름', '상행 종점역', '하행 종점역', '설정'],
+    section: ['순서', '이름', '설정'],
+  }[menu];
+
+  HEADER_LIST.forEach((header) => {
     appendNew('th', table, header);
   });
 };
 
-const appendOneRow = (table, menu, item) => {
-  let row = appendNew('tr', table);
-  let appendCell = {
+const appendOneRow = (table, menu, item, index) => {
+  let APPEND_CELL = {
     station: appendCellForStationManager,
     line: appendCellForLineManager,
     section: appendCellForSectionManager,
   }[menu];
+  let row = appendNew('tr', table);
 
-  appendCell(row, item);
+  APPEND_CELL(row, item, index);
   appendDeleteButton(row, menu, item);
 };
 
@@ -39,25 +58,27 @@ const appendCellForStationManager = (row, item) => {
 const appendCellForLineManager = (row, item) => {
   const firstStation = item.stationList[0];
   const lastStation = item.stationList[item.stationList.length - 1];
-  const cells = [item.name, firstStation, lastStation];
+  const CELLS = [item.name, firstStation, lastStation];
 
-  cells.forEach((cell) => appendNew('td', row, cell));
+  CELLS.forEach((cell) => appendNew('td', row, cell));
 };
 
-const appendCellForSectionManager = (row, item) => {
-  [
-    item.name,
-    item.stationList[0],
-    item.stationList[stationList.length - 1],
-  ].forEach((cell) => appendNew('td', row, cell));
+const appendCellForSectionManager = (row, item, index) => {
+  const CELLS = [`${index}`, item];
+
+  CELLS.forEach((cell) => appendNew('td', row, cell));
 };
 
 const appendDeleteButton = (row, menu, item) => {
+  const BUTTON_TEXT = {
+    station: '삭제',
+    line: '삭제',
+    section: '노선에서 제거',
+  }[menu];
   const className = `${menu}-delete-button`;
   const dataset = `data-${menu}`;
-  const button = createButton(className, dataset, item.name);
-
-  button.innerHTML = TABLE.deleteButtonText[menu];
+  const itemName = item.name || item;
+  const button = createButton(className, dataset, itemName, BUTTON_TEXT);
   return appendNew('td', row, button.outerHTML);
 };
 

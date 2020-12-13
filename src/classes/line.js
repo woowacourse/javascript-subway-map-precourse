@@ -6,7 +6,7 @@ export class Line {
     this.stationList = stationList;
   }
 
-  unableToAdd() {
+  unableToAddLine() {
     const lineList = getArrayFromLocalStorage('line');
 
     if (this.stationList[0] === this.stationList[1]) {
@@ -16,12 +16,36 @@ export class Line {
       return 'lineNameOnlySpace';
     }
     if (lineList?.map((v) => v.name).includes(this.name)) {
-      return 'lineNameAlreadyExist';
+      return 'lineNameAlreadyRegistered';
     }
     return false;
   }
 
-  unableToDelete() {
+  unableToDeleteLine() {
+    return false;
+  }
+
+  unableToAddSection(station, order) {
+    console.log(station, order);
+    if (this.stationList.includes(station)) {
+      return 'sectionAleardyRegistered';
+    }
+    if (order.replace(/ /g, '').length == 0) {
+      return 'orderOnlySpace';
+    }
+    if (isNaN(order)) {
+      return 'orderNotNumber';
+    }
+    if (!Number.isInteger(+order)) {
+      return 'orderNotInteger';
+    }
+    if (+order < 0) {
+      return 'orderNegativeNumber';
+    }
+    return false;
+  }
+
+  unableToDeleteSection() {
     return false;
   }
 
@@ -33,6 +57,4 @@ export class Line {
     let index = this.stationList.indexOf(station);
     this.stationList.splice(index, 1);
   }
-
-  printLine() {}
 }

@@ -1,12 +1,12 @@
+import { requestToAddStation } from './adder.js';
+import { requestToDeleteStation } from './remover.js';
+import { makeTable } from '../../util/util-table.js';
 import {
   appendNew,
   emptyElement,
   addEventListenerOnAddButton,
   addEventListenerOnDeleteButton,
 } from '../../util/util-ui.js';
-import { makeTable } from '../../util/util-table.js';
-import { requestToAdd } from './adder.js';
-import { requestToDelete } from './remover.js';
 
 // 1. 역 관리
 export const launchStationManager = (menu, container) => {
@@ -21,13 +21,13 @@ const createStationManagerUI = (menu, container) => {
   appendNew('br', container);
   appendNew('input', container, null, `${menu}-name-input`);
   appendNew('button', container, '역 추가', `${menu}-add-button`);
-  addEventListenerOnAddButton(menu, requestToAdd);
+  addEventListenerOnAddButton(menu, requestToAddStation);
   appendNew('br', container);
   appendNew('h2', container, '🚉지하철 역 목록');
   appendNew('div', container, table.outerHTML);
   document
     .querySelectorAll(`.${menu}-delete-button`)
     .forEach((button) =>
-      addEventListenerOnDeleteButton(button, menu, requestToDelete)
+      addEventListenerOnDeleteButton(button, menu, requestToDeleteStation)
     );
 };

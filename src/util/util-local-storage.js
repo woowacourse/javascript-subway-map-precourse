@@ -24,11 +24,19 @@ export const addItemToLocalStroage = (key, itemName) => {
   localStorage.setItem(key, JSON.stringify(list));
 };
 
-export const addSubItemToLocalStroage = (key, secondKey, itemName, subItem) => {
+export const addSubItemToLocalStroage = (
+  key,
+  secondKey,
+  itemName,
+  subItem,
+  index
+) => {
   let list = getArrayFromLocalStorage(key);
   let item = list.filter((item) => item.name === itemName)[0];
+  let secondList = item[secondKey];
 
-  item[secondKey].push(subItem);
+  index = index || secondList.length;
+  secondList.splice(index, 0, subItem);
   localStorage.setItem(key, JSON.stringify(list));
 };
 
@@ -44,21 +52,26 @@ export const deleteSubItemFromLocalStorage = (
   key,
   secondKey,
   itemName,
-  subItem
+  subItem,
+  order
 ) => {
   let list = getArrayFromLocalStorage(key);
   let item = list.filter((item) => item.name === itemName)[0];
   let secondList = item[secondKey];
-  let index = getIndexOf(secondList, subItem.name);
+  let index = order || getIndexOf(secondList, subItem.name);
 
   secondList.splice(index, 1);
   localStorage.setItem(key, JSON.stringify(list));
 };
 
 const getIndexOf = (list, target) => {
-  for (let index in list) {
+  let index = 0;
+
+  for (index in list) {
     if (list[index].name === target) {
+      console.log(index);
       return index;
     }
   }
+  return index;
 };

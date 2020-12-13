@@ -1,4 +1,3 @@
-import { getArrayFromLocalStorage } from '../util/util-local-storage.js';
 import { STATION_NAME_LENGTH_LOW_LIMIT } from '../configuration.js';
 
 export class Station {
@@ -7,9 +6,7 @@ export class Station {
     this.lineList = [];
   }
 
-  unableToAdd() {
-    const stationList = getArrayFromLocalStorage('station');
-
+  unableToAddStation(stationList) {
     if (this.name.replace(/ /g, '').length == 0) {
       return 'stationNameOnlySpace';
     }
@@ -17,12 +14,12 @@ export class Station {
       return 'stationNameTooShort';
     }
     if (stationList?.map((v) => v.name).includes(this.name)) {
-      return 'stationNameAlreadyExist';
+      return 'stationNameAlreadyRegistered';
     }
     return false;
   }
 
-  unableToDelete() {
+  unableToDeleteStation() {
     if (this.lineList.length) {
       return 'stationRegisteredToLine';
     }
