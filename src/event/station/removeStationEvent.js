@@ -14,11 +14,24 @@ function removeStation(stationName) {
   renderStationList();
 }
 
+function checkIncludeLine(stationName) {
+  const lines = JSON.parse(localStorage.getItem('lines'));
+  const lineList = lines.split(',');
+  const includeLineStation = new Set(
+    lineList.map((line) => line.split(' ').splice(1)).flat(),
+  );
+
+  if ([...includeLineStation].includes(stationName)) {
+    return alert('노선에 등록된 역은 삭제할 수 없습니다.');
+  }
+  return removeStation(stationName);
+}
+
 function findRemoveTarget(target) {
   const $stationTable = document.querySelectorAll('.station-table-child');
   const targetNumber = target.closest('td').dataset.number;
 
-  removeStation($stationTable[targetNumber].querySelector('span').innerText);
+  checkIncludeLine($stationTable[targetNumber].querySelector('span').innerText);
 }
 
 export default function removeStationEvent() {
