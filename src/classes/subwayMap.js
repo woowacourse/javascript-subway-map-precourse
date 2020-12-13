@@ -27,6 +27,14 @@ export default class SubwayMap {
     this.#allLines.push(line);
   }
 
+  checkIsDuplicatedLineName(lineName) {
+    const isDuplicatedLineName = this.#allStations.some(
+      (registerdLine) => registerdLine.name === lineName
+    );
+
+    return isDuplicatedLineName;
+  }
+
   deleteLine(lineName) {
     const deletingLineIndex = this.#allLines.findIndex(
       (registerdLine) => registerdLine.name === lineName
