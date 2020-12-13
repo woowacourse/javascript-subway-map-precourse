@@ -106,19 +106,21 @@ export default class SubwayMapLineView {
   }
 
   renderLineTable(lines) {
-    const [lineThead, lineTbody] = [
+    document.getElementById(
+      '#line-table-container',
+    ).innerHTML += this.combineTheadTbody(
       this.getLineThead(),
       this.getLineTbody(lines),
-    ];
+    );
+  }
 
-    const lineTable = `
+  combineTheadTbody(lineThead, lineTbody) {
+    return `
       <table id="#line-name-table">
         ${lineThead}
         ${lineTbody}
       </table>
     `;
-
-    document.getElementById('#line-table-container').innerHTML += lineTable;
   }
 
   getLineThead() {

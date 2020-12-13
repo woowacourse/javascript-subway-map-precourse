@@ -60,21 +60,21 @@ export default class SubwayMapStationView {
   }
 
   renderStationTable(stations) {
-    const [stationThead, stationTbody] = [
-      this.getStationThead(),
-      this.getStationTbody(stations),
-    ];
-
-    const stationTable = `
-      <table id="#station-name-table">
-      ${stationThead}
-      ${stationTbody}
-      </table>
-    `;
-
     document.getElementById(
       '#station-table-container',
-    ).innerHTML += stationTable;
+    ).innerHTML += this.combineTheadTbody(
+      this.getStationThead(),
+      this.getStationTbody(stations),
+    );
+  }
+
+  combineTheadTbody(stationThead, stationTbody) {
+    return `
+      <table id="#station-name-table">
+        ${stationThead}
+        ${stationTbody}
+      </table>
+    `;
   }
 
   getStationThead() {

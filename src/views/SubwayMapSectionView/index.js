@@ -120,22 +120,24 @@ export default class SubwayMapSectionView {
   }
 
   renderSectionTable(lineId, sections) {
-    const sectionThead = this.renderSectionThead();
-    const sectionTbody = this.renderSectionTbody(lineId, sections);
+    document.getElementById(
+      '#section-table-container',
+    ).innerHTML += this.combineTheadTbody(
+      this.getSectionThead(),
+      this.getSectionTbody(lineId, sections),
+    );
+  }
 
-    const sectionTable = `
+  combineTheadTbody(sectionThead, sectionTbody) {
+    return `
       <table id="#section-name-table">
         ${sectionThead}
         ${sectionTbody}
       </table>
     `;
-
-    document.getElementById(
-      '#section-table-container',
-    ).innerHTML += sectionTable;
   }
 
-  renderSectionThead() {
+  getSectionThead() {
     const sectionThead = `
       <tr>
         <th>${message.ORDER}</th>
@@ -147,7 +149,7 @@ export default class SubwayMapSectionView {
     return sectionThead;
   }
 
-  renderSectionTbody(lineId, sections) {
+  getSectionTbody(lineId, sections) {
     let sectionTbody = ``;
     sections.forEach((section, index) => {
       sectionTbody += `
