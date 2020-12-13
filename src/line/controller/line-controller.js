@@ -7,8 +7,8 @@ import {isDuplicatedLine} from '../service/validation.js';
 
 export default class LineController {
 	constructor() {
-		this.lineInput = new LineInput();
 		this.lineOutput = new LineOutput();
+		this.lineInput = new LineInput();
 
 		this.setLineAddButtonHandler();
 		this.setLineDeleteButtonHandler();

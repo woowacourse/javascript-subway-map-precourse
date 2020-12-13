@@ -2,7 +2,26 @@ import StationModel from '../model/model.js';
 
 export default class StationOutput {
 	constructor() {
+		this.updateStationOutput();
+	}
+
+	updateStationOutput = () => {
+		this.initializeStationOuput();
 		this.showStationTable();
+	}
+
+	initializeStationOuput = () => {
+		const stationContainer = document.getElementById('station-container');
+
+		stationContainer.innerHTML = 
+		`
+		<br />
+		역 이름
+		<br />
+		<input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요.">
+		<button id="station-add-button">역 추가</button>
+		<h2>지하철 역 목록</h2>
+		`;
 	}
 
 	showStationTable = () => {

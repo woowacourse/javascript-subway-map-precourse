@@ -4,19 +4,38 @@ import LineModel from '../model/model.js';
 
 export default class LineOutput {
 	constructor() {
-		this.lineInput = new LineInput();
-		
+		this.updateLineOutput();
+	}
+
+	updateLineOutput = () => {
+		this.initializeLineOutput();
 		this.addStationToLineStartStationSelector();
 		this.addStationToLineEndStationSelector();
 		this.showLineTable();
 	}
 
+	initializeLineOutput = () => {
+		const lineContainer = document.getElementById('line-container');
+
+		lineContainer.innerHTML = 
+		`
+		<br />노선 이름<br />
+		<input type="text" id="line-name-input" placeholder="노선 이름을 입력해주세요"><br /><br />
+		상행 종점 
+		<select id="line-start-station-selector"></select><br />
+		하행 종점
+		<select id="line-end-station-selector"></select><br /><br />
+		<button id="line-add-button">노선 추가</button>
+		<h2>지하철 노선 목록</h2>
+		`;
+	}
+
 	addStationToLineStartStationSelector = () => {
-		this.addStationsToSelectorTag(this.lineInput.lineStartStationSelector);
+		this.addStationsToSelectorTag(new LineInput().lineStartStationSelector);
 	}
 
 	addStationToLineEndStationSelector = () => {
-		this.addStationsToSelectorTag(this.lineInput.lineEndStationSelector);
+		this.addStationsToSelectorTag(new LineInput().lineEndStationSelector);
 	}
 
 	addStationsToSelectorTag = selector => {

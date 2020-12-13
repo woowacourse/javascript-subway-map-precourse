@@ -3,8 +3,21 @@ import LineModel from '../../line/model/model.js';
 
 export default class SectionOutput {
 	constructor() {
+		this.updateSectionOutput();
+	}
 
+	updateSectionOutput = () => {
+		this.initializeSectionOutput();
 		this.showLineNameButtons();
+	}
+
+	initializeSectionOutput = () => {
+		const sectionContainer = document.getElementById('section-container');
+
+		sectionContainer.innerHTML = 
+		`
+		<h3>구간을 수정할 노선을 선택해주세요</h3>
+		`;
 	}
 
 	showLineNameButtons = () => {
@@ -41,11 +54,9 @@ export default class SectionOutput {
 	clearSelectedLineSectionContainer = () => {
 		const selectedLineSectionContainer = document.getElementById('selected-line-section-container');
 
-		if (selectedLineSectionContainer === null) {
-			return;
+		if (selectedLineSectionContainer !== null) {
+			selectedLineSectionContainer.remove();
 		}
-
-		selectedLineSectionContainer.remove();
 	}
 
 	createSelectedLineSectionComponents = (selectedLineSectionContainer, selectedLine) => {
@@ -84,7 +95,7 @@ export default class SectionOutput {
 		const lines = new LineModel().getLineStorageData();
 		const lineStations = lines[selectedLine];
 
-		this.createSectionTableData(sectionTable, selectedLine);
+		this.createSectionTableData(sectionTable, selectedLine, lineStations);
 
 		selectedLineSectionContainer.appendChild(sectionTable);
 	}

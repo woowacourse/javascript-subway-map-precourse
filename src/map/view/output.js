@@ -2,7 +2,18 @@ import LineModel from '/src/line/model/model.js';
 
 export default class MapOutput {
 	constructor() {
+		this.updateMapOutput();
+	}
+
+	updateMapOutput = () => {
+		this.initializeMapOutput();
 		this.printAllStations();
+	}
+
+	initializeMapOutput = () => {
+		const mapContainer = document.getElementById('map-container');
+
+		mapContainer.innerHTML = '';
 	}
 
 	printAllStations = () => {
@@ -11,7 +22,7 @@ export default class MapOutput {
 
 		this.createLineHeader(mapContainer, lines);
 	}
-
+	
 	createLineHeader = (mapContainer, lines) => {
 		for (let line in lines) {
 			const lineHeader = document.createElement('h3');

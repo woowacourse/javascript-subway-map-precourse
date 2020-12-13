@@ -8,8 +8,8 @@ import {isStationOnLine, isNotValidStationName, isDuplicatedStationName} from '.
 
 export default class StationController {
 	constructor() {
-		this.stationInput = new StationInput();
 		this.stationOutput = new StationOutput();
+		this.stationInput = new StationInput();
 
 		this.setStationInputHandler();
 		this.setStationDeleteButtonHandler();

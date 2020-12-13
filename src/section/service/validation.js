@@ -28,7 +28,7 @@ const alertNotValidSectionOrderInput = () => {
 };
 
 const outOfIndex = (line, sectionOrderInput) => {
-	if (sectionOrderInput >= line.length || 0 > sectionOrderInput) {
+	if (sectionOrderInput > line.length || 0 > sectionOrderInput) {
 		return true;
 	}
 };
