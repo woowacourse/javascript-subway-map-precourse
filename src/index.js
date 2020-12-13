@@ -16,19 +16,23 @@ export const lineInstance = new Line();
 export function onChangeScreen(e) {
   hideScreen();
   showScreen(e);
-  if (e.target.id === 'station-manager-button') {
+  loadScreen(e.target.id);
+}
+
+const loadScreen = (buttonId) => {
+  if (buttonId === 'station-manager-button') {
     return loadStation();
   }
-  if (e.target.id === 'line-manager-button') {
+  if (buttonId === 'line-manager-button') {
     return loadLine();
   }
-  if (e.target.id === 'section-manager-button') {
+  if (buttonId === 'section-manager-button') {
     return loadSectionButton();
   }
-  if (e.target.id === 'map-print-manager-button') {
+  if (buttonId === 'map-print-manager-button') {
     return loadMapPrint();
   }
-}
+};
 
 loadStation();
 loadLine();
