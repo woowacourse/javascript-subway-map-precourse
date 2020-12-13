@@ -1,9 +1,11 @@
 import station from "./station.js";
 import { createStationTableRowHTML } from "./template.js";
-
+import { errorMessage } from "./error-message.js";
+const { INVALID_LENGTH_STATION_NAME, DUPLICATE_STAION_NAME } = errorMessage;
 export default class StationManager {
   constructor() {
     this.station = station;
+    this.MIN_STATION_NAME_LENGTH = 2;
   }
 
   renderStationTable() {
@@ -24,9 +26,23 @@ export default class StationManager {
     return stationName;
   }
 
+  validateStationNameLength(stationName) {
+    const isValidLength = stationName.length >= this.MIN_STATION_NAME_LENGTH;
+
+    if (!isValidLength) {
+      throw new Error(INVALID_LENGTH_STATION_NAME);
+    }
+  }
+
   addStation() {
     const stationName = this.getStationNameInput();
-    //입력값 검사
+
+    try {
+      this.validateStationNameLength(stationName);
+    } catch (errorMessage) {
+      alert(errorMessage);
+    }
+
     //등록
     //뷰추가
   }
