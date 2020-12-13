@@ -4,6 +4,7 @@ import {
 	MINIMUM_LINE_LENGTH_ALERT_MESSAGE, 
 	MINIMUM_LINE_LENGTH
 } from '../constants.js';
+import SectionInput from '../view/input.js';
 
 const alertDuplicatedStationInLine = () => {
 	alert(DUPLICATED_STATION_IN_LINE_MESSAGE);
@@ -28,9 +29,13 @@ const alertNotValidSectionOrderInput = () => {
 };
 
 const outOfIndex = (line, sectionOrderInput) => {
-	if (sectionOrderInput > line.length || 0 > sectionOrderInput) {
+	if (Number(sectionOrderInput) > line.length || 0 > Number(sectionOrderInput)) {
 		return true;
 	}
+};
+
+const isEmptyOrderInput = sectionOrderInput => {
+	return !sectionOrderInput;
 };
 
 const isOutOfIndex = (line, sectionOrderInput) => {
@@ -38,11 +43,11 @@ const isOutOfIndex = (line, sectionOrderInput) => {
 };
 
 const isNotInteger = sectionOrderInput => {
-	return !Number.isInteger(sectionOrderInput);
+	return !Number.isInteger(Number(sectionOrderInput));
 };
 
 const notValidSectionOrderInput = (line, sectionOrderInput) => {
-	if (isNotInteger(sectionOrderInput) || isOutOfIndex(line, sectionOrderInput)) {
+	if (isNotInteger(sectionOrderInput) || isOutOfIndex(line, sectionOrderInput) || isEmptyOrderInput(sectionOrderInput)) {
 		return alertNotValidSectionOrderInput();
 	}
 };

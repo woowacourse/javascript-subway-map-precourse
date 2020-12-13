@@ -42,10 +42,7 @@ export default class SectionController {
 	addSection = () => {
 		const [lines, sectionStationSelect, sectionOrderInput] = this.getSectionComponents();
 
-		if (
-			isDuplicatedStationInLine(lines[this.selectedLine], sectionStationSelect) || 
-			isNotValidSectionOrderInput(lines[this.selectedLine], sectionOrderInput)
-		) {
+		if (this.isSectionInputError()) {
 			return;
 		}
 
@@ -53,10 +50,21 @@ export default class SectionController {
 		this.addSectionToTable();
 	}
 
+	isSectionInputError = () => {
+		const [lines, sectionStationSelect, sectionOrderInput] = this.getSectionComponents();
+
+		if (
+			isDuplicatedStationInLine(lines[this.selectedLine], sectionStationSelect) || 
+			isNotValidSectionOrderInput(lines[this.selectedLine], sectionOrderInput)
+		) {
+			return true;
+		}
+	}
+
 	getSectionComponents = () => {
 		const lines = new LineModel().getLineStorageData();
 		const sectionStationSelect = document.getElementById('section-station-selector').value;
-		const sectionOrderInput = Number(document.getElementById('section-order-input').value);
+		const sectionOrderInput = document.getElementById('section-order-input').value;
 
 		return [lines, sectionStationSelect, sectionOrderInput];
 	}
