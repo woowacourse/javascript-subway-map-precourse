@@ -88,6 +88,25 @@ class SubwayMap {
     }
   }
 
+  showStationElementsAll() {
+    if (this.stationList.length < 0) return;
+
+    const stationListDOMItems = this.stationList.map((station) => {
+      return `
+        <tr data-name="${station.name}">
+          <td>${station.name}</td>
+          <td>
+            <button class="station-delete-button" data-name="${station.name}">
+              삭제
+            </button>
+          </td>
+        </tr>
+      `;
+    });
+
+    this.elements.stationListTableBody.innerHTML += stationListDOMItems.join('');
+  }
+
   showStationManager() {
     this.elements.managerContainer.innerHTML = `
       <form id="station-form">
@@ -119,6 +138,8 @@ class SubwayMap {
 
     this.elements.stationForm.addEventListener('submit', this.handleSubmitStationAdd.bind(this));
     this.elements.stationList.addEventListener('click', this.handleClickStationDelete.bind(this));
+
+    this.showStationElementsAll();
   }
 
   showLineManager() {
