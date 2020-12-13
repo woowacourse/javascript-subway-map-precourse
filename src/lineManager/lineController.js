@@ -1,8 +1,8 @@
-import { Data } from "./data.js"
-import { alertText, text } from "./text.js"
-import { Line } from "./line.js"
+import { Data } from "../data.js"
+import { alertText, text } from "../text.js"
+import { Line } from "../line.js"
 
-export const makeLineIfPossible = (name) => {
+export const makeLineIfPossible = (name, startStation, endStation) => {
 
     if (isEmptyLineName(name)) {
         throw alertText.EMPTY_LINE_NAME;
@@ -12,7 +12,7 @@ export const makeLineIfPossible = (name) => {
         throw alertText.SAME_LINE_EXITE;
     }
 
-    return new Line(name);
+    return new Line(name, startStation, endStation);
 }
 
 const isEmptyLineName = (input) => {
