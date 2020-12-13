@@ -9,7 +9,6 @@ export const removeStationManagerHTML = () => {
 
 export const addResultToBody = (HTML) => {
     document.querySelector("body").appendChild(HTML)
-    addEventToDeleteButton();
 }
 
 export const makeStationHTML = (stationRepository) => {
@@ -42,26 +41,12 @@ const getHTMLAboutStationTable = (stationRepository) => {
     return HTMLAboutStations += "</table> </div>"
 }
 
-const addEventToDeleteButton = () => {
-    let deleteButtons = document.querySelectorAll(".station-delete-button")
-
-    Array.prototype.forEach.call(deleteButtons, function (button) {
-        button.addEventListener("click", function (button) {
-            if (confirm("정말로 삭제하시겠습니까?")) {
-                Data.removeStation(button.target.parentNode.parentNode.dataset.stationName);
-                document.querySelector("#station-name-table tbody").removeChild(this.parentElement.parentElement);
-            }
-        })
-    })
-}
-
 export const addStationNameToTable = (stationName) => {
     let addHTML = `<tr data-station-name = ${stationName}>
                         <td>${stationName}</td>
                         <td><button class="station-delete-button">삭제</button></td>
                         </tr>`
     document.querySelector("#station-name-table tbody").innerHTML += addHTML
-    addEventToDeleteButton();
 }
 
 export const stationNameInputClear = () => {
