@@ -46,6 +46,26 @@ export default class Role {
     });
   }
 
+  clearTable(tableId) {
+    const table = nodeSelector.selectId(tableId);
+
+    table.innerHTML = '';
+  }
+
+  clickAddButton(buttonId, onEvent, binder) {
+    const addButton = nodeSelector.selectId(buttonId);
+
+    addButton.addEventListener('click', onEvent.bind(binder));
+  }
+
+  clickDeleteButton(buttonClass, onEvent, binder) {
+    const deleteButtons = nodeSelector.selectClassAll(buttonClass);
+
+    deleteButtons.forEach(deleteButton => {
+      deleteButton.addEventListener('click', onEvent.bind(binder));
+    });
+  }
+
   renderSelectors() {
     SELECTORS.forEach(selectorId => {
       const selector = nodeSelector.selectId(selectorId);

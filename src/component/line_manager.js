@@ -22,13 +22,18 @@ export default class LineManager extends Role {
   constructor(lines) {
     super(LINE_MANAGER, LINE_MANAGER_BUTTON, LINE_MANAGER_K);
     this._lines = lines;
-    this.renderLines();
+    this.initialize();
     this.renderSelectors();
-    this.clickAddButton();
+    this.clickAddButton(LINE_ADD_BUTTON, this.onClickAddButton, this);
+  }
+
+  initialize() {
+    this.clearTable(LINE_TABLE);
+    this.renderLines();
+    this.clickDeleteButton(LINE_DELETE_BUTTON, this.onClickDeleteButton, this);
   }
 
   renderLines() {
-    this.clearLineTable();
     for (const lineInfo of this._lines) {
       if (!lineInfo) {
         continue;
@@ -40,13 +45,6 @@ export default class LineManager extends Role {
 
       this.renderLine(line, lineStart, lineEnd);
     }
-    this.clickDeleteButton();
-  }
-
-  clearLineTable() {
-    const table = nodeSelector.selectId(LINE_TABLE);
-
-    table.innerHTML = '';
   }
 
   renderLine(line, lineStart, lineEnd) {
@@ -87,12 +85,6 @@ export default class LineManager extends Role {
     return button;
   }
 
-  clickAddButton() {
-    const addButton = nodeSelector.selectId(LINE_ADD_BUTTON);
-
-    addButton.addEventListener('click', this.onClickAddButton.bind(this));
-  }
-
   onClickAddButton() {
     const validator = new LineValidator();
     const lineNameInput = nodeSelector.selectId(LINE_NAME_INPUT);
@@ -104,7 +96,7 @@ export default class LineManager extends Role {
       validator.checkValidOptions(this._lines, lineStart, lineEnd)
     ) {
       this.addLine(lineNameInput, lineStart, lineEnd);
-      this.renderLines();
+      this.initialize();
     }
   }
 
@@ -118,22 +110,11 @@ export default class LineManager extends Role {
     line.value = '';
   }
 
-  clickDeleteButton() {
-    const deleteButtons = nodeSelector.selectClassAll(LINE_DELETE_BUTTON);
-
-    deleteButtons.forEach(deleteButton => {
-      deleteButton.addEventListener(
-        'click',
-        this.onClickDeleteButton.bind(this)
-      );
-    });
-  }
-
   onClickDeleteButton(event) {
     const target = event.target.dataset.line;
 
     this.deleteLine(target);
-    this.renderLines();
+    this.initialize();
   }
 
   deleteLine(target) {

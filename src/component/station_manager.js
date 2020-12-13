@@ -19,26 +19,22 @@ export default class StationManager extends Role {
   constructor(stations) {
     super(STATION_MANAGER, STATION_MANAGER_BUTTON, STATION_MANAGER_K);
     this._stations = stations;
+    this.initialize();
+    this.clickAddButton(STATION_ADD_BUTTON, this.onClickAddButton, this);
+  }
+
+  initialize() {
+    this.clearTable(STATION_TABLE);
     this.renderStations();
-    this.clickAddButton();
+    this.clickDeleteButton(
+      STATION_DELETE_BUTTON,
+      this.onClickDeleteButton,
+      this
+    );
   }
 
   renderStations() {
-    this.clearStationTable();
     this._stations.forEach(station => this.renderStation(station));
-    this.clickDeleteButton();
-  }
-
-  clearStationTable() {
-    const table = nodeSelector.selectId(STATION_TABLE);
-
-    table.innerHTML = '';
-  }
-
-  clickAddButton() {
-    const addButton = nodeSelector.selectId(STATION_ADD_BUTTON);
-
-    addButton.addEventListener('click', this.onClickAddButton.bind(this));
   }
 
   onClickAddButton() {
@@ -50,7 +46,7 @@ export default class StationManager extends Role {
       response.then(isValidate => {
         if (isValidate) {
           this.addStation(stationNameInput);
-          this.renderStations();
+          this.initialize();
           this.renderSelectors();
         }
       });
@@ -97,17 +93,6 @@ export default class StationManager extends Role {
     return button;
   }
 
-  clickDeleteButton() {
-    const deleteButtons = nodeSelector.selectClassAll(STATION_DELETE_BUTTON);
-
-    deleteButtons.forEach(deleteButton => {
-      deleteButton.addEventListener(
-        'click',
-        this.onClickDeleteButton.bind(this)
-      );
-    });
-  }
-
   onClickDeleteButton(event) {
     const target = event.target.dataset.station;
     const validator = new StationValidator();
@@ -117,7 +102,7 @@ export default class StationManager extends Role {
     }
     this.deleteStation(target);
     this.renderSelectors();
-    this.renderStations();
+    this.initialize();
   }
 
   deleteStation(target) {
