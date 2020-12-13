@@ -54,12 +54,21 @@ export default class StationManagerRender extends Component {
 
     info.forEach((station) => {
       const tr = document.createElement("tr");
+      const deleteTd = document.createElement("td");
+      const deleteBtn = document.createElement("button");
+
       tr.innerHTML = `
       <td>${station}</td>
-      <td><button class=${DOM_STATION.STATION_DELETE_BUTTON_CLASS}>삭제</button></td>
       `;
-
+      deleteBtn.innerText = "삭제";
+      deleteBtn.setAttribute("class", DOM_STATION.STATION_DELETE_BUTTON_CLASS);
+      deleteTd.appendChild(deleteBtn);
+      tr.appendChild(deleteTd);
       tbody.appendChild(tr);
+
+      deleteBtn.addEventListener("click", (e) => this._onClickDeleteTr(e));
     });
   }
+
+  _onClickDeleteTr(e) {}
 }

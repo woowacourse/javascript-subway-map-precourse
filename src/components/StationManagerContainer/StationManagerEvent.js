@@ -29,4 +29,10 @@ export default class StationManagerEvent extends StationManagerRender {
   isValidStationName() {}
 
   localStorageItemAdd(item) {}
+
+  _onClickDeleteTr(e) {
+    super._onClickDeleteTr(e);
+
+    console.log(e);
+  }
 }
