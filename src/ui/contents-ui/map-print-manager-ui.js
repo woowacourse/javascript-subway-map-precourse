@@ -5,17 +5,16 @@ export default class MapPrintManager extends contentsUI {
     super(contentsID, stationINFOManager);
     this.setContentsHTML("");
   }
-
   setContentsHTML(initialTemplate) {
-    const lines = this.stationINFOManager_.getLines();
+    const lines = this._stationINFOManager.getLines();
     lines.forEach((line) => {
-      initialTemplate += this.makeLineINFOHTML_(line);
+      initialTemplate += this._makeLineINFOHTML(line);
     });
     super.setContentsHTML(initialTemplate);
   }
 
-  makeLineINFOHTML_(line) {
-    const stationListHTML = this.makeStationListHTML_(line);
+  _makeLineINFOHTML(line) {
+    const stationListHTML = this._makeStationListHTML(line);
     const infoHTML = `
     <div class="${MAP_CLASS}">
       <h2>${line.name}</h2>
@@ -26,7 +25,7 @@ export default class MapPrintManager extends contentsUI {
     `;
     return infoHTML;
   }
-  makeStationListHTML_(line) {
+  _makeStationListHTML(line) {
     let listHTML = "";
     line.stationsOfLine.forEach((station) => {
       listHTML += `<li>${station}</li>`;

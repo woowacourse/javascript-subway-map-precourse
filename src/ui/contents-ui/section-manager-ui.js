@@ -9,38 +9,37 @@ export default class SectionManagerUI extends contentsUI {
   constructor(contentsID, stationINFOManager) {
     super(contentsID, stationINFOManager);
 
-    this.sectionRegisterUI = null;
+    this._sectionRegisterUI = null;
     this.setContentsHTML(INITIAL_TEMPLATE);
   }
-
   setContentsHTML(initialTemplate) {
     super.setContentsHTML(initialTemplate);
-    this.updateLineButtons_();
+    this._updateLineButtons();
   }
 
-  updateLineButtons_() {
+  _updateLineButtons() {
     const buttonDiv = document.getElementById(SECTION_LINE_MENU_DIV_ID);
-    const lines = this.stationINFOManager_.getLines();
+    const lines = this._stationINFOManager.getLines();
     let buttonDivInnerHTML = "";
     lines.forEach(({ name }) => {
-      buttonDivInnerHTML += this.makeNewSelectLineButtonHTML_(name);
+      buttonDivInnerHTML += this._makeNewSelectLineButtonHTML(name);
     });
     buttonDiv.innerHTML = buttonDivInnerHTML;
-    this.addEventToSelectLineButton_();
+    this._addEventToSelectLineButton();
   }
-  addEventToSelectLineButton_() {
-    const buttons = this.getAllElementsByClass(SECTION_LINE_MENU_BUTTON_CLASS);
+  _addEventToSelectLineButton() {
+    const buttons = this._getAllElementsByClass(SECTION_LINE_MENU_BUTTON_CLASS);
     Array.prototype.forEach.call(buttons, (button) => {
       button.addEventListener("click", (e) => {
-        this.sectionRegisterUI = new SectionRegisterUI(
+        this._sectionRegisterUI = new SectionRegisterUI(
           SECTION_REGISTER_DIV_ID,
-          this.stationINFOManager_,
+          this._stationINFOManager,
           e.target.dataset.name
         );
       });
     });
   }
-  makeNewSelectLineButtonHTML_(name) {
+  _makeNewSelectLineButtonHTML(name) {
     return `
     <button class="${SECTION_LINE_MENU_BUTTON_CLASS}" data-name="${name}">${name}</button>
     `;
@@ -50,71 +49,72 @@ export default class SectionManagerUI extends contentsUI {
 class SectionRegisterUI extends contentsUI {
   constructor(contentsID, stationINFOManager, lineName) {
     super(contentsID, stationINFOManager);
-    this.lineName_ = lineName;
+    this._lineName = lineName;
     this.setContentsHTML(SECTION_REGISTER_TEMPLATE);
   }
 
   setContentsHTML(initialTemplate) {
-    initialTemplate = this.makeTitleHTML_(this.lineName_) + initialTemplate;
+    initialTemplate = this._makeTitleHTML(this._lineName) + initialTemplate;
     super.setContentsHTML(initialTemplate);
-    this.addEventToSectionAddButton_();
+    this._addEventToSectionAddButton();
     this.updateAllContents();
   }
 
   updateAllContents() {
-    this.setComboboxOption_();
+    this._setComboboxOption();
     this.updateLineStationsTable();
   }
   updateLineStationsTable() {
     const table = document.getElementById(SECTION_REGISTER_TABLE_ID);
-    const myLine = this.stationINFOManager_.getAllLineByCondition((line) => {
-      return line.name === this.lineName_;
+    const myLine = this._stationINFOManager.getAllLineByCondition((line) => {
+      return line.name === this._lineName;
     })[0];
     let tableInnerHTML = TABLE_HEADER_TEMPLATE;
     myLine.stationsOfLine.forEach((station, order) => {
-      tableInnerHTML += this.makeNewTableRowHTML_(order, station);
+      tableInnerHTML += this._makeNewTableRowHTML(order, station);
     });
     table.innerHTML = tableInnerHTML;
-    this.addEventToAllDeleteButtons_();
+    this._addEventToAllDeleteButtons();
   }
 
   //private
-  addEventToAllDeleteButtons_() {
-    this.addClickEventToAllButtonByClassName(
+  _addEventToAllDeleteButtons() {
+    this._addClickEventToAllButtonByClassName(
       SECTION_DELETE_BUTTON_CLASS,
-      this.callbackOfDeleteButton_
+      this._callbackOfDeleteButton
     );
   }
-  callbackOfDeleteButton_(event) {
+  _callbackOfDeleteButton(event) {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
     }
     const targetStationName = event.target.dataset.name;
-    this.stationINFOManager_.deleteSection(targetStationName, this.lineName_);
+    this._stationINFOManager.deleteSection(targetStationName, this._lineName);
     this.updateAllContents();
   }
 
-  addEventToSectionAddButton_() {
-    this.addClickEventToButtonByID_(
+  _addEventToSectionAddButton() {
+    this._addClickEventToButtonByID(
       SECTION_ADD_BUTTON_ID,
-      this.callbackOfSectionAddButton_
+      this._callbackOfSectionAddButton
     );
   }
-  callbackOfSectionAddButton_() {
-    const orderToRegister = this.getInputTextByID(SECTION_ORDER_INPUT_ID);
-    const stationName = this.getSelectedOptionByID(SECTION_STATION_SELECTOR_ID);
-    if (!this.isValidSectionAddInput_(orderToRegister, stationName)) {
+  _callbackOfSectionAddButton() {
+    const orderToRegister = this._getInputTextByID(SECTION_ORDER_INPUT_ID);
+    const stationName = this._getSelectedOptionByID(
+      SECTION_STATION_SELECTOR_ID
+    );
+    if (!this._isValidSectionAddInput(orderToRegister, stationName)) {
       return;
     }
-    this.stationINFOManager_.registerStationToLine(
-      this.lineName_,
+    this._stationINFOManager.registerStationToLine(
+      this._lineName,
       orderToRegister,
       stationName
     );
     this.updateAllContents();
   }
-
-  isValidSectionAddInput_(orderToRegister, stationName) {
+  _isValidSectionAddInput(orderToRegister, stationName) {
     const condition1 = isValidOrder(orderToRegister);
     const condition2 = isValidOption([stationName]);
     let boolToReturn = true;
@@ -123,28 +123,28 @@ class SectionRegisterUI extends contentsUI {
     }
     return boolToReturn;
   }
-  setComboboxOption_() {
+  _setComboboxOption() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);
-    const optionNames = this.stationINFOManager_.getStationNamesByCondition(
+    const optionNames = this._stationINFOManager.getStationNamesByCondition(
       (station) => {
-        return !station.linesOfStation.has(this.lineName_);
+        return !station.linesOfStation.has(this._lineName);
       }
     );
     let seletorInnerHTML = SELECTOR_DEFAULT_TEMPLATE;
     optionNames.forEach((optionName) => {
-      seletorInnerHTML += this.makeNewOptionHTML_(optionName);
+      seletorInnerHTML += this._makeNewOptionHTML(optionName);
     });
     seletor.innerHTML = seletorInnerHTML;
   }
-  makeNewOptionHTML_(name) {
+  _makeNewOptionHTML(name) {
     return `
     <option value="${name}">${name}</option>
     `;
   }
-  makeTitleHTML_(name) {
+  _makeTitleHTML(name) {
     return `<h2>${name} 관리<h2>`;
   }
-  makeNewTableRowHTML_(order, name) {
+  _makeNewTableRowHTML(order, name) {
     return `
     <tr>
       <td>${order}</td>

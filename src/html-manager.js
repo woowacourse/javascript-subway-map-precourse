@@ -6,36 +6,36 @@ import MapPrintManagerUI from "./ui/contents-ui/map-print-manager-ui.js";
 
 export default class HTMLManager {
   constructor(stationINFOManager) {
-    this.stationINFOManager = stationINFOManager;
-    this.menubarUI_ = new MenubarUI({
+    this._stationINFOManager = stationINFOManager;
+    this._menubarUI = new MenubarUI({
       htmlManager: this,
       menubarID: MENUBAR_ID,
     });
+    this._contentsUI = null;
     this.setContentsUIOnStationUI();
   }
-
   setContentsUIOnStationUI() {
-    this.contentsUI_ = new StationManagerUI(
+    this._contentsUI = new StationManagerUI(
       CONTENTS_ID,
-      this.stationINFOManager
+      this._stationINFOManager
     );
   }
   setContentsUIOnSectionUI() {
-    this.contentsUI_ = new LineManagerUI(
+    this._contentsUI = new LineManagerUI(
       CONTENTS_ID,
-      this.stationINFOManager
+      this._stationINFOManager
     );
   }
   setContentsUIOnLineUI() {
-    this.contentsUI_ = new SectionManagerUI(
+    this._contentsUI = new SectionManagerUI(
       CONTENTS_ID,
-      this.stationINFOManager
+      this._stationINFOManager
       );
   }
   setContentsUIOnMapPrintUI() {
-    this.contentsUI_ = new MapPrintManagerUI(
+    this._contentsUI = new MapPrintManagerUI(
       CONTENTS_ID,
-      this.stationINFOManager
+      this._stationINFOManager
     );
   }
 }

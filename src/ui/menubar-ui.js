@@ -1,40 +1,39 @@
 export default class MenubarUI {
   constructor({ htmlManager, menubarID }) {
-    this.htmlManager_ = htmlManager;
-    this.menubarID_ = menubarID;
+    this._htmlManager = htmlManager;
+    this._menubarID = menubarID;
     this.setMenubar();
   }
-
   setMenubar() {
-    document.getElementById(this.menubarID_).innerHTML = MENU_TEMPLATE;
-    this.addEventToStationButton_();
-    this.addEventToLineButton_();
-    this.addEventToSectionButton_();
-    this.addEventToMapPrintButton_();
+    document.getElementById(this._menubarID).innerHTML = MENU_TEMPLATE;
+    this._addEventToStationButton();
+    this._addEventToLineButton();
+    this._addEventToSectionButton();
+    this._addEventToMapPrintButton();
   }
 
-  addEventToStationButton_() {
+  _addEventToStationButton() {
     const button = document.getElementById(STATION_ID);
     button.addEventListener("click", () => {
-      this.htmlManager_.setContentsUIOnStationUI();
+      this._htmlManager.setContentsUIOnStationUI();
     });
   }
-  addEventToLineButton_() {
+  _addEventToLineButton() {
     const button = document.getElementById(LINE_ID);
     button.addEventListener("click", () => {
-      this.htmlManager_.setContentsUIOnSectionUI();
+      this._htmlManager.setContentsUIOnSectionUI();
     });
   }
-  addEventToSectionButton_() {
+  _addEventToSectionButton() {
     const button = document.getElementById(SECTION_ID);
     button.addEventListener("click", () => {
-      this.htmlManager_.setContentsUIOnLineUI();
+      this._htmlManager.setContentsUIOnLineUI();
     });
   }
-  addEventToMapPrintButton_() {
+  _addEventToMapPrintButton() {
     const button_ = document.getElementById(MAP_PRINT_ID);
     button_.addEventListener("click", () => {
-      this.htmlManager_.setContentsUIOnMapPrintUI();
+      this._htmlManager.setContentsUIOnMapPrintUI();
     });
   }
 }

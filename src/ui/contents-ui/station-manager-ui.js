@@ -7,59 +7,55 @@ export default class StationManagerUI extends contentsUI {
 
     this.setContentsHTML(INITIAL_TEMPLATE);
   }
-
   setContentsHTML(initialTemplate) {
     super.setContentsHTML(initialTemplate);
-    this.addEventToNameInputButton_();
+    this._addEventToNameInputButton();
     this.updateStationsTable();
   }
-
   updateStationsTable() {
-    const stationsNames = this.stationINFOManager_.getStationsNames();
+    const stationsNames = this._stationINFOManager.getStationsNames();
     const tableContainer = document.getElementById(STATION_NAME_TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     for (let name of stationsNames) {
-      innerHTMLOfTable += this.makeNewTableRowHTML_(name);
+      innerHTMLOfTable += this._makeNewTableRowHTML(name);
     }
     tableContainer.innerHTML = innerHTMLOfTable;
-    this.addEventToAllTableDeleteButton_();
+    this._addEventToAllTableDeleteButton();
   }
 
-  //private
-  addEventToNameInputButton_() {
-    this.addClickEventToButtonByID_(
+  _addEventToNameInputButton() {
+    this._addClickEventToButtonByID(
       STATION_ADD_BUTTON_ID,
-      this.callbackOfNameInputButton_
+      this._callbackOfNameInputButton
     );
   }
-  callbackOfNameInputButton_() {
-    const name = this.getInputTextByID(STATION_NAME_INPUT_ID);
-    if (!this.isValidStationInput_(name)) {
+  _callbackOfNameInputButton() {
+    const name = this._getInputTextByID(STATION_NAME_INPUT_ID);
+    if (!this._isValidStationInput(name)) {
       return;
     }
-    this.stationINFOManager_.addNewStation({
+    this._stationINFOManager.addNewStation({
       name: name,
     });
     this.updateStationsTable();
   }
 
-  addEventToAllTableDeleteButton_() {
-    this.addClickEventToAllButtonByClassName(
+  _addEventToAllTableDeleteButton() {
+    this._addClickEventToAllButtonByClassName(
       STATION_DELETE_BUTTON_CLASS,
-      this.callbackOfTableDeleteButton_
+      this._callbackOfTableDeleteButton
     );
   }
-  callbackOfTableDeleteButton_(event) {
+  _callbackOfTableDeleteButton(event) {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
     }
-    this.stationINFOManager_.deleteStation(event.target.dataset.name);
+    this._stationINFOManager.deleteStation(event.target.dataset.name);
     this.updateStationsTable();
   }
-
-  isValidStationInput_(name) {
+  _isValidStationInput(name) {
     const condition1 = isValidStation(name);
-    const condition2 = this.stationINFOManager_.isNotOverlapNameInStationsArray(
+    const condition2 = this._stationINFOManager.isNotOverlapNameInStationsArray(
       name
     );
     let boolToReturn = true;
@@ -68,7 +64,7 @@ export default class StationManagerUI extends contentsUI {
     }
     return boolToReturn;
   }
-  makeNewTableRowHTML_(name) {
+  _makeNewTableRowHTML(name) {
     const newTableRow = `
     <tr>
       <td>${name}</td>

@@ -10,71 +10,67 @@ export default class LineManagerUI extends contentsUI {
     super(contentsID, stationINFOManager);
     this.setContentsHTML(INITIAL_TEMPLATE);
   }
-
   setContentsHTML(initialTemplate) {
     super.setContentsHTML(initialTemplate);
-    this.setStationSelector_(START_STATION_SELECTOR_ID);
-    this.setStationSelector_(END_STATION_SELECTOR_ID);
-    this.addEventToLineAddButton_();
+    this._setStationSelector(START_STATION_SELECTOR_ID);
+    this._setStationSelector(END_STATION_SELECTOR_ID);
+    this._addEventToLineAddButton();
     this.updateLinesTable();
   }
 
   updateLinesTable() {
-    const liness = this.stationINFOManager_.getLines();
+    const liness = this._stationINFOManager.getLines();
     const tableContainer = document.getElementById(TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     liness.forEach((lineINFOs) => {
-      innerHTMLOfTable += this.makeNewTableRowHTML_(lineINFOs);
+      innerHTMLOfTable += this._makeNewTableRowHTML(lineINFOs);
     });
     tableContainer.innerHTML = innerHTMLOfTable;
-    this.addEventToAllTableDeleteButton_();
+    this._addEventToAllTableDeleteButton();
   }
 
-  //private
-  setStationSelector_(selectorID) {
+  _setStationSelector(selectorID) {
     const selector = document.getElementById(selectorID);
-    selector.innerHTML = this.makeSelectorInnerHTML_();
+    selector.innerHTML = this._makeSelectorInnerHTML();
   }
-  addEventToLineAddButton_() {
-    this.addClickEventToButtonByID_(
+  _addEventToLineAddButton() {
+    this._addClickEventToButtonByID(
       LINE_ADD_BUTTON_ID,
-      this.callbackLineAddButton
+      this._callbackLineAddButton
     );
   }
-  callbackLineAddButton() {
-    const lineName = this.getInputTextByID(NAME_INPUT_ID);
-    const startStationName = this.getSelectedOptionByID(
+  _callbackLineAddButton() {
+    const lineName = this._getInputTextByID(NAME_INPUT_ID);
+    const startStationName = this._getSelectedOptionByID(
       START_STATION_SELECTOR_ID
     );
-    const endStationName = this.getSelectedOptionByID(END_STATION_SELECTOR_ID);
-    if (!this.isValidLineInput_(lineName, startStationName, endStationName)) {
+    const endStationName = this._getSelectedOptionByID(END_STATION_SELECTOR_ID);
+    if (!this._isValidLineInput(lineName, startStationName, endStationName)) {
       return;
     }
-    this.stationINFOManager_.addNewLine({
+    this._stationINFOManager.addNewLine({
       lineName: lineName,
       startStationName: startStationName,
       endStationName: endStationName,
     });
     this.updateLinesTable();
   }
-
-  addEventToAllTableDeleteButton_() {
-    this.addClickEventToAllButtonByClassName(
+  _addEventToAllTableDeleteButton() {
+    this._addClickEventToAllButtonByClassName(
       LINE_DELETE_BUTTON_CLASS,
-      this.callbackOfDeleteButton_
+      this._callbackOfDeleteButton
     );
   }
-  callbackOfDeleteButton_(event) {
+  _callbackOfDeleteButton(event) {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
     }
-    this.stationINFOManager_.deleteLine(event.target.dataset.name);
+    this._stationINFOManager.deleteLine(event.target.dataset.name);
     this.updateLinesTable();
   }
-
-  isValidLineInput_(lineName, startStationName, endStationName) {
+  _isValidLineInput(lineName, startStationName, endStationName) {
     const condition1 = isValidLine(lineName, startStationName, endStationName);
-    const condition2 = this.stationINFOManager_.isNotOverlapNameInLinesArray(
+    const condition2 = this._stationINFOManager.isNotOverlapNameInLinesArray(
       lineName
     );
     const condition3 = isValidOption([startStationName, endStationName]);
@@ -84,7 +80,7 @@ export default class LineManagerUI extends contentsUI {
     }
     return boolToReturn;
   }
-  makeNewTableRowHTML_({ name, stationsOfLine }) {
+  _makeNewTableRowHTML({ name, stationsOfLine }) {
     return `
     <tr>
       <td>${name}</td>
@@ -96,15 +92,15 @@ export default class LineManagerUI extends contentsUI {
     </tr>
     `;
   }
-  makeSelectorInnerHTML_() {
-    const stationNames = this.stationINFOManager_.getStationsNames();
+  _makeSelectorInnerHTML() {
+    const stationNames = this._stationINFOManager.getStationsNames();
     let selectorInnerHTML = SELECTOR_DEFAULT_TEMPLATE;
     stationNames.forEach((name) => {
-      selectorInnerHTML += this.makeNewSelectorOptionHTML_(name);
+      selectorInnerHTML += this._makeNewSelectorOptionHTML(name);
     });
     return selectorInnerHTML;
   }
-  makeNewSelectorOptionHTML_(name) {
+  _makeNewSelectorOptionHTML(name) {
     return `
     <option value="${name}">${name}</option>
     `;
