@@ -69,11 +69,11 @@ export default class LineManager extends Component {
     this.$lineNameInput = this.createLineNameInput();
     this.$lineNameLabel = this.createLineNameLabel();
 
-    this.$lineStartStationSelectorLabel = this.createLineStartStationSelectorLabel();
     this.$lineStartStationSelector = this.createLineStartStationSelector();
+    this.$lineStartStationLabel = this.createLineStartStationLabel();
 
-    this.$lineEndStationSelectorLabel = this.createLineEndStationSelectorLabel();
     this.$lineEndStationSelector = this.createLineEndStationSelector();
+    this.$lineEndStationLabel = this.createLineEndStationLabel();
 
     this.$lineAddButton = this.createLineAddButton();
 
@@ -93,13 +93,6 @@ export default class LineManager extends Component {
     });
   }
 
-  createLineStartStationSelectorLabel() {
-    return createLabelHTMLElement({
-      name: "상행 종점",
-      htmlFor: "line-start-station-selector"
-    });
-  }
-
   createLineStartStationSelector() {
     return createSelectHTMLElement({
       id: "line-start-station-selector",
@@ -107,10 +100,10 @@ export default class LineManager extends Component {
     });
   }
 
-  createLineEndStationSelectorLabel() {
+  createLineStartStationLabel() {
     return createLabelHTMLElement({
-      name: "하행 종점",
-      htmlFor: "line-end-station-selector"
+      name: "상행 종점",
+      htmlFor: this.$lineStartStationSelector.id
     });
   }
 
@@ -118,6 +111,13 @@ export default class LineManager extends Component {
     return createSelectHTMLElement({
       id: "line-end-station-selector",
       options: this.stationNameArray
+    });
+  }
+
+  createLineEndStationLabel() {
+    return createLabelHTMLElement({
+      name: "하행 종점",
+      htmlFor: this.$lineEndStationSelector.id
     });
   }
 
@@ -132,9 +132,9 @@ export default class LineManager extends Component {
     this.$component.append(
       this.$lineNameLabel,
       this.$lineNameInput,
-      this.$lineStartStationSelectorLabel,
+      this.$lineStartStationLabel,
       this.$lineStartStationSelector,
-      this.$lineEndStationSelectorLabel,
+      this.$lineEndStationLabel,
       this.$lineEndStationSelector,
       this.$lineAddButton,
       this.$lineNameList

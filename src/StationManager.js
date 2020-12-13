@@ -46,20 +46,13 @@ export default class StationManager extends Component {
   }
 
   constructHTMLElements() {
-    this.$stationNameLabel = this.createStationNameLabel();
     this.$stationNameInput = this.createStationNameInput();
+    this.$stationNameLabel = this.createStationNameLabel();
     this.$stationAddButton = this.createStationAddButton();
 
     this.$stationNameList = createDivHTMLElement({});
 
     this.childNodes = [this.$stationNameLabel, this.$stationNameInput, this.$stationAddButton, this.$stationNameList];
-  }
-
-  createStationNameLabel() {
-    return createLabelHTMLElement({
-      name: "역 이름",
-      htmlFor: "station-name-input"
-    });
   }
 
   createStationNameInput() {
@@ -70,6 +63,13 @@ export default class StationManager extends Component {
           this.handleStationAdd();
         }
       }
+    });
+  }
+
+  createStationNameLabel() {
+    return createLabelHTMLElement({
+      name: "역 이름",
+      htmlFor: this.$stationNameInput.id
     });
   }
 
