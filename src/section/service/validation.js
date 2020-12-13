@@ -4,7 +4,6 @@ import {
 	MINIMUM_LINE_LENGTH_ALERT_MESSAGE, 
 	MINIMUM_LINE_LENGTH
 } from '../constants.js';
-import SectionInput from '../view/input.js';
 
 const alertDuplicatedStationInLine = () => {
 	alert(DUPLICATED_STATION_IN_LINE_MESSAGE);

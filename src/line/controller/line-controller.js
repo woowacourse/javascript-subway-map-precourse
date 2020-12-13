@@ -23,7 +23,7 @@ export default class LineController {
 	}
 
 	addLine = () => {
-		const [lineNameInput, lineStartStation, lineEndStation] = this.getLineComponents();
+		const [lineNameInput, lineStartStation, lineEndStation] = this.getLineInputValues();
 
 		if (this.isLineInputError()) {
 			return;
@@ -36,7 +36,7 @@ export default class LineController {
 	}
 
 	isLineInputError = () => {
-		const [lineNameInput, lineStartStation, lineEndStation] = this.getLineComponents();
+		const [lineNameInput, lineStartStation, lineEndStation] = this.getLineInputValues();
 		const lines = new LineModel().getLineStorageData();
 
 		if (
@@ -48,7 +48,7 @@ export default class LineController {
 		}
 	}
 
-	getLineComponents = () => {
+	getLineInputValues = () => {
 		const lineNameInput = this.lineInput.lineNameInput.value;
 		const lineStartStation = this.lineInput.lineStartStationSelector.value;
 		const lineEndStation = this.lineInput.lineEndStationSelector.value;

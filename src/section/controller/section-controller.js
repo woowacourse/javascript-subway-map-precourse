@@ -40,7 +40,7 @@ export default class SectionController {
 	}
 
 	addSection = () => {
-		const [lines, sectionStationSelect, sectionOrderInput] = this.getSectionComponents();
+		const [sectionStationSelect, sectionOrderInput] = this.getSectionInputValues();
 
 		if (this.isSectionInputError()) {
 			return;
@@ -51,7 +51,9 @@ export default class SectionController {
 	}
 
 	isSectionInputError = () => {
-		const [lines, sectionStationSelect, sectionOrderInput] = this.getSectionComponents();
+		const lines = new LineModel().getLineStorageData();
+
+		const [sectionStationSelect, sectionOrderInput] = this.getSectionInputValues();
 
 		if (
 			isDuplicatedStationInLine(lines[this.selectedLine], sectionStationSelect) || 
@@ -61,12 +63,11 @@ export default class SectionController {
 		}
 	}
 
-	getSectionComponents = () => {
-		const lines = new LineModel().getLineStorageData();
+	getSectionInputValues = () => {
 		const sectionStationSelect = document.getElementById('section-station-selector').value;
 		const sectionOrderInput = document.getElementById('section-order-input').value;
 
-		return [lines, sectionStationSelect, sectionOrderInput];
+		return [sectionStationSelect, sectionOrderInput];
 	}
 
 	addSectionToMemory = (sectionStationSelect, sectionOrderInput) => {

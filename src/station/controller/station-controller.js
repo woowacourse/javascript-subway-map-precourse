@@ -21,9 +21,8 @@ export default class StationController {
 
 	addStation = () => {
 		const stationName = this.stationInput.stationNameInput.value;
-		const stations = new StationModel().getStationStorageData();
 
-		if (isDuplicatedStationName(stations, stationName) || isNotValidStationName(stationName)) {
+		if (this.isStationInputError()) {
 			return;
 		}
 
@@ -31,6 +30,15 @@ export default class StationController {
 		
 		this.addStationToMemory(station);
 		this.addStationToTable();
+	}
+
+	isStationInputError = () => {
+		const stations = new StationModel().getStationStorageData();
+		const stationName = this.stationInput.stationNameInput.value;
+
+		if (isDuplicatedStationName(stations, stationName) || isNotValidStationName(stationName)) {
+			return true;
+		}
 	}
 
 	createStation = (stationName) => {
