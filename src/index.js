@@ -9,7 +9,7 @@ export default class App {
     this.contentView = document.getElementById("content");
     this.stationManager = new StationManager();
     this.lineManager = new LineManager();
-    this.sectionManger = new SectionManager();
+    this.sectionManager = new SectionManager();
   }
 
   onClickMenuButton(event) {
@@ -24,7 +24,7 @@ export default class App {
     }
 
     if (target.id === "section-manager-button") {
-      this.sectionManger.renderSectionManagerView();
+      this.sectionManager.renderSectionManagerView();
     }
 
     if (target.id === "map-print-manager-button") {
@@ -37,4 +37,5 @@ document.addEventListener("click", (event) => {
   app.onClickMenuButton(event);
   app.stationManager.onClickButton(event);
   app.lineManager.onClickButton(event);
+  app.sectionManager.onClickButton(event);
 });

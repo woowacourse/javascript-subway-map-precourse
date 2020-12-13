@@ -87,3 +87,23 @@ export const createSectionLineButtonHTML = (lineName) => {
                                          data-line="${lineName}"> ${lineName} </button> `;
   return sectionLineButtonHTML;
 };
+
+export const createSelectedSectionLineHTML = (lineName) => {
+  const selectedSectionLineHTML = `
+    <h3>${lineName} 관리</h3>
+    <h4>구간 등록</h4>
+    <select id = "section-station-selector"></select>
+    <input id = "section-order-input" placeholder = "순서를 입력해주세요."></input>
+    <button id = "section-add-button" data-line = "${lineName}">등록</button>
+
+    <table id="section-table" border = "1">
+      <thead>
+        <th> 순서 </th>
+        <th> 이름 </th>
+        <th> 설정 </th>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>`;
+  return selectedSectionLineHTML;
+};
