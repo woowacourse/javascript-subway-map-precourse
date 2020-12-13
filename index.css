@@ -11,3 +11,7 @@ td {
 #router-view {
   margin-top: 20px;
 }
+
+.section-line-menu-button {
+  margin: 0 2px;
+}

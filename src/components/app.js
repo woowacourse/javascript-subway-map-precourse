@@ -42,17 +42,16 @@ class App extends Component {
 
   routeTo = destination => {
     const $routerView = this._$target.querySelector('#router-view');
+    const lines = this.#lines;
+    const stations = this.#stations;
     if (destination === STATION_MANAGER) {
-      new StationManager($routerView, { stations: this.#stations });
+      new StationManager($routerView, { stations });
     } else if (destination === LINE_MANAGER) {
-      new LineManager($routerView, {
-        lines: this.#lines,
-        stations: this.#stations,
-      });
+      new LineManager($routerView, { lines, stations });
     } else if (destination === MAP_PRINT_MANAGER) {
-      new MapPrintManager($routerView, { lines: this.#lines });
+      new MapPrintManager($routerView, { lines });
     } else if (destination === SECTION_MANAGER) {
-      new SectionManager($routerView);
+      new SectionManager($routerView, { lines, stations });
     }
   };
 }

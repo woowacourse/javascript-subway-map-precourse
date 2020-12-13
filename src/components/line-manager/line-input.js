@@ -1,4 +1,5 @@
 import Component from '../../library/core/component.js';
+import { createOptionTemplate } from '../../library/utils/template.js';
 
 class LineInput extends Component {
   constructor($target, props) {
@@ -25,7 +26,7 @@ class LineInput extends Component {
 				<div>
 					<label for="start-station"><strong>상행 종점</strong></label>
 					<select name="start-station" id="line-start-station-selector">
-						${this.createOptionTemplate()}
+						${createOptionTemplate(this._props.stations.value)}
 					</select>
 				</div>
 		`;
@@ -38,19 +39,10 @@ class LineInput extends Component {
 			<div>
 				<label for="end-station"><strong>하행 종점</strong></label>
 				<select name="end-station" id="line-end-station-selector">
-					${this.createOptionTemplate()}
+					${createOptionTemplate(this._props.stations.value)}
 				</select>
 			</div>
 		`;
-
-    return template;
-  }
-
-  createOptionTemplate() {
-    let template = '';
-    this._props.stations.value.forEach(
-      station => (template += `<option value="${station}">${station}</option>`)
-    );
 
     return template;
   }
