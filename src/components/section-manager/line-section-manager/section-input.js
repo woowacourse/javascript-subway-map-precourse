@@ -3,20 +3,10 @@ import Component from '../../../library/core/component.js';
 import { createOptionTemplate } from '../../../library/utils/template.js';
 
 class SectionInput extends Component {
-  #targetLine;
-
   constructor($target, props) {
     super($target, props);
     props.lines.subscribe(this.render);
-    this.initializeStates();
     this.render();
-  }
-
-  initializeStates() {
-    const { targetLineName, lines } = this._props;
-    this.#targetLine = lines.value.find(
-      line => line.lineName === targetLineName
-    );
   }
 
   mountTemplate() {
@@ -36,7 +26,7 @@ class SectionInput extends Component {
 				id ="section-order-input"
 				type="number"
 				min="0"
-				max="${this.#targetLine.sections.length}"
+				max="${this._props.targetLine.sections.length}"
 				placeholder="순서"
 			/>
 		`;
@@ -55,7 +45,7 @@ class SectionInput extends Component {
     const sectionToAdd = this._$target.querySelector(
       '#section-station-selector'
     ).value;
-    this.insertSection(this.#targetLine, { order, sectionToAdd });
+    this.insertSection(this._props.targetLine, { order, sectionToAdd });
   }
 
   insertSection(targetLine, { order, sectionToAdd }) {

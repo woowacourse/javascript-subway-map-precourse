@@ -2,20 +2,10 @@ import { LINES } from '../../../library/constants/localstorage.js';
 import Component from '../../../library/core/component.js';
 
 class SectionList extends Component {
-  #targetLine;
-
   constructor($target, props) {
     super($target, props);
     props.lines.subscribe(this.render);
-    this.initializeStates();
     this.render();
-  }
-
-  initializeStates() {
-    const { targetLineName, lines } = this._props;
-    this.#targetLine = lines.value.find(
-      line => line.lineName === targetLineName
-    );
   }
 
   mountTemplate() {
@@ -32,7 +22,7 @@ class SectionList extends Component {
   }
 
   createTableRowsTemplate() {
-    return this.#targetLine.sections
+    return this._props.targetLine.sections
       .map((section, index) => this.createTableRowTemplate(index, section))
       .join('');
   }
@@ -57,7 +47,7 @@ class SectionList extends Component {
 
   removeSection(targetIndex) {
     const { lines } = this._props;
-    this.#targetLine.sections.splice(targetIndex, 1);
+    this._props.targetLine.sections.splice(targetIndex, 1);
     localStorage.setItem(LINES, JSON.stringify(lines.value));
     lines.renderAll();
   }
