@@ -1,4 +1,5 @@
 import { addClickEventFromId } from "./utils/dom.js";
+import { getStationOptions } from "./utils/line.js";
 
 const menuIds = [
   "station-manager-button",
@@ -32,11 +33,26 @@ export default class Header {
     }
   }
 
+  putOptions() {
+    const startStationSeletor = document.getElementById(
+      "line-start-station-selector"
+    );
+    const endStationSelector = document.getElementById(
+      "line-end-station-selector"
+    );
+    startStationSeletor.innerHTML = getStationOptions();
+    endStationSelector.innerHTML = getStationOptions();
+  }
+
   renderContent(id) {
     const isMap = Boolean(id.match("map"));
     if (isMap) {
       this.renderMapContent();
       return;
+    }
+    const isLine = Boolean(id.match("line"));
+    if (isLine) {
+      this.putOptions();
     }
     const content = document.getElementById(id.replace("button", "content"));
     content.style.display = "block";
