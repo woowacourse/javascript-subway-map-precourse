@@ -45,12 +45,12 @@ export default class StationManager {
     try {
       this.validateStationNameLength(stationName);
       this.validateStationNameUnique(stationName);
+
+      this.station.createStation(stationName);
+      this.renderStationTable();
     } catch (errorMessage) {
       alert(errorMessage);
     }
-
-    //등록
-    //뷰추가
   }
 
   onClickButton(event) {

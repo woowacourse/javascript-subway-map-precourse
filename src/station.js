@@ -14,6 +14,13 @@ class Station {
     return stations;
   }
 
+  createStation(stationName) {
+    const allStations = this.getAllStations();
+    allStations.push(stationName);
+
+    this.storage.setItem(`stations`, allStations);
+  }
+
   hasSameName(newStationName) {
     const allStations = this.getAllStations();
     const duplicates = allStations.filter((stationName) => stationName === newStationName);
