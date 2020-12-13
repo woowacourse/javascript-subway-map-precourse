@@ -11,10 +11,24 @@ import {
 export default class SectionMain extends Component {
   constructor({ $parent, lineName }) {
     super({ $parent, lineName });
+    this.declareConstants();
     this.initializeVariables();
+    this.initializeState();
 
     this.constructHTMLElements();
     this.appendChildNodes();
+
+    this.render();
+  }
+
+  declareConstants() {
+    this.SECTION_DELETE_BUTTON_CLASSNAME = "section-delete-button";
+  }  
+  
+  initializeState() {
+    this.state = {
+      stations: this.stationsArray
+    };
   }
 
   initializeVariables() {
@@ -29,6 +43,8 @@ export default class SectionMain extends Component {
 
     this.$sectionOrderInput = this.createSectionOrderInput();
     this.$sectionAddButton = createButtonHTMLElement({ id: "section-add-button", name: "등록"});
+
+    this.$sectionStationList = createDivHTMLElement({});
   }
 
   createSectionStationSelector() {
@@ -62,7 +78,31 @@ export default class SectionMain extends Component {
       this.$sectionStationLabel,
       this.$sectionStationSelector,
       this.$sectionOrderInput,
-      this.$sectionAddButton
+      this.$sectionAddButton,
+      this.$sectionStationList
     );
+  }
+
+  render() {
+    const $childNodes = this.state.stations.reduce((acc, stationName, order) => {
+      const $order = createDivHTMLElement({ innerText: order });
+      const $stationName = createDivHTMLElement({ innerText: stationName });
+      const $sectionDeleteButton = this.createSectionDeleteButton({ stationName, order });
+      
+      return [...acc, $order, $stationName, $sectionDeleteButton];
+    }, []);
+
+    this.$sectionStationList.append(...$childNodes);
+  }
+
+  createSectionDeleteButton({stationName, order}) {
+    return createButtonHTMLElement({
+      name: "노선에서 제거",
+      classList: [this.SECTION_DELETE_BUTTON_CLASSNAME],
+      dataset: {
+        stationName,
+        order,
+      }
+    });
   }
 }

@@ -67,10 +67,10 @@
   - [x] 지하철 구간을 설정할 역 select 태그(`#section-station-selector`)
   - [x] 지하철 구간의 순서를 입력하는 input 태그(`#section-order-input`)
   - [x] 지하철 구간을 등록하는 button 태그 (`#section-add-button`)
-  - [ ] 지하철 구간을 제거하는 button 태그 (`.section-delete-button`)
+  - [x] 지하철 구간을 제거하는 button 태그 (`.section-delete-button`)
 
-- [ ] 지하철 구간 목록을 표시한다.
-  - [ ] 지하철 구간 순서와 지하철 역 이름, 삭제 버튼(`.section-delete-button`)을 표시한다.
+- [x] 지하철 구간 목록을 표시한다.
+  - [x] 지하철 구간 순서와 지하철 역 이름, 삭제 버튼(`.section-delete-button`)을 표시한다.
   - [ ] 사용자가 삭제 버튼(`.section-delete-button`)을 클릭한 경우, `confirm`을 이용해 삭제 여부를 확인하며, 
       삭제 여부가 확인되면 해당 지하철 역을 삭제하며 지하철 구간 목록을 재표시한다.
       - [ ] 노선에 포함된 역이 두개 이하일 때는 역을 제거할 수 없다.
