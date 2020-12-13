@@ -1,6 +1,8 @@
 import SectionOutput from '../view/output.js';
 import SectionInput from '../view/input.js';
 import LineModel from '../../line/model/model.js';
+import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
+import {isMinimumLineLength} from '../service/validation.js';
 
 export default class SectionController {
 	constructor() {
@@ -38,12 +40,19 @@ export default class SectionController {
 		const sectionStationSelect = document.getElementById('section-station-selector').value;
 		const sectionOrderInput = Number(document.getElementById('section-order-input').value);
 
+		this.addSectionToMemory(sectionStationSelect, sectionOrderInput);
+		this.addSectionToTable();
+	}
+
+	addSectionToMemory = (sectionStationSelect, sectionOrderInput) => {
 		const lines = new LineModel().getLineStorageData();
 		
 		lines[this.selectedLine].splice(sectionOrderInput, 0, sectionStationSelect);
 
 		new LineModel().setLineStorageData(lines);
+	}
 
+	addSectionToTable = () => {
 		this.sectionOutput.showSelectedLineSectionContainer(this.selectedLine);
 		this.setDeleteButtonsHandler();
 	}
@@ -56,9 +65,7 @@ export default class SectionController {
 	}
 
 	deleteSection = event => {
-		const checkDelete = confirm('정말로 삭제하시겠습니까?');
-		
-		if (checkDelete === false) {
+		if (isMinimumLineLength() || isUnconfirmedDelete()) {
 			return;
 		}
 
@@ -66,12 +73,20 @@ export default class SectionController {
 		const selectedLineNameToDelete = tableRowToDelete.dataset.selectedlinename;
 		const stationIndexToDelete = tableRowToDelete.dataset.stationindex;
 
+		this.deleteSectionFromMemory(selectedLineNameToDelete, stationIndexToDelete);
+		this.deleteSectionFromTable(selectedLineNameToDelete);
+	}
+
+	deleteSectionFromMemory = (selectedLineNameToDelete, stationIndexToDelete) => {
 		const lines = new LineModel().getLineStorageData();
 		
-		lines[this.selectedLine].splice(stationIndexToDelete, 1);
+		lines[selectedLineNameToDelete].splice(stationIndexToDelete, 1);
 
 		new LineModel().setLineStorageData(lines);
-		this.sectionOutput.showSelectedLineSectionContainer(this.selectedLine);
+	}
+
+	deleteSectionFromTalbe = (selectedLineNameToDelete) => {
+		this.sectionOutput.showSelectedLineSectionContainer(selectedLineNameToDelete);
 		this.setSectionAddButtonHandler();
 		this.setDeleteButtonsHandler();
 	}
