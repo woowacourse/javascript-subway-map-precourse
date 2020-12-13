@@ -52,14 +52,14 @@ export default class LineManager {
   }
 
   getLineStartStationInput() {
-    const startStationSelector = document.getElementById("line-name-input");
+    const startStationSelector = document.getElementById("line-start-station-selector");
     const startStationInput = startStationSelector.value;
 
     return startStationInput;
   }
 
   getLineEndStationInput() {
-    const endStationSelector = document.getElementById("line-name-input");
+    const endStationSelector = document.getElementById("line-end-station-selector");
     const endStationInput = endStationSelector.value;
 
     return endStationInput;
