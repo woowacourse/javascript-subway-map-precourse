@@ -7,7 +7,3 @@ export const clearContainer = () => {
 export const createElement = (type) => {
   return typeof type === "string" && document.createElement(type);
 };
-
-export const createLineObject = (startStation, endStation) => {
-  return { start: startStation, end: endStation };
-};
