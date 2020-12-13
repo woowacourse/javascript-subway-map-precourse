@@ -1,7 +1,7 @@
 export default class SubwayLine {
-  constructor(name) {
+  constructor(name, upTerminatingStation, downTerminatingStation) {
     this.name = name;
-    this.upTerminatingStation = null;
-    this.downTerminatingStation = null;
+    this.upTerminatingStation = upTerminatingStation;
+    this.downTerminatingStation = downTerminatingStation;
   }
 }
