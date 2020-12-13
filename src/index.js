@@ -4,6 +4,7 @@ import {
   VALID_ADDITION,
   VALID_DELETION,
   isValidStationName,
+  isInvalidStationName,
   isValidLineName,
   isInvalidSectionDeletion,
   isInvalidStationDeletion,
@@ -41,7 +42,7 @@ export default class SubwayManager {
       target: { id },
     } = event;
     if (id === DOMStrings.STATION_ADD_BUTTON) {
-      const station = document.getElementById(DOMStrings.STATION_NAME_INPUT).value;
+      const station = document.getElementById(DOMStrings.STATION_NAME_INPUT).value.trim();
       if (isValidStationName(this.stations, station)) {
         this.stations.push(station);
         localStorage.setItem(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
@@ -74,7 +75,7 @@ export default class SubwayManager {
       target: { id },
     } = event;
     if (id === DOMStrings.LINE_ADD_BUTTON) {
-      const lineName = document.getElementById(DOMStrings.LINE_NAME_INPUT).value;
+      const lineName = document.getElementById(DOMStrings.LINE_NAME_INPUT).value.trim();
       if (isValidLineName(this.lines, lineName)) {
         const startStation = document.getElementById(DOMStrings.LINE_START_STATION_SELECTOR).value;
         const endStation = document.getElementById(DOMStrings.LINE_END_STATION_SELECTOR).value;
@@ -109,8 +110,11 @@ export default class SubwayManager {
       const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2')
         .dataset[dataStrings.DATA_TARGET];
       const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
-      const stationOrder = +document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value;
+      const stationOrder = +document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value.trim();
       const stationName = document.getElementById(DOMStrings.SECTION_STATION_SELECTOR).value;
+      if (isInvalidStationName(this.lines[targetLineIndex].stations, stationName)) {
+        return;
+      }
       if (isEndSection(this.lines[targetLineIndex].stations, stationOrder, VALID_ADDITION)) {
         this.lines[targetLineIndex].end = stationName;
       } else if (isStartSection(stationOrder)) {

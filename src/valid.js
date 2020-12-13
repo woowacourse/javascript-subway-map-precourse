@@ -5,6 +5,7 @@ const ERROR_UNDER_MINUMUM_LENGTH = `역 이름은 ${MIN_STRING_LENGTH}글자 이
 const ERROR_EMPTY_STRING = '값을 입력해야 합니다.';
 const ERROR_SECTION_LENGTH_UNDER_MIN = `노선에 역이 ${MIN_SECTION_LENGTH}개 이하이므로 삭제가 불가능합니다.`;
 const ERROR_STATION_INCLUDED = '노선에 포함되어있는 역은 삭제가 불가능합니다.';
+const ERROR_STATION_ALREADY_EXISTS = '기존의 노선에 해당 역이 존재합니다.';
 export const VALID_ADDITION = 'addition';
 export const VALID_DELETION = 'deletion';
 
@@ -15,14 +16,13 @@ const isUnderMinLength = input => input.length < MIN_STRING_LENGTH;
 const isEmptyString = input => !input;
 
 export const isValidStationName = (list, input) => {
-  const testInput = input.trim();
-  if (isDuplicatedName(list, testInput)) {
+  if (isDuplicatedName(list, input)) {
     alert(ERROR_DUPLICATED_NAME);
     return false;
-  } else if (isEmptyString(testInput)) {
+  } else if (isEmptyString(input)) {
     alert(ERROR_EMPTY_STRING);
     return false;
-  } else if (isUnderMinLength(testInput)) {
+  } else if (isUnderMinLength(input)) {
     alert(ERROR_UNDER_MINUMUM_LENGTH);
     return false;
   }
@@ -30,13 +30,20 @@ export const isValidStationName = (list, input) => {
   return true;
 };
 
+export const isInvalidStationName = (list, input) => {
+  if (isDuplicatedName(list, input)) {
+    alert(ERROR_STATION_ALREADY_EXISTS);
+    return true;
+  }
+  return false;
+};
+
 export const isValidLineName = (list, input) => {
   const nameList = list.map(item => item.lineName);
-  const testInput = input.trim();
-  if (isDuplicatedName(nameList, testInput)) {
+  if (isDuplicatedName(nameList, input)) {
     alert(ERROR_DUPLICATED_NAME);
     return false;
-  } else if (isEmptyString(testInput)) {
+  } else if (isEmptyString(input)) {
     alert(ERROR_EMPTY_STRING);
     return false;
   }
