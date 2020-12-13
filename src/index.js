@@ -61,10 +61,22 @@ export default class SubwayMap {
     return true;
   }
 
-  // 지하철 노선 조회
+  // 지하철 노선 구간 조회
   getSection(lineName) {
     const line = this.lineList.find(element => element.name === lineName);
     return line.getSection();
+  }
+
+  // 지하철 구간 등록
+  addSection(lineName, stationName, index) {
+    const line = this.lineList.find(element => element.name === lineName);
+    const station = this.stationList.find(element => element.name === stationName);
+    if (index === undefined) {
+      line.addStation(station);
+    } else {
+      line.addStation(station, index);
+    }
+    return true;
   }
 
   // 데이터 직렬화
@@ -87,10 +99,8 @@ export default class SubwayMap {
     for (const line of data.line) {
       const endIndex = line[1].length - 1;
       this.addLine(line[0], line[1][0], line[1][endIndex]);
-      const lineObj = this.lineList.find(element => element.name === line[0]);
       for (let i = 1; i < endIndex; i++) {
-        const station = this.stationList.find(element => element.name === line[1][i]);
-        lineObj.addStation(station);
+        this.addSection(line[0], line[1][i]);
       }
     }
   }
@@ -131,6 +141,7 @@ sectionManagerButton.addEventListener('click', showSectionManager);
 mapPrintManagerButton.addEventListener('click', showMapPrintManager);
 stationAddButton.addEventListener('click', clickStationAddButton);
 lineAddButton.addEventListener('click', clickLineAddButton);
+sectionAddButton.addEventListener('click', clickSectionAddButton);
 document.body.addEventListener('click', clickInstanceButton);
 
 // 역 관리 탭
@@ -302,6 +313,7 @@ function clickLineSectionButton(event) {
   sectionStationSelector.innerHTML = html;
   sectionOrderInput.value = '';
   sectionOrderInput.max = subwayMap.getSection(line).length - 1;
+  sectionAddButton.dataset.line = line;
   showSectionList(line);
   sectionDiv.classList.remove('d-none');
 }
@@ -319,6 +331,17 @@ function showSectionList(line) {
     html += `<tr><td class="text-center">${i}</td><td>${station}</td><td>${button}</td></tr>`;
   }
   sectionResult.innerHTML = html;
+}
+
+// 구간 등록 버튼
+function clickSectionAddButton() {
+  "use strict";
+
+  const line = sectionAddButton.dataset.line;
+  subwayMap.addSection(line, sectionStationSelector.value, sectionOrderInput.value);
+  sectionOrderInput.value = '';
+  showSectionList(line);
+  localStorage.setItem('subwayMap', subwayMap.serialize());
 }
 
 // 동적으로 생성된 버튼
