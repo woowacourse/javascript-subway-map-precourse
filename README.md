@@ -12,6 +12,7 @@
 - 역 관리 기능에서 제거 버튼의 동작을 관여할 함수 `handleStationDeleteButton`
 - 역 관리 기능에서 테이블에 역의 이름과 삭제 버튼을 추가하는 함수 `insertTable`
 - 역 관리 기능에서 변경한 사항을 localStorage에 반영해주는 함수 `updateStationData`
+- 역 관리 기능에 들어왔을 때 이전에 작업한 데이터를 불러오는 함수 `updateTable`
 
 - 노선 관리 기능을 시작할 함수 `initLineManager`
 - 노선 관리 기능 중 종점들의 옵션을 넣어줄 `initLineSelect`
@@ -21,7 +22,7 @@
 - 추가 버튼 클릭 시 데이터를 직접 추가하는 함수 `insertData`
 - 노선 이름과 종점 두개가 유효한 값인지 판단하는 함수 `inputValidator`
 - 노선 관리 기능에서 변경한 사항을 localStorage에 반영해주는 함수 `updateLocalStorage`
-- 노선 관리 기능에 들어왔을 때 이전에 작업한 데이터를 불러오는 함수 `UpdateTable`
+- 노선 관리 기능에 들어왔을 때 이전에 작업한 데이터를 불러오는 함수 `updateTable`
 
 ## 🚀 기능 요구사항
 

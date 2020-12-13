@@ -25,6 +25,8 @@ stationHeading.innerText = textLabel.STATION_HEADING;
 stationTable.innerHTML = htmlLabel.STATION_TABLE;
 
 export const initStationManager = () => {
+  updateTable();
+
   stationInputElement.innerText = textLabel.STATION_INPUT;
 
   stationHTMLElements.map((item) => container.appendChild(item));
@@ -37,16 +39,22 @@ const handleStationAddButton = () => {
   if (inputValidator(currentValue)) {
     stationArray.push(currentValue);
 
-    const stationDeleteButtonObj = createElement("button");
-    stationDeleteButtonObj.setAttribute("class", "station-delete-button");
-    stationDeleteButtonObj.innerText = textLabel.DELETE;
-
-    stationDeleteButtonObj.addEventListener("click", () =>
-      handleStationDeleteButton(currentValue)
-    );
-
+    const stationDeleteButtonObj = createDeleteButton(currentValue);
     insertTable(stationInputElement.value, stationDeleteButtonObj);
+    updateStationData();
   }
+};
+
+const createDeleteButton = (value) => {
+  const stationDeleteButtonObj = createElement("button");
+  stationDeleteButtonObj.setAttribute("class", "station-delete-button");
+  stationDeleteButtonObj.innerText = textLabel.DELETE;
+
+  stationDeleteButtonObj.addEventListener("click", () =>
+    handleStationDeleteButton(value)
+  );
+
+  return stationDeleteButtonObj;
 };
 
 const handleStationDeleteButton = (value) => {
@@ -66,8 +74,6 @@ const insertTable = (data_1, data_2) => {
 
   cell_1.innerHTML = data_1;
   cell_2.appendChild(data_2);
-
-  updateStationData();
 };
 
 const updateStationData = () => {
@@ -76,4 +82,12 @@ const updateStationData = () => {
 
 const inputValidator = (inputString) => {
   return inputString.length >= 2 && stationArray.indexOf(inputString) === -1;
+};
+
+const updateTable = () => {
+  stationTable.innerHTML = htmlLabel.STATION_TABLE;
+  for (let i = 0; i < stationArray.length; i++) {
+    const stationDeleteButtonObj = createDeleteButton(stationArray[i]);
+    insertTable(stationArray[i], stationDeleteButtonObj);
+  }
 };
