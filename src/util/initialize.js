@@ -5,7 +5,13 @@ export const initialize = () => {
   const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
   const sectionManager = document.querySelector(`#${ID.SECTION_MANAGER}`);
 
-  stationManager.style.display = 'none';
-  lineManager.style.display = 'none';
-  sectionManager.style.display = 'none';
+  removeAllNode(stationManager);
+  removeAllNode(lineManager);
+  removeAllNode(sectionManager);
+};
+
+const removeAllNode = (manager) => {
+  while (manager.hasChildNodes()) {
+    manager.removeChild(manager.firstChild);
+  }
 };

@@ -16,12 +16,18 @@ export const ID = {
   SECTION_MANAGER_BUTTON: 'section-manager-button',
   SECTION_MANAGER: 'section-manager',
   SECTION_LINE_MENU_BUTTON_CONTAINER: 'section-line-menu-button-container',
+  SECTION_STATION_SELECTOR: 'section-station-selector',
+  SECTION_ORDER_INPUT: 'section-order-input',
+  SECTION_ADD_BUTTON: 'section-add-button',
+  SECTION_ADD_CONTAINER: 'section-add-container',
+  SECTION_TABLE: 'section-table',
 };
 
 export const CLASS = {
   STATION_DELETE_BUTTON: 'station-delete-button',
   LINE_DELETE_BUTTON: 'line-delete-button',
   SECTION_LINE_MENU_BUTTON: 'section-line-menu-button',
+  SECTION_DELETE_BUTTON: 'section-delete-button',
 };
 
 export const NAME = {

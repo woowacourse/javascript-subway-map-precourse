@@ -8,31 +8,21 @@ import { loadStorage, saveStorage } from '../util/handleStorage.js';
 export default class StationManager {
   userException = new UserException();
 
-  constructor($target, $functionButtonContainer) {
+  constructor($target) {
     this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
 
-    this.start($target, $functionButtonContainer);
+    this.start($target);
   }
 
-  start($target, $functionButtonContainer) {
-    this.createStationManagerButton($functionButtonContainer);
+  start($target) {
     this.createStationManager($target);
     this.handleStationManagerButton();
-  }
-
-  createStationManagerButton($functionButtonContainer) {
-    const stationManagerButton = document.createElement('button');
-
-    stationManagerButton.id = ID.STATION_MANAGER_BUTTON;
-    stationManagerButton.innerHTML = NAME.STATION_MANAGER_BUTTON_NAME;
-    $functionButtonContainer.appendChild(stationManagerButton);
   }
 
   createStationManager($target) {
     const stationManager = document.createElement('div');
 
     stationManager.id = ID.STATION_MANAGER;
-    stationManager.style.display = 'none';
     $target.appendChild(stationManager);
   }
 
@@ -42,15 +32,15 @@ export default class StationManager {
     stationManagerButton.addEventListener('click', () => {
       initialize();
       this.updateStations();
-      this.showStationManager();
       this.handleStationAddButton();
     });
   }
 
   updateStations() {
     const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
-    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
+
     stationManager.innerHTML = stationManagerTemplate();
+    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
     this.createStationTable(stationManager);
   }
 
@@ -67,11 +57,6 @@ export default class StationManager {
 
     stationTable.innerHTML = stationTableTemplate(this.stations);
     this.handleStationDeleteButton();
-  }
-
-  showStationManager() {
-    const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
-    stationManager.style.display = 'block';
   }
 
   handleStationAddButton() {

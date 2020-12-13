@@ -8,32 +8,22 @@ import { loadStorage, saveStorage } from '../util/handleStorage.js';
 export default class LineManager {
   userException = new UserException();
 
-  constructor($target, $functionButtonContainer) {
+  constructor($target) {
     this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
     this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
 
-    this.start($target, $functionButtonContainer);
+    this.start($target);
   }
 
-  start($target, $functionButtonContainer) {
-    this.createLineManagerButton($functionButtonContainer);
+  start($target) {
     this.createLineManager($target);
     this.handleLineManagerButton();
-  }
-
-  createLineManagerButton($functionButtonContainer) {
-    const lineManagerButton = document.createElement('button');
-
-    lineManagerButton.id = ID.LINE_MANAGER_BUTTON;
-    lineManagerButton.innerHTML = NAME.LINE_MANAGER_BUTTON_NAME;
-    $functionButtonContainer.appendChild(lineManagerButton);
   }
 
   createLineManager($target) {
     const lineManager = document.createElement('div');
 
     lineManager.id = ID.LINE_MANAGER;
-    lineManager.style.display = 'none';
     $target.appendChild(lineManager);
   }
 
@@ -42,15 +32,15 @@ export default class LineManager {
 
     lineManagerButton.addEventListener('click', () => {
       initialize();
-      this.updateOption();
-      this.showLineManager();
+      this.updateLines();
       this.handleLineAddButton();
     });
   }
-  // TODO: 함수 기능 이름이랑 안맞음.
-  updateOption() {
+
+  updateLines() {
     const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
     this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
+
     lineManager.innerHTML = lineManagerTemplate(this.stations);
     this.createLineTable(lineManager);
   }
@@ -68,11 +58,6 @@ export default class LineManager {
 
     lineTable.innerHTML = lineTableTemplate(this.lines);
     this.handleLineDeleteButton();
-  }
-
-  showLineManager() {
-    const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
-    lineManager.style.display = 'block';
   }
 
   handleLineAddButton() {
