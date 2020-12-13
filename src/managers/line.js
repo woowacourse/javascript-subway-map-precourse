@@ -1,5 +1,5 @@
 import { container, htmlLabel, textLabel } from "../consts/consts.js";
-import { createElement, createLineObject } from "../utils/utils.js";
+import { createElement } from "../utils/utils.js";
 import { lineData } from "../index.js";
 
 const lineAddContainer = createElement("p");
@@ -44,6 +44,7 @@ export const initLineManager = () => {
   initLineSelect();
 
   lineHTMLElements.map((item) => container.appendChild(item));
+  updateTable();
 
   lineAddButtonElement.addEventListener("click", handleLineAddButton);
 };
@@ -65,25 +66,26 @@ const handleLineAddButton = () => {
   const currentLineValue = lineInputElement.value;
   const currentStartValue = lineStartSelect.value;
   const currentEndValue = lineEndSelect.value;
-
+  const deleteButton = createDeleteButton(currentLineValue);
   if (inputValidator(currentLineValue, currentStartValue, currentEndValue)) {
     insertData([
       currentLineValue,
       currentStartValue,
       currentEndValue,
-      createDeleteButton(),
+      deleteButton,
     ]);
+    lineData[currentLineValue] = [currentStartValue, currentEndValue];
     updateLocalStorage();
   }
 };
 
-const createDeleteButton = () => {
+const createDeleteButton = (value) => {
   const lineDeleteButtonObj = createElement("button");
   lineDeleteButtonObj.setAttribute("class", "line-delete-button");
   lineDeleteButtonObj.innerText = textLabel.DELETE;
 
   lineDeleteButtonObj.addEventListener("click", () =>
-    handleLineDeleteButton(currentLineValue)
+    handleLineDeleteButton(value)
   );
 
   return lineDeleteButtonObj;
@@ -91,6 +93,9 @@ const createDeleteButton = () => {
 
 const handleLineDeleteButton = (value) => {
   if (!confirm(textLabel.CONFIRM)) return;
+
+  const index = Object.keys(lineData).indexOf(value);
+  lineTable.deleteRow(index + 1);
 
   delete lineData[value];
   updateLocalStorage();
@@ -102,11 +107,9 @@ const insertData = (dataArray) => {
   for (let i = 0; i < dataArray.length; i++) {
     const cell = row.insertCell(i);
 
-    if (typeof dataArray[i] === "string") cell.innerText = dataArray[i];
-    if (typeof dataArray[i] === "HTMLElement") cell.appendChild(dataArray[i]);
+    if (typeof dataArray[i] === "string") cell.innerHTML = dataArray[i];
+    else cell.appendChild(dataArray[i]);
   }
-
-  lineData[dataArray[0]] = createLineObject(dataArray[1], dataArray[2]);
 };
 
 const inputValidator = (lineName, startStation, endStation) => {
@@ -116,4 +119,20 @@ const inputValidator = (lineName, startStation, endStation) => {
 
 const updateLocalStorage = () => {
   window.localStorage.line = JSON.stringify(lineData);
+};
+
+const updateTable = () => {
+  lineTable.innerHTML = htmlLabel.LINE_TABLE;
+
+  for (let i = 0; i < Object.keys(lineData).length; i++) {
+    const lineName = Object.keys(lineData)[i];
+    const sectionArray = lineData[lineName];
+    const deleteButton = createDeleteButton(lineName);
+    insertData([
+      lineName,
+      sectionArray[0],
+      sectionArray[sectionArray.length - 1],
+      deleteButton,
+    ]);
+  }
 };

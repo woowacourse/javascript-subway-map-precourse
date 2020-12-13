@@ -3,6 +3,7 @@
 ## 구현 세부사항
 - HTML Element를 만들어서 반환해주는 `createElement`
 - 각 기능에 대한 버튼에 함수를 바인딩 해주는 `bindHandler`
+
 - 각 버튼에 대해서 처리할 함수 `handleStationManager`, `handleLineManager`, `handleSectionManager`, `handleMapPrintManager`
 - 기능을 넘어가기 전에 HTML 부분을 비워주는 함수 `clearContainer`
 - 역 관리 기능을 시작할 함수 `initStationManager`
@@ -20,6 +21,7 @@
 - 추가 버튼 클릭 시 데이터를 직접 추가하는 함수 `insertData`
 - 노선 이름과 종점 두개가 유효한 값인지 판단하는 함수 `inputValidator`
 - 노선 관리 기능에서 변경한 사항을 localStorage에 반영해주는 함수 `updateLocalStorage`
+- 노선 관리 기능에 들어왔을 때 이전에 작업한 데이터를 불러오는 함수 `UpdateTable`
 
 ## 🚀 기능 요구사항
 
