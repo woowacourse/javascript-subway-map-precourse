@@ -68,10 +68,7 @@
     "no-new-object": "error",
     "array-bracket-newline": [
       "error",
-      {
-        "multiline": true,
-        "minItems": 2
-      }
+      "consistent"
     ],
     "object-property-newline": "error",
     "lines-between-class-members": "error",
