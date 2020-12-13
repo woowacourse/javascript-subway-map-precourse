@@ -1,5 +1,6 @@
 export default class SubwayMap {
   #allStations = [];
+  #allLines = [];
 
   addStation(station) {
     this.#allStations.push(station);
@@ -11,6 +12,10 @@ export default class SubwayMap {
     );
 
     return isDuplicatedStationName;
+  }
+
+  addLine(line) {
+    this.#allLines.push(line);
   }
 
   deleteStation(stationName) {
