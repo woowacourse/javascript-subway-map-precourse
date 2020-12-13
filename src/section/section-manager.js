@@ -1,6 +1,7 @@
 import SectionOutput from './view/output.js';
 import SectionInput from './view/input.js';
-import Section from './section.js';
+import Line from '/src/line/line.js';
+import LineModel from '../line/model/model.js';
 
 export default class SectionManager {
 	constructor() {
@@ -36,12 +37,15 @@ export default class SectionManager {
 		const sectionStationSelect = document.getElementById('section-station-selector').value;
 		const sectionOrderInput = Number(document.getElementById('section-order-input').value);
 
+		const lines = new LineModel().getLineStorageData();
 		
-	}
+		for (let line of lines) {
+			if (line.lineName === this.selectedLine) {
+				line.lineStations.splice(sectionOrderInput, 0, sectionStationSelect);
+				break;
+			}
+		}
 
-	createSection = (sectionName, startStation, endStation) => {
-		const section = new Section(sectionName, startStation, endStation);
-		
-		return section;
+		new LineModel().setLineStorageData(lines);
 	}
 }

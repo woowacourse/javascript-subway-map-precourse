@@ -33,9 +33,11 @@ export default class SectionOutput {
 		<select id="section-station-selector"></select>
 		<input type="number" id="section-order-input" placeholder="순서"/>
 		<button id="section-add-button">등록</button>
+		<h2>지하철 노선 목록</h2>
 		`;
 
 		this.addStationsToSelectorTag();
+		this.showSelectedLineSectionTable(sectionContainer, selectedLine);
 	}
 
 	addStationsToSelectorTag = () => {
@@ -48,5 +50,32 @@ export default class SectionOutput {
 			option.appendChild(optionText);
 			sectionStationSelector.appendChild(option);
 		}
+	}
+
+	showSelectedLineSectionTable = (sectionContainer, selectedLine) => {
+		const sectionTable = document.createElement('table');
+		sectionTable.innerHTML = 
+		`
+		<tr>
+			<th>순서</th>
+			<th>이름</th>
+			<th>설정</th>
+		</tr>
+		`;
+
+		const lines = new LineModel().getLineStorageData();
+		const line = lines.find(line => line.lineName === selectedLine);
+
+		for (let stationIndex = 0; stationIndex < line.lineStations.length; stationIndex++) {
+			sectionTable.innerHTML += 
+			`
+			<tr>
+				<td>${stationIndex}</td>
+				<td>${line.lineStations[stationIndex]}</td>
+				<td><button class="section-delete-button">노선에서 제거</button></td>
+			</tr>
+			`;
+		}
+		sectionContainer.appendChild(sectionTable);
 	}
 }
