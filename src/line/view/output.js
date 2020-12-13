@@ -58,8 +58,8 @@ export default class LineOutput {
 			`
 			<tr data-lineName=${line.lineName}>
 				<td>${line.lineName}</td>
-				<td>${line.startStation}</td>
-				<td>${line.endStation}</td>
+				<td>${line.lineStations[0]}</td>
+				<td>${line.lineStations[line.lineStations.length - 1]}</td>
 				<td><button class="line-delete-button">삭제</button>
 			</tr>
 			`;

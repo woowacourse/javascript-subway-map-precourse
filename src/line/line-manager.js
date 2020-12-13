@@ -30,11 +30,6 @@ export default class LineManager {
 		new LineModel().setLineStorageData(lines);
 
 		this.lineOutput.showLineTable();
-
-		const defaultSection = new SectionManager().createSection(line.lineName, line.startStation, line.endStation);
-
-		new SectionModel().setSectionStorageData(defaultSection);
-		console.log(defaultSection);
 	}
 
 	createLine = (lineNameInput, lineStartStation, lineEndStation) => {
