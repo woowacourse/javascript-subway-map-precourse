@@ -1,8 +1,11 @@
 import StationManager from "./modules/StationManager.js";
+import LineManager from "./modules/LineManager.js";
 
 const managerButtons = document.querySelectorAll(
   ".manager-button-group button"
 );
+const stationManagerButton = document.querySelector("#station-manager-button");
+const lineManagerButton = document.querySelector("#line-manager-button");
 
 function activeSelectedContainer(container, isSelected) {
   if (isSelected) {
@@ -29,4 +32,5 @@ managerButtons.forEach(managerButton =>
   managerButton.addEventListener("click", handleManagerButton)
 );
 
-new StationManager();
+stationManagerButton.addEventListener("click", () => new StationManager());
+lineManagerButton.addEventListener("click", () => new LineManager());
