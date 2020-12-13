@@ -7,6 +7,7 @@ import {
   createSectionRowHTML,
   insertStationOptionHTML,
 } from "../common/template.js";
+import { convertStringToNumber, isPositiveInteger } from "../common/util.js";
 import { errorMessage } from "../common/error-message.js";
 const {
   INVALID_NUMBER_SECTION_ORDER,
@@ -82,10 +83,23 @@ export default class SectionManager {
     return sectionOrder;
   }
 
+  validateSectionExist(lineName, stationName) {
+    const sectionExist = this.line.findSectionByLineAndStation(lineName, stationName);
+    if (sectionExist) {
+      throw new Error(DUPLICATE_SECTION_STATION);
+    }
+  }
+
   addSection(targetButton) {
-    const targetLine = targetButton.dataset.line;
-    const sectionStation = this.getSectionStationInput();
-    const sectionOrder = this.getSectionOrderInput();
+    try {
+      const targetLine = targetButton.dataset.line;
+      const sectionStation = this.getSectionStationInput();
+      const sectionOrder = this.getSectionOrderInput();
+
+      this.validateSectionExist(targetLine, sectionStation);
+    } catch (error) {
+      alert(error);
+    }
   }
 
   onClickButton(event) {
