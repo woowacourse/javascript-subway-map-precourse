@@ -30,6 +30,7 @@ export const STATION_ALERT_INVALID =
 export const STATION_ALERT_OVERLAP = '이미 추가한 역이에요. 😅';
 export const STATION_ALERT_HAS_LINE =
   '노선에 추가한 역은 삭제할 수 없어요!\n해당 역이 추가된 노선이에요:';
+export const STATION_CONFIRM = '정말로 삭제하시나요?';
 
 // line manager
 export const LINE = 'line';
@@ -47,6 +48,7 @@ export const LINE_ALERT_INVALID =
 export const LINE_ALERT_OVERLAP = '이미 추가한 노선이에요. 😅';
 export const OPTION_ALERT_INVALID =
   '상행 종점과 하행 종점에 들어갈 역은 중복되지 않게 한 번씩만 추가할 수 있어요.';
+export const LINE_CONFIRM = '정말로 해당 호선을 삭제하시나요?';
 
 // section manager
 export const SECTION_MANAGER = 'section-manager';

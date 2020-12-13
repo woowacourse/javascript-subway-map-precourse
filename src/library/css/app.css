@@ -17,6 +17,10 @@ td {
   border: 1px solid #333;
 }
 
+select {
+  width: 80px;
+}
+
 /* role button section */
 .role-button-section > button {
   margin-right: 5px;
@@ -50,10 +54,13 @@ td {
   margin: 15px 0;
 }
 
-#line-name-header,
+#line-name-header {
+  width: 100px;
+}
+
 #line-start-header,
 #line-end-header {
-  width: 100px;
+  width: 140px;
 }
 
 #line-update-header {
@@ -62,6 +69,10 @@ td {
 
 .line-delete-button {
   width: 100%;
+}
+
+.line-row > td {
+  text-align: center;
 }
 
 /* behavior */

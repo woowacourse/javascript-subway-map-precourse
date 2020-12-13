@@ -13,6 +13,7 @@ import {
   STATION_TABLE,
   STATION_ROW,
   STATIONS_LS,
+  STATION_CONFIRM,
 } from '../library/constant/constant.js';
 
 export default class StationManager extends Role {
@@ -100,9 +101,11 @@ export default class StationManager extends Role {
     if (!validator.canDelete(target)) {
       return;
     }
-    this.deleteStation(target);
-    this.renderSelectors();
-    this.initialize();
+    if (confirm(STATION_CONFIRM)) {
+      this.deleteStation(target);
+      this.renderSelectors();
+      this.initialize();
+    }
   }
 
   deleteStation(target) {

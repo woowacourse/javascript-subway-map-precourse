@@ -14,6 +14,7 @@ import {
   LINE_DELETE_BUTTON,
   DELETE_K,
   LINE_ROW,
+  LINE_CONFIRM,
 } from '../library/constant/constant.js';
 import { nodeSelector } from '../util/selector/node_selector.js';
 import LineValidator from '../util/validator/line_validator.js';
@@ -113,8 +114,10 @@ export default class LineManager extends Role {
   onClickDeleteButton(event) {
     const target = event.target.dataset.line;
 
-    this.deleteLine(target);
-    this.initialize();
+    if (confirm(LINE_CONFIRM)) {
+      this.deleteLine(target);
+      this.initialize();
+    }
   }
 
   deleteLine(target) {
