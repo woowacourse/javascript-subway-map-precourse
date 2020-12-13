@@ -24,7 +24,3 @@ export const DOM = {
 
   STATION_MAP: `map`,
 };
-
-export const NUM = {
-  STATION_NAME_LIMIT: 2,
-};
