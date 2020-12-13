@@ -1,10 +1,10 @@
-export class Data {
+import { dataText } from "./text.js"
 
+export class Data {
     // stationRepository 접근 
     static getStationRepository = () => {
-        let stationRepository = JSON.parse(localStorage.getItem("stationRepository"))
+        let stationRepository = JSON.parse(localStorage.getItem(dataText.STATION_REPOSITORY))
         if (stationRepository === null) {
-
             return {};
         }
 
@@ -16,7 +16,7 @@ export class Data {
         let stationRepository = this.getStationRepository();
         stationRepository[station.name] = station;
 
-        return localStorage.setItem("stationRepository", JSON.stringify(stationRepository));
+        return localStorage.setItem(dataText.STATION_REPOSITORY, JSON.stringify(stationRepository));
     }
 
     // stationRepository에 기존 역 제거
@@ -26,15 +26,15 @@ export class Data {
         delete stationRepository[stationName]
 
         if (stationRepository === this.EMPTY_REPOSITORY) {
-            return localStorage.setItem("stationRepository", null)
+            return localStorage.setItem(dataText.STATION_REPOSITORY, null)
         }
 
-        return localStorage.setItem("stationRepository", JSON.stringify(stationRepository));
+        return localStorage.setItem(dataText.STATION_REPOSITORY, JSON.stringify(stationRepository));
     }
 
     // lineRepository에 대한 접근 
     static getLineRepository = () => {
-        let lineRepository = localStorage.getItem("lineRepository");
+        let lineRepository = localStorage.getItem(dataText.LINE_REPOSITORY);
 
         if (lineRepository === null) {
             return {};
@@ -48,7 +48,7 @@ export class Data {
         let lineRepository = this.getLineRepository();
         lineRepository[line.name] = line;
 
-        return localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
+        return localStorage.setItem(dataText.LINE_REPOSITORY, JSON.stringify(lineRepository));
     }
 
     // lineRepository에 기존 line 제거
@@ -59,27 +59,27 @@ export class Data {
         delete lineRepository[lineName]
 
         if (lineRepository === this.EMPTY_REPOSITORY) {
-            return localStorage.setItem("lineRepository", null);
+            return localStorage.setItem(dataText.LINE_REPOSITORY, null);
         }
 
-        return localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
+        return localStorage.setItem(dataText.LINE_REPOSITORY, JSON.stringify(lineRepository));
     }
 
     // 특정line에 새로운 역을 삽입
     static insertStationToLine = (lineName, stationName, order) => {
         let lineRepository = this.getLineRepository();
 
-        lineRepository[lineName]["stationArray"].splice(order, 0, stationName);
+        lineRepository[lineName][dataText.STATION_ARRAY].splice(order, 0, stationName);
 
-        localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
+        localStorage.setItem(dataText.LINE_REPOSITORY, JSON.stringify(lineRepository));
     }
 
     // 특정line에 기존 역을 삭제
     static removeStationFromLine = (lineName, order) => {
         let lineRepository = this.getLineRepository()
 
-        lineRepository[lineName]["stationArray"].splice(order, 1)
+        lineRepository[lineName][dataText.STATION_ARRAY].splice(order, 1)
 
-        localStorage.setItem("lineRepository", JSON.stringify(lineRepository));
+        localStorage.setItem(dataText.LINE_REPOSITORY, JSON.stringify(lineRepository));
     }
 }
