@@ -109,6 +109,7 @@ export default class SectionManager {
     const sectionTable = document.querySelector(`#${ID.SECTION_TABLE}`);
 
     sectionTable.innerHTML = sectionTableTemplate(this.sections);
+    this.handleSectionDeleteButton();
   }
 
   handleSectionAddButton() {
@@ -150,5 +151,43 @@ export default class SectionManager {
       }
     });
     saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
+  }
+
+  handleSectionDeleteButton() {
+    const sectionDeleteButton = document.querySelectorAll(`.${CLASS.SECTION_DELETE_BUTTON}`);
+
+    sectionDeleteButton.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        const index = event.target.parentNode.dataset.index;
+        this.hasValidDeleteSection(index);
+      });
+    });
+  }
+
+  hasValidDeleteSection(index) {
+    if (this.sections.length <= 2) {
+      alert(ALERT.DELETE_ERROR);
+    } else {
+      this.deleteLineToStation(index);
+      this.deleteSection(index);
+    }
+  }
+
+  deleteLineToStation(index) {
+    const deleteStation = this.sections[index];
+
+    this.stations.forEach((station) => {
+      if (station.name === deleteStation) {
+        station.line -= 1;
+      }
+    });
+    saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
+  }
+
+  deleteSection(index) {
+    this.sections.splice(index, 1);
+    this.lines[this.lineIndex].section = this.sections;
+    saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
+    this.render();
   }
 }

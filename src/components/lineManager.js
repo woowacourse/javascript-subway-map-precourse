@@ -122,14 +122,6 @@ export default class LineManager {
     });
   }
 
-  deleteLine(event) {
-    const index = event.target.parentNode.dataset.index;
-
-    this.lines.splice(index, 1);
-    saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
-    this.render();
-  }
-
   deleteLineToStation(event) {
     const index = event.target.parentNode.dataset.index;
     const lineSection = this.lines[index].section;
@@ -140,5 +132,13 @@ export default class LineManager {
       }
     });
     saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
+  }
+
+  deleteLine(event) {
+    const index = event.target.parentNode.dataset.index;
+
+    this.lines.splice(index, 1);
+    saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
+    this.render();
   }
 }

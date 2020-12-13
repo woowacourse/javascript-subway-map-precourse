@@ -133,9 +133,11 @@ const sectionTable = (sections) => {
     .map(
       (section) => `
       <tr>
-        <td>${count++}</td>
+        <td>${count}</td>
         <td>${section}</td>
-        <td><button class='${CLASS.SECTION_DELETE_BUTTON}'>노선에서 제거</button></td>
+        <td data-index='${count++}'><button class='${
+        CLASS.SECTION_DELETE_BUTTON
+      }'>노선에서 제거</button></td>
       </tr>`
     )
     .join('');
