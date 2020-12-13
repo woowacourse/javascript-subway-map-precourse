@@ -1,8 +1,9 @@
 import DeleteStationFromLineValidation from "../../controllers/section/deleteStationFromLineValidation.js";
+import { DELETE_MESSAGE_FROM_LINE } from "../../common/alertMessages.js";
 
-export default (updatedLineName, deletedStationName) => {
-  // check validation
-  console.log("아 씨발 렌더링 왜 안되냐");
+export default (deletedStationName, updatedLineName) => {
+  if (!confirm(DELETE_MESSAGE_FROM_LINE)) return null;
+
   return new Promise((resolve, reject) => {
     resolve(
       console.log(
