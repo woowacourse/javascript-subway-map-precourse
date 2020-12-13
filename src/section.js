@@ -1,7 +1,9 @@
+import Station from "./station.js";
 import Line from "./line.js";
-import { createCustomElement } from "./table.js";
+import { createCustomElement, createSelect } from "./table.js";
 class Section {
   constructor() {
+    this.stations = Station.stations;
     this.lines = Line.lines;
     this.showMenuButton();
     this.resetSection();
@@ -11,6 +13,11 @@ class Section {
     const sectionInput = document.getElementById("sect-main-contents");
     sectionInput.style.display = "none";
     this.showStationSelect();
+  };
+
+  showStationSelect = () => {
+    const select = document.getElementById("section-station-select");
+    createSelect(select, this.stations);
   };
 
   showMenuButton = () => {
