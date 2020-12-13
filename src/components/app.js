@@ -50,7 +50,7 @@ class App extends Component {
         stations: this.#stations,
       });
     } else if (destination === MAP_PRINT_MANAGER) {
-      new MapPrintManager($routerView);
+      new MapPrintManager($routerView, { lines: this.#lines });
     } else if (destination === SECTION_MANAGER) {
       new SectionManager($routerView);
     }
