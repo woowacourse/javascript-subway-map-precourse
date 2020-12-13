@@ -34,11 +34,11 @@ export default class StationManagerEvent extends StationManagerRender {
     super._onClickDeleteTr(e);
 
     const targetTr = e.target.parentNode.parentNode;
-    const targetStation = targetTr.children[0].innerText;
+    const stationName = targetTr.dataset["stationName"];
 
-    this.deleteTrData(targetStation);
+    this.deleteTrData(stationName);
     targetTr.remove();
   }
 
-  deleteTrData(stationInfo) {}
+  deleteTrData(stationName) {}
 }

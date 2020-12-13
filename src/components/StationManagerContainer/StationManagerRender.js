@@ -57,6 +57,7 @@ export default class StationManagerRender extends Component {
       const deleteTd = document.createElement("td");
       const deleteBtn = document.createElement("button");
 
+      tr.dataset.stationName = station;
       tr.innerHTML = `
       <td>${station}</td>
       `;

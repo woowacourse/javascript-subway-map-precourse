@@ -30,9 +30,9 @@ export default class StationManager extends StationManagerEvent {
     this.saveLocalStorageValue(this.localStorageKey, this.stations);
   }
 
-  deleteTrData(stationInfo) {
-    super.deleteTrData(stationInfo);
-    this.stations = this.stations.filter((station) => station !== stationInfo);
+  deleteTrData(stationName) {
+    super.deleteTrData(stationName);
+    this.stations = this.stations.filter((station) => station !== stationName);
     this.saveLocalStorageValue(this.localStorageKey, this.stations);
   }
 }
