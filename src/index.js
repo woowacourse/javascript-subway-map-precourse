@@ -82,7 +82,7 @@ class SubwayMap {
   handleSubmitStationAdd(e) {
     e.preventDefault();
 
-    const name = this.elements.stationNameInput.value;
+    const name = this.elements.stationNameInput.value.trim();
     if (!this.isValidStationName(name)) return;
 
     const station = new Station(name);
@@ -221,7 +221,7 @@ class SubwayMap {
   handleSubmitLineAdd(e) {
     e.preventDefault();
 
-    const name = this.elements.lineNameInput.value;
+    const name = this.elements.lineNameInput.value.trim();
     const startStation = this.getStation(this.elements.lineStartStationSelector.value);
     const endStation = this.getStation(this.elements.lineEndStationSelector.value);
 
