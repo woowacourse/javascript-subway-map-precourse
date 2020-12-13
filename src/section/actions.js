@@ -56,7 +56,7 @@ const createSectionList = () => {
 
   for (let i = 0; i < sections.length; i++) {
     sectionNames.innerHTML += `
-    <tr data-section-index="${i}">
+    <tr data-section-index="${i}" data-section-name="${sections[i]}">
       <td class="section-order">${i}</td>
       <td>${sections[i]}</td>
       ${sectionDeleteBtn}
@@ -99,8 +99,41 @@ const addSection = () => {
   if (isValid(sectionStationName, sectionOrder)) {
     lines
       .find((x) => x.name === sectionLineName)
-      .add(sectionStationName, sectionOrder);
+      .addStation(sectionStationName, sectionOrder);
+    useStation(sectionStationName);
     saveLines(lines);
+  }
+};
+
+const deleteSection = (e) => {
+  if (getSectionLine().lineLength() <= 2) {
+    alert("노선의 구간은 2개 이하 일 수 없습니다.");
+    return;
+  }
+
+  const lines = loadLines();
+
+  lines
+    .find((x) => x.name === sectionLineName)
+    .deleteStation(e.path[2].dataset.sectionIndex);
+  disUseStation(e.path[2].dataset.sectionName);
+  saveLines(lines);
+
+  return true;
+};
+
+const setSectionDeleteBtn = () => {
+  const sectionDeleteBtn = document.getElementsByClassName(
+    "section-delete-button"
+  );
+
+  for (let i = 0; i < sectionDeleteBtn.length; i++) {
+    sectionDeleteBtn[i].addEventListener("click", (e) => {
+      if (deleteSection(e)) {
+        createSectionList();
+        setSectionDeleteBtn();
+      }
+    });
   }
 };
 
@@ -110,6 +143,7 @@ const setSectionAddBtn = () => {
   sectionAddBtn.addEventListener("click", () => {
     addSection();
     createSectionList();
+    setSectionDeleteBtn();
   });
 };
 
@@ -126,6 +160,7 @@ const setSectionLineMenuBtn = () => {
       createSectionStationSelector(loadStations());
       setSectionAddBtn();
       createSectionList();
+      setSectionDeleteBtn();
     });
   }
 };
