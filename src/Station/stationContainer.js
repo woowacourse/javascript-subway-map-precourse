@@ -5,6 +5,7 @@ import {
 import {
   checkDuplicateStation,
   checkEmpty,
+  checkInSection,
   checkLength,
 } from "../validation/index.js";
 import { checkStationList } from "../utils/message.js";
@@ -37,12 +38,18 @@ const removeStation = (event) => {
   const filteredStations = currentStations.filter(
     (station) => station !== targetStation
   );
-  clearStations();
-  saveStations(filteredStations);
+  const isInSection = checkInSection(targetStation);
+  console.log(isInSection);
+  if (isInSection) {
+    alert("노선에 등록된 역은 삭제 할 수 없습니다.");
+  } else {
+    clearStations();
+    saveStations(filteredStations);
+    removeDisplayStation(event);
+  }
 };
 
 const stationRemoveClicked = (event) => {
-  removeDisplayStation(event);
   removeStation(event);
 };
 

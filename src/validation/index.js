@@ -40,3 +40,22 @@ export const checkDuplicateSection = (selectLine, stationName) => {
     return true;
   }
 };
+
+export const checkInSection = (targetStation) => {
+  const lines = loadLines() || [];
+
+  const isInSection = lines.map((line) => {
+    const sections = Object.values(line);
+    const isInLine = sections.map((line) =>
+      line.includes(targetStation) ? true : false
+    );
+
+    return isInLine;
+  });
+
+  const stationInSection = isInSection.map((line) =>
+    line.includes(true) ? true : false
+  );
+
+  return stationInSection.includes(true);
+};
