@@ -22,15 +22,19 @@ const stationTable = stations => {
     ${stationTableHeader}
     ${stations
       .map(
-        station => `<tr>${stationName(station.name)}${stationDeleteButton}</tr>`
+        (station, idx) =>
+          `<tr>${stationName(station.name)}${stationDeleteButton(idx)}</tr>`
       )
       .join('')}
   </table>`;
 };
 
 const stationTableHeader = '<tr><th>역 이름</th><th>설정</th></tr>';
-const stationDeleteButton =
-  '<td><button class="station-delete-button">삭제</button></td>';
+const stationDeleteButton = idx => {
+  return `<td>
+    <button class="station-delete-button" data-item=${idx}>삭제</button>
+  </td>`;
+};
 
 const stationName = name => {
   return `<td>${name}</td>`;
