@@ -1,5 +1,4 @@
 import { getLocalStorageAsArray } from '../util/util-local-storage.js';
-import { EXCEPTION_MESSAGE } from '../configuration.js';
 
 export class Line {
   constructor(name, startPoint, endPoint) {
@@ -11,13 +10,13 @@ export class Line {
     const lineList = getLocalStorageAsArray('line');
 
     if (this.stationList[0] === this.stationList[1]) {
-      return EXCEPTION_MESSAGE['bothStartEndSame'];
+      return 'bothStartEndSame';
     }
     if (this.name.replace(/ /g, '').length == 0) {
-      return EXCEPTION_MESSAGE['lineNameOnlySpace'];
+      return 'lineNameOnlySpace';
     }
     if (lineList?.map((v) => v.name).includes(this.name)) {
-      return EXCEPTION_MESSAGE['lineNameAlreadyExist'];
+      return 'lineNameAlreadyExist';
     }
     return false;
   }

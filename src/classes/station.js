@@ -1,8 +1,5 @@
 import { getLocalStorageAsArray } from '../util/util-local-storage.js';
-import {
-  STATION_NAME_LENGTH_LOW_LIMIT,
-  EXCEPTION_MESSAGE,
-} from '../configuration.js';
+import { STATION_NAME_LENGTH_LOW_LIMIT } from '../configuration.js';
 
 export class Station {
   constructor(name) {
@@ -14,20 +11,20 @@ export class Station {
     const stationList = getLocalStorageAsArray('station');
 
     if (this.name.replace(/ /g, '').length == 0) {
-      return EXCEPTION_MESSAGE['stationNameOnlySpace'];
+      return 'stationNameOnlySpace';
     }
     if (this.name.replace(/ /g, '').length < STATION_NAME_LENGTH_LOW_LIMIT) {
-      return EXCEPTION_MESSAGE['stationNameTooShort'];
+      return 'stationNameTooShort';
     }
     if (stationList?.map((v) => v.name).includes(this.name)) {
-      return EXCEPTION_MESSAGE['stationNameAlreadyExist'];
+      return 'stationNameAlreadyExist';
     }
     return false;
   }
 
   unableToDelete() {
     if (this.lineList.length) {
-      return EXCEPTION_MESSAGE['stationRegisteredToLine'];
+      return 'stationRegisteredToLine';
     }
   }
 
