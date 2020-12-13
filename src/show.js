@@ -7,6 +7,17 @@ class Show {
     this.showLines();
   }
 
+  showLine = name => {
+    const ul = document.createElement("ul");
+    for (let i = 0; i < this.lines[name].length; i++) {
+      const li = document.createElement("li");
+      li.innerHTML = this.lines[name][i];
+      ul.appendChild(li);
+    }
+
+    return ul;
+  };
+
   showLines = () => {
     const previewContainer = document.getElementById("station-line");
     for (let i = 0; i < Object.keys(this.lines).length; i++) {
