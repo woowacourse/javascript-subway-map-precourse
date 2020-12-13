@@ -1,6 +1,8 @@
 class Station {
   constructor() {
     this.storage = window.localStorage;
+
+    this.DELETE_ITEM_COUNT = 1;
   }
 
   getAllStations() {
@@ -18,7 +20,7 @@ class Station {
     const allStations = this.getAllStations();
     allStations.push(stationName);
 
-    this.storage.setItem(`stations`, allStations);
+    this.storage.setItem("stations", allStations);
   }
 
   hasSameName(newStationName) {
@@ -27,6 +29,15 @@ class Station {
     const hasSameName = duplicates.length;
 
     return hasSameName;
+  }
+
+  deleteStation(stationName) {
+    const allStations = this.getAllStations();
+    const index = allStations.indexOf(stationName);
+
+    allStations.splice(index, this.DELETE_ITEM_COUNT);
+
+    this.storage.setItem("stations", allStations);
   }
 }
 

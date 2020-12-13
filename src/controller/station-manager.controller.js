@@ -1,7 +1,7 @@
 import station from "../service/station.service.js";
 import { createStationTableRowHTML } from "../common/template.js";
 import { errorMessage } from "../common/error-message.js";
-const { INVALID_LENGTH_STATION_NAME, DUPLICATE_STAION_NAME } = errorMessage;
+const { INVALID_LENGTH_STATION_NAME, DUPLICATE_STAION_NAME, CONFIRM_DELETE } = errorMessage;
 export default class StationManager {
   constructor() {
     this.station = station;
@@ -58,6 +58,13 @@ export default class StationManager {
       alert(error);
       this.resetStationNameInput();
     }
+  }
+
+  deleteStation(targetButton) {
+    const targetRow = targetButton.parentNode.parentNode;
+    const targetStation = targetRow.dataset.station;
+
+    this.station.deleteStation(targetStation);
   }
 
   onClickButton(event) {
