@@ -125,8 +125,8 @@ export default class SubwayMapLineView {
     const lineThead = `
       <tr>
         <th>${message.LINE_NAME}</th>
-        <th>${message.START_STATION}</th>
-        <th>${message.END_STATION}</th>
+        <th>${message.START_STATION}역</th>
+        <th>${message.END_STATION}역</th>
         <th>${message.OPTION}</th>
       </tr>
     `;

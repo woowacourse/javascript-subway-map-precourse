@@ -1,23 +1,4 @@
-class MapPrintViewEventDelegation {
-  constructor(element, mapPrintView, subwayMapViewModel) {
-    this.mapPrintView = mapPrintView;
-    this.subwayMapViewModel = subwayMapViewModel;
-    element.addEventListener('click', this.onClick.bind(this));
-  }
-
-  onClick(event) {
-    let dataSet = event.target.dataset;
-
-    if (dataSet.purpose) {
-      this[dataSet.purpose](dataSet);
-    }
-  }
-
-  mapPrintManager() {
-    this.mapPrintView.resetManagerContainer();
-    this.mapPrintView.renderMapPrintManager();
-  }
-}
+import { MapPrintViewEventDelegator } from '../../eventDelegators';
 
 export default class SubwayMapMapPrintView {
   constructor(subwayMapViewModel, managerContainer, mapPrintManagerButton) {
@@ -25,7 +6,7 @@ export default class SubwayMapMapPrintView {
     this.managerContainer = managerContainer;
     this.mapPrintManagerButton = mapPrintManagerButton;
 
-    new MapPrintViewEventDelegation(
+    new MapPrintViewEventDelegator(
       this.mapPrintManagerButton,
       this,
       this.subwayMapViewModel,
