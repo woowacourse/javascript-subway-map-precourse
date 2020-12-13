@@ -83,6 +83,11 @@ export default class SectionManager {
     return sectionOrder;
   }
 
+  resetSectionOrderInput() {
+    const sectionOrderInputField = document.getElementById("section-order-input");
+    sectionOrderInputField.value = "";
+  }
+
   validateSectionExist(lineName, stationName) {
     const sectionExist = this.line.findSectionByLineAndStation(lineName, stationName);
     if (sectionExist) {
@@ -114,7 +119,9 @@ export default class SectionManager {
       this.validateSectionOrder(targetLine, sectionOrder);
 
       this.line.addSection(targetLine, sectionStation, sectionOrder);
+      this.renderSectionTable(targetLine);
     } catch (error) {
+      this.resetSectionOrderInput();
       alert(error);
     }
   }
