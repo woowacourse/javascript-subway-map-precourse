@@ -81,8 +81,50 @@ export default class StationManager extends Component {
 
   handleStationAdd() {
     const newStationName = this.$stationNameInput.value;
-    this.addNewStationName(newStationName);    
-    clearInputValue(this.$stationNameInput);
+    if (this.isValidStationName(newStationName)) {
+      this.addNewStationName(newStationName);    
+      clearInputValue(this.$stationNameInput);
+    }
+  }
+
+  isValidStationName(stationNameUserInput) {
+    try {
+      this.validateUniqueStationName(stationNameUserInput);
+      this.validateStationNameLength(stationNameUserInput);
+
+      return true;
+    } catch (error) {
+      this.controlStationNameError(stationNameUserInput, error);
+
+      return false;      
+    }
+  }
+
+  validateUniqueStationName(stationNameUserInput) {
+    const { stationName } = this.state;
+
+    if (stationName.includes(stationNameUserInput)) {
+      throw new Error("중복된 지하철 역 이름은 등록될 수 없습니다.");
+    }
+  }
+
+  validateStationNameLength(stationNameUserInput) {
+    const MIN_STATION_NAME_LENGTH = 2;
+
+    if (stationNameUserInput.length < MIN_STATION_NAME_LENGTH) {
+      throw new Error("지하철 역은 2글자 이상이어야 합니다.");
+    }
+  }
+
+  controlStationNameError(stationNameUserInput, error) {
+    const alertMessage = [
+      `입력된 지하철 역 이름: ${stationNameUserInput}`,
+      `${error.message}`,
+      `다시 입력해주세요`
+    ].join("\n");
+
+    alert(alertMessage);
+    clearInputValue(stationNameUserInput);
   }
 
   addNewStationName(newStationName) {
