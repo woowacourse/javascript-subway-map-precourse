@@ -30,7 +30,7 @@ export const initStationManager = () => {
   stationAddButtonElement.addEventListener("click", handleStationAddButton);
 };
 
-export const handleStationAddButton = () => {
+const handleStationAddButton = () => {
   const currentValue = stationInputElement.value;
   if (inputValidator(currentValue)) {
     stationArray.push(currentValue);
@@ -47,7 +47,7 @@ export const handleStationAddButton = () => {
   }
 };
 
-export const handleStationDeleteButton = (value) => {
+const handleStationDeleteButton = (value) => {
   if (!confirm("정말로 삭제하시겠습니까?")) return;
 
   const index = stationArray.indexOf(value);
@@ -57,7 +57,7 @@ export const handleStationDeleteButton = (value) => {
   updateStationData();
 };
 
-export const insertTable = (data_1, data_2) => {
+const insertTable = (data_1, data_2) => {
   const row = stationTable.insertRow(-1);
   const cell_1 = row.insertCell(0);
   const cell_2 = row.insertCell(1);
