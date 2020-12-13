@@ -93,7 +93,7 @@ export default class LineManagerUI extends contentsUI {
       <td>
         <button class="${LINE_DELETE_BUTTON_CLASS}" data-name="${name}">삭제</button>
       </td>
-    <tr>
+    </tr>
     `;
   }
   makeSelectorInnerHTML_() {

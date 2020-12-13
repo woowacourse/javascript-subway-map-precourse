@@ -152,7 +152,7 @@ class SectionRegisterUI extends contentsUI {
       <td>
         <button class="${SECTION_DELETE_BUTTON_CLASS}" data-name="${name}">노선에서 제거</button>
       </td>
-    <tr>
+    </tr>
     `;
   }
 }
