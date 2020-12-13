@@ -73,7 +73,7 @@ export default class SubwayMapSectionView {
     const sectionSelector = this.renderSectionSelector(
       Object.entries(this.subwayMapViewModel.getStations()),
     );
-    const sectionOrderInput = `<input id="#section-order-input"></input>`;
+    const sectionOrderInput = `<input id="#section-order-input" type="number"></input>`;
     const sectionAddButton = `<button id="#section-add-button" data-lineid="${line.lineId}" data-purpose="addSection">${message.ADD}</button>`;
     document.getElementById(
       '#section-selected-line-manager-container',

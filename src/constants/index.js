@@ -27,6 +27,7 @@ const message = {
   ALERT_FOR_BETWEEN_STATION_AND_STATION:
     '역과 역 사이에 새로운 역을 추가해주세요.',
   ALERT_FOR_STATION_IS_IN_LINE: '노선에 중복된 역을 추가할 수 없습니다.',
+  ALERT_FOR_NOT_A_NUMBER: '숫자를 입력해주세요.',
 };
 
 export { message };
