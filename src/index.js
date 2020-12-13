@@ -15,8 +15,8 @@ export const lineInstance = new Line();
 
 export function onChangeScreen(e) {
   hideScreen();
-  showScreen(e);
   loadScreen(e.target.id);
+  showScreen(e);
 }
 
 const loadScreen = (buttonId) => {
