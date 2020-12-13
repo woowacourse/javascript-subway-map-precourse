@@ -2,6 +2,9 @@ import StationInput from '../view/input.js';
 import StationOutput from '../view/output.js';
 import Station from '../station.js';
 import StationModel from '../model/model.js';
+import LineModel from '../../line/model/model.js';
+import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
+import {isStationOnLine} from '../service/validation.js';
 
 export default class StationController {
 	constructor() {
@@ -13,31 +16,34 @@ export default class StationController {
 	}
 
 	setStationInputHandler = () => {
-		this.stationInput.stationAddButton.addEventListener('click', this.getStationInputName);	
+		this.stationInput.stationAddButton.addEventListener('click', this.addStation);	
 	}
 
-	getStationInputName = () => {
+	addStation = () => {
+		const station = this.createStation();
+		
+		this.addStationToMemory(station);
+		this.addStationToTable();
+	}
+
+	createStation = () => {
 		const stationName = this.stationInput.stationNameInput.value;
-
-		this.addStation(stationName);
-	}
-
-	addStation = stationName => {
-		const station = this.createStation(stationName);
-		const stations = new StationModel().getStationStorageData();
-		
-		stations[station['stationName']] = station['onLine'];
-		
-		new StationModel().setStationStorageData(stations);
-
-		this.stationOutput.showStationTable();
-		this.setStationDeleteButtonHandler();
-	}
-
-	createStation = stationName => {
 		const station = new Station(stationName);
 
 		return station;
+	}
+
+	addStationToMemory = station => {
+		const stations = new StationModel().getStationStorageData();
+
+		stations[station['stationName']] = station['stationName'];
+		
+		new StationModel().setStationStorageData(stations);
+	}
+
+	addStationToTable = () => {
+		this.stationOutput.showStationTable();
+		this.setStationDeleteButtonHandler();
 	}
 
 	setStationDeleteButtonHandler = () => {
@@ -50,17 +56,19 @@ export default class StationController {
 	}
 
 	deleteStation = event => {
-		const checkDelete = confirm('정말로 삭제하시겠습니까?');
-		
-		if (checkDelete === false) {
+		const tableRowToDelete = event.target.parentNode.parentNode;
+		const stationNameToDelete = tableRowToDelete.dataset.stationname;
+		const lines = new LineModel().getLineStorageData();
+
+		if (isStationOnLine(lines, stationNameToDelete) || isUnconfirmedDelete()) {
 			return;
 		}
 
-		const tableRowToDelete = event.target.parentNode.parentNode;
-		const stationNameToDelete = tableRowToDelete.dataset.stationname;
-
+		this.deleteStationFromMemory(stationNameToDelete);
 		tableRowToDelete.remove();
+	}
 
+	deleteStationFromMemory = stationNameToDelete => {
 		const stations = new StationModel().getStationStorageData();
 
 		delete stations[stationNameToDelete];

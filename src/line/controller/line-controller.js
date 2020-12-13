@@ -2,6 +2,7 @@ import LineInput from '../view/input.js';
 import LineOutput from '../view/output.js';
 import Line from '../line.js';
 import LineModel from '../model/model.js';
+import {isUnconfirmedDelete} from '/src/shared/service/confirmation.js';
 
 export default class LineController {
 	constructor() {
@@ -17,24 +18,33 @@ export default class LineController {
 	}
 
 	addLine = () => {
+		const line = this.createLine();
+
+		this.addLineToMemory(line);
+		this.addLineToTable();
+	}
+
+	createLine = () => {
 		const lineNameInput = this.lineInput.lineNameInput.value;
 		const lineStartStation = this.lineInput.lineStartStationSelector.value;
 		const lineEndStation = this.lineInput.lineEndStationSelector.value;
-		const line = this.createLine(lineNameInput, lineStartStation, lineEndStation);
+
+		const line = new Line(lineNameInput, lineStartStation, lineEndStation);
+
+		return line;
+	}
+
+	addLineToMemory = line => {
 		const lines = new LineModel().getLineStorageData();
 
 		lines[line['lineName']] = line['lineStations'];
 
 		new LineModel().setLineStorageData(lines);
-
-		this.lineOutput.showLineTable();
-		this.setLineDeleteButtonHandler();
 	}
 
-	createLine = (lineNameInput, lineStartStation, lineEndStation) => {
-		const line = new Line(lineNameInput, lineStartStation, lineEndStation);
-
-		return line;
+	addStationToTable = () => {
+		this.lineOutput.showLineTable();
+		this.setLineDeleteButtonHandler();
 	}
 
 	setLineDeleteButtonHandler = () => {
@@ -47,17 +57,18 @@ export default class LineController {
 	}
 
 	deleteLine = event => {
-		const checkDelete = confirm('정말로 삭제하시겠습니까');
-
-		if (checkDelete === false) {
-			return;
-		}
-
 		const tableRowToDelete = event.target.parentNode.parentNode;
 		const lineNameToDelete = tableRowToDelete.dataset.linename;
 		
+		if (isUnconfirmedDelete()) {
+			return;
+		}
+		
+		this.deleteLineFromMemory(lineNameToDelete);
 		tableRowToDelete.remove();
+	}
 
+	deleteLineFromMemory = lineNameToDelete => {
 		const lines = new LineModel().getLineStorageData();
 
 		delete lines[lineNameToDelete];

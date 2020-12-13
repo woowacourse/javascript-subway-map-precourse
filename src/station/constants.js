@@ -1,0 +1,1 @@
+export const STATION_ON_LINE_ALERT_MESSAGE = '노선에 이미 등록되어 삭제할 수 없습니다.';
