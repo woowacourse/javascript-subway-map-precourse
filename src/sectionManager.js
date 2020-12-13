@@ -150,6 +150,7 @@ const createResultArea = line => {
       const nameData = document.createElement('td');
       nameData.innerHTML = station;
       const deleteBtn = document.createElement('button');
+      deleteBtn.setAttribute('class', 'section-delete-button');
       deleteBtn.innerHTML = '노선에서 제거';
       deleteBtn.addEventListener('click', () => deleteStation(station, line));
 

@@ -157,6 +157,7 @@ const createResultArea = () => {
       const downwardEndData = document.createElement('td');
       downwardEndData.innerHTML = stations[stations.length - 1];
       const deleteBtn = document.createElement('button');
+      deleteBtn.setAttribute('class', 'line-delete-button');
       deleteBtn.innerHTML = '삭제';
       deleteBtn.addEventListener('click', () => deleteLine(line));
 
@@ -184,6 +185,7 @@ const addTable = (lineName, start, end) => {
   const downwardEndData = document.createElement('td');
   downwardEndData.innerHTML = end;
   const deleteBtn = document.createElement('button');
+  deleteBtn.setAttribute('class', 'line-delete-button');
   deleteBtn.innerHTML = '삭제';
   deleteBtn.addEventListener('click', () => deleteLine(lineName));
 
@@ -201,7 +203,7 @@ const deleteLine = lineName => {
     const currLines = JSON.parse(localStorage.getItem('lines'));
     delete currLines[lineName];
     localStorage.setItem('lines', JSON.stringify(currLines));
-    console.log(JSON.parse(localStorage.getItem('lines')));
+    // console.log(JSON.parse(localStorage.getItem('lines')));
     const rowToBeDeleted = lineTable.querySelector(`[data-line=_${lineName}]`);
     lineTable.removeChild(rowToBeDeleted);
   }
