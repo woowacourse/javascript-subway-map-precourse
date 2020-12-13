@@ -4,45 +4,32 @@ import {hideScreen, hideSectionLine} from './View/hide-screen.js';
 import {showScreen, showSectionScreen} from './View/show-screen.js';
 import {
   addStationSelectOption,
-  addLineScreen,
   addSectionScreen,
   addSectionButton,
   addLineTitle,
   addMapPrint,
 } from './View/add-screen.js';
 import {
-  removeLineScreen,
   removeTableScreen,
   removeSectionButton,
   removeOption,
   removeMapPrint,
 } from './View/remove-screen.js';
 import {
-  $upStream,
-  $downStream,
-  $lineNameInput,
   $sectionStation,
-  $lineContainer,
   $sectionNumber,
   $sectionLineSelect,
   $sectionAddButton,
   $sectionContainer,
-  $upStreamOption,
-  $downStreamOption,
   $sectionOption,
 } from './View/input.js';
+import {isSectionValid, isMoreThanTwoStation} from './Controller/valid.js';
 import {
-  isLineInputValid,
-  isSectionValid,
-  isMoreThanTwoStation,
-} from './Controller/valid.js';
-import {
-  setLocalStorage,
   addSectionOnLocalStorage,
-  removeLocalStorage,
   removeSectionOnLocalStorage,
 } from './Controller/local-storage.js';
 import {loadStation} from './Controller/station-control.js';
+import {loadLine} from './Controller/line-control.js';
 
 export const stationInstance = new Station();
 export const lineInstance = new Line();
@@ -61,25 +48,6 @@ export function onChangeScreen(e) {
   }
   if (e.target.id === 'map-print-manager-button') {
     return loadMapPrint();
-  }
-}
-
-export function onAddLine() {
-  const lineValue = getLineValue();
-  if (isLineInputValid(lineValue, lineInstance.lines)) {
-    setLocalStorage('line', lineValue);
-    lineInstance.addLine(lineValue);
-    addLineScreen(lineValue);
-  }
-  $lineNameInput.value = '';
-}
-
-export function onRemoveLine(e) {
-  const removeConfirm = confirm('정말로 삭제하시겠습니까?');
-  if (removeConfirm) {
-    removeLocalStorage('line', e.target.dataset.line);
-    lineInstance.removeLine(e.target.dataset.line);
-    removeLineScreen(e.target);
   }
 }
 
@@ -114,20 +82,6 @@ export function onRemoveSection(e) {
   }
 }
 
-export const loadLine = () => {
-  removeTableScreen($lineContainer);
-  removeOption($upStreamOption);
-  removeOption($downStreamOption);
-  lineInstance.loadLine();
-  stationInstance.stations.forEach((station) => {
-    addStationSelectOption($upStream, station);
-    addStationSelectOption($downStream, station);
-  });
-  lineInstance.lines.forEach((line) => {
-    addLineScreen(line);
-  });
-};
-
 export const loadSectionTable = () => {
   removeTableScreen($sectionContainer);
   removeOption($sectionOption);
@@ -152,13 +106,6 @@ export const loadMapPrint = () => {
   removeMapPrint();
   lineInstance.loadLine();
   addMapPrint(lineInstance.lines);
-};
-
-const getLineValue = () => {
-  return {
-    lineName: $lineNameInput.value,
-    station: [$upStream.value, $downStream.value],
-  };
 };
 
 const getSectionValue = (lineName) => {
