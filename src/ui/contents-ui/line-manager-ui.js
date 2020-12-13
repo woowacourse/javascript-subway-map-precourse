@@ -70,7 +70,7 @@ export default class LineManagerUI extends contentsUI {
   }
   _isValidLineInput(lineName, startStationName, endStationName) {
     const condition1 = isValidLine(lineName, startStationName, endStationName);
-    const condition2 = this._stationINFOManager.isNotOverlapNameInLinesArray(
+    const condition2 = this._stationINFOManager.hasNotOverlapNameAmongLines(
       lineName
     );
     const condition3 = isValidOption([startStationName, endStationName]);

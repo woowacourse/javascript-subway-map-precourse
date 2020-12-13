@@ -66,7 +66,7 @@ class SectionRegisterUI extends contentsUI {
   }
   updateLineStationsTable() {
     const table = document.getElementById(SECTION_REGISTER_TABLE_ID);
-    const myLine = this._stationINFOManager.getAllLineByCondition((line) => {
+    const myLine = this._stationINFOManager.getAllLinesByCondition((line) => {
       return line.name === this._lineName;
     })[0];
     let tableInnerHTML = TABLE_HEADER_TEMPLATE;

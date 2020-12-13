@@ -55,7 +55,7 @@ export default class StationManagerUI extends contentsUI {
   }
   _isValidStationInput(name) {
     const condition1 = isValidStation(name);
-    const condition2 = this._stationINFOManager.isNotOverlapNameInStationsArray(
+    const condition2 = this._stationINFOManager.hasNotOverlapNameAmongStations(
       name
     );
     let boolToReturn = true;

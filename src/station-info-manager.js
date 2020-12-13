@@ -19,18 +19,16 @@ export default class StationINFOManager {
       name: lineName,
       stationsOfLine: [startStationName, endStationName],
     };
-    const startStation = this.getOneStationINFOByName(startStationName);
-    const endStation = this.getOneStationINFOByName(endStationName);
+    const startStation = this.getOneStationByName(startStationName);
+    const endStation = this.getOneStationByName(endStationName);
     this._lines.push(newLine);
     startStation.linesOfStation.add(lineName);
     endStation.linesOfStation.add(lineName);
     this._saveAllToLocalStorage();
   }
   registerStationToLine(lineName, orderToRegister, stationName) {
-    const targetLine = this.getOneLineByCondition((line) => {
-      return line.name === lineName;
-    });
-    const targetStation = this.getOneStationINFOByName(stationName);
+    const targetLine = this.getOneLineByName(lineName);
+    const targetStation = this.getOneStationByName(stationName);
     targetLine.stationsOfLine.splice(orderToRegister, 0, stationName);
     targetStation.linesOfStation.add(lineName);
     this._saveAllToLocalStorage();
@@ -61,9 +59,7 @@ export default class StationINFOManager {
     this._saveAllToLocalStorage();
   }
   deleteSection(targetStationName, targetLineName) {
-    const targetLine = this.getOneLineByCondition((line) => {
-      return line.name === targetLineName;
-    });
+    const targetLine = this.getOneLineByName(targetLineName);
     if (targetLine.stationsOfLine.length <= MINIMUM_NUMBER__stationsOF_LINE) {
       alert(NOT_MINIMUM_NUMBER__stationsOF_LINE_ERROR_MESSAGE);
       return;
@@ -79,15 +75,7 @@ export default class StationINFOManager {
     });
     return stationNames;
   }
-  getOneStationINFOByCondition(condition) {
-    for (let station of this._stations) {
-      if (condition(station)) {
-        return station;
-      }
-    }
-    return -1;
-  }
-  getOneStationINFOByName(name) {
+  getOneStationByName(name) {
     for (let station of this._stations) {
       if (station.name === name) {
         return station;
@@ -122,15 +110,7 @@ export default class StationINFOManager {
     }
     return -1;
   }
-  getOneLineByCondition(condition) {
-    for (let line of this._lines) {
-      if (condition(line)) {
-        return line;
-      }
-    }
-    return -1;
-  }
-  getAllLineByCondition(condition) {
+  getAllLinesByCondition(condition) {
     const returnlines = [];
     this._lines.forEach((line) => {
       if (condition(line)) {
@@ -139,14 +119,14 @@ export default class StationINFOManager {
     });
     return returnlines;
   }
-  isNotOverlapNameInStationsArray(inputName) {
+  hasNotOverlapNameAmongStations(inputName) {
     const isValid = this._isNotOverlapName(this._stations, inputName);
     if (!isValid) {
       alert(OVERLAP_STATION_ERROR_MESSAGE);
     }
     return isValid;
   }
-  isNotOverlapNameInLinesArray(inputName) {
+  hasNotOverlapNameAmongLines(inputName) {
     const isValid = this._isNotOverlapName(this._lines, inputName);
     if (!isValid) {
       alert(OVERLAP_LINE_ERROR_MESSAGE);
@@ -185,9 +165,7 @@ export default class StationINFOManager {
     return overlapIndex === -1;
   }
   _deleteLineInStation(targetStationName, targetLineName) {
-    const targetStation = this.getOneStationINFOByCondition((station) => {
-      return station.name === targetStationName;
-    });
+    const targetStation = this.getOneStationByName(targetStationName);
     targetStation.linesOfStation.delete(targetLineName);
   }
   _deleteStationInLine(targetStationName, targetLineName) {
@@ -202,7 +180,7 @@ export default class StationINFOManager {
   _deleteLineInAllStations(lineToDelete) {
     const { name, stationsOfLine } = lineToDelete;
     stationsOfLine.forEach((stationName) => {
-      const targetStation = this.getOneStationINFOByName(stationName);
+      const targetStation = this.getOneStationByName(stationName);
       targetStation.linesOfStation.delete(name);
     });
   }
