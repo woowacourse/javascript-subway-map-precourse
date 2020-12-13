@@ -7,11 +7,7 @@ export default class SubwayMapLineView {
     this.subwayMapViewModel = subwayMapViewModel;
     this.lineManagerButton = lineManagerButton;
 
-    new LineViewEventDelegator(
-      lineManagerButton,
-      this,
-      this.subwayMapViewModel,
-    );
+    new LineViewEventDelegator(lineManagerButton, this, this.subwayMapViewModel);
   }
 
   resetManagerContainer() {
@@ -42,12 +38,8 @@ export default class SubwayMapLineView {
       <div id="line-input-container"></div>
     `;
     this.renderLineNameInput();
-    this.renderStartStationSelector(
-      Object.entries(this.subwayMapViewModel.getStations()),
-    );
-    this.renderEndStationSelector(
-      Object.entries(this.subwayMapViewModel.getStations()),
-    );
+    this.renderStartStationSelector(Object.entries(this.subwayMapViewModel.getStations()));
+    this.renderEndStationSelector(Object.entries(this.subwayMapViewModel.getStations()));
     this.renderLineAddButton();
   }
 
@@ -106,11 +98,9 @@ export default class SubwayMapLineView {
   }
 
   renderLineTable(lines) {
-    document.getElementById(
-      '#line-table-container',
-    ).innerHTML += this.combineTheadTbody(
+    document.getElementById('#line-table-container').innerHTML += this.combineTheadTbody(
       this.getLineThead(),
-      this.getLineTbody(lines),
+      this.getLineTbody(lines).join(''),
     );
   }
 
@@ -124,7 +114,7 @@ export default class SubwayMapLineView {
   }
 
   getLineThead() {
-    const lineThead = `
+    return `
       <tr>
         <th>${message.LINE_NAME}</th>
         <th>${message.START_STATION}역</th>
@@ -132,29 +122,29 @@ export default class SubwayMapLineView {
         <th>${message.OPTION}</th>
       </tr>
     `;
-
-    return lineThead;
   }
 
   getLineTbody(lines) {
-    let lineTbody = ``;
-    lines.forEach(line => {
-      lineTbody += `
-      <tr>
-        <td>${line[0]}</td>
-        <td>${line[1].sections[0].stationId}</td>
-        <td>${line[1].sections[line[1].sections.length - 1].stationId}
-        <td>
-          <button data-lineid="${
-            line[0]
-          }" data-purpose="deleteLine" class=".line-delete-button">${
-        message.OPTION_DELETE
-      }</button>
-        </td>
-      </tr>
-    `;
-    });
+    return lines
+      .map(line => {
+        return this.getLineTbodyTr(line);
+      })
+      .join('');
+  }
 
-    return lineTbody;
+  getLineTbodyTr(line) {
+    const [lineId, lineInstance] = line;
+    return `
+    <tr>
+      <td>${lineId}</td>
+      <td>${lineInstance.sections[0].stationId}</td>
+      <td>${lineInstance.sections[lineInstance.sections.length - 1].stationId}
+      <td>
+        <button data-lineid="${line[0]}" data-purpose="deleteLine" class=".line-delete-button">${
+      message.OPTION_DELETE
+    }</button>
+      </td>
+    </tr>
+  `;
   }
 }

@@ -7,11 +7,7 @@ export default class SubwayMapStationView {
     this.managerContainer = managerContainer;
     this.stationManagerButton = stationManagerButton;
 
-    new StationViewEventDelegator(
-      this.stationManagerButton,
-      this,
-      this.subwayMapViewModel,
-    );
+    new StationViewEventDelegator(this.stationManagerButton, this, this.subwayMapViewModel);
   }
 
   resetManagerContainer() {
@@ -54,17 +50,13 @@ export default class SubwayMapStationView {
       <div id="#station-table-container"></div>
     `;
 
-    this.renderStationTable(
-      Object.entries(this.subwayMapViewModel.getStations()),
-    );
+    this.renderStationTable(Object.entries(this.subwayMapViewModel.getStations()));
   }
 
   renderStationTable(stations) {
-    document.getElementById(
-      '#station-table-container',
-    ).innerHTML += this.combineTheadTbody(
+    document.getElementById('#station-table-container').innerHTML += this.combineTheadTbody(
       this.getStationThead(),
-      this.getStationTbody(stations),
+      this.getStationTbody(stations).join(''),
     );
   }
 
@@ -78,29 +70,29 @@ export default class SubwayMapStationView {
   }
 
   getStationThead() {
-    const stationThead = `
+    return `
       <tr>
         <th>${message.STATION_NAME}</th>
         <th>${message.OPTION}</th>
       </tr>
-    `;
-
-    return stationThead;
+      `;
   }
 
   getStationTbody(stations) {
-    let stationTbody = ``;
-    stations.forEach(station => {
-      stationTbody += `
-      <tr>
-        <td>${station[0]}</td>
-        <td>
-          <button class=".station-delete-button" data-stationid="${station[0]}" data-purpose="deleteStation">${message.OPTION_DELETE}</button>
-        </td>
-      </tr>
-    `;
+    return stations.map(station => {
+      const [stationId] = station;
+      return this.getSectionTbodyTr(stationId);
     });
+  }
 
-    return stationTbody;
+  getSectionTbodyTr(stationId) {
+    return `
+    <tr>
+      <td>${stationId}</td>
+      <td>
+        <button class=".station-delete-button" data-stationid="${stationId}" data-purpose="deleteStation">${message.OPTION_DELETE}</button>
+      </td>
+    </tr>
+  `;
   }
 }

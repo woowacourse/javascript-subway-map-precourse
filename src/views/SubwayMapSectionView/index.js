@@ -7,11 +7,7 @@ export default class SubwayMapSectionView {
     this.managerContainer = managerContainer;
     this.sectionManagerButton = sectionManagerButton;
 
-    new SectionViewEventDelegator(
-      sectionManagerButton,
-      this,
-      this.subwayMapViewModel,
-    );
+    new SectionViewEventDelegator(sectionManagerButton, this, this.subwayMapViewModel);
   }
 
   resetManagerContainer() {
@@ -19,9 +15,7 @@ export default class SubwayMapSectionView {
   }
 
   renderSectionManager() {
-    this.renderLineMenuButtons(
-      Object.entries(this.subwayMapViewModel.getLines()),
-    );
+    this.renderLineMenuButtons(Object.entries(this.subwayMapViewModel.getLines()));
     this.renderSelectedLineSectionManagerContainer();
 
     new SectionViewEventDelegator(
@@ -63,9 +57,7 @@ export default class SubwayMapSectionView {
   }
 
   resetSelectedLineSectionManagerContainer() {
-    document.getElementById(
-      '#section-selected-line-manager-container',
-    ).innerHTML = '';
+    document.getElementById('#section-selected-line-manager-container').innerHTML = '';
   }
 
   renderSelectedLineSectionManager(line) {
@@ -74,9 +66,7 @@ export default class SubwayMapSectionView {
     );
     const sectionOrderInput = `<input id="#section-order-input" type="number" placeholder=${message.SECTION_INPUT_PLACEHOLDER}></input>`;
     const sectionAddButton = `<button id="#section-add-button" data-lineid="${line.lineId}" data-purpose="addSection">${message.ADD}</button>`;
-    document.getElementById(
-      '#section-selected-line-manager-container',
-    ).innerHTML += `
+    document.getElementById('#section-selected-line-manager-container').innerHTML += `
         <h3>${line.lineId} ${message.LINE_MANAGING}</h3>
         <p>${message.ADD_SECTION}</p>
         ${sectionSelector}
@@ -84,10 +74,7 @@ export default class SubwayMapSectionView {
         ${sectionAddButton}
     `;
     this.renderSectionTableContainer();
-    this.renderSectionTable(
-      line.lineId,
-      this.subwayMapViewModel.getSections(line.lineId),
-    );
+    this.renderSectionTable(line.lineId, this.subwayMapViewModel.getSections(line.lineId));
   }
 
   renderSectionSelector(sections) {
@@ -108,9 +95,7 @@ export default class SubwayMapSectionView {
   }
 
   renderSectionTableContainer() {
-    document.getElementById(
-      '#section-selected-line-manager-container',
-    ).innerHTML += `
+    document.getElementById('#section-selected-line-manager-container').innerHTML += `
       <div id="#section-table-container"></div>
     `;
   }
@@ -120,11 +105,9 @@ export default class SubwayMapSectionView {
   }
 
   renderSectionTable(lineId, sections) {
-    document.getElementById(
-      '#section-table-container',
-    ).innerHTML += this.combineTheadTbody(
+    document.getElementById('#section-table-container').innerHTML += this.combineTheadTbody(
       this.getSectionThead(),
-      this.getSectionTbody(lineId, sections),
+      this.getSectionTbody(lineId, sections).join(''),
     );
   }
 
@@ -138,31 +121,32 @@ export default class SubwayMapSectionView {
   }
 
   getSectionThead() {
-    const sectionThead = `
+    return `
       <tr>
         <th>${message.ORDER}</th>
         <th>${message.NAME}</th>
         <th>${message.OPTION}</th>
       </tr>
     `;
-
-    return sectionThead;
   }
 
   getSectionTbody(lineId, sections) {
-    let sectionTbody = ``;
-    sections.forEach((section, index) => {
-      sectionTbody += `
-      <tr>
-        <td>${index}</td>
-        <td>${section.stationId}</td>
-        <td>
-          <button data-lineid="${lineId}"data-sectionid="${index}" data-purpose="deleteSection" class=".section-delete-button">${message.OPTION_DELETE}</button>
-        </td>
-      </tr>
-    `;
-    });
+    return sections
+      .map((section, index) => {
+        return this.getSectionTbodyTr(lineId, section, index);
+      })
+      .join('');
+  }
 
-    return sectionTbody;
+  getSectionTbodyTr(lineId, section, index) {
+    return `
+    <tr>
+      <td>${index}</td>
+      <td>${section.stationId}</td>
+      <td>
+        <button data-lineid="${lineId}"data-sectionid="${index}" data-purpose="deleteSection" class=".section-delete-button">${message.OPTION_DELETE}</button>
+      </td>
+    </tr>
+  `;
   }
 }
