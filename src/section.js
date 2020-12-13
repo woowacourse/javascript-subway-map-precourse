@@ -87,6 +87,15 @@ class Section {
     }
   };
 
+  checkSectionVaild = (station, index) => {
+    return (
+      index.length > 0 &&
+      index >= 0 &&
+      index < Line.lines[this.lineName].length &&
+      !Line.lines[this.lineName].includes(station)
+    );
+  };
+
   addStationSection = () => {
     const station = document.getElementById("section-station-select").value;
     const index = document.getElementById("section-order-input").value;
@@ -94,7 +103,10 @@ class Section {
       Line.lines[this.lineName].splice(index, 0, station);
       Line.saveLines();
       this.showSectionTable();
+    } else {
+      alert("이미 노선에 존재하는 역이거나 잘못된 순서값 입니다");
     }
+    document.getElementById("section-order-input").value = "";
   };
 
   handleAddStationSection = () => {
