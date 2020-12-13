@@ -12,7 +12,7 @@ class Menu {
 
   onClick({ target }) {
     if (target.nodeName !== `BUTTON`) return;
-    this.managerContainer.mountComponent(target.id);
+    this.managerContainer.mountDOM(target.id);
   }
 }
 

@@ -10,6 +10,7 @@ class ManagerContainer {
     this.$target = $target;
 
     this.createDOMs();
+    this.mountComponents();
   }
 
   createDOMs() {
@@ -26,22 +27,26 @@ class ManagerContainer {
     );
   }
 
-  mountComponent(targetId) {
+  mountComponents() {
+    this.stationManager = new StationManager({
+      $target: this.$stationManager,
+    });
+
+    this.lineManager = new LineManager({
+      $target: this.$lineManager,
+    });
+  }
+
+  mountDOM(targetId) {
     clearInnerHTML(this.$target);
 
     switch (targetId) {
       case DOM.STATION_MANAGER_BUTTON:
         this.$target.appendChild(this.$stationManager);
-        this.stationManager = new StationManager({
-          $target: this.$stationManager,
-        });
         break;
 
       case DOM.LINE_MANAGER_BUTTON:
         this.$target.appendChild(this.$lineManager);
-        this.lineManager = new LineManager({
-          $target: this.$lineManager,
-        });
         break;
 
       default:
