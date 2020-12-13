@@ -17,9 +17,9 @@ export const createButtonHTMLElement = ({ id = "", name, onClick, classList = []
   return $button;
 };
 
-export const createInputTextHTMLElement = ({ id = "", onKeydown, placeholder = "" }) => {
+const createInputHTMLElement = ({ id = "", onKeydown, placeholder = "", type }) => {
   const $input = document.createElement("input");
-  $input.type = "text";
+  $input.type = type;
   $input.id = id;
   $input.addEventListener("keydown", onKeydown);
   $input.placeholder = placeholder;
@@ -27,7 +27,15 @@ export const createInputTextHTMLElement = ({ id = "", onKeydown, placeholder = "
   return $input;
 };
 
-export const createLabelHTMLElement = ({ name = "", htmlFor }) => {
+export const createInputTextHTMLElement = ({ id, onKeydown, placeholder }) => {
+  return createInputHTMLElement({ id, onKeydown, placeholder, type: "text" });
+};
+
+export const createInputNumberHTMLElement = ({ id, onKeydown, placeholder }) => {
+  return  createInputHTMLElement({ id, onKeydown, placeholder, type: "number" });
+};
+
+export const createLabelHTMLElement = ({ name = "", htmlFor = "" }) => {
   const $label = document.createElement("label");
   $label.innerText = name;
   $label.setAttribute("for", htmlFor);
@@ -76,9 +84,10 @@ export const retrieveLineInfo = () => retrieveInfoFromLocalStorage(LINE_INFO_LOC
 export const getStationNameArray = () => retrieveStationInfo().map(({ stationName }) => stationName);
   
 export const getStations = targetLineName => {
-  return retrieveLineInfo().filter(({ lineName }) => lineName === targetLineName).map(({ stations }) => stations);
+  return retrieveLineInfo().find(({ lineName }) => lineName === targetLineName)?.stations || [];
 };
 
+export const getLineNameArray = () => retrieveLineInfo().map(({ lineName }) => lineName);
 
 const storeInfoToLocalStorage = (LOCAL_STORAGE_KEY, info) => localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(info));
 
