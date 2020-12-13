@@ -107,3 +107,14 @@ export const createSelectedSectionLineHTML = (lineName) => {
     </div>`;
   return selectedSectionLineHTML;
 };
+
+export const createSectionRowHTML = (lineName, stationName, order) => {
+  const sectionRowHTML = `
+  <tr data-line = ${lineName} data-station = ${stationName}>
+    <td style ="text-align:center"> ${order} </td>
+    <td> ${stationName} </td>
+    <td> <button class = "section-delete-button"> 노선에서 제거 </button> </td>
+  </tr>
+`;
+  return sectionRowHTML;
+};
