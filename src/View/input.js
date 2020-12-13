@@ -13,23 +13,24 @@ import {
   $sectionAddButton,
 } from './element.js';
 
-export const setButtonOption = (value, button) => {
-  if (button.className === 'station-delete-button') {
-    button.dataset.station = value;
-    return button.addEventListener('click', onRemoveStation);
-  }
-  if (button.className === 'line-delete-button') {
-    button.dataset.line = value;
-    return button.addEventListener('click', onRemoveLine);
-  }
-  if (button.className === 'section-line-menu-button') {
-    button.dataset.line = value;
-    return button.addEventListener('click', onLoadSection);
-  }
-  if (button.className === 'section-delete-button') {
-    button.dataset.sectionLine = JSON.stringify(value);
-    return button.addEventListener('click', onRemoveSection);
-  }
+export const setStationDeleteButton = (station, $button) => {
+  $button.dataset.station = station;
+  $button.addEventListener('click', onRemoveStation);
+};
+
+export const setLineDeleteButton = (line, $button) => {
+  $button.dataset.line = line;
+  $button.addEventListener('click', onRemoveLine);
+};
+
+export const setSectionDeleteButton = (line, $button) => {
+  $button.dataset.sectionLine = JSON.stringify(line);
+  $button.addEventListener('click', onRemoveSection);
+};
+
+export const setSectionLoadButton = (line, $button) => {
+  $button.dataset.line = line;
+  $button.addEventListener('click', onLoadSection);
 };
 
 $screenButton.forEach((button) =>

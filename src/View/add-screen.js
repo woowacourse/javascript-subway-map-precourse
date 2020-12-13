@@ -1,4 +1,9 @@
-import {setButtonOption} from './input.js';
+import {
+  setStationDeleteButton,
+  setLineDeleteButton,
+  setSectionDeleteButton,
+  setSectionLoadButton,
+} from './input.js';
 import {
   $stationContainer,
   $lineContainer,
@@ -14,7 +19,7 @@ export const addStationScreen = (value) => {
     <td>${value}</td>
     <td><button class="station-delete-button">삭제</button></td>
   `;
-  setButtonOption(value, $stationTr.querySelector('button'));
+  setStationDeleteButton(value, $stationTr.querySelector('button'));
   $stationTbody.appendChild($stationTr);
 };
 
@@ -33,7 +38,7 @@ export const addLineScreen = (line) => {
     <td>${line.station[line.station.length - 1]}</td>
     <td><button class="line-delete-button">삭제</button></td>
   `;
-  setButtonOption(line.lineName, $lineTr.querySelector('button'));
+  setLineDeleteButton(line.lineName, $lineTr.querySelector('button'));
   $lineTbody.appendChild($lineTr);
 };
 
@@ -44,7 +49,7 @@ export const addSectionButton = (line) => {
   const $sectionButton = document.createElement('button');
   $sectionButton.className = 'section-line-menu-button';
   $sectionButton.textContent = line;
-  setButtonOption(line, $sectionButton);
+  setSectionLoadButton(line, $sectionButton);
   $sectionButtonContainer.appendChild($sectionButton);
 };
 
@@ -59,7 +64,7 @@ export const addSectionScreen = (line) => {
     `;
     setSectionTr($sectionTr, line.lineName);
     const sectionData = {line: line.lineName, station: line.station[i]};
-    setButtonOption(sectionData, $sectionTr.querySelector('button'));
+    setSectionDeleteButton(sectionData, $sectionTr.querySelector('button'));
     $sectionTbody.appendChild($sectionTr);
   }
 };
