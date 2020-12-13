@@ -7,7 +7,6 @@ export default class StationManagerRender extends Component {
     console.log("--StationManagerRender--");
     this.initDOM();
     this.render();
-    this.createDOM();
   }
 
   initDOM() {
@@ -20,10 +19,6 @@ export default class StationManagerRender extends Component {
     this.stationListElement.innerHTML = this.stationListRender();
     this._app.append(this.stationNameInputElement, this.stationListElement);
     this.stationListTrRender(this.stations);
-  }
-
-  createDOM() {
-    this.stationNameForm = document.getElementById(DOM_STATION.STATION_FORM_ID);
   }
 
   stationNameInputRender() {

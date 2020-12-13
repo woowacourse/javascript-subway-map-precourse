@@ -1,4 +1,5 @@
 import StationManagerRender from "./StationManagerRender.js";
+import { DOM_STATION } from "../../utils/constants.js";
 
 export default class StationManagerEvent extends StationManagerRender {
   constructor(stateId) {
@@ -8,9 +9,9 @@ export default class StationManagerEvent extends StationManagerRender {
   }
 
   eventDOM() {
-    this.stationNameForm.addEventListener("submit", (e) =>
-      this._onSubmitStationName(e)
-    );
+    document
+      .getElementById(DOM_STATION.STATION_FORM_ID)
+      .addEventListener("submit", (e) => this._onSubmitStationName(e));
   }
 
   _onSubmitStationName(e) {
