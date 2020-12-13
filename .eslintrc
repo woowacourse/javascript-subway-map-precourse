@@ -3,7 +3,8 @@
   "rules": {
     "no-new": "off",
     "no-plusplus": "off",
-    "no-alert": "off"
+    "no-alert": "off",
+    "import/extensions": [ "off" ]
   },
   "env": {
     "browser": true

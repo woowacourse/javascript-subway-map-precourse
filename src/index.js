@@ -1,10 +1,15 @@
+import Station from './Station.js';
+
+const MINIMUM_INPUT_LENGTH = 2;
+
 class SubwayMap {
   constructor() {
-    this.resetElements();
-    this.setEventListener();
+    this.stationList = [];
+    this.setMenuElements();
+    this.setMenuEventListener();
   }
 
-  resetElements() {
+  setMenuElements() {
     this.elements = {
       stationManagerButton: document.querySelector('#station-manager-button'),
       lineManagerButton: document.querySelector('#line-manager-button'),
@@ -14,11 +19,55 @@ class SubwayMap {
     };
   }
 
-  setEventListener() {
+  setMenuEventListener() {
     this.elements.stationManagerButton.addEventListener('click', this.showStationManager.bind(this));
     this.elements.lineManagerButton.addEventListener('click', this.showLineManager.bind(this));
     this.elements.sectionManagerButton.addEventListener('click', this.showSectionManager.bind(this));
     this.elements.mapPrintManagerButton.addEventListener('click', this.showMapPrintManager.bind(this));
+  }
+
+  isExistStation(name) {
+    return this.stationList.some((station) => station.name === name);
+  }
+
+  hasValidStationName(name) {
+    if (name.length < MINIMUM_INPUT_LENGTH) {
+      alert(`${MINIMUM_INPUT_LENGTH}글자 이상 입력해주세요`);
+      return false;
+    }
+
+    if (this.isExistStation(name)) {
+      alert(`이미 존재하는 역 이름입니다`);
+      return false;
+    }
+
+    return true;
+  }
+
+  addStationListItemElement(station) {
+    this.elements.stationListTableBody.innerHTML += `
+      <tr data-name="${station.name}">
+        <td>${station.name}</td>
+        <td>
+          <button class="station-delete-button" data-name="${station.name}">
+            삭제
+          </button>
+        </td>
+      </tr>
+    `;
+  }
+
+  handleSubmitStationAdd(e) {
+    e.preventDefault();
+
+    const name = this.elements.stationNameInput.value;
+    if (!this.hasValidStationName(name)) return;
+
+    const station = new Station(name);
+    this.stationList.push(station);
+    this.addStationListItemElement(station);
+
+    this.elements.stationNameInput.value = '';
   }
 
   showStationManager() {
@@ -37,8 +86,20 @@ class SubwayMap {
             <th>설정</th>
           </tr>
         </thead>
+        <tbody></tbody>
       </table>
     `;
+
+    this.elements = {
+      ...this.elements,
+      stationForm: document.querySelector('#station-form'),
+      stationNameInput: document.querySelector('#station-name-input'),
+      stationAddButton: document.querySelector('#station-add-button'),
+      stationList: document.querySelector('#station-list'),
+      stationListTableBody: document.querySelector('#station-list tbody'),
+    };
+
+    this.elements.stationForm.addEventListener('submit', this.handleSubmitStationAdd.bind(this));
   }
 
   showLineManager() {
