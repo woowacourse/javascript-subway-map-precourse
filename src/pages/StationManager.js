@@ -13,8 +13,17 @@ export default class StationManager {
     };
 
     this.handleAddButtonClick = (newStation) => {
-      this.state.stations.push(newStation);
-      this.setState({ stations: [...this.state.stations] });
+      if (
+        isMoreThanTwoWords(newStation) &&
+        isNotDuplicateSatationName(newStation, this.state.stations) &&
+        hasNotSpaceInStationName(newStation) &&
+        isOnlyWord(newStation)
+      ) {
+        this.state.stations.push(newStation);
+        this.setState({ stations: [...this.state.stations] });
+      } else {
+        alert("다시 입력해 주세요");
+      }
     };
 
     this.handleDeleteButtonClick = (index) => {
@@ -88,5 +97,39 @@ export default class StationManager {
         </div>
     </div>
     `;
+  }
+}
+
+function isMoreThanTwoWords(stationName) {
+  if (stationName.length > 1) {
+    return true;
+  }
+}
+
+function isNotDuplicateSatationName(stationName, stations) {
+  if (!stations.includes(stationName)) {
+    return true;
+  }
+}
+
+function hasNotSpaceInStationName(stationName) {
+  if (![...stationName].includes(" ")) {
+    return true;
+  }
+}
+
+function isOnlyWord(stationName) {
+  const check_num = /[0-9]/;
+  const check_eng = /[a-zA-Z]/;
+  const check_spc = /[~!@#$%^&*()_+|<>?:{}]/;
+  const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+  if (
+    check_kor.test(stationName) &&
+    !check_eng.test(stationName) &&
+    !check_num.test(stationName) &&
+    !check_spc.test(stationName)
+  ) {
+    return true;
   }
 }
