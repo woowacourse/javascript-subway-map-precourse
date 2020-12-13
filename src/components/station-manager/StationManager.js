@@ -17,6 +17,6 @@ export class StationManager {
 
   addNewStation = (stations) => {
     this.setStations(stations);
-    this.stationList.render(this.getStations());
+    this.stationList.render();
   };
 }

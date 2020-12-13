@@ -1,4 +1,7 @@
-import { addRow, getStationsTableHeader } from "../../utils/handleDom.js";
+import {
+  addRowInStationTable,
+  getStationsTableHeader,
+} from "../../utils/handleDom.js";
 export class StationManagerList {
   constructor({ getStations, deleteStation }) {
     this.getStations = getStations;
@@ -23,7 +26,7 @@ export class StationManagerList {
     this.stations = this.getStations();
 
     this.stations.forEach((station) => {
-      addRow(this.stationTable, station);
+      addRowInStationTable(this.stationTable, station);
     });
   };
 

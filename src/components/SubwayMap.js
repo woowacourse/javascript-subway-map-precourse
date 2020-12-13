@@ -12,6 +12,7 @@ const buttonContentMap = {
 
 export class SubwayMap {
   constructor() {
+    localStorage.clear();
     this.props = {
       setStations: this.setStations,
       getStations: this.getStations,
@@ -19,9 +20,8 @@ export class SubwayMap {
       setLines: this.setLines,
       getLines: this.getLines,
     };
-
-    this.initiateDOM();
     this.initiateData();
+    this.initiateDOM();
   }
 
   initiateData = () => {
@@ -71,7 +71,7 @@ export class SubwayMap {
 
   setLines = (lineName, newLines) => {
     let lines = this.getLines();
-    let newLine = { [lineName]: newLines };
+    let newLine = { lineName: lineName, stations: newLines };
     console.log(lines);
 
     lines.push(newLine);

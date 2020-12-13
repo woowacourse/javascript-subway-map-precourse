@@ -38,7 +38,7 @@ export class LineManagerInput {
     let lineName = this.lineNameInput.value;
     let start = this.lineStartSelector.value;
     let end = this.lineEndSelector.value;
-    console.log("왜 세번돌아");
+
     if (!isValidLineInfo(lineName, start, end)) {
       return;
     }

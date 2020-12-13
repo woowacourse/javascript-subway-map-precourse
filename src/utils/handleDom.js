@@ -11,10 +11,20 @@ export const showErrors = (error) => {
   alert(error);
 };
 
-export const addRow = (table, name) => {
+export const addRowInStationTable = (table, name) => {
   const tr = document.createElement("tr");
 
   addCell(tr, name);
+  addCell(tr, addDeleteButton(name, `${DELETE_GUIDE.DELETE}`));
+  table.appendChild(tr);
+};
+
+export const addRowInListTable = (table, name, start, end) => {
+  const tr = document.createElement("tr");
+
+  addCell(tr, name);
+  addCell(tr, end);
+  addCell(tr, start);
   addCell(tr, addDeleteButton(name, `${DELETE_GUIDE.DELETE}`));
   table.appendChild(tr);
 };
@@ -32,6 +42,13 @@ const addDeleteButton = (name, buttonName) => {
 
 export const getStationsTableHeader = () => {
   return `<th>역 이름</th>
+          <th>설정</th>`;
+};
+
+export const getLineTableHeader = () => {
+  return `<th>노선 이름</th>
+          <th>하행 종점역</th>
+          <th>상행 종점역</th>
           <th>설정</th>`;
 };
 

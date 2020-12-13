@@ -2,21 +2,25 @@ import { LineManagerInput } from "./LineManagerInput.js";
 import { LineManagerList } from "./LineManagerList.js";
 
 export class LineManager {
-  constructor({ getStations, setLines }) {
-    this.getStations = getStations;
-    this.setLines = setLines;
-    this.render();
+  constructor(props) {
+    this.setLines = props.setLines;
+    this.render(props);
   }
 
-  render = () => {
-    this.LineManagerInput = new LineManagerInput({
-      getStations: this.getStations,
-      setLines: this.setLines,
+  render = ({ getStations, getLines, setLines }) => {
+    this.lineManagerInput = new LineManagerInput({
+      getStations: getStations,
+      setLines: this.addNewLines,
     });
-    new LineManagerList();
+    this.lineManagerList = new LineManagerList({ getLines: getLines });
   };
 
   update = () => {
-    this.LineManagerInput.render();
+    this.lineManagerInput.render();
+  };
+
+  addNewLines = (lineName, newLine) => {
+    this.setLines(lineName, newLine);
+    this.lineManagerList.render();
   };
 }
