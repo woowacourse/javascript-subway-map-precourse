@@ -22,4 +22,10 @@ export default class StationManager extends StationManagerEvent {
     // 중복 검증 구현 해야함
     return true;
   }
+
+  localStorageItemAdd(item) {
+    super.localStorageItemAdd(item);
+    this.stations.push(item);
+    this.saveLocalStorageValue(this.localStorageKey, this.stations);
+  }
 }

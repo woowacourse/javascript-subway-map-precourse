@@ -22,8 +22,10 @@ export default class StationManagerEvent extends StationManagerRender {
     stationNameInput.value = "";
     if (!this.isValidStationName(stationName)) return;
 
-    console.log(stationName);
+    this.localStorageItemAdd(stationName);
   }
 
   isValidStationName() {}
+
+  localStorageItemAdd(item) {}
 }

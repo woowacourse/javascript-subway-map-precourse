@@ -37,4 +37,8 @@ export default class Component {
     } else {
     }
   }
+
+  saveLocalStorageValue(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
 }
