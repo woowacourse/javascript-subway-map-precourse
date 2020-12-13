@@ -27,3 +27,16 @@ export const isVaildStationName = ($input, nameList, name) => {
 
   return true;
 };
+
+export const isRemovableStation = station => {
+  if (!station) {
+    return false;
+  }
+
+  if (station.lines.size) {
+    alert(MESSAGE.REMOVE_STATION_ERROR);
+    return false;
+  }
+
+  return true;
+};
