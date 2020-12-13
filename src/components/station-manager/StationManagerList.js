@@ -26,7 +26,7 @@ export class StationManagerList {
     this.stations = this.getStations();
 
     this.stations.forEach((station) => {
-      addRowInStationTable(this.stationTable, station);
+      addRowInStationTable(this.stationTable, station, "station");
     });
   };
 

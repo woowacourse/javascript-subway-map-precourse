@@ -11,21 +11,21 @@ export const showErrors = (error) => {
   alert(error);
 };
 
-export const addRowInStationTable = (table, name) => {
+export const addRowInStationTable = (table, name, field) => {
   const tr = document.createElement("tr");
 
   addCell(tr, name);
-  addCell(tr, addDeleteButton(name, `${DELETE_GUIDE.DELETE}`));
+  addCell(tr, addDeleteButton(name, `${DELETE_GUIDE.DELETE}`, field));
   table.appendChild(tr);
 };
 
-export const addRowInListTable = (table, name, start, end) => {
+export const addRowInListTable = (table, name, start, end, field) => {
   const tr = document.createElement("tr");
 
   addCell(tr, name);
   addCell(tr, end);
   addCell(tr, start);
-  addCell(tr, addDeleteButton(name, `${DELETE_GUIDE.DELETE}`));
+  addCell(tr, addDeleteButton(name, `${DELETE_GUIDE.DELETE}`, field));
   table.appendChild(tr);
 };
 
@@ -36,8 +36,8 @@ const addCell = (tr, value) => {
   tr.appendChild(td);
 };
 
-const addDeleteButton = (name, buttonName) => {
-  return `<button class="delete-button" data-station="${name}">${buttonName}</button>`;
+const addDeleteButton = (name, buttonName, field) => {
+  return `<button class="delete-button" data-${field}="${name}">${buttonName}</button>`;
 };
 
 export const getStationsTableHeader = () => {

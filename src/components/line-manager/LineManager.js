@@ -7,12 +7,15 @@ export class LineManager {
     this.render(props);
   }
 
-  render = ({ getStations, getLines, setLines }) => {
+  render = ({ getStations, getLines, deleteLine }) => {
     this.lineManagerInput = new LineManagerInput({
       getStations: getStations,
       setLines: this.addNewLines,
     });
-    this.lineManagerList = new LineManagerList({ getLines: getLines });
+    this.lineManagerList = new LineManagerList({
+      getLines: getLines,
+      deleteLine: deleteLine,
+    });
   };
 
   update = () => {

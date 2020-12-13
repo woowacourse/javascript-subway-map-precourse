@@ -19,6 +19,7 @@ export class SubwayMap {
       deleteStation: this.deleteStation,
       setLines: this.setLines,
       getLines: this.getLines,
+      deleteLine: this.deleteLine,
     };
     this.initiateData();
     this.initiateDOM();
@@ -72,7 +73,6 @@ export class SubwayMap {
   setLines = (lineName, newLines) => {
     let lines = this.getLines();
     let newLine = { lineName: lineName, stations: newLines };
-    console.log(lines);
 
     lines.push(newLine);
     localStorage.setItem("lines", JSON.stringify(lines));
@@ -80,5 +80,14 @@ export class SubwayMap {
 
   getLines = () => {
     return JSON.parse(localStorage.getItem("lines"));
+  };
+
+  deleteLine = (lineName) => {
+    let lines = this.getLines();
+    let newLines = lines.filter((line) => {
+      return line.lineName != lineName;
+    });
+
+    localStorage.setItem("lines", JSON.stringify(newLines));
   };
 }
