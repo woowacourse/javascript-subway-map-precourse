@@ -6,7 +6,12 @@ import {
   insertStationOptionHTML,
 } from "../common/template.js";
 import { errorMessage } from "../common/error-message.js";
-const { INVALID_LENGTH_LINE_NAME, DUPLICATE_LINE_NAME, INVALID_START_END_STATION } = errorMessage;
+const {
+  INVALID_LENGTH_LINE_NAME,
+  DUPLICATE_LINE_NAME,
+  INVALID_START_END_STATION,
+  CONFIRM_DELETE,
+} = errorMessage;
 export default class LineManager {
   constructor() {
     this.line = line;
@@ -108,7 +113,6 @@ export default class LineManager {
   deleteLine(targetButton) {
     const targetRow = targetButton.parentNode.parentNode;
     const targetLine = targetRow.dataset.line;
-
     this.line.deleteLine(targetLine);
     this.renderLineTable();
   }
@@ -118,6 +122,11 @@ export default class LineManager {
 
     if (target.id === "line-add-button") {
       this.addLine();
+    }
+    if (target.className === "line-delete-button") {
+      if (confirm(CONFIRM_DELETE)) {
+        this.deleteLine(target);
+      }
     }
   }
 }
