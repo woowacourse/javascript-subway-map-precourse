@@ -10,9 +10,8 @@ export default class SubwayLine {
   }
 
   // 노선에서 역 제거
-  delStation(station) {
-    let index = this.section.indexOf(station);
-    if (this.section <= 2 || index === -1) {
+  delStation(index) {
+    if (this.section.length <= 2) {
       return false;
     }
     this.section.splice(index, 1);

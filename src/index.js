@@ -79,6 +79,12 @@ export default class SubwayMap {
     return true;
   }
 
+  // 지하철 구간 제거
+  delSection(lineName, index) {
+    const line = this.lineList.find(element => element.name === lineName);
+    return line.delStation(index);
+  }
+
   // 데이터 직렬화
   serialize() {
     const data = {
@@ -195,7 +201,6 @@ function showStationList() {
   "use strict";
 
   const stationList = subwayMap.getStationList();
-
   let html = '';
   for (const station of stationList) {
     const button = `<button class="station-delete-button" data-station="${station}">삭제</button>`;
@@ -237,7 +242,6 @@ function showStationSelect() {
   "use strict";
 
   const stationList = subwayMap.getStationList();
-
   let html = '';
   for (const station of stationList) {
     html += `<option value="${station}">${station}</option>`;
@@ -251,7 +255,6 @@ function showLineList() {
   "use strict";
 
   const lineList = subwayMap.getLineList();
-
   let html = '';
   for (const line of lineList) {
     const endIndex = line[1].length - 1;
@@ -291,7 +294,6 @@ function showLineButton() {
   "use strict";
 
   const lineList = subwayMap.getLineList();
-
   let html = '';
   for (const line of lineList) {
     html += `<button class="section-line-menu-button" data-line="${line[0]}">${line[0]}</button> `;
@@ -312,7 +314,6 @@ function clickLineSectionButton(event) {
   }
   sectionStationSelector.innerHTML = html;
   sectionOrderInput.value = '';
-  sectionOrderInput.max = subwayMap.getSection(line).length - 1;
   sectionAddButton.dataset.line = line;
   showSectionList(line);
   sectionDiv.classList.remove('d-none');
@@ -323,11 +324,11 @@ function showSectionList(line) {
   "use strict";
 
   const stationList = subwayMap.getSection(line);
-
+  sectionOrderInput.max = subwayMap.getSection(line).length;
   let html = '';
   for (let i = 0; i < stationList.length; i++) {
     const station = stationList[i];
-    const button = `<button class="section-delete-button" data-line="${line}" data-station="${station}">노선에서 제거</button>`;
+    const button = `<button class="section-delete-button" data-line="${line}" data-index="${i}">노선에서 제거</button>`;
     html += `<tr><td class="text-center">${i}</td><td>${station}</td><td>${button}</td></tr>`;
   }
   sectionResult.innerHTML = html;
@@ -340,6 +341,22 @@ function clickSectionAddButton() {
   const line = sectionAddButton.dataset.line;
   subwayMap.addSection(line, sectionStationSelector.value, sectionOrderInput.value);
   sectionOrderInput.value = '';
+  showSectionList(line);
+  localStorage.setItem('subwayMap', subwayMap.serialize());
+}
+
+// 노선에서 제거 버튼
+function clickSectionDelButton(event) {
+  "use strict";
+
+  if (!confirm('정말로 노선에서 제거하시겠습니까?')) {
+    return;
+  }
+  const line = event.target.dataset.line;
+  if (!subwayMap.delSection(line, event.target.dataset.index)) {
+    alert('노선에 역이 두개 이하일 때는 제거할 수 없습니다.');
+    return;
+  }
   showSectionList(line);
   localStorage.setItem('subwayMap', subwayMap.serialize());
 }
@@ -357,5 +374,7 @@ function clickInstanceButton(event) {
     clickLineDelButton(event);
   } else if (event.target.classList.contains('section-line-menu-button')) {
     clickLineSectionButton(event);
+  } else if (event.target.classList.contains('section-delete-button')) {
+    clickSectionDelButton(event);
   }
 }
