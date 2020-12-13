@@ -86,6 +86,9 @@ class SectionRegisterUI extends contentsUI {
     );
   }
   callbackOfDeleteButton_(event) {
+    if (!confirm(DELETE_CONFIRM_MESSAGE)) {
+      return;
+    }
     const targetStationName = event.target.dataset.name;
     this.stationINFOManager_.deleteSection(targetStationName, this.lineName_);
     this.updateAllContents();
@@ -160,6 +163,7 @@ const SECTION_REGISTER_TABLE_ID = "section-register-table";
 const SECTION_DELETE_BUTTON_CLASS = "section-delete-button";
 const SECTION_ORDER_INPUT_ID = "section-order-input";
 const SECTION_ADD_BUTTON_ID = "section-add-button";
+const DELETE_CONFIRM_MESSAGE = "정말로 노선에서 제거하시겠습니까?";
 const TABLE_HEADER_TEMPLATE = `
 <th>순서</th>
 <th>이름</th>
