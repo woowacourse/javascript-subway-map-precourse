@@ -33,17 +33,6 @@ export default class StationManager extends Component {
     };
   }
 
-  setState(state) {
-    this.state = state;
-    dispatchReRender();
-  }
-
-  setStore(store) {
-    this.store = store;
-    localStorage.setItem("store", JSON.stringify(store));
-    dispatchReRender();
-  }
-
   mount() {
     const stationNameInput = document.getElementById(
       elementMap.stationNameInput
