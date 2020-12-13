@@ -1,5 +1,8 @@
 import { LEFTOVER_MESSAGE } from '../../library/constants/common-alert.js';
-import { EMPTY_INPUT_MESSAGE } from '../../library/constants/line-manager-alert.js';
+import {
+  DUPLICATE_LINE_MESSAGE,
+  EMPTY_INPUT_MESSAGE,
+} from '../../library/constants/line-manager-alert.js';
 import { LINES } from '../../library/constants/localstorage.js';
 import Component from '../../library/core/component.js';
 import { createOptionTemplate } from '../../library/utils/template.js';
@@ -79,8 +82,15 @@ class LineInput extends Component {
     return (
       hasStringEnoughLength(lineName, 1) &&
       hasStringEnoughLength(stations[0], 1) &&
-      hasStringEnoughLength(stations[1], 1)
+      hasStringEnoughLength(stations[1], 1) &&
+      !this.hasDuplicateLineName(lineName)
     );
+  }
+
+  hasDuplicateLineName(lineName) {
+    return this._props.lines.value
+      .map(line => line.lineName)
+      .includes(lineName);
   }
 
   alertByCase(lineName, stations) {
@@ -91,6 +101,9 @@ class LineInput extends Component {
       !hasStringEnoughLength(stations[1], 1)
     ) {
       alertCases.push(EMPTY_INPUT_MESSAGE);
+    }
+    if (this.hasDuplicateLineName(lineName)) {
+      alertCases.push(DUPLICATE_LINE_MESSAGE);
     }
     alert(alertCases.join(', ') + LEFTOVER_MESSAGE);
   }
