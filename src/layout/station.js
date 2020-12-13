@@ -14,6 +14,10 @@ const stationResultContainer = document.createElement('article');
 const stationResultTitle = document.createElement('h2');
 const stationResultTable = document.createElement('table');
 
+/**
+ * 레이아웃에 관련된 메소드
+ */
+
 // TODO: 나중에 replace가 많이 쓰이면 common으로 뺄 것
 const replaceSectionToStation = function (section) {
   section.replaceWith(stationSection);
@@ -37,6 +41,8 @@ const initElements = function () {
   stationAddButton.innerHTML = '역 추가';
   stationResultTitle.innerHTML = '🚉 지하철 역 목록';
   stationManagerButton.addEventListener('click', handleStationManagerButton);
+  stationResultTable.innerHTML =
+    '<thead><tr><th>역이름</th><th>설정</th></tr></thead>';
 };
 
 const appendNodesToDOM = function () {
@@ -62,3 +68,23 @@ export const stationElements = {
   managerButton: stationManagerButton,
   section: stationSection,
 };
+
+/**
+ * 데이터를 관리하는 메소드
+ * TODO: Controller로 이전
+ */
+
+const getStationNameFromUser = function () {
+  return stationNameInput.value;
+};
+
+const addRow = function () {
+  const row = stationResultTable.insertRow();
+  row.insertCell(0).innerHTML = getStationNameFromUser();
+  row.insertCell(
+    1,
+  ).innerHTML = `<button class='.station-delete-button'>삭제</button>`;
+};
+
+
+stationAddButton.addEventListener('click', addRow);

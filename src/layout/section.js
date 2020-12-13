@@ -58,13 +58,13 @@ const appendNodesToDOM = function () {
   sectionOrderContainer.insertAdjacentHTML('afterbegin', '<h4>구간 등록</h4>');
 };
 
-const buildsectionSection = function () {
+const buildSectionSection = function () {
   initElements();
   appendNodesToDOM();
   console.log('section section build');
 };
 
-buildsectionSection();
+buildSectionSection();
 
 export const sectionElements = {
   managerButton: sectionManagerButton,
