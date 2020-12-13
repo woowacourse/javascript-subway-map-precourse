@@ -22,7 +22,7 @@ function renderLines(lineList, $mapPrintPage) {
 }
 
 export default function renderSubwayMap() {
-  const lines = localStorage.getItem('lines');
+  const lines = JSON.parse(localStorage.getItem('lines'));
   const $mapPrintPage = document.querySelector('.map-print-page');
 
   if (lines === null) {

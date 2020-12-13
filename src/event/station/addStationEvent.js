@@ -6,7 +6,10 @@ function addStation(inputStationName, stations) {
   if (!stations) {
     return localStorage.setItem('stations', JSON.stringify(inputStationName));
   }
-  return localStorage.setItem('stations', JSON.stringify(`${stations} ${inputStationName}`));
+  return localStorage.setItem(
+    'stations',
+    JSON.stringify(`${stations} ${inputStationName}`),
+  );
 }
 
 function checkValidStationName() {
