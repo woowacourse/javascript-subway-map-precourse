@@ -66,4 +66,11 @@ export default class Line {
   getLineList = () => {
     return this._lineList;
   };
+
+  deleteLine = name => {
+    const newLineList = this._lineList.filter(line => line.name !== name);
+    this._lineList = newLineList;
+    this._setLineList(newLineList);
+    this._station.deleteLineFromStation(name);
+  };
 }
