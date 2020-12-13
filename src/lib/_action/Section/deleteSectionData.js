@@ -13,6 +13,6 @@ export default (deletedStationName, updatedLineName) => {
     if (!ok) {
       reject(alert(message));
     }
-    resolve(deleteStationFromLine(deletedStationName, updatedLineList)); // 나중에 else 추가
+    else resolve(deleteStationFromLine(deletedStationName, updatedLineList[0], true));
   });
 };

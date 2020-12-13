@@ -27,6 +27,6 @@ export default (deletedValue, index, updatedLineNameList) => {
   updateUI(updatedStationList);
   if (!updatedLineNameList) return;
   updatedLineNameList.forEach((updatedLineName) =>
-    deleteStationFromLine(updatedLineName, deletedValue),
+    deleteStationFromLine(deletedValue, updatedLineName, false),
   );
 };
