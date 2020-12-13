@@ -33,6 +33,13 @@ export default class StationManagerEvent extends StationManagerRender {
   _onClickDeleteTr(e) {
     super._onClickDeleteTr(e);
 
-    console.log(e);
+    const targetTr = e.target.parentNode.parentNode;
+    const targetStation = targetTr.children[0].innerText;
+
+    this.stations = this.stations.filter(
+      (station) => station !== targetStation
+    );
+    this.saveLocalStorageValue(this.localStorageKey, this.stations);
+    targetTr.remove();
   }
 }
