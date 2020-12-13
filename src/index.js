@@ -115,6 +115,9 @@ const sectionAddButton = document.getElementById('section-add-button');
 const sectionResult = document.getElementById('section-result');
 
 const subwayMap = new SubwayMap();
+if (localStorage.getItem('subwayMap') !== null) {
+  subwayMap.deserialize(localStorage.getItem('subwayMap'));
+}
 
 stationManagerButton.addEventListener('click', showStationManager);
 lineManagerButton.addEventListener('click', showLineManager);
@@ -192,6 +195,7 @@ function clickStationAddButton() {
   }
   stationNameInput.value = '';
   showStationList();
+  localStorage.setItem('subwayMap', subwayMap.serialize());
 }
 
 // 지하철 역 select 출력
@@ -233,6 +237,7 @@ function clickLineAddButton() {
   }
   lineNameInput.value = '';
   showLineList();
+  localStorage.setItem('subwayMap', subwayMap.serialize());
 }
 
 // 지하철 노선 button 출력
