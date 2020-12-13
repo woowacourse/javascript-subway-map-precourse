@@ -21,6 +21,7 @@ export const DOM_LINE = {
   LINE_ADD_BUTTON_ID: "line-add-button",
   LINE_DELETE_BUTTON_CLASS: "line-delete-button",
   LINE_NAME_FORM_ID: "line-name-form",
+  LINE_LIST_TBODY_ID: "line-list-tbody",
 };
 
 export const DOM_SECTION = {

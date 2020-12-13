@@ -37,4 +37,9 @@ export default class LineManagerEvent extends LineManagerRender {
   }
 
   isValidLineInfo(lineInfo) {}
+
+  _onClickDeleteLineTr(e) {
+    super._onClickDeleteLineTr(e);
+    console.dir(e.target);
+  }
 }
