@@ -182,6 +182,7 @@ function showSectionManager() {
 function showMapPrintManager() {
   "use strict";
 
+  showMapPrint();
   changeTab(mapPrint);
 }
 
@@ -359,6 +360,23 @@ function clickSectionDelButton(event) {
   }
   showSectionList(line);
   localStorage.setItem('subwayMap', subwayMap.serialize());
+}
+
+// 지하철 노선도 출력
+function showMapPrint() {
+  "use strict";
+
+  const lineList = subwayMap.getLineList();
+  let html = '<div class="map">';
+  for (const line of lineList) {
+    html += `<h3>${line[0]}</h3><ul>`;
+    for (const station of line[1]) {
+      html += `<li>${station}</li>`;
+    }
+    html += '</ul>';
+  }
+  html += '</div>';
+  mapPrint.innerHTML = html;
 }
 
 // 동적으로 생성된 버튼
