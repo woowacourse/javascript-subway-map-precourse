@@ -54,7 +54,7 @@ class Section {
     return (
       index.length > 0 &&
       index >= 0 &&
-      index < this.lines[this.lineName].length &&
+      index <= this.lines[this.lineName].length &&
       !this.lines[this.lineName].includes(station)
     );
   };
@@ -112,7 +112,6 @@ class Section {
     sectionTableContainer.innerHTML = "";
     sectionTableContainer.appendChild(this.createSectionTable());
 
-    //this.handleAddStationSection();
     this.handleDeleteStationSection();
   };
 
