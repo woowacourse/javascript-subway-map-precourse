@@ -6,7 +6,7 @@ import {
     addClickEventListener, 
     pageInit,
     addClickEventInDeleteButton
-} from "./common/elements.js";
+} from "./common/elements.js?ver=24";
 import { 
     isEmpty,
     addItem,
@@ -14,8 +14,8 @@ import {
     removeWhiteSpaceValue,
     deleteKey, 
     deleteItem
-} from "./common/items.js";
-import words from "./common/words.js";
+} from "./common/items.js?ver=15";
+import words from "./common/words.js?ver=1";
 
 export default class LineManager {
     constructor() {
@@ -42,7 +42,7 @@ export default class LineManager {
    
     deleteLine(deleteButton) {
         const deleteRow = deleteButton.parentElement.parentElement;
-        const lineName = deleteRow.dataset.lineName
+        const lineName = deleteRow.dataset.lineName;
         this.lineTableTbody.removeChild(deleteRow);
         deleteKey(lineName);
         deleteItem(words.LINES, lineName);
@@ -97,18 +97,25 @@ export default class LineManager {
         addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.confirmDeleteLine.bind(this), true);
     }
 
-    setAlert(lineInputName) {
-        let isCorrect = true;
+    getAlertText(lineInputName) {
+        const lineStartStationSelector = document.getElementById(words.LINE_START_STATION_SELECTOR);
+        const lineEndStationSelector = document.getElementById(words.LINE_END_STATION_SELECTOR);
+        const lineStartStationName = lineStartStationSelector.options[lineStartStationSelector.selectedIndex].value;
+        const lineEndStationName = lineEndStationSelector.options[lineEndStationSelector.selectedIndex].value;
+        let text = "";
         if(!isEmpty(lineInputName)) {
-            alert(words.LINE_INPUT_ALERT);
-            isCorrect = false;
+            text = words.LINE_INPUT_ALERT;
         }
-        return isCorrect;
+        else if(lineStartStationName === lineEndStationName) {
+            text = words.LINE_SAME_STATION_ALERT;
+        }
+        return text;
     }
 
     addLine() {
         const lineInputName = removeWhiteSpaceValue(document.getElementById(words.LINE_NAME_INPUT).value);
-        if(this.setAlert(lineInputName)) {
+        const alertText = this.getAlertText(lineInputName);
+        if(alertText === "") {
             if(addItem(words.LINES, lineInputName)) {
                 this.addLineInTable(lineInputName);
             }
@@ -116,5 +123,8 @@ export default class LineManager {
                 alert(`${lineInputName}${words.LINE_DUPLICATE_ALERT}`);
             }
         }
+        else {
+            alert(alertText);
+        } 
     }
 }

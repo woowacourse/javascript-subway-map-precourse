@@ -59,28 +59,30 @@ export default class StationManager{
         addClickEventInDeleteButton(words.STATION_DELETE_BUTTON, this.deleteStation);
     }
 
-    setAlert(stationInputName) {
-        let isCorrect = true;
+    getAlertText(stationInputName) {
+        let text = "";
         if(!isEmpty(stationInputName)) {
-            alert(words.STATION_INPUT_ALERT);
-            isCorrect = false;
+            text = words.STATION_INPUT_ALERT;
         }
         else if(stationInputName.length < 2) {
-            alert(words.STATION_LENGTH_ALERT);
-            isCorrect = false;
+            text = words.STATION_LENGTH_ALERT;
         }
-        return isCorrect;
+        return text;
     }
 
     addStation() {
         const stationInputName = removeWhiteSpaceValue(document.getElementById(words.STATION_NAME_INPUT).value);
-        if(this.setAlert(stationInputName)) {
+        const alertText = this.getAlertText(stationInputName);
+        if(alertText === "") {
             if(addItem(words.STATIONS, stationInputName)) {
                 this.addStationInTable(stationInputName);
             }
             else {
                 alert(`${stationInputName}${words.STATION_DUPLICATE_ALERT}`);
             }
+        }
+        else {
+            alert(alertText);
         }
     }
 }
