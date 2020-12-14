@@ -3,6 +3,8 @@ import {
   getStationRow,
   lineMangeContainer,
   getLineRow,
+  selectLineContainer,
+  sectionManageContainer,
 } from "./dom.js";
 import Station from "../components/Station.js";
 import Line from "../components/Line.js";
@@ -113,4 +115,21 @@ export const rendLineMangeDom = () => {
   div.innerHTML = lineMangeContainer();
   container.appendChild(div);
   setLineDeleteEvent();
+};
+
+//section
+export const rendSectionAddDom = (target) => {
+  const container = document.getElementById("subway-manager-container");
+  const div = document.createElement("div");
+  div.setAttribute("id", "section-table");
+  div.innerHTML = sectionManageContainer(target.dataset.index);
+  container.appendChild(div);
+  //setSectionEvent();
+};
+
+export const rendLineSelectDom = () => {
+  const container = document.getElementById("subway-manager-container");
+  const div = document.createElement("div");
+  div.innerHTML = selectLineContainer();
+  container.appendChild(div);
 };

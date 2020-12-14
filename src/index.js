@@ -1,11 +1,12 @@
 import StationManager from "./managers/StationManager.js";
 import LineManager from "./managers/LineManager.js";
+import SectionManager from "./managers/SectionManager.js";
 
 export default class SubwayManager {
   constructor() {
     this.stationManger = new StationManager();
     this.lineManager = new LineManager();
-
+    this.sectionManager = new SectionManager();
     this.initEvent();
   }
 
@@ -19,6 +20,11 @@ export default class SubwayManager {
       .getElementById("line-manager-button")
       .addEventListener("click", () => {
         this.lineManager.render();
+      });
+    document
+      .getElementById("section-manager-button")
+      .addEventListener("click", () => {
+        this.sectionManager.render();
       });
   }
 }
