@@ -8,7 +8,8 @@ import {
   clearInputValue,
   retrieveLineInfo,
   getStationNameArray,
-  storeLineInfo
+  storeLineInfo,
+  throwErrorWithMessage
 } from "./util.js";
 
 /* LineManager가 관리하는 상태값을 아래와 같다. 
@@ -174,7 +175,6 @@ export default class LineManager extends Component {
       return true;
     } catch (error) {
       alert(error.message);
-      clearInputValue(this.$lineNameInput);
 
       return false;      
     }
@@ -184,9 +184,9 @@ export default class LineManager extends Component {
     const MIN_LINE_NAME_LENGTH = 1;
 
     if (lineNameUserInput.length < MIN_LINE_NAME_LENGTH) {
-      const errorMessage = [`지하철 노선은 1글자 이상이어야 합니다.`].join("\n");
-      
-      throw new Error(errorMessage);
+      clearInputValue(this.$lineNameInput);
+
+      throwErrorWithMessage(`지하철 노선은 1글자 이상이어야 합니다.`);
     }
   }
 
@@ -194,24 +194,24 @@ export default class LineManager extends Component {
     const { lineInfo } = this.state;
 
     if (lineInfo.some(({ lineName }) => lineName === lineNameUserInput)) {
-      const errorMessage = [
+      this.$lineNameInput.focus();
+
+      throwErrorWithMessage([
         `중복된 지하철 노선 이름은 등록될 수 없습니다.`,
         `입력된 지하철 노선 이름: ${lineNameUserInput}`
-      ].join("\n");
-
-      throw new Error(errorMessage);
+      ].join("\n"));
     }
   }
 
   validateStartEndStationName(lineStartStation, lineEndStation) {
     if (lineStartStation === lineEndStation) {
-      const errorMessage = [
+      this.$lineStartStationSelector.focus();
+
+      throwErrorWithMessage([
         `상행 종점과 하행 종점은 서로 다른 역이어야 합니다.`,
         `상행 종점: ${lineStartStation}`,
         `하행 종점: ${lineEndStation}`
-      ].join("\n");
-
-      throw new Error(errorMessage);
+      ].join("\n"));
     }
   }
 

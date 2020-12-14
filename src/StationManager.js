@@ -7,7 +7,8 @@ import {
   createLabelHTMLElement,
   retrieveLineInfo,
   retrieveStationInfo,
-  storeStationInfo
+  storeStationInfo,
+  throwErrorWithMessage
 } from "./util.js";
 
 /* StationManager가 관리하는 상태값을 아래와 같다. 다른 Manager가 관리하는 상태값은 localStorage에서 가져올 수 있다.
@@ -128,7 +129,7 @@ export default class StationManager extends Component {
     const { stationInfo } = this.state;
 
     if (stationInfo.some(({ stationName }) => stationName === stationNameUserInput)) {
-      throw new Error("중복된 지하철 역 이름은 등록될 수 없습니다.");
+      throwErrorWithMessage("중복된 지하철 역 이름은 등록될 수 없습니다.");
     }
   }
 
@@ -136,7 +137,7 @@ export default class StationManager extends Component {
     const MIN_STATION_NAME_LENGTH = 2;
 
     if (stationNameUserInput.length < MIN_STATION_NAME_LENGTH) {
-      throw new Error("지하철 역은 2글자 이상이어야 합니다.");
+      throwErrorWithMessage("지하철 역은 2글자 이상이어야 합니다.");
     }
   }
 
