@@ -15,7 +15,7 @@ const message = {
   START_STATION: '상행 종점',
   END_STATION: '하행 종점',
   LINE_ADD_BUTTON: '노선 추가',
-  ALERT_FOR_EMPTY: '공백이 아닌 이름을 입력해주세요.',
+  ALERT_FOR_BLANK: '공백이 아닌 이름을 입력해주세요.',
   ALERT_FOR_WRONG_NAME: '알파벳, 한글, 숫자로 이루어진 이름을 입력해주세요.',
   ALERT_FOR_OVERLAPED_NAME: '중복되지 않은 이름을 입력해주세요.',
   ALERT_FOR_LENGTH: '2글자 이상의 이름을 입력해주세요.',

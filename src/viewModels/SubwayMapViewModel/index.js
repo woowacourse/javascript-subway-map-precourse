@@ -87,19 +87,6 @@ export default class SubwayMapViewModel {
     return this.subwayMapModel.getSectionsFromLine(lineId);
   }
 
-  isEmpty(id) {
-    if (id === '') {
-      return true;
-    }
-
-    id = Array.from(new Set(id));
-    if ((id.length === 1 && id[0] === ' ') || id.length === 0) {
-      return true;
-    }
-
-    return false;
-  }
-
   isInLines(stationId) {
     const found = Object.entries(this.subwayMapModel.getLines()).find(line => {
       console.log(line);
@@ -129,8 +116,8 @@ export default class SubwayMapViewModel {
   }
 
   validStationId(stationId) {
-    if (this.isEmpty(stationId)) {
-      return message.ALERT_FOR_EMPTY;
+    if (stationId.trim() === '') {
+      return message.ALERT_FOR_BLANK;
     }
 
     if (!/^[가-힣a-zA-z0-9]+$/.test(stationId)) {
@@ -149,8 +136,8 @@ export default class SubwayMapViewModel {
   }
 
   validLineObject(lineObject) {
-    if (this.isEmpty(lineObject.lineId)) {
-      return message.ALERT_FOR_EMPTY;
+    if (lineObject.lineId.trim() === '') {
+      return message.ALERT_FOR_BLANK;
     }
 
     if (!/^[가-힣a-zA-z0-9]+$/.test(lineObject.lineId)) {
