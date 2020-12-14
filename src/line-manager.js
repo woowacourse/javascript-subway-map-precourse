@@ -21,7 +21,7 @@ export default class LineManager {
         this.lineTableTbody = document.getElementById(words.LINE_TABLE_TBODY);
         this.setTableContent();
         addClickEventListener(document.getElementById(words.LINE_ADD_BUTTON), () => {this.addLine()});
-        // addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.deleteLine());
+        
     }
 
     setPage() {
@@ -43,49 +43,47 @@ export default class LineManager {
         console.log("delete");
     }
 
-    setTableContent() {
-        const lineList = getItemList(words.LINES);
-        if(lineList !== null) {
-            lineList.forEach(line => {
-                const lineSectionList = getItemList(line);
-                const row = this.lineTableTbody.insertRow(this.lineTableTbody.length);
-                const cell1 = row.insertCell(0);
-                const cell2 = row.insertCell(1);
-                const cell3 = row.insertCell(2);
-                const cell4 = row.insertCell(3);
-                cell1.innerHTML = line;
-                cell2.innerHTML = lineSectionList[0];
-                cell3.innerHTML = lineSectionList[lineSectionList.length - 1];
-                addElement("button", words.DELETE, "class", words.LINE_DELETE_BUTTON, cell4);
-            });
-        }
-    }
-
-    addLineSection(stationInputName, lineStartStationName, lineEndStationName) {
-        const itemList = [lineStartStationName, lineEndStationName];
-        localStorage.setItem(stationInputName, JSON.stringify(itemList));
-    }
-
-    addLineInTable(stationInputName) {
-        const lineStartStationSelector = document.getElementById(words.LINE_START_STATION_SELECTOR);
-        const lineEndStationSelector = document.getElementById(words.LINE_END_STATION_SELECTOR);
-        const lineStartStationName = lineStartStationSelector.options[lineStartStationSelector.selectedIndex].value;
-        const lineEndStationName = lineEndStationSelector.options[lineEndStationSelector.selectedIndex].value;
+    addTableRow(lineName, lineStartStationName, lineEndStationName) {
         const row = this.lineTableTbody.insertRow(this.lineTableTbody.length);
         const cell1 = row.insertCell(0);
         const cell2 = row.insertCell(1);
         const cell3 = row.insertCell(2);
         const cell4 = row.insertCell(3);
-        cell1.innerHTML = stationInputName;
+        cell1.innerHTML = lineName;
         cell2.innerHTML = lineStartStationName;
         cell3.innerHTML = lineEndStationName;
         addElement("button", words.DELETE, "class", words.LINE_DELETE_BUTTON, cell4);
-        this.addLineSection(stationInputName, lineStartStationName, lineEndStationName);
     }
 
-    setAlert(stationInputName) {
+    setTableContent() {
+        const lineList = getItemList(words.LINES);
+        if(lineList !== null) {
+            lineList.forEach(line => {
+                const lineSectionList = getItemList(line);
+                this.addTableRow(line, lineSectionList[0], lineSectionList[lineSectionList.length - 1]);
+            });
+            addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.deleteLine);
+        }
+    }
+
+    addLineSection(lineInputName, lineStartStationName, lineEndStationName) {
+        const itemList = [lineStartStationName, lineEndStationName];
+        localStorage.setItem(lineInputName, JSON.stringify(itemList));
+    }
+
+    addLineInTable(lineInputName) {
+        const lineStartStationSelector = document.getElementById(words.LINE_START_STATION_SELECTOR);
+        const lineEndStationSelector = document.getElementById(words.LINE_END_STATION_SELECTOR);
+        const lineStartStationName = lineStartStationSelector.options[lineStartStationSelector.selectedIndex].value;
+        const lineEndStationName = lineEndStationSelector.options[lineEndStationSelector.selectedIndex].value;
+        this.addTableRow(lineInputName, lineStartStationName, lineEndStationName);
+        this.addLineSection(lineInputName, lineStartStationName, lineEndStationName);
+        addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.deleteLine);
+    }
+
+    setAlert(lineInputName) {
         let isCorrect = true;
-        if(!isEmpty(stationInputName)) {
+        if(!isEmpty(lineInputName)) {
             alert(words.LINE_INPUT_ALERT);
             isCorrect = false;
         }

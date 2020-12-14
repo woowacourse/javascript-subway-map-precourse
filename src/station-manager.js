@@ -36,26 +36,27 @@ export default class StationManager{
         alert("delete");
     }
 
-    setTableContent() {
-        const stationList = getItemList(words.STATIONS);
-        if(stationList !== null) {
-            stationList.forEach(station => {
-                const row = this.stationTableTbody.insertRow(this.stationTableTbody.length);
-                const cell1 = row.insertCell(0);
-                const cell2 = row.insertCell(1);
-                cell1.innerHTML = station;
-                addElement("button", words.DELETE, "class", words.STATION_DELETE_BUTTON, cell2);
-            });
-        }
-        addClickEventInDeleteButton(words.STATION_DELETE_BUTTON, this.deleteStation);
-    }
-
-    addStationInTable(station) {
+    addTableRow(station) {
         const row = this.stationTableTbody.insertRow(this.stationTableTbody.length);
         const cell1 = row.insertCell(0);
         const cell2 = row.insertCell(1);
         cell1.innerHTML = station;
         addElement("button", words.DELETE, "class", words.STATION_DELETE_BUTTON, cell2);
+    } 
+
+    setTableContent() {
+        const stationList = getItemList(words.STATIONS);
+        if(stationList !== null) {
+            stationList.forEach(station => {
+                this.addTableRow(station);
+            });
+            addClickEventInDeleteButton(words.STATION_DELETE_BUTTON, this.deleteStation);
+        }
+    }
+
+    addStationInTable(station) {
+        this.addTableRow(station);
+        addClickEventInDeleteButton(words.STATION_DELETE_BUTTON, this.deleteStation);
     }
 
     setAlert(stationInputName) {
