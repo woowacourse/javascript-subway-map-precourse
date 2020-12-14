@@ -1,5 +1,5 @@
-import { stationArray } from "../index.js";
-import { container } from "../consts/consts.js";
+import { appContainer, lineData, stationArray } from "../index.js";
+import { alertLabel, container } from "../consts/consts.js";
 import { createElement } from "../utils/utils.js";
 
 import { textLabel, htmlLabel } from "../consts/consts.js";
@@ -59,12 +59,29 @@ const createDeleteButton = (value) => {
 
 const handleStationDeleteButton = (value) => {
   if (!confirm(textLabel.CONFIRM)) return;
+  if (validStationDelete(value)) {
+    const index = stationArray.indexOf(value);
+    stationTable.deleteRow(index + 1);
+    stationArray.splice(index, 1);
 
-  const index = stationArray.indexOf(value);
-  stationTable.deleteRow(index + 1);
-  stationArray.splice(index, 1);
+    updateStationData();
+  }
+};
 
-  updateStationData();
+const inputValidator = (inputString) => {
+  return inputString.length >= 2 && stationArray.indexOf(inputString) === -1;
+};
+
+const validStationDelete = (stationName) => {
+  for (let i = 0; i < Object.keys(lineData).length; i++) {
+    const lineArray = lineData[Object.keys(lineData)[i]];
+    if (lineArray.indexOf(stationName) >= 0) {
+      alert(alertLabel.STATION_IN_LINE);
+      return false;
+    }
+  }
+
+  return true;
 };
 
 const insertTable = (data_1, data_2) => {
@@ -78,10 +95,7 @@ const insertTable = (data_1, data_2) => {
 
 const updateStationData = () => {
   window.localStorage.station = stationArray;
-};
-
-const inputValidator = (inputString) => {
-  return inputString.length >= 2 && stationArray.indexOf(inputString) === -1;
+  appContainer.dataset.station = window.localStorage.station;
 };
 
 const updateTable = () => {

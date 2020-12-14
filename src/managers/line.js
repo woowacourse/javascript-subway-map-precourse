@@ -1,6 +1,11 @@
-import { container, htmlLabel, textLabel } from "../consts/consts.js";
+import {
+  alertLabel,
+  container,
+  htmlLabel,
+  textLabel,
+} from "../consts/consts.js";
 import { createElement } from "../utils/utils.js";
-import { lineData } from "../index.js";
+import { appContainer, lineData } from "../index.js";
 
 const lineAddContainer = createElement("p");
 const lineStartContainer = createElement("div");
@@ -113,12 +118,33 @@ const insertData = (dataArray) => {
 };
 
 const inputValidator = (lineName, startStation, endStation) => {
-  if (startStation === endStation || lineData[lineName]) return false;
-  return true;
+  if (startStation === endStation) {
+    alert(alertLabel.LINE_START_END_EQUAL);
+  } else if (lineData[lineName]) {
+    alert(alertLabel.LINE_NAME_ALREADY_EXISTS);
+  } else {
+    return true;
+  }
+  return false;
+};
+
+const findStationInLine = (stationArr) => {
+  for (let i = 0; i < Object.keys(lineData).length; i++) {
+    const lineArray = lineData[Object.keys(lineData)[i]];
+    if (
+      lineArray.indexOf(stationArr[0]) >= 0 ||
+      lineArray.indexOf(stationArr[1]) >= 0
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 };
 
 const updateLocalStorage = () => {
   window.localStorage.line = JSON.stringify(lineData);
+  appContainer.dataset.line = window.localStorage.line;
 };
 
 const updateTable = () => {

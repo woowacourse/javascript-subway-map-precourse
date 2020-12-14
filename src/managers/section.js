@@ -1,5 +1,10 @@
-import { container, textLabel, htmlLabel } from "../consts/consts.js";
-import { lineData } from "../index.js";
+import {
+  container,
+  textLabel,
+  htmlLabel,
+  alertLabel,
+} from "../consts/consts.js";
+import { appContainer, lineData } from "../index.js";
 import { createElement } from "../utils/utils.js";
 
 const sectionHeading = createElement("h3");
@@ -30,6 +35,7 @@ sectionIndexInput.innerText = textLabel.SECTION_INPUT;
 sectionAddButton.innerText = textLabel.SECTION_ADD_BUTTON;
 
 export const initSectionManager = () => {
+  sectionContainer.innerHTML = "";
   initButtonContainer();
   initSectionSelect();
   sectionHTMLElements.map((item) => container.appendChild(item));
@@ -122,12 +128,22 @@ const handleAddButton = (lineName) => {
 
 const handleStationDeleteButton = (lineName, stationName) => {
   if (!confirm(textLabel.CONFIRM)) return;
+  if (validStationDeleteButton(lineName)) {
+    const index = lineData[lineName].indexOf(stationName);
+    lineData[lineName].splice(index, 1);
+    updateLocalStorage();
 
-  const index = lineData[lineName].indexOf(stationName);
-  lineData[lineName].splice(index, 1);
-  updateLocalStorage();
+    initSectionTable(lineName);
+  }
+};
 
-  initSectionTable(lineName);
+const validStationDeleteButton = (lineName) => {
+  if (lineData[lineName].length <= 2) {
+    alert(alertLabel.STATION_NUMBER_MINIMUM);
+    return false;
+  }
+
+  return true;
 };
 
 const insertData = (dataArray) => {
@@ -143,4 +159,5 @@ const insertData = (dataArray) => {
 
 const updateLocalStorage = () => {
   window.localStorage.line = JSON.stringify(lineData);
+  appContainer.dataset.line = window.localStorage.line;
 };
