@@ -10,24 +10,34 @@ const elementMap = {
 export default class SectionManager extends Component {
   constructor() {
     super();
+    this.state = {
+      selectedLine: null,
+    };
+    this.handleLineButtonClick = (index) => {
+      const line = this.store.lines[index];
+      this.setState({ ...this.state, selectedLine: line });
+      console.log(this.state.selectedLine);
+    };
+  }
+
+  mount() {
+    const sectionLineMenuButtons = document.getElementsByClassName(
+      elementMap.sectionLineMenuButton
+    );
+    [...sectionLineMenuButtons].forEach((button, index) => {
+      button.addEventListener("click", () => {
+        this.handleLineButtonClick(index);
+      });
+    });
   }
 
   render() {
     const { stations = [], lines = [] } = this.store;
-    console.log(stations, lines);
-    return `
+    const { selectedLine } = this.state;
+    console.log(Boolean(selectedLine));
+    let section = `
     <div>
-      <h3>구간을 수정할 노선을 선택해주세요.</h3>
-      ${lines
-        .map(
-          (line) =>
-            `<button class=${elementMap.sectionLineMenuButton} 
-               style="margin-right: 10px;">${line.name}</button>`
-        )
-        .join("")}
-    </div>
-    <div>
-      <h3>1호선 관리</h3>
+      <h3>${selectedLine ? selectedLine.name : ""} 관리</h3>
       <h4>구간 등록</h4>
       <select id=${elementMap.sectionStationSelector}>
         ${stations.map(
@@ -49,8 +59,8 @@ export default class SectionManager extends Component {
       </thead>
       <tbody>
         <tr>
-          <td>0</td>
-          <td>인천</td>
+          <td></td>
+          <td></td>
           <td>
             <button class=${
               elementMap.sectionDeleteButton
@@ -58,7 +68,20 @@ export default class SectionManager extends Component {
           </td>
         </tr>
       </tbody>
-    </table>
+    </table> 
+    `;
+    return `
+    <div>
+      <h3>구간을 수정할 노선을 선택해주세요.</h3>
+      ${lines
+        .map(
+          (line) =>
+            `<button class=${elementMap.sectionLineMenuButton} 
+               style="margin-right: 5px;">${line.name}</button>`
+        )
+        .join("")}
+    </div>
+   ${selectedLine ? section : `<div></div>`}
   `;
   }
 }
