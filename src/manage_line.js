@@ -144,9 +144,8 @@ export default class ManageLine {
 
   createNewLine() {
     if (this.checkLineValidity(this._lineInput.value) === this.IS_VALID) {
-      const lineStationArray = [this._startSelect.value, this._endSelect.value];
-
       this.updateAddToLocalStorage();
+      this.addLine();
     }
   }
 
@@ -210,7 +209,9 @@ export default class ManageLine {
     this._privateTableUtils.initTable(this.ARTICLE_NAME);
   }
 
-  createRowArray(lineName) {
-    return [lineName, this.DELETE_BUTTON_TEXT];
+  addLine() {
+    const rowArray = [this._lineInput.value, this._startSelect.value, this._endSelect.value, this.DELETE_BUTTON_TEXT];
+
+    this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
   }
 }
