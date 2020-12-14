@@ -1,8 +1,11 @@
 import { stationMangeContainer, getStationRow } from "./dom.js";
 import Station from "../components/Station.js";
-import { addLocalStorageByKey } from "../utils/util.js";
-import { addStationValidate } from "../utils/validator.js";
-import { STATION } from "../constants.js";
+import { addLocalStorageByKey, deleteDataByName } from "../utils/util.js";
+import {
+  addStationValidate,
+  deleteStationValidate,
+} from "../utils/validator.js";
+import { STATION, DELETE_CONFIRM_MESSAGE } from "../constants.js";
 
 export const clearMangeContainer = () => {
   const container = document.getElementById("subway-manager-container");
@@ -21,11 +24,32 @@ export const addStation = () => {
   if (addStationValidate(stationNameElem.value)) {
     addLocalStorageByKey("stations", new Station(stationNameElem.value));
     insertStationTable(stationNameElem.value);
-    // 삭제 이벤트 등록
+    setStationDeleteEvent();
   } else {
     alert(STATION.INPUT_ERROR_MESSAGE);
   }
   stationNameElem.value = "";
+};
+
+export const confirmStationDelete = (targetElem) => {
+  try {
+    if (deleteStationValidate(targetElem.dataset.index)) {
+      deleteDataByName("stations", targetElem.dataset.index, "name");
+      const removeElem = targetElem.parentNode.parentNode;
+      removeElem.parentNode.removeChild(removeElem);
+    } else {
+      alert(STATION.DELETE_ERROR_MESSAGE);
+    }
+  } catch (e) {}
+};
+
+export const setStationDeleteEvent = () => {
+  document.querySelectorAll(".station-delete-button").forEach((item) => {
+    item.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (confirm(DELETE_CONFIRM_MESSAGE)) confirmStationDelete(event.target);
+    });
+  });
 };
 
 export const rendStationMangeDom = () => {
@@ -33,5 +57,5 @@ export const rendStationMangeDom = () => {
   const div = document.createElement("div");
   div.innerHTML = stationMangeContainer();
   container.appendChild(div);
-  //삭제 이벤트 등록
+  setStationDeleteEvent();
 };

@@ -16,3 +16,13 @@ export const addLocalStorageByKey = (key, object) => {
   console.log(tmpStorage, key);
   localStorage.setItem(key, JSON.stringify(tmpStorage));
 };
+
+export const deleteDataByName = (key, value, prop) => {
+  const tmpStorage = JSON.parse(localStorage.getItem(key));
+  tmpStorage.map((item, idx) => {
+    if (item[prop] === value) {
+      tmpStorage.splice(idx, 1);
+    }
+  });
+  localStorage.setItem(key, JSON.stringify(tmpStorage));
+};
