@@ -1,4 +1,4 @@
-import { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert } from "./alert.js";
+import { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert, orderAlert } from "./alert.js";
 
 function validateInput(input, inputTagID) {
   let alertMsg = "";
@@ -46,4 +46,14 @@ function validateStartAndEndStations(startAndEndStations) {
   return startAndEndStations;
 }
 
-export { validateInput, validateStationDelete, validateStartAndEndStations, validateSectionDelete };
+function validateOrder(order) {
+  let alertMsg = orderAlert(order);
+
+  if (alertMsg !== "") {
+    alert(alertMsg);
+    return "";
+  }
+  return order;
+}
+
+export { validateInput, validateStationDelete, validateStartAndEndStations, validateSectionDelete, validateOrder };

@@ -1,6 +1,6 @@
 import render from "../../components/render.js";
 import app from "../../components/app.js";
-import { validateSectionDelete } from "../validation/validation.js";
+import { validateSectionDelete, validateOrder } from "../validation/validation.js";
 
 function onSectionHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -28,28 +28,32 @@ function onLineSelectHandler() {
 function onAddSectionHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let station = document.getElementById("section-station-selector").value;
-  let order = document.getElementById("section-order-input").value;
   let targetLine = subwayDatas.targetLine;
+  // 구간 등록 시 인덱스가 0이거나 가장 끝 인덱스인 경우 alert
+  let order = validateOrder(document.getElementById("section-order-input").value);
+  // let order = document.getElementById("section-order-input").value;
 
-  //subwayDatas.lines에 원하는 인덱스에 해당 역 넣어주기
-  subwayDatas.lines.map((line, idx) => {
-    if (line.name === targetLine) {
-      subwayDatas.lines[idx].stops.splice(order, 0, station);
-    }
-  });
-  //subwayDatas.stations 해당 역의 line 정보에 해당 노선 넣어주기
-  subwayDatas.subwayStations.forEach((addedStation, idx) => {
-    if (station === addedStation.name) {
-      subwayDatas.subwayStations[idx].line.push(subwayDatas.targetLine);
-    }
-  });
-  console.log(subwayDatas);
+  if (order) {
+    //subwayDatas.lines에 원하는 인덱스에 해당 역 넣어주기
+    subwayDatas.lines.map((line, idx) => {
+      if (line.name === targetLine) {
+        subwayDatas.lines[idx].stops.splice(order, 0, station);
+      }
+    });
+    //subwayDatas.stations 해당 역의 line 정보에 해당 노선 넣어주기
+    subwayDatas.subwayStations.forEach((addedStation, idx) => {
+      if (station === addedStation.name) {
+        subwayDatas.subwayStations[idx].line.push(subwayDatas.targetLine);
+      }
+    });
+    console.log(subwayDatas);
 
-  localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+    localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
 
-  render(app("section", subwayDatas));
-  updateEventToSectionAddBtns();
-  updateEventToLineBtns();
+    render(app("section", subwayDatas));
+    updateEventToSectionAddBtns();
+    updateEventToLineBtns();
+  }
 }
 
 function onSectionDeleteHandler() {

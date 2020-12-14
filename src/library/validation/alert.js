@@ -114,4 +114,19 @@ function sectionDeleteAlert(targetLine) {
   return alertMsg;
 }
 
-export { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert };
+function orderAlert(order) {
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  let alertMsg = "";
+
+  subwayDatas.lines.map((line, idx) => {
+    if (line.name === subwayDatas.targetLine) {
+      console.log(order, subwayDatas.lines[idx].stops.length);
+      if (0 >= order || order >= subwayDatas.lines[idx].stops.length) {
+        alertMsg = "역과 역 사이에만 구간 등록이 가능합니다.";
+      }
+    }
+  });
+  return alertMsg;
+}
+
+export { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert, orderAlert };
