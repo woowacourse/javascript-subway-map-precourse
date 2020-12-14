@@ -1,6 +1,7 @@
 import Component from '../factory/Component.js';
 import Line from '../factory/Line.js';
 import { LINE } from '../share/selector.js';
+import { checkOverlap } from '../share/utils.js';
 import { optionTemplate } from '../share/template.js';
 
 export default class LineManager extends Component {
@@ -31,11 +32,18 @@ export default class LineManager extends Component {
   }
 
   addLineToList(line) {
+    if (!this.checkValidity(line)) return;
     const newLineList = [...this.state.lineList];
     newLineList.push(line);
     this.setState({
       lineList: newLineList,
     });
+  }
+
+  checkValidity=({ name }) => checkOverlap(name, this.getAllLineNames())
+
+  getAllLineNames() {
+    return this.state.lineList.map((line) => line.name);
   }
 
   getValues = () => {
