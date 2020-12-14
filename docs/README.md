@@ -123,7 +123,9 @@ git clone https://github.com/sunhpark42/javascript-subway-map-precourse.git; cd 
 - [x] 기능 연결
 
 ### 기타
-- [ ] 로컬 스토리지에 값이 없는 경우 default 값 삽입, 있는 경우 기존의 스토리지 값을 이용.
+- [x] 로컬 스토리지에 값이 없는 경우 default 값 삽입, 있는 경우 기존의 스토리지 값을 이용.
+  - 이경우 둘 중 하나에 값이 없는 경우에 모두 디폴트 값으로 설정하도록 함.
+  - 역, 노선 내의 역 목록간의 연결성 유지를 위함.
 
 ## ✔️ 커밋 규칙
 * feat : 새로운 기능 추가
