@@ -76,6 +76,12 @@
 
 - 버튼 클릭으로 인터페이스 전환 (convert interface with button click)
 
+### 인터페이스 데이터 동기화 기능
+
+- 인터페이스에 입력된 정보 저장하기 (save interface data)
+- 입력 정보를 불러오기 (load interface data)
+- 입력 정보를 인터페이스와 동기화 시키기(sync interface data to interface)
+
 ### 역관리 인터페이스 기능
 
 - 역 추가 기능 호출 or 안내메세지 출력 (trigger 'add subway station' | alert with message)
