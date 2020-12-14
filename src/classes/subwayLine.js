@@ -10,6 +10,8 @@ export default class SubwayLine {
     this.name = name;
     this.upTerminatingStation = upTerminatingStation;
     this.downTerminatingStation = downTerminatingStation;
+    this.upTerminatingStation.nextStation = this.downTerminatingStation;
+    this.downTerminatingStation.prevStation = this.upTerminatingStation;
   }
 
   #getNextStationInLine(station) {
