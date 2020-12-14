@@ -3,10 +3,8 @@ export const printStations = () => {
   const tableBody = document.querySelector('#station-list');
   let tableRows = '';
   if (stations.length === 0) {
-    clearTable();
-    return;
+    return clearTable();
   }
-
   for (let i = 0; i < stations.length; i++) {
     tableRows += `<tr><td>${stations[i]}</td><td><input data-station="${stations[i]}" type="button" value="삭제"></td></tr>`;
     tableBody.innerHTML = tableRows;

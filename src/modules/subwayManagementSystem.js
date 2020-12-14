@@ -1,6 +1,6 @@
 import Station from './station.js';
 
-export default class Subway {
+export default class SubwayManagementSystem {
   constructor() {
     const station = new Station();
     const createStationBtn = document.querySelector('#station-add-button');
