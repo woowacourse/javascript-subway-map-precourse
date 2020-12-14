@@ -23,9 +23,9 @@ export class SubwayMap {
     this.header = new HeaderButtons();
   };
 
-  render = () => {
-    this.header.render(this.props);
-    this.content.render(this.props);
+  render = (props) => {
+    this.header.render(props);
+    this.content.render(props);
   };
 
   onHeaderClick = (e) => {

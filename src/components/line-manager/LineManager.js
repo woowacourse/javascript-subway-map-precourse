@@ -4,6 +4,7 @@ import { displayShow, displayHide } from "../../utils/handleDom.js";
 
 export class LineManager {
   id = "line-manager-container";
+
   constructor(props) {
     this.setLines = props.setLines;
     this.getLines = props.getLines;
@@ -28,9 +29,6 @@ export class LineManager {
     } else {
       displayHide(this.manager);
     }
-
-    this.lineManagerInput.render();
-    this.lineManagerList.render();
   };
 
   updateStations = () => {
@@ -41,17 +39,13 @@ export class LineManager {
     this.lineManagerList.render();
   };
 
-  addNewLines = (lineName, newLine) => {
-    this.setNewLine(lineName, newLine);
-    this.lineManagerList.render();
-  };
-
-  setNewLine = (lineName, newLines) => {
+  addNewLines = (lineName, newStations) => {
     let lines = this.getLines();
-    let newLine = { lineName: lineName, stations: newLines };
+    let newLine = { lineName: lineName, stations: newStations };
 
     lines.push(newLine);
     this.setLines(lines);
+    this.lineManagerList.render();
   };
 
   deleteLine = (lineName) => {

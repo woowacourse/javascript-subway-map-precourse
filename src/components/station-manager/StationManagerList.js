@@ -10,7 +10,6 @@ export class StationManagerList {
     this.getLines = props.getLines;
     this.initializeDOM();
     this.initializeEvents();
-    this.render(props);
   }
 
   initializeDOM = () => {

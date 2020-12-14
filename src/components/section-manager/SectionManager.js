@@ -5,6 +5,7 @@ import { SectionManagerList } from "./SectionManagerList.js";
 
 export class SectionManager {
   id = "section-manager-container";
+
   constructor(props) {
     this.getLines = props.getLines;
     this.getStations = props.getStations;
