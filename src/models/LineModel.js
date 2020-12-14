@@ -8,6 +8,7 @@ import {
   ALREADY_EXIST_SECTION_NAME_MESSAGE,
   VALID_ORDER_MESSAGE,
   MINIMUM_STATION_MESSAGE,
+  INVALID_DATA_INDEX_MESSAGE,
 } from '../messages.js';
 
 export default class LineModel {
@@ -66,7 +67,7 @@ export default class LineModel {
     const index = line.sectionList.findIndex((station) => station.name === sectionName);
 
     if (index < 0) {
-      throw new Error('');
+      throw new Error(INVALID_DATA_INDEX_MESSAGE);
     }
 
     line.sectionList.splice(index, 1);

@@ -1,6 +1,11 @@
 import { save, load } from '../utils.js';
 import { MINIMUM_INPUT_LENGTH } from '../constants.js';
-import { INPUT_LENGTH_MESSAGE, ALREADY_EXIST_STATION_NAME_MESSAGE, REGISTERED_STATION_MESSAGE } from '../messages.js';
+import {
+  INPUT_LENGTH_MESSAGE,
+  ALREADY_EXIST_STATION_NAME_MESSAGE,
+  REGISTERED_STATION_MESSAGE,
+  INVALID_DATA_INDEX_MESSAGE,
+} from '../messages.js';
 
 export default class StationModel {
   constructor() {
@@ -40,6 +45,10 @@ export default class StationModel {
 
   deleteStation(name, lineList) {
     const index = this.data.findIndex((station) => station.name === name);
+
+    if (index < 0) {
+      throw new Error(INVALID_DATA_INDEX_MESSAGE);
+    }
 
     if (this.isRegisteredStation(this.data[index], lineList)) {
       throw new Error(REGISTERED_STATION_MESSAGE);
