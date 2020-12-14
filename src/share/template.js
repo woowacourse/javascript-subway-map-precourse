@@ -17,5 +17,16 @@ export const lineTableTemplate = (data) => {
   `;
 };
 
+export const sectionDetailTableTemplate = (data) => {
+  const { index, name, buttonClass } = data;
+  return `
+  <tr data-name="${name}" data-index="${index}">
+    <td>${index}</td>
+    <td>${name}</td>
+    <td><button class="${buttonClass}" data-index="${index}">노선에서 삭제</button></td>
+  </tr>
+  `;
+};
+
 export const optionTemplate = (station) =>
   `<option value="${station}">${station}</option>`;

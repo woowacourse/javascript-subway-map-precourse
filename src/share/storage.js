@@ -1,6 +1,10 @@
 const defaultState = {
   stationList: [],
   lineList: [],
+  currentLineData: {
+    name: '',
+    section: [],
+  },
 };
 
 const setItem = (key, data) => localStorage.setItem(key, JSON.stringify(data));

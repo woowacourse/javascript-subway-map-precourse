@@ -65,6 +65,7 @@ export default class SubwayManager extends Component {
     this.stationManager.setState(data);
     this.lineManager.setState(data);
     this.sectionManager.setState(data);
+    this.sectionManager.sectionDetailManager.setState(data);
     this.mapPrintManager.setState(data);
   };
 }

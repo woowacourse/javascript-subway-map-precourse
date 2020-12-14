@@ -14,12 +14,28 @@ export default class SectionManager extends Component {
       syncData: this.props.syncData,
     });
 
+    this.sectionLineMenu.addEventListener(
+      'click',
+      this.changeSectionDetailManger,
+    );
+
     this.sectionDetailManager.hide();
   }
 
+  changeSectionDetailManger = (e) => {
+    const { name: selectedLineName } = e.target.dataset;
+    this.sectionDetailManager.setState({
+      currentLineData: this.getSelectedLine(selectedLineName),
+    });
+    this.sectionDetailManager.show();
+  };
+
+  getSelectedLine = (name) =>
+    this.state.lineList.find((line) => line.name === name);
+
   template() {
     return this.state.lineList
-      .map((line) => `<button>${line.name}호선</button>`)
+      .map((line) => `<button data-name="${line.name}">${line.name}</button>`)
       .join('');
   }
 
