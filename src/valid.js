@@ -11,12 +11,15 @@ const ERROR_STATION_INCLUDED = '노선에 포함되어있는 역은 삭제가 �
 const ERROR_STATION_ALREADY_EXISTS = '기존의 노선에 해당 역이 존재합니다.';
 const ERROR_SECTION_OUT_OF_RANGE = '구간 범위를 벗어난 숫자입니다.';
 const ERROR_START_EQUALS_END = '상행 종점과 하행 종점이 동일합니다.';
+const ERROR_MUST_BE_AN_INTEGER = '정수 값을 입력해야 합니다.';
 
 const isDuplicatedName = (list, input) => list.indexOf(input) !== -1;
 
 const isUnderMinLength = input => input.length < MIN_STRING_LENGTH;
 
 const isEmptyString = input => !input && input !== 0;
+
+const isNotAnInteger = input => !Number.isInteger(input);
 
 export const isValidStationName = (list, input) => {
   if (isDuplicatedName(list, input)) {
@@ -114,6 +117,9 @@ const isValidSectionOrder = (line, order) => {
     return false;
   } else if (isEmptyString(order)) {
     alert(ERROR_EMPTY_STRING);
+    return false;
+  } else if (isNotAnInteger(order)) {
+    alert(ERROR_MUST_BE_AN_INTEGER);
     return false;
   }
   return true;
