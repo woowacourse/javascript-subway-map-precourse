@@ -22,3 +22,5 @@ export const DELETE_MESSAGE_FROM_LINE = "정말로 노선에서 삭제하시겠�
 export const DELETE_STATION_ERROR = `현재 지울 역이 포함된 노선은 ${MIN_LENGTH_OF_LINE}개의 역만 존재하므로 삭제될 수 없습니다.`;
 
 export const ALREADY_EXIST_ERROR = "노선에 해당하는 역이 이미 존재합니다.";
+export const LARGE_ORDER_NUMBER_ERROR =
+  "순서는 해당 노선의 길이 이상의 숫자가 올 수 없습니다.";

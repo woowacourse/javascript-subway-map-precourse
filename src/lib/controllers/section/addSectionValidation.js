@@ -4,6 +4,7 @@ import {
   EMPTY_ORDER_ERROR,
   INVALID_NUMBER_ERROR,
   ALREADY_EXIST_ERROR,
+  LARGE_ORDER_NUMBER_ERROR,
 } from "../../common/alertMessages.js";
 import { lineSelector } from "../../_store/selectors.js";
 import { isInvalidNumber, isEmptyInput } from "../common.js";
@@ -14,12 +15,17 @@ export default class AddSectionValidation extends Section {
     super(stationName, order, lineName);
     this.isOrderEmpty = isEmptyInput(this.order);
     this.isInValidOrderNumber = isInvalidNumber(this.order);
+    this.lineStationsList = lineSelector().filter(
+      (lineData) => this.lineName === lineData.lineName,
+    )[0].stations;
   }
 
   _isAlreadyExist() {
-    return lineSelector()
-      .filter(({ lineName }) => this.lineName === lineName)[0]
-      .stations.includes(this.stationName);
+    return this.lineStationsList.includes(this.stationName);
+  }
+
+  _orderIsLargerThanLineLength() {
+    return this.order >= this.lineStationsList.length;
   }
 
   getInputResult() {
@@ -27,6 +33,8 @@ export default class AddSectionValidation extends Section {
     if (this.isInValidOrderNumber)
       return actionResult(false, INVALID_NUMBER_ERROR);
     if (this._isAlreadyExist()) return actionResult(false, ALREADY_EXIST_ERROR);
+    if (this._orderIsLargerThanLineLength())
+      return actionResult(false, LARGE_ORDER_NUMBER_ERROR);
 
     return actionResult(true);
   }
