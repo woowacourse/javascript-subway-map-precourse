@@ -1,6 +1,7 @@
 export default class Component {
-  constructor(props) {
+  constructor(props = {}) {
     this.state = {};
+    this.props = props;
     this.managerId = props.managerId;
     this.container = document.querySelector(`#${props.containerId}`);
   }

@@ -45,6 +45,7 @@ export default class StationManager extends Component {
     this.setState({
       stationList: newStationList,
     });
+    this.props.syncData(this.state);
   }
 
   deleteStationFromList(index) {
@@ -53,6 +54,7 @@ export default class StationManager extends Component {
     this.setState({
       stationList: newStationList,
     });
+    this.props.syncData(this.state);
   }
 
   checkValidity(value) {
