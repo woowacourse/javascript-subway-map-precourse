@@ -8,11 +8,12 @@ export default function LineManager() {
     localStorage.removeItem(lineName);
   }
 
-  this.confirmDeleteLine = function(lineName) {
+  this.confirmDeleteLine = function() {
     const lineDeleteButton = document.getElementsByClassName("line-delete-button");
     let i;
     for (i = 0; i < lineDeleteButton.length; i++) {
-      const dataName = lineDeleteButton[i].dataset.name;
+      const lineName = lineDeleteButton[i].dataset.name;
+      const dataName = lineDeleteButton[i].dataset.lineName;
       lineDeleteButton[i].addEventListener("click", () => {
         const returnValue = confirm("정말로 삭제하시겠습니까?");
         if (returnValue) {
@@ -40,9 +41,9 @@ export default function LineManager() {
       const value = new Line(lineName, startStationInput, endStationInput);
       const lineList = document.querySelector("#line-list");
       localStorage.setItem(key, JSON.stringify(value));
-      lineList.innerHTML += `<tr id="line-${lineName}"><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button data-name="line-${lineName}" class="line-delete-button">삭제</button></td></tr>`;
+      lineList.innerHTML += `<tr id="line-${lineName}"><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button data-name="${lineName}" data-line-name="line-${lineName}" class="line-delete-button">삭제</button></td></tr>`;
       this.registerStation(startStationInput, endStationInput);
-      this.confirmDeleteLine(lineName);
+      this.confirmDeleteLine();
     }, {once: true});
   }
 
@@ -104,7 +105,7 @@ export default function LineManager() {
       
       if (localStorage && parsedObject.position === "line") {
         const parsedObjectLength = Object.keys(parsedObject.line).length
-        lineList.innerHTML += `<tr id="line-${key}"><td>${key}</td><td>${parsedObject.line[0]}</td><td>${parsedObject.line[parsedObjectLength - 1]}</td><td><button data-name="line-${key}" class="line-delete-button">삭제</button></td></tr>`;
+        lineList.innerHTML += `<tr id="line-${key}"><td>${key}</td><td>${parsedObject.line[0]}</td><td>${parsedObject.line[parsedObjectLength - 1]}</td><td><button data-name="${key}" data-line-name="line-${key}" class="line-delete-button">삭제</button></td></tr>`;
       }
     }
     this.confirmDeleteLine();
