@@ -75,7 +75,12 @@ export default class LineManager extends Component {
   createLineNameInput() {
     return createInputTextHTMLElement({
       id: "line-name-input",
-      placeholder: "노선 이름을 입력해주세요."
+      placeholder: "노선 이름을 입력해주세요.",
+      onKeydown: e => {
+        if (e.key === "Enter") {
+          this.handleLineAdd();
+        }
+      }
     });
   }
 
