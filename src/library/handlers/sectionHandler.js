@@ -1,5 +1,6 @@
 import render from "../../components/render.js";
 import app from "../../components/app.js";
+import { confirmSectionDelete } from "../validation/validation.js";
 
 function onSectionHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -58,25 +59,29 @@ function onSectionDeleteHandler() {
   let targetLine = subwayDatas.targetLine;
   //   console.log(deleteTargetName);
 
-  //lines에서 삭제하고
-  subwayDatas.lines.map((line) => {
-    if (line.name === subwayDatas.targetLine) {
-      line.stops.splice(deleteTargetIdx, 1);
-      //   localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
-    }
-  });
-  //station 정보의 line에서도 삭제하기
-  subwayDatas.subwayStations.map((station) => {
-    if (station.name === deleteTargetName) {
-      station.line.splice(subwayDatas.subwayStations.indexOf(targetLine), 1);
-    }
-  });
-  localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+  let deleteConfirmed = confirmSectionDelete();
 
-  render(app("section", subwayDatas));
-  updateEventToSectionAddBtns();
-  updateEventToLineBtns();
-  updateDeleteToSectionDeleteBtns();
+  if (deleteConfirmed === true) {
+    //lines에서 삭제하고
+    subwayDatas.lines.map((line) => {
+      if (line.name === subwayDatas.targetLine) {
+        line.stops.splice(deleteTargetIdx, 1);
+        //   localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+      }
+    });
+    //station 정보의 line에서도 삭제하기
+    subwayDatas.subwayStations.map((station) => {
+      if (station.name === deleteTargetName) {
+        station.line.splice(subwayDatas.subwayStations.indexOf(targetLine), 1);
+      }
+    });
+    localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+
+    render(app("section", subwayDatas));
+    updateEventToSectionAddBtns();
+    updateEventToLineBtns();
+    updateDeleteToSectionDeleteBtns();
+  }
 }
 
 function updateEventToLineBtns() {

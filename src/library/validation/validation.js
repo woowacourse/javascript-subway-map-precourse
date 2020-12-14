@@ -35,4 +35,9 @@ function validStationDelete(deleteTarget) {
   return deleteTarget;
 }
 
-export { validName, validStationDelete, validLineName };
+function confirmSectionDelete() {
+  let answer = confirm("정말로 노선에서 제거하겠습니까?");
+  return answer;
+}
+
+export { validName, validStationDelete, validLineName, confirmSectionDelete };
