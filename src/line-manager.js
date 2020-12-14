@@ -5,7 +5,7 @@ import {
     addSelectElement, 
     addClickEventListener, 
     pageInit,
-    addClickEventInDeleteButton
+    addClickEventInButtons
 } from "./common/elements.js";
 import { 
     isEmpty,
@@ -28,16 +28,16 @@ export default class LineManager {
     setPage() {
         pageInit();
         addElement("h4", words.LINE_NAME, null, null, null);
-        addInputElement(words.LINE_NAME_INPUT, words.LINE_INPUT_ALERT);
+        addInputElement(words.LINE_NAME_INPUT, words.LINE_INPUT_ALERT, null);
         addElement("h4", words.LINE_START_STATION, "class", words.LINE_STATION_TEXT, null);
-        addSelectElement(words.LINE_START_STATION_SELECTOR);
+        addSelectElement(words.LINE_START_STATION_SELECTOR, null);
         addElement("br", null, null, null, null);
         addElement("h4", words.LINE_END_STATION, "class", words.LINE_STATION_TEXT, null);
-        addSelectElement(words.LINE_END_STATION_SELECTOR);
+        addSelectElement(words.LINE_END_STATION_SELECTOR, null);
         addElement("p", null, null, null, null);
         addElement("button", words.LINE_ADD, "id",words.LINE_ADD_BUTTON, null);
         addElement("h2", words.LINE_LIST, null, null, null);
-        addTableElement([words.LINE_NAME, `${words.LINE_START_STATION}역`, `${words.LINE_END_STATION}역`, words.SETTING], words.LINE_TABLE_TBODY);
+        addTableElement([words.LINE_NAME, `${words.LINE_START_STATION}역`, `${words.LINE_END_STATION}역`, words.SETTING], words.LINE_TABLE_TBODY, null);
     }
    
     deleteLine(deleteButton) {
@@ -59,7 +59,7 @@ export default class LineManager {
     }
 
     addTableRow(lineName, lineStartStationName, lineEndStationName) {
-        const row = this.lineTableTbody.insertRow(this.lineTableTbody.length);
+        const row = this.lineTableTbody.insertRow();
         row.setAttribute("data-line-name", lineName);
         const cell1 = row.insertCell(0);
         const cell2 = row.insertCell(1);
@@ -78,7 +78,7 @@ export default class LineManager {
                 const lineSectionList = getItemList(line);
                 this.addTableRow(line, lineSectionList[0], lineSectionList[lineSectionList.length - 1]);
             });
-            addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.confirmDeleteLine.bind(this), false);
+            addClickEventInButtons(words.LINE_DELETE_BUTTON, this.confirmDeleteLine.bind(this), false);
         }
     }
 
@@ -89,10 +89,10 @@ export default class LineManager {
 
     addLineInTable(lineInputName, lineStartStationName, lineEndStationName) {this.addTableRow(lineInputName, lineStartStationName, lineEndStationName);
         this.addLineSection(lineInputName, lineStartStationName, lineEndStationName);
-        addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.confirmDeleteLine.bind(this), true);
+        addClickEventInButtons(words.LINE_DELETE_BUTTON, this.confirmDeleteLine.bind(this), true);
     }
 
-    getAlertText(lineInputName) {
+    getAlertText(lineInputName, lineStartStationName, lineEndStationName) {
         let text = "";
         if(!isEmpty(lineInputName)) {
             text = words.LINE_INPUT_ALERT;
@@ -113,7 +113,7 @@ export default class LineManager {
 
     addLine() {
         const lineInputName = removeWhiteSpaceValue(document.getElementById(words.LINE_NAME_INPUT).value);
-        const lineStationName = getLineStationName();
+        const lineStationName = this.getLineStationName();
         const alertText = this.getAlertText(lineInputName, lineStationName[0], lineStationName[1]);
         if(alertText === "") {
             if(addItem(words.LINES, lineInputName)) {

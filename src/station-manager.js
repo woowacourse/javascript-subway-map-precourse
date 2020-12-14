@@ -4,7 +4,7 @@ import {
     addTableElement, 
     addClickEventListener, 
     pageInit,
-    addClickEventInDeleteButton
+    addClickEventInButtons
 } from "./common/elements.js";
 import {
     isEmpty,
@@ -25,10 +25,10 @@ export default class StationManager{
     setPage() {
         pageInit();
         addElement("h4", words.STATION_NAME, null, null, null);
-        addInputElement(words.STATION_NAME_INPUT, words.STATION_INPUT_ALERT);
+        addInputElement(words.STATION_NAME_INPUT, words.STATION_INPUT_ALERT, null);
         addElement("button", words.STATION_ADD, "id", words.STATION_ADD_BUTTON, null);
         addElement("h2", words.STATION_LIST, null, null, null);
-        addTableElement([words.STATION_NAME, words.SETTING], words.STATION_TABLE_TBODY);
+        addTableElement([words.STATION_NAME, words.SETTING], words.STATION_TABLE_TBODY, null);
     }
 
     // 수정해야함
@@ -37,7 +37,7 @@ export default class StationManager{
     }
 
     addTableRow(station) {
-        const row = this.stationTableTbody.insertRow(this.stationTableTbody.length);
+        const row = this.stationTableTbody.insertRow();
         const cell1 = row.insertCell(0);
         const cell2 = row.insertCell(1);
         cell1.innerHTML = station;
@@ -50,13 +50,13 @@ export default class StationManager{
             stationList.forEach(station => {
                 this.addTableRow(station);
             });
-            addClickEventInDeleteButton(words.STATION_DELETE_BUTTON, this.deleteStation);
+            addClickEventInButtons(words.STATION_DELETE_BUTTON, this.deleteStation);
         }
     }
 
     addStationInTable(station) {
         this.addTableRow(station);
-        addClickEventInDeleteButton(words.STATION_DELETE_BUTTON, this.deleteStation);
+        addClickEventInButtons(words.STATION_DELETE_BUTTON, this.deleteStation);
     }
 
     getAlertText(stationInputName) {

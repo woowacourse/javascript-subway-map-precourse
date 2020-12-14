@@ -7,6 +7,11 @@ export function addClickEventListener(target, event) {
     target.addEventListener("click", event);
 }
 
+function appendNode(childNode, parentNode) {
+    parentNode = parentNode === null ? managerPart : parentNode;
+    parentNode.append(childNode);
+}
+
 export function addElement(type, content, attribute, attributeName, parentNode) {
     const element = document.createElement(type);
     if(content !== null) {
@@ -15,32 +20,31 @@ export function addElement(type, content, attribute, attributeName, parentNode) 
     if(attribute !== null) {
         element.setAttribute(attribute, attributeName);
     }
-    parentNode = parentNode === null ? managerPart : parentNode;
-    parentNode.append(element);
+    appendNode(element, parentNode);
 }
 
-export function addInputElement(name, information) {
+export function addInputElement(name, information, parentNode) {
     const element = document.createElement("input");
     element.setAttribute("type", "text");
     element.setAttribute("id", name);
     element.setAttribute("placeholder", information);
-    managerPart.append(element); 
+    appendNode(element, parentNode);
 }
 
-export function addTableElement(headers, tbodyName) {
+export function addTableElement(headers, tbodyName, parentNode) {
     const element = document.createElement("table");
     element.setAttribute("border", 1);
     headers.forEach(header => {
         addElement("th", header, null, null, element);
     })
     addElement("tbody", null, "id", tbodyName, element);
-    managerPart.append(element);
+    appendNode(element, parentNode);
 }
 
-export function addSelectElement(idName) {
+export function addSelectElement(name, parentNode) {
     const stationList = getItemList(words.STATIONS);
     const element = document.createElement("select");
-    element.setAttribute("id", idName);
+    element.setAttribute("id", name);
     if(stationList !== null) {
         stationList.forEach(station => {
             const option = document.createElement("option");
@@ -49,18 +53,18 @@ export function addSelectElement(idName) {
             element.append(option);
         });
     }
-    managerPart.append(element);
+    appendNode(element, parentNode);
 }
 
-export function addClickEventInDeleteButton(buttonName, event, isNew) {
-    const deleteButtons = document.querySelectorAll(`.${buttonName}`);
+export function addClickEventInButtons(buttonName, event, isNew) {
+    const buttons = document.querySelectorAll(`.${buttonName}`);
     if(isNew) {
-        const length = deleteButtons.length;
-        addClickEventListener(deleteButtons[length - 1], () => {event(deleteButtons[length-1])});
+        const length = buttons.length;
+        addClickEventListener(buttons[length - 1], () => {event(buttons[length-1])});
     }
     else {
-        deleteButtons.forEach(deleteButton => {
-            addClickEventListener(deleteButton, () => {event(deleteButton)});
+        buttons.forEach(button => {
+            addClickEventListener(button, () => {event(button)});
         })
     }
 }

@@ -28,9 +28,25 @@ const words = {
     LINE_DELETE_BUTTON: "line-delete-button",
     LINE_TABLE_TBODY: "line-table-tbody",
 
+    SECTION_LINE_SELECT_TEXT: "구간을 수정할 노선을 선택해주세요.",
+    SECTION_DELETE_TEXT: "노선에서 제거",
+    SECTION_ADD_TEXT: "구간 등록",
+    SECTION_LINE_MENU_BUTTON: "section-line-menu-button",
+    SECTION_MANAGEMENT_PART: "section-management-part",
+    SECTION_STATION_SELECTOR: "section-station-selector",
+    SECTION_ORDER_INPUT: "section-order-input",
+    SECTION_ADD_BUTTON: "section-add-button",
+    SECTION_ADD_TEXT_ID: "section-add-text",
+    SECTION_DELETE_BUTTON: "section-delete-button",
+    SECTION_TABLE_TBODY: "section-table-tbody",
+
     DELETE: "삭제",
     DELETE_ALERT: "정말로 삭제하시겠습니까?",
     SETTING: "설정",
+    MANAGEMENT: "관리",
+    ENROLLMENT: "등록",
+    NAME: "이름",
+    ORDER: "순서"
 }
 
 export default words;

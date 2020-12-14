@@ -1,13 +1,10 @@
 h4 {
     margin-bottom: 0px;
+    margin-right: 5px;
 }
 
 input {
     margin-right: 5px;
-}
-
-select {
-    margin-left: 5px;
 }
 
 #line-name-input {
@@ -17,6 +14,19 @@ select {
 
 .line-station-text {
     display: inline;
+}
+
+.section-line-menu-button {
+    margin-right: 5px;
+}
+
+#section-order-input {
+    margin-left: 5px;
+    margin-bottom: 30px;
+}
+
+#section-add-text {
+    margin-bottom: 20px;
 }
 
 
