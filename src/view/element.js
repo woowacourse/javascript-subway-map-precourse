@@ -37,9 +37,6 @@ export const Element = {
 
   // 지하철 노선도 관리
   mapPrintContainer: document.querySelector(Constant.MAP_PRINT_CONTAINER_CLASS),
-
-  // html tag 관련
-  querySelectorTbody: document.querySelector(Constant.TBODY),
 };
 
 export const ElementControl = {

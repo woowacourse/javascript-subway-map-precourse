@@ -1,4 +1,5 @@
 import { Station } from "../model/station.js";
+import { Constant } from "../util/constant.js";
 import { Element } from "./element.js";
 
 export const StationView = {
@@ -16,6 +17,6 @@ export const StationView = {
       `;
     });
 
-    Element.querySelectorTbody.innerHTML = content;
+    Element.stationContainer.querySelector(Constant.TBODY).innerHTML = content;
   },
 };

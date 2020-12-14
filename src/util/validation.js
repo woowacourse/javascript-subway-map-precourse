@@ -10,11 +10,13 @@ export const StationValidation = {
   hasValidName(name) {
     if (!this.hasMinimumLength(name)) {
       alert(ErrorMessage.MINIMUM_NAME_LENGTH);
+
       return;
     }
 
     if (!this.isNotDuplicated(name)) {
       alert(ErrorMessage.DUPLICATED_NAME);
+
       return;
     }
 
@@ -41,11 +43,13 @@ export const LineValidation = {
   hasValidName(name) {
     if (!this.isNotWhiteSpace(name)) {
       alert(ErrorMessage.NAME_WHITE_SPACE);
+
       return;
     }
 
     if (!this.isNotDuplicated(name)) {
       alert(ErrorMessage.DUPLICATED_NAME);
+
       return;
     }
 
@@ -55,6 +59,7 @@ export const LineValidation = {
   hasValidStartEndStation(start, end) {
     if (start === end) {
       alert(ErrorMessage.SAME_START_END_STATION);
+
       return;
     }
 
@@ -66,6 +71,8 @@ export const LineValidation = {
   },
 
   isNotDuplicated(name) {
-    return !Line.names.includes(name);
+    const stationNameArray = Line.lines.map(({ name }) => name);
+
+    return !stationNameArray.includes(name);
   },
 };

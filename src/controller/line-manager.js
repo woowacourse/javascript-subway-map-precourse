@@ -1,3 +1,4 @@
+import { Line, LineObject } from "../model/line.js";
 import { Station } from "../model/station.js";
 import { Constant } from "../util/constant.js";
 import { Storage } from "../util/storage.js";
@@ -11,6 +12,7 @@ export const LineManager = {
   init() {
     this.isVisited = true;
     Station.stations = Storage.load(Station.key);
+    Line.lines = Storage.load(Line.key);
     LineView.render();
     this.setEventListener();
   },
@@ -25,25 +27,13 @@ export const LineManager = {
   },
 
   onClickAddButton() {
-    // const name = Element.stationNameInput.value;
-
-    // if (StationValidation.isValidStation(name)) {
-    //   Station.add(name);
-    //   StationView.render();
-    // }
-    // ElementControl.clearInput(Element.stationNameInput);
     const name = Element.lineNameInput.value;
     const start = Element.lineStartStationSelector.value;
     const end = Element.lineEndStationSelector.value;
 
-    console.log(name);
-    console.log(start);
-    console.log(end);
-
     if (LineValidation.isValidLine(name, start, end)) {
-      console.log("if");
-    } else {
-      console.log("else");
+      Line.add(new LineObject(name, start, end));
+      LineView.render();
     }
     ElementControl.clearInput(Element.lineNameInput);
   },
