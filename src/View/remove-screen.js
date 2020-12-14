@@ -41,12 +41,6 @@ export const removeSectionButton = (lineName) => {
   $sectionEditButtonContainer.removeChild($removedSectionButton);
 };
 
-export const removeAllSelectorOption = ($selector) => {
-  while ($selector.firstChild) {
-    $selector.removeChild($selector.firstChild);
-  }
-};
-
 export const removeMapPrint = (lineName) => {
   const $mapAllLines = $mapContainer.querySelectorAll('div');
   const $removedMapLine = Array.from($mapAllLines).find(
