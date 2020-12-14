@@ -31,7 +31,6 @@ export const lineManagerViewHTML = `
   
   <button id = "line-add-button"> 노선 추가 </button>
   
-
   <h2>🚉 지하철 노선 목록</h4>
   <table id="line-table" border = "1">
     <thead>
@@ -49,8 +48,28 @@ export const sectionManagerViewHTML = `
   <div id="section-line-menu"></div>
 
   <div id = "selected-section-line-container"></div>
-  
 `;
+
+export const createSelectedSectionLineHTML = (lineName) => {
+  const selectedSectionLineHTML = `
+    <h3>${lineName} 관리</h3>
+    <h4>구간 등록</h4>
+    <select id = "section-station-selector"></select>
+    <input id = "section-order-input" placeholder = "순서를 입력해주세요."></input>
+    <button id = "section-add-button" data-line = "${lineName}">등록</button>
+
+    <table id="section-table" border = "1">
+      <thead>
+        <th> 순서 </th>
+        <th> 이름 </th>
+        <th> 설정 </th>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>`;
+
+  return selectedSectionLineHTML;
+};
 
 export const mapPrintManagerViewHTML = `<div id="map"></div>`;
 
@@ -76,40 +95,6 @@ export const createLineTableRowHTML = (lineName, startStationName, endStationNam
   return sectionRowHTML;
 };
 
-export const insertStationOptionHTML = (targetSelectBox, stationName) => {
-  const stationOptionElement = document.createElement("option");
-  stationOptionElement.setAttribute("value", stationName);
-  stationOptionElement.innerText = stationName;
-
-  targetSelectBox.appendChild(stationOptionElement);
-};
-
-export const createSectionLineButtonHTML = (lineName) => {
-  const sectionLineButtonHTML = `<button class="section-line-menu-button" 
-                                         data-line="${lineName}"> ${lineName} </button> `;
-  return sectionLineButtonHTML;
-};
-
-export const createSelectedSectionLineHTML = (lineName) => {
-  const selectedSectionLineHTML = `
-    <h3>${lineName} 관리</h3>
-    <h4>구간 등록</h4>
-    <select id = "section-station-selector"></select>
-    <input id = "section-order-input" placeholder = "순서를 입력해주세요."></input>
-    <button id = "section-add-button" data-line = "${lineName}">등록</button>
-
-    <table id="section-table" border = "1">
-      <thead>
-        <th> 순서 </th>
-        <th> 이름 </th>
-        <th> 설정 </th>
-      </thead>
-      <tbody></tbody>
-    </table>
-    </div>`;
-  return selectedSectionLineHTML;
-};
-
 export const createSectionRowHTML = (lineName, stationName, order) => {
   const sectionRowHTML = `
   <tr data-line = ${lineName} data-station = ${stationName}>
@@ -119,4 +104,18 @@ export const createSectionRowHTML = (lineName, stationName, order) => {
   </tr>
 `;
   return sectionRowHTML;
+};
+
+export const createSectionLineButtonHTML = (lineName) => {
+  const sectionLineButtonHTML = `<button class="section-line-menu-button" 
+                                         data-line="${lineName}"> ${lineName} </button> `;
+  return sectionLineButtonHTML;
+};
+
+export const insertStationOptionHTML = (targetSelectBox, stationName) => {
+  const stationOptionElement = document.createElement("option");
+  stationOptionElement.setAttribute("value", stationName);
+  stationOptionElement.innerText = stationName;
+
+  targetSelectBox.appendChild(stationOptionElement);
 };
