@@ -21,11 +21,11 @@ export default class LineManager extends Component {
     this.handleLineAddButton = () => {
       const line = {
         name: this.state.lineName,
-        start: this.state.lineStartStation,
-        end: this.state.lineEndStation,
+        stations: [this.state.lineStartStation, this.state.lineEndStation],
       };
       const lines = this.store.lines ? [...this.store.lines, line] : [line];
-      if (isDuplicateLine(this.store.lines, line.name)) {
+
+      if (isDuplicateLine(this.store.lines, this.state.lineName)) {
         alert("중복된 노선이 존재합니다");
       } else {
         this.setStore({ ...this.store, lines });
@@ -134,8 +134,8 @@ export default class LineManager extends Component {
                   (line) =>
                     `<tr>
                        <td>${line.name}</td>
-                       <td>${line.start}</td>
-                       <td>${line.end}</td>
+                       <td>${line.stations[0]}</td>
+                       <td>${line.stations[1]}</td>
                        <td>
                         <button class=${elementMap.lineDeleteButton}>삭제</button>
                        </td>
@@ -149,6 +149,8 @@ export default class LineManager extends Component {
   }
 }
 
-function isDuplicateLine(lines, lineName) {
+function isDuplicateLine(lines = [], lineName) {
   return lines.find((line) => line.name === lineName);
 }
+
+// 노선 이름 공백 불가능 하도록
