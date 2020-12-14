@@ -15,6 +15,7 @@ import {
   removeSectionButton,
   removeMapPrint,
 } from '../View/remove-screen.js';
+import {hideSectionEditContainer} from '../View/hide-screen.js';
 import {setLocalStorage, removeLocalStorage} from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
 import {isLineInputValid} from './valid.js';
@@ -40,6 +41,7 @@ export function onRemoveLine(e) {
     removeLineScreen(e.target);
     removeSectionButton(e.target.dataset.line);
     removeMapPrint(e.target.dataset.line);
+    hideSectionEditContainer();
   }
 }
 
