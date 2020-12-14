@@ -1,9 +1,8 @@
 class Line {
   constructor() {
     this.storage = window.localStorage;
+
     this.DELETED_ITEM_COUNT = 1;
-    this.START_SECTION_ORDER = 0;
-    this.MIN_SECTION_STATION_COUNT = 2;
   }
 
   getAllLines() {
@@ -34,16 +33,7 @@ class Line {
     this.storage.removeItem(lineName);
   }
 
-  getSectionsByLineName(lineName) {
-    const rawSections = this.storage.getItem(lineName);
-    if (!rawSections) {
-      return [];
-    }
-
-    const sections = rawSections.split(",");
-    return sections;
-  }
-
+  //findLineByLineName
   hasSameName(newLineName) {
     const allLines = this.getAllLines();
     const duplicates = allLines.filter((lineName) => lineName === newLineName);
@@ -52,6 +42,7 @@ class Line {
     return hasSameName;
   }
 
+  //findAllLinesSectionByStationName
   isStationIncluded(stationName) {
     const allLines = this.getAllLines();
 
@@ -61,33 +52,6 @@ class Line {
     });
 
     return includedStation.length;
-  }
-
-  findSectionByLineAndStation(lineName, stationName) {
-    const sections = this.getSectionsByLineName(lineName);
-    return sections.includes(stationName);
-  }
-
-  addSection(lineName, stationName, order) {
-    const sections = this.getSectionsByLineName(lineName);
-    sections.splice(order, this.START_SECTION_ORDER, stationName);
-
-    this.storage.setItem(lineName, sections);
-  }
-
-  removeSection(lineName, stationName) {
-    const sections = this.getSectionsByLineName(lineName);
-    const order = sections.indexOf(stationName);
-
-    sections.splice(order, this.DELETED_ITEM_COUNT);
-
-    this.storage.setItem(lineName, sections);
-  }
-
-  hasMinSectionCount(lineName) {
-    const stationCount = this.getSectionsByLineName(lineName).length;
-
-    return stationCount === this.MIN_SECTION_STATION_COUNT;
   }
 }
 

@@ -1,5 +1,6 @@
 import line from "../service/line.service.js";
 import station from "../service/station.service.js";
+import section from "../service/section.service.js";
 import {
   createLineTableRowHTML,
   lineManagerViewHTML,
@@ -16,6 +17,8 @@ export default class LineManager {
   constructor() {
     this.line = line;
     this.station = station;
+    this.section = section;
+
     this.MIN_LINE_NAME_LENGTH = 3;
   }
 
@@ -34,7 +37,7 @@ export default class LineManager {
     const allLines = this.line.getAllLines();
 
     const lineTableHTML = allLines.reduce((lineRowHTML, lineName) => {
-      const sections = this.line.getSectionsByLineName(lineName);
+      const sections = this.section.getSectionsByLineName(lineName);
       lineRowHTML += createLineTableRowHTML(lineName, sections[0], sections[sections.length - 1]);
 
       return lineRowHTML;

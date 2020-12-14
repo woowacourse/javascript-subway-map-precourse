@@ -1,5 +1,6 @@
 import line from "../service/line.service.js";
 import station from "../service/station.service.js";
+import section from "../service/section.service.js";
 import {
   createSectionLineButtonHTML,
   sectionManagerViewHTML,
@@ -20,6 +21,7 @@ export default class SectionManager {
   constructor() {
     this.line = line;
     this.station = station;
+    this.section = section;
   }
 
   renderSectionLineMenu() {
@@ -44,7 +46,7 @@ export default class SectionManager {
   }
 
   renderSectionTable(lineName) {
-    const savedSections = this.line.getSectionsByLineName(lineName);
+    const savedSections = this.section.getSectionsByLineName(lineName);
     const sectionTableHTML = savedSections.reduce((sectionRowHTML, stationName, index) => {
       sectionRowHTML += createSectionRowHTML(lineName, stationName, index);
       return sectionRowHTML;
@@ -89,7 +91,7 @@ export default class SectionManager {
   }
 
   validateSectionExist(lineName, stationName) {
-    const sectionExist = this.line.findSectionByLineAndStation(lineName, stationName);
+    const sectionExist = this.section.findSectionByLineAndStation(lineName, stationName);
     if (sectionExist) {
       throw new Error(DUPLICATE_SECTION_STATION);
     }
@@ -98,7 +100,7 @@ export default class SectionManager {
   validateSectionOrder(lineName, sectionOrder) {
     const sectionOrderNumber = convertStringToNumber(sectionOrder);
     const isValidNumber = isPositiveInteger(sectionOrderNumber);
-    const isValidRange = sectionOrderNumber <= this.line.getSectionsByLineName(lineName).length;
+    const isValidRange = sectionOrderNumber <= this.section.getSectionsByLineName(lineName).length;
 
     if (!isValidNumber) {
       throw new Error(INVALID_NUMBER_SECTION_ORDER);
@@ -118,7 +120,7 @@ export default class SectionManager {
       this.validateSectionExist(targetLine, sectionStation);
       this.validateSectionOrder(targetLine, sectionOrder);
 
-      this.line.addSection(targetLine, sectionStation, sectionOrder);
+      this.section.addSection(targetLine, sectionStation, sectionOrder);
       this.renderSectionTable(targetLine);
     } catch (error) {
       this.resetSectionOrderInput();
@@ -127,7 +129,7 @@ export default class SectionManager {
   }
 
   validateDeleteSectionCount(lineName) {
-    const isValidSectionCount = !this.line.hasMinSectionCount(lineName);
+    const isValidSectionCount = !this.section.hasMinStationCount(lineName);
     if (!isValidSectionCount) {
       throw new Error(INVALID_DELETE_MIN_SECTION);
     }
@@ -140,7 +142,7 @@ export default class SectionManager {
       const targetStation = targetRow.dataset.station;
       this.validateDeleteSectionCount(targetLine);
 
-      this.line.removeSection(targetLine, targetStation);
+      this.section.removeSection(targetLine, targetStation);
 
       this.renderSectionTable(targetLine);
     } catch (error) {
