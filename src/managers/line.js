@@ -44,7 +44,7 @@ lineHeading.innerText = textLabel.LINE_HEADING;
 lineTable.innerHTML = htmlLabel.LINE_TABLE;
 
 export const initLineManager = () => {
-  lineInputElement.innerText = textLabel.LINE_INPUT;
+  lineInputElement.setAttribute("placeholder", textLabel.LINE_INPUT);
 
   initLineSelect();
 

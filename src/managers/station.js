@@ -27,7 +27,7 @@ stationTable.innerHTML = htmlLabel.STATION_TABLE;
 export const initStationManager = () => {
   updateTable();
 
-  stationInputElement.innerText = textLabel.STATION_INPUT;
+  stationInputElement.setAttribute("placeholder", textLabel.STATION_INPUT);
 
   stationHTMLElements.map((item) => container.appendChild(item));
 
