@@ -102,6 +102,33 @@ export default class LineLayout extends PageLayout {
     return lineAddButton;
   }
 
+  createDeleteButton() {
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = '삭제';
+    deleteButton.className = 'line-delete-button';
+    deleteButton.addEventListener('click', e =>
+      this.handleDeleteButton(e.target),
+    );
+
+    return deleteButton;
+  }
+
+  // TODO: add, deleteRow 그냥 updateTable로 바꾸기
+  deleteRow(index) {
+    const table = this.elements.resultContainer.querySelector('table');
+    table.deleteRow(index);
+  }
+
+  handleDeleteButton(target) {
+    const tr = target.parentElement.parentElement;
+    console.log(
+      `${tr.dataset.lineName}, ${tr.dataset.lineStart}, ${tr.dataset.lineEnd}`,
+    );
+    this.deleteRow(tr.rowIndex);
+    this.controller.deleteLineData(tr.dataset.lineName);
+    console.log('delete button clicked');
+  }
+
   insertRow(lineName, start, end) {
     const row = this.elements.resultContainer
       .querySelector('table')
@@ -112,8 +139,7 @@ export default class LineLayout extends PageLayout {
     row.insertCell(0).innerHTML = lineName;
     row.insertCell(1).innerHTML = start;
     row.insertCell(2).innerHTML = end;
-    row.insertCell(3).innerHTML = '<button>삭제</button>';
-    // row.insertCell(1).append(this.createDeleteButton());
+    row.insertCell(3).append(this.createDeleteButton());
   }
 
   getSelectedOption(selectElement) {

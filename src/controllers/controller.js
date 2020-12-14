@@ -48,4 +48,9 @@ export default class Controller {
     const nodes = this.modelList.line.insertData(line, start, end);
     this.modelList.station.updateData(nodes);
   }
+
+  deleteLineData(lineName) {
+    const nodes = this.modelList.line.deleteData(lineName);
+    this.modelList.station.updateData(nodes);
+  }
 }

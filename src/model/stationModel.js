@@ -18,15 +18,17 @@ export default class StationModel {
 
   updateData(newNodes) {
     const stationList = this.getList();
-    for (const newNode of newNodes) {
-      let oldNode = stationList.find(station => station.name === newNode.name);
-      const newLine = newNode.line;
-      // 만약 없다면 노드에 라인 추가
-      if (!oldNode.line.includes(newLine)) {
+    const updateNodes = [...newNodes];
+    for (const updateNode of updateNodes) {
+      const newLine = updateNode.line;
+      const oldNode = stationList.find(node => node.name === updateNode.name);
+      const index = oldNode.line.findIndex(line => line === newLine);
+      if (index === -1) {
         oldNode.line.push(newLine);
+      } else {
+        oldNode.line.splice(index, 1);
       }
     }
-    console.log(stationList);
     localStorage.setItem('stationList', JSON.stringify(stationList));
   }
 
@@ -47,6 +49,7 @@ export default class StationModel {
     localStorage.setItem('stationList', JSON.stringify(stationList));
   }
 
+  // TODO: getList도 통일 가능할듯
   getList() {
     const storageStationList = localStorage.getItem('stationList');
     let stationList = [];

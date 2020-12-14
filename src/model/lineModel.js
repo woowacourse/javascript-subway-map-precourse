@@ -7,7 +7,6 @@ import StationNode from './stationNode.js';
  */
 
 export default class LineModel {
-
   insertData(line, start, end) {
     let lineList = this.getList();
     const startNode = new StationNode({ name: start, line });
@@ -17,6 +16,15 @@ export default class LineModel {
     localStorage.setItem('lineList', JSON.stringify(lineList));
 
     return [startNode, endNode];
+  }
+
+  deleteData(line) {
+    const lineList = this.getList();
+    const index = lineList.findIndex(lineNodes => lineNodes[0].line === line);
+    const nodes = lineList.splice(index, 1)[0]; // splice결과가 이차원배열이기 때문
+    localStorage.setItem('lineList', JSON.stringify(lineList));
+
+    return nodes;
   }
 
   getList() {
