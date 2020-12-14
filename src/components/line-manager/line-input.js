@@ -2,10 +2,7 @@ import {
   LEFTOVER_MESSAGE,
   EMPTY_INPUT_MESSAGE,
 } from '../../library/constants/common-alert.js';
-import {
-  DUPLICATE_LINE_MESSAGE,
-  SAME_TERMINAL_MESSAGE,
-} from '../../library/constants/line-manager-alert.js';
+import { DUPLICATE_LINE_MESSAGE } from '../../library/constants/line-manager-alert.js';
 import { LINES } from '../../library/constants/localstorage.js';
 import Component from '../../library/core/component.js';
 import { createOptionTemplate } from '../../library/utils/template.js';

@@ -3,7 +3,6 @@ import {
   LEFTOVER_MESSAGE,
 } from '../../../library/constants/common-alert.js';
 import { LINES } from '../../../library/constants/localstorage.js';
-import { DUPLICATE_SECTION_MESSAGE } from '../../../library/constants/section-manager-alert.js';
 import Component from '../../../library/core/component.js';
 import { createOptionTemplate } from '../../../library/utils/template.js';
 
@@ -58,27 +57,17 @@ class SectionInput extends Component {
   }
 
   isValidInput(order, sectionToAdd) {
-    return (
-      !this.hasEmptyInput(order, sectionToAdd) &&
-      !this.isDuplicateSection(sectionToAdd)
-    );
+    return !this.hasEmptyInput(order, sectionToAdd);
   }
 
   hasEmptyInput(order, sectionToAdd) {
     return !order === '' && sectionToAdd !== '';
   }
 
-  isDuplicateSection(sectionToAdd) {
-    return this._props.targetLine.sections.includes(sectionToAdd);
-  }
-
   alertByCase(order, sectionToAdd) {
     const alertCases = [];
     if (this.hasEmptyInput(order, sectionToAdd)) {
       alertCases.push(EMPTY_INPUT_MESSAGE);
-    }
-    if (this.isDuplicateSection(sectionToAdd)) {
-      alertCases.push(DUPLICATE_SECTION_MESSAGE);
     }
     alert(alertCases.join(', ') + LEFTOVER_MESSAGE);
   }
