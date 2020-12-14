@@ -70,4 +70,9 @@ export default class SectionManagerUI {
       </tr>
     `;
   }
+
+  refreshSectionManager(stations, lines, targetLineName) {
+    this.openSectionManager(lines);
+    this.openSection(stations, lines, targetLineName);
+  }
 }

@@ -54,7 +54,7 @@ export default class SectionManager {
       this.changeLineListWithAddition(targetLine, stationOrder, stationName);
       this.addSectionInLine(targetLine, stationOrder, stationName);
       saveData(dataStrings.DATA_LINES, this.lines);
-      this.refreshSectionManager(targetLineName);
+      this.UIController.refreshSectionManager(this.stations, this.lines, targetLineName);
     } catch (error) {
       alert(error);
     }
@@ -95,7 +95,7 @@ export default class SectionManager {
       this.changeLineListWithDeletion(targetLine, targetSectionIndex);
       targetLine.stations.splice(targetSectionIndex, 1);
       saveData(dataStrings.DATA_LINES, this.lines);
-      this.refreshSectionManager(targetLineName);
+      this.UIController.refreshSectionManager(this.stations, this.lines, targetLineName);
     } catch (error) {
       alert(error);
     }
@@ -117,10 +117,5 @@ export default class SectionManager {
       const targetLineName = event.target.dataset[dataStrings.DATA_LINE];
       this.UIController.openSection(this.stations, this.lines, targetLineName);
     }
-  }
-
-  refreshSectionManager(targetLineName) {
-    this.UIController.openSectionManager(this.lines);
-    this.UIController.openSection(this.stations, this.lines, targetLineName);
   }
 }

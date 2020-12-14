@@ -51,7 +51,8 @@ export default class LineManager {
       isStartDiffersWithEnd(startStation, endStation);
       this.lines.push(new SubwayLine(lineName, startStation, endStation));
       saveData(dataStrings.DATA_LINES, this.lines);
-      this.refreshLineManager();
+      // 변경 내용을 반영하여 line manager를 새로고침
+      this.UIController.openLineManager(this.stations, this.lines);
     } catch (error) {
       alert(error);
     }
@@ -73,10 +74,7 @@ export default class LineManager {
     const index = this.lines.findIndex(line => line.lineName === targetLine);
     this.lines.splice(index, 1);
     saveData(dataStrings.DATA_LINES, this.lines);
-    this.refreshLineManager();
-  }
-
-  refreshLineManager() {
+    // 변경 내용을 반영하여 line manager를 새로고침
     this.UIController.openLineManager(this.stations, this.lines);
   }
 }

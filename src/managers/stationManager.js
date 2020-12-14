@@ -48,7 +48,8 @@ export default class StationManager {
       isValidStationName(this.stations, station);
       this.stations.push(station);
       saveData(dataStrings.DATA_STATIONS, this.stations);
-      this.refreshStationManager();
+      // 변경 내용을 반영하여 station manager를 새로고침
+      this.UIController.openStationManager(this.stations);
     } catch (error) {
       alert(error);
     }
@@ -72,13 +73,10 @@ export default class StationManager {
       const index = this.stations.indexOf(targetStationName);
       this.stations.splice(index, 1);
       saveData(dataStrings.DATA_STATIONS, this.stations);
-      this.refreshStationManager();
+      // 변경 내용을 반영하여 station manager를 새로고침
+      this.UIController.openStationManager(this.stations);
     } catch (error) {
       alert(error);
     }
-  }
-
-  refreshStationManager() {
-    this.UIController.openStationManager(this.stations);
   }
 }
