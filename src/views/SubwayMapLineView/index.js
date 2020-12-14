@@ -52,7 +52,7 @@ export default class SubwayMapLineView {
 
     addTemplateToDomInnerHTML(
       this.managerContainer.querySelector('#line-input-container'),
-      `<div>
+      `<div id="line-start-station-selector-container">
         <p>${message.START_STATION}</p>
         <select id="line-start-station-selector">${selectorOptions}</select>
       </div>`,
@@ -69,7 +69,7 @@ export default class SubwayMapLineView {
 
     addTemplateToDomInnerHTML(
       this.managerContainer.querySelector('#line-input-container'),
-      `<div>
+      `<div id="line-end-station-selector-container">
         <p>${message.END_STATION}</p>
         <select id="line-end-station-selector">${selectorOptions}</select>
       </div>`,

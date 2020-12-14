@@ -89,10 +89,6 @@ export default class SubwayMapViewModel {
       return message.ALERT_FOR_BLANK;
     }
 
-    if (!/^[가-힣a-zA-z0-9]+$/.test(stationId)) {
-      return message.ALERT_FOR_WRONG_NAME;
-    }
-
     if (stationId.length < 2) {
       return message.ALERT_FOR_LENGTH;
     }
@@ -107,10 +103,6 @@ export default class SubwayMapViewModel {
   validLineObject(lineObject) {
     if (lineObject.lineId.trim() === '') {
       return message.ALERT_FOR_BLANK;
-    }
-
-    if (!/^[가-힣a-zA-z0-9]+$/.test(lineObject.lineId)) {
-      return message.ALERT_FOR_WRONG_NAME;
     }
 
     if (lineObject.lineId in this.getLines()) {
