@@ -1,14 +1,15 @@
-import subwayStore from "../models/SubwayStore.js";
 import { SelectInnerHTML } from "../utils/templates/lineManager.js";
 
 class LineManager {
-  constructor({ $target }) {
+  constructor({ $target, stationStore, lineStore }) {
     this.$target = $target;
+    this.stationStore = stationStore;
+    this.lineStore = lineStore;
 
     this.mountDOMs();
     this.bindEvents();
 
-    this.renderSelect(subwayStore.getStationNames());
+    this.renderSelect(this.stationStore.getStationNames());
   }
 
   mountDOMs() {
@@ -24,23 +25,15 @@ class LineManager {
   bindEvents() {
     this.$addButton.addEventListener(`click`, this.onClickAddButton.bind(this));
     this.$table.addEventListener(`click`, this.onClickDeleteButton.bind(this));
-    this.$startSelect.addEventListener(
-      `change`,
-      this.onChangeStartSelect.bind(this),
-    );
-    this.$endSelect.addEventListener(
-      `change`,
-      this.onChangeEndSelect.bind(this),
-    );
   }
 
-  onClickAddButton({ target }) {}
+  onClickAddButton({ target }) {
+    if (target.id !== `line-add-button`) return;
+  }
 
-  onClickDeleteButton({ target }) {}
-
-  onChangeStartSelect({ target }) {}
-
-  onChangeEndSelect({ target }) {}
+  onClickDeleteButton({ target }) {
+    if (target.className !== `line-delte-button`) return;
+  }
 
   renderSelect(names) {
     this.$startSelect.innerHTML = SelectInnerHTML(names);

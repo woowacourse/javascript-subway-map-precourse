@@ -6,9 +6,10 @@ import LineManager from "./LineManager.js";
 import StationManager from "./StationManager.js";
 
 class ManagerContainer {
-  constructor({ $target, stationStore }) {
+  constructor({ $target, stationStore, lineStore }) {
     this.$target = $target;
     this.stationStore = stationStore;
+    this.lineStore = lineStore;
 
     this.createDOMs();
     this.mountComponents();
@@ -37,6 +38,7 @@ class ManagerContainer {
     this.lineManager = new LineManager({
       $target: this.$lineManager,
       stationStore: this.stationStore,
+      lineStore: this.lineStore,
     });
   }
 

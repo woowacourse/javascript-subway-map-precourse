@@ -25,7 +25,7 @@ export const SelectInnerHTML = names => {
 };
 
 const OptionHTML = name => `
-  <option>${name}</option>
+  <option value=${name}>${name}</option>
 `;
 
 const TableHTML = () => `

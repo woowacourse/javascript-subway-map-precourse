@@ -30,4 +30,4 @@ class LineStore {
   }
 }
 
-export default new LineStore(`TEST_LINE`);
+export default LineStore;

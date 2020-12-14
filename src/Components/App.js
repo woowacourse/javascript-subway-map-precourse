@@ -3,12 +3,14 @@ import { makeElement } from "../utils/domUtil.js";
 import Menu from "./Menu.js";
 import ManagerContainer from "./ManagerContainer.js";
 import StationStore from "../models/StationStore.js";
+import LineStore from "../models/LineStore.js";
 
 class App {
   constructor($target) {
     this.$target = $target;
 
-    this.stationStore = new StationStore("TEST1");
+    this.stationStore = new StationStore("TEST_STATION");
+    this.lineStore = new LineStore("TEST_LINE");
 
     this.createDOMs();
     this.mountDOMs();
@@ -29,6 +31,7 @@ class App {
     this.managerContainer = new ManagerContainer({
       $target: this.$managerContainer,
       stationStore: this.stationStore,
+      lineStore: this.lineStore,
     });
 
     this.menu = new Menu({

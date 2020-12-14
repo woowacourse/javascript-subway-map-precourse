@@ -37,7 +37,7 @@ export const saveStations = (key, stations) => {
 };
 
 export const loadLines = key => {
-  const lines = Array.from(loadStorage(key));
+  const lines = loadStorage(key);
 
   return lines.map(({ name, sections }) => {
     const line = new Line(name, sections[0], sections[sections.lenght - 1]);
