@@ -23,5 +23,11 @@ const jsonToStations = array => {
 };
 
 const jsonToLines = array => {
-  return array.map(({ name, stations }) => new Line(name, stations));
+  return array.map(
+    ({ name, stations }) =>
+      new Line(
+        name,
+        stations.map(({ name }) => new Station(name))
+      )
+  );
 };
