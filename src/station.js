@@ -67,6 +67,8 @@ class Station {
   };
 
   deleteStation = e => {
+    if (!confirm("정말로 역을 삭제하시겠습니까?")) return;
+
     const removeNode = e.target.parentNode.parentNode;
     const removeIndex = removeNode.dataset.index;
     for (let i = 0; i < this.stations.length; i++) {

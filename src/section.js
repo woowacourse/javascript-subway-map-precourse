@@ -70,6 +70,8 @@ class Section {
   };
 
   deleteStationSection = e => {
+    if (!confirm("정말로 삭제하시겠습니까?")) return;
+
     const removeIndex = e.target.parentNode.parentNode.querySelector("td")
       .innerHTML;
     if (this.lines[this.lineName].length > 2) {

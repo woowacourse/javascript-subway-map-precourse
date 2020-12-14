@@ -3,9 +3,14 @@ import { createCustomElement } from "./table.js";
 
 class Show {
   constructor() {
+    this.lines = {};
+    this.refreshShow();
+  }
+
+  refreshShow = () => {
     this.lines = Storage.loadItems("line");
     this.showLines();
-  }
+  };
 
   showLine = name => {
     const ul = document.createElement("ul");

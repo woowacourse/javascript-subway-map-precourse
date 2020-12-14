@@ -94,6 +94,8 @@ class Line {
   };
 
   deleteLine = e => {
+    if (!confirm("정말로 노선을 삭제하시겠습니까?")) return;
+
     const removeNode = e.target.parentNode.parentNode;
     const removeName = removeNode.querySelector("td").innerHTML;
     delete this.lines[removeName];
