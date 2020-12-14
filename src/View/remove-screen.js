@@ -1,6 +1,6 @@
 import {
   $stationTbody,
-  $lineContainer,
+  $lineTbody,
   $sectionButtonContainer,
   $mapContainer,
 } from './element.js';
@@ -19,7 +19,6 @@ export const removeStationSelectOption = ($stationSelect, station) => {
 };
 
 export const removeLineScreen = (button) => {
-  const $lineTbody = $lineContainer.querySelector('table > tbody');
   const $lineTr = button.parentElement.parentElement;
   $lineTbody.removeChild($lineTr);
 };
