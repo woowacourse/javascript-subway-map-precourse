@@ -1,6 +1,8 @@
 import Component from "./Component.js";
+import { classname } from "./constant.js";
 import SectionMain from "./SectionMain.js";
 import {
+  createHTMLElement,
   createButtonHTMLElement,
   createDivHTMLElement
 } from "./util.js";
@@ -58,27 +60,17 @@ export default class SectionManager extends Component {
   }
 
   constructHTMLElements() {
-    this.$sectionLineMenu = this.createSectionLineMenu();
+    this.$sectionLineMenuLabel = createHTMLElement({
+      tagname: "h3",
+      innerText: this.lineNameArray.length === 0 ? "등록된 지하철 노선이 없습니다." : "구간을 수정할 노선을 선택해주세요."
+    });
+
+    this.$sectionLineMenu = createDivHTMLElement({classList: ["section-line-menu"]});
+    this.$sectionLineMenuButtonArray = this.createSectionLineMenuButtonArray();
     
     this.$sectionMain = createDivHTMLElement({});
   }
-
-  createSectionLineMenu() {
-    const $sectionLineMenu = createDivHTMLElement({});    
-
-    if (this.lineNameArray.length === 0) {
-      const $noLineMessage = createDivHTMLElement({ innerText: "등록된 지하철 노선이 없습니다." });      
-      $sectionLineMenu.append($noLineMessage);
-    } else {
-      const $sectionLineMenuLabel = createDivHTMLElement({ innerText: "구간을 수정할 노선을 선택해주세요." });
-      const $sectionLineMenuButtonArray = this.createSectionLineMenuButtonArray();
-      
-      $sectionLineMenu.append($sectionLineMenuLabel, ...$sectionLineMenuButtonArray);
-    }
-
-    return $sectionLineMenu;
-  }
-
+  
   createSectionLineMenuButtonArray() {
     return this.lineNameArray.reduce((acc, lineName) => {
       const $sectionLineMenuButton = this.createSectionLineMenuButton({ lineName });
@@ -89,14 +81,24 @@ export default class SectionManager extends Component {
 
   createSectionLineMenuButton({lineName}) {
     return createButtonHTMLElement({
-      classList: [this.SECTION_LINE_MENU_BUTTON_CLASSNAME],
+      classList: [
+        this.SECTION_LINE_MENU_BUTTON_CLASSNAME,
+        classname.MEDIUM_BUTTON,
+        classname.CENTER
+      ],
       name: lineName,
       dataset: { lineName }
     });
   }
 
   appendChildNodes() {
-    this.$component.append(this.$sectionLineMenu, this.$sectionMain);    
+    this.$component.append(
+      this.$sectionLineMenuLabel,
+      this.$sectionLineMenu,
+      this.$sectionMain
+    );
+
+    this.$sectionLineMenu.append(...this.$sectionLineMenuButtonArray);
   }
 
   addClickEventListener() {

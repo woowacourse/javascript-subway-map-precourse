@@ -87,6 +87,35 @@
   column-gap: 5px;
 }
 
+/* 지하철 구간 관리: SectionManager.js */
+.section-line-menu {
+  display: flex;
+  column-gap: 10px;
+}
+
+.section-station-label {
+  display: block;
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.section-input-container {
+  display: flex;
+  column-gap: 5px;
+}
+
+.section-station-list {
+  display: grid;
+  grid-template-columns: 1fr 3fr auto;
+  max-width: 300px;
+  row-gap: 10px;
+  column-gap: 5px;
+  margin-top: 20px;
+}
+
 /* Modifier */
 .--h3lish {
   font-size: 1.17em;

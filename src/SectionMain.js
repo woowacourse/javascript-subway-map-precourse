@@ -1,7 +1,10 @@
 import Component from "./Component.js";
+import { classname } from "./constant.js";
 import {
   clearInputValue,
   createButtonHTMLElement,
+  createHTMLElement,
+  createListHeaderHTMLElement,
   createDivHTMLElement,
   createInputNumberHTMLElement,
   createLabelHTMLElement,
@@ -41,6 +44,7 @@ export default class SectionMain extends Component {
 
   declareConstants() {
     this.SECTION_DELETE_BUTTON_CLASSNAME = "section-delete-button";
+    this.SECTION_STATION_SELECTOR_ID = "section-station-selector";
   }  
   
   initializeState() {
@@ -52,27 +56,38 @@ export default class SectionMain extends Component {
   }
 
   constructHTMLElements() {
-    this.$sectionMainTitle = createDivHTMLElement({ innerText: `${this.props.lineName} 관리` });
+    this.$sectionMainTitle = this.createSectionMainTitle();
     
-    this.$sectionStationSelector = this.createSectionStationSelector();
     this.$sectionStationLabel = this.createSectionStationLabel();
 
+    this.$sectionInputContainer = createDivHTMLElement({ classList: ["section-input-container"] });
+    this.$sectionStationSelector = this.createSectionStationSelector();
     this.$sectionOrderInput = this.createSectionOrderInput();
-    this.$sectionAddButton = createButtonHTMLElement({ id: "section-add-button", name: "등록"});
+    this.$sectionAddButton = this.createSectionAddButton();
 
-    this.$sectionStationList = createDivHTMLElement({});
+    this.$sectionStationList = createHTMLElement({classList: ["section-station-list"]});
   }
 
-  createSectionStationSelector() {
-    return createSelectHTMLElement({
-      id: "section-station-selector",
+  createSectionMainTitle() {
+    const { lineName } = this.props;
+    
+    return createHTMLElement({
+      tagname: "h3",
+      innerText: `${lineName} 관리`
     });
   }
 
   createSectionStationLabel() {
     return createLabelHTMLElement({
       name: "구간 등록",
-      htmlFor: this.$sectionStationSelector.id
+      htmlFor: this.SECTION_STATION_SELECTOR_ID,
+      classList: ["section-station-label"]
+    });
+  }
+
+  createSectionStationSelector() {
+    return createSelectHTMLElement({
+      id: this.SECTION_STATION_SELECTOR_ID,
     });
   }
 
@@ -87,15 +102,27 @@ export default class SectionMain extends Component {
     return $input;
   }
 
+  createSectionAddButton() {
+    return createButtonHTMLElement({
+      id: "section-add-button",
+      name: "등록",
+      classList: [classname.MEDIUM_BUTTON, classname.CENTER]
+    });
+  }
+
   appendChildNodes() {
     this.$component.append(
       this.$sectionMainTitle,
       this.$sectionStationLabel,
-      this.$sectionStationSelector,
-      this.$sectionOrderInput,
-      this.$sectionAddButton,
+      this.$sectionInputContainer,
       this.$sectionStationList
     );
+
+    this.$sectionInputContainer.append(
+      this.$sectionStationSelector,
+      this.$sectionOrderInput,
+      this.$sectionAddButton
+    );    
   }
 
   addClickEventListener() {
@@ -221,12 +248,12 @@ export default class SectionMain extends Component {
     this.$sectionStationList.innerHTML = "";
 
     const $childNodes = this.state.stations.reduce((acc, stationName, order) => {
-      const $order = createDivHTMLElement({ innerText: order });
-      const $stationName = createDivHTMLElement({ innerText: stationName });
+      const $order = createDivHTMLElement({ innerText: order, classList: [classname.CENTER] });
+      const $stationName = createDivHTMLElement({ innerText: stationName, classList: [classname.CENTER] });
       const $sectionDeleteButton = this.createSectionDeleteButton({ stationName });
       
       return [...acc, $order, $stationName, $sectionDeleteButton];
-    }, []);
+    }, this.createSectionStationListHeaderArray());
 
     this.$sectionStationList.append(...$childNodes);
   }
@@ -237,5 +264,15 @@ export default class SectionMain extends Component {
       classList: [this.SECTION_DELETE_BUTTON_CLASSNAME],
       dataset: { stationName }
     });
+  }
+
+  createSectionStationListHeaderArray() {
+    const SECTION_STATION_LIST__HEADER_CLASSNAME = "section-station-list__header";
+
+    const $orderHeader = createListHeaderHTMLElement({ innerText: "순서", className: SECTION_STATION_LIST__HEADER_CLASSNAME });
+    const $stationNameHeader = createListHeaderHTMLElement({ innerText: "이름", className: SECTION_STATION_LIST__HEADER_CLASSNAME});
+    const $buttonHeader = createListHeaderHTMLElement({ innerText: "설정", className: SECTION_STATION_LIST__HEADER_CLASSNAME });
+
+    return [$orderHeader, $stationNameHeader, $buttonHeader];
   }
 }
