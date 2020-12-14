@@ -12,7 +12,9 @@ LINE.ADD.addEventListener('click', () => {
 export function setLineTable() {
     let lineList = getList(LINE.LISTNAME);
     for (let i=0; i<lineList.length; i++) {
-        let line= getList(lineList[i]);
+        // console.log(localStorage.getItem(lineList[i]));
+        // console.log(JSON.parse('["인천","소요산"]'));
+        let line = getList(lineList[i]);
         addLineTable(lineList[i], line[0], line[line.length-1]);
     }
 }
@@ -33,7 +35,7 @@ export function setEndOption() {
 
 function addLineStorage(lineName,startStation,endStation) {
     addItem(lineName, LINE.LISTNAME);
-    localStorage.setItem(lineName,`[${startStation},${endStation}]`);
+    localStorage.setItem(lineName,`["${startStation}","${endStation}"]`);
 }
 
 function addLineTable(lineName, startStation, endStation) {
