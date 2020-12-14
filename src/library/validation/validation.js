@@ -1,4 +1,4 @@
-import { stationNameAlert } from "./alert.js";
+import { stationNameAlert, stationDeleteAlert } from "./alert.js";
 
 function validStationName(inputValue) {
   let alertMsg = stationNameAlert(inputValue);
@@ -11,4 +11,14 @@ function validStationName(inputValue) {
   return inputValue;
 }
 
-export { validStationName };
+function validStationDelete(deleteTarget) {
+  let alertMsg = stationDeleteAlert(deleteTarget);
+
+  if (alertMsg !== "") {
+    alert(alertMsg);
+    return "";
+  }
+  return deleteTarget;
+}
+
+export { validStationName, validStationDelete };

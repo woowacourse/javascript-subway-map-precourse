@@ -35,4 +35,22 @@ function underTwoCharacterAlert(inputValue) {
   return alertMsg;
 }
 
-export { stationNameAlert };
+function stationDeleteAlert(deleteTarget) {
+  return inlineAlert(deleteTarget);
+  //노선에 등록된 역 삭제 시 alert
+  //노선에 포함된 역이 2개 이하일 때 삭제 시 alert
+}
+
+function inlineAlert(deleteTarget) {
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  let alertMsg = "";
+
+  subwayDatas.subwayStations.map((station, idx) => {
+    if (station.name === deleteTarget && subwayDatas.subwayStations[idx].line.length >= 1) {
+      alertMsg = "노선에 포함된 역은 삭제할 수 없습니다.";
+    }
+  });
+  return alertMsg;
+}
+
+export { stationNameAlert, stationDeleteAlert };
