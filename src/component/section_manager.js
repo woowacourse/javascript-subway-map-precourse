@@ -3,31 +3,110 @@ import { roleInterface } from './role_interface.js';
 import { sectionValidator } from '../util/validator/section_validator.js';
 import { nodeSelector } from '../util/selector/node_selector.js';
 import {
+  ACTIVE,
   LINES_LS,
-  SECTION_ADD_BUTTON,
+  LINE_MENU_BUTTON_SECTION,
+  MANAGE_K,
+  SECTION_DELETE_BUTTON,
+  SECTION_DELETE_K,
+  SECTION_HEADER,
+  SECTION_LINE,
   SECTION_LINE_MENU_BUTTON,
   SECTION_LINE_TITLE,
   SECTION_MANAGER,
   SECTION_MANAGER_BUTTON,
   SECTION_MANAGER_K,
   SECTION_ORDER_INPUT,
+  SECTION_ROW,
   SECTION_STAION_SELECTOR,
+  SECTION_TABLE,
 } from '../library/constant/constant.js';
+import MapPrintManager from './map_print_manager.js';
 
 export default class SectionManager extends Role {
   constructor() {
     super(SECTION_MANAGER, SECTION_MANAGER_BUTTON, SECTION_MANAGER_K);
-    this.initialize();
-    roleInterface.clickButton(SECTION_ADD_BUTTON, this.onClickAddButton, this);
   }
 
   initialize() {
-    roleInterface.renderLineMenuButtons();
+    this.renderLineMenuButtons();
     roleInterface.clickButtons(
       SECTION_LINE_MENU_BUTTON,
-      roleInterface.onClickLineMenuButton,
-      roleInterface
+      this.onClickLineMenuButton,
+      this
     );
+  }
+
+  renderLineMenuButtons() {
+    const section = nodeSelector.selectId(LINE_MENU_BUTTON_SECTION);
+    const lineInfos = roleInterface.getLineInfos();
+
+    roleInterface.clearNode(LINE_MENU_BUTTON_SECTION);
+    for (const lineInfo of lineInfos) {
+      if (!lineInfo) {
+        continue;
+      }
+      const line = Object.keys(lineInfo)[0];
+      const button = this.getLineMenuButton(line);
+
+      section.append(button);
+    }
+  }
+
+  getLineMenuButton(line) {
+    const button = document.createElement('button');
+
+    button.className = SECTION_LINE_MENU_BUTTON;
+    button.dataset.sectionLine = line;
+    button.append(line);
+
+    return button;
+  }
+
+  onClickLineMenuButton(event) {
+    const target = event.target.dataset.sectionLine;
+    const title = nodeSelector.selectId(SECTION_LINE_TITLE);
+
+    title.innerHTML = `${target} ${MANAGE_K}`;
+    this.renderSectionLine(target);
+  }
+
+  renderSectionLine(target) {
+    const table = nodeSelector.selectId(SECTION_TABLE);
+    const sections = this.getSectionLine(target) ?? [];
+
+    roleInterface.clearNode(SECTION_TABLE);
+    this.fillSectionLine(table, sections);
+    roleInterface.displayContent(SECTION_LINE, ACTIVE);
+  }
+
+  fillSectionLine(table, sections) {
+    sections.forEach((section, idx) => {
+      const row = roleInterface.getRow(SECTION_ROW, SECTION_HEADER);
+      const button = roleInterface.getButton(
+        SECTION_DELETE_BUTTON,
+        SECTION_DELETE_K
+      );
+
+      button.dataset.section = section;
+      row.childNodes[0].append(idx);
+      row.childNodes[1].append(section);
+      row.childNodes[2].append(button);
+      table.append(row);
+    });
+  }
+
+  getSectionLine(line) {
+    const lineInfos = roleInterface.getLineInfos();
+
+    for (const lineInfo of lineInfos) {
+      if (!lineInfo) {
+        continue;
+      }
+      if (lineInfo.hasOwnProperty(line)) {
+        return lineInfo[line];
+      }
+    }
   }
 
   onClickAddButton() {
@@ -41,7 +120,7 @@ export default class SectionManager extends Role {
       sectionValidator.checkValidOption(selector, line)
     ) {
       this.addSection(input, selector, line);
-      roleInterface.renderSectionLine(line);
+      this.updateData(line);
     }
   }
 
@@ -57,5 +136,12 @@ export default class SectionManager extends Role {
       lineInfo.hasOwnProperty(line) && lineInfo[line].splice(index, 0, station);
     }
     localStorage.setItem(LINES_LS, JSON.stringify(lineInfos));
+  }
+
+  updateData(line) {
+    const mapPrintManager = new MapPrintManager();
+
+    this.renderSectionLine(line);
+    mapPrintManager.printMap();
   }
 }

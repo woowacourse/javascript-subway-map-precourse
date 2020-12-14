@@ -87,6 +87,7 @@ select {
 .section-line-menu-button {
   width: 30%;
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 #section-table-container {

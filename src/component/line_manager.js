@@ -8,7 +8,6 @@ import {
   LINE_MANAGER_K,
   LINE_START_STATION_SELECTOR,
   LINE_END_STATION_SELECTOR,
-  LINE_ADD_BUTTON,
   LINE_NAME_INPUT,
   LINES_LS,
   LINE_NAMES,
@@ -21,12 +20,12 @@ import {
   LINE_CONFIRM,
   SECTION_LINE_MENU_BUTTON,
 } from '../library/constant/constant.js';
+import SectionManager from './section_manager.js';
+import MapPrintManager from './map_print_manager.js';
 
 export default class LineManager extends Role {
   constructor() {
     super(LINE_MANAGER, LINE_MANAGER_BUTTON, LINE_MANAGER_K);
-    this.initialize();
-    roleInterface.clickButton(LINE_ADD_BUTTON, this.onClickAddButton, this);
   }
 
   initialize() {
@@ -94,13 +93,16 @@ export default class LineManager extends Role {
   }
 
   updateData() {
-    roleInterface.renderLineMenuButtons();
+    const sectionManager = new SectionManager();
+    const mapPrintManager = new MapPrintManager();
+
+    sectionManager.renderLineMenuButtons();
     roleInterface.clickButtons(
       SECTION_LINE_MENU_BUTTON,
-      roleInterface.onClickLineMenuButton,
-      roleInterface
+      sectionManager.onClickLineMenuButton,
+      sectionManager
     );
-    roleInterface.printMap();
+    mapPrintManager.printMap();
   }
 
   onClickDeleteButton(event) {

@@ -16,7 +16,6 @@ export default class Role {
     this._roleName = roleName;
     this._stations = roleInterface.getStations();
     this._lineInfos = roleInterface.getLineInfos();
-    this.renderRoleButton();
   }
 
   renderRoleButton() {

@@ -4,7 +4,6 @@ import { nodeSelector } from '../util/selector/node_selector.js';
 import { stationValidator } from '../util/validator/station_validator.js';
 import {
   DELETE_K,
-  STATION_ADD_BUTTON,
   STATION_DELETE_BUTTON,
   STATION_MANAGER,
   STATION_MANAGER_BUTTON,
@@ -21,8 +20,6 @@ import {
 export default class StationManager extends Role {
   constructor() {
     super(STATION_MANAGER, STATION_MANAGER_BUTTON, STATION_MANAGER_K);
-    this.initialize();
-    roleInterface.clickButton(STATION_ADD_BUTTON, this.onClickAddButton, this);
   }
 
   initialize() {
@@ -33,10 +30,6 @@ export default class StationManager extends Role {
       this.onClickDeleteButton,
       this
     );
-    this.updateData();
-  }
-
-  updateData() {
     roleInterface.renderSelectors();
   }
 

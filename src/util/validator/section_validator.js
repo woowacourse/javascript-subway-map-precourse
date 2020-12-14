@@ -11,8 +11,8 @@ class SectionValidator extends Validator {
   }
 
   checkValidInput(input, line) {
-    const stations = roleInterface.getSectionLine(line);
-    const order = input.value;
+    const stations = this.getSectionLine(line);
+    const order = input.value !== '' ? input.value : -1;
 
     if (!(order >= 0 && order < stations.length) || order % 1 !== 0) {
       this.alertOrderInvalid(input);
@@ -23,13 +23,26 @@ class SectionValidator extends Validator {
     return true;
   }
 
+  getSectionLine(line) {
+    const lineInfos = roleInterface.getLineInfos();
+
+    for (const lineInfo of lineInfos) {
+      if (!lineInfo) {
+        continue;
+      }
+      if (lineInfo.hasOwnProperty(line)) {
+        return lineInfo[line];
+      }
+    }
+  }
+
   alertOrderInvalid(input) {
     input.value = '';
     alert(SECTION_ALERT_ORDER);
   }
 
   checkValidOption(selector, line) {
-    const stations = roleInterface.getSectionLine(line);
+    const stations = this.getSectionLine(line);
     const station = selector.value;
 
     if (stations.includes(station)) {
