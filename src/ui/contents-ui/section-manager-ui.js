@@ -8,7 +8,6 @@ import { contentsUI } from "./contents-ui.js";
 export default class SectionManagerUI extends contentsUI {
   constructor(contentsID, stationINFOManager) {
     super(contentsID, stationINFOManager);
-
     this._sectionRegisterUI = null;
     this.setContentsHTML(INITIAL_TEMPLATE);
   }
@@ -19,7 +18,7 @@ export default class SectionManagerUI extends contentsUI {
 
   _updateLineButtons() {
     const buttonDiv = document.getElementById(SECTION_LINE_MENU_DIV_ID);
-    const lines = this._stationINFOManager.getLines();
+    const lines = this._stationINFOManager.getAllLines();
     let buttonDivInnerHTML = "";
     lines.forEach(({ name }) => {
       buttonDivInnerHTML += this._makeNewSelectLineButtonHTML(name);
@@ -52,14 +51,12 @@ class SectionRegisterUI extends contentsUI {
     this._lineName = lineName;
     this.setContentsHTML(SECTION_REGISTER_TEMPLATE);
   }
-
   setContentsHTML(initialTemplate) {
     initialTemplate = this._makeTitleHTML(this._lineName) + initialTemplate;
     super.setContentsHTML(initialTemplate);
     this._addEventToSectionAddButton();
     this.updateAllContents();
   }
-
   updateAllContents() {
     this._setComboboxOption();
     this.updateLineStationsTable();
@@ -84,6 +81,12 @@ class SectionRegisterUI extends contentsUI {
       this._callbackOfDeleteButton
     );
   }
+  _addEventToSectionAddButton() {
+    this._addClickEventToButtonByID(
+      SECTION_ADD_BUTTON_ID,
+      this._callbackOfSectionAddButton
+    );
+  }
   _callbackOfDeleteButton(event) {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
@@ -91,13 +94,6 @@ class SectionRegisterUI extends contentsUI {
     const targetStationName = event.target.dataset.name;
     this._stationINFOManager.deleteSection(targetStationName, this._lineName);
     this.updateAllContents();
-  }
-
-  _addEventToSectionAddButton() {
-    this._addClickEventToButtonByID(
-      SECTION_ADD_BUTTON_ID,
-      this._callbackOfSectionAddButton
-    );
   }
   _callbackOfSectionAddButton() {
     const orderToRegister = this._getInputTextByID(SECTION_ORDER_INPUT_ID);
@@ -156,10 +152,21 @@ class SectionRegisterUI extends contentsUI {
 const SECTION_REGISTER_DIV_ID = "section-register-div";
 const SECTION_STATION_SELECTOR_ID = "section-station-selector";
 const SECTION_REGISTER_TABLE_ID = "section-register-table";
-const SECTION_DELETE_BUTTON_CLASS = "section-delete-button";
 const SECTION_ORDER_INPUT_ID = "section-order-input";
 const SECTION_ADD_BUTTON_ID = "section-add-button";
+const SECTION_DELETE_BUTTON_CLASS = "section-delete-button";
+const SECTION_LINE_MENU_DIV_ID = "section-line-menu-div";
+const SECTION_LINE_MENU_BUTTON_CLASS = "section-line-menu-button";
+
 const DELETE_CONFIRM_MESSAGE = "정말로 노선에서 제거하시겠습니까?";
+
+const INITIAL_TEMPLATE = `
+<h2>구간을 수정할 노선을 선택해주세요.</h2>
+<div id="${SECTION_LINE_MENU_DIV_ID}">
+</div>
+<div id="${SECTION_REGISTER_DIV_ID}">
+<div>
+`;
 const TABLE_HEADER_TEMPLATE = `
 <th>순서</th>
 <th>이름</th>
@@ -177,12 +184,3 @@ const SECTION_REGISTER_TEMPLATE = `
   </table>
 `;
 
-const SECTION_LINE_MENU_DIV_ID = "section-line-menu-div";
-const SECTION_LINE_MENU_BUTTON_CLASS = "section-line-menu-button";
-const INITIAL_TEMPLATE = `
-<h2>구간을 수정할 노선을 선택해주세요.</h2>
-<div id="${SECTION_LINE_MENU_DIV_ID}">
-</div>
-<div id="${SECTION_REGISTER_DIV_ID}">
-<div>
-`;

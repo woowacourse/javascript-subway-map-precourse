@@ -1,12 +1,12 @@
 import { contentsUI } from "./contents-ui.js";
 
-export default class MapPrintManager extends contentsUI {
+export default class MapPrintManagerUI extends contentsUI {
   constructor(contentsID, stationINFOManager) {
     super(contentsID, stationINFOManager);
     this.setContentsHTML("");
   }
   setContentsHTML(initialTemplate) {
-    const lines = this._stationINFOManager.getLines();
+    const lines = this._stationINFOManager.getAllLines();
     lines.forEach((line) => {
       initialTemplate += this._makeLineINFOHTML(line);
     });

@@ -18,7 +18,7 @@ export default class LineManagerUI extends contentsUI {
     this.updateLinesTable();
   }
   updateLinesTable() {
-    const liness = this._stationINFOManager.getLines();
+    const liness = this._stationINFOManager.getAllLines();
     const tableContainer = document.getElementById(TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     liness.forEach((lineINFOs) => {
@@ -90,7 +90,7 @@ export default class LineManagerUI extends contentsUI {
     `;
   }
   _makeSelectorInnerHTML() {
-    const stationNames = this._stationINFOManager.getStationsNames();
+    const stationNames = this._stationINFOManager.getAllStationsNames();
     let selectorInnerHTML = SELECTOR_DEFAULT_TEMPLATE;
     stationNames.forEach((name) => {
       selectorInnerHTML += this._makeNewSelectorOptionHTML(name);
@@ -104,22 +104,13 @@ export default class LineManagerUI extends contentsUI {
   }
 }
 const NAME_INPUT_ID = "line-name-input";
-
 const START_STATION_SELECTOR_ID = "line-start-station-selector";
 const END_STATION_SELECTOR_ID = "line-end-station-selector";
-
 const LINE_ADD_BUTTON_ID = "line-add-button";
+const TABLE_ID = "line-table";
 const LINE_DELETE_BUTTON_CLASS = "line-delete-button";
 
 const DELETE_CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?";
-
-const TABLE_ID = "line-table";
-const TABLE_HEADER_TEMPLATE = `
-<th>노선 이름</th>
-<th>상행 종점역</th>
-<th>하행 종점역</th>
-<th>설정</th>
-`;
 
 const INITIAL_TEMPLATE = `
 <span>노선 이름</span><br>
@@ -136,4 +127,10 @@ const INITIAL_TEMPLATE = `
 <h2>🚉 지하철 노선 목록</h2>
 <table border="1" id="${TABLE_ID}">
 </table>
+`;
+const TABLE_HEADER_TEMPLATE = `
+<th>노선 이름</th>
+<th>상행 종점역</th>
+<th>하행 종점역</th>
+<th>설정</th>
 `;

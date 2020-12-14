@@ -30,7 +30,7 @@ export default class HTMLManager {
     this._contentsUI = new SectionManagerUI(
       CONTENTS_ID,
       this._stationINFOManager
-      );
+    );
   }
   setContentsUIOnMapPrintUI() {
     this._contentsUI = new MapPrintManagerUI(

@@ -10,7 +10,6 @@ export default class StationINFOManager {
     const newStation = this._makeNewStationByTemplate(name);
     this._stations.push(newStation);
     this._saveAllToLocalStorage();
-    console.log(this._stations);
   }
   addNewLine({ lineName, startStationName, endStationName }) {
     const newLine = this._makeNewLineByTemplate(
@@ -76,13 +75,6 @@ export default class StationINFOManager {
     }
     return -1;
   }
-  getStationsNames() {
-    const stationNames = [];
-    this._stations.forEach(({ name }) => {
-      stationNames.push(name);
-    });
-    return stationNames;
-  }
   getStationNamesByCondition(condition) {
     const returnStations = [];
     this._stations.forEach((station) => {
@@ -92,6 +84,13 @@ export default class StationINFOManager {
     });
     return returnStations;
   }
+  getAllStationsNames() {
+    const stationNames = [];
+    this._stations.forEach(({ name }) => {
+      stationNames.push(name);
+    });
+    return stationNames;
+  }
   getOneLineByName(name) {
     for (let line of this._lines) {
       if (line.name === name) {
@@ -99,16 +98,6 @@ export default class StationINFOManager {
       }
     }
     return -1;
-  }
-  getLines() {
-    const linesINFOs = [];
-    this._lines.forEach(({ name, stationsOfLine }) => {
-      linesINFOs.push({
-        name: name,
-        stationsOfLine: stationsOfLine,
-      });
-    });
-    return linesINFOs;
   }
   getAllLinesByCondition(condition) {
     const returnlines = [];
@@ -118,6 +107,16 @@ export default class StationINFOManager {
       }
     });
     return returnlines;
+  }
+  getAllLines() {
+    const linesINFOs = [];
+    this._lines.forEach(({ name, stationsOfLine }) => {
+      linesINFOs.push({
+        name: name,
+        stationsOfLine: stationsOfLine,
+      });
+    });
+    return linesINFOs;
   }
   hasNotOverlapNameAmongStations(inputName) {
     const isValid = this._hasNotOverlapName(this._stations, inputName);
@@ -142,8 +141,6 @@ export default class StationINFOManager {
     });
     this._stations = stations;
     this._lines = lines;
-    console.log(stations);
-    console.log(lines);
   }
   _saveAllToLocalStorage() {
     const jsonStations = JSON.stringify(this._stations, this._replacer);

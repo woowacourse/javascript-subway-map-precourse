@@ -17,18 +17,18 @@ export class contentsUI {
     const selector = document.getElementById(id);
     return selector[selector.selectedIndex].value;
   }
+  _addClickEventToButtonByID(id, callback) {
+    const button = document.getElementById(id);
+    button.addEventListener("click", () => {
+      callback.call(this);
+    });
+  }
   _addClickEventToAllButtonByClassName(className, callback) {
     const buttons = document.querySelectorAll("." + className);
     Array.prototype.forEach.call(buttons, (button) => {
       button.addEventListener("click", (event) => {
         callback.call(this, event);
       });
-    });
-  }
-  _addClickEventToButtonByID(id, callback) {
-    const button = document.getElementById(id);
-    button.addEventListener("click", () => {
-      callback.call(this);
     });
   }
 }

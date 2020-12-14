@@ -87,11 +87,11 @@ function hasNotEqualName({ operand1, operand2, errorMessage }) {
 }
 
 const MINIMUM_LENGTH_OF_STATION_NAME = 2;
-const MINIMUM_LENGTH_STATION_NAME_ERROR_MESSAGE = `역 이름은 최소 ${MINIMUM_LENGTH_OF_STATION_NAME} 글자여야 합니다.`;
 const MINIMUM_LENGTH_OF_LINE_NAME = 1;
-const MINIMUM_LENGTH_LINE_NAME_ERROR_MESSAGE = `노선 이름은 최소 ${MINIMUM_LENGTH_OF_LINE_NAME} 글자여야 합니다.`;
-
 const MINIMUM_VAILD_ORDER = 0;
+
+const MINIMUM_LENGTH_STATION_NAME_ERROR_MESSAGE = `역 이름은 최소 ${MINIMUM_LENGTH_OF_STATION_NAME} 글자여야 합니다.`;
+const MINIMUM_LENGTH_LINE_NAME_ERROR_MESSAGE = `노선 이름은 최소 ${MINIMUM_LENGTH_OF_LINE_NAME} 글자여야 합니다.`;
 const NOT_TYPE_OF_NUMBER_ERROR_MESSAGE = "숫자를 입력해주세요.";
 const LESS_THAN_MINIMUM_ORDER_ERROR_MESSAGE = `순서값은 최소 ${MINIMUM_VAILD_ORDER} 이상이어야 합니다.`;
 const HAS_EQUAL_NAME_ERROR_MESSAGE = `상행 종점과 하행 종점이 같은 역입니다.`;
