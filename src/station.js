@@ -1,5 +1,6 @@
 import { STATION } from "./constants.js";
 import {addItem, deleteItem, getIndex, getList} from "./storageAccess.js";
+import { addRowToTable } from "./utils.js";
 
 STATION.ADD.addEventListener('click', () => {
     const stationName = STATION.INPUT.value;
@@ -30,12 +31,12 @@ function createStationDeleteButton(stationName) {
 
 function deleteStationStorage(stationName) {
     deleteItem(stationName, STATION.LISTNAME);
-    console.log(localStorage.getItem(STATION.LISTNAME));
+    // console.log(localStorage.getItem(STATION.LISTNAME));
 }
 
 function addStationStorage(stationName) {
     addItem(stationName, STATION.LISTNAME);
-    console.log(getList(STATION.LISTNAME));
+    // console.log(getList(STATION.LISTNAME));
 }
 
 function deleteStationTable(stationName) {
@@ -43,18 +44,19 @@ function deleteStationTable(stationName) {
 }
 
 function addStationTable(stationName) {
-    let row = document.createElement('tr');
-    let name = document.createElement('td');
-    let button = document.createElement('td');
+    addRowToTable(stationName, STATION.TABLE);
+    // let row = document.createElement('tr');
+    // let name = document.createElement('td');
+    // let button = document.createElement('td');
 
-    // row.dataset.station = stationName;
-    name.innerText = stationName;
-    button.appendChild(createStationDeleteButton(stationName));
+    // // row.dataset.station = stationName;
+    // name.innerText = stationName;
+    // button.appendChild(createStationDeleteButton(stationName));
 
-    row.appendChild(name);
-    row.appendChild(button)
+    // row.appendChild(name);
+    // row.appendChild(button)
 
-    STATION.TABLE.appendChild(row);
+    // STATION.TABLE.appendChild(row);
 }
 
 function isStationValid (stationName) {
