@@ -1,9 +1,10 @@
 import { setLine } from './lineDataHandler.js';
+
+import Subway from '../subwayManager.js';
 import {
   addEventToCreateLineBtn,
   addEventToDeleteBtn,
 } from '../util/events.js';
-import Subway from '../subwayManagementSystem.js';
 
 export default class Line {
   constructor() {

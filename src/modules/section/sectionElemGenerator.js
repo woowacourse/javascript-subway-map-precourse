@@ -1,7 +1,8 @@
 import { loadLineName, loadSectionStationData } from './sectionDataHandler.js';
-import { addEventToLineNameBtn } from '../util/events.js';
+
 import { deleteOption } from '../line/lineElemGenerator.js';
 import { printSection } from '../util/output.js';
+import { addEventToLineNameBtn } from '../util/events.js';
 
 export const createLineNameBtn = (lineNames) => {
   const parentElem = document.querySelector('#parent');
@@ -34,7 +35,7 @@ const deleteLineNameBtn = () => {
   }
 };
 
-export const refreshLineNameBtn = () => {
+export const refreshSectionModule = () => {
   deleteLineNameBtn();
   loadLineName();
 };

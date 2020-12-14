@@ -1,8 +1,8 @@
+import Subway from '../subwayManager.js';
 import Station from '../station/station.js';
-import Line from '../line/line.js';
 import { deleteStation } from '../station/stationDataHandler.js';
+import Line from '../line/line.js';
 import { deleteLine, updateLine } from '../line/lineDataHandler.js';
-import Subway from '../subwayManagementSystem.js';
 import { showSectionManager } from '../section/sectionElemGenerator.js';
 import { deleteStationFromLine } from '../section/sectionDataHandler.js';
 

@@ -1,3 +1,6 @@
+import { checkDeleteAvailable } from './stationValidator.js';
+
+import Subway from '../subwayManager.js';
 import { printStations } from '../util/output.js';
 
 export const setStation = (stations) => {
@@ -14,6 +17,10 @@ export const getStation = () => {
 
 export const deleteStation = (e) => {
   const station = e.target.dataset.station;
+  if (!checkDeleteAvailable(station)) {
+    alert('노선에 등록된 역은 삭제할 수 없습니다🚨');
+    Subway.clearInput();
+  }
   const stations = getStation();
   const idx = stations.indexOf(station);
   stations.splice(idx, 1);

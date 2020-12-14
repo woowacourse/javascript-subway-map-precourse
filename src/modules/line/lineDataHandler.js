@@ -1,7 +1,8 @@
+import { setStationDataToOption } from './lineElemGenerator.js';
+
+import Subway from '../subwayManager.js';
 import { getStation } from '../station/stationDataHandler.js';
 import { printLines, printSection } from '../util/output.js';
-import { setStationDataToOption } from './lineElemGenerator.js';
-import Subway from '../subwayManagementSystem.js';
 
 export const loadStationData = () => {
   const stations = getStation();

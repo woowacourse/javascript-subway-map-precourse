@@ -1,18 +1,18 @@
-import Line from './line/line.js';
 import Station from './station/station.js';
+import Line from './line/line.js';
+import { refreshLineModule } from './line/lineElemGenerator.js';
+import StationInLine from './section/section.js';
+import {
+  hideSectionManager,
+  refreshSectionModule,
+} from './section/sectionElemGenerator.js';
 import {
   addEventToCreateSectionBtn,
   addEventToManagerBtn,
 } from './util/events.js';
-import StationInLine from './section/section.js';
-import {
-  hideSectionManager,
-  refreshLineNameBtn,
-} from './section/sectionElemGenerator.js';
-import { refreshLineModule } from './line/lineElemGenerator.js';
-import { refreshMapData } from './util/output.js';
+import { refreshMapModule } from './util/output.js';
 
-export default class SubwayManagementSystem {
+export default class SubwayManager {
   constructor() {
     new Station();
     new Line();
@@ -31,10 +31,10 @@ export default class SubwayManagementSystem {
       refreshLineModule();
     } else if (e.target.id === 'section-manager-button') {
       selector = '#section-module';
-      refreshLineNameBtn();
+      refreshSectionModule();
     } else if (e.target.id === 'map-print-manager-button') {
       selector = '#map-module';
-      refreshMapData();
+      refreshMapModule();
     }
     this.toggleSelectedModule(selector);
   }

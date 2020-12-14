@@ -1,3 +1,3 @@
-import Subway from './modules/subwayManagementSystem.js';
+import Subway from './modules/subwayManager.js';
 
 new Subway();

@@ -1,4 +1,5 @@
 import { createLineNameBtn } from './sectionElemGenerator.js';
+
 import { getLineName, getSelectedLineData } from '../line/lineDataHandler.js';
 import { setStationDataToOption } from '../line/lineElemGenerator.js';
 import { getStation } from '../station/stationDataHandler.js';

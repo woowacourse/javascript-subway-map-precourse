@@ -49,7 +49,7 @@ const clearTable = (bodyId) => {
   tableBody.innerHTML = '';
 };
 
-export const refreshMapData = () => {
+export const refreshMapModule = () => {
   if (document.querySelector('.map')) {
     clearMapData();
   }

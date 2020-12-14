@@ -1,5 +1,6 @@
-import { printLines } from '../util/output.js';
 import { loadStationData } from './lineDataHandler.js';
+
+import { printLines } from '../util/output.js';
 
 export const setStationDataToOption = (stations, selector) => {
   for (let i = 0; i < stations.length; i++) {
