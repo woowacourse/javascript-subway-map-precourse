@@ -29,6 +29,22 @@ class LineStore extends Observer {
     this.setLines(lines);
   }
 
+  addSection(lineName, station, order) {
+    const sections = [...this.getLine(lineName).sections];
+    sections.splice(order, 0, station);
+
+    const newLines = this.lines.map(line => {
+      return line.name === lineName
+        ? {
+            ...line,
+            sections,
+          }
+        : line;
+    });
+
+    this.setLines(newLines);
+  }
+
   setLines(lines) {
     this.lines = lines;
     this.notify();
