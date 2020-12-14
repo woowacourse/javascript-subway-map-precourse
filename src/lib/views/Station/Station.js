@@ -2,6 +2,7 @@ import Typography from "../components/Typography.js";
 import Button from "../components/Button.js";
 import Input from "../components/Input.js";
 import Div from "../components/Div.js";
+import Table from "../components/Table/Table.js";
 import submitStationName from "../../_action/Station/submitStationName.js";
 
 import {
@@ -15,6 +16,7 @@ export default class Station {
   constructor() {
     this.element = document.createElement("div");
     this.element.id = STATION_DIV.substring(1);
+    this.table = new Table({ tabIndex: 0 });
   }
 
   _getStationInputContainerChildNodes() {
@@ -41,9 +43,10 @@ export default class Station {
   }
 
   render() {
-    [this._getStationInputContainer()].forEach(($element) =>
-      this.element.appendChild($element),
-    );
+    [
+      this._getStationInputContainer(),
+      this.table.render(),
+    ].forEach(($element) => this.element.appendChild($element));
     return this.element;
   }
 }

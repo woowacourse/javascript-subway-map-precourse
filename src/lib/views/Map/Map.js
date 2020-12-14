@@ -4,6 +4,7 @@ import { lineSelector } from "../../_store/selectors.js";
 
 export default class Map {
   constructor() {
+    this.tabIndex = 3;
     this.element = document.createElement("div");
     this.element.id = MAP_DIV.substring(1);
   }
