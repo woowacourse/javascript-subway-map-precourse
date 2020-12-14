@@ -67,7 +67,7 @@ export class SubwayMap {
   };
 
   updateStationView = () => {
-    this.lineManager.update();
+    this.lineManager.updateStations();
     this.sectionManager.updateStationsInInput();
   };
 
@@ -100,6 +100,7 @@ export class SubwayMap {
   updateLineView = () => {
     this.sectionManager.updateHeaderButtons();
     this.sectionManager.updateSectionList();
+    this.lineManager.updateLines();
     this.mapPrintManager.render();
   };
 }

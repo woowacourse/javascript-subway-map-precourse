@@ -31,12 +31,10 @@ export class StationManagerList {
   };
 
   handleDeleteStation = (e) => {
-    if (e.target.classList.contains("delete-button")) {
-      let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
-      if (confirmDelete) {
-        this.deleteStation(e.target.dataset.station);
-        this.render();
-      }
+    let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
+    if (confirmDelete) {
+      this.deleteStation(e.target.dataset.station);
+      this.render();
     }
   };
 }

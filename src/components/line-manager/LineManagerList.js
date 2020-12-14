@@ -39,12 +39,10 @@ export class LineManagerList {
   };
 
   handleDeleteLine = (e) => {
-    if (e.target.classList.contains("delete-button")) {
-      let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
-      if (confirmDelete) {
-        this.deleteLine(e.target.dataset.line);
-        this.render();
-      }
+    let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
+    if (confirmDelete) {
+      this.deleteLine(e.target.dataset.line);
+      this.render();
     }
   };
 }

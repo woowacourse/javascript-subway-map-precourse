@@ -18,8 +18,12 @@ export class LineManager {
     });
   };
 
-  update = () => {
+  updateStations = () => {
     this.lineManagerInput.render();
+  };
+
+  updateLines = () => {
+    this.lineManagerList.render();
   };
 
   addNewLines = (lineName, newLine) => {

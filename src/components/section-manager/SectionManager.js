@@ -2,6 +2,7 @@ import { SectionManagerHeaderButtons } from "./SectionManagerHeaderButtons.js";
 import { showDOM } from "../../utils/handleDom.js";
 import { SectionManagerInput } from "./SectionManagerInput.js";
 import { SectionManagerList } from "./SectionManagerList.js";
+
 export class SectionManager {
   constructor({ getLines, getStations, setLines }) {
     this.getLines = getLines;
@@ -82,16 +83,15 @@ export class SectionManager {
 
   deleteStationInLine = (order) => {
     let lines = this.getLines();
-    console.log(order);
+
     lines.forEach((line) => {
       if (line.lineName === this.lineName) {
         let newStations = line.stations;
-        console.log(newStations);
         newStations.splice(order, 1);
-        console.log(newStations);
         line.stations = newStations;
       }
     });
+
     this.setLines(lines);
   };
 }

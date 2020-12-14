@@ -36,8 +36,8 @@ export class SectionManagerList {
   };
 
   handleDeleteStation = (e) => {
-    let confirm = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
-    if (confirm) {
+    let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
+    if (confirmDelete) {
       let order = e.target.dataset.section;
       this.deleteStationInLine(order);
     }
