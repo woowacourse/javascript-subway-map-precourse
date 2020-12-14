@@ -53,6 +53,14 @@ export default class SectionManagerRender extends Component {
     );
 
     this.sectionLineManagerListRender(selectedMenuDataset);
+
+    document
+      .getElementById(DOM_SECTION.SECTION_ADD_FORM_ID)
+      .addEventListener("submit", (e) => this._onSubmitAddSection(e));
+  }
+
+  _onSubmitAddSection(e) {
+    e.preventDefault();
   }
 
   sectionLineManagerRender(dataset) {
@@ -99,14 +107,14 @@ export default class SectionManagerRender extends Component {
 
     console.log(dataset);
     const linesInfo = JSON.parse(dataset.lines);
-    const lineIndex = dataset.index;
+    this.lineIndex = dataset.index;
 
     linesInfo.forEach((station, idx) => {
       const tr = document.createElement("tr");
       const deleteTd = document.createElement("td");
       const deleteBtn = document.createElement("button");
 
-      tr.dataset.linesIndex = lineIndex;
+      tr.dataset.linesIndex = this.lineIndex;
       tr.dataset.station = station;
       tr.innerHTML = `
       <td>${idx}</td>
@@ -123,8 +131,5 @@ export default class SectionManagerRender extends Component {
     });
   }
 
-  _onClickDeleteSection(e) {
-    e.preventDefault();
-    console.log(e);
-  }
+  _onClickDeleteSection(e) {}
 }
