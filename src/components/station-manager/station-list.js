@@ -1,3 +1,4 @@
+import { DELETE_CONFIRM_MESSAGE } from '../../library/constants/confirm.js';
 import { STATIONS } from '../../library/constants/localstorage.js';
 import { HAS_SECTION_MESSAGE } from '../../library/constants/station-manager-alert.js';
 import Component from '../../library/core/component.js';
@@ -38,7 +39,10 @@ class StationList extends Component {
 
   initializeEventListener() {
     this._$target.addEventListener('click', event => {
-      if (event.target.classList.contains('station-delete-button')) {
+      if (
+        event.target.classList.contains('station-delete-button') &&
+        window.confirm(DELETE_CONFIRM_MESSAGE)
+      ) {
         this.handleRemoveStationEvent(
           event.target.closest('[data-key]').dataset.key
         );

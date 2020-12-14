@@ -1,3 +1,4 @@
+import { SECTION_DELETE_CONFIRM_MESSAGE } from '../../../library/constants/confirm.js';
 import { LINES } from '../../../library/constants/localstorage.js';
 import { TOO_FEW_SECTIONS_MESSAGE } from '../../../library/constants/section-manager-alert.js';
 import Component from '../../../library/core/component.js';
@@ -40,7 +41,10 @@ class SectionList extends Component {
 
   initializeEventListener() {
     this._$target.addEventListener('click', event => {
-      if (event.target.classList.contains('section-delete-button')) {
+      if (
+        event.target.classList.contains('section-delete-button') &&
+        window.confirm(SECTION_DELETE_CONFIRM_MESSAGE)
+      ) {
         this.handleRemoveSectionEvent(
           event.target.closest('[data-key]').dataset.key
         );

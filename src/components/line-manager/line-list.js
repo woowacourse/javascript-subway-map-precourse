@@ -1,3 +1,4 @@
+import { DELETE_CONFIRM_MESSAGE } from '../../library/constants/confirm.js';
 import { LINES } from '../../library/constants/localstorage.js';
 import Component from '../../library/core/component.js';
 
@@ -41,7 +42,10 @@ class LineList extends Component {
 
   initializeEventListener() {
     this._$target.addEventListener('click', event => {
-      if (event.target.classList.contains('line-delete-button')) {
+      if (
+        event.target.classList.contains('line-delete-button') &&
+        window.confirm(DELETE_CONFIRM_MESSAGE)
+      ) {
         this.removeLine(event.target.closest('[data-key]').dataset.key);
       }
     });
