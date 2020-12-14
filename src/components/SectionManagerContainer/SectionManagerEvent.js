@@ -41,6 +41,13 @@ export default class SectionManagerEvent extends SectionManagerRender {
     console.log(target.dataset);
     console.log(order, linesIndex);
 
+    if (!window.confirm("정말로 노선에서 제거하겠습니까?")) {
+      return;
+    }
+    if (this.isMinSectionCount(this.lines[this.lineIndex].line.length)) {
+      return;
+    }
+
     target.remove();
     this.lines[this.lineIndex].line.splice(order, 1);
     this.saveLocalStorageValue(this.localStorageKey, this.lines);
@@ -50,5 +57,14 @@ export default class SectionManagerEvent extends SectionManagerRender {
       this.lines[this.lineIndex].line,
       this.lineIndex
     );
+  }
+
+  isMinSectionCount(count) {
+    if (count > 2) {
+      return false;
+    }
+
+    window.alert("구간의 개수가 2개 이하입니다");
+    return true;
   }
 }
