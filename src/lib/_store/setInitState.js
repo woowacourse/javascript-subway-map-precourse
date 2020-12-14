@@ -18,5 +18,6 @@ export default () => {
     initState.stations = stationSelector;
     initState.lines = lineSelector;
   }
+  console.log(lineSelector());
   localStorage.setItem("isChanged", "false");
 };
