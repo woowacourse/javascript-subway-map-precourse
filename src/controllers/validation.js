@@ -7,8 +7,17 @@ export const notDuplicateStation = (name, list) => {
 };
 
 export const notDuplicateLine = (name, list) => {
-  for (const element of list) {
+  for (let element of list) {
     if (element.name == name) return false;
+  }
+  return true;
+};
+
+export const stationNotInLine = (stationName, lineList) => {
+  for (let line of lineList) {
+    if (line.list.includes(stationName)) {
+      return false;
+    }
   }
   return true;
 };

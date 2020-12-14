@@ -1,4 +1,4 @@
-import { overTwo, notDuplicateStation } from '../controllers/validation.js';
+import { overTwo, notDuplicateStation, stationNotInLine } from '../controllers/validation.js';
 import { showAddedStation } from '../views/stationManager.js';
 import { clearFocus } from '../views/utils.js';
 
@@ -26,7 +26,11 @@ const addNewStation = (name, subwayMap) => {
 
 export const deleteStation = (name, subwayMap) => {
   if (confirm('정말로 삭제하시겠습니까?')) {
-    subwayMap.delStation(name);
-    showAddedStation(subwayMap);
+    if (stationNotInLine(name, subwayMap.lineList)) {
+      subwayMap.delStation(name);
+      showAddedStation(subwayMap);
+    } else {
+      alert('노선에 포함된 역입니다.');
+    }
   }
 };
