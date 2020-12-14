@@ -47,7 +47,8 @@ export default class ManageLine {
     this.initLists();
     this.createInputSection();
     this.createSelectSection();
-    this._privateCommonUtils.insertNewline(this.ARTICLE_NAME);
+    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
+    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this.createLineAddButton();
     this.createTableSection();
   }
@@ -88,18 +89,10 @@ export default class ManageLine {
   }
 
   createSelectSection() {
-    // const selectSection = this.createSelectDOM();
-    this._privateCommonUtils.insertNewline(this.ARTICLE_NAME);
+    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this.createSelectStation('start');
     this.createSelectStation('end');
   }
-
-  // createSelectDiv() {
-  //   const selectSection = document.createElement('div');
-    
-  //   this._privateDomUtils.appendToIdName(this.ARTICLE_NAME, selectSection);
-  //   this._privateDomUtils.setAttribute('id', selectSection, this.SELECT_SECTION_NAME)
-  // }
 
   createSelectStation(position) {
     const positionUpper = position.toUpperCase();
@@ -136,11 +129,6 @@ export default class ManageLine {
     this._lineAddButton = this._privateDomUtils.createButton(this.ADD_BUTTON_ID, this.ADD_BUTTON_TEXT);
     this._privateDomUtils.appendToIdName(this.ARTICLE_NAME, this._lineAddButton);
     this.addEventToButton();
-  }
-
-  createTableSection() {
-    this._privateCommonUtils.createTitle(this.LINE_LIST_TITLE_TAG, this.LINE_LIST_TITLE_TEXT, this.ARTICLE_NAME);
-    // this._privateTableUtils.initTable(this.ARTICLE_NAME);
   }
 
   addEventToButton() {
@@ -218,6 +206,11 @@ export default class ManageLine {
 
     this._privateCommonUtils.saveToLocalStorage('lineList', this._lineList);
     this._privateCommonUtils.saveToLocalStorage('stationList', this._stationList);
+  }
+
+  createTableSection() {
+    this._privateCommonUtils.createTitle(this.LINE_LIST_TITLE_TAG, this.LINE_LIST_TITLE_TEXT, this.ARTICLE_NAME);
+    this._privateTableUtils.initTable(this.ARTICLE_NAME);
   }
 
   createRowArray(lineName) {

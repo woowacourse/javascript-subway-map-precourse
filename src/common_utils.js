@@ -13,11 +13,11 @@ export default class CommonUtils {
     const title = document.createElement(titleTag);
 
     title.innerHTML = titleContent;
-    this.insertNewline(toIdName);
+    this.insertEmptyline(toIdName);
     this._privateDomUtils.appendToIdName(toIdName, title);
   }
 
-  insertNewline(toIdName) {
+  insertEmptyline(toIdName) {
     const newline = document.createElement('br');
 
     this._privateDomUtils.appendToIdName(toIdName, newline);
