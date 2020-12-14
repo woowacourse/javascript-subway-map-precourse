@@ -1,4 +1,8 @@
-import { stationMangeContainer, getStationRow } from "./dom.js";
+import {
+  stationMangeContainer,
+  getStationRow,
+  lineMangeContainer,
+} from "./dom.js";
 import Station from "../components/Station.js";
 import { addLocalStorageByKey, deleteDataByName } from "../utils/util.js";
 import {
@@ -58,4 +62,13 @@ export const rendStationMangeDom = () => {
   div.innerHTML = stationMangeContainer();
   container.appendChild(div);
   setStationDeleteEvent();
+};
+
+//line
+export const rendLineMangeDom = () => {
+  const container = document.getElementById("subway-manager-container");
+  const div = document.createElement("div");
+  div.innerHTML = lineMangeContainer();
+  container.appendChild(div);
+  //setLineDeleteEvent();
 };
