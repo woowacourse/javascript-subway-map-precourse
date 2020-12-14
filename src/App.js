@@ -7,9 +7,12 @@ import Subway from './Subway.js';
 
 export default class App {
   _state = {
-    stations: new Set(),
-    lines: new Map(),
-  }
+    stations: new Set(['인천', '동인천', '도원', '소요산', '사당', '오이도', '당고개']),
+    lines: new Map([
+      ['1호선', ['인천', '소요산']],
+      ['4호선', ['오이도', '당고개']],
+    ]),
+  };
 
   constructor(target) {
     this._target = target;
@@ -69,6 +72,7 @@ export default class App {
     this._lineManager = new LineManager({
       target: this._container,
       subway: this._subway,
+      addLine: this.onClickAddLine.bind(this),
     });
   }
 
@@ -94,5 +98,19 @@ export default class App {
       this._subway.deleteStation({ station });
       this._stationManager.setSubway(this._subway);
     }
+  }
+
+  getSelectorValue(id) {
+    const selector = document.querySelector(id);
+    const value = selector.options[selector.selectedIndex].value;
+    return value;
+  }
+
+  onClickAddLine() {
+    const lineName = document.querySelector('#line-name-input').value;
+    const start = this.getSelectorValue('#line-start-station-selector');
+    const end = this.getSelectorValue('#line-end-station-selector');
+    this._subway.addLine({ lineName, start, end });
+    this._lineManager.setSubway(this._subway);
   }
 }

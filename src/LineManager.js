@@ -1,11 +1,16 @@
 export default class LineManager {
-  constructor({ target, subway }) {
+  constructor({ target, subway, addLine }) {
     this._target = target;
     this._subway = subway;
+    this.onClickAddLine = addLine;
 
     this.createLineInput(target);
     this.createSelector(target);
     this.createLineListHeader(target);
+
+    this.createTable(target);
+    this.createTableHeader();
+    this.render();
   }
 
   createContainerElement(target, classNames = '') {
@@ -96,5 +101,52 @@ export default class LineManager {
     h2.innerHTML = `🚉 지하철 노선 목록`;
 
     target.appendChild(h2);
+  }
+
+  createTable(target) {
+    const table = document.createElement('table');
+    this.table = table;
+    target.appendChild(table);
+
+    const thead = document.createElement('thead');
+    this.thead = thead;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    this.tbody = tbody;
+    table.appendChild(tbody);
+  }
+
+  createTableHeader() {
+    this.thead.innerHTML = `
+      <tr>
+        <th>노선 이름</th>
+        <th>상행 종점역</th>
+        <th>하행 종점역</th>
+        <th>설정</th>
+      </tr>
+    `;
+  }
+
+  setSubway(subway) {
+    this._subway = subway;
+    this.render();
+  }
+
+  render() {
+    const lines = this._subway.getLines();
+    if (lines.length === 0) {
+      this.tbody.innerHTML = '';
+      return;
+    }
+    this.tbody.innerHTML = `
+      ${lines.map(({ lineName, section }) => `
+        <tr>
+          <td>${lineName}</td>
+          <td>${section[0]}</td>
+          <td>${section[section.length - 1]}</td>
+          <td><button class="line-delete-button">삭제</button></td>
+        </tr>`).join('')}
+      `;
   }
 }

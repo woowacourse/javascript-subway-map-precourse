@@ -2,6 +2,7 @@ export default class Subway {
   constructor({ state }) {
     this._state = state;
     this._stations = state.stations;
+    this._lines = state.lines;
   }
 
   isDuplicateStation = ({ station }) => {
@@ -22,7 +23,19 @@ export default class Subway {
     this._stations.delete(station);
   }
 
+  addLine = ({ lineName, start, end }) => {
+    const section = [start, end];
+    this._lines.set(lineName, section);
+  }
+
   getStationName = () => {
     return [...this._stations];
+  }
+
+  getLines = () => {
+    return [...this._lines.entries()].reduce((acc, line) => {
+      const [lineName, section] = line;
+      return [...acc, { lineName, section }];
+    }, []);
   }
 }
