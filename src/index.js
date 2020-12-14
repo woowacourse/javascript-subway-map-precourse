@@ -8,10 +8,10 @@ import { MENU_LIST } from './configuration.js';
 export default function SubwayLineManager() {
   const app = document.getElementById('app');
 
-  createInitialView(app);
+  createMenuUI(app);
 }
 
-const createInitialView = (app) => {
+const createMenuUI = (app) => {
   const menuBar = appendNew('div', app, '', '#menu-bar');
   const menuButtons = MENU_LIST.map((attr, i) =>
     appendNew('button', menuBar, `${i + 1}. ${attr.content}`, attr.id)
@@ -31,9 +31,7 @@ const addEventListenerOnMenuButton = (menuButtons, container) => {
 
   menuButtons.forEach((button, i) =>
     button.addEventListener('click', () => {
-      const menu = MENU_LIST[i].menu;
-
-      launchManager[i](menu, container);
+      launchManager[i](MENU_LIST[i].menu, container);
     })
   );
 };
