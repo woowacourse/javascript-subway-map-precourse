@@ -1,9 +1,10 @@
 import Component from '../factory/Component.js';
 import { STATION } from '../share/selector.js';
-import { checkOverlap, checkValueLength } from '../share/utils.js';
+import { checkOverlap, checkValueLength, customConfirm } from '../share/utils.js';
 import { stationTableTemplate } from '../share/template.js';
 
 const MIN_STATION_NAME_LENGTH = 2;
+const CONFIRM_MSG = '정말로 삭제하시겠습니까?';
 
 export default class StationManager extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ export default class StationManager extends Component {
     const { className } = event.target;
     const { index } = event.target.dataset;
     if (className !== STATION.STATION_DELETE_BUTTON_CLASS) return;
+    if (!customConfirm(CONFIRM_MSG)) return;
     this.deleteStationFromList(index);
   }
 
