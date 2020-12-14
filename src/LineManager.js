@@ -173,7 +173,10 @@ export default class LineManager extends Component {
     const lineEndStation = this.$lineEndStationSelector.value;
 
     if (this.isValidLineInfo(lineName, lineStartStation, lineEndStation)) {
-      this.addNewLineName(lineName, lineStartStation, lineEndStation);
+      this.setLineInfoArray([
+        ...this.state.lineInfo,
+        { lineName, stations: [lineStartStation, lineEndStation] }
+      ]);
       clearInputValue(this.$lineNameInput);
     }
   }
@@ -225,18 +228,6 @@ export default class LineManager extends Component {
         `하행 종점: ${lineEndStation}`
       ].join("\n"));
     }
-  }
-
-  addNewLineName(newLineName, lineStartStation, lineEndStation) {
-    this.setState({
-      lineInfo: [
-        ...this.state.lineInfo,
-        {
-          lineName: newLineName,
-          stations: [lineStartStation, lineEndStation]
-        }
-      ]
-    });
   }
 
   handleDeleteButton(targetLineName) {      
