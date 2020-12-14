@@ -12,7 +12,7 @@ export const setStationDataToOption = (stations, selector) => {
   }
 };
 
-const deleteOption = () => {
+export const deleteOption = () => {
   const options = document.querySelectorAll('.start-end-stations');
   if (options) {
     options.forEach((option) => {

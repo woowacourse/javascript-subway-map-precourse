@@ -1,5 +1,5 @@
 import { getStation } from '../station/stationDataHandler.js';
-import { printLines } from '../print.js';
+import { printLines, printSection } from '../print.js';
 import { setStationDataToOption } from './lineElemGenerator.js';
 
 export const loadStationData = () => {
@@ -20,6 +20,16 @@ export const setLine = (inputElem, start, end) => {
   //   printStations();
   setLineName(addLineName(lineName));
   printLines();
+};
+
+export const updateLine = () => {
+  const lineName = document.querySelector('#title').dataset.line;
+  const station = document.querySelector('#section-station-selector').value;
+  const idx = document.querySelector('#section-order-input').value;
+  let stations = getSelectedLineData(lineName);
+  stations.splice(idx, 0, station);
+  localStorage.setItem(lineName, JSON.stringify(stations));
+  printSection(lineName);
 };
 
 export const deleteLine = (e) => {

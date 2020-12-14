@@ -1,8 +1,11 @@
 import Line from './line/line.js';
 import Station from './station/station.js';
-import { addEventToManagerBtn } from './event.js';
-import StationInLine from './stationInLine/stationInLine.js';
-import { refreshLineNameBtn } from './stationInLine/lineNameElemGenerator.js';
+import { addEventToCreateSectionBtn, addEventToManagerBtn } from './event.js';
+import StationInLine from './section/section.js';
+import {
+  hideSectionManager,
+  refreshLineNameBtn,
+} from './section/sectionElemGenerator.js';
 import { refreshOptionData } from './line/lineElemGenerator.js';
 
 export default class SubwayManagementSystem {
@@ -11,9 +14,11 @@ export default class SubwayManagementSystem {
     new Line();
     new StationInLine();
     addEventToManagerBtn();
+    addEventToCreateSectionBtn();
   }
 
   static selectModule(e) {
+    hideSectionManager();
     let selector;
     if (e.target.id === 'station-manager-button') {
       selector = '#station-module';

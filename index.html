@@ -53,24 +53,24 @@
   </div>
 
   <div id="section-module" style="display: none;">
-    <h3>구간을 수정할 노선을 선택해주세요.</h3>
-    <!-- <h3>1호선 관리</h3>
-    <h4>구간 등록</h4>
-    <select id="section-station-selector"></select>
-    <input id="section-order-input" type="number" placeholder="순서">
-    <button id="section-add-button">등록</button><br><br>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>순서</th><th>이름</th><th>설정</th>
-        </tr>
-      </thead>
-      <tbody id="line-list"></tbody>
-    </table> -->
+    <span id="parent"><h3>구간을 수정할 노선을 선택해주세요.</h3></span>
+    <div id="section-manager" style="display: none;">
+      <h4>구간 등록</h4>
+      <select id="section-station-selector"></select>
+      <input id="section-order-input" type="number" placeholder="순서">
+      <button id="section-add-button">등록</button><br><br>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>순서</th><th>이름</th><th>설정</th>
+          </tr>
+        </thead>
+        <tbody id="section-list"></tbody>
+      </table>
+    </div>
   </div>
 
   <div id="map-module" style="display: none;">
-
   </div>
 
     <script type="module" src="src/index.js"></script>
