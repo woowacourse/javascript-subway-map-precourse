@@ -118,6 +118,7 @@ export default class SectionManagerRender extends Component {
 
       tr.dataset.linesIndex = this.lineIndex;
       tr.dataset.station = station;
+      tr.dataset.order = idx;
       tr.innerHTML = `
       <td>${idx}</td>
       <td>${station}</td>

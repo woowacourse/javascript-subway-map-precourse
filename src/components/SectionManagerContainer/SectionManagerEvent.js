@@ -28,6 +28,21 @@ export default class SectionManagerEvent extends SectionManagerRender {
 
   _onClickDeleteSection(e) {
     super._onClickDeleteSection(e);
-    console.log(e);
+    console.log(e.target.parentNode.parentNode);
+    const target = e.target.parentNode.parentNode;
+    const order = target.dataset.order;
+    const linesIndex = target.dataset.linesIndex;
+    console.log(target.dataset);
+    console.log(order, linesIndex);
+
+    target.remove();
+    this.lines[this.lineIndex].line.splice(order, 1);
+    this.saveLocalStorageValue(this.localStorageKey, this.lines);
+
+    document.getElementById(DOM_SECTION.SECTION_LIST_TBODY_ID).innerHTML = "";
+    this.sectionLineManagerListRender(
+      this.lines[this.lineIndex].line,
+      this.lineIndex
+    );
   }
 }
