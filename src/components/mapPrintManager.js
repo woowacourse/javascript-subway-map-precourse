@@ -1,12 +1,16 @@
-import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
+import Lines from '../model/lines.js';
+import Stations from '../model/stations.js';
+import { ID, CLASS } from '../constants/index.js';
 import { initialize } from '../util/initialize.js';
-import { loadStorage, saveStorage } from '../util/handleStorage.js';
 import { mapPrintTemplate } from '../view/template.js';
 
 export default class MapPrintManager {
   constructor($target) {
-    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
-    this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
+    this.stations = new Stations();
+    this.stations.loadStations();
+
+    this.lines = new Lines();
+    this.lines.loadLines();
 
     this.start($target);
   }
@@ -34,8 +38,8 @@ export default class MapPrintManager {
   }
 
   updateMaps() {
-    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
-    this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
+    this.stations.loadStations();
+    this.lines.loadLines();
   }
 
   createMapTemplate() {
@@ -43,7 +47,14 @@ export default class MapPrintManager {
     const mapPrint = document.createElement('div');
 
     mapPrint.className = CLASS.MAP;
-    mapPrint.innerHTML = mapPrintTemplate(this.lines);
     mapPrintManager.appendChild(mapPrint);
+    this.render();
+  }
+
+  render() {
+    const mapPrint = document.querySelector(`.${CLASS.MAP}`);
+    const lines = this.lines.getLines();
+
+    mapPrint.innerHTML = mapPrintTemplate(lines);
   }
 }

@@ -97,10 +97,13 @@ export const sectionLineMenuTemplate = (lines) => {
 };
 
 const sectionLineMenuButton = (lines) => {
+  let count = 0;
   return lines
     .map(
       (line) => `
-      <button class='${CLASS.SECTION_LINE_MENU_BUTTON}'>${line.name}</button>
+      <button data-index='${count++}' class='${CLASS.SECTION_LINE_MENU_BUTTON}'>
+      ${line.name}
+      </button>
       `
     )
     .join('');
@@ -136,7 +139,7 @@ const sectionTable = (sections) => {
       <tr>
         <td>${count}</td>
         <td>${section}</td>
-        <td data-index='${count++}'><button class='${
+        <td data-index='${count++}' data-name='${section}'><button class='${
         CLASS.SECTION_DELETE_BUTTON
       }'>노선에서 제거</button></td>
       </tr>`

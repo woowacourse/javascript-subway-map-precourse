@@ -1,13 +1,13 @@
-import { Station } from '../model/subway.js';
+import Stations from '../model/stations.js';
 import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
 import { stationManagerTemplate, stationTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
-import { loadStorage, saveStorage } from '../util/handleStorage.js';
 import { isValidNameLength, isDuplicatedName } from '../util/userException.js';
 
 export default class StationManager {
   constructor($target) {
-    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
+    this.stations = new Stations();
+    this.stations.loadStations();
 
     this.start($target);
   }
@@ -30,15 +30,19 @@ export default class StationManager {
     stationManagerButton.addEventListener('click', () => {
       initialize();
       this.updateStations();
+      this.renderStationsManager();
       this.handleStationAddButton();
     });
   }
 
   updateStations() {
+    this.stations.loadStations();
+  }
+
+  renderStationsManager() {
     const stationManager = document.querySelector(`#${ID.STATION_MANAGER}`);
 
     stationManager.innerHTML = stationManagerTemplate();
-    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
     this.createStationTable(stationManager);
   }
 
@@ -52,8 +56,9 @@ export default class StationManager {
 
   render() {
     const stationTable = document.querySelector(`#${ID.STATION_TABLE}`);
+    const stations = this.stations.getStations();
 
-    stationTable.innerHTML = stationTableTemplate(this.stations);
+    stationTable.innerHTML = stationTableTemplate(stations);
     this.handleStationDeleteButton();
   }
 
@@ -68,22 +73,17 @@ export default class StationManager {
   }
 
   hasValidName(stationName) {
+    const stations = this.stations.getStations();
+
     if (!isValidNameLength(stationName)) {
       alert(ALERT.VALID_STATION_NAME_LENGTH);
-    } else if (isDuplicatedName(this.stations, stationName)) {
+    } else if (isDuplicatedName(stations, stationName)) {
       alert(ALERT.DUPLICATED_STATION);
     } else {
-      this.saveStation(stationName);
+      this.stations.addStation(stationName);
+      this.stations.saveStations();
       this.render();
     }
-  }
-
-  saveStation(stationName) {
-    const station = new Station(stationName);
-
-    this.stations.push(station);
-    saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
-    console.log(this.stations);
   }
 
   handleStationDeleteButton() {
@@ -91,20 +91,12 @@ export default class StationManager {
 
     deleteStationButton.forEach((button) => {
       button.addEventListener('click', (event) => {
-        this.deleteStation(event);
+        const index = event.target.parentNode.dataset.index;
+
+        this.stations.deleteStation(index);
+        this.stations.saveStations();
+        this.render();
       });
     });
-  }
-
-  deleteStation(event) {
-    const index = event.target.parentNode.dataset.index;
-
-    if (this.stations[index].line > 0) {
-      alert(ALERT.DELETE_ERROR);
-    } else {
-      this.stations.splice(index, 1);
-      saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
-      this.render();
-    }
   }
 }

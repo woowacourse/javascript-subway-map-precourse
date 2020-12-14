@@ -1,14 +1,17 @@
-import { Line } from '../model/subway.js';
-import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
+import Lines from '../model/lines.js';
+import Stations from '../model/stations.js';
+import { ID, CLASS, ALERT } from '../constants/index.js';
 import { lineManagerTemplate, lineTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
-import { loadStorage, saveStorage } from '../util/handleStorage.js';
 import { isDuplicatedName } from '../util/userException.js';
 
 export default class LineManager {
   constructor($target) {
-    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
-    this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
+    this.stations = new Stations();
+    this.stations.loadStations();
+
+    this.lines = new Lines();
+    this.lines.loadLines();
 
     this.start($target);
   }
@@ -31,16 +34,21 @@ export default class LineManager {
     lineManagerButton.addEventListener('click', () => {
       initialize();
       this.updateLines();
+      this.renderLineManager();
       this.handleLineAddButton();
     });
   }
 
   updateLines() {
-    const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
-    this.stations = loadStorage(NAME.LOCALSTORAGE_STATION_KEY);
-    this.lines = loadStorage(NAME.LOCALSTORAGE_LINE_KEY);
+    this.stations.loadStations();
+    this.lines.loadLines();
+  }
 
-    lineManager.innerHTML = lineManagerTemplate(this.stations);
+  renderLineManager() {
+    const lineManager = document.querySelector(`#${ID.LINE_MANAGER}`);
+    const stations = this.stations.getStations();
+
+    lineManager.innerHTML = lineManagerTemplate(stations);
     this.createLineTable(lineManager);
   }
 
@@ -54,8 +62,9 @@ export default class LineManager {
 
   render() {
     const lineTable = document.querySelector(`#${ID.LINE_TABLE}`);
+    const lines = this.lines.getLines();
 
-    lineTable.innerHTML = lineTableTemplate(this.lines);
+    lineTable.innerHTML = lineTableTemplate(lines);
     this.handleLineDeleteButton();
   }
 
@@ -76,33 +85,24 @@ export default class LineManager {
   }
 
   hasValidInput(lineName, lineStartStation, lineEndStation) {
-    if (isDuplicatedName(this.lines, lineName)) {
+    const lines = this.lines.getLines();
+
+    if (isDuplicatedName(lines, lineName)) {
       alert(ALERT.DUPLICATED_NAME);
     } else if (lineStartStation === lineEndStation) {
       alert(ALERT.DUPLICATED_STATION);
     } else {
-      this.saveLine(lineName, lineStartStation, lineEndStation);
+      this.lines.addLine(lineName, [lineStartStation, lineEndStation]);
+      this.lines.saveLines();
       this.render();
       this.saveLineToStation(lineStartStation, lineEndStation);
     }
   }
 
-  saveLine(lineName, lineStartStation, lineEndStation) {
-    const line = new Line(lineName, [lineStartStation, lineEndStation]);
-
-    this.lines.push(line);
-    saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
-  }
-
   saveLineToStation(lineStartStation, lineEndStation) {
-    this.stations.forEach((station) => {
-      if (station.name === lineStartStation) {
-        station.line += 1;
-      } else if (station.name === lineEndStation) {
-        station.line += 1;
-      }
-    });
-    saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
+    this.stations.addLine(lineStartStation);
+    this.stations.addLine(lineEndStation);
+    this.stations.saveStations();
   }
 
   handleLineDeleteButton() {
@@ -111,27 +111,15 @@ export default class LineManager {
     deleteLineButton.forEach((button) => {
       button.addEventListener('click', (event) => {
         const index = event.target.parentNode.dataset.index;
+        const lines = this.lines.getLines();
+        const lineSection = lines[index].section;
 
-        this.deleteLineToStation(index);
-        this.deleteLine(index);
+        this.stations.deleteLine(lineSection);
+        this.stations.saveStations();
+        this.lines.deleteLine(index);
+        this.lines.saveLines();
+        this.render();
       });
     });
-  }
-
-  deleteLineToStation(index) {
-    const lineSection = this.lines[index].section;
-
-    this.stations.forEach((station) => {
-      if (lineSection.indexOf(station.name) > -1) {
-        station.line -= 1;
-      }
-    });
-    saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
-  }
-
-  deleteLine(index) {
-    this.lines.splice(index, 1);
-    saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
-    this.render();
   }
 }
