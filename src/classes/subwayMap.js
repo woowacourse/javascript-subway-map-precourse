@@ -22,7 +22,7 @@ export default class SubwayMap {
     return isDuplicatedStationName;
   }
 
-  deleteStation(stationName) {
+  deleteStationByName(stationName) {
     const deletingStationIndex = this.#allStations.findIndex(
       (registeredStation) => registeredStation.name === stationName
     );
@@ -43,7 +43,7 @@ export default class SubwayMap {
     return isDuplicatedLineName;
   }
 
-  deleteLine(lineName) {
+  deleteLineByName(lineName) {
     const deletingLineIndex = this.#allLines.findIndex(
       (registerdLine) => registerdLine.name === lineName
     );
