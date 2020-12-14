@@ -56,8 +56,22 @@ class LineManager {
   }
 
   onClickDeleteButton({ target }) {
-    console.log(this.stationStore.getStations());
-    if (target.className !== `line-delte-button`) return;
+    if (target.className !== `line-delete-button`) return;
+
+    const name = target.closest(`tr`).firstElementChild.dataset.name;
+
+    this.lineStore
+      .getLine(name)
+      .getSections()
+      .forEach(station =>
+        this.stationStore.getStation(station).removeLine(name),
+      );
+    this.lineStore.removeLine(name);
+
+    this.stationStore.setStations();
+    this.lineStore.setLines();
+
+    this.renderTable(this.lineStore.getLines());
   }
 
   renderSelect(names) {
@@ -76,11 +90,3 @@ class LineManager {
 }
 
 export default LineManager;
-
-/*
-지하철 노선의 이름을 입력하는 input 태그는 #line-name-input id값을 가진다.
-지하철 노선의 상행 종점을 선택하는 select 태그는 #line-start-station-selector id값을 가진다.
-지하철 노선의 하행 종점을 선택하는 select 태그는 #line-end-station-selector id값을 가진다.
-지하철 노선을 추가하는 button 태그는 #line-add-button id값을 가진다.
-지하철 노선을 삭제하는 button 태그는 .line-delete-button class값을 가진다.
-*/

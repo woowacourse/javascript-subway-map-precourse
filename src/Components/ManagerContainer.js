@@ -53,6 +53,7 @@ class ManagerContainer {
       case DOM.LINE_MANAGER_BUTTON:
         this.$target.appendChild(this.$lineManager);
         this.lineManager.renderSelect(this.stationStore.getStationNames());
+        this.lineManager.renderTable(this.lineStore.getLines());
         break;
 
       default:
