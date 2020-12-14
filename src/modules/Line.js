@@ -73,4 +73,16 @@ export default class Line {
     this._setLineList(newLineList);
     this._station.deleteLineFromStation(name);
   };
+
+  saveStationToLine = (stationName, lineName) => {
+    const newLineList = this._lineList.map(({ name, list }) => {
+      if (name === lineName) {
+        list.push(stationName);
+      }
+
+      return { name, list };
+    });
+    this._lineList = newLineList;
+    this._setLineList = newLineList;
+  };
 }
