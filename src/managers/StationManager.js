@@ -1,7 +1,8 @@
 import Component from '../factory/Component.js';
 import { STATION } from '../share/selector.js';
-import { checkOverlap } from '../share/utils.js';
+import { checkOverlap, checkValueLength } from '../share/utils.js';
 
+const MIN_STATION_NAME_LENGTH = 2;
 export default class StationManager extends Component {
   constructor(props) {
     super(props);
@@ -25,16 +26,18 @@ export default class StationManager extends Component {
   };
 
   updateStationList(station) {
+    if (!this.checkValidity(station)) return;
     const newStationList = [...this.state.stationList];
-    if (!this.checkValidity(station)) {
-      newStationList.push(station);
-    }
+    newStationList.push(station);
     this.setState({
       stationList: newStationList,
     });
   }
 
   checkValidity(value) {
-    return checkOverlap(value, this.state.stationList);
+    return (
+      checkOverlap(value, this.state.stationList) &&
+      checkValueLength(value, MIN_STATION_NAME_LENGTH)
+    );
   }
 }
