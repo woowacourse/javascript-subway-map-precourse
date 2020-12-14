@@ -40,4 +40,4 @@ class Show {
   };
 }
 
-export default Show;
+export default new Show();

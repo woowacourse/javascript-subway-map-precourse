@@ -4,26 +4,31 @@ import {
   createTable,
   createTr,
   createButton,
-  createSelect,
 } from "./table.js";
 class Section {
   constructor() {
-    this.stations = Storage.loadItems("station");
-    this.lines = Storage.loadItems("line");
+    this.stations = [];
+    this.lines = {};
     this.lineName = null;
-    this.resetSection();
+    this.refreshSection();
   }
 
-  resetSection = () => {
-    const sectionInput = document.getElementById("sect-main");
-    sectionInput.style.display = "none";
+  refreshSection = () => {
+    this.stations = Storage.loadItems("station");
+    this.lines = Storage.loadItems("line");
     this.showStationSelect();
     this.showMenuButton();
+    this.resetSectionContainer();
+  };
+
+  resetSectionContainer = () => {
+    const sectionInput = document.getElementById("sect-main");
+    sectionInput.style.display = "none";
   };
 
   showStationSelect = () => {
-    const select = document.getElementById("section-station-select");
-    createSelect(select, this.stations);
+    const selectContainer = document.getElementById("section-station-select");
+    Storage.createStationSelect(selectContainer);
   };
 
   createSectionTable = () => {
@@ -135,4 +140,4 @@ class Section {
   };
 }
 
-export default Section;
+export default new Section();

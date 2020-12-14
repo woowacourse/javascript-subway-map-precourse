@@ -23,10 +23,10 @@ class Menu {
     const sectionMenuBtn = document.getElementById("section-manager-button");
     const showMenuBtn = document.getElementById("map-print-manager-button");
 
-    stationMenuBtn.addEventListener("click", () => new Station());
-    lineMenuBtn.addEventListener("click", () => new Line());
-    sectionMenuBtn.addEventListener("click", () => new Section());
-    showMenuBtn.addEventListener("click", () => new Show());
+    stationMenuBtn.addEventListener("click", () => Station.refreshStation());
+    lineMenuBtn.addEventListener("click", () => Line.refreshLine());
+    sectionMenuBtn.addEventListener("click", () => Section.refreshSection());
+    showMenuBtn.addEventListener("click", () => Show.refreshShow());
   };
 
   handleMenuClick = () => {

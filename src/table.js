@@ -39,20 +39,11 @@ class Table {
       className,
     });
   };
-
-  createSelect = (container, values) => {
-    for (let i = 0; i < values.length; i++) {
-      container.appendChild(
-        this.createCustomElement({ tag: "option", innerHTML: values[i] })
-      );
-    }
-  };
 }
 
 export const {
   createCustomElement,
   createTable,
-  createTr, //
-  createButton, //
-  createSelect, //
+  createTr,
+  createButton,
 } = new Table();

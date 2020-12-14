@@ -5,12 +5,17 @@ import {
   createTr,
   createButton,
 } from "./table.js";
-export default class Station {
+class Station {
   constructor() {
-    this.stations = Storage.loadItems("station");
-    this.showStation();
+    this.stations = [];
+    this.refreshStation();
     this.handleAddNameClick();
   }
+
+  refreshStation = () => {
+    this.stations = Storage.loadItems("station");
+    this.showStation();
+  };
 
   createStationTable = () => {
     const stationTable = createTable(["역 이름", "설정"]);
@@ -56,6 +61,7 @@ export default class Station {
       Storage.saveItems("station", this.stations);
       this.showStation();
     } else {
+      console.log(name);
       alert("잘못된 역 이름입니다");
     }
   };
@@ -87,3 +93,5 @@ export default class Station {
     }
   };
 }
+
+export default new Station();

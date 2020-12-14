@@ -4,23 +4,29 @@ import {
   createTable,
   createTr,
   createButton,
-  createSelect,
 } from "./table.js";
 
 class Line {
   constructor() {
+    this.stations = [];
+    this.lines = {};
+    this.refreshLine();
+    this.handleAddLineClick();
+  }
+
+  refreshLine = () => {
+    console.log("Re");
     this.stations = Storage.loadItems("station");
     this.lines = Storage.loadItems("line");
     this.showStationSelect();
-    this.handleAddLineClick();
     this.showLines();
-  }
+  };
 
   showStationSelect = () => {
     const upLineSelect = document.getElementById("line-start-station-selector");
     const downLineSelect = document.getElementById("line-end-station-selector");
-    createSelect(upLineSelect, this.stations);
-    createSelect(downLineSelect, this.stations);
+    Storage.createStationSelect(upLineSelect);
+    Storage.createStationSelect(downLineSelect);
   };
 
   createLineTr = i => {
@@ -77,6 +83,7 @@ class Line {
 
   addLine = () => {
     const { lineName, upStation, downStation } = this.getLineInput();
+    console.log(lineName, upStation, downStation, "Sd");
     if (this.checkLineVaild(lineName, upStation, downStation)) {
       this.lines[lineName] = [upStation, downStation];
       Storage.saveItems("line", this.lines);
@@ -108,4 +115,4 @@ class Line {
   };
 }
 
-export default Line;
+export default new Line();
