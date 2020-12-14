@@ -98,7 +98,7 @@ export default class SectionMain extends Component {
   addClickEventListener() {
     this.$component.addEventListener("click", e => {
       const { target: { id, classList } } = e;
-      const { target: { dataset: { stationName, order } } } = e;
+      const { target: { dataset: { stationName } } } = e;
 
       if (id === this.$sectionAddButton.id) {
         this.handleSectionAdd();
@@ -206,7 +206,7 @@ export default class SectionMain extends Component {
     const $childNodes = this.state.stations.reduce((acc, stationName, order) => {
       const $order = createDivHTMLElement({ innerText: order });
       const $stationName = createDivHTMLElement({ innerText: stationName });
-      const $sectionDeleteButton = this.createSectionDeleteButton({ stationName, order });
+      const $sectionDeleteButton = this.createSectionDeleteButton({ stationName });
       
       return [...acc, $order, $stationName, $sectionDeleteButton];
     }, []);
@@ -214,14 +214,11 @@ export default class SectionMain extends Component {
     this.$sectionStationList.append(...$childNodes);
   }
 
-  createSectionDeleteButton({stationName, order}) {
+  createSectionDeleteButton({stationName}) {
     return createButtonHTMLElement({
       name: "노선에서 제거",
       classList: [this.SECTION_DELETE_BUTTON_CLASSNAME],
-      dataset: {
-        stationName,
-        order,
-      }
+      dataset: { stationName }
     });
   }
 }

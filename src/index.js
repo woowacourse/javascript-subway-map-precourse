@@ -35,7 +35,6 @@ class App {
       id: "station-manager-button",
       name: "1. 역 관리",
       onClick: () => {
-        console.log("show stationManager");
         this.$main.innerHTML = "";
         new StationManager({ $parent: this.$main });
       },
@@ -47,7 +46,6 @@ class App {
       id: "line-manager-button",
       name: "2. 노선 관리",
       onClick: () => {
-        console.log("show stationManager");
         this.$main.innerHTML = "";
         new LineManager({ $parent: this.$main });
       },
@@ -59,7 +57,6 @@ class App {
       id: "section-manager-button",
       name: "3. 구간 관리",
       onClick: () => {
-        console.log("show sectionManager");
         this.$main.innerHTML = "";
         new SectionManager({ $parent: this.$main });
       },
@@ -71,7 +68,6 @@ class App {
       id: "map-print-manager-button",
       name: "4. 지하철 노선도 출력",
       onClick: () => {
-        console.log("show mapPrintManager");
         this.$main.innerHTML = "";
         new MapPrintManager({ $parent: this.$main });
       },
