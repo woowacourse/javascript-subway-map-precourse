@@ -12,7 +12,7 @@ import {
 import {setLocalStorage, removeLocalStorage} from './local-storage.js';
 import {isNotLineHaved, isStationInputVaild} from './valid.js';
 import {stationInstance, lineInstance} from '../index.js';
-import {KEY} from './utils.js';
+import {KEY, TEXT} from './utils.js';
 
 export const loadStation = () => {
   stationInstance.loadStation();
@@ -32,7 +32,7 @@ export function onAddStation() {
 }
 
 export function onRemoveStation(e) {
-  const removeConfirm = confirm('정말로 삭제하시겠습니까?');
+  const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
   if (
     removeConfirm &&
     isNotLineHaved(e.target.dataset.station, lineInstance.lines)

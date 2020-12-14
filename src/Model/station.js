@@ -1,4 +1,5 @@
 import {getLocalStorage} from '../Controller/local-storage.js';
+import {KEY} from '../Controller/utils.js';
 
 export default class Station {
   constructor() {
@@ -6,7 +7,7 @@ export default class Station {
   }
 
   loadStation() {
-    const stations = getLocalStorage('station');
+    const stations = getLocalStorage(KEY.STATION);
     if (stations) {
       return (this.stations = stations);
     }

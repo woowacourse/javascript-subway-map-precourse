@@ -19,7 +19,7 @@ import {hideSectionEditContainer} from '../View/hide-screen.js';
 import {setLocalStorage, removeLocalStorage} from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
 import {isLineInputValid} from './valid.js';
-import {KEY} from './utils.js';
+import {KEY, TEXT} from './utils.js';
 
 export function onAddLine() {
   const lineValue = getLineValue();
@@ -35,7 +35,7 @@ export function onAddLine() {
 }
 
 export function onRemoveLine(e) {
-  const removeConfirm = confirm('정말로 삭제하시겠습니까?');
+  const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
   if (removeConfirm) {
     removeLocalStorage(KEY.LINE, e.target.dataset.line);
     lineInstance.removeLine(e.target.dataset.line);

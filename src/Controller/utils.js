@@ -16,6 +16,7 @@ export const TEXT = {
   LINE_MANAGEMENT: '관리',
   DELETE_FROM_LINE: '노선에서 삭제',
   DELETE: '삭제',
+  CONFIRM_DELETE: '정말로 삭제하시겠습니까?',
 };
 
 export const KEY = {

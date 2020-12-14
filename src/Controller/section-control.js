@@ -22,7 +22,7 @@ import {
   removeSectionOnLocalStorage,
 } from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
-import {KEY} from './utils.js';
+import {KEY, TEXT} from './utils.js';
 
 export function onLoadSection(e) {
   hideSectionLine();
@@ -44,7 +44,7 @@ export function onAddSection(e) {
 }
 
 export function onRemoveSection(e) {
-  const removeConfirm = confirm('정말로 삭제하시겠습니까?');
+  const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
   const parsedData = JSON.parse(e.target.dataset.sectionLine);
   const removedData = {lineName: parsedData.line, station: parsedData.station};
   const selectedSection = getSelectedSection(removedData.lineName);

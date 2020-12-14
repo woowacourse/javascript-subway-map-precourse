@@ -1,4 +1,5 @@
 import {getLocalStorage} from '../Controller/local-storage.js';
+import {KEY} from '../Controller/utils.js';
 
 export default class Line {
   constructor() {
@@ -6,7 +7,7 @@ export default class Line {
   }
 
   loadLine() {
-    const lines = getLocalStorage('line');
+    const lines = getLocalStorage(KEY.LINE);
 
     if (lines) {
       return (this.lines = lines);
