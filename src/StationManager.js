@@ -1,4 +1,5 @@
 import Component from "./Component.js";
+import { classname } from "./constant.js";
 import {
   createHTMLElement,
   clearInputValue,
@@ -60,7 +61,11 @@ export default class StationManager extends Component {
     return createLabelHTMLElement({
       name: "역 이름",
       htmlFor: this.STATION_NAME_INPUT_ID,
-      classList: ["station-name-nav__station-name-label", "--h3lish", "--strong"]
+      classList: [
+        "station-name-nav__station-name-label",
+        classname.H3LISH,
+        classname.STRONG
+      ]
     });
   }
 
@@ -84,8 +89,8 @@ export default class StationManager extends Component {
       name: "역 추가",
       classList: [
         "station-name-nav__station-add-button",
-        "--medium-button",
-        "--center"
+        classname.MEDIUM_BUTTOM,
+        classname.CENTER
       ]
     });
   }
@@ -179,7 +184,7 @@ export default class StationManager extends Component {
   appendChildNodes() {
     this.$component.append(this.$stationNameNav,this.$stationNameMain);
     this.$stationNameNav.append(this.$stationNameLabel, this.$stationNameInputContainer);
-    this.$stationNameInputContainer.append(this.$stationNameInput, this.$stationAddButton)
+    this.$stationNameInputContainer.append(this.$stationNameInput, this.$stationAddButton);
     this.$stationNameMain.append(this.$stationNameListTitle,this.$stationNameList);
   }
 
@@ -236,8 +241,15 @@ export default class StationManager extends Component {
   }
 
   createStationListHeaderArray() {
-    const $nameHeader = createDivHTMLElement({ innerText: "역 이름", classList: ["station-name-list__header", "--center", "--strong"] });
-    const $buttonHeader = createDivHTMLElement({ innerText: "설정", classList: ["station-name-list__header", "--center", "--strong"] });
+    const $nameHeader = createDivHTMLElement({
+      innerText: "역 이름",
+      classList: ["station-name-list__header", classname.CENTER, classname.STRONG]
+    });
+
+    const $buttonHeader = createDivHTMLElement({
+      innerText: "설정",
+      classList: ["station-name-list__header", classname.CENTER, classname.STRONG]
+    });
 
     return [$nameHeader, $buttonHeader];
   }
