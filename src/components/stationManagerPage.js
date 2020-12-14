@@ -1,4 +1,4 @@
-import { STATION_MANAGER_PAGE_TEMPLATE } from '../utils/templete.js';
+import { STATION_MANAGER_PAGE_TEMPLATE, STATION_TABLE_TEMPLATE } from '../utils/templete.js';
 import stationStorage from '../utils/stationStorage.js';
 import Station from '../utils/Station.js';
 
@@ -6,6 +6,7 @@ export default function stationManagerPage($element) {
   $element.innerHTML = STATION_MANAGER_PAGE_TEMPLATE;
   const $userStationInput = $element.querySelector('#station-name-input');
   const $userStationSubmit = $element.querySelector('#station-add-button');
+  const $stationTablebody = $element.querySelector('.station_manager_tbody');
 
   const stations = stationStorage().getStation();
 
@@ -20,6 +21,11 @@ export default function stationManagerPage($element) {
     return true;
   };
 
+  const showStations = () => {
+    const stationNames = stations.map((station) => station.name);
+    $stationTablebody.innerHTML = stationNames.map(STATION_TABLE_TEMPLATE).join('');
+  };
+
   const getNewId = () => {
     if (!stations || stations.length === 0) {
       return 0;
@@ -30,6 +36,7 @@ export default function stationManagerPage($element) {
   const createStation = (newStationName) => {
     stations.push(new Station(getNewId(), newStationName));
     stationStorage().setStation(stations);
+    showStations();
   };
 
   const onStationSubmitHandler = () => {
@@ -41,4 +48,5 @@ export default function stationManagerPage($element) {
   };
 
   $userStationSubmit.addEventListener('click', onStationSubmitHandler);
+  showStations();
 }
