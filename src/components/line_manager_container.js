@@ -1,3 +1,4 @@
+import Station from '../station.js';
 import { lineAddContainer, lineList } from '../templates/index.js';
 import { isValidLine, isValidLineName } from '../utils/index.js';
 
@@ -33,8 +34,12 @@ export default function LineManagerContainer({
     const start = document.getElementById('line-start-station-selector').value;
     const end = document.getElementById('line-end-station-selector').value;
     const lines = getLines();
-    const newLine = { name, start, end };
-    if (isValidLineName(lines, newLine) && isValidLine(newLine)) {
+    const newLine = {
+      name,
+      stations: [new Station({ name: start }), new Station({ name: end })],
+    };
+    console.log(newLine, ':????');
+    if (isValidLineName(lines, newLine) && isValidLine(start, end)) {
       addLine(newLine);
     }
   };

@@ -7,18 +7,19 @@ import {
 } from './components/index.js';
 import Station from './station.js';
 import Line from './line.js';
+import { save, load } from './utils/index.js';
 
 export default function SubwayMapManagement() {
-  this.subwayStations = [];
-  this.subwayLines = [];
-
+  this.subwayStations = load('stations') || [];
+  this.subwayLines = load('lines') || [];
   this.selectMenu = number => {
     this.selectedMenu = this.menu[number];
     this.selectedMenu.render();
   };
 
   this.addSubwayStation = name => {
-    this.subwayStations = [...this.subwayStations, new Station(name)];
+    this.subwayStations = [...this.subwayStations, new Station({ name })];
+    save('stations', this.subwayStations);
     this.selectedMenu.render();
   };
 
@@ -27,6 +28,7 @@ export default function SubwayMapManagement() {
       ...this.subwayStations.slice(0, idx),
       ...this.subwayStations.slice(idx + 1),
     ];
+    save('stations', this.subwayStations);
     this.selectedMenu.render();
   };
 
@@ -36,6 +38,7 @@ export default function SubwayMapManagement() {
 
   this.addSubwayLine = subwayLine => {
     this.subwayLines = [...this.subwayLines, new Line(subwayLine)];
+    save('lines', this.subwayLines);
     this.selectedMenu.render();
   };
 
@@ -44,6 +47,7 @@ export default function SubwayMapManagement() {
       ...this.subwayLines.slice(0, idx),
       ...this.subwayLines.slice(idx + 1),
     ];
+    save('lines', this.subwayLines);
     this.selectedMenu.render();
   };
 
@@ -54,9 +58,10 @@ export default function SubwayMapManagement() {
   this.addSubwaySection = (lineIndex, orderIndex, name) => {
     this.subwayLines[lineIndex].stations = [
       ...this.subwayLines[lineIndex].stations.slice(0, orderIndex),
-      new Station(name),
+      new Station({ name }),
       ...this.subwayLines[lineIndex].stations.slice(orderIndex),
     ];
+    save('lines', this.subwayLines);
     this.selectedMenu.renderTable();
   };
 
@@ -65,6 +70,7 @@ export default function SubwayMapManagement() {
       ...this.subwayLines[lineIndex].stations.slice(0, orderIndex),
       ...this.subwayLines[lineIndex].stations.slice(orderIndex + 1),
     ];
+    save('lines', this.subwayLines);
     this.selectedMenu.renderTable();
   };
 

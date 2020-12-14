@@ -40,8 +40,8 @@ export const isValidLineName = (lines, newLine) => {
   return true;
 };
 
-export const isValidLine = newLine => {
-  if (newLine.start === newLine.end) {
+export const isValidLine = (start, end) => {
+  if (start === end) {
     alert('상행과 하행역은 달라야 합니다');
     return false;
   }
