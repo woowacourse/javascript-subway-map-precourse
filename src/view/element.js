@@ -1,6 +1,8 @@
 import { StationManager } from "../controller/station-manager.js";
 import { StationView } from "./station-view.js";
 import { Constant } from "../util/constant.js";
+import { LineManager } from "../controller/line-manager.js";
+import { LineView } from "./line-view.js";
 
 export const Element = {
   // 초기 화면 버튼
@@ -15,10 +17,14 @@ export const Element = {
   stationContainer: document.querySelector(Constant.STATION_CONTAINER_CLASS),
   stationAddButton: document.querySelector(Constant.STATION_ADD_BUTTON_ID),
   stationNameInput: document.querySelector(Constant.STATION_NAME_INPUT_ID),
-  stationDeleteButton: document.querySelector(Constant.STATION_DELELE_BUTTON_CLASS),
+  stationDeleteButton: document.querySelector(
+    Constant.STATION_DELELE_BUTTON_CLASS
+  ),
 
   // 노선 관리
   lineContainer: document.querySelector(Constant.LINE_CONTAINER_CLASS),
+  lineStartStationSelector: document.querySelector(Constant.LINE_START_STATION_SELECTOR_ID),
+  lineEndStationSelector: document.querySelector(Constant.LINE_END_STATION_SELECTOR_ID),
 
   // 구간 관리
   sectionContainer: document.querySelector(Constant.SECTION_CONTAINER_CLASS),
@@ -48,6 +54,8 @@ export const ElementControl = {
   showLineManager() {
     this.hideAllManagers();
     Element.lineContainer.style.display = Constant.BLOCK;
+
+    LineManager.isVisited ? LineView.render() : LineManager.init();
   },
 
   showSectionManager() {

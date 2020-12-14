@@ -11,7 +11,7 @@ export const Station = {
   },
 
   delete(name) {
-    this.stations = this.stations.filter(e => e !== name);
+    this.stations = this.stations.filter((e) => e !== name);
     Storage.save(this.key, this.stations);
-  }
+  },
 };

@@ -7,14 +7,15 @@ export const StationView = {
 
     Station.stations.forEach((station) => {
       content += `
-      <tr>
-        <td>${station}</td>
-        <td>
-          <button class="station-delete-button" data-name="${station}">삭제</button>
-        </td>
-      </tr>
+        <tr>
+          <td>${station}</td>
+          <td>
+            <button class="station-delete-button" data-name="${station}">삭제</button>
+          </td>
+        </tr>
       `;
     });
+
     Element.querySelectorTbody.innerHTML = content;
   },
 };

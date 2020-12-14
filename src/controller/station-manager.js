@@ -28,8 +28,7 @@ export const StationManager = {
     // });
     Element.querySelectorTbody.addEventListener(Constant.CLICK, (e) => {
       this.onClickDeleteBtn(e);
-    })
-
+    });
   },
 
   onClickAddBtn() {
