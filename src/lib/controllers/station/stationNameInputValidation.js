@@ -1,18 +1,19 @@
 import actionResult from "../actionResult.js";
 import { stationSelector } from "../../_store/selectors.js";
-import { MIN_LENGTH_OF_STATION_NAME } from "../../common/constants.js";
+
 import {
   NAME_LENGTH_ERROR,
   SAME_NAME_ERROR,
   SPACE_ERROR,
 } from "../../common/alertMessages.js";
 
+import { isLessThanMinLengthOfStationName, haveSpace } from "../common.js";
+
 export default class StationNameInputValidation {
   constructor(inputValue) {
     this.inputValue = inputValue;
-    this._isMoreThanTwoCharacters =
-      inputValue.length >= MIN_LENGTH_OF_STATION_NAME;
-    this._isNotHaveSpace = !/\s+/g.test(inputValue);
+    this._isLessThanMinLength = isLessThanMinLengthOfStationName(inputValue);
+    this._haveSpace = haveSpace(inputValue);
   }
 
   _isUniqueStationName() {
@@ -22,9 +23,9 @@ export default class StationNameInputValidation {
   }
 
   getInputResult() {
-    if (!this._isMoreThanTwoCharacters)
+    if (this._isLessThanMinLength)
       return actionResult(false, NAME_LENGTH_ERROR);
-    if (!this._isNotHaveSpace) return actionResult(false, SPACE_ERROR);
+    if (this._haveSpace) return actionResult(false, SPACE_ERROR);
     if (!this._isUniqueStationName())
       return actionResult(false, SAME_NAME_ERROR);
     return actionResult(true);

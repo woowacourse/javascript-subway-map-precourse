@@ -4,7 +4,7 @@ import LineNameInputValidation from "../../controllers/line/lineNameInputValidat
 
 export default (lineName) => {
   const $inputForm = document.querySelector(LINE_NAME_INPUT);
-  const checkInput = new LineNameInputValidation(lineName);
+  const checkInput = new LineNameInputValidation({ lineName });
   return new Promise((resolve, reject) => {
     if (checkInput.getInputResult().ok) {
       $inputForm.disabled = true;

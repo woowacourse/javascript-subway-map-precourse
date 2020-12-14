@@ -5,11 +5,16 @@ export const SAME_NAME_ERROR = `중복된 이름은 입력받을 수 없습니�
 export const SPACE_ERROR = `공백은 입력받을 수 없습니다.`;
 
 export const LINE_NAME_EMPTY_ERROR = "노선 이름을 입력해주세요.";
+
 export const ADD_LINE_INFO_ALERT = "상행 종점과 하행 종점을 입력해주세요.";
 export const SAME_LINE_EXISTS_ERROR =
   "해당 이름을 가진 노선이 이미 존재합니다.";
 export const SAME_START_END_STATION_ERROR =
   "상행 종점과 하행 종점은 같은 역이 될 수 없습니다.";
+
+export const EMPTY_ORDER_ERROR = "구간 순서를 입력해주세요.";
+export const INVALID_NUMBER_ERROR =
+  "음수, 문자, 공백은 구간 순서가 될 수 없습니다.";
 
 export const DELETE_MESSAGE = "정말로 삭제하시겠습니까?";
 export const DELETE_MESSAGE_FROM_LINE = "정말로 노선에서 삭제하시겠습니까?";
