@@ -1,3 +1,4 @@
+import { printLines } from '../print.js';
 import { loadStationData } from './lineDataHandler.js';
 
 export const setStationDataToOption = (stations, selector) => {
@@ -24,4 +25,5 @@ export const deleteOption = () => {
 export const refreshOptionData = () => {
   deleteOption();
   loadStationData();
+  printLines();
 };
