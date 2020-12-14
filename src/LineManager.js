@@ -1,5 +1,8 @@
 import Component from "./Component.js";
+import { classname } from "./constant.js";
 import {
+  createHTMLElement,
+  createListHeaderHTMLElement,
   createButtonHTMLElement,
   createInputTextHTMLElement,
   createLabelHTMLElement,
@@ -35,7 +38,10 @@ export default class LineManager extends Component {
   }
 
   declareConstants() {
+    this.LINE_NAME_INPUT_ID = "line-name-input";
     this.LINE_DELETE_BUTTON_CLASSNAME = "line-delete-button";
+    this.LINE_START_STATION_SELECTOR_ID = "line-start-station-selector";
+    this.LINE_END_STATION_SELECTOR = "line-end-station-selector";
   }
 
   initializeState() {
@@ -47,25 +53,36 @@ export default class LineManager extends Component {
   }
 
   constructHTMLElements() {
+    this.$lineInfoSelectContainer = createDivHTMLElement({ classList: ["line-info-select-container"] });
     this.$lineNameInput = this.createLineNameInput();
     this.$lineNameLabel = this.createLineNameLabel();
 
-    this.$lineStartStationSelector = this.createLineStartStationSelector();
     this.$lineStartStationLabel = this.createLineStartStationLabel();
-
-    this.$lineEndStationSelector = this.createLineEndStationSelector();
+    this.$lineStartStationSelector = this.createLineStartStationSelector();
     this.$lineEndStationLabel = this.createLineEndStationLabel();
-
+    this.$lineEndStationSelector = this.createLineEndStationSelector();
     this.$lineAddButton = this.createLineAddButton();
 
-    this.$lineNameListTitle = createDivHTMLElement({ innerText: "🚉 지하철 노선 목록" });
-    this.$lineNameList = createDivHTMLElement({});
+    this.$lineNameListTitle = createHTMLElement({ tagname: "h3", innerText: "🚉 지하철 노선 목록" });
+    this.$lineNameList = createDivHTMLElement({classList: ["line-name-list"]});
+  }
+
+  createLineNameLabel() {
+    return createLabelHTMLElement({
+      name: "노선 이름",
+      htmlFor: this.LINE_NAME_INPUT_ID,
+      classList: [
+        "line-info-select-container__line-name-label",
+        classname.H3LISH, classname.STRONG
+      ],
+    });
   }
 
   createLineNameInput() {
     return createInputTextHTMLElement({
-      id: "line-name-input",
+      id: this.LINE_NAME_INPUT_ID,
       placeholder: "노선 이름을 입력해주세요.",
+      classList: ["line-info-select-container__line-name-input"],
       onKeydown: e => {
         if (e.key === "Enter") {
           this.handleLineAdd();
@@ -74,10 +91,11 @@ export default class LineManager extends Component {
     });
   }
 
-  createLineNameLabel() {
+  createLineStartStationLabel() {
     return createLabelHTMLElement({
-      name: "노선 이름",
-      htmlFor: this.$lineNameInput.id
+      name: "상행 종점",
+      htmlFor: this.LINE_START_STATION_SELECTOR_ID,
+      classList: ["line-info-select-container__line-start-station-label"],
     });
   }
 
@@ -85,23 +103,8 @@ export default class LineManager extends Component {
     const { stationNameArray } = this.props;
 
     return createSelectHTMLElement({
-      id: "line-start-station-selector",
-      options: stationNameArray
-    });
-  }
-
-  createLineStartStationLabel() {
-    return createLabelHTMLElement({
-      name: "상행 종점",
-      htmlFor: this.$lineStartStationSelector.id
-    });
-  }
-
-  createLineEndStationSelector() {
-    const { stationNameArray } = this.props;
-
-    return createSelectHTMLElement({
-      id: "line-end-station-selector",
+      id: this.LINE_START_STATION_SELECTOR_ID,
+      classList: ["line-info-select-container__line-start-station-selector"],
       options: stationNameArray
     });
   }
@@ -109,28 +112,45 @@ export default class LineManager extends Component {
   createLineEndStationLabel() {
     return createLabelHTMLElement({
       name: "하행 종점",
-      htmlFor: this.$lineEndStationSelector.id
+      htmlFor: this.LINE_END_STATION_SELECTOR,
+      classList: ["line-info-select-container__line-end-station-label"],
+    });
+  }
+
+  createLineEndStationSelector() {
+    const { stationNameArray } = this.props;
+
+    return createSelectHTMLElement({
+      id: this.LINE_END_STATION_SELECTOR,
+      options: stationNameArray,
+      classList: ["line-info-select-container__line-end-station-selector"],
     });
   }
 
   createLineAddButton() {
     return createButtonHTMLElement({
       id: "line-add-button",
-      name: "노선 추가"
+      name: "노선 추가",
+      classList: [
+        "line-info-select-container__line-add-button",
+        classname.MEDIUM_BUTTON,
+        classname.CENTER
+      ],
     });
   }
 
   appendChildNodes() {
-    this.$component.append(
+    this.$component.append(this.$lineInfoSelectContainer, this.$lineNameListTitle, this.$lineNameList
+    );
+
+    this.$lineInfoSelectContainer.append(
       this.$lineNameLabel,
       this.$lineNameInput,
       this.$lineStartStationLabel,
       this.$lineStartStationSelector,
       this.$lineEndStationLabel,
       this.$lineEndStationSelector,
-      this.$lineAddButton,
-      this.$lineNameListTitle,
-      this.$lineNameList
+      this.$lineAddButton
     );
   }
 
@@ -252,7 +272,10 @@ export default class LineManager extends Component {
   }
 
   renderNoLineMessage() {
-    const $noLineMessage = createDivHTMLElement({ innerText: "등록된 지하철 노선이 없습니다." });
+    const $noLineMessage = createDivHTMLElement({
+      innerText: "등록된 지하철 노선이 없습니다.",
+      classList: [classname.GRID_ONLY_CHILD]
+    });
 
     this.$lineNameList.append($noLineMessage);
   }
@@ -270,13 +293,13 @@ export default class LineManager extends Component {
       const $lineNameRowElements = this.createLineNameRowElements({ lineName, stations });
       
       return [...$acc, ...$lineNameRowElements];
-    }, []);
+    }, this.createLineListHeaderArray());
   }
 
   createLineNameRowElements({ lineName, stations }) {
-    const $lineName = createDivHTMLElement({ innerText: lineName });
-    const $lineStartStation = createDivHTMLElement({ innerText: stations[0] });
-    const $lineEndStation = createDivHTMLElement({ innerText: stations[stations.length-1] });
+    const $lineName = createDivHTMLElement({ innerText: lineName, classList: [classname.CENTER] });
+    const $lineStartStation = createDivHTMLElement({ innerText: stations[0], classList: [classname.CENTER] });
+    const $lineEndStation = createDivHTMLElement({ innerText: stations[stations.length-1], classList: [classname.CENTER] });
     const $lineDeleteButton = this.createLineDeleteButton({ lineName });
 
     return [$lineName, $lineStartStation, $lineEndStation, $lineDeleteButton];
@@ -288,5 +311,16 @@ export default class LineManager extends Component {
       classList: [this.LINE_DELETE_BUTTON_CLASSNAME],
       dataset: { lineName }
     });
+  }
+
+  createLineListHeaderArray() {
+    const LINE_NAME_LIST__HEADER_CLASSNAME = "line-name-list__header";
+
+    const $nameHeader = createListHeaderHTMLElement({ innerText: "노선 이름", className: LINE_NAME_LIST__HEADER_CLASSNAME });
+    const $lineStartStationHeader = createListHeaderHTMLElement({ innerText: "상행 종점역", className: LINE_NAME_LIST__HEADER_CLASSNAME});
+    const $lineEndStationHeader = createListHeaderHTMLElement({ innerText: "하행 종점역", className: LINE_NAME_LIST__HEADER_CLASSNAME });
+    const $buttonHeader = createListHeaderHTMLElement({ innerText: "설정", className: LINE_NAME_LIST__HEADER_CLASSNAME });
+
+    return [$nameHeader, $lineStartStationHeader, $lineEndStationHeader, $buttonHeader];
   }
 }

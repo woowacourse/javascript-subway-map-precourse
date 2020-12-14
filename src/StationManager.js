@@ -89,7 +89,7 @@ export default class StationManager extends Component {
       name: "역 추가",
       classList: [
         "station-name-nav__station-add-button",
-        classname.MEDIUM_BUTTOM,
+        classname.MEDIUM_BUTTON,
         classname.CENTER
       ]
     });

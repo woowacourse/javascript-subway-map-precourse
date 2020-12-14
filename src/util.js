@@ -1,4 +1,4 @@
-import { SUBWAY_MAP_LOCAL_STORAGE_KEY } from "./constant.js";
+import { classname, SUBWAY_MAP_LOCAL_STORAGE_KEY } from "./constant.js";
 
 // eslint-disable-next-line no-unused-vars
 export const createHTMLElement = ({ tagname, classList = [], dataset = {}, innerText = "", htmlFor, name, ...rest }) => {
@@ -60,13 +60,20 @@ const createOptionHTMLElement = value => {
   return $option;
 };
 
-export const createSelectHTMLElement = ({ id, options = [] }) => {
-  const $select =createHTMLElement({ tagname: "select", id });
+export const createSelectHTMLElement = ({ options = [], ...rest }) => {
+  const $select = createHTMLElement({ tagname: "select", ...rest });
 
   const $options = options.map(optionValue => createOptionHTMLElement(optionValue));
   $select.append(...$options);
 
   return $select;
+};
+
+export const createListHeaderHTMLElement = ({ innerText, className }) => {
+  return createDivHTMLElement({
+    innerText,
+    classList: [className, classname.CENTER, classname.STRONG, classname.HEADER]
+  });
 };
 
 export const clearInputValue = $input => {

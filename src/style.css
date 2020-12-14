@@ -7,6 +7,7 @@
   column-gap: 10px;
 }
 
+/* 지하철 역 관리: StationManager.js */
 .station-name-nav__station-name-label {
   display: block;
 }
@@ -35,6 +36,58 @@
   border-bottom: 3px double black;
 }
 
+/* 지하철 노선 관리: LineManager.js */
+.line-info-select-container {
+  display:grid;
+  grid-template-areas: 
+    " line-name-label           .                           "
+    " line-name-input           line-name-input             "
+    " line-start-station-label  line-start-station-selector "
+    " line-end-station-label    line-end-station-selector   "
+    " line-add-button           line-add-button             ";
+  max-width: 300px;
+  row-gap: 8px;
+}
+
+.line-info-select-container__line-name-label {
+  grid-area: line-name-label;
+}
+
+.line-info-select-container__line-name-input {
+  grid-area: line-name-input;
+  height: 30px;
+  padding: 5px;
+}
+
+.line-info-select-container__line-start-station-label {
+  grid-area: line-start-station-label;
+}
+
+.line-info-select-container__line-start-station-selector {
+  grid-area: line-start-station-selector;
+}
+
+.line-info-select-container__line-end-station-label {
+  grid-area: line-end-station-label;
+}
+
+.line-info-select-container__line-end-station-selector {
+  grid-area: line-end-station-selector;
+}
+
+.line-info-select-container__line-add-button {
+  grid-area: line-add-button;
+}
+
+.line-name-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  max-width: 400px;
+  row-gap: 10px;
+  column-gap: 5px;
+}
+
+/* Modifier */
 .--h3lish {
   font-size: 1.17em;
   margin-block-start: 0.5em;
@@ -57,4 +110,12 @@
 
 .--strong {
   font-weight: bold;
+}
+
+.--header {
+  border-bottom: 3px double black;
+}
+
+.--grid-only-child {
+  grid-column: 1/-1;
 }

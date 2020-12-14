@@ -93,7 +93,7 @@ export default class App extends Component{
     return createButtonHTMLElement({
       id: this.STATION_MANAGER_BUTTON_ID,
       name: "1. 역 관리", 
-      classList: [classname.MEDIUM_BUTTOM, classname.CENTER]
+      classList: [classname.MEDIUM_BUTTON, classname.CENTER]
     });
   }
 
@@ -101,7 +101,7 @@ export default class App extends Component{
     return createButtonHTMLElement({
       id: this.LINE_MANAGER_BUTTON_ID,
       name: "2. 노선 관리",
-      classList: [classname.MEDIUM_BUTTOM, classname.CENTER]
+      classList: [classname.MEDIUM_BUTTON, classname.CENTER]
     });
   }
 
@@ -109,7 +109,7 @@ export default class App extends Component{
     return createButtonHTMLElement({
       id: this.SECTION_MANAGER_BUTTON_ID,
       name: "3. 구간 관리",
-      classList: [classname.MEDIUM_BUTTOM, classname.CENTER]
+      classList: [classname.MEDIUM_BUTTON, classname.CENTER]
     });
   }
 
@@ -117,7 +117,7 @@ export default class App extends Component{
     return createButtonHTMLElement({
       id: this.MAP_PRINT_MANAGER_BUTTON_ID,
       name: "4. 지하철 노선도 출력",
-      classList: [classname.MEDIUM_BUTTOM, classname.CENTER]
+      classList: [classname.MEDIUM_BUTTON, classname.CENTER]
     });
   }
 
