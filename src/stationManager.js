@@ -1,4 +1,4 @@
-import { clearPage, createSubmitBtn, createTextInput } from './utils.js';
+import { clearPage, createSubmitBtn, createTextInput, createTable } from './utils.js';
 
 const app = document.getElementById('app');
 
@@ -58,46 +58,40 @@ const createResultArea = () => {
   tableName.innerHTML = '🚉 지하철 역 목록';
   app.appendChild(tableName);
 
-  const stationTable = document.createElement('table');
-  stationTable.setAttribute('border', 1);
-  stationTable.setAttribute('id', 'station-table');
-
-  const stationNameHeader = document.createElement('th');
-  stationNameHeader.innerHTML = '역 이름';
-  const stationSettingHeader = document.createElement('th');
-  stationSettingHeader.innerHTML = '설정';
-
-  stationTable.appendChild(stationNameHeader);
-  stationTable.appendChild(stationSettingHeader);
+  const stationTableHeaders = ['역 이름', '설정'];
+  const stationTable = createTable('station-table', stationTableHeaders);
 
   const stations = JSON.parse(localStorage.getItem('stations'));
-
   if (stations) {
-    stations.map(name => {
-      const tableRow = document.createElement('tr');
-      tableRow.setAttribute('data-station', name);
-      const nameData = document.createElement('td');
-      nameData.innerHTML = name;
-
-      const deleteBtn = document.createElement('button');
-      deleteBtn.setAttribute('class', 'station-delete-button');
-      deleteBtn.innerHTML = '삭제';
-      deleteBtn.addEventListener('click', () => deleteStation(name));
-
-      tableRow.appendChild(nameData);
-      tableRow.appendChild(deleteBtn);
-
-      stationTable.appendChild(tableRow);
-    });
+    addTableData(stationTable, stations);
   }
 
   app.appendChild(stationTable);
 };
 
+const addTableData = (table, stations) => {
+  stations.map(station => {
+    const tableRow = document.createElement('tr');
+    tableRow.dataset['station'] = station;
+    const nameData = document.createElement('td');
+    nameData.innerHTML = station;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('class', 'station-delete-button');
+    deleteBtn.innerHTML = '삭제';
+    deleteBtn.addEventListener('click', () => deleteStation(station));
+
+    tableRow.appendChild(nameData);
+    tableRow.appendChild(deleteBtn);
+
+    table.appendChild(tableRow);
+  });
+};
+
 const addTable = name => {
   const stationTable = document.getElementById('station-table');
   const newRow = document.createElement('tr');
-  newRow.setAttribute('data-station', name);
+  newRow.dataset['station'] = name;
   const newData = document.createElement('td');
   newData.innerHTML = name;
 

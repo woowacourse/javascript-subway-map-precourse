@@ -1,5 +1,8 @@
 const app = document.getElementById('app');
 
+const TYPE_STATION = 'stations';
+const TYPE_LINE = 'lines';
+
 export const clearPage = () => {
   const contents = app.childNodes;
   let i = contents.length;
@@ -41,4 +44,18 @@ export const createSelectbox = (select, selectorId, options) => {
     option.text = val;
     select.options.add(option);
   });
+};
+
+export const createTable = (tableId, tableHeaders) => {
+  const table = document.createElement('table');
+  table.setAttribute('border', 1);
+  table.setAttribute('id', tableId);
+
+  tableHeaders.map(tableHeader => {
+    const header = document.createElement('th');
+    header.innerHTML = tableHeader;
+    table.appendChild(header);
+  });
+
+  return table;
 };

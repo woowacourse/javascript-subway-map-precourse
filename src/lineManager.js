@@ -1,4 +1,10 @@
-import { clearPage, createTextInput, createSubmitBtn, createSelectbox } from './utils.js';
+import {
+  clearPage,
+  createTextInput,
+  createSubmitBtn,
+  createSelectbox,
+  createTable,
+} from './utils.js';
 
 const app = document.getElementById('app');
 
@@ -91,58 +97,46 @@ const createResultArea = () => {
   tableName.innerHTML = '🚉 지하철 노선 목록';
   app.appendChild(tableName);
 
-  const lineTable = document.createElement('table');
-  lineTable.setAttribute('border', 1);
-  lineTable.setAttribute('id', 'line-table');
-
-  const lineNameHeader = document.createElement('th');
-  lineNameHeader.innerHTML = '노선 이름';
-  const upwardEndStation = document.createElement('th');
-  upwardEndStation.innerHTML = '상행 종점역';
-  const downwardEndStation = document.createElement('th');
-  downwardEndStation.innerHTML = '하행 종점역';
-  const lineSettingHeader = document.createElement('th');
-  lineSettingHeader.innerHTML = '설정';
-
-  lineTable.appendChild(lineNameHeader);
-  lineTable.appendChild(upwardEndStation);
-  lineTable.appendChild(downwardEndStation);
-  lineTable.appendChild(lineSettingHeader);
+  const lineTableHeaders = ['노선 이름', '상행 종점역', '하행 종점역', '설정'];
+  const lineTable = createTable('line-table', lineTableHeaders);
 
   const lines = JSON.parse(localStorage.getItem('lines'));
-
   if (lines) {
-    Object.entries(lines).map(([line, stations]) => {
-      const tableRow = document.createElement('tr');
-      tableRow.setAttribute('data-line', `_${line}`);
-
-      const nameData = document.createElement('td');
-      nameData.innerHTML = line;
-      const upwardEndData = document.createElement('td');
-      upwardEndData.innerHTML = stations[0];
-      const downwardEndData = document.createElement('td');
-      downwardEndData.innerHTML = stations[stations.length - 1];
-      const deleteBtn = document.createElement('button');
-      deleteBtn.setAttribute('class', 'line-delete-button');
-      deleteBtn.innerHTML = '삭제';
-      deleteBtn.addEventListener('click', () => deleteLine(line));
-
-      tableRow.appendChild(nameData);
-      tableRow.appendChild(upwardEndData);
-      tableRow.appendChild(downwardEndData);
-      tableRow.appendChild(deleteBtn);
-
-      lineTable.appendChild(tableRow);
-    });
+    addTableData(lineTable, lines);
   }
 
   app.appendChild(lineTable);
 };
 
+const addTableData = (table, lines) => {
+  Object.entries(lines).map(([line, stations]) => {
+    const tableRow = document.createElement('tr');
+    tableRow.dataset['line'] = `_${line}`;
+
+    const nameData = document.createElement('td');
+    nameData.innerHTML = line;
+    const upwardEndData = document.createElement('td');
+    upwardEndData.innerHTML = stations[0];
+    const downwardEndData = document.createElement('td');
+    downwardEndData.innerHTML = stations[stations.length - 1];
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('class', 'line-delete-button');
+    deleteBtn.innerHTML = '삭제';
+    deleteBtn.addEventListener('click', () => deleteLine(line));
+
+    [nameData, upwardEndData, downwardEndData, deleteBtn].map(data => {
+      tableRow.appendChild(data);
+    });
+
+    table.appendChild(tableRow);
+  });
+};
+
 const addTable = (lineName, start, end) => {
   const lineTable = document.getElementById('line-table');
   const newRow = document.createElement('tr');
-  newRow.setAttribute('data-line', `_${lineName}`);
+  newRow.dataset['line'] = `_${lineName}`;
 
   const newData = document.createElement('td');
   newData.innerHTML = lineName;
