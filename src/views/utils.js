@@ -23,3 +23,8 @@ export const appendElements = (elements, parent) => {
     parent.appendChild(element);
   });
 };
+
+export const clearFocus = targetInput => {
+  targetInput.value = '';
+  targetInput.focus();
+};
