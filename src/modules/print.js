@@ -44,11 +44,15 @@ export const printSection = (line) => {
   addEventToDeleteSectionBtn();
 };
 
-export const printAll = () => {
-  const mapSection = document.querySelector('#map-module');
+export const refreshMapData = () => {
   if (document.querySelector('.map')) {
-    clearAll();
+    clearMapData();
   }
+  printMapData();
+};
+
+export const printMapData = () => {
+  const mapSection = document.querySelector('#map-module');
   let map = document.createElement('div');
   let data = '';
   map.className = 'map';
@@ -65,8 +69,8 @@ export const printAll = () => {
   map.innerHTML = data;
 };
 
-const clearAll = () => {
-  document.querySelector('.map').innerHTML = '';
+const clearMapData = () => {
+  document.querySelector('.map').remove();
 };
 
 const clearTable = (bodyId) => {
