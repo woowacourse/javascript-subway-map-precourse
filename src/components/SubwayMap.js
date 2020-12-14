@@ -99,6 +99,7 @@ export class SubwayMap {
 
   updateLineView = () => {
     this.sectionManager.updateHeaderButtons();
+    this.sectionManager.updateSectionList();
     this.mapPrintManager.render();
   };
 }

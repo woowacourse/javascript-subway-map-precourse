@@ -41,6 +41,7 @@ export class SectionManager {
   };
 
   updateSectionManagerByLine = (lineName) => {
+    this.lineName = lineName;
     // let line = this.getLineMatchedWith(lineName);
     showDOM(this.sectionManagerContaionerByLines);
     showDOM(this.sectionManagerListContainer);
@@ -61,6 +62,10 @@ export class SectionManager {
 
   updateStationsInInput = () => {
     this.sectionManagerInput.updateStations();
+  };
+
+  updateSectionList = () => {
+    this.sectionManagerList.render({ lineName: this.lineName });
   };
 
   addStationInLine = (order, station, lineName) => {

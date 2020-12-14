@@ -1,7 +1,7 @@
 import { addRowInSectionTable } from "../../utils/handleDom.js";
 import { getSectionTableHeader } from "../../utils/templates.js";
 export class SectionManagerList {
-  constructor({ getLines, deleteStationInLine, lineName }) {
+  constructor({ getLines, deleteStationInLine }) {
     this.getLines = getLines;
     this.deleteStationInLine = deleteStationInLine;
     this.initializeDOM();
