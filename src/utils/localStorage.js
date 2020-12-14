@@ -3,6 +3,12 @@ export const setItemWithKey = (item, key) => {
   localStorage.set(key, stringifiedItem);
 };
 
+export const getItemByKey = (key) => {
+  const stringifiedItem = localStorage.get(key);
+  return JSON.parse(stringifiedItem);
+};
+
 export default {
   setItemWithKey,
+  getItemByKey,
 };

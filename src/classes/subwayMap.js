@@ -1,9 +1,13 @@
 import { SUBWAY_MAP_ITEM_NAME } from '../constants/configuration.js';
-import { setItemWithKey } from '../utils/localStorage.js';
+import { setItemWithKey, getItemByKey } from '../utils/localStorage.js';
 
 export default class SubwayMap {
   #allStations = {};
   #allLines = {};
+
+  static loadMapFromLocalStorage() {
+    return getItemByKey(SUBWAY_MAP_ITEM_NAME);
+  }
 
   get allStations() {
     return this.#allStations;
