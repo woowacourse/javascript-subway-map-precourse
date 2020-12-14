@@ -1,8 +1,8 @@
 import StationInput from "./StationInput.js";
+import StationTable from "./StationTable.js";
 
 class StationManager {
   constructor($target, { stationStore, lineStore }) {
-    console.log(`StationManager`);
     this.$target = $target;
 
     this.stationStore = stationStore;
@@ -25,6 +25,10 @@ class StationManager {
 
   mountComponents() {
     new StationInput(this.$stationInput, { stationStore: this.stationStore });
+    new StationTable(this.$stationTable, {
+      stationStore: this.stationStore,
+      lineStore: this.lineStore,
+    });
   }
 
   render = () => {
