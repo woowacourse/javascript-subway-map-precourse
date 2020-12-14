@@ -24,21 +24,45 @@ const resultList = [
   resultMapPrintManager,
 ];
 
-const tmp = new Line("2호선");
-const tmp2 = new Station("잠실");
-const tmp3 = new Station("신림");
-tmp.addLine(tmp2, tmp3);
-manager.setStationInManager(tmp2);
-manager.setStationInManager(tmp3);
-manager.setLineInManager(tmp);
-const tmp4 = new Line("3호선");
-const tmp5 = new Station("대화");
-const tmp6 = new Station("오금");
-tmp4.addLine(tmp5, tmp6);
-manager.setStationInManager(tmp5);
-manager.setStationInManager(tmp6);
-manager.setLineInManager(tmp4);
-
+// storage.clear();
+export const initializeStationList = () => {
+  const stationList = JSON.parse(storage.getItem("stationList"));
+  if (stationList === null) {
+    manager.stationList = [];
+  } else {
+    for (let i in stationList) {
+      const station = new Station(stationList[i].name);
+      station.next = stationList[i].next;
+      station.isIncluded = stationList[i].isIncluded;
+      manager.setStationInManager(station);
+    }
+  }
+  showAllStationInManager(makeStationList());
+};
+export const initializeLineList = () => {
+  const lineList = JSON.parse(storage.getItem("lineList"));
+  if (lineList === null) {
+    manager.lineList = [];
+  } else {
+    for (let i in lineList) {
+      const line = new Line(lineList[i].name);
+      line.length = lineList[i].length;
+      line.head = lineList[i].head;
+      manager.setLineInManager(line);
+    }
+  }
+};
+const storage = window.localStorage;
+window.onload = () => {
+  // 페이지 새로 열릴 때
+  initializeStationList();
+  initializeLineList();
+};
+window.onbeforeunload = () => {
+  // 페이지 닫히기 전
+  storage.setItem("stationList", JSON.stringify(manager.stationList));
+  storage.setItem("lineList", JSON.stringify(manager.lineList));
+};
 const makeResultBlock = (idx) => {
   for (let i in resultList) {
     if (i === String(idx)) {
