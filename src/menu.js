@@ -24,7 +24,7 @@ export default class Menu {
 
     this.LINE_ARTICLE = 'lineArticle';
     this.SECTION_ARTICLE = 'sectionArticle';
-    this.MAP_PRINT_ARTICLE = 'mapPrintArticle';
+    this.MAP_PRINT_ARTICLE = 'mapArticle';
   }
 
   managerButton() {
@@ -94,6 +94,9 @@ export default class Menu {
       this.refreshLineSelect();
       // this._privateTableUtils.refreshLineTable();
     }
+    else if (articleName === this.MAP_PRINT_ARTICLE) {
+      this.refreshMapPrint(articleName);
+    }
   }
 
   refreshLineSelect() {
@@ -108,4 +111,26 @@ export default class Menu {
     this._privateSelectUtils.addStationsToSelect(endSelect, this._privateCommonUtils, this._privateDomUtils);
     
   }
+
+  refreshMapPrint(articleName) {
+    this.emptyArticle(articleName);
+    this.displayMapPrint(articleName);
+  }
+
+  emptyArticle(articleName) {
+    const mapArticle = document.getElementById(articleName);
+
+    mapArticle.innerHTML = '';
+  }
+
+  displayMapPrint(articleName) {
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
+
+    for (const line in lineList) {
+      this._privateCommonUtils.createTitle('h3', line, articleName);
+      this._privateCommonUtils.createUnorderedList(lineList[line], articleName);
+    }
+  }
+
+
 }

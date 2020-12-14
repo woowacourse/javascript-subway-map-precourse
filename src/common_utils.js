@@ -13,8 +13,24 @@ export default class CommonUtils {
     const title = document.createElement(titleTag);
 
     title.innerHTML = titleContent;
-    this.insertEmptyline(toIdName);
     this._privateDomUtils.appendToIdName(toIdName, title);
+  }
+
+  createUnorderedList(stationList, toIdName) {
+    const list = document.createElement('ul');
+
+    this._privateDomUtils.appendToIdName(toIdName, list);
+
+    for (const station of stationList) {
+      this.createListElement(list, station);
+    }
+  }
+
+  createListElement(list, station) {
+    const element = document.createElement('li')
+
+    element.innerHTML = station;
+    this._privateDomUtils.appendToVarName(list, element);
   }
 
   insertEmptyline(toIdName) {
