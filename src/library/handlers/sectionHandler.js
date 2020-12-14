@@ -1,6 +1,6 @@
 import render from "../../components/render.js";
 import app from "../../components/app.js";
-import { validateSectionDelete, validateOrder } from "../validation/validation.js";
+import { validateSectionDelete, validateOrder, validateSection } from "../validation/validation.js";
 
 function onSectionHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -27,13 +27,14 @@ function onLineSelectHandler() {
 
 function onAddSectionHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-  let station = document.getElementById("section-station-selector").value;
+  let station = validateSection(document.getElementById("section-station-selector").value);
+  // let station = document.getElementById("section-station-selector").value;
   let targetLine = subwayDatas.targetLine;
   // 구간 등록 시 인덱스가 0이거나 가장 끝 인덱스인 경우 alert
   let order = validateOrder(document.getElementById("section-order-input").value);
   // let order = document.getElementById("section-order-input").value;
 
-  if (order) {
+  if (station && order) {
     //subwayDatas.lines에 원하는 인덱스에 해당 역 넣어주기
     subwayDatas.lines.map((line, idx) => {
       if (line.name === targetLine) {

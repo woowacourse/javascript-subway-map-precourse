@@ -1,4 +1,4 @@
-import { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert, orderAlert } from "./alert.js";
+import { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert, orderAlert, sectionAlert } from "./alert.js";
 
 function validateInput(input, inputTagID) {
   let alertMsg = "";
@@ -56,4 +56,14 @@ function validateOrder(order) {
   return order;
 }
 
-export { validateInput, validateStationDelete, validateStartAndEndStations, validateSectionDelete, validateOrder };
+function validateSection(stationName) {
+  let alertMsg = sectionAlert(stationName);
+
+  if (alertMsg !== "") {
+    alert(alertMsg);
+    return "";
+  }
+  return stationName;
+}
+
+export { validateInput, validateStationDelete, validateStartAndEndStations, validateSectionDelete, validateOrder, validateSection };

@@ -130,4 +130,18 @@ function orderAlert(order) {
   return alertMsg;
 }
 
-export { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert, orderAlert };
+function sectionAlert(stationName) {
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  let alertMsg = "";
+
+  subwayDatas.lines.map((line) => {
+    if (line.name === subwayDatas.targetLine) {
+      if (line.stops.indexOf(stationName) !== -1) {
+        alertMsg = "이미 구간에 등록된 역입니다.";
+      }
+    }
+  });
+  return alertMsg;
+}
+
+export { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert, orderAlert, sectionAlert };
