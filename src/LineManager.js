@@ -43,6 +43,8 @@ export default class LineManager extends Component {
     this.appendChildNodes();
 
     this.addClickEventListener();
+    clearInputValue(this.$lineNameInput);
+
 
     this.render();
   }

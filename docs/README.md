@@ -39,6 +39,7 @@
   - [x] 지하철 노선의 이름을 입력하는 input 태그(`#line-name-input`)
     - [x] `#line-name-input`의 placeholder는 "노선 이름을 입력해주세요" 이다.
     - [x] Enter키를 입력하면 노선이 추가 버튼을 클릭한 것과 동일한 효과가 있다.
+    - [x] 처음 지하철 노선 관리 화면이 표시될 때, `#line-name-input`에 포커스가 간다.
   - [x] 지하철 노선의 상행 종점을 선택하는 select 태그(`#line-start-station-selector`)
     - [x] 지하철 역 관리 목록에서 추가된 지하철 열 목록이 option으로 표시된다.
   - [x] 지하철 노선의 하행 종점을 선택하는 select 태그(`#line-end-station-selector`)
