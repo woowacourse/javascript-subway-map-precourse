@@ -126,8 +126,11 @@ export default class ManageStation {
 
   addToStationList(stationName) {
     this._stationList = this._privateCommonUtils.getLocalStorageStation();
+    
+    if (!this._stationList) {
+      this._stationList = {};
+    }
+
     this._stationList[stationName] = [];
   }
-
-
 }

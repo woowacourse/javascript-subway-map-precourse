@@ -1,7 +1,6 @@
 import CommonUtils from "./common_utils.js";
 import DomUtils from "./dom_utils.js";
 import TableUtils from "./table_utils.js";
-import Line from './line.js';
 
 export default class ManageLine {
   constructor() {
@@ -56,14 +55,6 @@ export default class ManageLine {
   initLists() {
     this._lineList = this._privateCommonUtils.getLocalStorageLine();
     this._stationList = this._privateCommonUtils.getLocalStorageStation();
-
-    if (!this._lineList) {
-      this._lineList = {};
-    }
-
-    if (!this._stationList) {
-      this._stationList = {};
-    }
   }
 
   createInputSection() {

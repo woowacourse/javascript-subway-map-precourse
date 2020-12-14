@@ -1,5 +1,4 @@
 import DomUtils from './dom_utils.js';
-import EventUtils from './event_utils.js';
 import CommonUtils from './common_utils.js';
 
 export default class TableUtils {
@@ -11,7 +10,6 @@ export default class TableUtils {
 
   setPrivateVariable() {
     this._privateDomUtils = new DomUtils();
-    this._privateEventUtils = new EventUtils();
     this._privateCommonUtils = new CommonUtils();
   }
 
@@ -24,10 +22,18 @@ export default class TableUtils {
   }
 
   setConst() {
-    this.DELETE_BUTTON_TEXT = '삭제';
+    this.STATION_DELETE_BUTTON_TEXT = '삭제';
+    this.LINE_DELETE_BUTTON_TEXT = '삭제';
+    this.SECTION_DELETE_BUTTON_TEXT = '노선에서 제거';
     this.ID_ATTRIBUTE = 'id';
-    this.IS_VALID = true;
-    this.IS_NOT_VALID = false;
+    this.IS_VALID = 1;
+    this.IS_NOT_VALID = 0;
+
+    this.STATION_DELETE_ERROR_MESSAGE = '노선에 등록되어 있는 역은 삭제할 수 없습니다.'
+
+    this.STATION_TABLE_NAME = 'stationArticleTable';
+    this.LINE_TABLE_NAME = 'lineArticleTable';
+    this.SECTION_TABLE_NAME = 'sectionArticleTable';
   }
 
   initTable(toIdName) {
@@ -53,7 +59,7 @@ export default class TableUtils {
     const stationList = this._privateCommonUtils.getLocalStorageStation();
 
     for (const station in stationList) {
-      const rowArray = [station, this.DELETE_BUTTON_TEXT];
+      const rowArray = [station, this.STATION_DELETE_BUTTON_TEXT];
       this.addRow(rowArray, articleName);
     }
   }
@@ -63,7 +69,7 @@ export default class TableUtils {
 
     for (const line in lineList) {
       const lineLen = lineList[line].length;
-      const rowArray = [line, lineList[line][0], lineList[line][lineLen - 1], this.DELETE_BUTTON_TEXT];
+      const rowArray = [line, lineList[line][0], lineList[line][lineLen - 1], this.LINE_DELETE_BUTTON_TEXT];
       this.addRow(rowArray, articleName);
     }
   }
@@ -109,43 +115,78 @@ export default class TableUtils {
     this.addCellsAndButton(tableType, row, rowArray);
   }
 
-
-  addCellStyle(cell, text) {
+  addCellText(cell, text) {
     cell.innerHTML = text;
+  }
+  
+  addCellBorder(cell) {
     cell.style.border = '1px solid black';
   }
 
   addCellsAndButton(tableType, row, rowArray) {
     this._tableType[tableType].forEach((v, i) => {
-      if (rowArray[i] === this.DELETE_BUTTON_TEXT) {
-        const cell = row.insertCell();
+      const typeUpper = this.getType(tableType).toUpperCase();
+      const cell = row.insertCell(i);
 
-        this.addDeleteButton(cell, rowArray);
+      this.addCellBorder(cell);
+
+      if (rowArray[i] === this[`${typeUpper}_DELETE_BUTTON_TEXT`]) {
+        this.addDeleteButton(cell, rowArray, typeUpper);
       }
       else {
-        const cell = this.addCell(row, i);
-
-        this.addCellStyle(cell, rowArray[i]);
+        this.addCellText(cell, rowArray[i]);
       }
     })
   }
 
-  addDeleteButton(cell, rowArray) {
+  addDeleteButton(cell, rowArray, typeUpper) {
     const deleteButton = document.createElement('button');
+    const type = typeUpper.toLowerCase();
 
     this._privateDomUtils.addDataAttribute(deleteButton, rowArray);
-    this._privateDomUtils.setAttribute('class', deleteButton, 'station-delete-button')
-    this._privateDomUtils.setInnerHtml(deleteButton, this.DELETE_BUTTON_TEXT);
+    this._privateDomUtils.setAttribute('class', deleteButton, `${type}-delete-button`)
+    this._privateDomUtils.setInnerHtml(deleteButton, this[`${typeUpper}_DELETE_BUTTON_TEXT`]);
     this._privateDomUtils.appendToVarName(cell, deleteButton);
-    this.addEventToDeleteButton(deleteButton);
+    this.addEventToDeleteButton(deleteButton, type);
   }
 
-  addEventToDeleteButton(button) {
+  getType(tableType) {
+    let type = '';
+
+    for (let i = 0; i < tableType.length; i++) {
+      if (tableType[i] >= 'A' && tableType[i] <= 'Z') {
+        return type
+      }
+      type += tableType[i];
+    }
+
+    return type;
+  }
+
+  addEventToDeleteButton(deleteButton, type) {
+    if (type === 'station') {
+      this.addEventToStationDeleteButton(deleteButton);
+    }
+    else if (type === 'line') {
+      this.addEventToLineDeleteButton(deleteButton);
+    }
+  }
+
+  addEventToStationDeleteButton(button) {
     button.addEventListener('click', () => {
-      if (this.ifOkay() === this.IS_VALID) {
+      if (this.ifOkay() * this.checkDeleteValidity(button) === this.IS_VALID) {
         this.deleteRowAndData(button);
       }
+      else {
+        this._privateCommonUtils.alertError(this.STATION_DELETE_ERROR_MESSAGE);
+      }
     });
+  }
+
+  addEventToLineDeleteButton(button) {
+    button.addEventListener('click', () => {
+      this.deleteRowAndData(button);
+    })
   }
 
   ifOkay() {
@@ -155,6 +196,24 @@ export default class TableUtils {
     else {
       return this.IS_NOT_VALID;
     }
+  }
+
+  checkDeleteValidity(button) {
+    if (this.checkTableId(button) === this.STATION_TABLE_NAME) {
+      return this.checkIfRegisteredToLine(button);
+    }
+  }
+
+  checkIfRegisteredToLine(button) {
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
+    const dataset = this.getDataAttribute(button);
+    const station = dataset.split(',')[0];
+
+    if (stationList[station][0]) {
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
   }
 
   deleteRowAndData(button) {
@@ -174,13 +233,13 @@ export default class TableUtils {
     const stationList = this._privateCommonUtils.getLocalStorageStation();
     const lineList = this._privateCommonUtils.getLocalStorageLine();
 
-    if (this.checkTableId(button) === 'stationArticleTable') {
+    if (this.checkTableId(button) === this.STATION_TABLE_NAME) {
       const station = datasetArray[0];
 
-      stationList = this.removeFromObject(stationList, station);
+      this.removeFromObject(stationList, station);
       this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
     }
-    else if (this.checkTableId(button) === 'lineArticleTable') {
+    else if (this.checkTableId(button) === this.LINE_TABLE_NAME) {
       const line = datasetArray[0];
 
       this.removeStationFromLine(line, lineList, stationList);

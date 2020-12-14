@@ -24,11 +24,23 @@ export default class CommonUtils {
   }
   
   getLocalStorageStation() {
-    return JSON.parse(localStorage.getItem('stationList'));
+    const stationList = JSON.parse(localStorage.getItem('stationList'));
+
+    if (!stationList) {
+      return {};
+    }
+
+    return stationList;
   }
 
   getLocalStorageLine() {
-    return JSON.parse(localStorage.getItem('lineList'));
+    const lineList = JSON.parse(localStorage.getItem('lineList'));
+
+    if (!lineList) {
+      return {};
+    }
+
+    return lineList;
   }
 
   saveToLocalStorage(datasetName, data) {
