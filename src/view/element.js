@@ -15,6 +15,7 @@ export const Element = {
   stationContainer: document.querySelector(Constant.STATION_CONTAINER_CLASS),
   stationAddButton: document.querySelector(Constant.STATION_ADD_BUTTON_ID),
   stationNameInput: document.querySelector(Constant.STATION_NAME_INPUT_ID),
+  stationDeleteButton: document.querySelector(Constant.STATION_DELELE_BUTTON_CLASS),
 
   // 노선 관리
   lineContainer: document.querySelector(Constant.LINE_CONTAINER_CLASS),

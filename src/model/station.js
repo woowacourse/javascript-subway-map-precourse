@@ -9,4 +9,9 @@ export const Station = {
     this.stations.push(name);
     Storage.save(this.key, this.stations);
   },
+
+  delete(name) {
+    this.stations = this.stations.filter(e => e !== name);
+    Storage.save(this.key, this.stations);
+  }
 };

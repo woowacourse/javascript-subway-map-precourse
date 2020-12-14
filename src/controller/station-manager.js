@@ -1,5 +1,5 @@
 import { Station } from "../model/station.js";
-import { Constant } from "../util/constant.js";
+import { ConfirmMessage, Constant } from "../util/constant.js";
 import { Storage } from "../util/storage.js";
 import { StationValidation } from "../util/validation.js";
 import { Element, ElementControl } from "../view/element.js";
@@ -22,6 +22,14 @@ export const StationManager = {
     });
 
     // 삭제
+    // Element.stationDeleteButton
+    // document.querySelector(Constant.STATION_DELELE_BUTTON_CLASS).addEventListener(Constant.CLICK, (e) => {
+    //   this.onClickDeleteBtn(e);
+    // });
+    Element.querySelectorTbody.addEventListener(Constant.CLICK, (e) => {
+      this.onClickDeleteBtn(e);
+    })
+
   },
 
   onClickAddBtn() {
@@ -34,5 +42,12 @@ export const StationManager = {
     ElementControl.clearInput(Element.stationNameInput);
   },
 
-  onClickRemoveBtn() {},
+  onClickDeleteBtn(e) {
+    const name = e.target.dataset.name;
+
+    if (confirm(ConfirmMessage.CHECK_DELETION)) {
+      Station.delete(name);
+      StationView.render();
+    }
+  },
 };

@@ -15,6 +15,7 @@ export const Constant = {
   STORAGE_KEY_STATION: "stations",
   STATION_ADD_BUTTON_ID: "#station-add-button",
   STATION_NAME_INPUT_ID: "#station-name-input",
+  STATION_DELELE_BUTTON_CLASS: ".station-delete-button",
 
   MINIMUM_NAME_LENGTH: 2,
   REGEX_CATCHING_WHITESPACE: /^\s*$/,
@@ -32,3 +33,7 @@ export const ErrorMessage = {
   MINIMUM_NAME_LENGTH: "공백이 아닌 2글자 이상의 역 이름을 입력해 주세요.",
   DUPLICATED_NAME: "중복되지 않은 역 이름을 입력해 주세요.",
 };
+
+export const ConfirmMessage = {
+  CHECK_DELETION: "정말로 삭제하시겠습니까?",
+}
