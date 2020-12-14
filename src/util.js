@@ -1,64 +1,67 @@
 import { SUBWAY_MAP_LOCAL_STORAGE_KEY } from "./constant.js";
 
-export const createButtonHTMLElement = ({ id = "", name, onClick, classList = [], dataset = {} }) => {
-  const $button = document.createElement("button");
-  $button.innerText = name;
-  $button.id = id;
-  $button.addEventListener("click", onClick);
-  $button.classList.add(...classList);
+// eslint-disable-next-line no-unused-vars
+export const createHTMLElement = ({ tagname, classList = [], dataset = {}, innerText = "", htmlFor, name, ...rest }) => {
+  const $element = document.createElement(tagname);
+  $element.innerText = innerText;
   
-  Object.entries(dataset).forEach(([key, value]) => {
-    $button.dataset[key] = value;
-  });
+  classList.forEach(className => $element.classList.add(className));
+
+  Object.entries(rest).forEach(([key, value]) => $element.setAttribute(key, value));
+  
+  Object.entries(dataset).forEach(([key, value]) => $element.dataset[key] = value);
+
+  return $element;
+};
+
+export const createButtonHTMLElement = ({ onClick, name, ...rest }) => {
+  const $button = createHTMLElement({ tagname: "button", innerText: name, ...rest });
+    
+  $button.addEventListener("click", onClick);
 
   return $button;
 };
 
-const createInputHTMLElement = ({ id = "", onKeydown, placeholder = "", type }) => {
-  const $input = document.createElement("input");
-  $input.type = type;
-  $input.id = id;
+export const createInputHTMLElement = ({ onKeydown, ...rest }) => {
+  const $input = createHTMLElement({ tagname: "input", ...rest });
+    
   $input.addEventListener("keydown", onKeydown);
-  $input.placeholder = placeholder;
 
   return $input;
 };
 
-export const createInputTextHTMLElement = ({ id, onKeydown, placeholder }) => {
-  return createInputHTMLElement({ id, onKeydown, placeholder, type: "text" });
+export const createInputTextHTMLElement = ({ id, onKeydown, placeholder, ...rest }) => {
+  return createInputHTMLElement({ id, onKeydown, placeholder, type: "text", ...rest });
 };
 
 export const createInputNumberHTMLElement = ({ id, onKeydown, placeholder }) => {
   return createInputHTMLElement({ id, onKeydown, placeholder, type: "number" });
 };
 
-export const createLabelHTMLElement = ({ name = "", htmlFor = "" }) => {
-  const $label = document.createElement("label");
-  $label.innerText = name;
-  $label.setAttribute("for", htmlFor);
-  // $label.style.display = "block";
+export const createLabelHTMLElement = ({ name, htmlFor, classList}) => {
+  const $label = createHTMLElement({ tagname: "label", innerText: name, classList });
+
+  if (htmlFor) {
+    $label.setAttribute("for", htmlFor);
+  }
   
   return $label;
 };
 
-export const createDivHTMLElement = ({ innerText = "" }) => {
-  const $div = document.createElement("div");
-  $div.innerText = innerText;
+export const createDivHTMLElement = ({ ...rest}) => {
+  const $div = createHTMLElement({ tagname: "div", ...rest });
   
   return $div;
 };
 
 const createOptionHTMLElement = value => {
-  const $option = document.createElement("option");
-  $option.value = value;
-  $option.innerText = value;
+  const $option =createHTMLElement({ tagname: "option", innerText: value, value });
 
   return $option;
 };
 
 export const createSelectHTMLElement = ({ id, options = [] }) => {
-  const $select = document.createElement("select");
-  $select.id = id;
+  const $select =createHTMLElement({ tagname: "select", id });
 
   const $options = options.map(optionValue => createOptionHTMLElement(optionValue));
   $select.append(...$options);
@@ -81,4 +84,8 @@ export const storeState = state => storeInfoToLocalStorage(SUBWAY_MAP_LOCAL_STOR
 
 export const throwErrorWithMessage = errorMessage => {
   throw Error(errorMessage);
+};
+
+export const cmpLineName = ({ lineName: aLineName }, { lineName: bLineName }) => {
+  return aLineName < bLineName ? -1 : 1;
 };
