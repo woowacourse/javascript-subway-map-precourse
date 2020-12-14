@@ -1,5 +1,6 @@
 const MIN_STRING_LENGTH = 2;
 const MIN_SECTION_LENGTH = 2;
+const SECTION_START = 0;
 const ERROR_DUPLICATED_NAME = '중복된 이름이 존재합니다.';
 const ERROR_UNDER_MINUMUM_LENGTH = `역 이름은 ${MIN_STRING_LENGTH}글자 이상이어야 합니다.`;
 const ERROR_EMPTY_STRING = '값을 입력해야 합니다.';
@@ -53,15 +54,18 @@ export const isValidLineName = (list, input) => {
 };
 
 export const isInvalidStationOrder = (line, order) => {
-  if (order < 0 || order > line.length) {
+  if (order < SECTION_START || order > line.length) {
     alert(ERROR_SECTION_OUT_OF_RANGE);
+    return true;
+  } else if (isEmptyString(order)) {
+    alert(ERROR_EMPTY_STRING);
     return true;
   }
   return false;
 };
 
 export const isInvalidStationDeletion = (lines, targetStation) => {
-  for (let i = 0; i < lines.length; i++) {
+  for (let i = SECTION_START; i < lines.length; i++) {
     const index = lines[i].stations.indexOf(targetStation);
     if (index !== -1) {
       alert(ERROR_STATION_INCLUDED);
@@ -90,5 +94,5 @@ export const isEndSection = (stations, targetIndex, type) => {
 };
 
 export const isStartSection = targetIndex => {
-  return targetIndex === 0;
+  return targetIndex === SECTION_START;
 };

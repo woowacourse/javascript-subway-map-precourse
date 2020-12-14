@@ -39,6 +39,7 @@ export default class SubwayManager {
   }
 
   addStation(event) {
+    console.log(event);
     const {
       target: { id },
     } = event;
@@ -108,8 +109,9 @@ export default class SubwayManager {
       target: { id },
     } = event;
     if (id === DOMStrings.SECTION_ADD_BUTTON) {
-      const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2')
-        .dataset[dataStrings.DATA_TARGET];
+      const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2').dataset[
+        dataStrings.DATA_TARGET
+      ];
       const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
       const stationOrder = +document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value.trim();
       const stationName = document.getElementById(DOMStrings.SECTION_STATION_SELECTOR).value;
@@ -141,21 +143,18 @@ export default class SubwayManager {
       if (!confirm(CONFIRM_DELETE_FROM_LINE)) {
         return;
       }
-      const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2')
-        .dataset[dataStrings.DATA_TARGET];
+      const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2').dataset[
+        dataStrings.DATA_TARGET
+      ];
       const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
       if (isInvalidSectionDeletion(this.lines[targetLineIndex].stations)) {
         return;
       }
       const targetSectionIndex = +event.target.dataset[dataStrings.DATA_INDEX];
       if (isEndSection(this.lines[targetLineIndex].stations, targetSectionIndex, VALID_DELETION)) {
-        this.lines[targetLineIndex].end = this.lines[targetLineIndex].stations[
-          targetSectionIndex - 1
-        ];
+        this.lines[targetLineIndex].end = this.lines[targetLineIndex].stations[targetSectionIndex - 1];
       } else if (isStartSection(targetSectionIndex)) {
-        this.lines[targetLineIndex].start = this.lines[targetLineIndex].stations[
-          targetSectionIndex + 1
-        ];
+        this.lines[targetLineIndex].start = this.lines[targetLineIndex].stations[targetSectionIndex + 1];
       }
       this.lines[targetLineIndex].stations.splice(targetSectionIndex, 1);
       localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
