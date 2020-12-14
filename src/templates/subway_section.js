@@ -16,7 +16,7 @@ export const sectionAddContainer = (name, stations) => {
     .map(({ name }) => `<option value=${name}>${name}</option>`)
     .join('');
 
-  return `<div>
+  return `<div class="setcion-add-container">
     <h3>${name} 관리</h3>
     <h4>구간 등록</h4>
     <select id="section-station-selector">${options}</select>
