@@ -59,10 +59,9 @@
 ### 지하철 구간 삭제 기능
 
 - 지하철 노선에 구간을 삭제, 즉 지하철 노선 안에서 특정 역을 빼기 (pull out subway station in subway line)
-  - :exclamation: 예외#7 - 삭제한 역이 노선의 종점일 경우
-  - :exclamation: 예외#8 - 노선에 포함된 역을 삭제하려는 시점에 그 노선에 포함된 역이 두개 이하일 경우
+  - :exclamation: 예외#7 - 노선에 포함된 역을 삭제하려는 시점에 그 노선에 포함된 역이 두개 이하일 경우
 - 지하철 노선 구간 삭제 가능성 여부 검사 (check if the subway station can be pulled out)
-  - :wrench: 해결(예외 #7, 8) - 삭제하려는 노선이 종점인지, 삭제 후 그 노선에 포함된 역이 두개 이하인지를 검사
+  - :wrench: 해결(예외 #7) - 삭제 후 그 노선에 포함된 역이 두개 미만인지를 검사
 
 <br/>
 
