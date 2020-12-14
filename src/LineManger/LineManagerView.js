@@ -12,17 +12,17 @@ export default class LineManagerView {
   }
 
   static lineInputView() {
-    const stations = localStorage.getItem('Stations').split(',');
+    const stations = JSON.parse(localStorage.getItem('Stations'));
     document.getElementById('line-input').innerHTML = `
     <input id='line-name-input' type='text' placeholder='노선 이름을 입력해주세요.'/>
     <p>상행 종점
       <select id='line-start-station-selector'>
-      ${stations.map((station) => `<option value='${station}'>${station}</option>`)}
+      ${Object.keys(stations).map((station) => `<option value='${station}'>${station}</option>`)}
       </select>
     </p>
     <p>하행 종점
       <select id='line-end-station-selector'>
-      ${stations.map((station) => `<option value='${station}'>${station}</option>`)}
+      ${Object.keys(stations).map((station) => `<option value='${station}'>${station}</option>`)}
       </select>
     </p>
     <button id='line-add-button'>노선 추가</button>`;
@@ -41,8 +41,8 @@ export default class LineManagerView {
       ${Object.keys(lines).map((line) => `
       <tr>
         <td align="center">${line}</td>
-        <td align="center">${lines[line][0]}</td>
-        <td align="center">${lines[line][(lines[line].length - 1)]}</td>
+        <td align="center">${lines[line].stations[0]}</td>
+        <td align="center">${lines[line].stations[(lines[line].stations.length - 1)]}</td>
         <td align="center"><button class='line-delete-button' data-delete-target='${line}'>삭제</button></td>
       </tr>`).join('')}
     </table>`;

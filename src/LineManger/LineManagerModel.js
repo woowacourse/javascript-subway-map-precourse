@@ -36,8 +36,19 @@ export default class LineManagerModel {
 
   static add(line, lineStart, lineEnd) {
     const lines = JSON.parse(localStorage.getItem('Lines'));
-    lines[line] = [lineStart, lineEnd];
+    const stations = JSON.parse(localStorage.getItem('Stations'));
+
+    lines[line] = { "stations": [lineStart, lineEnd] };
+    if (stations[lineStart].lines.indexOf(line) < 0) {
+      stations[lineStart].lines.push(line);
+    }
+    if (stations[lineStart].lines.indexOf(line) < 0) {
+      stations[lineEnd].lines.push(line);
+    }
     localStorage.setItem('Lines', JSON.stringify(lines));
+    localStorage.setItem('Stations', JSON.stringify(stations));
+    console.log(JSON.parse(localStorage.getItem('Lines')));
+    console.log(JSON.parse(localStorage.getItem('Stations')));
   }
 
   static isInLines(line) {

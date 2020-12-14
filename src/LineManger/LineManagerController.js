@@ -8,6 +8,7 @@ export default class LineManagerController {
       const eventId = event.target.id;
       const eventClassName = event.target.className;
       if (eventId === 'line-add-button') {
+        console.log('button');
         this.addButtonClicked();
       } else if (eventClassName === 'line-delete-button') {
         const button = event.path[0];
@@ -20,6 +21,7 @@ export default class LineManagerController {
     const line = document.getElementById('line-name-input').value;
     const lineStart = document.getElementById('line-start-station-selector').value;
     const lineEnd = document.getElementById('line-end-station-selector').value;
+    console.log('click');
     if (!LineManagerModel.isValidName(line) || LineManagerModel.isSame(lineStart, lineEnd)) {
       LineManagerView.alertNameError();
       LineManagerView.lineInputView();
