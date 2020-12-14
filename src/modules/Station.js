@@ -102,9 +102,12 @@ export default class Station {
     this._setStationList(newStationList);
   };
 
-  deleteLineFromStation = lineName => {
+  deleteLineFromStation = (lineName, stationName = null) => {
     const newStationList = this._stationList.map(({ name, line }) => {
-      if (line.includes(lineName)) {
+      if (
+        (line.includes(lineName) && !stationName) ||
+        (stationName && name === stationName)
+      ) {
         const index = line.indexOf(lineName);
         line.splice(index, 1);
       }
