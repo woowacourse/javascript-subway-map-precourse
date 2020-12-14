@@ -23,6 +23,15 @@ export function isRegisteredStation(stationName) {
   }
 }
 
+export function isInLine(selectInputValue, lineStations) {
+  let i;
+  for (i = 0; i < lineStations.length; i++) {
+    if (lineStations[i] === selectInputValue) {
+      return true
+    }
+  }
+}
+
 export function removeData(key, dataName) {
   let objects = JSON.parse(localStorage.getItem(key));
   let i;

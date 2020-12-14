@@ -1,3 +1,5 @@
+import { isInLine } from './check.js'
+
 export default function SectionManager() {
   this.getLineStations = function(lineName) {
     let objects = JSON.parse(localStorage.getItem("line"));
@@ -7,6 +9,20 @@ export default function SectionManager() {
         return objects[i].line
       }
     }
+  }
+
+  this.getSelectInput = function(lineName) {
+    const selectInput = document.querySelector("#section-station-selector");
+    const lineStations = this.getLineStations(lineName)
+    selectInput.addEventListener("mouseleave", () => {
+      const selectInputValue = selectInput.value;
+      const alertText = "노선에 등록되지 않은 역을 선택해 주세요."
+      if (!isInLine(selectInputValue, lineStations)) {
+        return selectInputValue
+      } else {
+        alert(alertText);
+      }
+    })
   }
 
   this.addTable = function(lineName) {
@@ -32,6 +48,7 @@ export default function SectionManager() {
         section.style.display = "block"
         lineText.innerText = `${lineName} 관리`
         this.addTable(lineName);
+        this.getSelectInput(lineName);
       })
     }
   }
