@@ -18,3 +18,13 @@ export function isRegistered(stationName) {
   const parsedStationNameValue = JSON.parse(stationNameValue)
   return (parsedStationNameValue.register > 0)
 }
+
+export function isRegisteredStation(stationName) {
+  const stations = JSON.parse(localStorage.getItem("station"));
+  let i;
+  for (i = 0; i < stations.length; i++) {
+    if (stations[i].name === stationName) {
+      return (stations[i].registered !== 0)
+    }
+  }
+}
