@@ -1,3 +1,5 @@
+import StationInput from "./StationInput.js";
+
 class StationManager {
   constructor($target, { stationStore, lineStore }) {
     console.log(`StationManager`);
@@ -21,7 +23,9 @@ class StationManager {
     this.$stationTable = this.$target.querySelector("#station-table");
   }
 
-  mountComponents() {}
+  mountComponents() {
+    new StationInput(this.$stationInput, { stationStore: this.stationStore });
+  }
 
   render = () => {
     this.mountTemplate();
