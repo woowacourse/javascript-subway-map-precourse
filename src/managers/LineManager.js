@@ -24,6 +24,7 @@ export default class LineManager extends Component {
     this.table = this.container.querySelector(`#${LINE.LINE_TABLE_BODY}`);
 
     this.form.addEventListener('submit', this.onSubmit);
+    this.table.addEventListener('click', this.onTableClick);
   }
 
   updateStationList() {
@@ -42,6 +43,13 @@ export default class LineManager extends Component {
     this.addLineToList(newLine);
   };
 
+  onTableClick = (event) => {
+    const { className } = event.target;
+    const { index } = event.target.dataset;
+    if (className !== LINE.LINE_DELETE_BUTTON_CLASS) return;
+    this.deleteLineFromList(index);
+  };
+
   addLineToList(line) {
     if (!this.checkValidity(line)) return;
     const newLineList = [...this.state.lineList];
@@ -49,6 +57,15 @@ export default class LineManager extends Component {
     this.setState({
       lineList: newLineList,
     });
+  }
+
+  deleteLineFromList(index) {
+    const newLineList = [...this.state.lineList];
+    newLineList.splice(index, 1);
+    this.setState({
+      lineList: newLineList,
+    });
+    this.props.syncData(this.state);
   }
 
   checkValidity = ({ name, startStation, endStation }) =>
