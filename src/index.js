@@ -1,16 +1,18 @@
 import LineManager from "./pages/lineManager.js";
+import SectionManager from "./pages/SectionManager.js";
 import StationManager from "./pages/StationManager.js";
 import { dispatchReRender, RE_RENDER_EVENT } from "./utils/events.js";
 
 const stationManager = new StationManager();
 const lineManager = new LineManager();
+const sectionManager = new SectionManager();
 
 const pages = document.querySelector("#app");
+let page;
 
 const stationManagerButton = document.getElementById("station-manager-button");
 const lineManagerButton = document.getElementById("line-manager-button");
-
-let page;
+const sectionManagerButton = document.getElementById("section-manager-button");
 
 stationManagerButton.addEventListener("click", () => {
   page = stationManager;
@@ -19,6 +21,11 @@ stationManagerButton.addEventListener("click", () => {
 
 lineManagerButton.addEventListener("click", () => {
   page = lineManager;
+  dispatchReRender();
+});
+
+sectionManagerButton.addEventListener("click", () => {
+  page = sectionManager;
   dispatchReRender();
 });
 
