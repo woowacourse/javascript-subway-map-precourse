@@ -32,7 +32,7 @@ const sectionHeading = name => {
 const sectionStationSelector = options => {
   return `<select id="section-station-selector">${options}</select>`;
 };
-const sectionOrderInput = `<input id="section-order-input" type="number"></input>`;
+const sectionOrderInput = `<input id="section-order-input" placeholder="순서" type="number"></input>`;
 const sectionAddButton = `<button id="section-add-button">등록</button>`;
 
 export const sectionTable = sections => {

@@ -11,7 +11,7 @@ const lineList = ({ stations }) => {
 };
 
 const lineHeading = name => {
-  return `<h4>${name}</h4>`;
+  return `<h2>${name}</h2>`;
 };
 
 const stationLi = name => {

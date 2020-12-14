@@ -13,8 +13,8 @@ export const lineAddContainer = stations => {
     ${lineNameInput}
     <div>
       <strong>상행 종점</strong>
-      ${lineStartSelector(options)}<
-    /div>
+      ${lineStartSelector(options)}
+    </div>
     <div>
       <strong>하행 종점</strong>
       ${lineEndSelector(options)}
@@ -23,7 +23,7 @@ export const lineAddContainer = stations => {
   </div>`;
 };
 
-const lineNameInput = `<input id="line-name-input"></input>`;
+const lineNameInput = `<input id="line-name-input" placeholder="노선 이름을 입력해 주세요."></input>`;
 const lineStartSelector = options => {
   return `<select id="line-start-station-selector">${options}</select>`;
 };
