@@ -2,8 +2,8 @@ import { Line } from '../../models';
 
 export default class SubwayMapModel {
   constructor() {
-    this.lines = {};
-    this.stations = {};
+    this._lines = {};
+    this._stations = {};
 
     this.setLocalStorage();
   }
@@ -19,25 +19,25 @@ export default class SubwayMapModel {
   }
 
   getStations() {
-    return { ...this.stations };
+    return { ...this._stations };
   }
 
   setStations(stations) {
-    this.stations = stations;
+    this._stations = stations;
   }
 
   addStation(stationId) {
-    this.stations[stationId] = stationId;
-    localStorage.setItem('stations', JSON.stringify(this.stations));
+    this._stations[stationId] = stationId;
+    localStorage.setItem('stations', JSON.stringify(this._stations));
   }
 
   deleteStation(stationId) {
-    delete this.stations[stationId];
-    localStorage.setItem('stations', JSON.stringify(this.stations));
+    delete this._stations[stationId];
+    localStorage.setItem('stations', JSON.stringify(this._stations));
   }
 
   getLines() {
-    return { ...this.lines };
+    return { ...this._lines };
   }
 
   setLines(lines) {
@@ -45,45 +45,45 @@ export default class SubwayMapModel {
 
     Object.entries(lines).forEach(line => {
       linesInstances[`${line[0]}`] = new Line({
-        lineId: line[1].lineId,
-        sections: line[1].sections.map(section => {
-          return section.stationId;
+        lineId: line[1]._lineId,
+        sections: line[1]._sections.map(section => {
+          return section._stationId;
         }),
       });
     });
 
-    this.lines = linesInstances;
+    this._lines = linesInstances;
   }
 
   getLine(lineId) {
-    return this.lines[lineId];
+    return this._lines[lineId];
   }
 
   addLine(lineObject) {
-    this.lines[lineObject.lineId] = new Line(lineObject);
-    localStorage.setItem('lines', JSON.stringify(this.lines));
+    this._lines[lineObject.lineId] = new Line(lineObject);
+    localStorage.setItem('lines', JSON.stringify(this._lines));
   }
 
   deleteLine(lineId) {
-    delete this.lines[lineId];
-    localStorage.setItem('lines', JSON.stringify(this.lines));
+    delete this._lines[lineId];
+    localStorage.setItem('lines', JSON.stringify(this._lines));
   }
 
   // selectLine(lineId) {
-  //   return this.lines[lineId].getSections();
+  //   return this._lines[lineId].getSections();
   // }
 
   addSectionToLine(sectionId, lineId, order) {
-    this.lines[lineId].addSection(sectionId, order);
-    localStorage.setItem('lines', JSON.stringify(this.lines));
+    this._lines[lineId].addSection(sectionId, order);
+    localStorage.setItem('lines', JSON.stringify(this._lines));
   }
 
   getSectionsFromLine(lineId) {
-    return this.lines[lineId].getSections();
+    return this._lines[lineId].getSections();
   }
 
   deleteSectionFromLine(lineId, order) {
-    this.lines[lineId].deleteSection(order);
-    localStorage.setItem('lines', JSON.stringify(this.lines));
+    this._lines[lineId].deleteSection(order);
+    localStorage.setItem('lines', JSON.stringify(this._lines));
   }
 }

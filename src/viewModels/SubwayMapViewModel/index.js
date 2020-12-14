@@ -61,7 +61,7 @@ export default class SubwayMapViewModel {
       return;
     }
 
-    if (order < 0 || order >= this.getSections(lineId).length) {
+    if (order < 0 || order > this.getSections(lineId).length) {
       alert(message.ALERT_FOR_BETWEEN_STATION_AND_STATION);
       return;
     }
@@ -103,7 +103,7 @@ export default class SubwayMapViewModel {
   isInLines(stationId) {
     const lines = Object.entries(this.subwayMapModel.getLines());
     return lines.some(line => {
-      return line[1].sections.some(section => {
+      return line[1]._sections.some(section => {
         return section.stationId === stationId;
       });
     });

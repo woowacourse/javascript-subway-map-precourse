@@ -128,8 +128,8 @@ export default class SubwayMapLineView {
     return `
     <tr>
       <td>${lineId}</td>
-      <td>${lineInstance.sections[0].stationId}</td>
-      <td>${lineInstance.sections[lineInstance.sections.length - 1].stationId}
+      <td>${lineInstance._sections[0]._stationId}</td>
+      <td>${lineInstance._sections[lineInstance._sections.length - 1]._stationId}
       <td>
         <button data-lineid="${line[0]}" data-purpose="deleteLine" class=".line-delete-button">${
       message.OPTION_DELETE

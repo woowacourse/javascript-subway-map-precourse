@@ -23,31 +23,31 @@ export default class SectionViewEventDelegator {
     this.sectionView.renderSectionManager();
   }
 
-  selectLine(dataSet) {
+  selectLine(dataset) {
     this.sectionView.resetSelectedLineSectionManagerContainer();
-    this.sectionView.renderSelectedLineSectionManager(this.subwayMapViewModel.getLine(dataSet.id));
+    this.sectionView.renderSelectedLineSectionManager(this.subwayMapViewModel.getLine(dataset.id));
   }
 
-  addSection(dataSet) {
+  addSection(dataset) {
     const sectionId = document.getElementById('#section-station-selector')[
       document.getElementById('#section-station-selector').selectedIndex
     ].dataset.id;
     const sectionOrder = document.getElementById('#section-order-input').value;
-    this.subwayMapViewModel.addSection(sectionId, dataSet.lineid, sectionOrder);
+    this.subwayMapViewModel.addSection(sectionId, dataset.lineid, sectionOrder);
     this.sectionView.resetSectionTable();
     this.sectionView.renderSectionTable(
-      dataSet.lineid,
-      this.subwayMapViewModel.getSections(dataSet.lineid),
+      dataset.lineid,
+      this.subwayMapViewModel.getSections(dataset.lineid),
     );
   }
 
-  deleteSection(dataSet) {
+  deleteSection(dataset) {
     if (confirm(message.ASK_WANT_TO_DELETE_IN_LINE)) {
-      this.subwayMapViewModel.deleteSection(dataSet.lineid, dataSet.sectionid);
+      this.subwayMapViewModel.deleteSection(dataset.lineid, dataset.sectionid);
       this.sectionView.resetSectionTable();
       this.sectionView.renderSectionTable(
-        dataSet.lineid,
-        this.subwayMapViewModel.getSections(dataSet.lineid),
+        dataset.lineid,
+        this.subwayMapViewModel.getSections(dataset.lineid),
       );
     }
   }

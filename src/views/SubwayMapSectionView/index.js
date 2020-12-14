@@ -58,16 +58,16 @@ export default class SubwayMapSectionView {
       Object.entries(this.subwayMapViewModel.getStations()),
     );
     const sectionOrderInput = `<input id="#section-order-input" type="number" placeholder=${message.SECTION_INPUT_PLACEHOLDER}></input>`;
-    const sectionAddButton = `<button id="#section-add-button" data-lineid="${line.lineId}" data-purpose="addSection">${message.ADD}</button>`;
+    const sectionAddButton = `<button id="#section-add-button" data-lineid="${line._lineId}" data-purpose="addSection">${message.ADD}</button>`;
     document.getElementById('#section-selected-line-manager-container').innerHTML += `
-        <h3>${line.lineId} ${message.LINE_MANAGING}</h3>
+        <h3>${line._lineId} ${message.LINE_MANAGING}</h3>
         <p>${message.ADD_SECTION}</p>
         ${sectionSelector}
         ${sectionOrderInput}
         ${sectionAddButton}
     `;
     this.renderSectionTableContainer();
-    this.renderSectionTable(line.lineId, this.subwayMapViewModel.getSections(line.lineId));
+    this.renderSectionTable(line._lineId, this.subwayMapViewModel.getSections(line._lineId));
   }
 
   renderSectionSelector(sections) {
@@ -135,7 +135,7 @@ export default class SubwayMapSectionView {
     return `
     <tr>
       <td>${index}</td>
-      <td>${section.stationId}</td>
+      <td>${section._stationId}</td>
       <td>
         <button data-lineid="${lineId}"data-sectionid="${index}" data-purpose="deleteSection" class=".section-delete-button">${message.OPTION_DELETE}</button>
       </td>

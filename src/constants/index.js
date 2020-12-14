@@ -19,13 +19,10 @@ const message = {
   ALERT_FOR_WRONG_NAME: '알파벳, 한글, 숫자로 이루어진 이름을 입력해주세요.',
   ALERT_FOR_OVERLAPED_NAME: '중복되지 않은 이름을 입력해주세요.',
   ALERT_FOR_LENGTH: '2글자 이상의 이름을 입력해주세요.',
-  ALERT_FOR_OVERLAPED_STATION:
-    '상행 종점역과 하행 종점역을 중복되지 않게 입력해주세요.',
+  ALERT_FOR_OVERLAPED_STATION: '상행 종점역과 하행 종점역을 중복되지 않게 입력해주세요.',
   ALERT_FOR_STATION_IN_LINES: '노선에 등록된 역은 삭제할 수 없습니다.',
-  ALERT_FOR_LESS_THAN_TWO:
-    '노선에 포함된 역이 두 개 이하일 때는 역을 제거할 수 없습니다.',
-  ALERT_FOR_BETWEEN_STATION_AND_STATION:
-    '역과 역 사이에 새로운 역을 추가해주세요.',
+  ALERT_FOR_LESS_THAN_TWO: '노선에 포함된 역이 두 개 이하일 때는 역을 제거할 수 없습니다.',
+  ALERT_FOR_BETWEEN_STATION_AND_STATION: '역과 역 사이에 새로운 구간을 추가해주세요.',
   ALERT_FOR_STATION_IS_IN_LINE: '노선에 중복된 역을 추가할 수 없습니다.',
   ALERT_FOR_NOT_A_NUMBER: '숫자를 입력해주세요.',
   ASK_WANT_TO_DELETE: '정말로 삭제하시겠습니까?',

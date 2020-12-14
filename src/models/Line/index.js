@@ -2,21 +2,21 @@ import { Station } from '..';
 
 export default class Line {
   constructor({ lineId, sections }) {
-    this.lineId = lineId;
-    this.sections = sections.map(section => {
+    this._lineId = lineId;
+    this._sections = sections.map(section => {
       return new Station(section);
     });
   }
 
   getSections() {
-    return [...this.sections];
+    return [...this._sections];
   }
 
   addSection(sectionId, order) {
-    this.sections.splice(order, 0, new Station(sectionId));
+    this._sections.splice(order, 0, new Station(sectionId));
   }
 
   deleteSection(order) {
-    this.sections.splice(order, 1);
+    this._sections.splice(order, 1);
   }
 }
