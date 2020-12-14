@@ -1,6 +1,10 @@
 function setAttributeHiddenPages() {
   const $managerPages = document.querySelectorAll('.manager-container > div');
+  const $sectionContainer = document.querySelectorAll('.section-container');
 
+  $sectionContainer.forEach((container) =>
+    container.setAttribute('hidden', true),
+  );
   $managerPages.forEach((page) => page.setAttribute('hidden', true));
 }
 

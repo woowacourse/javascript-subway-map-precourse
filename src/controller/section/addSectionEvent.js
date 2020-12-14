@@ -1,4 +1,5 @@
 import updateSectionList from './updateSectionList.js';
+import renderSubwayMap from '../../render/station-map/renderSubwayMap.js';
 
 function addSection(targetLine, lineNumber) {
   const lineList = JSON.parse(localStorage.getItem('lines')).split(',');
@@ -6,6 +7,7 @@ function addSection(targetLine, lineNumber) {
   lineList[lineNumber] = targetLine.join(' ');
   localStorage.setItem('lines', JSON.stringify(lineList.join(',')));
   updateSectionList(lineNumber);
+  renderSubwayMap();
 }
 
 function checkSectionInput({ target }) {

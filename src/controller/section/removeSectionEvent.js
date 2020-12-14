@@ -1,4 +1,5 @@
 import updateSectionList from './updateSectionList.js';
+import renderSubwayMap from '../../render/station-map/renderSubwayMap.js';
 
 const MINIMUM_IN_LINE_SECTION = 2;
 
@@ -8,6 +9,7 @@ function removeSection(targetLine, lineNumber) {
   lineList[lineNumber] = targetLine.join(' ');
   localStorage.setItem('lines', JSON.stringify(lineList.join(',')));
   updateSectionList(lineNumber);
+  renderSubwayMap();
 }
 
 function findTargetLine(target) {
