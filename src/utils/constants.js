@@ -39,4 +39,4 @@ export const DOM_ID = {
   ID: "app",
 };
 
-export const INITIAL_STATE_ID = "section-manager-button";
+export const INITIAL_STATE_ID = "map-print-manager-button";
