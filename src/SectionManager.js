@@ -1,8 +1,9 @@
 export default class SectionManager {
-  constructor({ target, subway, addSection }) {
+  constructor({ target, subway, addSection, deleteSection }) {
     this._target = target;
     this._subway = subway;
     this.onClickAddSection = addSection;
+    this.onClickDeleteSection = deleteSection;
 
     this.createHeader(target);
     this.createSectionButtons(target);
@@ -110,6 +111,15 @@ export default class SectionManager {
     this.render(line);
   }
 
+  addSectionDeleteEvent(section, line) {
+    const deleteButtons = this.tbody.querySelectorAll('.section-delete-button');
+    deleteButtons.forEach((deleteButton, index) => {
+      deleteButton.addEventListener(
+        'click', () => this.onClickDeleteSection(section[index], line),
+      );
+    });
+  }
+
   render(line) {
     const { section } = line;
     this.tbody.innerHTML = `
@@ -121,5 +131,6 @@ export default class SectionManager {
         </tr>
       `).join('')}
     `;
+    this.addSectionDeleteEvent(section, line);
   }
 }

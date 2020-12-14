@@ -83,6 +83,7 @@ export default class App {
       target: this._container,
       subway: this._subway,
       addSection: this.onClickAddSection.bind(this),
+      deleteSection: this.onClickDeleteSection.bind(this),
     });
   }
 
@@ -133,5 +134,14 @@ export default class App {
     const order = document.querySelector('#seletion-order-input').value;
     this._subway.addSection({ lineName, order, station });
     this._sectionManager.setSubway(this._subway, line);
+  }
+
+  onClickDeleteSection(station, line) {
+    const { lineName } = line;
+    const isOk = window.confirm('정말로 삭제하시겠습니까?');
+    if (isOk) {
+      this._subway.deleteSection({ lineName, station });
+      this._sectionManager.setSubway(this._subway, line);
+    }
   }
 }

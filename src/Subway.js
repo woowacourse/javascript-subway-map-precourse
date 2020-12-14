@@ -14,6 +14,11 @@ export default class Subway {
     return lineNames.includes(lineName);
   }
 
+  isLessThenTwoStation = ({ lineName }) => {
+    const section = this._lines.get(lineName);
+    return section.length <= 2;
+  }
+
   addStation = ({ station }) => {
     if (this.isDuplicateStation({ station })) {
       return alert('중복되는 역이 존재합니다.');
@@ -52,6 +57,15 @@ export default class Subway {
       return alert('이미 등록된 역입니다.');
     }
     section.splice(order, 0, station);
+  }
+
+  deleteSection = ({ lineName, station }) => {
+    if (this.isLessThenTwoStation({ lineName })) {
+      return alert('노선에 포함된 역이 두개 이하일 때는 노선에서 역을 제거할 수 없습니다.');
+    }
+    const section = this._lines.get(lineName);
+    const index = section.indexOf(station);
+    section.splice(index, 1);
   }
 
   getStationName = () => {
