@@ -1,5 +1,6 @@
 import { getStation } from '../station/stationDataHandler.js';
 import { printLines } from '../print.js';
+import { setStationDataToOption } from './lineElemGenerator.js';
 
 export const loadStationData = () => {
   const stations = getStation();
@@ -11,17 +12,6 @@ export const loadStationData = () => {
   );
   setStationDataToOption(stations, startStationSelector);
   setStationDataToOption(stations, endStationSelector);
-};
-
-export const setStationDataToOption = (stations, selector) => {
-  for (let i = 0; i < stations.length; i++) {
-    let option = document.createElement('option');
-    option.text = stations[i];
-    if (i === 0) {
-      option.selected = true;
-    }
-    selector.add(option);
-  }
 };
 
 export const setLine = (inputElem, start, end) => {
