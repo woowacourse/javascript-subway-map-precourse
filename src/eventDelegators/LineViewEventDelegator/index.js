@@ -41,9 +41,9 @@ export default class LineViewEventDelegator {
     this.lineView.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
   }
 
-  deleteLine(dataSet) {
+  deleteLine(dataset) {
     if (confirm(message.ASK_WANT_TO_DELETE)) {
-      this.subwayMapViewModel.deleteLine(dataSet.lineid);
+      this.subwayMapViewModel.deleteLine(dataset.lineid);
       this.lineView.resetLineTable();
       this.lineView.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
     }

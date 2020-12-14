@@ -5,9 +5,8 @@ export default class SubwayMapSectionView {
   constructor(subwayMapViewModel, managerContainer, sectionManagerButton) {
     this.subwayMapViewModel = subwayMapViewModel;
     this.managerContainer = managerContainer;
-    this.sectionManagerButton = sectionManagerButton;
-
-    new SectionViewEventDelegator(sectionManagerButton, this, this.subwayMapViewModel);
+    this.eventDelegator = new SectionViewEventDelegator(this, this.subwayMapViewModel);
+    this.eventDelegator.bindEvent(sectionManagerButton);
   }
 
   resetManagerContainer() {
@@ -18,11 +17,7 @@ export default class SubwayMapSectionView {
     this.renderLineMenuButtons(Object.entries(this.subwayMapViewModel.getLines()));
     this.renderSelectedLineSectionManagerContainer();
 
-    new SectionViewEventDelegator(
-      document.getElementById('#section-line-menu-button-container'),
-      this,
-      this.subwayMapViewModel,
-    );
+    this.eventDelegator.bindEvent(document.getElementById('#section-line-menu-button-container'));
   }
 
   renderLineMenuButtons(lines) {
@@ -49,10 +44,8 @@ export default class SubwayMapSectionView {
     <div id="#section-selected-line-manager-container"></div>
     `;
 
-    new SectionViewEventDelegator(
+    this.eventDelegator.bindEvent(
       document.getElementById('#section-selected-line-manager-container'),
-      this,
-      this.subwayMapViewModel,
     );
   }
 

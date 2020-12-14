@@ -4,13 +4,8 @@ export default class SubwayMapMapPrintView {
   constructor(subwayMapViewModel, managerContainer, mapPrintManagerButton) {
     this.subwayMapViewModel = subwayMapViewModel;
     this.managerContainer = managerContainer;
-    this.mapPrintManagerButton = mapPrintManagerButton;
-
-    new MapPrintViewEventDelegator(
-      this.mapPrintManagerButton,
-      this,
-      this.subwayMapViewModel,
-    );
+    this.eventDelegator = new MapPrintViewEventDelegator(this, this.subwayMapViewModel);
+    this.eventDelegator.bindEvent(mapPrintManagerButton);
   }
 
   resetManagerContainer() {
@@ -18,9 +13,7 @@ export default class SubwayMapMapPrintView {
   }
 
   renderMapPrintManager() {
-    const linesUls = this.renderLinesUls(
-      Object.entries(this.subwayMapViewModel.getLines()),
-    );
+    const linesUls = this.renderLinesUls(Object.entries(this.subwayMapViewModel.getLines()));
     this.managerContainer.innerHTML += `
       <div class="map">
       ${linesUls}

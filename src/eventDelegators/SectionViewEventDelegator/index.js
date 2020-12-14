@@ -1,9 +1,12 @@
 import { message } from '../../constants';
 
 export default class SectionViewEventDelegator {
-  constructor(element, sectionView, subwayMapViewModel) {
+  constructor(sectionView, subwayMapViewModel) {
     this.sectionView = sectionView;
     this.subwayMapViewModel = subwayMapViewModel;
+  }
+
+  bindEvent(element) {
     element.addEventListener('click', this.onClick.bind(this));
   }
 

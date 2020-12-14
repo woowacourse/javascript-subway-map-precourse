@@ -5,9 +5,8 @@ export default class SubwayMapStationView {
   constructor(subwayMapViewModel, managerContainer, stationManagerButton) {
     this.subwayMapViewModel = subwayMapViewModel;
     this.managerContainer = managerContainer;
-    this.stationManagerButton = stationManagerButton;
-
-    new StationViewEventDelegator(this.stationManagerButton, this, this.subwayMapViewModel);
+    this.eventDelegator = new StationViewEventDelegator(this, this.subwayMapViewModel);
+    this.eventDelegator.bindEvent(stationManagerButton);
   }
 
   resetManagerContainer() {
@@ -22,16 +21,8 @@ export default class SubwayMapStationView {
     this.renderStationInputContainer();
     this.renderStationTableContainer();
 
-    new StationViewEventDelegator(
-      document.getElementById('#station-input-container'),
-      this,
-      this.subwayMapViewModel,
-    );
-    new StationViewEventDelegator(
-      document.getElementById('#station-table-container'),
-      this,
-      this.subwayMapViewModel,
-    );
+    this.eventDelegator.bindEvent(document.getElementById('#station-input-container'));
+    this.eventDelegator.bindEvent(document.getElementById('#station-table-container'));
   }
 
   renderStationInputContainer() {
