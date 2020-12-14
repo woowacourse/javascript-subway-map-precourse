@@ -52,6 +52,8 @@ describe('SubwayLine', () => {
     expect(subwayMap.allLines).toHaveProperty(line1Name);
     expect(subwayMap.allLines).not.toHaveProperty(line2Name);
   });
+  it('add station to line', () => {
+    line1.addStationToLineByName(station3Name);
+    expect(line1.allStationsInLine).toContain(station3Name);
+  });
 });
-
-// describe('SubwayMap', () => {});

@@ -10,8 +10,6 @@ export default class SubwayStation {
   }
 
   constructor() {
-    this.nextStationNames = [];
-    this.prevStationNames = [];
     this.belongingLineNames = [];
   }
 }
