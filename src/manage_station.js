@@ -83,7 +83,7 @@ export default class ManageStation {
 
   addStation() {
     if (this.checkStationValidity() === this.IS_VALID) {
-      const rowArray = this._privateTableUtils.createRowArray(this._stationInput.value, this.DELETE_BUTTON_TEXT);
+      const rowArray = [this._stationInput.value, this.DELETE_BUTTON_TEXT];
       
       this.addToStationList(this._stationInput.value);
       this._privateCommonUtils.saveToLocalStorage('stationList', this._stationList);

@@ -145,11 +145,8 @@ export default class ManageLine {
   createNewLine() {
     if (this.checkLineValidity(this._lineInput.value) === this.IS_VALID) {
       const lineStationArray = [this._startSelect.value, this._endSelect.value];
-      const newLine = new Line(this._lineInput.value, lineStationArray);
 
-      this.updateLocalStorage();
-      
-      console.log(newLine);
+      this.updateAddToLocalStorage();
     }
   }
 
@@ -199,7 +196,7 @@ export default class ManageLine {
     return this.IS_VALID;
   }
 
-  updateLocalStorage() {
+  updateAddToLocalStorage() {
     this._lineList[this._lineInput.value] = [this._startSelect.value, this._endSelect.value];
     this._stationList[this._startSelect.value].push(this._lineInput.value);
     this._stationList[this._endSelect.value].push(this._lineInput.value);

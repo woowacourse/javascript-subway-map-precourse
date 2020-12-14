@@ -137,10 +137,10 @@ export default class TableUtils {
     this._privateDomUtils.setAttribute('class', deleteButton, 'station-delete-button')
     this._privateDomUtils.setInnerHtml(deleteButton, this.DELETE_BUTTON_TEXT);
     this._privateDomUtils.appendToVarName(cell, deleteButton);
-    this.addEventToDeleteButton(deleteButton, rowArray);
+    this.addEventToDeleteButton(deleteButton);
   }
 
-  addEventToDeleteButton(button, rowArray) {
+  addEventToDeleteButton(button) {
     button.addEventListener('click', () => {
       if (this.ifOkay() === this.IS_VALID) {
         this.deleteRowAndData(button);
@@ -158,23 +158,11 @@ export default class TableUtils {
   }
 
   deleteRowAndData(button) {
-    const dataset = button.dataset.tracking;
-    const row = document.querySelector(`[data-tracking="${dataset}"]`);
-    const stationList = this._privateCommonUtils.getLocalStorageStation();
-
-    
-    this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
-    this.deleteTableRow(row);
-  }
-
-
-  deleteRowAndData(button) {
     const dataset = this.getDataAttribute(button);
+    const datasetArray = dataset.split(',');
     const row = document.querySelector(`[data-tracking="${dataset}"]`);
-    const stationList = this._privateCommonUtils.getLocalStorageStation();
 
-    this.removeFromStationList(stationList, dataset);
-    this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
+    this.updateDeleteToLocalStorage(button, datasetArray);
     this.deleteTableRow(row);
   }
 
@@ -182,10 +170,48 @@ export default class TableUtils {
     return button.dataset.tracking;
   }
 
-  removeFromStationList(stationList, dataset) {
-    const data = dataset.split(',');
+  updateDeleteToLocalStorage(button, datasetArray) {
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
 
-    delete stationList[data[0]];
+    if (this.checkTableId(button) === 'stationArticleTable') {
+      const station = datasetArray[0];
+
+      stationList = this.removeFromObject(stationList, station);
+      this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
+    }
+    else if (this.checkTableId(button) === 'lineArticleTable') {
+      const line = datasetArray[0];
+
+      this.removeStationFromLine(line, lineList, stationList);
+      this.removeFromObject(lineList, line);
+      this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
+      this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
+    }
+  }
+
+  checkTableId(button) {
+    return button.parentNode.parentNode.parentNode.parentNode.id;
+  }
+
+  removeStationFromLine(line, lineList, stationList) {
+    for (const station of lineList[line]) {
+      this.removeFromArray(stationList[station], line);
+    }
+  }
+
+  removeFromObject(object, name) {
+    delete object[name];
+
+    return object;
+  }
+
+  removeFromArray(array, name) {
+    const index = array.indexOf(name);
+
+    array.splice(index, 1);
+
+    return array;
   }
 
   deleteTableRow(row) {
