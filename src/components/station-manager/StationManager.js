@@ -9,9 +9,10 @@ export class StationManager {
 
   render = (props) => {
     new StationManagerInput({
-      getStations: this.getStations,
+      ...props,
       addNewStation: this.addNewStation,
     });
+    console.log(props);
     this.stationList = new StationManagerList(props);
   };
 

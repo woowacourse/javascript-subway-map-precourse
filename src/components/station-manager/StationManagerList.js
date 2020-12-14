@@ -4,13 +4,13 @@ import { MESSAGE, FIELD } from "../../constants/constants.js";
 import { isInvolvedInLine } from "../../utils/validation.js";
 
 export class StationManagerList {
-  constructor({ getStations, deleteStation, getLines }) {
-    this.getStations = getStations;
-    this.deleteStation = deleteStation;
-    this.getLines = getLines;
+  constructor(props) {
+    this.getStations = props.getStations;
+    this.deleteStation = props.deleteStation;
+    this.getLines = props.getLines;
     this.initializeDOM();
     this.initializeEvents();
-    this.render();
+    this.render(props);
   }
 
   initializeDOM = () => {
@@ -23,10 +23,9 @@ export class StationManagerList {
       .addEventListener("click", this.handleDeleteStation);
   };
 
-  render = () => {
+  render = ({ getStations }) => {
     this.stationTable.innerHTML = getStationsTableHeader();
-    this.stations = this.getStations();
-
+    this.stations = getStations();
     this.stations.forEach((station) => {
       addRowInStationTable(this.stationTable, station, FIELD.STATION);
     });

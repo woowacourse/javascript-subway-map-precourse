@@ -5,12 +5,11 @@ const buttonIds = [
   "map-print-manager-button",
 ];
 export class HeaderButtons {
-  constructor(props) {
+  constructor() {
     this.buttons = [];
-    this.initiateDOM(props);
   }
 
-  initiateDOM = ({ clickHeaders }) => {
+  render = ({ clickHeaders }) => {
     buttonIds.forEach((buttonId) => {
       const button = document.getElementById(buttonId);
       button.addEventListener("click", clickHeaders);
