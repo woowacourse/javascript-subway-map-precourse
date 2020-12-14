@@ -28,3 +28,7 @@ const printStations = (stations) => {
 export const getLineNameButton = (lineName) => {
   return `<button class="section-line-menu-button" data-name="${lineName}">${lineName}</button>\n`;
 };
+
+export const getLineNameHeader = (lineName) => {
+  return `<h3>${lineName} 관리</h3>`;
+};

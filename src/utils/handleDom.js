@@ -51,3 +51,10 @@ export const addOptionTag = (selector, station) => {
 export const initSelector = (selector) => {
   selector.innerHTML = "";
 };
+
+export const addLineNameHeader = (lineName) => {
+  const header = document.createElement("h3");
+
+  header.innerHTML = `${lineName} 관리`;
+  return header;
+};
