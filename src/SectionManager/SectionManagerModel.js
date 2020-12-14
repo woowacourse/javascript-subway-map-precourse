@@ -20,8 +20,13 @@ export default class SectionManagerModel {
   static add(line, station, index) {
     const lines = JSON.parse(localStorage.getItem('Lines'));
     const stations = JSON.parse(localStorage.getItem('Lines'))[line].stations;
+    const stationJSON = JSON.parse(localStorage.getItem('Stations'));
+    if (stationJSON[station].lines.indexOf(line) < 0) {
+      stationJSON[station].lines.push(line);
+    }
     stations.splice(index, 0, station);
     lines[line].stations = stations;
+    localStorage.setItem('Stations', JSON.stringify(stationJSON));
     localStorage.setItem('Lines', JSON.stringify(lines));
   }
 

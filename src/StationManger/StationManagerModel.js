@@ -41,11 +41,11 @@ export default class StationManagerModel {
     if (this.isDuplicated(station) && this.checkAfterDelete(station)) {
       const stations = JSON.parse(localStorage.getItem('Stations'));
       const lines = JSON.parse(localStorage.getItem('Lines'));
-      const linesOfStation = JSON.parse(localStorage.getItem('Stations'))[station].lines;
-      delete stations[station];
+      const linesOfStation = stations[station].lines;
       linesOfStation.forEach((line) => {
         lines[line].stations.splice(lines[line].stations.indexOf(station), 1);
       });
+      delete stations[station];
       localStorage.setItem('Lines', JSON.stringify(lines));
       localStorage.setItem('Stations', JSON.stringify(stations));
     } else {

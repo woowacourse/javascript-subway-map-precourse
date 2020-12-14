@@ -42,7 +42,7 @@ export default class LineManagerModel {
     if (stations[lineStart].lines.indexOf(line) < 0) {
       stations[lineStart].lines.push(line);
     }
-    if (stations[lineStart].lines.indexOf(line) < 0) {
+    if (stations[lineEnd].lines.indexOf(line) < 0) {
       stations[lineEnd].lines.push(line);
     }
     localStorage.setItem('Lines', JSON.stringify(lines));
@@ -58,7 +58,13 @@ export default class LineManagerModel {
 
   static delete(line) {
     const lines = JSON.parse(localStorage.getItem('Lines'));
+    const stations = JSON.parse(localStorage.getItem('Stations'));
+    const stationsOfLines = lines[line].stations;
+    stationsOfLines.forEach((station) => {
+      stations[station].lines.splice(stations[station].lines.indexOf(line), 1);
+    });
     delete lines[line];
+    localStorage.setItem('Stations', JSON.stringify(stations));
     localStorage.setItem('Lines', JSON.stringify(lines));
   }
 }
