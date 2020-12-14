@@ -14,7 +14,6 @@ const sectionContainerHeading = createElement("h3");
 const sectionContainerParagraph = createElement("h4");
 const sectionStationSelect = createElement("select");
 const sectionIndexInput = createElement("input");
-const sectionAddButton = createElement("button");
 const sectionTableContainer = createElement("p");
 const sectionTable = createElement("table");
 const sectionHTMLElements = [
@@ -24,15 +23,13 @@ const sectionHTMLElements = [
 ];
 
 sectionTableContainer.append(sectionTable);
-
 sectionStationSelect.setAttribute("id", "section-station-selector");
 sectionIndexInput.setAttribute("id", "section-order-input");
-sectionAddButton.setAttribute("id", "section-add-button");
+sectionIndexInput.setAttribute("placeholder", textLabel.SECTION_INPUT);
+sectionIndexInput.setAttribute("type", "number");
 
 sectionHeading.innerText = textLabel.SECTION_HEADING;
 sectionContainerParagraph.innerText = textLabel.SECTION_CONTAINER_PARAGRAPH;
-sectionIndexInput.innerText = textLabel.SECTION_INPUT;
-sectionAddButton.innerText = textLabel.SECTION_ADD_BUTTON;
 
 export const initSectionManager = () => {
   sectionContainer.innerHTML = "";
@@ -67,6 +64,14 @@ const initButtonContainer = () => {
   }
 };
 
+const createAddButton = () => {
+  const addButton = createElement("button");
+  addButton.setAttribute("id", "section-add-button");
+  addButton.innerText = textLabel.SECTION_ADD_BUTTON;
+
+  return addButton;
+};
+
 const createLineButton = (lineName) => {
   const lineButton = createElement("button");
   lineButton.setAttribute("class", "section-line-menu-button");
@@ -84,6 +89,7 @@ const handleLineButton = (lineName) => {
 };
 
 const initSectionContainer = (lineName) => {
+  const sectionAddButton = createAddButton();
   sectionContainer.innerHTML = "";
   sectionContainer.append(
     sectionContainerHeading,
@@ -120,10 +126,23 @@ const handleAddButton = (lineName) => {
   const stationName = sectionStationSelect.value;
   const stationOrder = sectionIndexInput.value;
 
-  lineData[lineName].splice(stationOrder, 0, stationName);
+  if (validStationAdd(lineName, stationName, stationOrder)) {
+    lineData[lineName].splice(stationOrder, 0, stationName);
 
-  updateLocalStorage();
-  initSectionTable(lineName);
+    updateLocalStorage();
+    initSectionTable(lineName);
+  }
+};
+
+const validStationAdd = (lineName, stationName, stationOrder) => {
+  if (stationOrder < 0 || stationOrder > lineData[lineName].length) {
+    alert(alertLabel.SECTION_ORDER_INVALID);
+  } else if (lineData[lineName].indexOf(stationName) >= 0) {
+    alert(alertLabel.SECTION_STATION_ALREADY_EXISTS);
+  } else {
+    return true;
+  }
+  return false;
 };
 
 const handleStationDeleteButton = (lineName, stationName) => {

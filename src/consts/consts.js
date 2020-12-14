@@ -19,6 +19,9 @@ export const alertLabel = {
   LINE_START_END_EQUAL: "상행 종점과 하행 종점은 같을 수 없습니다!",
   LINE_NAME_ALREADY_EXISTS: "이미 존재하는 노선 이름입니다!",
   LINE_STATION_ALREADY_EXISTS: "이미 다른 노선에 역이 포함되어 있습니다!",
+
+  SECTION_ORDER_INVALID: "유효하지 않은 순서 값입니다!",
+  SECTION_STATION_ALREADY_EXISTS: "이미 존재하는 역 이름입니다!",
 };
 
 export const textLabel = {
