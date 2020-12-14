@@ -49,7 +49,7 @@ export default class SubwayMapLineView {
       })
       .join('');
 
-    this.managerContainer.querySelector('line-input-container').innerHTML += `
+    this.managerContainer.querySelector('#line-input-container').innerHTML += `
     <div>
       <p>${message.START_STATION}</p>
       <select id="line-start-station-selector">${selectorOptions}</select>
@@ -65,7 +65,7 @@ export default class SubwayMapLineView {
       })
       .join('');
 
-    this.managerContainer.querySelector('line-input-container').innerHTML += `
+    this.managerContainer.querySelector('#line-input-container').innerHTML += `
     <div>
       <p>${message.END_STATION}</p>
       <select id="line-end-station-selector">${selectorOptions}</select>
@@ -74,7 +74,7 @@ export default class SubwayMapLineView {
   }
 
   renderLineAddButton() {
-    this.managerContainer.querySelector('line-input-container').innerHTML += `
+    this.managerContainer.querySelector('#line-input-container').innerHTML += `
       <button id="line-add-button" data-purpose="addLine">${message.LINE_ADD_BUTTON}</button>
     `;
   }

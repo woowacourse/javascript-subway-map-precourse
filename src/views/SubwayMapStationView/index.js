@@ -5,8 +5,6 @@ export default class SubwayMapStationView {
   constructor(subwayMapViewModel, managerContainer, stationManagerButton) {
     this.subwayMapViewModel = subwayMapViewModel;
     this.managerContainer = managerContainer;
-    this.stationManagerButton = stationManagerButton;
-
     this.eventDelegator = new StationViewEventDelegator(this, this.subwayMapViewModel);
     this.eventDelegator.bindEvent(stationManagerButton);
   }

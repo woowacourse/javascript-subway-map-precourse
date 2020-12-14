@@ -16,7 +16,7 @@ export default class SubwayMapMapPrintView {
     const linesUls = this.renderLinesUls(Object.entries(this.subwayMapViewModel.getLines()));
     this.managerContainer.innerHTML += `
       <div class="map">
-      ${linesUls}
+        ${linesUls}
       </div>
     `;
   }
