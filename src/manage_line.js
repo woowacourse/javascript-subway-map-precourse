@@ -20,12 +20,10 @@ export default class ManageLine {
     this.LINE_INPUT_PLACEHOLDER = '노선 이름을 입력해주세요';
     this.LINE_INPUT_TYPE = 'String';
 
-    this.START_SELECTOR_SECTION = 'startSelectorSection';
-    this.END_SELECTOR_SECTION = 'endSelectorSection';
-    this.LINE_START_SELECTOR_TEXT = '상행 종점 ';
-    this.LINE_END_SELECTOR_TEXT = '하행 종점 '
-    this.LINE_START_SELECTOR_ID = 'line-start-station-selector';
-    this.LINE_END_SELECTOR_ID = 'line-end-station-selector';
+    this.LINE_START_SELECT_TEXT = '상행 종점 ';
+    this.LINE_END_SELECT_TEXT = '하행 종점 '
+    this.LINE_START_SELECT_ID = 'line-start-station-select';
+    this.LINE_END_SELECT_ID = 'line-end-station-select';
 
     this.ADD_BUTTON_ID = 'line-add-button';
     this.ADD_BUTTON_TEXT = '노선 추가';
@@ -35,14 +33,36 @@ export default class ManageLine {
     
     this.IS_VALID = true;
     this.IS_NOT_VALID = false;
+
+    this.DELETE_BUTTON_TEXT = '삭제';
+    this.IS_NOT_VALID = false;
+    this.IS_VALID = true;
+
+    this.EMPTY_ERROR_MESSAGE = '노선 이름을 한 글자 이상 입력해주세요';
+    this.OVERLAP_ERROR_MESSAGE = '이미 존재하는 노선 이름입니다.'
+    this.SAME_START_END_ERROR_MESSAGE = '상행 종점역과 하행 종점역이 같습니다.'
   }
 
   initPage() {
+    this.initLists();
     this.createInputSection();
-    this.createSelectorSection();
+    this.createSelectSection();
     this._privateCommonUtils.insertNewline(this.ARTICLE_NAME);
     this.createLineAddButton();
     this.createTableSection();
+  }
+
+  initLists() {
+    this._lineList = this._privateCommonUtils.getLocalStorageLine();
+    this._stationList = this._privateCommonUtils.getLocalStorageStation();
+
+    if (!this._lineList) {
+      this._lineList = {};
+    }
+
+    if (!this._stationList) {
+      this._stationList = {};
+    }
   }
 
   createInputSection() {
@@ -67,46 +87,49 @@ export default class ManageLine {
     return inputObject;
   }
 
-  createSelectorSection() {
-    const selectorSection = document.createElement('div');
+  createSelectSection() {
+    // const selectSection = this.createSelectDOM();
+    this._privateCommonUtils.insertNewline(this.ARTICLE_NAME);
+    this.createSelectStation('start');
+    this.createSelectStation('end');
+  }
+
+  // createSelectDiv() {
+  //   const selectSection = document.createElement('div');
     
-    this._privateDomUtils.appendToIdName(this.ARTICLE_NAME, selectorSection);
-    this._privateDomUtils.setAttribute('id', selectorSection, this.SELECTOR_SECTION_NAME)
+  //   this._privateDomUtils.appendToIdName(this.ARTICLE_NAME, selectSection);
+  //   this._privateDomUtils.setAttribute('id', selectSection, this.SELECT_SECTION_NAME)
+  // }
 
+  createSelectStation(position) {
+    const positionUpper = position.toUpperCase();
 
-    this._privateCommonUtils.createTitle('span', this.LINE_START_SELECTOR_TEXT, this.SELECTOR_SECTION_NAME);
-    this._startSelector = this.createSelector(selectorSection ,this.LINE_START_SELECTOR_ID);
-    this._privateCommonUtils.createTitle('span', this.LINE_END_SELECTOR_TEXT, this.SELECTOR_SECTION_NAME);
-    this._endSelector = this.createSelector(selectorSection, this.LINE_END_SELECTOR_ID);
+    this._privateCommonUtils.createTitle('span', this[`LINE_${positionUpper}_SELECT_TEXT`], this.ARTICLE_NAME);
+    this[`_${position}Select`] = this.createSelect(this.ARTICLE_NAME, this[`LINE_${positionUpper}_SELECT_ID`]);
   }
 
-  createSelector(toVarName, idName) {
-    const selector = document.createElement('SELECT');
+  createSelect(toIdName, idName) {
+    const select = document.createElement('SELECT');
 
-    this._privateDomUtils.setAttribute('id', selector, idName);
-    this._privateDomUtils.appendToVarName(toVarName, selector);
-    this.addStationsToSelector(selector);
+    this._privateDomUtils.setAttribute('id', select, idName);
+    this._privateDomUtils.appendToIdName(toIdName, select);
+    this.addStationsToselect(select);
 
-    return selector;
+    return select;
   }
 
-  addStationsToSelector(selector) {
-    this._stationList = this._privateCommonUtils.getLocalStorageStation();
-
-    if (!this._stationList) {
-      this._stationList = {};
-    }
-
+  addStationsToselect(select) {
     for (const station in this._stationList) {
-      this.createSelectorOption(selector, station);
+      this.createselectOption(select, station);
     }
   }
 
-  createSelectorOption(selector, station) {
+  createselectOption(select, station) {
     const option = document.createElement('option');
 
+    this._privateDomUtils.addDataAttribute(option, station)
     option.innerHTML = station;
-    selector.add(option);
+    select.add(option);
   }
 
   createLineAddButton() {
@@ -132,9 +155,72 @@ export default class ManageLine {
   }
 
   createNewLine() {
-    const newLine = new Line(this._lineInput.value);
-    
-    newLine.addLine(this._lineInput.value);
+    if (this.checkLineValidity(this._lineInput.value) === this.IS_VALID) {
+      const lineStationArray = [this._startSelect.value, this._endSelect.value];
+      const newLine = new Line(this._lineInput.value, lineStationArray);
 
+      this.updateLocalStorage();
+      
+      console.log(newLine);
+    }
+  }
+
+  checkLineValidity() {
+    if (this.isEmpty() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.EMPTY_ERROR_MESSAGE);
+
+      return this.IS_NOT_VALID;
+    }
+
+    if (this.overlap() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.OVERLAP_ERROR_MESSAGE);
+
+      return this.IS_NOT_VALID;
+    }
+
+    if (this.sameStartEnd() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.SAME_START_END_ERROR_MESSAGE);
+
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  isEmpty() {
+    if (this._lineInput.value.length === 0) {
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  overlap() {
+    if  (this._lineInput.value in this._lineList) {
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  sameStartEnd() {
+    if (this._startSelect.value === this._endSelect.value) {
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  updateLocalStorage() {
+    this._lineList[this._lineInput.value] = [this._startSelect.value, this._endSelect.value];
+    this._stationList[this._startSelect.value].push(this._lineInput.value);
+    this._stationList[this._endSelect.value].push(this._lineInput.value);
+
+    this._privateCommonUtils.saveToLocalStorage('lineList', this._lineList);
+    this._privateCommonUtils.saveToLocalStorage('stationList', this._stationList);
+  }
+
+  createRowArray(lineName) {
+    return [lineName, this.DELETE_BUTTON_TEXT];
   }
 }

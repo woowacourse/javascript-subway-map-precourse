@@ -66,4 +66,8 @@ export default class DomUtils {
   setPlaceholder(input, placeholder) {
     input.placeholder = placeholder;
   }
+
+  addDataAttribute(tag, trackingData) {
+    tag.setAttribute('data-tracking', trackingData);
+  }
 }

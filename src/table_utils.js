@@ -96,13 +96,10 @@ export default class TableUtils {
     const table = document.getElementById(`${tableType}Table`);
     const row = table.insertRow();
 
-    this.addDataAttribute(row, rowArray);
+    this._privateDomUtils.addDataAttribute(row, rowArray);
     this.addCellsAndButton(tableType, row, rowArray);
   }
 
-  addDataAttribute(tag, trackingData) {
-    tag.setAttribute('data-tracking', trackingData);
-  }
 
   addCellStyle(cell, text) {
     cell.innerHTML = text;
@@ -127,7 +124,7 @@ export default class TableUtils {
   addDeleteButton(cell, rowArray) {
     const deleteButton = document.createElement('button');
 
-    this.addDataAttribute(deleteButton, rowArray);
+    this._privateDomUtils.addDataAttribute(deleteButton, rowArray);
     this._privateDomUtils.setAttribute('class', deleteButton, 'station-delete-button')
     this._privateDomUtils.setInnerHtml(deleteButton, this.DELETE_BUTTON_TEXT);
     this._privateDomUtils.appendToVarName(cell, deleteButton);
