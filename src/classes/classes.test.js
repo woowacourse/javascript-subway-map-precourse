@@ -57,3 +57,25 @@ describe('SubwayLine', () => {
     expect(line1.allStationsInLine).toContain(station3Name);
   });
 });
+
+describe('SubwaySection', () => {
+  const station1Name = 'station1';
+  const station2Name = 'station2';
+  const station3Name = 'station3';
+  const station1 = new SubWayStation();
+  const station2 = new SubWayStation();
+  const station3 = new SubWayStation();
+  const subwayMap = new SubwayMap();
+  subwayMap.addStation(station1, station1Name);
+  subwayMap.addStation(station2, station2Name);
+  subwayMap.addStation(station3, station3Name);
+  const line1 = new SubwayLine(station1Name, station2Name);
+  it('insert subway station in subway line', () => {
+    line1.insertStationToLineByNameAndIndex(station3Name, 1);
+    expect(line1.allStationsInLine).toContain(station3Name);
+  });
+  it('pull out subway station in subway line', () => {
+    line1.pullOutStationFromLineByName(station3Name);
+    expect(line1.allStationsInLine).not.toContain(station3Name);
+  });
+});
