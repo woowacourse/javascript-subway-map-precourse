@@ -48,10 +48,14 @@ export default function stationManagerPage($element) {
     return stations[stations.length - 1].id + 1;
   };
 
-  const createStation = (newStationName) => {
-    stations.push(new Station(getNewId(), newStationName));
+  const addStations = (newStations) => {
+    stations.push(newStations);
     stationStorage().setStation(stations);
     showStations();
+  };
+
+  const createStation = (newStationName) => {
+    addStations(new Station(getNewId(), newStationName));
   };
 
   const onStationSubmitHandler = () => {
