@@ -49,10 +49,14 @@ class LineManager {
 
     clearInput(this.$input);
     this.lineStore.addLine(name, startName, endName);
+    this.stationStore.getStation(startName).addLine(name);
+    this.stationStore.getStation(endName).addLine(name);
+    this.stationStore.setStations();
     this.renderTable(this.lineStore.getLines());
   }
 
   onClickDeleteButton({ target }) {
+    console.log(this.stationStore.getStations());
     if (target.className !== `line-delte-button`) return;
   }
 

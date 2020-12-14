@@ -1,5 +1,5 @@
 import Line from "./Line.js";
-import { loadLines } from "../utils/storage.js";
+import { loadLines, saveLines } from "../utils/storage.js";
 
 class LineStore {
   constructor(key) {
@@ -22,11 +22,19 @@ class LineStore {
   addLine(name, startStation, EndStation) {
     const newLine = new Line(name, startStation, EndStation);
     this.lines = [...this.getLines(), newLine];
+
+    this.setLines();
   }
 
   removeLine(name) {
     const lines = this.getLines();
     this.lines = lines.filter(line => line.name !== name);
+
+    this.setLines();
+  }
+
+  setLines() {
+    saveLines(this.key, this.lines);
   }
 }
 

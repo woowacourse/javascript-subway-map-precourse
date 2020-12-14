@@ -33,7 +33,7 @@ export const isRemovableStation = station => {
     return false;
   }
 
-  if (station.lines.size) {
+  if (station.lines.length) {
     alert(MESSAGE.REMOVE_STATION_ERROR);
     return false;
   }

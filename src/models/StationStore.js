@@ -23,13 +23,17 @@ class StationStore {
     const newStation = new Station(name);
     this.stations = [...this.getStations(), newStation];
 
-    saveStations(this.key, this.stations);
+    this.setStations();
   }
 
   removeStation(name) {
     const stations = this.getStations();
     this.stations = stations.filter(station => station.name !== name);
 
+    this.setStations();
+  }
+
+  setStations() {
     saveStations(this.key, this.stations);
   }
 }
