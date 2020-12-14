@@ -47,3 +47,15 @@ export function removeData(key, dataName) {
     }
   }
 }
+
+export function removeStation(key, stationName, lineName, stationList) {
+  let objects = JSON.parse(localStorage.getItem(key));
+  let i;
+  for (i = 0; i < objects.length; i++) {
+    if (objects[i].name === lineName) {
+      const dataIndex = objects[i].line.indexOf(stationName)
+      objects[i].line.splice(dataIndex, 1)
+      localStorage.setItem(key, JSON.stringify(objects))
+    }
+  }
+}

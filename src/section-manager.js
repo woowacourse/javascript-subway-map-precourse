@@ -1,4 +1,4 @@
-import { isInLine, isValidNumber } from './check.js'
+import { isInLine, isValidNumber, removeStation } from './check.js'
 
 export default function SectionManager() {
   this.getLineStations = function(lineName) {
@@ -11,6 +11,28 @@ export default function SectionManager() {
     }
   }
 
+  this.deleteStation = function(stationName, lineName) {
+    const deleteTarget = document.querySelector(`#${stationName}`);
+    const stationList = this.getLineStations(lineName);
+    deleteTarget.remove();
+    removeStation("line", stationName, lineName, stationList)
+  }
+
+  this.confirmDeleteStation = function() {
+    const sectionDeleteButton = document.getElementsByClassName("section-delete-button");
+    let i;
+    for (i = 0; i < sectionDeleteButton.length; i++) {
+      const stationName = sectionDeleteButton[i].dataset.name;
+      const lineName = sectionDeleteButton[i].dataset.lineName;
+      sectionDeleteButton[i].addEventListener("click", () => {
+        const returnValue = confirm("정말로 삭제하시겠습니까?");
+        if (returnValue) {
+          this.deleteStation(stationName, lineName);
+        }
+      })
+    }
+  }
+
   this.printLineList = function(lineName) {
     const lineStations = this.getLineStations(lineName);
     const table = document.querySelector("#section-list")
@@ -20,8 +42,9 @@ export default function SectionManager() {
     let i;
     for (i = 0; i < lineStations.length; i++) {
       const index = lineStations.indexOf(lineStations[i])
-      table.innerHTML += `<tr id="${lineStations[i]}"><td id="index">${index}</td><td>${lineStations[i]}</td><td><button>노선에서 제거</button></td></tr>`
+      table.innerHTML += `<tr id="${lineStations[i]}"><td id="index">${index}</td><td>${lineStations[i]}</td><td><button data-name="${lineStations[i]}" data-line-name="${lineName}" class="section-delete-button">노선에서 제거</button></td></tr>`
     }
+    this.confirmDeleteStation();
   }
 
   this.storeLocalStorage = function(lineName, lineStations) {
