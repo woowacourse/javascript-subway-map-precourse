@@ -1,5 +1,5 @@
 import { STATION_NAME_LENGTH_LOW_LIMIT } from '../configuration.js';
-import { getItemFromLocalStorage } from '../util/util-local-storage.js';
+import { getItemFromLocalStorage } from '../utils/util-local-storage.js';
 
 export class Station {
   constructor(name) {

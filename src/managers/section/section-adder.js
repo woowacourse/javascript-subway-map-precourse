@@ -1,10 +1,10 @@
 import { Line } from '../../classes/line.js';
-import { createSectionManagerUI as updateUI } from './launcher.js';
+import { createSectionManagerUI as updateUI } from './section-launcher.js';
 import {
   getItemFromLocalStorage,
   addSubItemToLocalStroage,
-} from '../../util/util-local-storage.js';
-import { emptyElement } from '../../util/util-ui.js';
+} from '../../utils/util-local-storage.js';
+import { emptyElement } from '../../utils/util-ui.js';
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
 
 // 3. 구간 관리 - 신규 구간 추가 요청

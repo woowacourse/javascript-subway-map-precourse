@@ -1,15 +1,15 @@
 import { Line } from '../../classes/line.js';
-import { requestToDeleteLine } from './remover.js';
-import { addItemToTable } from '../../util/util-table.js';
+import { requestToDeleteLine } from './line-remover.js';
+import { addItemToTable } from '../../utils/util-table.js';
 import {
   getArrayFromLocalStorage,
   addItemToLocalStroage,
   addSubItemToLocalStroage,
-} from '../../util/util-local-storage.js';
+} from '../../utils/util-local-storage.js';
 import {
   emptyElement,
   addEventListenerOnDeleteButton,
-} from '../../util/util-ui.js';
+} from '../../utils/util-ui.js';
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
 
 // 2. 노선 관리 - 신규 노선 추가 요청

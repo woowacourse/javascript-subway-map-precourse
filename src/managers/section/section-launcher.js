@@ -1,14 +1,14 @@
-import { requestToAddSection } from './adder.js';
-import { requestToDeleteSection } from './remover.js';
-import { makeTable } from '../../util/util-table.js';
-import { getArrayFromLocalStorage } from '../../util/util-local-storage.js';
+import { requestToAddSection } from './section-adder.js';
+import { requestToDeleteSection } from './section-remover.js';
+import { makeTable } from '../../utils/util-table.js';
+import { getArrayFromLocalStorage } from '../../utils/util-local-storage.js';
 import {
   appendNew,
   emptyElement,
   addEventListenerOnAddButton,
   addEventListenerOnDeleteButton,
   appendSelector,
-} from '../../util/util-ui.js';
+} from '../../utils/util-ui.js';
 
 // 3. 구간 관리
 export const launchSectionManager = (menu, container) => {

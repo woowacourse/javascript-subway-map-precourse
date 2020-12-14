@@ -1,14 +1,14 @@
-import { requestToAddLine } from './adder.js';
-import { requestToDeleteLine } from './remover.js';
-import { makeTable } from '../../util/util-table.js';
-import { getArrayFromLocalStorage } from '../../util/util-local-storage.js';
+import { requestToAddLine } from './line-adder.js';
+import { requestToDeleteLine } from './line-remover.js';
+import { makeTable } from '../../utils/util-table.js';
+import { getArrayFromLocalStorage } from '../../utils/util-local-storage.js';
 import {
   appendNew,
   appendSelector,
   emptyElement,
   addEventListenerOnAddButton,
   addEventListenerOnDeleteButton,
-} from '../../util/util-ui.js';
+} from '../../utils/util-ui.js';
 
 // 2. 노선 관리
 export const launchLineManager = (menu, container) => {

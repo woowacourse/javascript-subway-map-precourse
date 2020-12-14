@@ -1,5 +1,5 @@
-import { getArrayFromLocalStorage } from '../../util/util-local-storage.js';
-import { appendNew, emptyElement } from '../../util/util-ui.js';
+import { getArrayFromLocalStorage } from '../../utils/util-local-storage.js';
+import { appendNew, emptyElement } from '../../utils/util-ui.js';
 
 // 4. 지하철 노선도 출력
 export const launchMapPrintManager = (menu, container) => {

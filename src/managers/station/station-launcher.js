@@ -1,12 +1,12 @@
-import { requestToAddStation } from './adder.js';
-import { requestToDeleteStation } from './remover.js';
-import { makeTable } from '../../util/util-table.js';
+import { requestToAddStation } from './station-adder.js';
+import { requestToDeleteStation } from './station-remover.js';
+import { makeTable } from '../../utils/util-table.js';
 import {
   appendNew,
   emptyElement,
   addEventListenerOnAddButton,
   addEventListenerOnDeleteButton,
-} from '../../util/util-ui.js';
+} from '../../utils/util-ui.js';
 
 // 1. 역 관리
 export const launchStationManager = (menu, container) => {

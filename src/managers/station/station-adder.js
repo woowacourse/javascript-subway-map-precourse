@@ -1,14 +1,14 @@
 import { Station } from '../../classes/station.js';
-import { requestToDeleteStation } from './remover.js';
-import { addItemToTable } from '../../util/util-table.js';
+import { requestToDeleteStation } from './station-remover.js';
+import { addItemToTable } from '../../utils/util-table.js';
 import {
   addItemToLocalStroage,
   getArrayFromLocalStorage,
-} from '../../util/util-local-storage.js';
+} from '../../utils/util-local-storage.js';
 import {
   emptyElement,
   addEventListenerOnDeleteButton,
-} from '../../util/util-ui.js';
+} from '../../utils/util-ui.js';
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
 
 // 1. 역 관리 - 신규 역 추가 요청

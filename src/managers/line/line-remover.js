@@ -1,10 +1,10 @@
 import { Line } from '../../classes/line.js';
-import { deleteItemFromTable } from '../../util/util-table.js';
+import { deleteItemFromTable } from '../../utils/util-table.js';
 import {
   getItemFromLocalStorage,
   deleteItemFromLocalStroage,
   deleteSubItemFromLocalStorage,
-} from '../../util/util-local-storage.js';
+} from '../../utils/util-local-storage.js';
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
 
 // 2. 노선 관리 - 기존 노선 삭제 요청

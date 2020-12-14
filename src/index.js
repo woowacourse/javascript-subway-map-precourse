@@ -1,8 +1,8 @@
-import { appendNew } from './util/util-ui.js';
-import { launchStationManager } from './managers/station/launcher.js';
-import { launchLineManager } from './managers/line/launcher.js';
-import { launchSectionManager } from './managers/section/launcher.js';
-import { launchMapPrintManager } from './managers/map-print/launcher.js';
+import { appendNew } from './utils/util-ui.js';
+import { launchStationManager } from './managers/station/station-launcher.js';
+import { launchLineManager } from './managers/line/line-launcher.js';
+import { launchSectionManager } from './managers/section/section-launcher.js';
+import { launchMapPrintManager } from './managers/map-print/map-print-launcher.js';
 import { MENU_LIST } from './configuration.js';
 
 export default function SubwayLineManager() {

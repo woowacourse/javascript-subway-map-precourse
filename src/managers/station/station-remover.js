@@ -1,6 +1,6 @@
 import { Station } from '../../classes/station.js';
-import { deleteItemFromTable } from '../../util/util-table.js';
-import { deleteItemFromLocalStroage } from '../../util/util-local-storage.js';
+import { deleteItemFromTable } from '../../utils/util-table.js';
+import { deleteItemFromLocalStroage } from '../../utils/util-local-storage.js';
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
 
 // 1. 역 관리 - 기존 역 삭제 요청

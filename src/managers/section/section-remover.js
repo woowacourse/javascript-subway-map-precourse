@@ -1,11 +1,11 @@
 import { Line } from '../../classes/line.js';
-import { createSectionManagerUI as updateUI } from './launcher.js';
+import { createSectionManagerUI as updateUI } from './section-launcher.js';
 import {
   getItemFromLocalStorage,
   deleteSubItemFromLocalStorage,
-} from '../../util/util-local-storage.js';
+} from '../../utils/util-local-storage.js';
+import { getNthParent } from '../../utils/util-ui.js';
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
-import { getNthParent } from '../../util/util-ui.js';
 
 // 3. 구간 관리 - 기존 구간 삭제 요청
 export const requestToDeleteSection = (e, menu) => {

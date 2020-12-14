@@ -13,6 +13,7 @@ export const setStationDummy = () => {
       lineList: ['2호선'],
     },
   ];
+
   localStorage.setItem('station', JSON.stringify(stationList));
   const listAgain = JSON.parse(localStorage.getItem('station'));
   console.log(listAgain);
