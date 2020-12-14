@@ -4,6 +4,7 @@
 - HTML Element를 만들어서 반환해주는 `createElement`
 - 각 기능에 대한 버튼에 함수를 바인딩 해주는 `bindHandler`
 
+### Station 관련 구현 사항
 - 각 버튼에 대해서 처리할 함수 `handleStationManager`, `handleLineManager`, `handleSectionManager`, `handleMapPrintManager`
 - 기능을 넘어가기 전에 HTML 부분을 비워주는 함수 `clearContainer`
 - 역 관리 기능을 시작할 함수 `initStationManager`
@@ -14,6 +15,7 @@
 - 역 관리 기능에서 변경한 사항을 localStorage에 반영해주는 함수 `updateStationData`
 - 역 관리 기능에 들어왔을 때 이전에 작업한 데이터를 불러오는 함수 `updateTable`
 
+### Line 관련 구현 사항
 - 노선 관리 기능을 시작할 함수 `initLineManager`
 - 노선 관리 기능 중 종점들의 옵션을 넣어줄 `initLineSelect`
 - 노선 추가 버튼의 동작을 관여할 함수 `handleLineAddButton`
@@ -21,8 +23,23 @@
 - 노선 삭제 버튼을 만들어줄 함수 `createDeleteButton`
 - 추가 버튼 클릭 시 데이터를 직접 추가하는 함수 `insertData`
 - 노선 이름과 종점 두개가 유효한 값인지 판단하는 함수 `inputValidator`
-- 노선 관리 기능에서 변경한 사항을 localStorage에 반영해주는 함수 `updateLocalStorage`
+- 노선 관리 기능에서 변경한 사항을 localStorage와 data 속성에 반영해주는 함수 `updateLocalStorage`
 - 노선 관리 기능에 들어왔을 때 이전에 작업한 데이터를 불러오는 함수 `updateTable`
+
+### Section 관련 구현 사항
+- 구간 관리 기능을 시작할 함수 `initSectionManager`
+- 역을 선택하는 select에 option들을 넣어주는 `initSectionSelect`
+- 노선을 선택하는 버튼들을 담은 컨테이너를 만드는 함수 `initButtonContainer`
+- 노선을 선택하는 버튼을 만드는 함수 `createLineButton`
+- 노선을 선택하는 버튼의 동작을 관여할 함수 `handleLineButton`
+- 노선이 선택되었을 때 구간 컨테이너를 만드는 함수 `initSectionContainer`
+- 구간에서 표를 만들어주는 함수 `initSectionTable`
+- 표에 들어가는 역 삭제 버튼을 만들어주는 함수 `createDeleteButton`
+- 역 추가 버튼의 동작을 관여할 함수 `handleAddButton`
+- 역 삭제 버튼의 동작을 관여할 함수 `handleStationDeleteButton`
+- 역 삭제 버튼의 유효한 동작인지 검증해주는 함수 `validStationDeleteButton`
+- 표에 데이터들을 넣어주는 함수 `insertData`
+- 구간 관리 기능에서 변경한 사항을 localStorage와 data 속성에 반영해주는 함수 `updateLocalStorage`
 
 ## 🚀 기능 요구사항
 
