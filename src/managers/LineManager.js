@@ -1,16 +1,56 @@
 import Component from '../factory/Component.js';
+import Line from '../factory/Line.js';
 import { LINE } from '../share/selector.js';
+import { optionTemplate } from '../share/template.js';
 
 export default class LineManager extends Component {
   constructor(props) {
     super(props);
 
-    this.form = document.querySelector(`#${LINE.LINE_FORM_ID}`);
-    this.form.addEventListener('submit', this.handleSubmit);
+    this.state.lineList = [];
+
+    this.form = this.container.querySelector(`#${LINE.LINE_FORM_ID}`);
+    this.userInput = this.container.querySelector(`#${LINE.LINE_NAME_INPUT_ID}`);
+    this.startStationSelector = this.container.querySelector(`#${LINE.LINE_START_STATION_SELECTOR_ID}`);
+    this.endStationSelector = this.container.querySelector(`#${LINE.LINE_END_STATION_SELECTOR}`);
+    this.addBtn = this.container.querySelector(`#${LINE.LINE_ADD_BUTTON_ID}`);
+
+    this.form.addEventListener('submit', this.onSubmit);
   }
 
-  handleSubmit=(e) => {
-    e.preventDefault();
-    console.log(this.state);
+  updateStationList() {
+    this.startStationSelector.innerHTML = this.state.stationList.map((station) => optionTemplate(station)).join('');
+    this.endStationSelector.innerHTML = this.state.stationList.map((station) => optionTemplate(station)).join('');
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    const constructorObj = this.getValues();
+    const newLine = new Line(constructorObj);
+    this.addLineToList(newLine);
+  }
+
+  addLineToList(line) {
+    const newLineList = [...this.state.lineList];
+    newLineList.push(line);
+    this.setState({
+      lineList: newLineList,
+    });
+  }
+
+  getValues = () => {
+    const { value: name } = this.userInput;
+    const { value: startStation } = this.startStationSelector;
+    const { value: endStation } = this.endStationSelector;
+    return { name, startStation, endStation };
+  }
+
+  setState(nextData) {
+    this.state = {
+      ...this.state,
+      ...nextData,
+    };
+    this.updateStationList();
+    this.render();
   }
 }
