@@ -3,10 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <title>지하철 노선도 관리</title>
+    <style>
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
       <h1>🚇 지하철 노선도 관리 </h1>
+      <nav class="menu-buttons">
+        <button id="station-manager-button">
+          <a href="#station-manager">역 관리</a>
+        </button>
+        <button id="line-manager-button">
+          <a href="#line-manager">노선 관리</a>
+        </button>
+        <button id="section-manager-button">
+          <a href="#section-manage">구간 관리</a>
+        </button>
+        <button id="map-print-manager-button">
+          <a href="#map-print">지하철 노선도 출력</a>
+        </button>
+      </nav>
     </div>
     <script type="module" src="src/index.js"></script>
   </body>
