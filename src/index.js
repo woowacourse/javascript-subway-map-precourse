@@ -2,7 +2,7 @@ import {
   app,
   managerContainer,
   sectionContainer,
-} from './layout/mainLayout.js';
+} from './layout/mainPageLayout.js';
 // import StationLayout from './layout/stationLayout.js';
 // import { lineElements } from './layout/lineLayout.js';
 // import  sectionLayout  from './layout/section.js';
