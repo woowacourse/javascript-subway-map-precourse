@@ -1,5 +1,5 @@
 class Menu {
-  constructor({ $target, changeMenu }) {
+  constructor($target, { changeMenu }) {
     this.$target = $target;
     this.changeMenu = changeMenu;
 
