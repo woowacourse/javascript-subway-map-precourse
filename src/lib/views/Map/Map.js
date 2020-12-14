@@ -36,7 +36,7 @@ export default class Map {
   }
 
   render() {
-    if (lineSelector()) this._renderTotalMap();
+    if (lineSelector().length > 0) this._renderTotalMap();
     else this._renderEmptyMessage();
 
     return this.element;

@@ -12,7 +12,6 @@ export default (deletedStationName, updatedLineName) => {
   return new Promise((resolve, reject) => {
     if (!ok) {
       reject(alert(message));
-    }
-    else resolve(deleteStationFromLine(deletedStationName, updatedLineList[0], true));
+    } else resolve(deleteStationFromLine(deletedStationName, updatedLineList));
   });
 };
