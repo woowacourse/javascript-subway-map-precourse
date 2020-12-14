@@ -37,18 +37,19 @@ export default class LineManager extends Role {
       this.onClickDeleteButton,
       this
     );
-    this.renderLineMenuButtons();
-    roleInterface.printMap();
+    this.updateData();
   }
 
-  renderLineMenuButtons() {
+  updateData() {
     roleInterface.renderLineMenuButtons();
     roleInterface.clickButtons(
       SECTION_LINE_MENU_BUTTON,
       roleInterface.onClickLineMenuButton,
       roleInterface
     );
+    roleInterface.printMap();
   }
+
   renderLines() {
     for (const lineInfo of this._lineInfos) {
       if (!lineInfo) {

@@ -33,6 +33,10 @@ export default class StationManager extends Role {
       this.onClickDeleteButton,
       this
     );
+    this.updateData();
+  }
+
+  updateData() {
     roleInterface.renderSelectors();
   }
 
