@@ -44,6 +44,9 @@ export default class StationManager extends Component {
   initializeState() {
     this.state = {
       stationInfo: retrieveStationInfo()
+        .sort(({ stationName: aStationName }, { stationName: bStationName }) => {
+          return aStationName < bStationName ? -1 : 1;
+        })
     };
   }
 

@@ -49,7 +49,9 @@ export default class LineManager extends Component {
 
   initializeState() {
     this.state = {
-      lineInfo: retrieveLineInfo()
+      lineInfo: retrieveLineInfo().sort(({ lineName: aLineName }, { lineName: bLineName }) => {
+        return aLineName < bLineName ? -1 : 1;
+      })
     };
   }
 
