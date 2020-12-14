@@ -17,7 +17,12 @@ export const setRouterWithElements = (
     convertContent(contentElements, contentName);
   };
   window.onload = () => {
-    convertContent(contentElements, defaultContentElement.id);
+    const contentName = window.location.hash;
+    if (contentName) {
+      convertContent(contentElements, contentName);
+    } else {
+      convertContent(contentElements, defaultContentElement.id);
+    }
   };
 };
 
