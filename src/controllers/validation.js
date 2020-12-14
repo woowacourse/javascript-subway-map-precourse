@@ -7,8 +7,8 @@ export const notDuplicateStation = (name, list) => {
 };
 
 export const notDuplicateLine = (name, list) => {
-  list.forEach(element => {
-    if (element.name === name) return false;
-  });
+  for (const element of list) {
+    if (element.name == name) return false;
+  }
   return true;
 };
