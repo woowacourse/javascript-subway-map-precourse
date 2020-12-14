@@ -1,5 +1,3 @@
-import subwayStore from "../models/SubwayStore.js";
-import stationStore from "../models/StationStore.js";
 import { clearInput } from "../utils/domUtil.js";
 import {
   TableHeaderHTML,
@@ -8,12 +6,13 @@ import {
 import { isRemovableStation, isVaildStationName } from "../utils/validation.js";
 
 class StationManager {
-  constructor({ $target }) {
+  constructor({ $target, stationStore }) {
     this.$target = $target;
+    this.stationStore = stationStore;
 
     this.mountDOMs();
     this.bindEvents();
-    this.render(stationStore.getStations());
+    this.render(this.stationStore.getStations());
   }
 
   mountDOMs() {
@@ -32,27 +31,31 @@ class StationManager {
 
     const name = this.$input.value.trim();
     if (
-      !isVaildStationName(this.$input, stationStore.getStationNames(), name)
+      !isVaildStationName(
+        this.$input,
+        this.stationStore.getStationNames(),
+        name,
+      )
     ) {
       return;
     }
 
     clearInput(this.$input);
 
-    stationStore.addStation(name);
-    this.render(stationStore.getStations());
+    this.stationStore.addStation(name);
+    this.render(this.stationStore.getStations());
   }
 
   onClickDeleteButton({ target }) {
     if (target.className !== `station-delete-button`) return;
 
     const name = target.closest("tr").firstElementChild.dataset.name;
-    if (!isRemovableStation(stationStore.getStation(name))) {
+    if (!isRemovableStation(this.stationStore.getStation(name))) {
       return;
     }
 
-    stationStore.removeStation(name);
-    this.render(stationStore.getStations());
+    this.stationStore.removeStation(name);
+    this.render(this.stationStore.getStations());
   }
 
   render(stations) {

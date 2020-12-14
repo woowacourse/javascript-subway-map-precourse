@@ -6,8 +6,9 @@ import LineManager from "./LineManager.js";
 import StationManager from "./StationManager.js";
 
 class ManagerContainer {
-  constructor({ $target }) {
+  constructor({ $target, stationStore }) {
     this.$target = $target;
+    this.stationStore = stationStore;
 
     this.createDOMs();
     this.mountComponents();
@@ -30,10 +31,12 @@ class ManagerContainer {
   mountComponents() {
     this.stationManager = new StationManager({
       $target: this.$stationManager,
+      stationStore: this.stationStore,
     });
 
     this.lineManager = new LineManager({
       $target: this.$lineManager,
+      stationStore: this.stationStore,
     });
   }
 
@@ -47,6 +50,7 @@ class ManagerContainer {
 
       case DOM.LINE_MANAGER_BUTTON:
         this.$target.appendChild(this.$lineManager);
+        this.lineManager.renderSelect(this.stationStore.getStationNames());
         break;
 
       default:

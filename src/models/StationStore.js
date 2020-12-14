@@ -34,4 +34,4 @@ class StationStore {
   }
 }
 
-export default new StationStore("TEST_STATION");
+export default StationStore;

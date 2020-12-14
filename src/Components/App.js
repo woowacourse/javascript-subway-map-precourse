@@ -2,10 +2,14 @@ import { MenuInnerHTML } from "../utils/templates/main.js";
 import { makeElement } from "../utils/domUtil.js";
 import Menu from "./Menu.js";
 import ManagerContainer from "./ManagerContainer.js";
+import StationStore from "../models/StationStore.js";
 
 class App {
   constructor($target) {
     this.$target = $target;
+
+    this.stationStore = new StationStore("TEST1");
+
     this.createDOMs();
     this.mountDOMs();
     this.mountComponents();
@@ -24,6 +28,7 @@ class App {
   mountComponents() {
     this.managerContainer = new ManagerContainer({
       $target: this.$managerContainer,
+      stationStore: this.stationStore,
     });
 
     this.menu = new Menu({
