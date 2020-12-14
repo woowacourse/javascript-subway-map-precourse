@@ -1,13 +1,13 @@
 import { DOMs, DOMStrings, dataStrings, strings } from '../doms.js';
 import { saveData } from '../index.js';
 import { isValidSection, isEndSection, isStartSection, isValidSectionDeletion } from '../valid.js';
-import SectionUI from '../views/sectionUI.js';
+import SectionManagerUI from '../views/sectionManagerUI.js';
 
 export default class SectionManager {
   constructor(stations, lines) {
     this.stations = stations;
     this.lines = lines;
-    this.UIController = new SectionUI();
+    this.UIController = new SectionManagerUI();
 
     this.setSectionEventListeners();
   }
@@ -50,17 +50,16 @@ export default class SectionManager {
     const stationOrder = +document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value.trim();
     const stationName = document.getElementById(DOMStrings.SECTION_STATION_SELECTOR).value;
     if (isValidSection(targetLine.stations, stationName, stationOrder)) {
-      this.changeLineListAfterAddition(targetLine, stationOrder, stationName);
+      this.changeLineListWithAddition(targetLine, stationOrder, stationName);
       targetLine.stations = targetLine.stations
         .slice(0, stationOrder)
         .concat(stationName, targetLine.stations.slice(stationOrder));
-      saveData(dataStrings.DATA_LINES, JSON.stringify(this.lines));
-      this.UIController.openSectionManager(this.lines);
-      this.UIController.openSection(this.stations, this.lines, targetLineName);
+      saveData(dataStrings.DATA_LINES, this.lines);
+      this.refreshSectionManager(targetLineName);
     }
   }
 
-  changeLineListAfterAddition(targetLine, stationOrder, stationName) {
+  changeLineListWithAddition(targetLine, stationOrder, stationName) {
     if (isEndSection(targetLine.stations, stationOrder, strings.VALID_ADDITION)) {
       targetLine.end = stationName;
     } else if (isStartSection(stationOrder)) {
@@ -85,15 +84,14 @@ export default class SectionManager {
     const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLineName);
     const targetLine = this.lines[targetLineIndex];
     if (isValidSectionDeletion(targetLine.stations)) {
-      this.changeLineListAfterDeletion(targetLine, targetSectionIndex);
+      this.changeLineListWithDeletion(targetLine, targetSectionIndex);
       targetLine.stations.splice(targetSectionIndex, 1);
-      saveData(dataStrings.DATA_LINES, JSON.stringify(this.lines));
-      this.UIController.openSectionManager(this.lines);
-      this.UIController.openSection(this.stations, this.lines, targetLineName);
+      saveData(dataStrings.DATA_LINES, this.lines);
+      this.refreshSectionManager(targetLineName);
     }
   }
 
-  changeLineListAfterDeletion(targetLine, targetSectionIndex) {
+  changeLineListWithDeletion(targetLine, targetSectionIndex) {
     if (isEndSection(targetLine.stations, targetSectionIndex, strings.VALID_DELETION)) {
       targetLine.end = targetLine.stations[targetSectionIndex - 1];
     } else if (isStartSection(targetSectionIndex)) {
@@ -106,8 +104,13 @@ export default class SectionManager {
       target: { className },
     } = event;
     if (className === DOMStrings.SECTION_LINE_MENU_BUTTON) {
-      const targetLineName = event.target.dataset['line'];
+      const targetLineName = event.target.dataset[dataStrings.DATA_LINE];
       this.UIController.openSection(this.stations, this.lines, targetLineName);
     }
+  }
+
+  refreshSectionManager(targetLineName) {
+    this.UIController.openSectionManager(this.lines);
+    this.UIController.openSection(this.stations, this.lines, targetLineName);
   }
 }

@@ -1,12 +1,11 @@
 import { DOMs, DOMStrings, DOMCtrl, dataStrings, strings } from '../doms.js';
 
-export default class LineUI {
+export default class LineManagerUI {
   openLineManager(stations, lines) {
     const lineManager = `
       <div id="${DOMStrings.LINE_MANAGER}"><br>
         <span>${strings.LINE_NAME}</span><br>
-        <input type="text" id="${DOMStrings.LINE_NAME_INPUT}" 
-          placeholder="${strings.LINE_PLACEHOLDER}" /><br><br>
+        <input type="text" id="${DOMStrings.LINE_NAME_INPUT}" placeholder="${strings.LINE_PLACEHOLDER}" /><br><br>
         ${this.getLineSelectors(stations)}
         <button id="${DOMStrings.LINE_ADD_BUTTON}">${strings.LINE_ADD}</button>
         <h1>${strings.LINE_LIST_TITLE}</h1>

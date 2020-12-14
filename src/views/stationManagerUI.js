@@ -1,6 +1,6 @@
 import { DOMs, DOMCtrl, DOMStrings, dataStrings, strings } from '../doms.js';
 
-export default class StationUI {
+export default class StationManagerUI {
   openStationManager(stations) {
     const stationManager = `
       <div id="${DOMStrings.STATION_MANAGER}"><br>

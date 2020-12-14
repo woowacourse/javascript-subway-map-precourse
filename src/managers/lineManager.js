@@ -1,13 +1,13 @@
 import { DOMs, DOMStrings, dataStrings, strings } from '../doms.js';
 import { saveData } from '../index.js';
 import { isValidLineName, isStartDiffersWithEnd } from '../valid.js';
-import LineUI from '../views/lineUI.js';
+import LineManagerUI from '../views/lineManagerUI.js';
 
 export default class LineManager {
   constructor(stations, lines) {
     this.stations = stations;
     this.lines = lines;
-    this.UIController = new LineUI();
+    this.UIController = new LineManagerUI();
 
     this.setLineEventListeners();
   }
@@ -49,8 +49,8 @@ export default class LineManager {
       const endStation = document.getElementById(DOMStrings.LINE_END_STATION_SELECTOR).value;
       if (isStartDiffersWithEnd(startStation, endStation)) {
         this.lines.push(new SubwayLine(lineName, startStation, endStation));
-        saveData(dataStrings.DATA_LINES, JSON.stringify(this.lines));
-        this.UIController.openLineManager(this.stations, this.lines);
+        saveData(dataStrings.DATA_LINES, this.lines);
+        this.refreshLineManager();
       }
     }
   }
@@ -70,7 +70,11 @@ export default class LineManager {
   deleteLine(targetLine) {
     const index = this.lines.findIndex(line => line.lineName === targetLine);
     this.lines.splice(index, 1);
-    saveData(dataStrings.DATA_LINES, JSON.stringify(this.lines));
+    saveData(dataStrings.DATA_LINES, this.lines);
+    this.refreshLineManager();
+  }
+
+  refreshLineManager() {
     this.UIController.openLineManager(this.stations, this.lines);
   }
 }

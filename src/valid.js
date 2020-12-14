@@ -16,26 +16,7 @@ const isDuplicatedName = (list, input) => list.indexOf(input) !== -1;
 
 const isUnderMinLength = input => input.length < MIN_STRING_LENGTH;
 
-const isEmptyString = input => !input;
-
-const isValidSectionName = (list, input) => {
-  if (isDuplicatedName(list, input)) {
-    alert(ERROR_STATION_ALREADY_EXISTS);
-    return false;
-  }
-  return true;
-};
-
-const isValidSectionOrder = (line, order) => {
-  if (order < SECTION_START || order > line.length) {
-    alert(ERROR_SECTION_OUT_OF_RANGE);
-    return false;
-  } else if (isEmptyString(order)) {
-    alert(ERROR_EMPTY_STRING);
-    return false;
-  }
-  return true;
-};
+const isEmptyString = input => !input && input !== 0;
 
 export const isValidStationName = (list, input) => {
   if (isDuplicatedName(list, input)) {
@@ -114,6 +95,25 @@ export const isStartSection = targetIndex => {
 export const isStartDiffersWithEnd = (startStation, endStation) => {
   if (startStation === endStation) {
     alert(ERROR_START_EQUALS_END);
+    return false;
+  }
+  return true;
+};
+
+const isValidSectionName = (list, input) => {
+  if (isDuplicatedName(list, input)) {
+    alert(ERROR_STATION_ALREADY_EXISTS);
+    return false;
+  }
+  return true;
+};
+
+const isValidSectionOrder = (line, order) => {
+  if (order < SECTION_START || order > line.length) {
+    alert(ERROR_SECTION_OUT_OF_RANGE);
+    return false;
+  } else if (isEmptyString(order)) {
+    alert(ERROR_EMPTY_STRING);
     return false;
   }
   return true;

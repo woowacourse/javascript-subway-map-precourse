@@ -6,8 +6,8 @@ import { dataStrings } from './doms.js';
 
 export default class SubwayManager {
   constructor() {
-    this.stations = JSON.parse(localStorage.getItem(dataStrings.DATA_STATIONS)) || [];
-    this.lines = JSON.parse(localStorage.getItem(dataStrings.DATA_LINES)) || [];
+    this.stations = loadData(dataStrings.DATA_STATIONS) || [];
+    this.lines = loadData(dataStrings.DATA_LINES) || [];
 
     new StationManager(this.stations, this.lines);
     new LineManager(this.stations, this.lines);
@@ -17,7 +17,11 @@ export default class SubwayManager {
 }
 
 export const saveData = (key, data) => {
-  localStorage.setItem(key, data);
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+const loadData = key => {
+  return JSON.parse(localStorage.getItem(key));
 };
 
 new SubwayManager();

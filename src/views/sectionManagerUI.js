@@ -1,6 +1,6 @@
 import { DOMs, DOMCtrl, DOMStrings, dataStrings, strings } from '../doms.js';
 
-export default class SectionUI {
+export default class SectionManagerUI {
   openSectionManager(lines) {
     const sectionContainer = `
       <div id="${DOMStrings.SECTION_CONTAINER}"><h2>${strings.SECTION_SELECT_TITLE}</h2>
@@ -22,7 +22,8 @@ export default class SectionUI {
     const lineIndex = lines.findIndex(line => line.lineName === lineName);
     const sectionManager = `
       <h2 id="${DOMStrings.SECTION_HEADER}" data-${dataStrings.DATA_TARGET}="${lineName}">
-        ${lineName} ${strings.MANAGE}</h2>
+        ${lineName} ${strings.MANAGE}
+      </h2>
       <h3>${strings.SECTION_ADD_TITLE}</h3>
       ${this.getSectionSelector(stations)}
       <input type="number" id="${DOMStrings.SECTION_ORDER_INPUT}" placeholder="${strings.ORDER}">

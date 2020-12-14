@@ -1,13 +1,13 @@
 import { DOMs, DOMStrings, dataStrings, strings } from '../doms.js';
 import { saveData } from '../index.js';
 import { isValidStationName, isValidStationDeletion } from '../valid.js';
-import StationUI from '../views/stationUI.js';
+import StationManagerUI from '../views/stationManagerUI.js';
 
 export default class StationManager {
   constructor(stations, lines) {
     this.stations = stations;
     this.lines = lines;
-    this.UIController = new StationUI();
+    this.UIController = new StationManagerUI();
 
     this.setStationEventListeners();
   }
@@ -46,8 +46,8 @@ export default class StationManager {
     const station = document.getElementById(DOMStrings.STATION_NAME_INPUT).value.trim();
     if (isValidStationName(this.stations, station)) {
       this.stations.push(station);
-      saveData(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
-      this.UIController.openStationManager(this.stations);
+      saveData(dataStrings.DATA_STATIONS, this.stations);
+      this.refreshStationManager();
     }
   }
 
@@ -67,8 +67,12 @@ export default class StationManager {
     if (isValidStationDeletion(this.lines, targetStationName)) {
       const index = this.stations.indexOf(targetStationName);
       this.stations.splice(index, 1);
-      saveData(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
-      this.UIController.openStationManager(this.stations);
+      saveData(dataStrings.DATA_STATIONS, this.stations);
+      this.refreshStationManager();
     }
+  }
+
+  refreshStationManager() {
+    this.UIController.openStationManager(this.stations);
   }
 }
