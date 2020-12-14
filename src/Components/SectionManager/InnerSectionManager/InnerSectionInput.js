@@ -1,3 +1,6 @@
+import { clearInput } from "../../../../src_old/utils/domUtil.js";
+import { isValidSectionNumber } from "../../../utils/validations/sectionValidation.js";
+
 class InnerSectionInput {
   constructor($target, { lineName, stationStore, lineStore }) {
     this.$target = $target;
@@ -15,7 +18,8 @@ class InnerSectionInput {
       <select id="section-station-selector">
       ${this.createOptionsHTML(this.stationStore.stations)}
       </select>
-      <input type=number id="section-order-input" /><button id='section-add-button'>등록</button>    
+      <input type=number id="section-order-input" />
+      <button id='section-add-button'>등록</button>    
     `;
   }
 
@@ -30,10 +34,30 @@ class InnerSectionInput {
     return `<option value=${name}>${name}</option>`;
   }
 
-  bindEvents() {}
+  mountDOMs() {
+    this.$input = this.$target.querySelector(`#section-order-input`);
+    this.$button = this.$target.querySelector(`#section-add-button`);
+    this.$select = this.$target.querySelector(`#section-station-selector`);
+  }
+
+  bindEvents() {
+    this.$button.addEventListener(`click`, this.onClick.bind(this));
+  }
+
+  onClick({ target }) {
+    if (target.id !== "section-add-button") return;
+    const order = parseInt(this.$input.value.trim());
+    const sections = this.lineStore.getLine(this.lineName).sections;
+    const name = this.$select.value;
+
+    if (!isValidSectionNumber(this.$input, sections, name, order)) {
+      return false;
+    }
+  }
 
   render = () => {
     this.mountTemplate();
+    this.mountDOMs();
   };
 }
 
