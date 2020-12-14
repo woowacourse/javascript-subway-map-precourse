@@ -1,11 +1,59 @@
 import Line from "./line.js";
-import { isSpecialCharacter, isDuplicated } from "./check.js";
+import { isSpecialCharacter, isDuplicated, removeData } from "./check.js";
 
 export default function LineManager() {
+  this.addRegisterCount = function(stationName) {
+    const key = "station";
+    let stations = JSON.parse(localStorage.getItem(key));
+    let i;
+    for (i = 0; i < stations.length; i++) {
+      if (stations[i].name === stationName) {
+        stations[i].registered += 1
+        localStorage.setItem(key, JSON.stringify(stations))
+      }
+    }
+  }
+
+  this.deleteRegisterCount = function(stationName) {
+    const key = "station";
+    let stations = JSON.parse(localStorage.getItem(key));
+    let i;
+    for (i = 0; i < stations.length; i++) {
+      if (stations[i].name === stationName) {
+        stations[i].registered -= 1
+        localStorage.setItem(key, JSON.stringify(stations))
+      }
+    }
+  }
+
+  this.registerStation = function(check, registerList) {
+    const loop = 2
+    let i;
+    for (i = 0; i < loop; i++) {
+      if (check == "add") {
+        this.addRegisterCount(registerList[i]);
+      } else {
+        this.deleteRegisterCount(registerList[i])
+      }
+    }
+  }
+
+  this.getLineStations = function(lineName) {
+    let objects = JSON.parse(localStorage.getItem("line"));
+    let i;
+    for (i = 0; i < objects.length; i++) {
+      if (objects[i].name === lineName) {
+        return objects[i].line
+      }
+    }
+  }
+
   this.deleteLine = function(lineName, dataName) {
     const deleteTarget = document.querySelector(`#${dataName}`);
+    const stationList = this.getLineStations(lineName);
     deleteTarget.remove();
-    localStorage.removeItem(lineName);
+    removeData("line", lineName);
+    this.registerStation("delete", stationList)
   }
 
   this.confirmDeleteLine = function() {
@@ -23,27 +71,25 @@ export default function LineManager() {
     }
   }
 
-  this.registerStation = function(startStationInput, endStationInput) {
-    const registerList = [startStationInput, endStationInput]
-    const loop = 2
-    let i;
-    for (i = 0; i < loop; i++) {
-      const stationObject = JSON.parse(localStorage.getItem(registerList[i]))
-      stationObject.register += 1;
-      localStorage.setItem(registerList[i], JSON.stringify(stationObject))
-    }
+  this.addPrintLineList = function(lineName, startStationInput, endStationInput) {
+    const lineList = document.querySelector("#line-list");
+    lineList.innerHTML += `<tr id="line-${lineName}"><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button data-name="${lineName}" data-line-name="line-${lineName}" class="line-delete-button">삭제</button></td></tr>`;
+    this.confirmDeleteLine();
   }
 
   this.addLine = function(lineName, startStationInput, endStationInput) {
     const lineAddButton = document.querySelector("#line-add-button");
     lineAddButton.addEventListener("click", () => {
-      const key = lineName;
-      const value = new Line(lineName, startStationInput, endStationInput);
-      const lineList = document.querySelector("#line-list");
-      localStorage.setItem(key, JSON.stringify(value));
-      lineList.innerHTML += `<tr id="line-${lineName}"><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button data-name="${lineName}" data-line-name="line-${lineName}" class="line-delete-button">삭제</button></td></tr>`;
-      this.registerStation(startStationInput, endStationInput);
+      let value = JSON.parse(localStorage.getItem("line"));
+      if (localStorage.getItem("line")) {
+        value.push(new Line(lineName, startStationInput, endStationInput))
+        localStorage.setItem("line", JSON.stringify(value));
+      } else {
+        localStorage.setItem("line", JSON.stringify([new Line(lineName, startStationInput, endStationInput)]));
+      }
+      this.registerStation("add", [startStationInput, endStationInput]);
       this.confirmDeleteLine();
+      this.addPrintLineList(lineName, startStationInput, endStationInput);
     }, {once: true});
   }
 
@@ -82,31 +128,25 @@ export default function LineManager() {
   }
 
   this.addOption = function(startStationSelector, endStationSelector) {
+    const key = "station";
+    const stations = JSON.parse(localStorage.getItem(key));
     let i;
 
-    for (i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      const parsedStationObject = JSON.parse(localStorage.getItem(key));
-
-      if (parsedStationObject.position === "station") {
-        startStationSelector.innerHTML += `<option>${key}</option>`;
-        endStationSelector.innerHTML += `<option>${key}</option>`;
-      }
+    for (i = 0; i < stations.length; i++) {
+      startStationSelector.innerHTML += `<option>${stations[i].name}</option>`;
+      endStationSelector.innerHTML += `<option>${stations[i].name}</option>`;
     }
   }
 
   this.printLineList = function() {
+    const key = "line";
+    const parsedLine = JSON.parse(localStorage.getItem(key));
     let lineList = document.querySelector("#line-list");
     let i;
     
-    for (i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      const parsedObject = JSON.parse(localStorage.getItem(key));
-      
-      if (localStorage && parsedObject.position === "line") {
-        const parsedObjectLength = Object.keys(parsedObject.line).length
-        lineList.innerHTML += `<tr id="line-${key}"><td>${key}</td><td>${parsedObject.line[0]}</td><td>${parsedObject.line[parsedObjectLength - 1]}</td><td><button data-name="${key}" data-line-name="line-${key}" class="line-delete-button">삭제</button></td></tr>`;
-      }
+    for (i = 0; i < parsedLine.length; i++) {
+      const parsedLineLength = parsedLine[i].line.length
+      lineList.innerHTML += `<tr id="line-${parsedLine[i].name}"><td>${parsedLine[i].name}</td><td>${parsedLine[i].line[0]}</td><td>${parsedLine[i].line[parsedLineLength - 1]}</td><td><button data-name="${parsedLine[i].name}" data-line-name="line-${parsedLine[i].name}" class="line-delete-button">삭제</button></td></tr>`;
     }
     this.confirmDeleteLine();
   }
@@ -114,10 +154,13 @@ export default function LineManager() {
   this.init = function() {
     const startStationSelector = document.querySelector("#line-start-station-selector");
     const endStationSelector = document.querySelector("#line-end-station-selector");
-
-    this.addOption(startStationSelector, endStationSelector);
+    if (localStorage.getItem("line")) {
+      this.printLineList();
+    }
+    if (localStorage.getItem("station")) {
+      this.addOption(startStationSelector, endStationSelector);
+    }
     this.getLineName();
-    this.printLineList();
   }
 
   this.init();

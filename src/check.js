@@ -13,18 +13,24 @@ export function isDuplicated(inputValue) {
   return (localStorage.getItem(inputValue));
 }
 
-export function isRegistered(stationName) {
-  const stationNameValue = localStorage.getItem(stationName)
-  const parsedStationNameValue = JSON.parse(stationNameValue)
-  return (parsedStationNameValue.register > 0)
-}
-
 export function isRegisteredStation(stationName) {
   const stations = JSON.parse(localStorage.getItem("station"));
   let i;
   for (i = 0; i < stations.length; i++) {
     if (stations[i].name === stationName) {
       return (stations[i].registered !== 0)
+    }
+  }
+}
+
+export function removeData(key, dataName) {
+  let objects = JSON.parse(localStorage.getItem(key));
+  let i;
+  for (i = 0; i < objects.length; i++) {
+    if (objects[i].name === dataName) {
+      const dataIndex = objects.indexOf(objects[i])
+      objects.splice(dataIndex, 1)
+      localStorage.setItem(key, JSON.stringify(objects))
     }
   }
 }

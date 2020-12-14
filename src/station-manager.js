@@ -1,12 +1,13 @@
 import Station from './station.js'
-import { isSpecialCharacter, isDuplicated, isValidLength, isRegisteredStation } from './check.js';
+import { isSpecialCharacter, isDuplicated, isValidLength, isRegisteredStation, removeData } from './check.js';
 
 export default function StationManager() {
+
   this.deleteStation = function(dataName) {
     if (!isRegisteredStation(dataName)) {
       const deleteTarget = document.querySelector(`#${dataName}`);
       deleteTarget.remove();
-      localStorage.removeItem(dataName);
+      removeData("station", dataName);
     } else {
       const alertText = "노선에 등록된 역은 삭제할 수 없습니다.";
       alert(alertText);
@@ -62,7 +63,6 @@ export default function StationManager() {
 
   this.printStationList = function() {
     const stationData = JSON.parse(localStorage.station)
-    console.log(stationData)
     let stationList = document.querySelector("#station-list");
     let i;
     
@@ -74,7 +74,7 @@ export default function StationManager() {
 
   this.init = function() {
     this.getStationName();
-    if (localStorage) {
+    if (localStorage.getItem("station")) {
       this.printStationList();
       this.confirmDelete();
     }
