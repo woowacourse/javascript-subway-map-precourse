@@ -13,24 +13,32 @@ export default function SubwayMapManagement() {
   this.stations = load('stations') || [];
   this.lines = load('lines') || [];
 
+  this.setStations = stations => {
+    this.stations = stations;
+    save('stations', this.stations);
+    this.selectedMenu.render();
+  };
+
+  this.setLines = lines => {
+    this.lines = lines;
+    save('lines', this.lines);
+    this.selectedMenu.render();
+  };
+
   this.selectMenu = number => {
     this.selectedMenu = this.menu[number];
     this.selectedMenu.render();
   };
 
   this.addStation = name => {
-    this.stations = [...this.stations, new Station(name)];
-    save('stations', this.stations);
-    this.selectedMenu.render();
+    this.setStations([...this.stations, new Station(name)]);
   };
 
   this.deleteStation = idx => {
-    this.stations = [
+    this.setStations([
       ...this.stations.slice(0, idx),
       ...this.stations.slice(idx + 1),
-    ];
-    save('stations', this.stations);
-    this.selectedMenu.render();
+    ]);
   };
 
   this.getStations = () => {
@@ -38,15 +46,11 @@ export default function SubwayMapManagement() {
   };
 
   this.addLine = (name, stations) => {
-    this.lines = [...this.lines, new Line(name, stations)];
-    save('lines', this.lines);
-    this.selectedMenu.render();
+    this.setLines([...this.lines, new Line(name, stations)]);
   };
 
   this.deleteline = idx => {
-    this.lines = [...this.lines.slice(0, idx), ...this.lines.slice(idx + 1)];
-    save('lines', this.lines);
-    this.selectedMenu.render();
+    this.setLines([...this.lines.slice(0, idx), ...this.lines.slice(idx + 1)]);
   };
 
   this.getLines = () => {
