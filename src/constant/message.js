@@ -11,6 +11,8 @@ export const INVALID_LINE_STATION =
   "상행 종점과 하행 종점은 서로 다른 역으로 선택해주세요.";
 export const TWO_STATION_IN_LINE_ALERT =
   "상행 종점과 하행 종점만 있는 노선에서는 지하철역을 제거할 수 없습니다.";
+export const INVALID_SECTION_ORDER =
+  "순서는 0부터 구간에 등록된 지하철역의 개수 사이의 숫자를 입력해주세요.";
 
 export const DELETE_CONFIRM = "정말로 삭제하시겠습니까?";
 export const DELETE_FROM_LINE_CONFIRM = "정말로 노선에서 제거하시겠습니까?";
