@@ -17,7 +17,7 @@ export default function stationManagerPage($element) {
   const $lineTableBody = $element.querySelector('.line-table-tbody');
 
   const stations = stationStorage().getStation();
-  const lines = lineStorage().getLine();
+  let lines = lineStorage().getLine();
 
   $startStation.innerHTML = ALL_STATION_OPTION_LIST(stations);
   $endStation.innerHTML = ALL_STATION_OPTION_LIST(stations);
@@ -53,6 +53,22 @@ export default function stationManagerPage($element) {
     addLine(newLine);
   };
 
+  const deleteLine = (stationTag) => {
+    console.log(stationTag);
+    lines = lines.filter((line) => line.id !== parseInt(stationTag.id));
+    lineStorage().setLine(lines);
+    renderLines();
+  };
+
+  const onLineDeleteHandler = (e) => {
+    if (!e.target.classList.contains('line-delete-button')) {
+      return;
+    }
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      deleteLine(e.target.closest('tr'));
+    }
+  };
+
   const onLineSubmitHandler = () => {
     const newLineName = $userInputLine.value;
     const startStationName = $startStation.value;
@@ -68,5 +84,6 @@ export default function stationManagerPage($element) {
   };
 
   $userLineSubmitBtn.addEventListener('click', onLineSubmitHandler);
+  $lineTableBody.addEventListener('click', onLineDeleteHandler);
   renderLines();
 }
