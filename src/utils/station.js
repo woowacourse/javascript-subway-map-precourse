@@ -4,9 +4,8 @@ import {
   DELETE_MESSAGE_STATION,
   ERR_MESSAGE_STATION,
 } from "../constant.js";
-import { getNewId } from "./getNewId.js";
-import { getDataFromLocalStorage } from "./getDataFromLocalStorage.js";
-import { printStation, cleanPreView, controlDisplay } from "./controlView.js";
+import { getNewId, getDataFromLocalStorage } from "./data.js";
+import { printTable, cleanPreView, controlDisplay } from "./controlView.js";
 
 export function removeStationHandler(e) {
   if (confirm(DELETE_MESSAGE_STATION)) {
@@ -14,7 +13,7 @@ export function removeStationHandler(e) {
     const clearStation = this.station.filter((v) => v.id !== tr.dataset.id);
     this.station = clearStation;
     console.log(clearStation);
-    printStation.call(this);
+    printTable.call(this, STATION_DIV);
   }
 }
 export function stationAddHandler() {
@@ -24,7 +23,7 @@ export function stationAddHandler() {
       id: getNewId(),
       name: stationNameInput.value,
     });
-    printStation.call(this);
+    printTable.call(this, STATION_DIV);
     stationNameInput.value = "";
   } else {
     alert(ERR_MESSAGE_STATION);

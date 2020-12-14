@@ -34,7 +34,7 @@ export function makeTableStation(table) {
     <th>역 이름 </th> <th>설정</th>
   </thead>`;
   this.station.map((v) => {
-    const row = `<tr data-id=${v.id}>
+    const row = `<tr data-id=${v.id} data-value=${v.name}>
     <td>${v.name}</td>
     <td> <button class="station-delete-button">삭제</button></td>
   </tr>`;
@@ -43,15 +43,16 @@ export function makeTableStation(table) {
   tableButton.call(this, document.querySelectorAll(".station-delete-button"));
 }
 
-export function printStation() {
+export function printTable(NAME_DIV) {
   let table;
   if (!document.querySelector("table")) {
     table = document.createElement("table");
-    document.getElementById("app").children[STATION_DIV].append(table);
+    document.getElementById("app").children[NAME_DIV].append(table);
   }
   table = document.querySelector("table");
   table.innerHTML = "";
-  makeTableStation.call(this, table);
+  if (NAME_DIV === STATION_DIV) makeTableStation.call(this, table);
+  else if (NAME_DIV === LINE_DIV) makeTableLine.call(this, table);
 }
 
 export function clearSelect(lineSelect) {
@@ -59,12 +60,14 @@ export function clearSelect(lineSelect) {
     lineSelect.removeChild(lineSelect.firstChild);
   }
 }
+
 export function setDataSelect(name) {
   const lineSelect = document.getElementById(name);
   clearSelect(lineSelect);
   this.station.forEach((v) => {
     let option = document.createElement("option");
     option.dataset.id = v.id;
+    option.dataset.value = v.name;
     option.innerText = v.name;
     lineSelect.append(option);
   });

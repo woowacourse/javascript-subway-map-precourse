@@ -1,6 +1,14 @@
-import { getNewId } from "./getNewId.js";
-import { getDataFromLocalStorage } from "./getDataFromLocalStorage.js";
-import { cleanPreView, controlDisplay, setDataSelect } from "./controlView.js";
+import {
+  getNewId,
+  getDataFromLocalStorage,
+  getDataFromSelect,
+} from "./data.js";
+import {
+  cleanPreView,
+  controlDisplay,
+  setDataSelect,
+  printTable,
+} from "./controlView.js";
 import { LINE_DIV, ERR_MESSAGE_LINE, LINE_NAME_LIMIT } from "../constant.js";
 
 export function addLinetoStation(lineId, stationId) {
@@ -16,20 +24,23 @@ export function createLine(lineNameInput, destination) {
   this.line.push({
     id: lineId,
     name: lineNameInput,
-    stations: [{ id: destination[0] }, { id: destination[1] }],
+    stations: destination,
   });
-  destination.map((v) => addLinetoStation.call(this, lineId, v));
+  destination.map((v) => addLinetoStation.call(this, lineId, v.id));
 }
 
 export const isValidSelect = () => {
   const selectStart = document.getElementById("line-start-station-selector");
   const selectEnd = document.getElementById("line-end-station-selector");
-  let lineStartId = selectStart.options[selectStart.selectedIndex]?.dataset.id;
-  let lineEndId = selectEnd.options[selectEnd.selectedIndex]?.dataset.id;
+  const lineStartId = getDataFromSelect(selectStart, "id");
+  const lineEndId = getDataFromSelect(selectEnd, "id");
   if (lineStartId == null || lineEndId == null || lineStartId === lineEndId) {
     return false;
   } else {
-    return [lineStartId, lineEndId];
+    return [
+      { id: lineStartId, station: getDataFromSelect(selectStart, "value") },
+      { id: lineEndId, station: getDataFromSelect(selectEnd, "value") },
+    ];
   }
 };
 
@@ -41,12 +52,14 @@ export function lineAddHandler(e) {
     destination
   ) {
     createLine.call(this, lineNameInput.value, destination);
+    // printTable.call(this, LINE_DIV);
     lineNameInput.value = "";
   } else {
     alert(ERR_MESSAGE_LINE);
     lineNameInput.value = "";
   }
 }
+
 export function lineEventHandler(e) {
   getDataFromLocalStorage(this);
   cleanPreView(LINE_DIV);
@@ -54,6 +67,7 @@ export function lineEventHandler(e) {
   setDataSelect.call(this, "line-start-station-selector");
   setDataSelect.call(this, "line-end-station-selector");
 }
+
 export function lineInit() {
   const lineManagerButton = document.getElementById("line-manager-button");
   const lineAddButton = document.getElementById("line-add-button");

@@ -1,4 +1,4 @@
-import { getDataFromLocalStorage } from "./getDataFromLocalStorage.js";
+import { getDataFromLocalStorage } from "./data.js";
 import { cleanPreView, controlDisplay } from "./controlView.js";
 import { SELECTION_DIV } from "../constant.js";
 export function sectionEventHandler(e) {

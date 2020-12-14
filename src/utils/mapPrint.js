@@ -1,4 +1,4 @@
-import { getDataFromLocalStorage } from "./getDataFromLocalStorage.js";
+import { getDataFromLocalStorage } from "./data.js";
 import { cleanPreView } from "./controlView.js";
 export function mapPrintHandler() {
   getDataFromLocalStorage(this);
