@@ -20,9 +20,10 @@ class ManageSubwayLine {
   displayMenu = e => {
     const container = document.getElementsByClassName("content");
     const columnIndex = parseInt(e.target.dataset.column);
-
+    const functions = [new Station(), new Line(), new Section(), new Show()];
     for (let i = 0; i < container.length; i++) {
       if (i + 1 === columnIndex) {
+        functions[i];
         container[i].style.display = "block";
       } else {
         container[i].style.display = "none";

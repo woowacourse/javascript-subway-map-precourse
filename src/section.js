@@ -1,5 +1,4 @@
-import Station from "./station.js";
-import Line from "./line.js";
+import Storage from "./storage.js";
 import {
   createCustomElement,
   createSelect,
@@ -10,8 +9,8 @@ import {
 } from "./table.js";
 class Section {
   constructor() {
-    this.stations = Station.stations;
-    this.lines = Line.lines;
+    this.stations = Storage.loadItems("station");
+    this.lines = Storage.loadItems("line");
     this.lineName = null;
     this.showMenuButton();
     this.resetSection();
@@ -102,7 +101,7 @@ class Section {
     const index = document.getElementById("section-order-input").value;
     if (this.checkSectionVaild(station, index)) {
       Line.lines[this.lineName].splice(index, 0, station);
-      Line.saveLines();
+      Storage.saveItems("line");
       this.showSectionTable();
     } else {
       alert("이미 노선에 존재하는 역이거나 잘못된 순서값 입니다");
@@ -115,7 +114,7 @@ class Section {
       .innerHTML;
     if (Line.lines[this.lineName].length > 2) {
       Line.lines[this.lineName].splice(removeIndex, 1);
-      Line.saveLines();
+      Storage.saveItems("line");
       this.showSectionTable();
     } else {
       alert("노선에는 최소 상행종점, 하행종점 두개의 역이 존재해야 합니다");
@@ -135,4 +134,4 @@ class Section {
   };
 }
 
-export default new Section();
+export default Section;

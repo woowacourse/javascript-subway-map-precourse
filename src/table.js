@@ -56,11 +56,13 @@ class Table {
   };
 
   createSelect = (selectContainer, values) => {
-    values.forEach(value => {
-      selectContainer.appendChild(
-        this.createCustomElement({ tag: "option", innerHTML: value })
-      );
-    });
+    if (values) {
+      for (let i = 0; i < values.length; i++) {
+        selectContainer.appendChild(
+          this.createCustomElement({ tag: "option", innerHTML: values[i] })
+        );
+      }
+    }
   };
 }
 

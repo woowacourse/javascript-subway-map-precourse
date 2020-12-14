@@ -1,9 +1,9 @@
-import Line from "./line.js";
+import Storage from "./storage.js";
 import { createCustomElement } from "./table.js";
 
 class Show {
   constructor() {
-    this.lines = Line.lines;
+    this.lines = Storage.loadItems("line");
     this.showLines();
   }
 
@@ -40,4 +40,4 @@ class Show {
   };
 }
 
-export default new Show();
+export default Show;

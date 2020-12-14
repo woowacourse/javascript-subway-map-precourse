@@ -1,4 +1,4 @@
-import Station from "./station.js";
+import Storage from "./storage.js";
 import {
   createTable,
   createTr,
@@ -9,25 +9,12 @@ import {
 
 class Line {
   constructor() {
-    this.stations = Station.stations;
-    this.lines = {};
+    this.stations = Storage.loadItems("station");
+    this.lines = Storage.loadItems("line");
     this.showStationSelect();
     this.handleAddLineClick();
-    this.loadLines();
-  }
-
-  saveLines = () => {
-    localStorage.setItem("lines", JSON.stringify(this.lines));
-  };
-
-  loadLines = () => {
-    const lines = localStorage.getItem("lines");
-    if (lines !== null) {
-      this.lines = JSON.parse(lines);
-    }
-
     this.showLines();
-  };
+  }
 
   showStationSelect = () => {
     const upLineSelect = document.getElementById("line-start-station-selector");
@@ -83,7 +70,7 @@ class Line {
     const { lineName, upStation, downStation } = this.getLineInput();
     if (this.checkLineVaild(lineName)) {
       this.lines[lineName] = [upStation, downStation];
-      this.saveLines();
+      this.showLines();
       this.showLines();
     } else {
       alert("노선 이름이 없거나 중복된 노선 이름입니다");
@@ -95,7 +82,7 @@ class Line {
     const removeName = removeNode.querySelector("td").innerHTML;
     delete this.lines[removeName];
 
-    this.saveLines();
+    Storage.saveItems("line", this.lines);
     this.showLines();
   };
 
@@ -112,4 +99,4 @@ class Line {
   };
 }
 
-export default new Line();
+export default Line;

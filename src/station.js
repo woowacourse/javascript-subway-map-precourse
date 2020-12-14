@@ -1,28 +1,15 @@
+import Storage from "./storage.js";
 import {
   createTable,
   createTr,
   createValueTd,
   createButtonTd,
 } from "./table.js";
-class Station {
+export default class Station {
   constructor() {
-    this.stations = [];
-    this.loadStation();
+    this.stations = Storage.loadItems("station");
     this.handleAddNameClick();
   }
-
-  saveStation = () => {
-    localStorage.setItem("stations", JSON.stringify(this.stations));
-  };
-
-  loadStation = () => {
-    const stations = localStorage.getItem("stations");
-    if (stations !== null) {
-      this.stations = JSON.parse(stations);
-    }
-
-    this.showStation();
-  };
 
   createStationTable = () => {
     const stationTable = createTable(["역 이름", "설정"]);
@@ -63,7 +50,7 @@ class Station {
     const name = this.getNameInput();
     if (this.checkVaildName(name)) {
       this.stations.push(name);
-      this.saveStation();
+      Storage.saveItems("station", this.stations);
       this.showStation();
     } else {
       alert("잘못된 역 이름입니다");
@@ -79,11 +66,12 @@ class Station {
       }
     }
 
-    this.saveStation();
+    Storage.saveItems("station", this.stations);
     this.showStation();
   };
 
   handleAddNameClick = () => {
+    console.log(this.stations);
     const stationAddBtn = document.getElementById("station-add-button");
     stationAddBtn.addEventListener("click", this.addStation);
   };
@@ -97,5 +85,3 @@ class Station {
     }
   };
 }
-
-export default new Station();
