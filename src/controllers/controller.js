@@ -53,4 +53,12 @@ export default class Controller {
     const nodes = this.modelList.line.deleteData(lineName);
     this.modelList.station.updateData(nodes);
   }
+
+  getLineListAll() {
+    return this.modelList.line.getList();
+  }
+
+  getLineList(lineName) {
+    return this.modelList.line.getList().find(row => row[0].line === lineName);
+  }
 }

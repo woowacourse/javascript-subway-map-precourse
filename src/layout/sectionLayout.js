@@ -30,9 +30,20 @@ export default class SectionLayout extends PageLayout {
     return title;
   }
 
-  createStationSelector() {
+  createStationSelector(line) {
     const sectionStationSelector = document.createElement('select');
-    sectionStationSelector.id = '#section-station-selector';
+    sectionStationSelector.id = 'section-station-selector';
+    if (!line) return sectionStationSelector;
+
+    const lineList = this.controller.getLineList(line);
+    console.log(`lineList:`);
+    console.log(lineList);
+    for (const node of lineList) {
+      sectionStationSelector.insertAdjacentHTML(
+        'beforeend',
+        `<option>${node.name}</option>`,
+      );
+    }
 
     return sectionStationSelector;
   }
@@ -43,6 +54,7 @@ export default class SectionLayout extends PageLayout {
 
     return title;
   }
+
   createSectionOrderInput() {
     const sectionOrderInput = document.createElement('input');
     sectionOrderInput.id = 'section-order-input';
@@ -71,21 +83,41 @@ export default class SectionLayout extends PageLayout {
     return sectionOrderContainer;
   }
 
+  handleSectionLineMenuButton(target) {
+    // TODO: section 바꾸는 함수 일반화시켜서 사용
+    const { section, resultContainer } = this.elements;
+    resultContainer.querySelector('h2').innerHTML = `${target.innerText}`;
+    resultContainer
+      .querySelector('select')
+      .replaceWith(this.createStationSelector(target.innerText));
+
+    section.append(resultContainer);
+  }
+
   createSectionLineMenuButton(text) {
     const button = document.createElement('button');
     button.innerHTML = text;
+    button.className = 'section-line-menu-button';
+
+    button.addEventListener('click', e =>
+      this.handleSectionLineMenuButton(e.target),
+    );
 
     return button;
   }
 
   createInputContainer() {
     const sectionLineMenuButtonContainer = document.createElement('div');
-    // TODO: 버튼 동적으로 생성하기.
-    // class = '.section-line-menu-button'
     sectionLineMenuButtonContainer.append(
       this.createMenuButtonTitle('구간을 수정할 노선을 선택해주세요'),
-      this.createSectionLineMenuButton('temp'),
     );
+
+    const lineList = this.controller.getLineListAll(); // 2차원배열
+    for (const row of lineList) {
+      sectionLineMenuButtonContainer.append(
+        this.createSectionLineMenuButton(row[0].line),
+      );
+    }
 
     return sectionLineMenuButtonContainer;
   }
@@ -104,6 +136,7 @@ export default class SectionLayout extends PageLayout {
 
     return resultTitle;
   }
+
   createResultContainer() {
     const sectionResultContainer = document.createElement('div');
     sectionResultContainer.append(
@@ -128,6 +161,6 @@ export default class SectionLayout extends PageLayout {
   // override
   buildLayout() {
     const { section, inputContainer, resultContainer } = this.elements;
-    section.append(inputContainer, resultContainer);
+    section.append(inputContainer);
   }
 }

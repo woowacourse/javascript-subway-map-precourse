@@ -21,7 +21,7 @@ export default class LineModel {
   deleteData(line) {
     const lineList = this.getList();
     const index = lineList.findIndex(lineNodes => lineNodes[0].line === line);
-    const nodes = lineList.splice(index, 1)[0]; // splice결과가 이차원배열이기 때문
+    const nodes = lineList.splice(index, 1)[0]; // splice의 결과는 이차원배열
     localStorage.setItem('lineList', JSON.stringify(lineList));
 
     return nodes;
