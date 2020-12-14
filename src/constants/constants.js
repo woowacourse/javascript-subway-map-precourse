@@ -5,6 +5,7 @@ export const STANDARD = {
 export const MESSAGE = {
   STATION_NAME_LENGTH_ERROR: "역 이름은 2글자 이상",
   DUPLICATION_ERROR: "중복",
+  DUPLICATION_LINE_ERROR: "노선이름이 중복되었는지",
   START_END_SAME_ERROR: "상행종점과 하행종점이 다른지",
   EMPTY_ERROR: "칸이 비었는지",
   NUMBER_ERROR: "숫자만 적었는지",

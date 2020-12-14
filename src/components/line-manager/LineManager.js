@@ -11,6 +11,7 @@ export class LineManager {
     this.lineManagerInput = new LineManagerInput({
       getStations: getStations,
       setNewLine: this.addNewLines,
+      getLines: getLines,
     });
     this.lineManagerList = new LineManagerList({
       getLines: getLines,

@@ -11,8 +11,8 @@ export const isValidStationManager = (stationName, stations) => {
   return true;
 };
 
-export const isValidLineInfo = (name, start, end) => {
-  let error = getErrorsFromLineManager(name, start, end);
+export const isValidLineInfo = (lineName, lineNames, start, end) => {
+  let error = getErrorsFromLineManager(lineName, lineNames, start, end);
 
   if (error !== "") {
     showErrors(error + MESSAGE.CHECK_GUIDE);
@@ -43,8 +43,8 @@ const checkNameLength = (stationName) => {
   return stationName.length < STANDARD.STATION_NAME_LENGTH;
 };
 
-const isDuplicate = (stationName, stations) => {
-  return stations.includes(stationName);
+const isDuplicate = (element, elements) => {
+  return elements.includes(element);
 };
 
 const isNegative = (number) => {
@@ -68,14 +68,16 @@ const getErrorsFromStationManager = (stationName, stations) => {
   return error;
 };
 
-const getErrorsFromLineManager = (name, start, end) => {
+const getErrorsFromLineManager = (lineName, lineNames, start, end) => {
   let error = "";
-
   if (isSameStartAndEnd(start, end)) {
     error += MESSAGE.START_END_SAME_ERROR;
   }
-  if (isEmpty(name)) {
+  if (isEmpty(lineName)) {
     error += MESSAGE.EMPTY_ERROR;
+  }
+  if (isDuplicate(lineName, lineNames)) {
+    error += MESSAGE.DUPLICATION_LINE_ERROR;
   }
 
   return error;
@@ -93,5 +95,6 @@ const getErrorFromSectionManager = (order, station, stations) => {
   if (isDuplicate(station, stations)) {
     error += MESSAGE.DUPLICATION_ERROR;
   }
+
   return error;
 };
