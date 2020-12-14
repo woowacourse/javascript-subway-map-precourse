@@ -48,6 +48,9 @@ export default class Subway {
 
   addSection = ({ lineName, order, station }) => {
     const section = this._lines.get(lineName);
+    if (section.includes(station)) {
+      return alert('이미 등록된 역입니다.');
+    }
     section.splice(order, 0, station);
   }
 
