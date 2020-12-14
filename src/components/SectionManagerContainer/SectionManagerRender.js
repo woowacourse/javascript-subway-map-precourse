@@ -51,6 +51,8 @@ export default class SectionManagerRender extends Component {
     this.enrollSection.innerHTML = this.sectionLineManagerRender(
       selectedMenuDataset
     );
+
+    this.sectionLineManagerListRender(selectedMenuDataset);
   }
 
   sectionLineManagerRender(dataset) {
@@ -73,7 +75,7 @@ export default class SectionManagerRender extends Component {
           <th>이름</th>
           <th>설정</th>
         </thead>
-        <tbody id=${DOM_SECTION.SECTION_DELETE_TBODY_ID}>
+        <tbody id=${DOM_SECTION.SECTION_LIST_TBODY_ID}>
         </tbody>
       </table>
     </div>
@@ -90,5 +92,39 @@ export default class SectionManagerRender extends Component {
     });
 
     return optionInnerHTML;
+  }
+
+  sectionLineManagerListRender(dataset) {
+    const tbody = document.getElementById(DOM_SECTION.SECTION_LIST_TBODY_ID);
+
+    console.log(dataset);
+    const linesInfo = JSON.parse(dataset.lines);
+    const lineIndex = dataset.index;
+
+    linesInfo.forEach((station, idx) => {
+      const tr = document.createElement("tr");
+      const deleteTd = document.createElement("td");
+      const deleteBtn = document.createElement("button");
+
+      tr.dataset.linesIndex = lineIndex;
+      tr.dataset.station = station;
+      tr.innerHTML = `
+      <td>${idx}</td>
+      <td>${station}</td>
+      `;
+
+      deleteBtn.innerText = "노선에서 제거";
+      deleteBtn.setAttribute("class", DOM_SECTION.SECTION_DELETE_BUTTON_CLASS);
+      deleteTd.appendChild(deleteBtn);
+      tr.appendChild(deleteTd);
+      tbody.appendChild(tr);
+
+      deleteBtn.addEventListener("click", (e) => this._onClickDeleteSection(e));
+    });
+  }
+
+  _onClickDeleteSection(e) {
+    e.preventDefault();
+    console.log(e);
   }
 }

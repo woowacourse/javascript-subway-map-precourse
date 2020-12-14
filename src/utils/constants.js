@@ -32,7 +32,7 @@ export const DOM_SECTION = {
   SECTION_DELETE_BUTTON_CLASS: "section-delete-button",
   SECTION_LINE_MENU_NAV_ID: "section-line-menu-nav",
   SECTION_ADD_FORM_ID: "section-add-form",
-  SECTION_DELETE_TBODY_ID: "section-delete-tbody",
+  SECTION_LIST_TBODY_ID: "section-list-tbody",
 };
 
 export const DOM_ID = {
