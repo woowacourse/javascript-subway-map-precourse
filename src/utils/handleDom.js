@@ -34,7 +34,7 @@ export const addRowInSectionTable = (table, order, station, field) => {
 
   addCell(tr, order);
   addCell(tr, station);
-  addCell(tr, addDeleteButton(name, `${DELETE_GUIDE.DELETE_IN_LINE}`, field));
+  addCell(tr, addDeleteButton(order, `${DELETE_GUIDE.DELETE_IN_LINE}`, field));
   table.appendChild(tr);
 };
 
@@ -45,8 +45,8 @@ const addCell = (tr, value) => {
   tr.appendChild(td);
 };
 
-const addDeleteButton = (name, buttonName, field) => {
-  return `<button class="delete-button" data-${field}="${name}">${buttonName}</button>`;
+const addDeleteButton = (value, buttonName, field) => {
+  return `<button class="delete-button" data-${field}="${value}">${buttonName}</button>`;
 };
 
 export const addOptionTag = (selector, station) => {

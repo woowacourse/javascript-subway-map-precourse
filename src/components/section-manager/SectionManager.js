@@ -42,7 +42,6 @@ export class SectionManager {
 
   updateSectionManagerByLine = (lineName) => {
     this.lineName = lineName;
-    // let line = this.getLineMatchedWith(lineName);
     showDOM(this.sectionManagerContaionerByLines);
     showDOM(this.sectionManagerListContainer);
     this.sectionManagerInput.render({ lineName: lineName });
@@ -81,13 +80,15 @@ export class SectionManager {
     this.setLines(lines);
   };
 
-  deleteStationInLine = (order, lineName) => {
+  deleteStationInLine = (order) => {
     let lines = this.getLines();
-
+    console.log(order);
     lines.forEach((line) => {
-      if (line.lineName === lineName) {
+      if (line.lineName === this.lineName) {
         let newStations = line.stations;
+        console.log(newStations);
         newStations.splice(order, 1);
+        console.log(newStations);
         line.stations = newStations;
       }
     });

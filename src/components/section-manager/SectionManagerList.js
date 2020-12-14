@@ -1,5 +1,6 @@
 import { addRowInSectionTable } from "../../utils/handleDom.js";
 import { getSectionTableHeader } from "../../utils/templates.js";
+import { FIELD } from "../../constants/constants.js";
 export class SectionManagerList {
   constructor({ getLines, deleteStationInLine }) {
     this.getLines = getLines;
@@ -29,11 +30,12 @@ export class SectionManagerList {
 
   makeTableBody = (stations) => {
     for (let i = 0; i < stations.length; i++) {
-      addRowInSectionTable(this.sectionTable, i, stations[i]);
+      addRowInSectionTable(this.sectionTable, i, stations[i], FIELD.SECTION);
     }
   };
 
-  handleDeleteStation = () => {
-    this.deleteStationInLine(order, lineName);
+  handleDeleteStation = (e) => {
+    let order = e.target.dataset.section;
+    this.deleteStationInLine(order);
   };
 }
