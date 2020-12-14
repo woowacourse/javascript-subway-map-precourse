@@ -1,4 +1,5 @@
-import { printStations } from '../print.js';
+import { printStations } from '../util/output.js';
+
 export const setStation = (stations) => {
   localStorage.setItem('stations', JSON.stringify(stations));
   printStations();

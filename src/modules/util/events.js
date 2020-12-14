@@ -1,10 +1,10 @@
-import Station from './station/station.js';
-import Line from './line/line.js';
-import { deleteStation } from './station/stationDataHandler.js';
-import { deleteLine, updateLine } from './line/lineDataHandler.js';
-import Subway from './subwayManagementSystem.js';
-import { showSectionManager } from './section/sectionElemGenerator.js';
-import { deleteStationFromLine } from './section/sectionDataHandler.js';
+import Station from '../station/station.js';
+import Line from '../line/line.js';
+import { deleteStation } from '../station/stationDataHandler.js';
+import { deleteLine, updateLine } from '../line/lineDataHandler.js';
+import Subway from '../subwayManagementSystem.js';
+import { showSectionManager } from '../section/sectionElemGenerator.js';
+import { deleteStationFromLine } from '../section/sectionDataHandler.js';
 
 export const addEventToManagerBtn = () => {
   const managerButtons = document.querySelector('#manager-buttons');
@@ -24,17 +24,17 @@ export const addEventToCreateStationBtn = () => {
   });
 };
 
-export const addEventToDeleteBtn = (listId) => {
-  const tableBody = document.querySelector(listId);
+export const addEventToDeleteBtn = (tagId) => {
+  const tableBody = document.querySelector(tagId);
   tableBody.addEventListener('click', (event) => {
     const isButton = event.target.nodeName === 'BUTTON';
     if (!isButton) {
       return;
     }
-    if (listId === '#station-list') {
+    if (tagId === '#station-list') {
       return deleteStation(event);
     }
-    if (listId === '#line-list') {
+    if (tagId === '#line-list') {
       return deleteLine(event);
     }
     return deleteStationFromLine(event);

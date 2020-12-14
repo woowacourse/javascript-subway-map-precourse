@@ -1,13 +1,16 @@
-import { printStations } from '../print.js';
+import { printStations } from '../util/output.js';
 import { setStation, getStation } from './stationDataHandler.js';
-import { addEventToCreateStationBtn, addEventToDeleteBtn } from '../event.js';
-import { clearInput } from '../inputHandler.js';
+import {
+  addEventToCreateStationBtn,
+  addEventToDeleteBtn,
+} from '../util/events.js';
+import Subway from '../subwayManagementSystem.js';
 
 export default class Station {
   constructor() {
-    printStations();
     addEventToCreateStationBtn();
     addEventToDeleteBtn('#station-list');
+    printStations();
   }
 
   static createStation() {
@@ -16,6 +19,6 @@ export default class Station {
     const stations = getStation();
     stations.push(station);
     setStation(stations);
-    clearInput(stationNameInput);
+    Subway.clearInput(stationNameInput);
   }
 }

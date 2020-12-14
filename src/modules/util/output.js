@@ -1,6 +1,6 @@
-import { getStation } from './station/stationDataHandler.js';
-import { getLineName, getSelectedLineData } from './line/lineDataHandler.js';
-import { addEventToDeleteSectionBtn } from './event.js';
+import { getStation } from '../station/stationDataHandler.js';
+import { getLineName, getSelectedLineData } from '../line/lineDataHandler.js';
+import { addEventToDeleteSectionBtn } from './events.js';
 
 export const printStations = () => {
   const stations = getStation();
@@ -44,11 +44,20 @@ export const printSection = (line) => {
   addEventToDeleteSectionBtn();
 };
 
+const clearTable = (bodyId) => {
+  const tableBody = document.querySelector(bodyId);
+  tableBody.innerHTML = '';
+};
+
 export const refreshMapData = () => {
   if (document.querySelector('.map')) {
     clearMapData();
   }
   printMapData();
+};
+
+const clearMapData = () => {
+  document.querySelector('.map').remove();
 };
 
 export const printMapData = () => {
@@ -67,13 +76,4 @@ export const printMapData = () => {
     data += `</ul>`;
   });
   map.innerHTML = data;
-};
-
-const clearMapData = () => {
-  document.querySelector('.map').remove();
-};
-
-const clearTable = (bodyId) => {
-  const tableBody = document.querySelector(bodyId);
-  tableBody.innerHTML = '';
 };

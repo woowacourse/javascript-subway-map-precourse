@@ -1,12 +1,12 @@
-import { loadStationData, setLine } from './lineDataHandler.js';
-import { clearInput } from '../inputHandler.js';
-import { addEventToCreateLineBtn, addEventToDeleteBtn } from '../event.js';
-import { printLines } from '../print.js';
+import { setLine } from './lineDataHandler.js';
+import {
+  addEventToCreateLineBtn,
+  addEventToDeleteBtn,
+} from '../util/events.js';
+import Subway from '../subwayManagementSystem.js';
 
 export default class Line {
   constructor() {
-    printLines();
-    loadStationData();
     addEventToCreateLineBtn();
     addEventToDeleteBtn('#line-list');
   }
@@ -17,7 +17,7 @@ export default class Line {
       .value;
     const endStation = document.querySelector('#line-end-station-selector')
       .value;
-    setLine(lineNameInput, startStation, endStation);
-    clearInput(lineNameInput);
+    setLine(lineNameInput.value, [startStation, endStation]);
+    Subway.clearInput(lineNameInput);
   }
 }

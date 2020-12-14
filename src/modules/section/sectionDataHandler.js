@@ -1,12 +1,12 @@
-import { makeLineNameBtn } from './sectionElemGenerator.js';
+import { createLineNameBtn } from './sectionElemGenerator.js';
 import { getLineName, getSelectedLineData } from '../line/lineDataHandler.js';
 import { setStationDataToOption } from '../line/lineElemGenerator.js';
 import { getStation } from '../station/stationDataHandler.js';
-import { printSection } from '../print.js';
+import { printSection } from '../util/output.js';
 
 export const loadLineName = () => {
   const lineNames = getLineName();
-  makeLineNameBtn(lineNames);
+  createLineNameBtn(lineNames);
 };
 
 export const loadSectionStationData = () => {

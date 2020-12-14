@@ -1,13 +1,16 @@
 import Line from './line/line.js';
 import Station from './station/station.js';
-import { addEventToCreateSectionBtn, addEventToManagerBtn } from './event.js';
+import {
+  addEventToCreateSectionBtn,
+  addEventToManagerBtn,
+} from './util/events.js';
 import StationInLine from './section/section.js';
 import {
   hideSectionManager,
   refreshLineNameBtn,
 } from './section/sectionElemGenerator.js';
-import { refreshOptionData } from './line/lineElemGenerator.js';
-import { refreshMapData } from './print.js';
+import { refreshLineModule } from './line/lineElemGenerator.js';
+import { refreshMapData } from './util/output.js';
 
 export default class SubwayManagementSystem {
   constructor() {
@@ -19,13 +22,13 @@ export default class SubwayManagementSystem {
   }
 
   static selectModule(e) {
-    hideSectionManager();
     let selector;
+    hideSectionManager();
     if (e.target.id === 'station-manager-button') {
       selector = '#station-module';
     } else if (e.target.id === 'line-manager-button') {
       selector = '#line-module';
-      refreshOptionData();
+      refreshLineModule();
     } else if (e.target.id === 'section-manager-button') {
       selector = '#section-module';
       refreshLineNameBtn();
@@ -59,5 +62,10 @@ export default class SubwayManagementSystem {
       let section = document.querySelector(module);
       section.style.display = 'none';
     });
+  }
+
+  static clearInput(elem) {
+    elem.value = '';
+    elem.focus();
   }
 }

@@ -1,6 +1,7 @@
 import { getStation } from '../station/stationDataHandler.js';
-import { printLines, printSection } from '../print.js';
+import { printLines, printSection } from '../util/output.js';
 import { setStationDataToOption } from './lineElemGenerator.js';
+import Subway from '../subwayManagementSystem.js';
 
 export const loadStationData = () => {
   const stations = getStation();
@@ -14,22 +15,26 @@ export const loadStationData = () => {
   setStationDataToOption(stations, endStationSelector);
 };
 
-export const setLine = (inputElem, start, end) => {
-  const lineName = inputElem.value;
-  localStorage.setItem(lineName, JSON.stringify([start, end]));
-  //   printStations();
-  setLineName(addLineName(lineName));
+export const setLine = (lineName, stations) => {
+  // const lineName = inputElem.value;
+  localStorage.setItem(lineName, JSON.stringify(stations));
+  setLineName(updateLineName(lineName));
   printLines();
+};
+
+export const getSelectedLineData = (lineName) => {
+  return JSON.parse(localStorage.getItem(lineName));
 };
 
 export const updateLine = () => {
   const lineName = document.querySelector('#title').dataset.line;
   const station = document.querySelector('#section-station-selector').value;
-  const idx = document.querySelector('#section-order-input').value;
+  const input = document.querySelector('#section-order-input');
   let stations = getSelectedLineData(lineName);
-  stations.splice(idx, 0, station);
+  stations.splice(input.value, 0, station);
   localStorage.setItem(lineName, JSON.stringify(stations));
   printSection(lineName);
+  Subway.clearInput(input);
 };
 
 export const deleteLine = (e) => {
@@ -38,13 +43,12 @@ export const deleteLine = (e) => {
   const idx = names.indexOf(lineName);
   names.splice(idx, 1);
   setLineName(names);
-  console.log(lineName);
   localStorage.removeItem(lineName);
   printLines();
 };
 
-export const getSelectedLineData = (selectedLine) => {
-  return JSON.parse(localStorage.getItem(selectedLine));
+export const setLineName = (lineNames) => {
+  localStorage.setItem('lines', JSON.stringify(lineNames));
 };
 
 export const getLineName = () => {
@@ -54,12 +58,8 @@ export const getLineName = () => {
   return JSON.parse(localStorage.getItem('lines'));
 };
 
-export const addLineName = (lineName) => {
+const updateLineName = (lineName) => {
   const lineNames = getLineName();
   lineNames.push(lineName);
   return lineNames;
-};
-
-export const setLineName = (lineNames) => {
-  localStorage.setItem('lines', JSON.stringify(lineNames));
 };

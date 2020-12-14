@@ -1,9 +1,9 @@
 import { loadLineName, loadSectionStationData } from './sectionDataHandler.js';
-import { addEventToLineNameBtn } from '../event.js';
+import { addEventToLineNameBtn } from '../util/events.js';
 import { deleteOption } from '../line/lineElemGenerator.js';
-import { printSection } from '../print.js';
+import { printSection } from '../util/output.js';
 
-export const makeLineNameBtn = (lineNames) => {
+export const createLineNameBtn = (lineNames) => {
   const parentElem = document.querySelector('#parent');
   lineNames.forEach((lineName) => {
     let lineNameBtn = document.createElement('button');
