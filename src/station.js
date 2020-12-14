@@ -13,7 +13,9 @@ class Station {
   }
 
   refreshStation = () => {
-    this.stations = Storage.loadItems("station");
+    const stations = Storage.loadItems("station");
+    if (stations !== null) this.stations = stations;
+
     this.showStation();
   };
 
@@ -66,11 +68,25 @@ class Station {
     }
   };
 
+  checkDeleteVaild = valueNode => {
+    const lines = Storage.loadItems("line");
+    const value = valueNode.firstChild.innerHTML;
+    for (let i = 0; i < Object.keys(lines).length; i++) {
+      if (lines[Object.keys(lines)[i]].includes(value)) {
+        alert("노선에 존재하는 역이라 삭제가 불가능합니다");
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   deleteStation = e => {
     if (!confirm("정말로 역을 삭제하시겠습니까?")) return;
 
     const removeNode = e.target.parentNode.parentNode;
     const removeIndex = removeNode.dataset.index;
+    if (!this.checkDeleteVaild(removeNode)) return;
     for (let i = 0; i < this.stations.length; i++) {
       if (i === parseInt(removeIndex)) {
         this.stations.splice(i, 1);
