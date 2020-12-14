@@ -9,6 +9,11 @@ export default class Subway {
     return this._stations.has(station);
   }
 
+  isDuplicateLine = ({ lineName }) => {
+    const lineNames = this.getLineNames();
+    return lineNames.includes(lineName);
+  }
+
   addStation = ({ station }) => {
     if (this.isDuplicateStation({ station })) {
       return alert('중복되는 역이 존재합니다.');
@@ -24,6 +29,15 @@ export default class Subway {
   }
 
   addLine = ({ lineName, start, end }) => {
+    if (lineName === '') {
+      return alert('노선 이름을 입력해주세요.');
+    }
+    if (start === end) {
+      return alert('상행 종점역과 하행 종점역이 같을 순 없습니다.');
+    }
+    if (this.isDuplicateLine({ lineName })) {
+      return alert('중복되는 라인이 존재합니다');
+    }
     const section = [start, end];
     this._lines.set(lineName, section);
   }
@@ -37,5 +51,9 @@ export default class Subway {
       const [lineName, section] = line;
       return [...acc, { lineName, section }];
     }, []);
+  }
+
+  getLineNames = () => {
+    return [...this._lines.keys()];
   }
 }
