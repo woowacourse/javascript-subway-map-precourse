@@ -1,6 +1,7 @@
 import Station from "./Station.js";
 import Line from "./Line.js";
 import { DELETE_FROM_LINE_BUTTON } from "../constant/constant.js";
+import { DELETE_FROM_LINE_CONFIRM } from "../constant/message.js";
 
 export default class SectionManager {
   constructor() {
@@ -61,8 +62,15 @@ export default class SectionManager {
   };
 
   _deleteStation = e => {
+    const confirmDelete = confirm(DELETE_FROM_LINE_CONFIRM);
+
+    if (!confirmDelete) {
+      return;
+    }
+
     const stationName = e.target.dataset.name;
     this._line.deleteStationFromLine(stationName, this._selectedLineName);
+    this._printSectionList(this._selectedLineName);
   };
 
   _printLineMenuList = () => {
