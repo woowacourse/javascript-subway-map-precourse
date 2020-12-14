@@ -21,9 +21,8 @@ export default class DeleteStationValidation {
   // 지울 역이 포함된 노선들 모두 탐색(배열)
   _getLinesContainThisStation() {
     return lineSelector()
-      .filter(({ stations }) => {
-        if (stations.length <= MIN_LENGTH_OF_LINE)
-          this.isLessThanMinLength = true;
+      .filter(({ stations, lineLength }) => {
+        if (lineLength <= MIN_LENGTH_OF_LINE) this.isLessThanMinLength = true;
         return stations.includes(this.deletedStationName);
       })
       .map(({ lineName }) => lineName);

@@ -6,6 +6,7 @@ export default class Line {
     this.lineName = lineName;
     this.isNewLine = stations === undefined;
     this.stations = this.isNewLine ? [startStation, endStation] : stations;
+    this.lineLength = this.stations.length;
   }
 
   addSectionInfo(sectionInfo) {
@@ -13,13 +14,11 @@ export default class Line {
   }
 
   deleteStation(stationName) {
-    if (this.stations.length <= MIN_LENGTH_OF_LINE) return;
+    if (this.lineLength <= MIN_LENGTH_OF_LINE) return;
     const deletedStationIndex = this.stations.indexOf(stationName);
     const updatedStationList = this.stations
       .slice(0, deletedStationIndex)
-      .concat(
-        this.stations.slice(deletedStationIndex + 1, this.stations.length),
-      );
+      .concat(this.stations.slice(deletedStationIndex + 1, this.lineLength));
     this.stations = updatedStationList;
   }
 }
