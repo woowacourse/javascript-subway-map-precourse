@@ -1,3 +1,5 @@
+import { MESSAGE } from "../../utils/constants/message.js";
+
 class LineTable {
   constructor($target, { stationStore, lineStore }) {
     this.$target = $target;
@@ -54,6 +56,11 @@ class LineTable {
 
   onClick({ target }) {
     if (!target.classList.contains(`line-delete-button`)) return;
+    const name = target.closest(`tr`).firstElementChild.dataset.name;
+
+    if (!confirm(MESSAGE.CONFIRM)) return;
+    this.lineStore.removeLine(name);
+    localStorage.setItem(`LINE`, JSON.stringify(this.lineStore.lines));
   }
 
   render = () => {
