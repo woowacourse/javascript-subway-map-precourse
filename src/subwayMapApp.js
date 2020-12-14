@@ -1,17 +1,21 @@
+import stationManagerPage from './components/stationManagerPage.js';
+import lineManagerPage from './components/lineManagerPage.js';
+
 export default function subwayMapApp($element) {
   const $stationManagerBtn = $element.querySelector('#station-manager-button');
   const $lineManagerBtn = $element.querySelector('#line-manager-button');
   const $sectionManagerBtn = $element.querySelector('#section-manager-button');
   const $mapPrintManagerBtn = $element.querySelector('#map-print-manager-button');
+  const $contentSection = $element.querySelector('.content-container');
 
   const onStationManageHandler = () => {
-    console.log('역관리 입니다.');
+    stationManagerPage($contentSection);
   };
   const onLineManageHandler = () => {
-    console.log('라인관리 입니다.');
+    console.log('노선관리 입니다.');
   };
   const onSectionManageHandler = () => {
-    console.log('노선관리 입니다.');
+    console.log('구간관리 입니다.');
   };
   const onMapPrintManageHandler = () => {
     console.log('전체 노선도 출력 입니다.');
