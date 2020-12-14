@@ -1,22 +1,28 @@
+import { existStationName, pushNewStation } from "./utils/station.js";
 import {
-  existStationName,
-  pushNewStation,
-  removeStation,
-} from "./utils/station.js";
-import { addClickEventFromId, resetStationTable } from "./utils/dom.js";
-import { getStateFromStorage, setStateToStorage } from "./utils/storage.js";
+  addClickEventFromId,
+  resetLineTable,
+  renderStationTable,
+  renderLineTable,
+} from "./utils/dom.js";
+import { setStateToStorage } from "./utils/storage.js";
 import {
   INPUT_ALREADY_EXIST_NAME_MESSAGE,
   INPUT_LESS_THAN_2_MESSAGE,
-  DELETE_TEXT,
-  LOCAL_STORAGE_STATIONS_KEY,
+  INPUT_ALREADY_EXIST_LINE_NAME_MESSAGE,
+  CANT_SAME_START_AND_END_MESSAGE,
+  ALREAY_EXIST_SAME_END_POINTS,
+  LOCAL_STORAGE_LINES_KEY,
 } from "./constants/index.js";
+import { existLineName, existLineSameEndPoints } from "./utils/line.js";
 import Header from "./Header.js";
+import Line from "./Line.js";
 
 export default class SubwayMapManager {
   constructor() {
     new Header();
     this.clickAddStationEventListener();
+    this.lineAddClickEventListener();
   }
 
   clickAddStationEventListener() {
@@ -33,35 +39,34 @@ export default class SubwayMapManager {
         return;
       }
       pushNewStation(stationInputValue);
-      this.renderStationList();
+      renderStationTable();
     });
   }
 
-  renderStationList() {
-    const stations = getStateFromStorage(LOCAL_STORAGE_STATIONS_KEY);
-    if (!stations) {
-      return;
-    }
-    resetStationTable();
-    const stationTableBody = document.getElementById("station-table-body");
-    stations.forEach((station) => {
-      const tableRow = document.createElement("tr");
-      const stationTableData = document.createElement("td");
-      const tableSetData = document.createElement("td");
-      const stationDeleteButton = document.createElement("button");
-      stationTableData.innerText = station;
-      stationDeleteButton.setAttribute("class", "station-delete-button");
-      stationDeleteButton.innerText = DELETE_TEXT;
-      stationDeleteButton.onclick = () => {
-        removeStation(station);
-        this.renderStationList();
-      };
-      tableSetData.append(stationDeleteButton);
-      tableRow.append(stationTableData, tableSetData);
-      stationTableBody.append(tableRow);
+  lineAddClickEventListener() {
+    addClickEventFromId("line-add-button", () => {
+      const lineNameValue = document.getElementById("line-name-input").value;
+      const startValue = document.getElementById("line-start-station-selector")
+        .value;
+      const endValue = document.getElementById("line-end-station-selector")
+        .value;
+      if (existLineName(lineNameValue)) {
+        alert(INPUT_ALREADY_EXIST_LINE_NAME_MESSAGE);
+        return;
+      }
+      if (startValue === endValue) {
+        alert(CANT_SAME_START_AND_END_MESSAGE);
+        return;
+      }
+      if (existLineSameEndPoints([startValue, endValue])) {
+        alert(ALREAY_EXIST_SAME_END_POINTS);
+        return;
+      }
+      new Line(lineNameValue, [startValue, endValue]).add();
+      resetLineTable();
+      renderLineTable();
     });
   }
 }
 
 new SubwayMapManager();
-setStateToStorage(LOCAL_STORAGE_STATIONS_KEY, null);
