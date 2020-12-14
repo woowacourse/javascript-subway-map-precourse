@@ -1,13 +1,17 @@
 import { message } from '../../constants';
 
 export default class LineViewEventDelegator {
-  constructor(lineView, subwayMapViewModel) {
-    this.lineView = lineView;
+  constructor(subwayMapViewModel) {
+    this.lineView = null;
     this.subwayMapViewModel = subwayMapViewModel;
   }
 
   bindEvent(element) {
     element.addEventListener('click', this.onClick.bind(this));
+  }
+
+  bindLineView(lineView) {
+    this.lineView = lineView;
   }
 
   onClick(event) {

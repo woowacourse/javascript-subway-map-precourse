@@ -6,7 +6,9 @@ export default class SubwayMapLineView {
   constructor(subwayMapViewModel, managerContainer, lineManagerButton) {
     this.managerContainer = managerContainer;
     this.subwayMapViewModel = subwayMapViewModel;
-    this.eventDelegator = new LineViewEventDelegator(this, this.subwayMapViewModel);
+    this.eventDelegator = new LineViewEventDelegator(this.subwayMapViewModel);
+
+    this.eventDelegator.bindLineView(this);
     this.eventDelegator.bindEvent(lineManagerButton);
   }
 

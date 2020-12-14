@@ -5,7 +5,9 @@ export default class SubwayMapMapPrintView {
   constructor(subwayMapViewModel, managerContainer, mapPrintManagerButton) {
     this.subwayMapViewModel = subwayMapViewModel;
     this.managerContainer = managerContainer;
-    this.eventDelegator = new MapPrintViewEventDelegator(this, this.subwayMapViewModel);
+    this.eventDelegator = new MapPrintViewEventDelegator(this.subwayMapViewModel);
+
+    this.eventDelegator.bindMapPrintView(this);
     this.eventDelegator.bindEvent(mapPrintManagerButton);
   }
 

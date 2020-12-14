@@ -1,11 +1,15 @@
 export default class MapPrintViewEventDelegator {
-  constructor(mapPrintView, subwayMapViewModel) {
-    this.mapPrintView = mapPrintView;
+  constructor(subwayMapViewModel) {
+    this.mapPrintView = null;
     this.subwayMapViewModel = subwayMapViewModel;
   }
 
   bindEvent(element) {
     element.addEventListener('click', this.onClick.bind(this));
+  }
+
+  bindMapPrintView(mapPrintView) {
+    this.mapPrintView = mapPrintView;
   }
 
   onClick(event) {
