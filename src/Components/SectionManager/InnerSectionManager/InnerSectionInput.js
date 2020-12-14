@@ -53,6 +53,10 @@ class InnerSectionInput {
     if (!isValidSectionNumber(this.$input, sections, name, order)) {
       return false;
     }
+
+    clearInput(this.$input);
+    this.lineStore.addSection(this.lineName, name, order);
+    localStorage.setItem(`LINE`, JSON.stringify(this.lineStore.lines));
   }
 
   render = () => {
