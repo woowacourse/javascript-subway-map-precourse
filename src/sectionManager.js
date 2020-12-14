@@ -1,4 +1,5 @@
 import { clearPage, createSubmitBtn, createSelectbox, createTable } from './utils.js';
+import { sectionText as T } from './constants.js';
 
 const app = document.getElementById('app');
 
@@ -10,7 +11,7 @@ export const initSectionManager = () => {
 const printGuideText = () => {
   const sectionHeader = document.createElement('div');
   const sectionTitle = document.createElement('h3');
-  sectionTitle.innerText = '구간을 수정할 노선을 선택해주세요.';
+  sectionTitle.innerText = T.guideText;
   sectionHeader.appendChild(sectionTitle);
   createMenuButtons(sectionHeader);
 
@@ -22,7 +23,7 @@ const createMenuButtons = sectionHeader => {
   if (currLines) {
     Object.keys(currLines).map(line => {
       const lineBtn = document.createElement('button');
-      lineBtn.setAttribute('class', 'section-line-menu-button');
+      lineBtn.setAttribute('class', T.menuButtonsClass);
       lineBtn.innerHTML = line;
       lineBtn.style.margin = '2px';
       lineBtn.addEventListener('click', () => {
@@ -36,9 +37,9 @@ const createMenuButtons = sectionHeader => {
 };
 
 const clearInputs = () => {
-  const sectionInputArea = document.getElementById('section-input');
-  const selectArea = document.getElementById('section-selector');
-  const sectionTable = document.getElementById('section-table');
+  const sectionInputArea = document.getElementById(T.inputId);
+  const selectArea = document.getElementById(T.selectAreaId);
+  const sectionTable = document.getElementById(T.tableId);
 
   if (sectionInputArea && selectArea && sectionTable) {
     app.removeChild(sectionInputArea);
@@ -49,15 +50,15 @@ const clearInputs = () => {
 
 const manageLineSection = line => {
   const sectionInputArea = document.createElement('div');
-  sectionInputArea.setAttribute('id', 'section-input');
+  sectionInputArea.setAttribute('id', T.inputId);
 
   const manageTitle = document.createElement('h3');
-  manageTitle.innerHTML = `${line} 관리`;
-  const registerText = document.createElement('b');
-  registerText.innerHTML = '구간 등록';
+  manageTitle.innerHTML = `${line} ${T.manageText}`;
+  const registerTitle = document.createElement('b');
+  registerTitle.innerHTML = T.registerText;
 
   sectionInputArea.appendChild(manageTitle);
-  sectionInputArea.appendChild(registerText);
+  sectionInputArea.appendChild(registerTitle);
 
   app.appendChild(sectionInputArea);
   createSelectArea(line);
@@ -65,11 +66,11 @@ const manageLineSection = line => {
 
 const createSelectArea = line => {
   const selectArea = document.createElement('div');
-  selectArea.setAttribute('id', 'section-selector');
+  selectArea.setAttribute('id', T.selectAreaId);
 
   const currStations = JSON.parse(localStorage.getItem('stations'));
   const stationSelect = document.createElement('select');
-  createSelectbox(stationSelect, 'section-station-selector', currStations);
+  createSelectbox(stationSelect, T.selectorId, currStations);
 
   let selectedStation = stationSelect.options[stationSelect.selectedIndex].value;
   stationSelect.addEventListener('change', () => {
@@ -78,10 +79,10 @@ const createSelectArea = line => {
 
   const orderInput = document.createElement('input');
   orderInput.type = 'number';
-  orderInput.setAttribute('id', 'section-order-input');
-  orderInput.setAttribute('placholder', '순서');
+  orderInput.setAttribute('id', T.orderInputId);
+  orderInput.setAttribute('placholder', T.placeholder);
 
-  const submitBtn = createSubmitBtn('section-add-button', '등록');
+  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
   submitBtn.addEventListener('click', () => addToSection(line, selectedStation, orderInput));
 
   [stationSelect, orderInput, submitBtn].map(elem => {
@@ -110,13 +111,13 @@ const addToSection = (line, station, orderInput) => {
 };
 
 const removeCurrResult = () => {
-  const sectionTable = document.getElementById('section-table');
+  const sectionTable = document.getElementById(T.tableId);
   app.removeChild(sectionTable);
 };
 
 const createResultArea = line => {
-  const sectionTableHeaders = ['순서', '이름', '설정'];
-  const sectionTable = createTable('section-table', sectionTableHeaders);
+  const sectionTableHeaders = [T.tableHeader1, T.tableHeader2, T.tableHeader3];
+  const sectionTable = createTable(T.tableId, sectionTableHeaders);
   sectionTable.style.marginTop = '20px';
   app.appendChild(sectionTable);
 
@@ -140,8 +141,8 @@ const addTableData = (table, line, stations) => {
     const nameData = document.createElement('td');
     nameData.innerHTML = station;
     const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', 'section-delete-button');
-    deleteBtn.innerHTML = '노선에서 제거';
+    deleteBtn.setAttribute('class', T.deleteBtnClass);
+    deleteBtn.innerHTML = T.deleteBtnText;
     deleteBtn.addEventListener('click', () => deleteStation(station, line));
 
     tableRow.appendChild(indexData);
@@ -153,16 +154,16 @@ const addTableData = (table, line, stations) => {
 };
 
 const deleteStation = (station, line) => {
-  const sectionTable = document.getElementById('section-table');
+  const sectionTable = document.getElementById(T.tableId);
   const currLines = JSON.parse(localStorage.getItem('lines'));
   const currStations = currLines[line];
 
   if (currStations.length <= 2) {
-    alert('노선에 포함된 역이 2개 이하일 때는 역을 삭제할 수 없습니다.');
+    alert(T.alertStationsUnderTwo);
     return;
   }
 
-  if (confirm('정말 삭제하시겠습니까?')) {
+  if (confirm(T.alertConfirmDelete)) {
     currStations.splice(currStations.indexOf(station), 1);
     const updatedLines = currLines;
     updatedLines[line] = currStations;

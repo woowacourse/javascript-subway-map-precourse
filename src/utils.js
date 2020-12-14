@@ -1,8 +1,5 @@
 const app = document.getElementById('app');
 
-const TYPE_STATION = 'stations';
-const TYPE_LINE = 'lines';
-
 export const clearPage = () => {
   const contents = app.childNodes;
   let i = contents.length;

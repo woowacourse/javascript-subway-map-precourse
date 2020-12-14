@@ -1,4 +1,5 @@
 import { clearPage, createSubmitBtn, createTextInput, createTable } from './utils.js';
+import { stationText as T } from './constants.js';
 
 const app = document.getElementById('app');
 
@@ -8,16 +9,16 @@ export const initStationManager = () => {
 };
 
 const createPage = () => {
-  createTextInput('역 이름', 'station-name-input', '역 이름을 입력해주세요');
-  const submitBtn = createSubmitBtn('station-add-button', '역 추가');
+  createTextInput(T.inputLabel, T.inputId, T.placeholder);
+  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
   handleSubmit(submitBtn);
   createResultArea();
 };
 
 const handleSubmit = submitBtn => {
-  const inputArea = document.getElementById('input-container');
+  const inputArea = document.getElementById(T.inputContainer);
   inputArea.appendChild(submitBtn);
-  const inputText = document.getElementById('station-name-input');
+  const inputText = document.getElementById(T.inputId);
 
   inputText.addEventListener('keypress', e => {
     let name = inputText.value;
@@ -44,10 +45,10 @@ const addStation = (name, nameInput) => {
 const validateName = name => {
   const currStations = JSON.parse(localStorage.getItem('stations'));
   if (currStations && currStations.includes(name)) {
-    alert('중복된 역 이름이 존재합니다.');
+    alert(T.alertDuplicateName);
     return false;
   } else if (name.length < 2) {
-    alert('역 이름을 2자 이상으로 입력해 주세요.');
+    alert(T.alertNameUnderTwo);
     return false;
   }
   return true;
@@ -55,11 +56,11 @@ const validateName = name => {
 
 const createResultArea = () => {
   const tableName = document.createElement('h2');
-  tableName.innerHTML = '🚉 지하철 역 목록';
+  tableName.innerHTML = T.resultTitle;
   app.appendChild(tableName);
 
-  const stationTableHeaders = ['역 이름', '설정'];
-  const stationTable = createTable('station-table', stationTableHeaders);
+  const stationTableHeaders = [T.tableHeader1, T.tableHeader2];
+  const stationTable = createTable(T.tableId, stationTableHeaders);
 
   const stations = JSON.parse(localStorage.getItem('stations'));
   if (stations) {
@@ -77,8 +78,8 @@ const addTableData = (table, stations) => {
     nameData.innerHTML = station;
 
     const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', 'station-delete-button');
-    deleteBtn.innerHTML = '삭제';
+    deleteBtn.setAttribute('class', T.deleteBtnClass);
+    deleteBtn.innerHTML = T.deleteBtnText;
     deleteBtn.addEventListener('click', () => deleteStation(station));
 
     tableRow.appendChild(nameData);
@@ -89,15 +90,15 @@ const addTableData = (table, stations) => {
 };
 
 const addTable = name => {
-  const stationTable = document.getElementById('station-table');
+  const stationTable = document.getElementById(T.tableId);
   const newRow = document.createElement('tr');
   newRow.dataset['station'] = name;
   const newData = document.createElement('td');
   newData.innerHTML = name;
 
   const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('class', 'station-delete-button');
-  deleteBtn.innerHTML = '삭제';
+  deleteBtn.setAttribute('class', T.deleteBtnClass);
+  deleteBtn.innerHTML = T.deleteBtnText;
   deleteBtn.addEventListener('click', () => deleteStation(name));
 
   newRow.appendChild(newData);
@@ -107,8 +108,8 @@ const addTable = name => {
 };
 
 const deleteStation = name => {
-  if (confirm('정말 삭제하시겠습니까?')) {
-    const stationTable = document.getElementById('station-table');
+  if (confirm(T.alertConfirmDelete)) {
+    const stationTable = document.getElementById(T.tableId);
     const currStations = JSON.parse(localStorage.getItem('stations'));
     const updatedStations = currStations.filter(station => station !== name);
     localStorage.setItem('stations', JSON.stringify(updatedStations));

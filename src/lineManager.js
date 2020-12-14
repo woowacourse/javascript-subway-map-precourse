@@ -5,6 +5,7 @@ import {
   createSelectbox,
   createTable,
 } from './utils.js';
+import { lineText as T } from './constants.js';
 
 const app = document.getElementById('app');
 
@@ -15,8 +16,8 @@ export const initLineManager = () => {
 };
 
 const createPage = () => {
-  createTextInput('노선 이름', 'line-name-input', '노선 이름을 입력해주세요');
-  const submitBtn = createSubmitBtn('line-add-button', '노선 추가');
+  createTextInput(T.inputLabel, T.inputId, T.placeholder);
+  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
   createSelectArea();
   handleSubmit(submitBtn);
   createResultArea();
@@ -27,14 +28,14 @@ const createSelectArea = () => {
   const currStations = JSON.parse(localStorage.getItem('stations'));
 
   const upwardSelect = document.createElement('select');
-  createSelectbox(upwardSelect, 'line-start-station-selector', currStations);
+  createSelectbox(upwardSelect, T.startSelectorId, currStations);
   const upwardLabel = document.createElement('b');
-  upwardLabel.innerHTML = '상행 종점';
+  upwardLabel.innerHTML = T.startSelectorText;
 
   const downwardSelect = document.createElement('select');
-  createSelectbox(downwardSelect, 'line-end-station-selector', currStations);
+  createSelectbox(downwardSelect, T.endSelectorId, currStations);
   const downwardLabel = document.createElement('b');
-  downwardLabel.innerHTML = '하행 종점';
+  downwardLabel.innerHTML = T.endSelectorText;
 
   [upwardLabel, upwardSelect, document.createElement('br'), downwardLabel, downwardSelect].map(
     elem => {
@@ -49,9 +50,9 @@ const handleSubmit = submitBtn => {
   app.appendChild(document.createElement('br'));
   app.appendChild(submitBtn);
 
-  const inputText = document.getElementById('line-name-input');
-  const upwardSelect = document.getElementById('line-start-station-selector');
-  const downwardSelect = document.getElementById('line-end-station-selector');
+  const inputText = document.getElementById(T.inputId);
+  const upwardSelect = document.getElementById(T.startSelectorId);
+  const downwardSelect = document.getElementById(T.endSelectorId);
 
   let startStation = upwardSelect.options[upwardSelect.selectedIndex].value;
   let endStation = downwardSelect.options[downwardSelect.selectedIndex].value;
@@ -74,11 +75,9 @@ const addLine = (lineName, lineInput, start, end) => {
   lineInput.value = '';
 
   const currLines = JSON.parse(localStorage.getItem('lines'));
-  // console.log(currLines);
   const updatedLines = currLines ? currLines : {};
   updatedLines[lineName] = [start, end];
   localStorage.setItem('lines', JSON.stringify(updatedLines));
-  // console.log(JSON.parse(localStorage.getItem('lines')));
 
   addTable(lineName, start, end);
 };
@@ -86,7 +85,7 @@ const addLine = (lineName, lineInput, start, end) => {
 const validateName = lineName => {
   const currLines = JSON.parse(localStorage.getItem('lines'));
   if (currLines && Object.keys(currLines).includes(lineName)) {
-    alert('중복된 노선 이름이 존재합니다.');
+    alert(T.alertDuplicateName);
     return false;
   }
   return true;
@@ -94,11 +93,11 @@ const validateName = lineName => {
 
 const createResultArea = () => {
   const tableName = document.createElement('h2');
-  tableName.innerHTML = '🚉 지하철 노선 목록';
+  tableName.innerHTML = T.resultTitle;
   app.appendChild(tableName);
 
-  const lineTableHeaders = ['노선 이름', '상행 종점역', '하행 종점역', '설정'];
-  const lineTable = createTable('line-table', lineTableHeaders);
+  const lineTableHeaders = [T.tableHeader1, T.tableHeader2, T.tableHeader3, T.tableHeader4];
+  const lineTable = createTable(T.tableId, lineTableHeaders);
 
   const lines = JSON.parse(localStorage.getItem('lines'));
   if (lines) {
@@ -121,8 +120,8 @@ const addTableData = (table, lines) => {
     downwardEndData.innerHTML = stations[stations.length - 1];
 
     const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', 'line-delete-button');
-    deleteBtn.innerHTML = '삭제';
+    deleteBtn.setAttribute('class', T.deleteBtnClass);
+    deleteBtn.innerHTML = T.deleteBtnText;
     deleteBtn.addEventListener('click', () => deleteLine(line));
 
     [nameData, upwardEndData, downwardEndData, deleteBtn].map(data => {
@@ -134,7 +133,7 @@ const addTableData = (table, lines) => {
 };
 
 const addTable = (lineName, start, end) => {
-  const lineTable = document.getElementById('line-table');
+  const lineTable = document.getElementById(T.tableId);
   const newRow = document.createElement('tr');
   newRow.dataset['line'] = `_${lineName}`;
 
@@ -145,8 +144,8 @@ const addTable = (lineName, start, end) => {
   const downwardEndData = document.createElement('td');
   downwardEndData.innerHTML = end;
   const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('class', 'line-delete-button');
-  deleteBtn.innerHTML = '삭제';
+  deleteBtn.setAttribute('class', T.deleteBtnClass);
+  deleteBtn.innerHTML = T.deleteBtnText;
   deleteBtn.addEventListener('click', () => deleteLine(lineName));
 
   newRow.appendChild(newData);
@@ -158,12 +157,11 @@ const addTable = (lineName, start, end) => {
 };
 
 const deleteLine = lineName => {
-  if (confirm('정말 삭제하시겠습니까?')) {
-    const lineTable = document.getElementById('line-table');
+  if (confirm(T.alertConfirmDelete)) {
+    const lineTable = document.getElementById(T.tableId);
     const currLines = JSON.parse(localStorage.getItem('lines'));
     delete currLines[lineName];
     localStorage.setItem('lines', JSON.stringify(currLines));
-    // console.log(JSON.parse(localStorage.getItem('lines')));
     const rowToBeDeleted = lineTable.querySelector(`[data-line=_${lineName}]`);
     lineTable.removeChild(rowToBeDeleted);
   }
