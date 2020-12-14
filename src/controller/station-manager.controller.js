@@ -38,16 +38,16 @@ export default class StationManager {
   }
 
   addStation() {
-    const stationName = this.getStationNameInput();
     try {
+      const stationName = this.getStationNameInput();
+      this.view.resetStationNameInputField();
+
       this.validateStationNameLength(stationName);
       this.validateStationNameUnique(stationName);
 
       this.station.createStation(stationName);
-
       this.view.renderStationTable();
     } catch (error) {
-      this.view.resetStationNameInputField();
       alert(error);
     }
   }

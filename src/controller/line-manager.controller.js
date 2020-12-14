@@ -50,18 +50,19 @@ export default class LineManager {
   }
 
   addLine() {
-    const lineName = this.getLineNameInput();
-    const startStation = this.getLineStartStationInput();
-    const endStation = this.getLineEndStationInput();
-
     try {
+      const lineName = this.getLineNameInput();
+      const startStation = this.getLineStartStationInput();
+      const endStation = this.getLineEndStationInput();
+      this.view.resetLineNameInputField();
+
       this.validateLineName(lineName);
       this.validateStartEndStation(startStation, endStation);
+
       this.line.createLine(lineName, startStation, endStation);
       this.view.renderLineTable();
     } catch (error) {
       alert(error);
-      this.view.resetLineNameInputField();
     }
   }
 
