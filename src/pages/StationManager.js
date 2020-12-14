@@ -1,4 +1,3 @@
-import { dispatchReRender } from "../utils/events.js";
 import Component from "../core/Component.js";
 
 const elementMap = {
