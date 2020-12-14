@@ -2,7 +2,7 @@ export const printStations = () => {
   const stations = JSON.parse(localStorage.getItem('stations'));
   const tableBody = document.querySelector('#station-list');
   let tableRows = '';
-  if (stations.length === 0) {
+  if (!stations) {
     return clearTable();
   }
   for (let i = 0; i < stations.length; i++) {

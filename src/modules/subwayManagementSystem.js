@@ -1,12 +1,9 @@
+import Line from './line.js';
 import Station from './station.js';
 
 export default class SubwayManagementSystem {
   constructor() {
-    const station = new Station();
-    const createStationBtn = document.querySelector('#station-add-button');
-    createStationBtn.addEventListener(
-      'click',
-      station.createStation.bind(station)
-    );
+    new Station();
+    new Line();
   }
 }
