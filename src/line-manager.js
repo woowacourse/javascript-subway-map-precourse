@@ -87,7 +87,8 @@ export default class LineManager {
         localStorage.setItem(lineInputName, JSON.stringify(itemList));
     } 
 
-    addLineInTable(lineInputName, lineStartStationName, lineEndStationName) {this.addTableRow(lineInputName, lineStartStationName, lineEndStationName);
+    addLineInTable(lineInputName, lineStartStationName, lineEndStationName) {
+        this.addTableRow(lineInputName, lineStartStationName, lineEndStationName);
         this.addLineSection(lineInputName, lineStartStationName, lineEndStationName);
         addClickEventInButtons(words.LINE_DELETE_BUTTON, this.confirmDeleteLine.bind(this), true);
     }
