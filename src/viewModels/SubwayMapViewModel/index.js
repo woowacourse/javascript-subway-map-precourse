@@ -101,17 +101,24 @@ export default class SubwayMapViewModel {
   }
 
   isInLines(stationId) {
-    const lines = Object.entries(this.subwayMapModel.getLines());
-    return lines.some(line => {
-      return line[1]._sections.some(section => {
-        return section.stationId === stationId;
+    const found = Object.entries(this.subwayMapModel.getLines()).find(line => {
+      console.log(line);
+      let lineInstance = line[1];
+      return lineInstance._sections.some(section => {
+        return stationId === section._stationId;
       });
     });
+
+    if (found) {
+      return true;
+    }
+
+    return false;
   }
 
   isInLine(stationId, lineId) {
     const found = this.getSections(lineId).find(section => {
-      return stationId === section.stationId;
+      return stationId === section._stationId;
     });
 
     if (found) {
