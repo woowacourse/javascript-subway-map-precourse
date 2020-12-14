@@ -1,5 +1,7 @@
 export const Station = {
-  stations: ["양재", "잠실"],
+  stations: ["양재", "매봉", "도곡"],
 
-  add(name) { },
+  add(name) {
+    this.stations.push(name);
+  },
 };

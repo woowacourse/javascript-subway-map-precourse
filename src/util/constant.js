@@ -22,6 +22,9 @@ export const Constant = {
   CLICK: "click",
   NONE: "none",
   BLOCK: "block",
+
+  // tag
+  TBODY: "tbody",
 };
 
 export const ErrorMessage = {

@@ -2,12 +2,14 @@ import { Station } from "../model/station.js";
 import { Constant } from "../util/constant.js";
 import { StationValidation } from "../util/validation.js";
 import { Element, ElementControl } from "../view/element.js";
+import { StationView } from "../view/station-view.js";
 
 export const StationManager = {
   isVisited: false,
 
   init() {
     this.isVisited = true;
+    StationView.render();
     this.setEventListener();
   },
 
@@ -24,10 +26,11 @@ export const StationManager = {
     const name = Element.stationNameInput.value;
 
     if (StationValidation.isValidStation(name)) {
-      // Station.add()
+      Station.add(name);
+      StationView.render();
     }
     ElementControl.clearInput(Element.stationNameInput);
   },
 
-  onClickRemoveBtn() { },
+  onClickRemoveBtn() {},
 };

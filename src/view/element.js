@@ -11,15 +11,22 @@ export const Element = {
     Constant.MAP_PRINT_MANAGER_BTN_ID
   ),
 
-  // 각 화면 container
-  stationContainer: document.querySelector(Constant.STATION_CONTAINER_CLASS),
-  lineContainer: document.querySelector(Constant.LINE_CONTAINER_CLASS),
-  sectionContainer: document.querySelector(Constant.SECTION_CONTAINER_CLASS),
-  mapPrintContainer: document.querySelector(Constant.MAP_PRINT_CONTAINER_CLASS),
-
   // 역 관리
+  stationContainer: document.querySelector(Constant.STATION_CONTAINER_CLASS),
   stationAddButton: document.querySelector(Constant.STATION_ADD_BUTTON_ID),
   stationNameInput: document.querySelector(Constant.STATION_NAME_INPUT_ID),
+
+  // 노선 관리
+  lineContainer: document.querySelector(Constant.LINE_CONTAINER_CLASS),
+
+  // 구간 관리
+  sectionContainer: document.querySelector(Constant.SECTION_CONTAINER_CLASS),
+
+  // 지하철 노선도 관리
+  mapPrintContainer: document.querySelector(Constant.MAP_PRINT_CONTAINER_CLASS),
+
+  // html tag 관련
+  querySelectorTbody: document.querySelector(Constant.TBODY),
 };
 
 export const ElementControl = {
@@ -54,5 +61,5 @@ export const ElementControl = {
 
   clearInput(element) {
     element.value = "";
-  }
+  },
 };
