@@ -63,6 +63,7 @@ export default class LineManager extends Component {
     this.setState({
       lineList: newLineList,
     });
+    this.props.syncData(this.state);
   }
 
   deleteLineFromList(index) {

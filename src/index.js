@@ -3,13 +3,15 @@ import LineManager from './managers/LineManager.js';
 import MapPrintManager from './managers/MapPrintManager.js';
 import SectionManager from './managers/SectionManager.js';
 import StationManager from './managers/StationManager.js';
-import {
-  LINE, MAP, MENU, SECTION, STATION,
-} from './share/selector.js';
+import { LINE, MAP, MENU, SECTION, STATION } from './share/selector.js';
 
 export default class SubwayManager extends Component {
   constructor() {
     super();
+    this.state = {
+      stationList: [],
+      lineList: [],
+    };
     this.menu = document.querySelector(`#${MENU.MENU_CONTAINER_ID}`);
 
     this.stationManager = new StationManager({
@@ -34,6 +36,8 @@ export default class SubwayManager extends Component {
     });
 
     this.menu.addEventListener('click', this.changeMenu);
+
+    this.syncData(this.state);
   }
 
   changeMenu = (e) => {
@@ -56,7 +60,7 @@ export default class SubwayManager extends Component {
     this.lineManager.setState(data);
     this.sectionManager.setState(data);
     this.mapPrintManager.setState(data);
-  }
+  };
 }
 
 new SubwayManager();
