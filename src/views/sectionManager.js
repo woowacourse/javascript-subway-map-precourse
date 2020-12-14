@@ -8,7 +8,7 @@ export const showModifyLineBtn = subwayMap => {
   subwayMap.lineList.forEach(line => {
     const button = makeElement({
       tag: 'button',
-      elementClass: '.section-line-menu-button',
+      elementClass: 'section-line-menu-button',
       innerHTML: line.name,
       styles: 'margin: 0px 5px 0px 0px',
       dataName: 'line-name',
@@ -17,4 +17,14 @@ export const showModifyLineBtn = subwayMap => {
     appendElements([button], emptyDiv);
   });
   buttonsDiv.innerHTML = emptyDiv.outerHTML;
+};
+
+export const showSectionManager = () => {
+  const sectionManagerDiv = document.querySelector('.section-manager');
+  sectionManagerDiv.classList.add('active');
+};
+
+export const hideSectionManager = () => {
+  const sectionManagerDiv = document.querySelector('.section-manager');
+  sectionManagerDiv.classList.remove('active');
 };

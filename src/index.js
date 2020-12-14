@@ -3,6 +3,7 @@ import { deleteLine } from './controllers/lineManager.js';
 import { saveData, loadData } from './controllers/storage.js';
 import { tabController } from './controllers/tab.js';
 import Line from './models/Line.js';
+import { showSectionManager } from './views/sectionManager.js';
 
 export default function SubwayMap() {
   this.stationList = loadData('stations');
@@ -55,6 +56,9 @@ const newBtnAddListener = event => {
   }
   if (event.target.classList.contains('line-delete-button')) {
     deleteLine(event.target.dataset.lineName, subwayMap);
+  }
+  if (event.target.classList.contains('section-line-menu-button')) {
+    showSectionManager(event.target.dataset.stationName, subwayMap);
   }
 };
 document.body.addEventListener('click', newBtnAddListener);
