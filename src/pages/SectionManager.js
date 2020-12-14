@@ -11,11 +11,16 @@ export default class SectionManager extends Component {
   constructor() {
     super();
     this.state = {
-      selectedLine: null,
+      selectedLineName: null,
+      selectedLineStation: null,
     };
     this.handleLineButtonClick = (index) => {
       const line = this.store.lines[index];
-      this.setState({ ...this.state, selectedLine: line });
+      this.setState({
+        ...this.state,
+        selectedLineName: [line.name],
+        selectedLineStation: [line.start, line.end],
+      });
       console.log(this.state.selectedLine);
     };
   }
@@ -33,18 +38,23 @@ export default class SectionManager extends Component {
 
   render() {
     const { stations = [], lines = [] } = this.store;
-    const { selectedLine } = this.state;
-    console.log(Boolean(selectedLine));
+    const { selectedLineName = [], selectedLineStation = [] } = this.state;
+
+    console.log(selectedLineStation);
     let section = `
     <div>
-      <h3>${selectedLine ? selectedLine.name : ""} 관리</h3>
+      <h3>${
+        selectedLineName ? selectedLineName[selectedLineName.length - 1] : null
+      } 관리</h3>
       <h4>구간 등록</h4>
       <select id=${elementMap.sectionStationSelector}>
-        ${stations.map(
-          (station) =>
-            `<option value="${station}" 
+        ${stations
+          .map(
+            (station) =>
+              `<option value="${station}" 
             }>${station}</option>`
-        )}      
+          )
+          .join("")}      
       </select>
       <input id=${elementMap.sectionOrderInput} placeholder="순서">
       <button id=${elementMap.sectionAddButton}>등록</button>
@@ -58,15 +68,22 @@ export default class SectionManager extends Component {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>
-            <button class=${
-              elementMap.sectionDeleteButton
-            }>노선에서 제거</button>
-          </td>
-        </tr>
+        ${
+          selectedLineStation
+            ? selectedLineStation
+                .map(
+                  (line, index) =>
+                    `<tr>
+                       <td>${index}</td>
+                       <td>${line}</td>
+                       <td>
+                         <button class=${elementMap.sectionDeleteButton}>노선에서 제거</button>
+                       </td>
+                     </tr>`
+                )
+                .join("")
+            : null
+        }
       </tbody>
     </table> 
     `;
@@ -81,7 +98,7 @@ export default class SectionManager extends Component {
         )
         .join("")}
     </div>
-   ${selectedLine ? section : `<div></div>`}
+   ${selectedLineName && selectedLineStation ? section : `<div></div>`}
   `;
   }
 }
