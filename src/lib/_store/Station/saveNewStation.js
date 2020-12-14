@@ -5,6 +5,6 @@ import { stationReducer } from "../reducers.js";
 
 export default (stationName) => {
   const updatedStationDataList = [...stationSelector(), stationName];
-  //stationReducer(updatedStationDataList);
-  updateTable({ STATION_TAB_INDEX });
+  stationReducer(updatedStationDataList);
+  updateTable({ tabIndex: STATION_TAB_INDEX });
 };
