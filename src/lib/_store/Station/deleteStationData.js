@@ -2,7 +2,7 @@ import { stationSelector } from "../selectors.js";
 import { stationReducer } from "../reducers.js";
 import { STATION_LIST } from "../../common/IdAndClassNames.js";
 
-import updateLineListInfo from "../common/updateLineListInfo.js";
+import deleteStationFromLine from "../common/deleteStationFromLine.js";
 import getNewStationDataRowSet from "../../views/Station/getNewStationDataRowSet.js";
 import convertTableRowDataToDOM from "../../views/components/subComponents/convertTableRowDataToDOM.js";
 
@@ -17,6 +17,13 @@ const updateUI = (updatedStationList) => {
 
   $dataTable.innerHTML = "";
   $updatedStationDataList.forEach(($tr) => $dataTable.appendChild($tr));
+};
+
+const updateLineListInfo = (updatedLineNameList, deletedStation) => {
+  if (!updatedLineNameList) return;
+  updatedLineNameList.forEach((updatedLineName) =>
+    deleteStationFromLine(updatedLineName, deletedStation),
+  );
 };
 
 export default (deletedStation, index, updatedLineNameList) => {

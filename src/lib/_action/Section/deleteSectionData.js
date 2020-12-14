@@ -14,6 +14,6 @@ export default (sectionData) => {
   return new Promise((resolve, reject) => {
     if (!ok) {
       reject(alert(message));
-    } else resolve(deleteStationFromLine(stationName, updatedLineList));
+    } else resolve(deleteStationFromLine(stationName, updatedLineList[0]));
   });
 };

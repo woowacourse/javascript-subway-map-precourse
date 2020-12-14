@@ -1,5 +1,5 @@
-import updateLineListInfo from "../common/updateLineListInfo.js";
+import deleteStationFromLine from "../common/deleteStationFromLine.js";
 
-export default (deletedStationName, updatedLineList) => {
-  updateLineListInfo(updatedLineList, deletedStationName);
+export default (deletedStationName, updatedLineName) => {
+  deleteStationFromLine(updatedLineName, deletedStationName);
 };
