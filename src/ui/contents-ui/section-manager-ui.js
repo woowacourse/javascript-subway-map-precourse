@@ -117,11 +117,7 @@ class SectionRegisterUI extends contentsUI {
   _isValidSectionAddInput(orderToRegister, stationName) {
     const hasValidOrder = isValidOrder(orderToRegister);
     const hasValidOption = isValidOption([stationName]);
-    let boolToReturn = true;
-    if (!(hasValidOrder && hasValidOption)) {
-      boolToReturn = false;
-    }
-    return boolToReturn;
+    return hasValidOrder && hasValidOption;
   }
   _setComboboxOption() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);

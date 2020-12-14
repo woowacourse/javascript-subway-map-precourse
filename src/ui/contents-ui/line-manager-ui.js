@@ -41,17 +41,15 @@ export default class LineManagerUI extends contentsUI {
   }
   _callbackLineAddButton() {
     const lineName = this._getInputTextByID(NAME_INPUT_ID);
-    const startStationName = this._getSelectedOptionByID(
-      START_STATION_SELECTOR_ID
-    );
-    const endStationName = this._getSelectedOptionByID(END_STATION_SELECTOR_ID);
-    if (!this._isValidLineInput(lineName, startStationName, endStationName)) {
+    const startStation = this._getSelectedOptionByID(START_STATION_SELECTOR_ID);
+    const endStation = this._getSelectedOptionByID(END_STATION_SELECTOR_ID);
+    if (!this._isValidLineInput(lineName, startStation, endStation)) {
       return;
     }
     this._stationINFOManager.addNewLine({
       lineName: lineName,
-      startStationName: startStationName,
-      endStationName: endStationName,
+      startStationName: startStation,
+      endStationName: endStation,
     });
     this.updateLinesTable();
   }
@@ -78,11 +76,7 @@ export default class LineManagerUI extends contentsUI {
       lineName
     );
     const hasValidOption = isValidOption([startStationName, endStationName]);
-    let boolToReturn = true;
-    if (!(hasValidLine && isNotOverlapName && hasValidOption)) {
-      boolToReturn = false;
-    }
-    return boolToReturn;
+    return hasValidLine && isNotOverlapName && hasValidOption;
   }
   _makeNewTableRowHTML({ name, stationsOfLine }) {
     return `

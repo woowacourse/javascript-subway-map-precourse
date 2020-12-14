@@ -1,3 +1,5 @@
+import { canSatisfyMaxLengthCondition } from "./utility/input-check-utility.js";
+
 export default class StationINFOManager {
   constructor() {
     this._stations = [];
@@ -35,11 +37,12 @@ export default class StationINFOManager {
     const stationIndexToDelete = this._stations.findIndex(({ name }) => {
       return nameToDelete === name;
     });
-    if (
-      this._stations[stationIndexToDelete].linesOfStation.size >
-      MAXIMUM_NUMBER__linesOF_STATION_TO_DELETE_STATION
-    ) {
-      alert(STATION_INCLUDE_IN_LINE_ERROR_MESSAGE);
+    const isSatisfyMaxLengthCondition = canSatisfyMaxLengthCondition({
+      operandLength: this._stations[stationIndexToDelete].linesOfStation.size,
+      maxLength: MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION,
+      errorMessage: STATION_INCLUDE_IN_LINE_ERROR_MESSAGE,
+    });
+    if (!isSatisfyMaxLengthCondition) {
       return;
     }
     this._stations.splice(stationIndexToDelete, 1);
@@ -58,8 +61,8 @@ export default class StationINFOManager {
   }
   deleteSection(targetStationName, targetLineName) {
     const targetLine = this.getOneLineByName(targetLineName);
-    if (targetLine.stationsOfLine.length <= MINIMUM_NUMBER__stationsOF_LINE) {
-      alert(NOT_MINIMUM_NUMBER__stationsOF_LINE_ERROR_MESSAGE);
+    if (targetLine.stationsOfLine.length <= MINIMUM_NUMBER_STATIONS_OF_LINE) {
+      alert(NOT_MINIMUM_NUMBER_STATIONS_OF_LINE_ERROR_MESSAGE);
       return;
     }
     this._deleteLineInStation(targetStationName, targetLineName);
@@ -187,7 +190,7 @@ export default class StationINFOManager {
 const OVERLAP_STATION_ERROR_MESSAGE = "기존 역 이름과 중복되는 이름입니다.";
 const OVERLAP_LINE_ERROR_MESSAGE = "기존 노선 이름과 중복되는 이름입니다.";
 
-const MINIMUM_NUMBER__stationsOF_LINE = 2;
-const NOT_MINIMUM_NUMBER__stationsOF_LINE_ERROR_MESSAGE = `노선에는 최소 ${MINIMUM_NUMBER__stationsOF_LINE}개의 역이 포함되어 있어야합니다.`;
-const MAXIMUM_NUMBER__linesOF_STATION_TO_DELETE_STATION = 0;
-const STATION_INCLUDE_IN_LINE_ERROR_MESSAGE = `${MAXIMUM_NUMBER__linesOF_STATION_TO_DELETE_STATION + 1}개 이상의 노선에 포함되어 있는 역은 삭제할 수 없습니다.`;
+const MINIMUM_NUMBER_STATIONS_OF_LINE = 2;
+const NOT_MINIMUM_NUMBER_STATIONS_OF_LINE_ERROR_MESSAGE = `노선에는 최소 ${MINIMUM_NUMBER_STATIONS_OF_LINE}개의 역이 포함되어 있어야합니다.`;
+const MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION = 0;
+const STATION_INCLUDE_IN_LINE_ERROR_MESSAGE = `${MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION + 1}개 이상의 노선에 포함되어 있는 역은 삭제할 수 없습니다.`;

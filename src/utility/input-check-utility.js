@@ -1,42 +1,33 @@
 import { SELECTEOR_NONE } from "./share-constant-utility.js";
 
 export function isValidStationName(name) {
-  const isValidLength = canSatisfyLengthCondition({
-    name: name,
+  const isValidLength = canSatisfyMinLengthCondition({
+    operandLength: name.length,
     minLength: MINIMUM_LENGTH_OF_STATION_NAME,
     errorMessage: MINIMUM_LENGTH_STATION_NAME_ERROR_MESSAGE,
   });
-
-  if (!isValidLength) {
-    return false;
-  }
-  return true;
+  return isValidLength;
 }
 export function isValidLine(name, startStationName, endStationName) {
-  const isValidLength = canSatisfyLengthCondition({
-    name: name,
+  const isValidLength = canSatisfyMinLengthCondition({
+    operandLength: name.length,
     minLength: MINIMUM_LENGTH_OF_LINE_NAME,
     errorMessage: MINIMUM_LENGTH_LINE_NAME_ERROR_MESSAGE,
   });
   const isNotEqualName = hasNotEqualName(startStationName, endStationName);
-  let boolToReturn = true;
-
-  if (!(isValidLength && isNotEqualName)) {
-    boolToReturn = false;
-  }
-  return boolToReturn;
+  return isValidLength && isNotEqualName;
 }
 export function isValidOrder(order) {
-  let retBool = true;
-  if (order === "") {
-    alert(NOT_TYPE_OF_NUMBER_ERROR_MESSAGE);
-    retBool = false;
-  }
-  if (Number(order) < MINIMUM_VAILD_ORDER) {
-    alert(LESS_THAN_MINIMUM_ORDER_ERROR_MESSAGE);
-    retBool = false;
-  }
-  return retBool;
+  const isTypeOfNumber = hasTypeOfNumber({
+    operand: order,
+    errorMessage: NOT_TYPE_OF_NUMBER_ERROR_MESSAGE,
+  });
+  const isSatisfyLengthCondition = canSatisfyMinLengthCondition({
+    operandLength: Number(order),
+    minLength: MINIMUM_VAILD_ORDER,
+    errorMessage: LESS_THAN_MINIMUM_ORDER_ERROR_MESSAGE,
+  });
+  return isTypeOfNumber && isSatisfyLengthCondition;
 }
 export function isValidOption(inputOptions) {
   let retBool = true;
@@ -49,14 +40,38 @@ export function isValidOption(inputOptions) {
   }
   return retBool;
 }
-
-function canSatisfyLengthCondition({ name, minLength, errorMessage }) {
+export function canSatisfyMinLengthCondition({
+  operandLength,
+  minLength,
+  errorMessage,
+}) {
   let boolToReturn = true;
-  if (name.length < minLength) {
+  if (operandLength < minLength) {
     alert(errorMessage);
     boolToReturn = false;
   }
   return boolToReturn;
+}
+export function canSatisfyMaxLengthCondition({
+  operandLength,
+  maxLength,
+  errorMessage,
+}) {
+  let boolToReturn = true;
+  if (operandLength > maxLength) {
+    alert(errorMessage);
+    boolToReturn = false;
+  }
+  return boolToReturn;
+}
+
+function hasTypeOfNumber({ operand, errorMessage }) {
+  let retBool = true;
+  if (String) {
+    alert(errorMessage);
+    retBool = false;
+  }
+  return retBool;
 }
 function hasNotEqualName(startStationName, endStationName) {
   let boolToReturn = true;

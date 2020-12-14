@@ -39,7 +39,6 @@ export default class StationManagerUI extends contentsUI {
     });
     this.updateStationsTable();
   }
-
   _addEventToAllTableDeleteButton() {
     this._addClickEventToAllButtonByClassName(
       STATION_DELETE_BUTTON_CLASS,
@@ -58,14 +57,10 @@ export default class StationManagerUI extends contentsUI {
     const isNotOverlapName = this._stationINFOManager.hasNotOverlapNameAmongStations(
       name
     );
-    let boolToReturn = true;
-    if (!(hasValidStationName && isNotOverlapName)) {
-      boolToReturn = false;
-    }
-    return boolToReturn;
+    return hasValidStationName && isNotOverlapName;
   }
   _makeNewTableRowHTML(name) {
-    const newTableRow = `
+    return `
     <tr>
       <td>${name}</td>
       <td>
@@ -73,7 +68,6 @@ export default class StationManagerUI extends contentsUI {
       </td>
     </tr>
     `;
-    return newTableRow;
   }
 }
 const STATION_NAME_INPUT_ID = "station-name-input";
