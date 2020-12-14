@@ -96,3 +96,11 @@ export const isEndSection = (stations, targetIndex, type) => {
 export const isStartSection = targetIndex => {
   return targetIndex === SECTION_START;
 };
+
+export const isStartEqualsEnd = (startStation, endStation) => {
+  if (startStation === endStation) {
+    alert('상행 종점과 하행 종점이 동일합니다.');
+    return true;
+  }
+  return false;
+};

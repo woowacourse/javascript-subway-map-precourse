@@ -11,6 +11,7 @@ import {
   isInvalidStationDeletion,
   isEndSection,
   isStartSection,
+  isStartEqualsEnd,
 } from './valid.js';
 
 const CONFIRM_DELETION = '정말로 삭제하시겠습니까?';
@@ -116,6 +117,9 @@ export default class SubwayManager {
     if (isValidLineName(this.lines, lineName)) {
       const startStation = document.getElementById(DOMStrings.LINE_START_STATION_SELECTOR).value;
       const endStation = document.getElementById(DOMStrings.LINE_END_STATION_SELECTOR).value;
+      if (isStartEqualsEnd(startStation, endStation)) {
+        return;
+      }
       this.lines.push(new SubwayLine(lineName, startStation, endStation));
       localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
       DOMCtrl.openLineManager.bind(this)();
