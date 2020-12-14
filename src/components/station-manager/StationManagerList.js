@@ -38,6 +38,7 @@ export class StationManagerList {
 
     if (confirmDelete) {
       let station = e.target.dataset.station;
+
       if (!isInvolvedInLine(lines, station)) {
         this.deleteStation(station);
         this.render();

@@ -17,13 +17,15 @@
       <div id="subway-contents-container">
         <div id="station-manager-container" class="manger-container">
           <div id="station-manager-input-container">
-            <p>역 이름</p>
+            <div>
+              <strong>역 이름</strong>
+            </div>
             <input id="station-name-input" placeholder="역 이름을 입력해주세요">
             <button id="station-add-button">역 추가</button>
           </div>
           <div id="station-manager-list-container">
             <h2> 🚉 지하철 역 목록 </h2>
-            <table border="1" id="station-table">
+            <table id="station-table">
               <th>역 이름</th>
               <th>설정</th>
             </table>
@@ -32,24 +34,28 @@
         <div id="line-manager-container" class="manger-container">
           <div id="line-manager-input-container">
             <div>
-              <p>노선 이름</p>
+              <div>
+                <strong>노선 이름</strong>
+              </div>
               <input id="line-name-input" placeholder="노선 이름을 입력해주세요">
             </div>
-            <div>
-              <span>상행종점</span>
-              <select id="line-start-station-selector" name="upward-terminal">
-              </select>
-            </div>
-            <div>
-              <span>하행종점</span>
-              <select id="line-end-station-selector" name="downward-terminal">
-              </select>
-            </div>
+            <div id="line-selector-container">
+              <div>
+                <span><strong>상행 종점</strong></span>
+                <select id="line-start-station-selector" name="upward-terminal">
+                </select>
+              </div>
+              <div>
+                <span><strong>하행 종점</strong></span>
+                <select id="line-end-station-selector" name="downward-terminal">
+                </select>
+              </div>
+          </div>
             <button id="line-add-button">노선 추가</button>
           </div>
           <div id="line-manager-list-container">
             <h2> 🚉 지하철 노선 목록 </h2>
-            <table border="1" id="line-table">
+            <table id="line-table">
             </table>
           </div>
         </div>
@@ -68,7 +74,7 @@
               <button id="section-add-button">등록</button>
             </div>
           <div id="section-manager-list-container">
-            <table border="1" id="section-table">
+            <table id="section-table">
             </table>
           </div>
         </div>  
