@@ -20,12 +20,12 @@ const addEventToLineButton = () => {
         button.addEventListener("click", (button) => {
             updateSectionHTML(button.target.dataset.selectedLine);
         })
-    })
-}
+    });
+};
 
 const addEventToRegisterButton = (lineName) => {
     document.querySelector("#section-add-button").addEventListener("click", () => {
-        const order = document.querySelector("#section-order-input").value
+        const order = document.querySelector("#section-order-input").value;
         const station = getSelectedStation();
 
         try {
@@ -36,13 +36,13 @@ const addEventToRegisterButton = (lineName) => {
         }
     });
 
-}
+};
 
 const getSelectedStation = () => {
-    const selectOption = document.querySelector(`#section-station-selector`)
+    const selectOption = document.querySelector(`#section-station-selector`);
 
     return selectOption.options[selectOption.selectedIndex].value;
-}
+};
 
 const addEventToRemoveButton = (lineName) => {
     Array.prototype.forEach.call(document.querySelectorAll(".section-delete-button"), (button) => {
@@ -57,7 +57,7 @@ const addEventToRemoveButton = (lineName) => {
                 alert(error);
             }
         })
-    })
+    });
 }
 
 const updateSectionHTML = (lineName) => {
@@ -65,4 +65,4 @@ const updateSectionHTML = (lineName) => {
     makeSubSectionHTML(lineName, Data.getStationRepository());
     addEventToRegisterButton(lineName)
     addEventToRemoveButton(lineName);
-}
+};

@@ -1,24 +1,24 @@
 import { HTMLUtil } from "../HTMLFactory.js";
 
 export const removeStationManagerHTML = () => {
-    const stationHTML = document.querySelector("#station-manager-div")
+    const stationHTML = document.querySelector("#station-manager-div");
     if (stationHTML) {
         document.querySelector("#app").removeChild(stationHTML);
     }
-}
+};
 
 export const addResultToBody = (HTML) => {
-    document.querySelector("#app").appendChild(HTML)
-}
+    document.querySelector("#app").appendChild(HTML);
+};
 
 export const makeStationHTML = (stationRepository) => {
-    let stationHTML = HTMLUtil.makeTag({ tag: "div", id: "station-manager-div" })
+    let stationHTML = HTMLUtil.makeTag({ tag: "div", id: "station-manager-div" });
 
     stationHTML.appendChild(HTMLUtil.makeTag({ tag: "br" }));
     stationHTML.innerHTML += getHTMLAboutStationAdd() + getHTMLAboutStationTable(stationRepository);
 
     return stationHTML;
-}
+};
 
 const getHTMLAboutStationAdd = () => {
     return `<div>
@@ -26,7 +26,7 @@ const getHTMLAboutStationAdd = () => {
                 <input id = "station-name-input" placeholder="역 이름을 입력해주세요."> 
                 <button id = "station-add-button">역 추가</button>
             </div>`;
-}
+};
 
 const getHTMLAboutStationTable = (stationRepository) => {
     let HTMLAboutStations = `<div> 
@@ -38,7 +38,7 @@ const getHTMLAboutStationTable = (stationRepository) => {
                             </div>`;
 
     return HTMLAboutStations;
-}
+};
 
 const makeStationTableRow = (stationRepository) => {
     let rows = "";
@@ -46,8 +46,8 @@ const makeStationTableRow = (stationRepository) => {
         rows += `<tr data-station-name = ${stationName}>
                     <td>${stationName}</td>
                     <td><button class="station-delete-button" >삭제</button></td>
-                </tr>`
+                </tr>`;
     });
 
     return rows;
-}
+};

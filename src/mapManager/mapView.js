@@ -1,18 +1,18 @@
 import { HTMLUtil } from "../HTMLFactory.js"
 
 export const showMapHTML = (lineRepository) => {
-    let body = document.querySelector("#app")
+    let body = document.querySelector("#app");
     let mapHTML = makeTotalMap(lineRepository);
 
     body.appendChild(mapHTML);
-}
+};
 
 export const hideMapHTML = () => {
-    let mapHTML = document.querySelector(".map")
+    let mapHTML = document.querySelector(".map");
     if (mapHTML) {
         document.querySelector("#app").removeChild(mapHTML);
     }
-}
+};
 
 const makeTotalMap = (lineRepository) => {
     let mapHTML = HTMLUtil.makeTag({ tag: "div", classe: "map" });
@@ -25,7 +25,7 @@ const makeTotalMap = (lineRepository) => {
     mapHTML.innerHTML = allLineMap;
 
     return mapHTML;
-}
+};
 
 const templateOneLineMap = (line) => {
     let oneLineMapHTML = `<div>
@@ -36,4 +36,4 @@ const templateOneLineMap = (line) => {
                           </div>`;
 
     return oneLineMapHTML;
-}
+};

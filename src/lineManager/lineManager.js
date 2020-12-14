@@ -64,7 +64,7 @@ const addEventToDeleteButton = () => {
                 Data.removeLine(button.target.parentNode.parentNode.dataset.lineName);
                 document.querySelector("#line-table tbody").removeChild(this.parentElement.parentElement);
             }
-        });
+        })
     });
 
 };

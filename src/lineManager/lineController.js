@@ -17,16 +17,16 @@ export const makeLineIfPossible = (name, startStation, endStation) => {
     }
 
     return new Line(name, startStation, endStation);
-}
+};
 
 const isEmptyLineName = (input) => {
     return input.trim() === text.EMPTY;
-}
+};
 
 const isSameLineExite = (input) => {
-    return Data.getLineRepository().hasOwnProperty(input)
-}
+    return Data.getLineRepository().hasOwnProperty(input);
+};
 
 const isStartStationEndStationSame = (startStation, endStation) => {
-    return startStation === endStation
-}
+    return startStation === endStation;
+};

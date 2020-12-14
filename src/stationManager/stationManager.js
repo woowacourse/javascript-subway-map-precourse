@@ -30,7 +30,7 @@ const addEventToAddStationButton = () => {
             alert(error);
         }
     });
-}
+};
 
 const addEventToDeleteButton = () => {
     Array.prototype.forEach.call(document.querySelectorAll(".station-delete-button"), (button) => {
@@ -46,12 +46,12 @@ const addEventToDeleteButton = () => {
                 alert(error);
             }
         })
-    })
-}
+    });
+};
 
 const updateStationView = () => {
     removeStationManagerHTML();
     addResultToBody(makeStationHTML(Data.getStationRepository()));
     addEventToAddStationButton();
     addEventToDeleteButton();
-}
+};

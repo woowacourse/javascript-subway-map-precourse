@@ -3,7 +3,7 @@ import { dataText } from "./text.js"
 export class Data {
     // stationRepository 접근 
     static getStationRepository = () => {
-        let stationRepository = JSON.parse(localStorage.getItem(dataText.STATION_REPOSITORY))
+        let stationRepository = JSON.parse(localStorage.getItem(dataText.STATION_REPOSITORY));
         if (stationRepository === null) {
             return {};
         }
@@ -23,10 +23,10 @@ export class Data {
     static removeStation = (stationName) => {
         let stationRepository = this.getStationRepository();
 
-        delete stationRepository[stationName]
+        delete stationRepository[stationName];
 
         if (stationRepository === this.EMPTY_REPOSITORY) {
-            return localStorage.setItem(dataText.STATION_REPOSITORY, null)
+            return localStorage.setItem(dataText.STATION_REPOSITORY, null);
         }
 
         return localStorage.setItem(dataText.STATION_REPOSITORY, JSON.stringify(stationRepository));
@@ -56,7 +56,7 @@ export class Data {
 
         let lineRepository = this.getLineRepository();
 
-        delete lineRepository[lineName]
+        delete lineRepository[lineName];
 
         if (lineRepository === this.EMPTY_REPOSITORY) {
             return localStorage.setItem(dataText.LINE_REPOSITORY, null);
@@ -75,9 +75,9 @@ export class Data {
 
     // 특정line에 기존 역을 삭제
     static removeStationFromLine = (lineName, order) => {
-        let lineRepository = this.getLineRepository()
+        let lineRepository = this.getLineRepository();
 
-        lineRepository[lineName][dataText.STATION_ARRAY].splice(order, 1)
+        lineRepository[lineName][dataText.STATION_ARRAY].splice(order, 1);
         localStorage.setItem(dataText.LINE_REPOSITORY, JSON.stringify(lineRepository));
     }
 }

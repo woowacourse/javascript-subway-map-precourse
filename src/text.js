@@ -21,10 +21,10 @@ export const text = {
     MINIMUM_STATION_ARRAY_LENGTH: 2,
     ZERO: 0,
     ONE: 1
-}
+};
 
 export const dataText = {
     STATION_REPOSITORY: "stationRepository",
     LINE_REPOSITORY: "lineRepository",
     STATION_ARRAY: "stationArray"
-}
+};

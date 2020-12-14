@@ -16,28 +16,28 @@ export const makeStationIfPossible = (input) => {
     }
 
     return new Station(input);
-}
+};
 
 export const checkStationInLine = (input) => {
     if (isStationInLine(input)) {
         throw alertText.STATION_ALREADY_IN_LINE;
     }
-}
+};
 
 const isEmptyName = (input) => {
     return input.trim() === text.EMPTY;
-}
+};
 
 const isShortName = (input) => {
     return input.length < text.MINIMUM_STATION_LENGTH;
-}
+};
 
 const isSameNameExite = (input) => {
     return Data.getStationRepository().hasOwnProperty(input);
-}
+};
 
 const isStationInLine = (station) => {
     return Object.values(Data.getLineRepository())
         .map((line) => line.stationArray)
-        .some((stationArray) => stationArray.includes(station))
-}
+        .some((stationArray) => stationArray.includes(station));
+};
