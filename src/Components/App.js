@@ -3,6 +3,7 @@ import StationStore from "../store/stationStore.js";
 import LineStore from "../store/lineStore.js";
 import StationManager from "./StationManager/index.js";
 import LineManager from "./LineManager/index.js";
+import SectionManager from "./SectionManager/index.js";
 
 class App {
   constructor($target) {
@@ -49,6 +50,10 @@ class App {
         lineStore: this.lineStore,
       });
     } else if (id === `section-manager-button`) {
+      new SectionManager(this.$managerContainer, {
+        stationStore: this.stationStore,
+        lineStore: this.lineStore,
+      });
     } else if (id === `map-print-manager-button`) {
     }
   }
