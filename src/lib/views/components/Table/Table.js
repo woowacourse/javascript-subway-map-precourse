@@ -7,6 +7,11 @@ import {
   deleteHelperText,
   deleteButtonClass,
 } from "./tableSubComponents.js";
+import {
+  STATION_TAB_INDEX,
+  LINE_TAB_INDEX,
+  SECTION_TAB_INDEX,
+} from "../../../common/constants.js";
 import deleteStationName from "../../../_action/Station/deleteStationName.js";
 import deleteLineName from "../../../_action/Line/deleteLineName.js";
 import deleteSectionData from "../../../_action/Section/deleteSectionData.js";
@@ -64,7 +69,7 @@ export default class Table {
   }
 
   _getStationTableData() {
-    if (this.tabIndex !== 0) return [];
+    if (this.tabIndex !== STATION_TAB_INDEX) return [];
     return stationSelector().reduce((trList, stationName) => {
       const $tr = document.createElement("tr");
       [
@@ -78,7 +83,7 @@ export default class Table {
 
   // 노선 데이터 (노선 이름, 기점, 종점, 삭제) tr 배열
   _getLineTableData() {
-    if (this.tabIndex !== 1) return [];
+    if (this.tabIndex !== LINE_TAB_INDEX) return [];
     return lineSelector().reduce((trList, { lineName, stations }) => {
       const $tr = document.createElement("tr");
       [
@@ -94,7 +99,7 @@ export default class Table {
 
   // 현재 라인에 해당하는 구간 데이터 (순서, 역 이름, 노선에서 삭제) tr 배열
   _getSectionTableData() {
-    if (this.tabIndex !== 2) return [];
+    if (this.tabIndex !== SECTION_TAB_INDEX) return [];
     return lineSelector()
       .filter(({ lineName }) => lineName === this.lineName)[0]
       .stations.reduce((trList, stationName, index) => {

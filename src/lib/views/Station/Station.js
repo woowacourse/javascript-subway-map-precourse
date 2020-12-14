@@ -4,6 +4,7 @@ import Input from "../components/Input.js";
 import Div from "../components/Div.js";
 import Table from "../components/Table/Table.js";
 import submitStationName from "../../_action/Station/submitStationName.js";
+import { STATION_TAB_INDEX } from "../../common/constants.js";
 
 import {
   STATION_DIV,
@@ -16,7 +17,7 @@ export default class Station {
   constructor() {
     this.element = document.createElement("div");
     this.element.id = STATION_DIV.substring(1);
-    this.table = new Table({ tabIndex: 0 });
+    this.table = new Table({ tabIndex: STATION_TAB_INDEX });
   }
 
   _getStationInputContainerChildNodes() {

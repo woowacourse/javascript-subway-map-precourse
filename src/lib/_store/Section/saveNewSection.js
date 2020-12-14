@@ -1,5 +1,7 @@
 import { lineSelector } from "../selectors.js";
 import { lineReducer } from "../reducers.js";
+import {SECTION_TAB_INDEX} from "../../common/constants.js";
+import updateTable from "../common/updateTable.js";
 
 export default (sectionData) => {
   const { lineName } = sectionData;
