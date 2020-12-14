@@ -81,8 +81,7 @@ class LineInput extends Component {
   isValidInput(lineName, stations) {
     return (
       !this.hasEmptyInput(lineName, stations) &&
-      !this.hasDuplicateLineName(lineName) &&
-      stations[0] !== stations[1]
+      !this.hasDuplicateLineName(lineName)
     );
   }
 
@@ -107,9 +106,6 @@ class LineInput extends Component {
     }
     if (this.hasDuplicateLineName(lineName)) {
       alertCases.push(DUPLICATE_LINE_MESSAGE);
-    }
-    if (stations[0] === stations[1]) {
-      alertCases.push(SAME_TERMINAL_MESSAGE);
     }
     alert(alertCases.join(', ') + LEFTOVER_MESSAGE);
   }
