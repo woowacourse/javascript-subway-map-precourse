@@ -1,5 +1,6 @@
 import { SectionManagerHeaderButtons } from "./SectionManagerHeaderButtons.js";
 import { getLineTableHeader } from "../../utils/templates.js";
+import { showDOM } from "../../utils/handleDom.js";
 import { SectionManagerInput } from "./SectionManagerInput.js";
 export class SectionManager {
   constructor({ getLines, getStations }) {
@@ -9,23 +10,33 @@ export class SectionManager {
   }
 
   render = () => {
+    this.sectionManagerBody = document.getElementById(
+      "section-inputs-container-by-lines"
+    );
     this.renderHeader();
+    this.renderInputContainer();
   };
 
   renderHeader = () => {
     this.sectionHeader = new SectionManagerHeaderButtons({
       getLines: this.getLines,
-      renderSectionManagerByLine: this.renderSectionManagerByLine,
+      updateSectionManagerByLine: this.updateSectionManagerByLine,
     });
   };
 
-  renderSectionManagerByLine = (lineName) => {
-    let line = this.getLineMatchedWith(lineName);
-    new SectionManagerInput({
+  renderInputContainer = () => {
+    this.sectionManagerInput = new SectionManagerInput({
       getStations: this.getStations,
-      lineName: lineName,
+      addStationInLine: this.addStationInLine,
+      getLines: this.getLines,
     });
     // new SectionManagerList({ line: line });
+  };
+
+  updateSectionManagerByLine = (lineName) => {
+    let line = this.getLineMatchedWith(lineName);
+    showDOM(this.sectionManagerBody);
+    this.sectionManagerInput.render({ lineName: lineName });
   };
 
   getLineMatchedWith = (lineName) => {
@@ -37,5 +48,14 @@ export class SectionManager {
 
   updateHeaderButtons = () => {
     this.sectionHeader.render();
+  };
+
+  addStationInLine = (order, station, lineName) => {
+    let line = this.getLines().filter((line) => {
+      return line.lineName === lineName;
+    });
+
+    let newLine = line.stations.splice(order, 0, station);
+    console.log(newLine);
   };
 }

@@ -1,36 +1,51 @@
-import {
-  addOptionTag,
-  initSelector,
-  addLineNameHeader,
-} from "../../utils/handleDom.js";
-import {} from "../../utils/templates.js";
+import { addOptionTag, initSelector } from "../../utils/handleDom.js";
+import { isValidSectionInfo } from "../../utils/validation.js";
 export class SectionManagerInput {
-  constructor({ getStations, lineName }) {
+  constructor({ getStations, addStationInLine, getLines }) {
     this.getStations = getStations;
-    this.initializeDOM(lineName);
-    this.sectionManagerInput.prepend(this.headerHTML);
-    this.render();
+    this.addStationInLine = addStationInLine;
+    this.getLines = getLines;
+    this.initializeDOM();
+    this.initializeEvents();
   }
 
-  initializeDOM = (lineName) => {
-    this.sectionManagerInput = document.getElementById(
-      "section-inputs-container-by-lines"
-    );
-    this.headerHTML = addLineNameHeader(lineName);
+  initializeDOM = () => {
     this.sectionStationSelector = document.getElementById(
       "section-station-selector"
     );
+    this.header = document.getElementById("line-name-header");
     this.sectionAddButton = document.getElementById("section-add-button");
     this.sectionInput = document.getElementById("section-order-input");
   };
 
-  render = () => {
-    console.log("렌더몇번되는뎅");
-    const stations = this.getStations();
-    initSelector(this.sectionStationSelector);
+  initializeEvents = () => {
+    this.sectionAddButton.addEventListener(
+      "click",
+      this.handleAddStaionByOrder
+    );
+  };
 
-    stations.forEach((station) => {
+  render = ({ lineName }) => {
+    this.stations = this.getStations();
+    this.lineName = lineName;
+    this.header.innerHTML = `${lineName} 관리`;
+
+    initSelector(this.sectionStationSelector);
+    this.stations.forEach((station) => {
       addOptionTag(this.sectionStationSelector, station);
     });
+  };
+
+  handleAddStaionByOrder = () => {
+    let order = this.sectionInput.value;
+    let station = this.sectionStationSelector.value;
+    let line = this.getLines().filter((line) => {
+      return line.lineName === this.lineName;
+    })[0];
+    console.log(line);
+    if (!isValidSectionInfo(order, station, line.stations)) {
+      return;
+    }
+    this.addStationInLine(order, station, this.lineName);
   };
 }

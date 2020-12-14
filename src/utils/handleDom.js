@@ -52,9 +52,6 @@ export const initSelector = (selector) => {
   selector.innerHTML = "";
 };
 
-export const addLineNameHeader = (lineName) => {
-  const header = document.createElement("h3");
-
-  header.innerHTML = `${lineName} 관리`;
-  return header;
+export const showDOM = (dom) => {
+  dom.style.visibility = "visible";
 };

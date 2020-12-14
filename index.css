@@ -1,12 +1,23 @@
 #station-manager-container{
-    display: none;
+  display: none;
 }
+
 #line-manager-container{
-    display: none;
+  display: none;
 }
+
 #section-manager-container{
-    display: none;
+  display: none;
 }
+
 #map-print-manager-container{
-    display: none;
+  display: none;
+}
+
+#section-inputs-container-by-lines {
+  visibility: hidden;
+}
+
+#section-manager-list-container{
+  visibility: hidden;
 }
