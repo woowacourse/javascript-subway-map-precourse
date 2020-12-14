@@ -3,8 +3,9 @@ import actionResult from "../actionResult.js";
 import { MIN_LENGTH_OF_LINE } from "../../common/constants.js";
 import { DELETE_STATION_ERROR } from "../../common/alertMessages.js";
 
-export default class DeleteStationFromLineValidation {
-  constructor(stationName, lineName) {
+export default class DeleteStationValidation {
+  constructor(props) {
+    const { stationName, lineName } = props;
     this.deletedStationName = stationName;
     this.updatedLineName = lineName;
     this.isSectionManagement = lineName !== undefined;

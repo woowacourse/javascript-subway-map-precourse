@@ -8,7 +8,7 @@ export default (lineName, stationDataList) =>
         const $deleteSectionButton = new Button(
           DELETE_SECTION_BUTTON,
           "삭제",
-          () => deleteSectionData(stationName, lineName),
+          () => deleteSectionData({ stationName, lineName }),
         );
         $deleteSectionButton.element.id = `${DELETE_SECTION_BUTTON.substring(
           1,

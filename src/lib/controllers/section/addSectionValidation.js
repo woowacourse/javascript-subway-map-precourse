@@ -8,8 +8,8 @@ import { isInvalidNumber, isEmptyInput } from "../common.js";
 
 export default class AddSectionValidation extends Section {
   constructor(props) {
-    const { stationName, order } = props;
-    super(stationName, order);
+    const { stationName, order, lineName } = props;
+    super(stationName, order, lineName);
     this.isOrderEmpty = isEmptyInput(this.order);
     this.isInValidOrderNumber = isInvalidNumber(this.order);
   }

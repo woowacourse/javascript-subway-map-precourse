@@ -17,26 +17,25 @@ export default class InputNewSectionInfo {
     const { lineName } = props;
     this.inputContainer = new Div(SECTION_INFO_INPUT_CONTAINER_ID);
     this.sectionStationSelector = new Select(SECTION_STATION_SELECTOR);
+    this.lineName = lineName;
     this.sectionStationSelector.appendOptions();
     this.orderInput = new Input(SECTION_ORDER_INPUT, "순서", () =>
-      submitSectionData(
-        new Section(
-          this.sectionStationSelector.getSelectedValue(),
-          this.orderInput.getValue(),
-        ),
-      ),
+      submitSectionData(this._getNewSectionData()),
     );
     this.addSectionTitle = new Typography("구간 등록");
   }
 
+  _getNewSectionData() {
+    return new Section(
+      this.sectionStationSelector.getSelectedValue(),
+      this.orderInput.getValue(),
+      this.lineName,
+    );
+  }
+
   _getAddSectionButton() {
     const $addSectionButton = new Button(ADD_SECTION_BUTTON, "등록", () =>
-      submitSectionData(
-        new Section(
-          this.sectionStationSelector.getSelectedValue(),
-          this.orderInput.getValue(),
-        ),
-      ),
+      submitSectionData(this._getNewSectionData()),
     );
 
     return $addSectionButton;
