@@ -1,3 +1,11 @@
+export const camelize = (string) => {
+  const camelCaseString = string.replace(/-[a-z]/g, (char) => {
+    return char.toUpperCase().replace("-", "");
+  });
+
+  return camelCaseString;
+};
+
 export const convertStringToNumber = (inputString) => {
   return parseInt(inputString);
 };

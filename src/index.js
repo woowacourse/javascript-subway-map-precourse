@@ -6,6 +6,7 @@ import StationManagerView from "./view/station-manager.view.js";
 import LineManagerView from "./view/line-manager.view.js";
 import SectionManagerView from "./view/section-manager.view.js";
 import MapPrintView from "./view/map-print-manager.view.js";
+import { camelize } from "./common/util.js";
 
 export default class App {
   constructor() {
@@ -20,24 +21,29 @@ export default class App {
     this.sectionManager = new SectionManager(this.sectionManagerView);
   }
 
-  onClickMenuButton(event) {
-    const target = event.target;
-    if (target.id === "station-manager-button") {
-      this.stationManagerView.renderStationManagerView();
-    }
-
-    if (target.id === "line-manager-button") {
-      this.lineManagerView.renderLineManagerView();
-    }
-
-    if (target.id === "section-manager-button") {
-      this.sectionManagerView.renderSectionManagerView();
-    }
-
-    if (target.id === "map-print-manager-button") {
-      this.mapPrintManagerView.renderLineMapView();
-    }
+  manageStation() {
+    this.stationManagerView.renderStationManagerView();
   }
+
+  manageLine() {
+    this.lineManagerView.renderLineManagerView();
+  }
+
+  manageSection() {
+    this.sectionManagerView.renderSectionManagerView();
+  }
+
+  manageMapPrint() {
+    this.mapPrintManagerView.renderLineMapView();
+  }
+
+  onClickMenuButton = (event) => {
+    const action = event.target.dataset.action;
+    if (action) {
+      const menuAction = camelize(action);
+      this[menuAction]();
+    }
+  };
 }
 
 const app = new App();
