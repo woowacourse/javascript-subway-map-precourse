@@ -42,3 +42,71 @@
 ## 로컬스토리지
 
 - [x] 로컬스토리지에 노선, 역, 구간 값을 저장, 불러온다.
+
+## 디렉토리 구조
+
+```
+.
+├── LICENSE
+├── README.md
+├── babel.config.js
+├── docs
+│   └── README.md
+├── images
+├── index.css
+├── index.html
+├── jest.config.js
+├── package-lock.json
+├── package.json
+└── src
+    ├── components
+    │   ├── app.js
+    │   ├── line-manager
+    │   │   ├── index.js
+    │   │   ├── line-input.js
+    │   │   └── line-list.js
+    │   ├── map-print-manager
+    │   │   └── index.js
+    │   ├── navigator.js
+    │   ├── section-manager
+    │   │   ├── index.js
+    │   │   └── line-section-manager
+    │   │       ├── index.js
+    │   │       ├── section-input.js
+    │   │       └── section-list.js
+    │   └── station-manager
+    │       ├── index.js
+    │       ├── station-input.js
+    │       └── station-list.js
+    ├── index.js
+    └── library
+        ├── constants
+        │   ├── common-alert.js
+        │   ├── confirm.js
+        │   ├── line-manager-alert.js
+        │   ├── localstorage.js
+        │   ├── route.js
+        │   ├── section-manager-alert.js
+        │   └── station-manager-alert.js
+        ├── core
+        │   ├── component.js
+        │   └── state.js
+        └── utils
+            ├── template.js
+            └── validation.js
+
+13 directories, 40 files
+```
+
+## UI 컴포넌트 구조
+
+- 초기화면
+  ![컴포넌트_1](./../images/component.png)
+- 역 관리
+  ![컴포넌트_2](./../images/component2.png)
+- 노선 관리
+  ![컴포넌트_3](./../images/component3.png)
+- 구간 관리
+  ![컴포넌트_4](./../images/component4.png)
+- 지하철 노선도 출력
+  ![컴포넌트_5](./../images/component5.png)
