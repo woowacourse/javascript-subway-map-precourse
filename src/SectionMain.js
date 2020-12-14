@@ -8,7 +8,8 @@ import {
   createSelectHTMLElement,
   getStationNameArray,
   getStations,
-  throwErrorWithMessage
+  throwErrorWithMessage,
+  updateLineInfo
 } from "./util.js";
 
 export default class SectionMain extends Component {
@@ -187,6 +188,16 @@ export default class SectionMain extends Component {
 
       this.setState({ stations: targetExcluded });
     }
+  }
+
+  setState(state) {
+    super.setState(state);
+
+    const newLineInfo = {
+      lineName: this.props.lineName,
+      stations: [...this.state.stations]
+    };
+    updateLineInfo(newLineInfo);
   }
 
   render() {

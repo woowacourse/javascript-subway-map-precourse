@@ -95,6 +95,14 @@ export const storeLineInfo = lineInfo => storeInfoToLocalStorage(LINE_INFO_LOCAL
 
 export const storeStationInfo = stationInfo => storeInfoToLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY, stationInfo);
 
+export const updateLineInfo = newLineInfo => {
+  const storedLineInfo = retrieveLineInfo();
+  const targetExcluded = storedLineInfo.filter(({ lineName }) => lineName !== newLineInfo.lineName);
+  const updatedLineInfo = [...targetExcluded, newLineInfo];
+
+  storeLineInfo(updatedLineInfo);
+};
+
 export const throwErrorWithMessage = errorMessage => {
   throw Error(errorMessage);
 };
