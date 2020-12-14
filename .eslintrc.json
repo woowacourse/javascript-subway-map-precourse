@@ -19,6 +19,9 @@
     "no-underscore-dangle": "off",
     "import/extensions": ["off"],
     "prefer-template": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-restricted-globals": "off",
+    "import/no-cycle": "off",
+    "no-nested-ternary": "off"
   }
 }

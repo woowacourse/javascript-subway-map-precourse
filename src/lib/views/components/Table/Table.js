@@ -33,10 +33,10 @@ export default class Table {
   }
 
   _getTableHeaderText() {
-    return tableHeaderList[this.tabIndex].reduce((trInnerHtml, headerTitle) => {
-      trInnerHtml += `<th>${headerTitle}</th>`;
-      return trInnerHtml;
-    }, "");
+    return tableHeaderList[this.tabIndex].reduce(
+      (trInnerHtml, headerTitle) => trInnerHtml + `<th>${headerTitle}</th>`,
+      "",
+    );
   }
 
   _getTableHead() {
@@ -45,18 +45,17 @@ export default class Table {
     return $tableHead;
   }
 
-  _getDeleteButton(dataObject) {
-    const { stationName, lineName } = dataObject;
+  _getDeleteButton({ stationName, lineName }) {
     const $buttonContainer = document.createElement("td");
     const $deleteButton = new Button(
       deleteButtonClass[this.tabIndex],
       deleteHelperText[this.tabIndex],
       () =>
         stationName !== undefined && lineName !== undefined
-          ? deleteSectionData(dataObject)
+          ? deleteSectionData({ stationName, lineName })
           : stationName !== undefined
-          ? deleteStationName(dataObject)
-          : deleteLineName(dataObject),
+          ? deleteStationName({ stationName, lineName })
+          : deleteLineName({ stationName, lineName }),
     );
     $buttonContainer.appendChild($deleteButton.element);
     return $buttonContainer;

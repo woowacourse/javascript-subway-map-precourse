@@ -11,6 +11,10 @@ export default class Line {
 
   addSectionInfo(sectionInfo) {
     const { stationName, order } = sectionInfo;
+    const START = 0;
+    const END = this.lineLength - 1;
+
+    console.log(this.stations, sectionInfo);
   }
 
   deleteStation(stationName) {
