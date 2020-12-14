@@ -3,7 +3,7 @@ export const displayShow = (dom) => {
   dom.style.display = "block";
 };
 
-export const displayhide = (dom) => {
+export const displayHide = (dom) => {
   dom.style.display = "none";
 };
 

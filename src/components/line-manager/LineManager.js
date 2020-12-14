@@ -1,7 +1,9 @@
 import { LineManagerInput } from "./LineManagerInput.js";
 import { LineManagerList } from "./LineManagerList.js";
+import { displayShow, displayHide } from "../../utils/handleDom.js";
 
 export class LineManager {
+  id = "line-manager-container";
   constructor(props) {
     this.setLines = props.setLines;
     this.getLines = props.getLines;
@@ -9,6 +11,7 @@ export class LineManager {
   }
 
   initializeDOM = (props) => {
+    this.manager = document.getElementById("line-manager-container");
     this.lineManagerInput = new LineManagerInput({
       ...props,
       addNewLines: this.addNewLines,
@@ -20,6 +23,12 @@ export class LineManager {
   };
 
   render = (props) => {
+    if (props.isShow) {
+      displayShow(this.manager);
+    } else {
+      displayHide(this.manager);
+    }
+
     this.lineManagerInput.render();
     this.lineManagerList.render();
   };

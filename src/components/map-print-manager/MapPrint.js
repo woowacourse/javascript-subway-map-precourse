@@ -1,9 +1,10 @@
 import { printLine } from "../../utils/templates.js";
+import { displayShow, displayHide } from "../../utils/handleDom.js";
 export class MapPrint {
-  constructor({ getLines }) {
-    this.getLines = getLines;
+  id = "map-print-manager-container";
+  constructor(props) {
+    this.getLines = props.getLines;
     this.initializeDOM();
-    this.render();
   }
 
   initializeDOM = () => {
@@ -12,9 +13,15 @@ export class MapPrint {
     );
   };
 
-  render = () => {
+  render = (props) => {
     let lines = this.getLines();
     let mapHTML = ``;
+    if (props.isShow) {
+      displayShow(this.mapPrintManager);
+    } else {
+      displayHide(this.mapPrintManager);
+    }
+
     lines.forEach((line) => {
       mapHTML += printLine(line);
     });

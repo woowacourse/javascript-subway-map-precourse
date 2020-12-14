@@ -1,44 +1,53 @@
 import { SectionManagerHeaderButtons } from "./SectionManagerHeaderButtons.js";
-import { displayShow, displayhide } from "../../utils/handleDom.js";
+import { displayShow, displayHide } from "../../utils/handleDom.js";
 import { SectionManagerInput } from "./SectionManagerInput.js";
 import { SectionManagerList } from "./SectionManagerList.js";
 
 export class SectionManager {
-  constructor({ getLines, getStations, setLines }) {
-    this.getLines = getLines;
-    this.getStations = getStations;
-    this.setLines = setLines;
-    this.render();
+  id = "section-manager-container";
+  constructor(props) {
+    this.getLines = props.getLines;
+    this.getStations = props.getStations;
+    this.setLines = props.setLines;
+    this.initializeDOM(props);
   }
 
-  render = () => {
+  initializeDOM = (props) => {
+    this.manager = document.getElementById("section-manager-container");
     this.sectionManagerContaionerByLines = document.getElementById(
       "section-inputs-container-by-lines"
     );
     this.sectionManagerListContainer = document.getElementById(
       "section-manager-list-container"
     );
-    this.renderHeader();
-    this.renderInputContainer();
+    this.renderHeader(props);
+    this.renderInputContainer(props);
   };
 
-  renderHeader = () => {
+  renderHeader = (props) => {
     this.sectionHeader = new SectionManagerHeaderButtons({
-      getLines: this.getLines,
+      ...props,
       updateSectionManagerByLine: this.updateSectionManagerByLine,
     });
   };
 
-  renderInputContainer = () => {
+  renderInputContainer = (props) => {
     this.sectionManagerInput = new SectionManagerInput({
-      getStations: this.getStations,
+      ...props,
       addStationInLine: this.addStationInLine,
-      getLines: this.getLines,
     });
     this.sectionManagerList = new SectionManagerList({
+      ...props,
       deleteStationInLine: this.deleteStationInLine,
-      getLines: this.getLines,
     });
+  };
+
+  render = (props) => {
+    if (props.isShow) {
+      displayShow(this.manager);
+    } else {
+      displayHide(this.manager);
+    }
   };
 
   updateSectionManagerByLine = (lineName) => {

@@ -1,6 +1,8 @@
 import { StationManagerInput } from "./StationManagerInput.js";
 import { StationManagerList } from "./StationManagerList.js";
+import { displayShow, displayHide } from "../../utils/handleDom.js";
 export class StationManager {
+  id = "station-manager-container";
   constructor(props) {
     this.props = props;
     this.getStations = props.getStations;
@@ -21,6 +23,12 @@ export class StationManager {
   };
 
   render = (props) => {
+    if (props.isShow) {
+      displayShow(this.manager);
+    } else {
+      displayHide(this.manager);
+    }
+
     this.stationList.render(props);
   };
 

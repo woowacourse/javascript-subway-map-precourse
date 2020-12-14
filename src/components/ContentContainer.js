@@ -2,14 +2,7 @@ import { StationManager } from "./station-manager/StationManager.js";
 import { LineManager } from "./line-manager/LineManager.js";
 import { MapPrint } from "./map-print-manager/MapPrint.js";
 import { SectionManager } from "./section-manager/SectionManager.js";
-import { displayShow, displayhide } from "../utils/handleDom.js";
 
-const contentIds = [
-  "station-manager-container",
-  "line-manager-container",
-  "section-manager-container",
-  "map-print-manager-container",
-];
 export class ContentContainer {
   constructor(props) {
     this.props = {
@@ -28,31 +21,30 @@ export class ContentContainer {
     this.lineManager = new LineManager(this.props);
     this.mapPrintManager = new MapPrint(this.props);
     this.sectionManager = new SectionManager(this.props);
+    this.contents = [
+      this.stationManager,
+      this.lineManager,
+      this.sectionManager,
+      this.mapPrintManager,
+    ];
   };
 
   initiateData = () => {
     localStorage.setItem("stations", JSON.stringify([]) || []);
     localStorage.setItem("lines", JSON.stringify([]) || []);
   };
+
   render = (props) => {
     this.props = props;
     this.id = props.id;
 
-    // this.contents.forEach((content) => {
-    //   content.render({
-    //     ...props,
-    //     ...this.state,
-    //     onUpdate: this.onUpdate,
-    //     // isShow: content.id === contentId,
-    //   });
-    // });
-    contentIds.forEach((contentId) => {
-      const content = document.getElementById(contentId);
-      if (contentId === this.id) {
-        displayShow(content);
-      } else {
-        displayhide(content);
-      }
+    this.contents.forEach((content) => {
+      content.render({
+        ...props,
+        ...this.state,
+        onUpdate: this.onUpdate,
+        isShow: content.id === this.id,
+      });
     });
   };
 
@@ -78,6 +70,6 @@ export class ContentContainer {
     this.sectionManager.updateHeaderButtons();
     this.sectionManager.updateSectionList();
     this.lineManager.updateLines();
-    this.mapPrintManager.render();
+    this.mapPrintManager.render(this.props);
   };
 }
