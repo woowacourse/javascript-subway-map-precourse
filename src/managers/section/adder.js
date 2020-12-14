@@ -1,5 +1,5 @@
 import { Line } from '../../classes/line.js';
-import { createSectionManagerUI } from './launcher.js';
+import { createSectionManagerUI as updateUI } from './launcher.js';
 import {
   getItemFromLocalStorage,
   addSubItemToLocalStroage,
@@ -24,8 +24,8 @@ export const requestToAddSection = (menu, lineSelected) => {
   if (exception) {
     return processException(exception, stationSelector, orderInput);
   }
-  addNewSection(menu, line, stationSelector.value, orderInput.value);
-  createSectionManagerUI(menu, subContainer, line);
+  updateLocalStorage(menu, line, stationSelector.value, orderInput.value);
+  updateUI(menu, subContainer, line);
 };
 
 const processException = (exception, select, input) => {
@@ -37,7 +37,7 @@ const processException = (exception, select, input) => {
   return input.focus();
 };
 
-const addNewSection = (menu, line, stationName, order) => {
+const updateLocalStorage = (menu, line, stationName, order) => {
   addSubItemToLocalStroage(
     'line',
     'stationList',

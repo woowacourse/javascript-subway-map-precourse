@@ -1,5 +1,5 @@
 import { Line } from '../../classes/line.js';
-import { createSectionManagerUI } from './launcher.js';
+import { createSectionManagerUI as updateUI } from './launcher.js';
 import {
   getItemFromLocalStorage,
   deleteSubItemFromLocalStorage,
@@ -21,15 +21,15 @@ export const requestToDeleteSection = (e, menu) => {
   if (exception) {
     return processException(exception);
   }
-  deleteLine(stationName, line);
-  createSectionManagerUI(menu, subContainer, line);
+  updateLocalStorage(stationName, line);
+  updateUI(menu, subContainer, line);
 };
 
 const processException = (exception) => {
   alert(EXCEPTION_MESSAGE[exception]);
 };
 
-const deleteLine = (stationName, line) => {
+const updateLocalStorage = (stationName, line) => {
   deleteSubItemFromLocalStorage('line', 'stationList', line.name, stationName);
   deleteSubItemFromLocalStorage('station', 'lineList', stationName, line.name);
 };

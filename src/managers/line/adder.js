@@ -24,8 +24,8 @@ export const requestToAddLine = (menu) => {
   if (exception) {
     return processException(exception, lineNameInput, start);
   }
-  addNewLine(menu, line, start.value, end.value);
-  emptyElement(lineNameInput);
+  updateLocalStorage(menu, line, start.value, end.value);
+  updateUI(menu, line, lineNameInput);
 };
 
 const processException = (exception, input, start) => {
@@ -37,13 +37,17 @@ const processException = (exception, input, start) => {
   return input.focus();
 };
 
-const addNewLine = (menu, line, startStationName, endStationName) => {
-  let button;
-
+const updateLocalStorage = (menu, line, startStationName, endStationName) => {
   addItemToLocalStroage(menu, line);
   addSubItemToLocalStroage('station', 'lineList', startStationName, line.name);
   addSubItemToLocalStroage('station', 'lineList', endStationName, line.name);
+};
+
+const updateUI = (menu, line, input) => {
+  let button;
+
   addItemToTable(menu, line);
   button = document.querySelector(`[data-${menu}="${line.name}"]`);
   addEventListenerOnDeleteButton(button, menu, requestToDeleteLine);
+  emptyElement(input);
 };

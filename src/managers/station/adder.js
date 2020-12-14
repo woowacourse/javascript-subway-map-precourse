@@ -21,8 +21,8 @@ export const requestToAddStation = (menu) => {
   if (exception) {
     return processException(exception, stationNameInput);
   }
-  addNewStation(menu, station);
-  emptyElement(stationNameInput);
+  updateLocalStorage(menu, station);
+  updateUI(menu, stationNameInput, station);
 };
 
 const processException = (exception, input) => {
@@ -31,11 +31,15 @@ const processException = (exception, input) => {
   input.focus();
 };
 
-const addNewStation = (menu, station) => {
-  let button;
-
+const updateLocalStorage = (menu, station) => {
   addItemToLocalStroage(menu, station);
+};
+
+const updateUI = (menu, input, station) => {
+  let button;
+  
   addItemToTable(menu, station);
+  emptyElement(input);
   button = document.querySelector(`[data-${menu}="${station.name}"]`);
   addEventListenerOnDeleteButton(button, menu, requestToDeleteStation);
 };

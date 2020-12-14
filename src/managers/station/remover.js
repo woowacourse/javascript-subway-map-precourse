@@ -13,14 +13,18 @@ export const requestToDeleteStation = (e, menu) => {
   if (exception) {
     return processException(exception);
   }
-  deleteStation(menu, stationName, button);
+  updateLocalStorage(menu, stationName);
+  updateUI(button);
 };
 
 const processException = (exception) => {
   alert(EXCEPTION_MESSAGE[exception]);
 };
 
-const deleteStation = (menu, stationName, button) => {
+const updateLocalStorage = (menu, stationName) => {
   deleteItemFromLocalStroage(menu, stationName);
+};
+
+const updateUI = (button) => {
   deleteItemFromTable(button);
 };

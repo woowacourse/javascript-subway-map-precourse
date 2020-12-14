@@ -46,13 +46,4 @@ export class Line {
     }
     return false;
   }
-
-  addStation(station, order) {
-    this.stationList.splice(order, 0, station);
-  }
-
-  deleteStation(station) {
-    let index = this.stationList.indexOf(station);
-    this.stationList.splice(index, 1);
-  }
 }

@@ -10,6 +10,9 @@ import {
 
 // 1. 역 관리
 export const launchStationManager = (menu, container) => {
+  if (!container) {
+    container = document.getElementById('container');
+  }
   emptyElement(container);
   createStationManagerUI(menu, container);
 };
