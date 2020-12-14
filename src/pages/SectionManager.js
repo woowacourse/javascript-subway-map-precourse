@@ -11,28 +11,27 @@ export default class SectionManager extends Component {
   constructor() {
     super();
     this.state = {
-      selectedLineName: null,
-      selectedLineStation: null,
+      selectedLine: null,
     };
 
     this.handleLineButtonClick = (index) => {
-      const line = this.store.lines[index];
-      this.setState({
-        ...this.state,
-        selectedLineName: [line.name],
-        selectedLineStation: [line.start, line.end],
-      });
-      console.log(this.state.selectedLine);
+      this.setState({ selectedLine: index });
     };
 
-    this.handleAddButtonClick = (station, order) => {
-      this.state.selectedLineStation.splice(order, 0, station);
-      this.setState({ ...this.state });
+    this.handleAddButtonClick = (order, station) => {
+      const { selectedLine } = this.state;
+      if (order.length === 0) {
+        alert("순서를 입력하세요");
+        return;
+      }
+
+      this.store.lines[selectedLine].stations.splice(order, 0, station);
+      deepClone();
     };
 
     this.handleDeleteButtonClick = (index) => {
-      this.state.selectedLineStation.splice(index, 1);
-      this.setState({ ...this.state });
+      this.store.lines[this.state.selectedLine].stations.splice(index, 1);
+      deepClone();
     };
   }
 
@@ -57,33 +56,30 @@ export default class SectionManager extends Component {
     const sectionAddButton = document.getElementById(
       elementMap.sectionAddButton
     );
-    sectionAddButton.addEventListener("click", () => {
+    sectionAddButton?.addEventListener("click", () => {
       this.handleAddButtonClick(
-        sectionStationSelector.value,
-        sectionOrderInput.value
+        sectionOrderInput.value,
+        sectionStationSelector.value
       );
     });
 
     const sectionDeleteButtons = document.getElementsByClassName(
       elementMap.sectionDeleteButton
     );
-    [...sectionDeleteButtons].forEach((button, index) => {
-      button.addEventListener("click", () => {
-        this.handleDeleteButtonClick(index);
+    sectionDeleteButtons &&
+      [...sectionDeleteButtons].forEach((button, index) => {
+        button.addEventListener("click", () => {
+          this.handleDeleteButtonClick(index);
+        });
       });
-    });
   }
 
   render() {
     const { stations = [], lines = [] } = this.store;
-    const { selectedLineName = [], selectedLineStation = [] } = this.state;
-
-    console.log(selectedLineStation);
-    let section = `
+    const { selectedLine } = this.state;
+    const Section = () => `
     <div>
-      <h3>${
-        selectedLineName ? selectedLineName[selectedLineName.length - 1] : null
-      } 관리</h3>
+      <h3>${lines[selectedLine]?.name} 관리</h3>
       <h4>구간 등록</h4>
       <select id=${elementMap.sectionStationSelector}>
         ${stations
@@ -94,7 +90,9 @@ export default class SectionManager extends Component {
           )
           .join("")}      
       </select>
-      <input id=${elementMap.sectionOrderInput} placeholder="순서">
+      <input id=${
+        elementMap.sectionOrderInput
+      } type="number" placeholder="순서">
       <button id=${elementMap.sectionAddButton}>등록</button>
     </div>
     <table style="margin-top: 25px;">
@@ -107,24 +105,23 @@ export default class SectionManager extends Component {
       </thead>
       <tbody>
         ${
-          selectedLineStation
-            ? selectedLineStation
-                .map(
-                  (line, index) =>
-                    `<tr>
-                       <td>${index}</td>
-                       <td>${line}</td>
-                       <td>
-                         <button class=${elementMap.sectionDeleteButton}>노선에서 제거</button>
-                       </td>
-                     </tr>`
-                )
-                .join("")
-            : null
+          lines[selectedLine]?.stations
+            .map(
+              (station, index) =>
+                `<tr>
+                   <td>${index}</td>
+                   <td>${station}</td>
+                   <td>
+                     <button class=${elementMap.sectionDeleteButton}>노선에서 제거</button>
+                   </td>
+                 </tr>`
+            )
+            .join("") || ""
         }
       </tbody>
     </table> 
     `;
+
     return `
     <div>
       <h3>구간을 수정할 노선을 선택해주세요.</h3>
@@ -136,7 +133,24 @@ export default class SectionManager extends Component {
         )
         .join("")}
     </div>
-   ${selectedLineName && selectedLineStation ? section : `<div></div>`}
+   ${isNull(selectedLine) ? "" : Section()}
   `;
   }
+}
+
+function isEmpty(value) {
+  if (typeof value === "number") {
+    return false;
+  }
+  return Boolean(value);
+}
+
+function isNull(value) {
+  if (String(value) === "null") return true;
+  if (String(value) === "undefined") return true;
+}
+
+function deepClone() {
+  const store = JSON.stringify(this.store);
+  this.setStore(JSON.parse(store));
 }
