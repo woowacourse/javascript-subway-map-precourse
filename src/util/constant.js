@@ -12,6 +12,7 @@ export const Constant = {
   MAP_PRINT_CONTAINER_CLASS: ".map-print-container",
 
   // 역 관리
+  STORAGE_KEY_STATION: "stations",
   STATION_ADD_BUTTON_ID: "#station-add-button",
   STATION_NAME_INPUT_ID: "#station-name-input",
 
