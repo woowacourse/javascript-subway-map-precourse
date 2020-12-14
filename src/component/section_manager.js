@@ -68,7 +68,16 @@ export default class SectionManager extends Role {
     const title = nodeSelector.selectId(SECTION_LINE_TITLE);
 
     title.innerHTML = `${target} ${MANAGE_K}`;
-    this.renderSectionLine(target);
+    this.initializeSectionLine(target);
+  }
+
+  initializeSectionLine(sectionLine) {
+    this.renderSectionLine(sectionLine);
+    roleInterface.clickButtons(
+      SECTION_DELETE_BUTTON,
+      this.onClickDeleteButton,
+      this
+    );
   }
 
   renderSectionLine(target) {
@@ -120,6 +129,7 @@ export default class SectionManager extends Role {
       sectionValidator.checkValidOption(selector, line)
     ) {
       this.addSection(input, selector, line);
+      this.initializeSectionLine(line);
       this.updateData(line);
     }
   }
@@ -129,6 +139,7 @@ export default class SectionManager extends Role {
     const station = selector.value;
     const lineInfos = roleInterface.getLineInfos();
 
+    input.value = '';
     for (const lineInfo of lineInfos) {
       if (!lineInfo) {
         continue;
@@ -138,10 +149,36 @@ export default class SectionManager extends Role {
     localStorage.setItem(LINES_LS, JSON.stringify(lineInfos));
   }
 
-  updateData(line) {
+  updateData() {
     const mapPrintManager = new MapPrintManager();
 
-    this.renderSectionLine(line);
     mapPrintManager.printMap();
+  }
+
+  onClickDeleteButton(event) {
+    const target = event.target.dataset.section;
+    const lineTitle = nodeSelector.selectId(SECTION_LINE_TITLE);
+    const line = lineTitle.innerHTML.split(' ')[0];
+
+    if (!sectionValidator.canDelete(line)) {
+      return;
+    }
+    this.deleteSection(target, line);
+    this.initializeSectionLine(line);
+    this.updateData();
+  }
+
+  deleteSection(target, line) {
+    const lineInfos = roleInterface.getLineInfos();
+
+    for (const lineInfo of lineInfos) {
+      if (!lineInfo) {
+        continue;
+      }
+      if (lineInfo.hasOwnProperty(line)) {
+        lineInfo[line] = lineInfo[line].filter(station => station !== target);
+      }
+    }
+    localStorage.setItem(LINES_LS, JSON.stringify(lineInfos));
   }
 }
