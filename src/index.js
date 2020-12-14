@@ -9,37 +9,26 @@ import { SubwayMapModel } from './models';
 
 window.addEventListener('DOMContentLoaded', () => {
   const managerContainer = document.getElementById('manager-container');
-  const stationManagerButton = document.getElementById(
-    '#station-manager-button',
-  );
-  const lineManagerButton = document.getElementById('#line-manager-button');
-  const sectionManagerButton = document.getElementById(
-    '#section-manager-button',
-  );
-  const mapPrintManagerButton = document.getElementById(
-    '#map-print-manager-button',
-  );
-
   const subwayMapModel = new SubwayMapModel();
   const subwayMapViewModel = new SubwayMapViewModel(subwayMapModel);
   const subwayMapStationView = new SubwayMapStationView(
     subwayMapViewModel,
     managerContainer,
-    stationManagerButton,
+    document.getElementById('#station-manager-button'),
   );
   const subwayMapLineView = new SubwayMapLineView(
     subwayMapViewModel,
     managerContainer,
-    lineManagerButton,
+    document.getElementById('#line-manager-button'),
   );
   const subwayMapSectionView = new SubwayMapSectionView(
     subwayMapViewModel,
     managerContainer,
-    sectionManagerButton,
+    document.getElementById('#section-manager-button'),
   );
   const subwayMapMapPrintView = new SubwayMapMapPrintView(
     subwayMapViewModel,
     managerContainer,
-    mapPrintManagerButton,
+    document.getElementById('#map-print-manager-button'),
   );
 });
