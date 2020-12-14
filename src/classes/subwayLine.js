@@ -1,5 +1,7 @@
 export default class SubwayLine {
   #allStationsInLine = [];
+  #upTerminatingStationName;
+  #downTerminatingStationName;
 
   static checkIsTerminatingStationsSame(
     upTerminatingStationName,
@@ -9,8 +11,8 @@ export default class SubwayLine {
   }
 
   constructor(upTerminatingStationName, downTerminatingStationName) {
-    this.upTerminatingStationName = upTerminatingStationName;
-    this.downTerminatingStationName = downTerminatingStationName;
+    this.#upTerminatingStationName = upTerminatingStationName;
+    this.#downTerminatingStationName = downTerminatingStationName;
   }
 
   get allStationsInLine() {
