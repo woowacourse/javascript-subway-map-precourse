@@ -1,6 +1,6 @@
 import render from "../../components/render.js";
 import app from "../../components/app.js";
-import { confirmSectionDelete } from "../validation/validation.js";
+import { validateSectionDelete } from "../validation/validation.js";
 
 function onSectionHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -59,7 +59,7 @@ function onSectionDeleteHandler() {
   let targetLine = subwayDatas.targetLine;
   //   console.log(deleteTargetName);
 
-  let deleteConfirmed = confirmSectionDelete();
+  let deleteConfirmed = validateSectionDelete(targetLine);
 
   if (deleteConfirmed === true) {
     //lines에서 삭제하고

@@ -101,4 +101,17 @@ function sameStartAndEndStationAlert(startAndEndStations) {
   return alertMsg;
 }
 
-export { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert };
+//노선에 포함된 역이 2개 이하일 때 노선에서 제거 시 alert
+function sectionDeleteAlert(targetLine) {
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  let alertMsg = "";
+
+  subwayDatas.lines.map((line) => {
+    if (line.name === targetLine && line.stops.length <= 2) {
+      alertMsg = "노선에 포함된 역이 2개 이하일 때에는 삭제할 수 없습니다.";
+    }
+  });
+  return alertMsg;
+}
+
+export { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert };

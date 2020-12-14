@@ -1,4 +1,4 @@
-import { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert } from "./alert.js";
+import { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert } from "./alert.js";
 
 function validateInput(input, inputTagID) {
   let alertMsg = "";
@@ -21,9 +21,19 @@ function validateStationDelete(deleteTarget) {
   return deleteTarget;
 }
 
+function validateSectionDelete(targetLine) {
+  let alertMsg = sectionDeleteAlert(targetLine);
+  //노선에 포함된 역이 2개 이하일 때 노선에서 제거 시 alert
+
+  if (alertMsg !== "") {
+    alert(alertMsg);
+    return "";
+  }
+  return confirmSectionDelete();
+}
+
 function confirmSectionDelete() {
-  let answer = confirm("정말로 노선에서 제거하겠습니까?");
-  return answer;
+  return confirm("정말로 노선에서 제거하겠습니까?");
 }
 
 function validateStartAndEndStations(startAndEndStations) {
@@ -36,4 +46,4 @@ function validateStartAndEndStations(startAndEndStations) {
   return startAndEndStations;
 }
 
-export { validateInput, validateStationDelete, confirmSectionDelete, validateStartAndEndStations };
+export { validateInput, validateStationDelete, validateStartAndEndStations, validateSectionDelete };
