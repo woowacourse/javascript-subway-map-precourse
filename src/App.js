@@ -60,6 +60,7 @@ export default class App {
       target: this._container,
       subway: this._subway,
       addStation: this.onClickAddStation.bind(this),
+      deleteStation: this.onClickDeleteStation.bind(this),
     });
   }
 
@@ -82,5 +83,13 @@ export default class App {
     const _station = document.querySelector('#station-name-input').value;
     this._subway.addStation({ station: _station });
     this._stationManager.setSubway(this._subway);
+  }
+
+  onClickDeleteStation(station) {
+    const isOk = window.confirm('정말로 삭제하시겠습니까?');
+    if (isOk) {
+      this._subway.deleteStation({ station });
+      this._stationManager.setSubway(this._subway);
+    }
   }
 }

@@ -1,8 +1,9 @@
 export default class StationManager {
-  constructor({ target, subway, addStation }) {
+  constructor({ target, subway, addStation, deleteStation }) {
     this._target = target;
     this._subway = subway;
     this.onClickAddStation = addStation;
+    this.onClickDeleteStation = deleteStation;
 
     this.createStationInput(target);
     this.createStationListHeader(target);
@@ -60,6 +61,16 @@ export default class StationManager {
     this.render();
   }
 
+  addStationDeleteEvent(stations) {
+    const deleteButtons = this.tbody.querySelectorAll('.station-delete-button');
+
+    deleteButtons.forEach((deleteButton, index) => {
+      deleteButton.addEventListener(
+        'click', () => this.onClickDeleteStation(stations[index]),
+      );
+    });
+  }
+
   render() {
     const stations = this._subway.getStationName();
     if (stations.length === 0) {
@@ -73,5 +84,6 @@ export default class StationManager {
           <td><button class="station-delete-button">삭제</button></td>
         </tr>`).join('')}
       `;
+    this.addStationDeleteEvent(stations);
   }
 }

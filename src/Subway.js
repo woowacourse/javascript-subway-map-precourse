@@ -18,6 +18,10 @@ export default class Subway {
     this._stations.add(station);
   }
 
+  deleteStation = ({ station }) => {
+    this._stations.delete(station);
+  }
+
   getStationName = () => {
     return [...this._stations];
   }
