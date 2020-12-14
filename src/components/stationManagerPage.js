@@ -8,7 +8,7 @@ export default function stationManagerPage($element) {
   const $userStationSubmit = $element.querySelector('#station-add-button');
   const $stationTablebody = $element.querySelector('.station_manager_tbody');
 
-  const stations = stationStorage().getStation();
+  let stations = stationStorage().getStation();
 
   const stationNameValidator = (stationName) => {
     if (stationName.length < 2) {
@@ -22,8 +22,23 @@ export default function stationManagerPage($element) {
   };
 
   const showStations = () => {
-    const stationNames = stations.map((station) => station.name);
-    $stationTablebody.innerHTML = stationNames.map(STATION_TABLE_TEMPLATE).join('');
+    $stationTablebody.innerHTML = stations.map(STATION_TABLE_TEMPLATE).join('');
+  };
+
+  const deleteStation = (stationTag) => {
+    if (stationTag.dataset.lines.length !== 0) {
+      return alert('노선에 포함되어 있는 라인은 삭제할 수 없습니다');
+    }
+    stations = stations.filter((station) => station.id !== parseInt(stationTag.id));
+    stationStorage().setStation(stations);
+    showStations();
+  };
+
+  const onStationDeleteHandler = (e) => {
+    if (!e.target.classList.contains('station-delete-button')) {
+      return false;
+    }
+    deleteStation(e.target.closest('tr'));
   };
 
   const getNewId = () => {
@@ -48,5 +63,6 @@ export default function stationManagerPage($element) {
   };
 
   $userStationSubmit.addEventListener('click', onStationSubmitHandler);
+  $stationTablebody.addEventListener('click', onStationDeleteHandler);
   showStations();
 }
