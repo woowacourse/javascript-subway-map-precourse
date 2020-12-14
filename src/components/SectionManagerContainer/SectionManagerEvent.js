@@ -20,6 +20,17 @@ export default class SectionManagerEvent extends SectionManagerRender {
 
     if (!this.isVaildOrderNumber(addPosition, this.lineIndex)) return;
 
+    if (
+      this.isContinuousStationAdd(
+        Number(addPosition),
+        this.lines[this.lineIndex].line,
+        newSectionStation
+      )
+    ) {
+      window.alert("연속된 역 이름은 등록 하실수 없습니다.");
+      return;
+    }
+
     this.lines[this.lineIndex].line.splice(addPosition, 0, newSectionStation);
     this.saveLocalStorageValue(this.localStorageKey, this.lines);
 
@@ -31,6 +42,8 @@ export default class SectionManagerEvent extends SectionManagerRender {
   }
 
   isVaildOrderNumber(order, lineIndex) {}
+
+  isContinuousStationAdd(order, lines, newStation) {}
 
   _onClickDeleteSection(e) {
     super._onClickDeleteSection(e);
@@ -59,12 +72,5 @@ export default class SectionManagerEvent extends SectionManagerRender {
     );
   }
 
-  isMinSectionCount(count) {
-    if (count > 2) {
-      return false;
-    }
-
-    window.alert("구간의 개수가 2개 이하는 삭제 할 수 없습니다");
-    return true;
-  }
+  isMinSectionCount(count) {}
 }

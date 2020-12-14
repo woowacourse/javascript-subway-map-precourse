@@ -32,7 +32,7 @@ export default class SectionManager extends SectionManagerEvent {
   }
 
   isMinOrder(order) {
-    if (order > 0) {
+    if (order >= 0) {
       return true;
     }
 
@@ -46,6 +46,33 @@ export default class SectionManager extends SectionManagerEvent {
     }
 
     window.alert("값을 입력해 주세요");
+    return false;
+  }
+
+  isMinSectionCount(count) {
+    super.isMinSectionCount(count);
+    if (count > 2) {
+      return false;
+    }
+
+    window.alert("구간의 개수가 2개 이하는 삭제 할 수 없습니다");
+    return true;
+  }
+
+  isContinuousStationAdd(order, lines, newStation) {
+    super.isContinuousStationAdd(order, lines, newStation);
+    if (order === 0 && newStation === lines[order]) {
+      return true;
+    }
+
+    if (order === lines.length && newStation === lines[order - 1]) {
+      return true;
+    }
+
+    if (lines[order] === newStation || lines[order - 1] === newStation) {
+      return true;
+    }
+
     return false;
   }
 }
