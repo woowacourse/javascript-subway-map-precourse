@@ -34,6 +34,10 @@ export default class StationManagerEvent extends StationManagerRender {
   _onClickDeleteTr(e) {
     super._onClickDeleteTr(e);
 
+    if (!window.confirm("정말로 삭제 하시겠습니까?")) {
+      return;
+    }
+
     const targetTr = e.target.parentNode.parentNode;
     const stationName = targetTr.dataset["stationName"];
 

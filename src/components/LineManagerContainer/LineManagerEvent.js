@@ -43,6 +43,10 @@ export default class LineManagerEvent extends LineManagerRender {
     super._onClickDeleteLineTr(e);
     console.dir(e.target);
 
+    if (!window.confirm("정말로 삭제 하시겠습니까?")) {
+      return;
+    }
+
     const targetTr = e.target.parentNode.parentNode;
     const lineName = targetTr.dataset["lineName"];
 

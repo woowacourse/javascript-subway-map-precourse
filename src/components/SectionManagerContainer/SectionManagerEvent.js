@@ -64,7 +64,7 @@ export default class SectionManagerEvent extends SectionManagerRender {
       return false;
     }
 
-    window.alert("구간의 개수가 2개 이하입니다");
+    window.alert("구간의 개수가 2개 이하는 삭제 할 수 없습니다");
     return true;
   }
 }
