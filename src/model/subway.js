@@ -3,11 +3,21 @@ export class Station {
     this.name = name;
     this.line = 0;
   }
+
+  /*
+  getName() {
+    return this.name;
+  }
+
+  addLine() {
+    this.line += 1
+  }
+  */
 }
 
 export class Line {
   constructor(name, section) {
     this.name = name;
-    this.section = section; // 배열의 형태로
+    this.section = section;
   }
 }

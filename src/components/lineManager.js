@@ -83,24 +83,18 @@ export default class LineManager {
     } else {
       this.saveLine(lineName, lineStartStation, lineEndStation);
       this.render();
-      this.saveLineToStation(lineName, lineStartStation, lineEndStation);
+      this.saveLineToStation(lineStartStation, lineEndStation);
     }
   }
 
   saveLine(lineName, lineStartStation, lineEndStation) {
-    const line = this.addLine();
+    const line = new Line(lineName, [lineStartStation, lineEndStation]);
 
-    line.name = lineName;
-    line.section = [lineStartStation, lineEndStation];
     this.lines.push(line);
     saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
   }
 
-  addLine() {
-    return new Line();
-  }
-
-  saveLineToStation(lineName, lineStartStation, lineEndStation) {
+  saveLineToStation(lineStartStation, lineEndStation) {
     this.stations.forEach((station) => {
       if (station.name === lineStartStation) {
         station.line += 1;
@@ -116,14 +110,15 @@ export default class LineManager {
 
     deleteLineButton.forEach((button) => {
       button.addEventListener('click', (event) => {
-        this.deleteLineToStation(event);
-        this.deleteLine(event);
+        const index = event.target.parentNode.dataset.index;
+
+        this.deleteLineToStation(index);
+        this.deleteLine(index);
       });
     });
   }
 
-  deleteLineToStation(event) {
-    const index = event.target.parentNode.dataset.index;
+  deleteLineToStation(index) {
     const lineSection = this.lines[index].section;
 
     this.stations.forEach((station) => {
@@ -134,9 +129,7 @@ export default class LineManager {
     saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
   }
 
-  deleteLine(event) {
-    const index = event.target.parentNode.dataset.index;
-
+  deleteLine(index) {
     this.lines.splice(index, 1);
     saveStorage(NAME.LOCALSTORAGE_LINE_KEY, this.lines);
     this.render();

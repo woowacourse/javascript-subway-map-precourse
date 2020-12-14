@@ -5,6 +5,7 @@ export const functionButton = () => {
     <button id='${ID.STATION_MANAGER_BUTTON}'>${NAME.STATION_MANAGER_BUTTON_NAME}</button>
     <button id='${ID.LINE_MANAGER_BUTTON}'>${NAME.LINE_MANAGER_BUTTON_NAME}</button>
     <button id='${ID.SECTION_MANAGER_BUTTON}'>${NAME.SECTION_MANAGER_BUTTON_NAME}</button>
+    <button id='${ID.MAP_PRINT_MANAGER_BUTTON}'>${NAME.MAP_PRINT_MANAGER_BUTTON_NAME}</button>
     `;
 };
 
@@ -141,4 +142,21 @@ const sectionTable = (sections) => {
       </tr>`
     )
     .join('');
+};
+
+export const mapPrintTemplate = (lines) => {
+  return lines
+    .map(
+      (line) => `
+      <h4>${line.name}</h4>
+      <ul>
+      ${sectionPrint(line.section)}
+      </ul>
+      `
+    )
+    .join('');
+};
+
+const sectionPrint = (sections) => {
+  return sections.map((section) => `<li>${section}</li>`).join('');
 };

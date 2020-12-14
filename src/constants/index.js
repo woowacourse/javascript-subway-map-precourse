@@ -21,6 +21,9 @@ export const ID = {
   SECTION_ADD_BUTTON: 'section-add-button',
   SECTION_ADD_CONTAINER: 'section-add-container',
   SECTION_TABLE: 'section-table',
+
+  MAP_PRINT_MANAGER_BUTTON: 'map-print-manager-button',
+  MAP_PRINT_MANAGER: 'map-print-manager',
 };
 
 export const CLASS = {
@@ -28,6 +31,7 @@ export const CLASS = {
   LINE_DELETE_BUTTON: 'line-delete-button',
   SECTION_LINE_MENU_BUTTON: 'section-line-menu-button',
   SECTION_DELETE_BUTTON: 'section-delete-button',
+  MAP: 'map',
 };
 
 export const NAME = {
@@ -36,6 +40,7 @@ export const NAME = {
   STATION_MANAGER_BUTTON_NAME: '1. 역 관리',
   LINE_MANAGER_BUTTON_NAME: '2. 노선 관리',
   SECTION_MANAGER_BUTTON_NAME: '3. 구간 관리',
+  MAP_PRINT_MANAGER_BUTTON_NAME: '4. 지하철 노선도 출력',
 };
 
 export const ALERT = {

@@ -1,8 +1,8 @@
 import StationManager from './components/stationManager.js';
 import LineManager from './components/lineManager.js';
 import SectionManager from './components/sectionManager.js';
+import MapPrintManager from './components/mapPrintManager.js';
 import { functionButton } from './view/template.js';
-import { ID } from './constants/index.js';
 
 export default class App {
   constructor($target) {
@@ -12,6 +12,7 @@ export default class App {
     this.stationManager = new StationManager($target);
     this.lineManager = new LineManager($target);
     this.sectionManager = new SectionManager($target);
+    this.mapPrintManager = new MapPrintManager($target);
   }
 
   createFunctionButtonContainer() {

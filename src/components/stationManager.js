@@ -79,15 +79,11 @@ export default class StationManager {
   }
 
   saveStation(stationName) {
-    const station = this.addStation();
+    const station = new Station(stationName);
 
-    station.name = stationName;
     this.stations.push(station);
     saveStorage(NAME.LOCALSTORAGE_STATION_KEY, this.stations);
-  }
-
-  addStation() {
-    return new Station();
+    console.log(this.stations);
   }
 
   handleStationDeleteButton() {
