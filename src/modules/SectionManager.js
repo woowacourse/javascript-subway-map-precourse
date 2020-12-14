@@ -10,6 +10,8 @@ export default class SectionManager {
     this._addSectionContainer = document.querySelector(
       "#add-section-container"
     );
+    this._orderInput = document.querySelector("#section-order-input");
+    this._addButton = document.querySelector("#section-add-button");
     this._tableBody = document.querySelector("#line-section-list tbody");
     this._selectedLineName = "";
     this._station = new Station();
@@ -104,8 +106,19 @@ export default class SectionManager {
     this._printSectionList(lineName);
   };
 
+  _handleSectionAddButton = e => {
+    e.preventDefault();
+    const stationName = this._stationSelector.value;
+    const order = this._orderInput.value;
+    this._orderInput.value = "";
+
+    this._line.saveStationToLine(stationName, this._selectedLineName, order);
+    this._printSectionList(this._selectedLineName);
+  };
+
   _render = () => {
     this._printLineMenuList();
     this._station.setStationOptions(this._stationSelector);
+    this._addButton.addEventListener("click", this._handleSectionAddButton);
   };
 }
