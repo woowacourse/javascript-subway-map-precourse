@@ -1,3 +1,8 @@
+import {
+  LINE_PLACEHOLDER,
+  DELETE_TEXT,
+} from './constants/Constants.js';
+
 export default class LineManager {
   constructor({ target, subway, addLine, deleteLine }) {
     this._target = target;
@@ -33,7 +38,7 @@ export default class LineManager {
       <p>노선 이름</p>
       <input
         type="text"
-        placeholder="노선 이름을 입력해주세요"
+        placeholder=${LINE_PLACEHOLDER}
         id="line-name-input"
       />
     `;
@@ -156,7 +161,7 @@ export default class LineManager {
           <td>${lineName}</td>
           <td>${section[0]}</td>
           <td>${section[section.length - 1]}</td>
-          <td><button class="line-delete-button">삭제</button></td>
+          <td><button class="line-delete-button">${DELETE_TEXT}</button></td>
         </tr>`).join('')}
       `;
     this.addLineDeleteEvent(lines);

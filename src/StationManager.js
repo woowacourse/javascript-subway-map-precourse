@@ -1,3 +1,5 @@
+import { DELETE_TEXT } from './constants/Constants.js';
+
 export default class StationManager {
   constructor({ target, subway, addStation, deleteStation }) {
     this._target = target;
@@ -81,7 +83,7 @@ export default class StationManager {
       ${stations.map((station) => `
         <tr>
           <td>${station}</td>
-          <td><button class="station-delete-button">삭제</button></td>
+          <td><button class="station-delete-button">${DELETE_TEXT}</button></td>
         </tr>`).join('')}
       `;
     this.addStationDeleteEvent(stations);

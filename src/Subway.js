@@ -1,3 +1,9 @@
+import {
+  Errors,
+  MAX_NAME_LENGTH,
+  MIN_NAME_LENGTH,
+} from './constants/Constants.js';
+
 export default class Subway {
   constructor({ state }) {
     this._state = state;
@@ -32,35 +38,35 @@ export default class Subway {
 
   isLessThenTwoStation = ({ lineName }) => {
     const section = this._lines.get(lineName);
-    return section.length <= 2;
+    return section.length <= MAX_NAME_LENGTH;
   }
 
   addStation = ({ station }) => {
     if (this.isDuplicateStation({ station })) {
-      return alert('중복되는 역이 존재합니다.');
+      return alert(Errors['STATION_DUPLICATE_ERROR']);
     }
-    if (station.length < 2) {
-      return alert('역 이름은 2글자 이상이어야 합니다.');
+    if (station.length < MAX_NAME_LENGTH) {
+      return alert(Errors['NAME_LESS_THEN_TWO_ERROR']);
     }
     this._stations.add(station);
   }
 
   deleteStation = ({ station }) => {
     if (this.isIncludeSection({ station })) {
-      return alert(`${station}은 노선에 포함되어 있습니다.`);
+      return alert(Errors['INCLUDE_SECTION_ERROR']);
     }
     this._stations.delete(station);
   }
 
   addLine = ({ lineName, start, end }) => {
     if (lineName === '') {
-      return alert('노선 이름을 입력해주세요.');
+      return alert(Errors['EMPTY_LINE_ERROR']);
     }
     if (start === end) {
-      return alert('상행 종점역과 하행 종점역이 같을 순 없습니다.');
+      return alert(Errors['SAME_STATION_ERROR']);
     }
     if (this.isDuplicateLine({ lineName })) {
-      return alert('중복되는 라인이 존재합니다');
+      return alert(Errors['LINE_DUPLICATE_ERROR']);
     }
     const section = [start, end];
     this._lines.set(lineName, section);
@@ -73,17 +79,17 @@ export default class Subway {
   addSection = ({ lineName, order, station }) => {
     const section = this._lines.get(lineName);
     if (section.includes(station)) {
-      return alert('이미 등록된 역입니다.');
+      return alert(Errors['STATION_DUPLICATE_ERROR']);
     }
-    if (order <= 0 || order >= section.length) {
-      return alert('상행 종점역과 하행 종점역 사이의 순서를 입력해주세요.');
+    if (order <= MIN_NAME_LENGTH || order >= section.length) {
+      return alert(Errors['SECTION_RANGE_ERROR']);
     }
     section.splice(order, 0, station);
   }
 
   deleteSection = ({ lineName, station }) => {
     if (this.isLessThenTwoStation({ lineName })) {
-      return alert('노선에 포함된 역이 두개 이하일 때는 노선에서 역을 제거할 수 없습니다.');
+      return alert(Errors['STATION_DELETE_ERROR']);
     }
     const section = this._lines.get(lineName);
     const index = section.indexOf(station);
