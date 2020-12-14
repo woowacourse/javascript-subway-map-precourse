@@ -1,4 +1,4 @@
-import initEvent from './event/initEvent.js';
+import initEvent from './controller/initEvent.js';
 import render from './render/render.js';
 
 export default function SubwayManagerApp() {

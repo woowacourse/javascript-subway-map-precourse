@@ -1,4 +1,4 @@
-import selectLineButtonEvent from '../../event/section/selectLineButtonEvent.js';
+import selectLineButtonEvent from '../../controller/section/selectLineButtonEvent.js';
 
 function selectButtonTemplate(line, lineNumber) {
   return `<button class="line-select-button" data-number=${lineNumber}>

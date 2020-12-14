@@ -1,4 +1,4 @@
-import removeLineEvent from '../../event/line/removeLineEvent.js';
+import removeLineEvent from '../../controller/line/removeLineEvent.js';
 
 function lineListContainerTemplate() {
   return `<table class="line-table" border="1">

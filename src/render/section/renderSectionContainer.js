@@ -1,4 +1,4 @@
-import addSectionEvent from '../../event/section/addSectionEvent.js';
+import addSectionEvent from '../../controller/section/addSectionEvent.js';
 import renderSelector from '../common/renderSelector.js';
 
 function sectionListTemplate(lineList) {
