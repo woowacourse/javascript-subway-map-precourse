@@ -1,16 +1,22 @@
 import StationManager from "./modules/StationManager.js";
 import LineManager from "./modules/LineManager.js";
+import SectionManager from "./modules/SectionManager.js";
 
 const managerButtons = document.querySelectorAll(
   ".manager-button-group button"
 );
 const stationManagerButton = document.querySelector("#station-manager-button");
 const lineManagerButton = document.querySelector("#line-manager-button");
+const sectionManagerButton = document.querySelector("#section-manager-button");
 
 function activeSelectedContainer(container, isSelected) {
   if (isSelected) {
     container.classList.add("active");
   }
+}
+
+function hideContainer(container) {
+  container.classList.remove("active");
 }
 
 function checkSelectedContainer(selectedButton) {
@@ -24,8 +30,10 @@ function checkSelectedContainer(selectedButton) {
 }
 
 function handleManagerButton(e) {
+  const addSectionContainer = document.querySelector("#add-section-container");
   const selectedButton = e.target.dataset.title;
   checkSelectedContainer(selectedButton);
+  hideContainer(addSectionContainer);
 }
 
 managerButtons.forEach(managerButton =>
@@ -34,3 +42,4 @@ managerButtons.forEach(managerButton =>
 
 stationManagerButton.addEventListener("click", () => new StationManager());
 lineManagerButton.addEventListener("click", () => new LineManager());
+sectionManagerButton.addEventListener("click", () => new SectionManager());
