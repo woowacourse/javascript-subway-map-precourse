@@ -7,6 +7,7 @@ import {
   refreshLineNameBtn,
 } from './section/sectionElemGenerator.js';
 import { refreshOptionData } from './line/lineElemGenerator.js';
+import { printAll } from './print.js';
 
 export default class SubwayManagementSystem {
   constructor() {
@@ -30,6 +31,7 @@ export default class SubwayManagementSystem {
       refreshLineNameBtn();
     } else if (e.target.id === 'map-print-manager-button') {
       selector = '#map-module';
+      printAll();
     }
     this.toggleSelectedModule(selector);
   }

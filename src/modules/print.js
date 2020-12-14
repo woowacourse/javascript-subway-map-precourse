@@ -44,6 +44,31 @@ export const printSection = (line) => {
   addEventToDeleteSectionBtn();
 };
 
+export const printAll = () => {
+  const mapSection = document.querySelector('#map-module');
+  if (document.querySelector('.map')) {
+    clearAll();
+  }
+  let map = document.createElement('div');
+  let data = '';
+  map.className = 'map';
+  mapSection.appendChild(map);
+  const lines = getLineName();
+  lines.forEach((line) => {
+    let stationsInLine = getSelectedLineData(line);
+    data += `<h3>${line}</h3><ul>`;
+    stationsInLine.forEach((station) => {
+      data += `<li>${station}</li>`;
+    });
+    data += `</ul>`;
+  });
+  map.innerHTML = data;
+};
+
+const clearAll = () => {
+  document.querySelector('.map').innerHTML = '';
+};
+
 const clearTable = (bodyId) => {
   const tableBody = document.querySelector(bodyId);
   tableBody.innerHTML = '';
