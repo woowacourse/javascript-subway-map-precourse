@@ -1,5 +1,5 @@
 import { Line } from '../../classes/line.js';
-import { createSectionManagerUI as updateUI } from './section-launcher.js';
+import { appendSectionManagerUI as updateUI } from './section-launcher.js';
 import {
   getItemFromLocalStorage,
   addSubItemToLocalStroage,
@@ -10,13 +10,13 @@ import { EXCEPTION_MESSAGE } from '../../configuration.js';
 // 3. 구간 관리 - 신규 구간 추가 요청
 export const requestToAddSection = (menu, lineSelected) => {
   const subContainer = document.getElementById('sub-container');
+  const stationSelector = document.getElementById(`${menu}-station-selector`);
+  const orderInput = document.getElementById(`${menu}-order-input`);
   const line = new Line(
     lineSelected.name,
     getItemFromLocalStorage('line', lineSelected.name).stationList
   );
-  const stationSelector = document.getElementById(`${menu}-station-selector`);
-  const orderInput = document.getElementById(`${menu}-order-input`);
-  const exception = line.isUnableToAddSection(
+  const exception = line.unableToAddSection(
     stationSelector.value,
     orderInput.value
   );

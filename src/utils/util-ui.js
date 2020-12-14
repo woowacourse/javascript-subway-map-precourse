@@ -27,7 +27,7 @@ export const appendNew = (tagName, parentElement, content, id, className) => {
   return newElement;
 };
 
-export const createButton = (className, datasetKey, datasetValue, content) => {
+export const makeButton = (className, datasetKey, datasetValue, content) => {
   const button = document.createElement('button');
 
   setClassName(button, className);
@@ -36,7 +36,7 @@ export const createButton = (className, datasetKey, datasetValue, content) => {
   return button;
 };
 
-export const createLabel = (group, content) => {
+export const makeLabel = (group, content) => {
   const label = document.createElement('label');
 
   if (group) label.for = group;
@@ -45,14 +45,14 @@ export const createLabel = (group, content) => {
 };
 
 export const appendSelector = (itemList, form, id, labelContent) => {
-  const options = itemList.map((item) => createOption(item.name));
-  const selector = createSelector(id, options);
+  const options = itemList.map((item) => makeOption(item.name));
+  const selector = makeSelector(id, options);
 
   appendNew('label', form, labelContent);
   form.append(selector);
 };
 
-export const createSelector = (id, options) => {
+export const makeSelector = (id, options) => {
   const select = document.createElement('select');
 
   setID(select, id);
@@ -60,7 +60,7 @@ export const createSelector = (id, options) => {
   return select;
 };
 
-export const createOption = (value) => {
+export const makeOption = (value) => {
   const option = document.createElement('option');
 
   option.setAttribute('value', value);

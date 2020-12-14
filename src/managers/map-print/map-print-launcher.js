@@ -4,16 +4,17 @@ import { appendNew, emptyElement } from '../../utils/util-ui.js';
 // 4. 지하철 노선도 출력
 export const launchMapPrintManager = (menu, container) => {
   emptyElement(container);
-  printSubwayMap(menu, container);
+  appendMap(menu, container);
 };
 
-const printSubwayMap = (menu, container) => {
+const appendMap = (menu, container) => {
   const lineList = getArrayFromLocalStorage('line');
   const subContainer = appendNew('div', container, '', `${menu}`);
-  lineList.map((line) => printLine(subContainer, line));
+  
+  lineList.map((line) => appendLine(subContainer, line));
 };
 
-const printLine = (subContainer, line) => {
+const appendLine = (subContainer, line) => {
   let ul;
 
   appendNew('h3', subContainer, line.name);

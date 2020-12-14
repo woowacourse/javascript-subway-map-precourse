@@ -13,10 +13,10 @@ import {
 // 2. 노선 관리
 export const launchLineManager = (menu, container) => {
   emptyElement(container);
-  createLineManagerUI(menu, container);
+  appendLineManagerUI(menu, container);
 };
 
-const createLineManagerUI = (menu, container) => {
+const appendLineManagerUI = (menu, container) => {
   const form = makeForm(menu);
   const table = makeTable(menu);
 

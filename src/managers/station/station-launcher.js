@@ -11,10 +11,10 @@ import {
 // 1. 역 관리
 export const launchStationManager = (menu, container) => {
   emptyElement(container);
-  createStationManagerUI(menu, container);
+  appendStationManagerUI(menu, container);
 };
 
-const createStationManagerUI = (menu, container) => {
+const appendStationManagerUI = (menu, container) => {
   const table = makeTable(menu);
 
   appendNew('label', container, '역 이름', `${menu}-name-input-label`);

@@ -1,5 +1,5 @@
 import { getArrayFromLocalStorage } from './util-local-storage.js';
-import { appendNew, createButton, getNthParent } from './util-ui.js';
+import { appendNew, makeButton, getNthParent } from './util-ui.js';
 
 export const makeTable = (menu, key) => {
   const table = document.createElement('table');
@@ -78,7 +78,7 @@ const appendDeleteButton = (row, menu, item) => {
   const className = `${menu}-delete-button`;
   const dataset = `data-${menu}`;
   const itemName = item.name || item;
-  const button = createButton(className, dataset, itemName, BUTTON_TEXT);
+  const button = makeButton(className, dataset, itemName, BUTTON_TEXT);
   return appendNew('td', row, button.outerHTML);
 };
 

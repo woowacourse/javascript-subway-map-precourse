@@ -1,5 +1,5 @@
 import { Line } from '../../classes/line.js';
-import { createSectionManagerUI as updateUI } from './section-launcher.js';
+import { appendSectionManagerUI as updateUI } from './section-launcher.js';
 import {
   getItemFromLocalStorage,
   deleteSubItemFromLocalStorage,

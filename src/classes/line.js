@@ -21,7 +21,7 @@ export class Line {
     return false;
   }
 
-  isUnableToAddSection(station, order) {
+  unableToAddSection(station, order) {
     if (this.stationList.includes(station)) {
       return 'sectionAleardyRegistered';
     }

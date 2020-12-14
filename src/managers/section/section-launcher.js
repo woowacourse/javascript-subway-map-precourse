@@ -13,17 +13,17 @@ import {
 // 3. 구간 관리
 export const launchSectionManager = (menu, container) => {
   emptyElement(container);
-  createLineMenuUI(menu, container);
+  appendSubMenuUI(menu, container);
 };
 
-const createLineMenuUI = (menu, container) => {
+const appendSubMenuUI = (menu, container) => {
   const lineList = getArrayFromLocalStorage('line');
-  const lineMenuBar = appendNew('div', container, '', '#line-menu-bar');
+  const subMenuBar = appendNew('div', container, '', '#line-menu-bar');
   const subContainer = appendNew('div', container, '', '#sub-container');
 
-  appendNew('h3', lineMenuBar, '구간을 수정할 노선을 선택해주세요');
+  appendNew('h3', subMenuBar, '구간을 수정할 노선을 선택해주세요');
   lineList.forEach((line) =>
-    appendLineMenuButton(lineMenuBar, subContainer, menu, line)
+    appendLineMenuButton(subMenuBar, subContainer, menu, line)
   );
 };
 
@@ -37,12 +37,12 @@ const appendLineMenuButton = (lineMenuBar, subContainer, menu, line) => {
   );
 
   button.addEventListener('click', () =>
-    createSectionManagerUI(menu, subContainer, line)
+    appendSectionManagerUI(menu, subContainer, line)
   );
   return button;
 };
 
-export const createSectionManagerUI = (menu, subContainer, line) => {
+export const appendSectionManagerUI = (menu, subContainer, line) => {
   const form = makeForm(menu);
   const table = makeTable(menu, line);
 
