@@ -53,6 +53,7 @@ export default function Line(name) {
     let currentIdx = 0;
     let currentStation = this.head;
     if (idx === "0") {
+      this.deleteOneStationInLine(currentStation);
       this.head = currentStation.next;
     } else {
       while (currentIdx < idx - 1) {
