@@ -15,22 +15,6 @@ export default function stationManagerPage($element) {
     $stationTablebody.innerHTML = stations.map(STATION_TABLE_TEMPLATE).join('');
   };
 
-  const deleteStation = (stationTag) => {
-    if (!stationDeleteValidation(stationTag)) {
-      return;
-    }
-    stations = stations.filter((station) => station.id !== parseInt(stationTag.id));
-    stationStorage().setStation(stations);
-    showStations();
-  };
-
-  const onStationDeleteHandler = (e) => {
-    if (!e.target.classList.contains('station-delete-button')) {
-      return false;
-    }
-    deleteStation(e.target.closest('tr'));
-  };
-
   const getNewId = () => {
     if (!stations || stations.length === 0) {
       return 0;
@@ -46,6 +30,22 @@ export default function stationManagerPage($element) {
 
   const createStation = (newStationName) => {
     addStations(new Station(getNewId(), newStationName));
+  };
+
+  const deleteStation = (stationTag) => {
+    if (!stationDeleteValidation(stationTag)) {
+      return;
+    }
+    stations = stations.filter((station) => station.id !== parseInt(stationTag.id));
+    stationStorage().setStation(stations);
+    showStations();
+  };
+
+  const onStationDeleteHandler = (e) => {
+    if (!e.target.classList.contains('station-delete-button')) {
+      return false;
+    }
+    deleteStation(e.target.closest('tr'));
   };
 
   const onStationSubmitHandler = () => {
