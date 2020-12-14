@@ -183,4 +183,3 @@ const SECTION_REGISTER_TEMPLATE = `
   <table border="1" id="${SECTION_REGISTER_TABLE_ID}">
   </table>
 `;
-

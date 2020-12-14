@@ -136,6 +136,9 @@ export default class StationINFOManager {
   _loadAllFromLocalStorage() {
     const stations = JSON.parse(localStorage.getItem("stations"));
     const lines = JSON.parse(localStorage.getItem("lines"));
+    if (stations === null || lines === null) {
+      return;
+    }
     stations.forEach((station) => {
       station.linesOfStation = new Set(station.linesOfStation);
     });
