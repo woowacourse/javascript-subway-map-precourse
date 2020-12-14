@@ -16,8 +16,17 @@ import {
   }
 */
 export default class StationManager extends Component {
-  constructor({ $parent, initialStationNameArray, lineInfo, setStationNameArray }) {
-    super({ $parent, initialStationNameArray, lineInfo, setStationNameArray });
+  /* 
+    props: { 
+      $parent, 
+      initialStationNameArray,  // 지하철 역 이름들 상태값의 초기값
+      lineInfo,                 // 등록된 모든 지하철 노선 정보
+      setStationNameArray       // 지하철 역이름들이 업데이트되면, 
+                                // 이를 App.js의 상태값으로 등록하는 함수
+    }
+  */
+  constructor(props) {
+    super(props);
     this.declareConstants();
     this.initializeState(); 
 

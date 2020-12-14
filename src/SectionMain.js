@@ -27,7 +27,7 @@ export default class SectionMain extends Component {
     lineInfo,         // 등록된 모든 지하철 노선 정보
     setStations       // 해당 지하철 노선에 속한 지하철 역 이름들이 업데이트되면 
                       // 해당 지하철 노선 정보를 업데이트하여 App.js의 상태값으로 저장하는 함수
-    } 
+  } 
   */
   constructor(props) {
     super(props);

@@ -24,8 +24,18 @@ import {
   }
 */
 export default class LineManager extends Component {
-  constructor({ $parent, stationNameArray, initialLineInfo, setLineInfo }) {
-    super({ $parent, stationNameArray, initialLineInfo, setLineInfo });
+  /* 
+    props: { 
+      $parent,              
+      stationNameArray,      // 등록된 모든 지하철 역 이름들
+      initialLineInfo,       // 지하철 노선 정보 상태값의 초기값
+      setLineInfo,           // 지하철 노선 정보를 App.js의 상태값으로 등록하는 함수
+      deleteSectionLineName  // 선택된 지하철 노선이 삭제되는 경우, 
+                             // 선택된 지히철 노선 상태값을 삭제하는 함수
+    }
+  */
+  constructor(props) {
+    super(props);
     this.declareConstants();
     this.initializeState();
     

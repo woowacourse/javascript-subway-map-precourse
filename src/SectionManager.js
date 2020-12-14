@@ -15,18 +15,18 @@ import {
    
   사용자가 지하철 노선을 선택하기 전에는 선택된 노선 이름은 공백문자이다.
 */
-/* 
-  props: { 
-    $parent, 
-    stationNameArray,  // 등록된 모든 지하철 역 이름들
-    lineInfo,          // 등록된 모든 지하철 노선 정보
-    initialLineName,   // 현재 선택된 지하철 노선 이름의 초기값
-    setLineInfo,       // 지하철 노선 정보를 App.js의 상태값으로 등록하는 함수
-    setSectionLineName // 선택된 지하철 노선 이름이 업데이트되면 
-                       // 이를 App.js의 상태값으로 등록하는 함수
-  }
- */
 export default class SectionManager extends Component {
+  /* 
+    props: { 
+      $parent, 
+      stationNameArray,  // 등록된 모든 지하철 역 이름들
+      lineInfo,          // 등록된 모든 지하철 노선 정보
+      initialLineName,   // 현재 선택된 지하철 노선 이름의 초기값
+      setLineInfo,       // 지하철 노선 정보를 App.js의 상태값으로 등록하는 함수
+      setSectionLineName // 선택된 지하철 노선이 업데이트되면 
+                         // 이를 App.js의 상태값으로 등록하는 함수
+    }
+ */
   constructor(props) {
     super(props);
     this.declareConstants();
