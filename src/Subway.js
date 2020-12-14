@@ -5,6 +5,14 @@ export default class Subway {
     this._lines = state.lines;
   }
 
+  isIncludeSection = ({ station }) => {
+    const sections = this.getSection();
+    function findStation(section) {
+      return section.includes(station);
+    }
+    return sections.some(findStation);
+  }
+
   isDuplicateStation = ({ station }) => {
     return this._stations.has(station);
   }
@@ -30,6 +38,9 @@ export default class Subway {
   }
 
   deleteStation = ({ station }) => {
+    if (this.isIncludeSection({ station })) {
+      return alert(`${station}은 노선에 포함되어 있습니다.`);
+    }
     this._stations.delete(station);
   }
 
@@ -84,5 +95,9 @@ export default class Subway {
 
   getLineNames = () => {
     return [...this._lines.keys()];
+  }
+
+  getSection = () => {
+    return [...this._lines.values()];
   }
 }
