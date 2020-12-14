@@ -128,20 +128,6 @@ const inputValidator = (lineName, startStation, endStation) => {
   return false;
 };
 
-const findStationInLine = (stationArr) => {
-  for (let i = 0; i < Object.keys(lineData).length; i++) {
-    const lineArray = lineData[Object.keys(lineData)[i]];
-    if (
-      lineArray.indexOf(stationArr[0]) >= 0 ||
-      lineArray.indexOf(stationArr[1]) >= 0
-    ) {
-      return true;
-    }
-  }
-
-  return false;
-};
-
 const updateLocalStorage = () => {
   window.localStorage.line = JSON.stringify(lineData);
   appContainer.dataset.line = window.localStorage.line;
