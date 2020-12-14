@@ -22,3 +22,9 @@ export const addSection = (idxToInsert, stationToInsert, lineName) => {
   stationsInLine.splice(idxToInsert, 0, stationToInsert);
   upDateLine(lineName, stationsInLine);
 };
+
+export const deleteSection = (sectionIdxToRemove, lineName) => {
+  const stationsInLine = getStationsInLine(lineName);
+  stationsInLine.splice(sectionIdxToRemove, 1);
+  upDateLine(lineName, stationsInLine);
+};

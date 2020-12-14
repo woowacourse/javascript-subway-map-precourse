@@ -1,4 +1,4 @@
-import { STATION, LINE } from "../constants.js";
+import { STATION, LINE, SECTION } from "../constants.js";
 import { hasDuplicateName } from "./util.js";
 import { isInLine } from "./stationUtil.js";
 import { getStationsInLine } from "./sectionUtil.js";
@@ -33,5 +33,13 @@ export const addSectionValidate = (index, station, lineName) => {
   if (index < 1 || index > stationsInLine.length - 1) validate = false;
   if (stationsInLine.includes(station)) validate = false;
 
+  return validate;
+};
+
+export const deleteSectionValidate = (elem) => {
+  let validate = true;
+  if (getStationsInLine(elem.dataset.name).length <= SECTION.MINIMUM_SECTION) {
+    validate = false;
+  }
   return validate;
 };

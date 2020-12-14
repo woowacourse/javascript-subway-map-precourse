@@ -9,12 +9,13 @@ import {
 import Station from "../components/Station.js";
 import Line from "../components/Line.js";
 import { addLocalStorageByKey, deleteDataByName } from "../utils/util.js";
-import { addSection } from "../utils/sectionUtil.js";
+import { addSection, deleteSection } from "../utils/sectionUtil.js";
 import {
   addStationValidate,
   deleteStationValidate,
   addLineValidate,
   addSectionValidate,
+  deleteSectionValidate,
 } from "../utils/validator.js";
 import {
   STATION,
@@ -141,10 +142,25 @@ export const insertSectionTable = (targetElem) => {
   } catch (e) {}
 };
 
+export const confirmSectionDelete = (targetElem) => {
+  try {
+    if (deleteSectionValidate(targetElem)) {
+      deleteSection(targetElem.dataset.index, targetElem.dataset.name);
+      document.getElementById(
+        "section-table"
+      ).innerHTML = sectionManageContainer(targetElem.dataset.name);
+      setSectionEvent();
+    } else {
+      alert(SECTION.DELETE_ERROR_MESSAGE);
+    }
+  } catch (e) {}
+};
+
 export const setSectionEvent = () => {
   document.querySelectorAll(".section-delete-button").forEach((item) => {
     item.addEventListener("click", (event) => {
-      //삭제 구현
+      event.preventDefault();
+      if (confirm(DELETE_CONFIRM_MESSAGE)) confirmSectionDelete(event.target);
     });
   });
 
