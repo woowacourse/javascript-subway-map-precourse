@@ -35,19 +35,19 @@ const handleDeleteClicked = (event, selectLine) => {
       parentNode: { parentNode },
     },
   } = event;
-  const lines = loadLines() || [];
-  const filteredSection = filterTargetRow(parentNode, selectLine, lines);
-  const changedLine = lines.map((line) => {
-    if (selectLine === Object.keys(line)[0]) {
-      line[selectLine] = filteredSection;
-    }
-
-    return line;
-  });
-
   const isDelete = confirmDelete();
 
   if (isDelete) {
+    const lines = loadLines() || [];
+    const filteredSection = filterTargetRow(parentNode, selectLine, lines);
+    const changedLine = lines.map((line) => {
+      if (selectLine === Object.keys(line)[0]) {
+        line[selectLine] = filteredSection;
+      }
+
+      return line;
+    });
+
     saveLines(changedLine);
     displaySectionUtil(selectLine);
     sectionUtilHandler(selectLine);
