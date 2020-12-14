@@ -1,8 +1,9 @@
 export default class StationManagerModel {
   static add(station) {
-    const stations = localStorage.getItem('Stations').split(',');
-    stations.push(station);
-    localStorage.setItem('Stations', stations);
+    const stations = JSON.parse(localStorage.getItem('Stations'));
+    stations[station] = { "lines": [] };
+    localStorage.setItem('Stations', JSON.stringify(stations));
+    console.log(JSON.parse(localStorage.getItem('Stations')));
   }
 
   static isValidName(station) {
@@ -12,8 +13,8 @@ export default class StationManagerModel {
   }
 
   static isDuplicated(station) {
-    const stations = localStorage.getItem('Stations').split(',');
-    return stations.indexOf(station) > -1;
+    const stations = JSON.parse(localStorage.getItem('Stations'));
+    return Object.keys(stations).indexOf(station) > -1;
   }
 
   static isSpace(station) {
@@ -37,14 +38,11 @@ export default class StationManagerModel {
   }
 
   static delete(station) {
-    if (this.isInStations(station)) {
-      const stations = localStorage.getItem('Stations').split(',');
-      stations.splice(stations.indexOf(station), 1);
-      localStorage.setItem('Stations', stations);
+    if (this.isDuplicated(station)) {
+      const stations = JSON.parse(localStorage.getItem('Stations'));
+      delete stations[station];
+      localStorage.setItem('Stations', JSON.stringify(stations));
+      console.log(JSON.parse(localStorage.getItem('Stations')));
     }
-  }
-
-  static isInStations(station) {
-    return localStorage.getItem('Stations').split(',').indexOf(station) > -1;
   }
 }

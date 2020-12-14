@@ -21,7 +21,7 @@ export default class StationManagerView {
   }
 
   static stationTableView() {
-    const stations = localStorage.getItem('Stations').split(',');
+    const stations = JSON.parse(localStorage.getItem('Stations'));
     document.getElementById('station-table-view').innerHTML = `
     <h2>🚉 지하철 역 목록</h2>
     <table border='1px solid black'>
@@ -29,7 +29,7 @@ export default class StationManagerView {
         <th align="center">역 이름</th>
         <th align="center">설정</th>
       </tr>
-      ${stations.map((station) => `
+      ${Object.keys(stations).map((station) => `
       <tr>
         <td align="center">${station}</td>
         <td><button class="station-delete-button" data-delete-target="${station}">삭제</button></td>
