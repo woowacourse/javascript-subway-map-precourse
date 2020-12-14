@@ -66,10 +66,12 @@ export default class LineManager {
     }
   }
 
-  deleteLine(targetButton) {
-    const targetRow = targetButton.parentNode.parentNode;
-    const targetLine = targetRow.dataset.line;
-    this.line.deleteLine(targetLine);
+  deleteLine(lineName) {
+    if (!confirm(CONFIRM_DELETE)) {
+      return;
+    }
+
+    this.line.deleteLine(lineName);
     this.view.renderLineTable();
   }
 
@@ -79,10 +81,10 @@ export default class LineManager {
     if (target.id === "line-add-button") {
       this.addLine();
     }
+
     if (target.className === "line-delete-button") {
-      if (confirm(CONFIRM_DELETE)) {
-        this.deleteLine(target);
-      }
+      const line = target.parentNode.parentNode.dataset.line;
+      this.deleteLine(line);
     }
   }
 }

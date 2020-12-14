@@ -60,13 +60,14 @@ export default class StationManager {
     }
   }
 
-  deleteStation(targetButton) {
-    const targetRow = targetButton.parentNode.parentNode;
-    const targetStation = targetRow.dataset.station;
+  deleteStation(stationName) {
+    if (!confirm(CONFIRM_DELETE)) {
+      return;
+    }
 
     try {
-      this.validateDeleteStationInLine(targetStation);
-      this.station.deleteStation(targetStation);
+      this.validateDeleteStationInLine(stationName);
+      this.station.deleteStation(stationName);
       this.view.renderStationTable();
     } catch (error) {
       alert(error);
@@ -81,9 +82,8 @@ export default class StationManager {
     }
 
     if (target.className === "station-delete-button") {
-      if (confirm(CONFIRM_DELETE)) {
-        this.deleteStation(target);
-      }
+      const stationName = target.parentNode.parentNode.dataset.station;
+      this.deleteStation(stationName);
     }
   }
 }

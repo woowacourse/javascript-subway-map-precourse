@@ -79,16 +79,15 @@ export default class SectionManager {
     }
   }
 
-  deleteSection(targetButton) {
+  deleteSection(lineName, stationName) {
+    if (!confirm(CONFIRM_DELETE)) {
+      return;
+    }
+
     try {
-      const targetRow = targetButton.parentNode.parentNode;
-      const targetLine = targetRow.dataset.line;
-      const targetStation = targetRow.dataset.station;
-      this.validateDeleteSectionCount(targetLine);
-
-      this.section.removeSection(targetLine, targetStation);
-
-      this.view.renderSectionTable(targetLine);
+      this.validateDeleteSectionCount(lineName);
+      this.section.removeSection(lineName, stationName);
+      this.view.renderSectionTable(lineName);
     } catch (error) {
       alert(error);
     }
@@ -105,9 +104,8 @@ export default class SectionManager {
     }
 
     if (target.className === "section-delete-button") {
-      if (confirm(CONFIRM_DELETE)) {
-        this.deleteSection(target);
-      }
+      const { line, station } = target.parentNode.parentNode.dataset;
+      this.deleteSection(line, station);
     }
   }
 }
