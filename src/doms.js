@@ -34,6 +34,7 @@ export const DOMStrings = {
   SECTION_ADD_BUTTON: 'section-add-button',
   SECTION_LIST_TABLE: 'sections',
   SECTION_DELETE_BUTTON: 'section-delete-button',
+  SECTION_HEADER: 'section-header',
 
   // map print manager
   MAP_PRINT_MANAGER: 'map',
@@ -208,7 +209,8 @@ export const DOMCtrl = {
 
   openSection(lineSelect, lineIndex) {
     const sectionManager = `
-      <h2 data-${dataStrings.DATA_TARGET}="${lineSelect}">${lineSelect} ${strings.MANAGE}</h2>
+      <h2 id="${DOMStrings.SECTION_HEADER}" data-${dataStrings.DATA_TARGET}="${lineSelect}">
+        ${lineSelect} ${strings.MANAGE}</h2>
       <h3>${strings.SECTION_ADD_TITLE}</h3>
       ${DOMCtrl.getSectionSelector(this.stations)}
       <input type="number" id="${DOMStrings.SECTION_ORDER_INPUT}" placeholder="${strings.ORDER}">

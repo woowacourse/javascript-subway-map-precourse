@@ -17,6 +17,25 @@ const isUnderMinLength = input => input.length < MIN_STRING_LENGTH;
 
 const isEmptyString = input => !input;
 
+const isValidSectionName = (list, input) => {
+  if (isDuplicatedName(list, input)) {
+    alert(ERROR_STATION_ALREADY_EXISTS);
+    return false;
+  }
+  return true;
+};
+
+const isValidSectionOrder = (line, order) => {
+  if (order < SECTION_START || order > line.length) {
+    alert(ERROR_SECTION_OUT_OF_RANGE);
+    return false;
+  } else if (isEmptyString(order)) {
+    alert(ERROR_EMPTY_STRING);
+    return false;
+  }
+  return true;
+};
+
 export const isValidStationName = (list, input) => {
   if (isDuplicatedName(list, input)) {
     alert(ERROR_DUPLICATED_NAME);
@@ -32,14 +51,6 @@ export const isValidStationName = (list, input) => {
   return true;
 };
 
-export const isInvalidStationName = (list, input) => {
-  if (isDuplicatedName(list, input)) {
-    alert(ERROR_STATION_ALREADY_EXISTS);
-    return true;
-  }
-  return false;
-};
-
 export const isValidLineName = (list, input) => {
   const nameList = list.map(item => item.lineName);
   if (isDuplicatedName(nameList, input)) {
@@ -53,34 +64,27 @@ export const isValidLineName = (list, input) => {
   return true;
 };
 
-export const isInvalidStationOrder = (line, order) => {
-  if (order < SECTION_START || order > line.length) {
-    alert(ERROR_SECTION_OUT_OF_RANGE);
-    return true;
-  } else if (isEmptyString(order)) {
-    alert(ERROR_EMPTY_STRING);
-    return true;
-  }
-  return false;
+export const isValidSection = (stations, stationName, stationOrder) => {
+  return isValidSectionName(stations, stationName) && isValidSectionOrder(stations, stationOrder);
 };
 
-export const isInvalidStationDeletion = (lines, targetStation) => {
+export const isValidStationDeletion = (lines, targetStation) => {
   for (let i = SECTION_START; i < lines.length; i++) {
     const index = lines[i].stations.indexOf(targetStation);
     if (index !== -1) {
       alert(ERROR_STATION_INCLUDED);
-      return true;
+      return false;
     }
   }
-  return false;
+  return true;
 };
 
-export const isInvalidSectionDeletion = stations => {
+export const isValidSectionDeletion = stations => {
   if (stations.length <= MIN_SECTION_LENGTH) {
     alert(ERROR_SECTION_LENGTH_UNDER_MIN);
-    return true;
+    return false;
   }
-  return false;
+  return true;
 };
 
 export const isEndSection = (stations, targetIndex, type) => {
@@ -97,10 +101,10 @@ export const isStartSection = targetIndex => {
   return targetIndex === SECTION_START;
 };
 
-export const isStartEqualsEnd = (startStation, endStation) => {
+export const isStartDiffersWithEnd = (startStation, endStation) => {
   if (startStation === endStation) {
     alert('상행 종점과 하행 종점이 동일합니다.');
-    return true;
+    return false;
   }
-  return false;
+  return true;
 };
