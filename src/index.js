@@ -1,6 +1,7 @@
 import StationManager from "./modules/StationManager.js";
 import LineManager from "./modules/LineManager.js";
 import SectionManager from "./modules/SectionManager.js";
+import MapPrintManager from "./modules/MapPrintManager.js";
 
 const managerButtons = document.querySelectorAll(
   ".manager-button-group button"
@@ -8,6 +9,9 @@ const managerButtons = document.querySelectorAll(
 const stationManagerButton = document.querySelector("#station-manager-button");
 const lineManagerButton = document.querySelector("#line-manager-button");
 const sectionManagerButton = document.querySelector("#section-manager-button");
+const mapPrintManagerButton = document.querySelector(
+  "#map-print-manager-button"
+);
 
 function activeSelectedContainer(container, isSelected) {
   if (isSelected) {
@@ -43,3 +47,4 @@ managerButtons.forEach(managerButton =>
 stationManagerButton.addEventListener("click", () => new StationManager());
 lineManagerButton.addEventListener("click", () => new LineManager());
 sectionManagerButton.addEventListener("click", () => new SectionManager());
+mapPrintManagerButton.addEventListener("click", () => new MapPrintManager());
