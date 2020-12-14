@@ -58,6 +58,7 @@ export default class App {
     this._container.innerHTML = '';
     this._stationManager = new StationManager({
       target: this._container,
+      subway: this._subway,
       addStation: this.onClickAddStation.bind(this),
     });
   }
