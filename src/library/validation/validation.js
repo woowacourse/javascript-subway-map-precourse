@@ -1,7 +1,4 @@
-import { stationNameAlert, stationDeleteAlert, lineNameAlert } from "./alert.js";
-
-//만약 부른 곳이 station이면 station
-//부른 곳이 line이라면 line에 맞추어 변경?
+import { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert } from "./alert.js";
 
 function validateInput(input, inputTagID) {
   let alertMsg = "";
@@ -36,7 +33,7 @@ function validateInput(input, inputTagID) {
 //   return inputValue;
 // }
 
-function validStationDelete(deleteTarget) {
+function validateStationDelete(deleteTarget) {
   let alertMsg = stationDeleteAlert(deleteTarget);
 
   if (alertMsg !== "") {
@@ -51,4 +48,14 @@ function confirmSectionDelete() {
   return answer;
 }
 
-export { validateInput, validStationDelete, confirmSectionDelete };
+function validateStartAndEndStations(startAndEndStations) {
+  let alertMsg = startAndEndStationAlert(startAndEndStations);
+
+  if (alertMsg !== "") {
+    alert(alertMsg);
+    return "";
+  }
+  return startAndEndStations;
+}
+
+export { validateInput, validateStationDelete, confirmSectionDelete, validateStartAndEndStations };

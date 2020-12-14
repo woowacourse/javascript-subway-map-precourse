@@ -1,3 +1,4 @@
+//역 검증 (중복, 공백, 2자 미만)
 function stationNameAlert(inputValue) {
   return ununiqueStationNameAlert(inputValue) || spaceAlert(inputValue) || underTwoCharacterAlert(inputValue);
 }
@@ -35,12 +36,12 @@ function underTwoCharacterAlert(inputValue) {
   return alertMsg;
 }
 
+//노선에 등록된 역 삭제 전 검증
 function stationDeleteAlert(deleteTarget) {
   return inlineAlert(deleteTarget);
-  //노선에 등록된 역 삭제 시 alert
-  //노선에 포함된 역이 2개 이하일 때 삭제 시 alert
 }
 
+//노선에 포함된 역이 2개 이하일 때 삭제 시 alert
 function inlineAlert(deleteTarget) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
@@ -53,7 +54,7 @@ function inlineAlert(deleteTarget) {
   return alertMsg;
 }
 
-//라인 검증
+//라인 검증 (중복)
 function lineNameAlert(inputValue) {
   return ununiqueLineNameAlert(inputValue) || spaceAlert(inputValue);
 }
@@ -71,4 +72,35 @@ function ununiqueLineNameAlert(inputValue) {
   return alertMsg;
 }
 
-export { stationNameAlert, stationDeleteAlert, lineNameAlert };
+//상행종점, 하행종점역 검증
+function startAndEndStationAlert(startAndEndStations) {
+  return unUniqueLineAlert(startAndEndStations);
+  // sameStartAndEndStationAlert()
+  // divergentPathAlert()
+}
+
+//상행 종점역과 하행 종점역이 중복되는 호선이 이미 존재하는 경우
+function unUniqueLineAlert(startAndEndStations) {
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+
+  let alertMsg = "";
+
+  subwayDatas.lines.map((line, idx) => {
+    if (line.stops[0] === startAndEndStations[0] && line.stops[line.stops.length - 1] === startAndEndStations[1]) {
+      alertMsg = "상행, 하행 종점역이 중복되는 노선이 이미 존재합니다.";
+    }
+  });
+  return alertMsg;
+  // let alertMsg = "";
+}
+
+//상행 종점역과 하행 종점역이 동일한 역인 경우 alert
+// function sameStartAndEndStationAlert() {
+
+// }
+
+//갈래길 등록(같은 노선이면서 상행 종점역이나 하행 종점역이 같은 경우)시 alert
+// function divergentPathAlert() {
+
+// }
+export { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert };
