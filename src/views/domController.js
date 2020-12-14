@@ -9,12 +9,19 @@ import {
 import Station from "../components/Station.js";
 import Line from "../components/Line.js";
 import { addLocalStorageByKey, deleteDataByName } from "../utils/util.js";
+import { addSection } from "../utils/sectionUtil.js";
 import {
   addStationValidate,
   deleteStationValidate,
   addLineValidate,
+  addSectionValidate,
 } from "../utils/validator.js";
-import { STATION, LINE, DELETE_CONFIRM_MESSAGE } from "../constants.js";
+import {
+  STATION,
+  LINE,
+  SECTION,
+  DELETE_CONFIRM_MESSAGE,
+} from "../constants.js";
 
 export const clearMangeContainer = () => {
   const container = document.getElementById("subway-manager-container");
@@ -118,13 +125,43 @@ export const rendLineMangeDom = () => {
 };
 
 //section
+export const insertSectionTable = (targetElem) => {
+  const order = document.getElementById("section-order-input").value;
+  const station = document.getElementById("section-station-selector").value;
+  try {
+    if (addSectionValidate(parseInt(order), station, targetElem.dataset.name)) {
+      addSection(order, station, targetElem.dataset.name);
+      document.getElementById(
+        "section-table"
+      ).innerHTML = sectionManageContainer(targetElem.dataset.name);
+      setSectionEvent();
+    } else {
+      alert(SECTION.INPUT_ERROR_MESSAGE);
+    }
+  } catch (e) {}
+};
+
+export const setSectionEvent = () => {
+  document.querySelectorAll(".section-delete-button").forEach((item) => {
+    item.addEventListener("click", (event) => {
+      //삭제 구현
+    });
+  });
+
+  document
+    .getElementById("section-add-button")
+    .addEventListener("click", (event) => {
+      insertSectionTable(event.target);
+    });
+};
+
 export const rendSectionAddDom = (target) => {
   const container = document.getElementById("subway-manager-container");
   const div = document.createElement("div");
   div.setAttribute("id", "section-table");
   div.innerHTML = sectionManageContainer(target.dataset.index);
   container.appendChild(div);
-  //setSectionEvent();
+  setSectionEvent();
 };
 
 export const rendLineSelectDom = () => {
