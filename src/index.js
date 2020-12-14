@@ -169,9 +169,9 @@ export default class SubwayManager {
   addSection() {
     const targetLineName = document.getElementById(DOMStrings.SECTION_HEADER).dataset[dataStrings.DATA_TARGET];
     const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLineName);
+    const targetLine = this.lines[targetLineIndex];
     const stationOrder = +document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value.trim();
     const stationName = document.getElementById(DOMStrings.SECTION_STATION_SELECTOR).value;
-    const targetLine = this.lines[targetLineIndex];
     if (isValidSection(targetLine.stations, stationName, stationOrder)) {
       this.changeLineListAfterAddition(targetLine, stationOrder, stationName);
       targetLine.stations = targetLine.stations
