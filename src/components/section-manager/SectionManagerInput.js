@@ -34,7 +34,6 @@ export class SectionManagerInput {
 
   updateStations = () => {
     this.stations = this.getStations();
-    console.log("fddfsdfss");
     initSelector(this.sectionStationSelector);
     this.stations.forEach((station) => {
       addOptionTag(this.sectionStationSelector, station);
@@ -44,6 +43,7 @@ export class SectionManagerInput {
   handleAddStaionByOrder = () => {
     let order = this.sectionInput.value;
     let station = this.sectionStationSelector.value;
+
     let line = this.getLines().filter((line) => {
       return line.lineName === this.lineName;
     })[0];
@@ -52,5 +52,10 @@ export class SectionManagerInput {
       return;
     }
     this.addStationInLine(order, station, this.lineName);
+    this.initInput();
+  };
+
+  initInput = () => {
+    this.sectionInput.value = "";
   };
 }
