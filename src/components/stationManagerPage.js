@@ -1,5 +1,8 @@
 import { STATION_MANAGER_PAGE_TEMPLATE, STATION_TABLE_TEMPLATE } from '../utils/templete.js';
-import { stationNameValidator, stationDeleteValidation } from '../utils/stationValidator.js';
+import {
+  stationNameValidator,
+  stationDeleteValidation,
+} from '../utils/validator/stationValidator.js';
 import stationStorage from '../utils/stationStorage.js';
 import Station from '../utils/Station.js';
 
