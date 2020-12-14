@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_STATIONS_KEY } from "../constant.js";
+import { LOCAL_STORAGE_STATIONS_KEY } from "../constants/index.js";
 import { getStateFromStorage } from "./storage.js";
 
 export const getStationOptions = () => {

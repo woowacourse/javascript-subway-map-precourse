@@ -10,7 +10,7 @@ import {
   INPUT_LESS_THAN_2_MESSAGE,
   DELETE_TEXT,
   LOCAL_STORAGE_STATIONS_KEY,
-} from "./constant.js";
+} from "./constants/index.js";
 import Header from "./Header.js";
 
 export default class SubwayMapManager {
