@@ -1,0 +1,15 @@
+table {
+    border: 1px solid black;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+#sections th {
+    text-align : center;
+}
+
+#sections tr td:first-child {
+    text-align : center;
+}
