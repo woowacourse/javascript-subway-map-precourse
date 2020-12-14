@@ -1,5 +1,8 @@
 import MenuView from './Menu/MenuView.js';
 import MenuController from './Menu/MenuController.js';
+import StationManagerController from './StationManger/StationManagerController.js';
+import LineManagerController from './LineManger/LineManagerController.js';
+import SectionManagerController from './SectionManager/SectionManagerController.js';
 
 export default class SubwayManager {
   constructor() {
@@ -7,10 +10,11 @@ export default class SubwayManager {
       this.setLocalStrageDefault();
     }
     this.setLocalStrageDefault();
-    // console.log(JSON.parse(localStorage.getItem('Stations')));
-    // console.log(JSON.parse(localStorage.getItem('Lines')));
     MenuView.menuButtonListView();
     MenuController.buttonEventController();
+    SectionManagerController.buttonEventController();
+    LineManagerController.buttonEventController();
+    StationManagerController.buttonEventController();
   }
 
   setLocalStrageDefault() {
@@ -27,9 +31,6 @@ export default class SubwayManager {
     };
     localStorage.setItem('Stations', JSON.stringify(stationDefault));
     localStorage.setItem('Lines', JSON.stringify(lineDefault));
-
-    console.log(JSON.parse(localStorage.getItem('Stations')));
-    console.log(JSON.parse(localStorage.getItem('Lines')));
   }
 }
 
