@@ -29,11 +29,13 @@ export default class SectionViewEventDelegator {
   }
 
   addSection(dataset) {
-    const sectionId = this.sectionView.managerContainer.querySelector('#section-station-selector')[
-      this.sectionView.managerContainer.querySelector('#section-station-selector').selectedIndex
-    ].dataset.id;
+    const sectionSelector = this.sectionView.managerContainer.querySelector(
+      '#section-station-selector',
+    );
+    const sectionId = sectionSelector[sectionSelector.selectedIndex].dataset.id;
     const sectionOrder = this.sectionView.managerContainer.querySelector('#section-order-input')
       .value;
+
     this.subwayMapViewModel.addSection(sectionId, dataset.lineid, sectionOrder);
     this.sectionView.resetSectionTable();
     this.sectionView.renderSectionTable(
