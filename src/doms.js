@@ -79,4 +79,26 @@ export const DOMCtrl = {
   clearManagerContainer() {
     DOMs.MANAGER_CONTAINER.innerHTML = '';
   },
+
+  focusStationNameInput() {
+    const stationNameInput = document.getElementById(DOMStrings.STATION_NAME_INPUT);
+    stationNameInput.value = '';
+    stationNameInput.focus();
+  },
+
+  focusLineNameInput() {
+    const lineNameInput = document.getElementById(DOMStrings.LINE_NAME_INPUT);
+    lineNameInput.value = '';
+    lineNameInput.focus();
+  },
+
+  focusLineSelector() {
+    document.getElementById(DOMStrings.SECTION_STATION_SELECTOR).focus();
+  },
+
+  focusSectionOrderInput() {
+    const sectionOrderInput = document.getElementById(DOMStrings.SECTION_ORDER_INPUT);
+    sectionOrderInput.value = '';
+    sectionOrderInput.focus();
+  },
 };

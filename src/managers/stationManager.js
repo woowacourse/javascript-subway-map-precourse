@@ -7,7 +7,7 @@ export default class StationManager {
   constructor(stations, lines) {
     this.stations = stations;
     this.lines = lines;
-    this.UIController = new StationUI(stations);
+    this.UIController = new StationUI();
 
     this.setStationEventListeners();
   }

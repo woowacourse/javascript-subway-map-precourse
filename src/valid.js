@@ -1,4 +1,4 @@
-import { strings } from './doms.js';
+import { DOMCtrl, strings } from './doms.js';
 
 const MIN_STRING_LENGTH = 2;
 const MIN_SECTION_LENGTH = 2;
@@ -40,12 +40,15 @@ const isValidSectionOrder = (line, order) => {
 export const isValidStationName = (list, input) => {
   if (isDuplicatedName(list, input)) {
     alert(ERROR_DUPLICATED_NAME);
+    DOMCtrl.focusStationNameInput();
     return false;
   } else if (isEmptyString(input)) {
     alert(ERROR_EMPTY_STRING);
+    DOMCtrl.focusStationNameInput();
     return false;
   } else if (isUnderMinLength(input)) {
     alert(ERROR_UNDER_MINUMUM_LENGTH);
+    DOMCtrl.focusStationNameInput();
     return false;
   }
   return true;
@@ -55,16 +58,25 @@ export const isValidLineName = (list, input) => {
   const nameList = list.map(item => item.lineName);
   if (isDuplicatedName(nameList, input)) {
     alert(ERROR_DUPLICATED_NAME);
+    DOMCtrl.focusLineNameInput();
     return false;
   } else if (isEmptyString(input)) {
     alert(ERROR_EMPTY_STRING);
+    DOMCtrl.focusLineNameInput();
     return false;
   }
   return true;
 };
 
 export const isValidSection = (stations, stationName, stationOrder) => {
-  return isValidSectionName(stations, stationName) && isValidSectionOrder(stations, stationOrder);
+  if (!isValidSectionName(stations, stationName)) {
+    DOMCtrl.focusLineSelector();
+    return false;
+  } else if (!isValidSectionOrder(stations, stationOrder)) {
+    DOMCtrl.focusSectionOrderInput();
+    return false;
+  }
+  return true;
 };
 
 export const isValidStationDeletion = (lines, targetStation) => {

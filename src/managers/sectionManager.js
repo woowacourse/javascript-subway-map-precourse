@@ -7,7 +7,7 @@ export default class SectionManager {
   constructor(stations, lines) {
     this.stations = stations;
     this.lines = lines;
-    this.UIController = new SectionUI(stations, lines);
+    this.UIController = new SectionUI();
 
     this.setSectionEventListeners();
   }

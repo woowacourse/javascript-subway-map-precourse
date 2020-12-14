@@ -7,7 +7,7 @@ export default class LineManager {
   constructor(stations, lines) {
     this.stations = stations;
     this.lines = lines;
-    this.UIController = new LineUI(stations, lines);
+    this.UIController = new LineUI();
 
     this.setLineEventListeners();
   }
