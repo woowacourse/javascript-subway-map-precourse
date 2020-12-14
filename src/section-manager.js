@@ -1,6 +1,13 @@
 import { isInLine, isValidNumber } from './check.js'
 
 export default function SectionManager() {
+  this.getAllInput = function(lineName, orderInputValue, selectInputValue) {
+    const sectionAddButton = document.querySelector("#section-add-button")
+    sectionAddButton.addEventListener("click", () => {
+      console.log(lineName, orderInputValue, selectInputValue)
+    })
+  }
+
   this.getLineLength = function(lineName) {
     let objects = JSON.parse(localStorage.getItem("line"));
     let i;
@@ -21,14 +28,14 @@ export default function SectionManager() {
     }
   }
 
-  this.getOrderInput = function(lineName) {
+  this.getOrderInput = function(lineName, selectInputValue) {
     const orderInput = document.querySelector("#section-order-input")
     orderInput.addEventListener("change", () => {
       const orderInputValue = orderInput.value;
       const lineLength = this.getLineLength(lineName);
       const alertText = "가능한 순서를 입력해 주세요."
       if (isValidNumber(orderInputValue, lineLength)) {
-        return orderInputValue
+        this.getAllInput(lineName, orderInputValue, selectInputValue)
       } else {
         alert(alertText)
       }
@@ -42,7 +49,7 @@ export default function SectionManager() {
       const selectInputValue = selectInput.value;
       const alertText = "노선에 등록되지 않은 역을 선택해 주세요."
       if (!isInLine(selectInputValue, lineStations)) {
-        return selectInputValue
+        this.getOrderInput(lineName, selectInputValue)
       } else {
         alert(alertText);
       }
@@ -61,7 +68,7 @@ export default function SectionManager() {
     let i;
     for (i = 0; i < lineStations.length; i++) {
       const index = lineStations.indexOf(lineStations[i])
-      table.innerHTML += `<tr id="${lineStations[i]}"><td id="index">${index}</td><td>${lineStations[i]}</td><td><button>설정</button></td></tr>`
+      table.innerHTML += `<tr id="${lineStations[i]}"><td id="index">${index}</td><td>${lineStations[i]}</td><td><button>노선에서 제거</button></td></tr>`
     }
   }
 
@@ -73,7 +80,6 @@ export default function SectionManager() {
       sectionLineMenuButton[i].addEventListener("click", () => {
         this.showContents(lineName);
         this.getSelectInput(lineName);
-        this.getOrderInput(lineName);
       })
     }
   }
