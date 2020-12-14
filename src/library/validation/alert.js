@@ -1,5 +1,5 @@
 function stationNameAlert(inputValue) {
-  return ununiqueStationNameAlert(inputValue) || spaceAlert(inputValue);
+  return ununiqueStationNameAlert(inputValue) || spaceAlert(inputValue) || underTwoCharacterAlert(inputValue);
 }
 
 //중복된 역 이름 검증
@@ -21,6 +21,16 @@ function spaceAlert(inputValue) {
 
   if (inputValue === "") {
     alertMsg = "공백을 입력하셨습니다.";
+  }
+  return alertMsg;
+}
+
+//2자 미만 검증
+function underTwoCharacterAlert(inputValue) {
+  let alertMsg = "";
+
+  if (inputValue.length < 2) {
+    alertMsg = "2글자 이상으로 입력해주세요.";
   }
   return alertMsg;
 }
