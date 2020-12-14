@@ -7,10 +7,12 @@ ul {
   display: inline-block;
 }
 
-.contents-container {
+.contents-container,
+.add-section-container {
   display: none;
 }
 
-.contents-container.active {
+.contents-container.active,
+.add-section-container.active {
   display: block;
 }

@@ -107,18 +107,35 @@
           data-title="section"
         >
           <h2>구간을 수정할 노선을 선택해주세요.</h2>
-          <ul id="station-line-button-group"></ul>
+          <ul id="line-menu-button-group"></ul>
 
-          <h2 class="station-line-name"></h2>
-          <h3>구간 등록</h3>
-          <form>
-            <select
-              name="section-station"
-              id="section-station-selector"
-            ></select>
-            <input type="number" id="section-order-input" placeholder="순서" />
-            <button type="submit" id="section-add-button">등록</button>
-          </form>
+          <div id="add-section-container" class="add-section-container">
+            <h2 class="station-line-name"></h2>
+            <h3>구간 등록</h3>
+            <form>
+              <select
+                name="section-station"
+                id="section-station-selector"
+              ></select>
+              <input
+                type="number"
+                id="section-order-input"
+                placeholder="순서"
+              />
+              <button type="submit" id="section-add-button">등록</button>
+            </form>
+
+            <table id="line-section-list">
+              <thead>
+                <tr>
+                  <th>순서</th>
+                  <th>이름</th>
+                  <th>설정</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </article>
 
         <article
