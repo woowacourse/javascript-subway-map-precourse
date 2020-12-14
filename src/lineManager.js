@@ -5,14 +5,16 @@ import {
   createSelectbox,
   createTable,
 } from './utils.js';
+import { getLocalStorage, setLocalStorage } from './storage.js';
 import { lineText as T } from './constants.js';
 
 const app = document.getElementById('app');
+const STORAGE_KEY_STATION = 'stations';
+const STORAGE_KEY_LINE = 'lines';
 
 export const initLineManager = () => {
   clearPage();
   createPage();
-  // createResultArea();
 };
 
 const createPage = () => {
@@ -25,7 +27,7 @@ const createPage = () => {
 
 const createSelectArea = () => {
   const lineSelectArea = document.createElement('div');
-  const currStations = JSON.parse(localStorage.getItem('stations'));
+  const currStations = getLocalStorage(STORAGE_KEY_STATION);
 
   const upwardSelect = document.createElement('select');
   createSelectbox(upwardSelect, T.startSelectorId, currStations);
@@ -74,16 +76,17 @@ const addLine = (lineName, lineInput, start, end) => {
 
   lineInput.value = '';
 
-  const currLines = JSON.parse(localStorage.getItem('lines'));
+  const currLines = getLocalStorage(STORAGE_KEY_LINE);
   const updatedLines = currLines ? currLines : {};
   updatedLines[lineName] = [start, end];
-  localStorage.setItem('lines', JSON.stringify(updatedLines));
+  // localStorage.setItem('lines', JSON.stringify(updatedLines));
+  setLocalStorage(STORAGE_KEY_LINE, updatedLines);
 
   addTable(lineName, start, end);
 };
 
 const validateName = lineName => {
-  const currLines = JSON.parse(localStorage.getItem('lines'));
+  const currLines = getLocalStorage(STORAGE_KEY_LINE);
   if (currLines && Object.keys(currLines).includes(lineName)) {
     alert(T.alertDuplicateName);
     return false;
@@ -99,7 +102,7 @@ const createResultArea = () => {
   const lineTableHeaders = [T.tableHeader1, T.tableHeader2, T.tableHeader3, T.tableHeader4];
   const lineTable = createTable(T.tableId, lineTableHeaders);
 
-  const lines = JSON.parse(localStorage.getItem('lines'));
+  const lines = getLocalStorage(STORAGE_KEY_LINE);
   if (lines) {
     addTableData(lineTable, lines);
   }
@@ -159,9 +162,9 @@ const addTable = (lineName, start, end) => {
 const deleteLine = lineName => {
   if (confirm(T.alertConfirmDelete)) {
     const lineTable = document.getElementById(T.tableId);
-    const currLines = JSON.parse(localStorage.getItem('lines'));
+    const currLines = getLocalStorage(STORAGE_KEY_LINE);
     delete currLines[lineName];
-    localStorage.setItem('lines', JSON.stringify(currLines));
+    setLocalStorage(STORAGE_KEY_LINE, currLines);
     const rowToBeDeleted = lineTable.querySelector(`[data-line=_${lineName}]`);
     lineTable.removeChild(rowToBeDeleted);
   }

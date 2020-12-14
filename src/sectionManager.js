@@ -1,7 +1,10 @@
 import { clearPage, createSubmitBtn, createSelectbox, createTable } from './utils.js';
+import { getLocalStorage, setLocalStorage } from './storage.js';
 import { sectionText as T } from './constants.js';
 
 const app = document.getElementById('app');
+const STORAGE_KEY_STATION = 'stations';
+const STORAGE_KEY_LINE = 'lines';
 
 export const initSectionManager = () => {
   clearPage();
@@ -19,7 +22,7 @@ const printGuideText = () => {
 };
 
 const createMenuButtons = sectionHeader => {
-  const currLines = JSON.parse(localStorage.getItem('lines'));
+  const currLines = getLocalStorage(STORAGE_KEY_LINE);
   if (currLines) {
     Object.keys(currLines).map(line => {
       const lineBtn = document.createElement('button');
@@ -68,7 +71,7 @@ const createSelectArea = line => {
   const selectArea = document.createElement('div');
   selectArea.setAttribute('id', T.selectAreaId);
 
-  const currStations = JSON.parse(localStorage.getItem('stations'));
+  const currStations = getLocalStorage(STORAGE_KEY_STATION);
   const stationSelect = document.createElement('select');
   createSelectbox(stationSelect, T.selectorId, currStations);
 
@@ -96,15 +99,14 @@ const addToSection = (line, station, orderInput) => {
   const order = orderInput.value;
   orderInput.value = '';
 
-  const currLines = JSON.parse(localStorage.getItem('lines'));
+  const currLines = getLocalStorage(STORAGE_KEY_LINE);
   const currStations = currLines[line];
   console.log(currStations);
 
   currStations.splice(order, 0, station);
   const updatedLines = currLines;
   updatedLines[line] = currStations;
-  localStorage.setItem('lines', JSON.stringify(updatedLines));
-  console.log(JSON.parse(localStorage.getItem('lines')));
+  setLocalStorage(STORAGE_KEY_LINE, updatedLines);
 
   removeCurrResult();
   createResultArea(line);
@@ -121,7 +123,7 @@ const createResultArea = line => {
   sectionTable.style.marginTop = '20px';
   app.appendChild(sectionTable);
 
-  const currLines = JSON.parse(localStorage.getItem('lines'));
+  const currLines = getLocalStorage(STORAGE_KEY_LINE);
   if (currLines) {
     const currStations = currLines[line];
     addTableData(sectionTable, line, currStations);
@@ -155,7 +157,7 @@ const addTableData = (table, line, stations) => {
 
 const deleteStation = (station, line) => {
   const sectionTable = document.getElementById(T.tableId);
-  const currLines = JSON.parse(localStorage.getItem('lines'));
+  const currLines = getLocalStorage(STORAGE_KEY_LINE);
   const currStations = currLines[line];
 
   if (currStations.length <= 2) {
@@ -167,8 +169,7 @@ const deleteStation = (station, line) => {
     currStations.splice(currStations.indexOf(station), 1);
     const updatedLines = currLines;
     updatedLines[line] = currStations;
-    localStorage.setItem('lines', JSON.stringify(updatedLines));
-    console.log(JSON.parse(localStorage.getItem('lines')));
+    setLocalStorage(STORAGE_KEY_LINE, updatedLines);
 
     const rowToBeDeleted = sectionTable.querySelector(`[data-station=${station}]`);
     sectionTable.removeChild(rowToBeDeleted);

@@ -1,7 +1,9 @@
 import { clearPage, createSubmitBtn, createTextInput, createTable } from './utils.js';
+import { getLocalStorage, setLocalStorage } from './storage.js';
 import { stationText as T } from './constants.js';
 
 const app = document.getElementById('app');
+const STORAGE_KEY_STATION = 'stations';
 
 export const initStationManager = () => {
   clearPage();
@@ -36,14 +38,14 @@ const handleSubmit = submitBtn => {
 const addStation = (name, nameInput) => {
   if (!validateName(name)) return;
   nameInput.value = '';
-  const currStations = JSON.parse(localStorage.getItem('stations'));
+  const currStations = getLocalStorage(STORAGE_KEY_STATION);
   const updatedStations = currStations ? [...currStations, name] : [name];
-  localStorage.setItem('stations', JSON.stringify(updatedStations));
+  setLocalStorage(STORAGE_KEY_STATION, updatedStations);
   addTable(name);
 };
 
 const validateName = name => {
-  const currStations = JSON.parse(localStorage.getItem('stations'));
+  const currStations = getLocalStorage(STORAGE_KEY_STATION);
   if (currStations && currStations.includes(name)) {
     alert(T.alertDuplicateName);
     return false;
@@ -62,7 +64,7 @@ const createResultArea = () => {
   const stationTableHeaders = [T.tableHeader1, T.tableHeader2];
   const stationTable = createTable(T.tableId, stationTableHeaders);
 
-  const stations = JSON.parse(localStorage.getItem('stations'));
+  const stations = getLocalStorage(STORAGE_KEY_STATION);
   if (stations) {
     addTableData(stationTable, stations);
   }
@@ -110,9 +112,9 @@ const addTable = name => {
 const deleteStation = name => {
   if (confirm(T.alertConfirmDelete)) {
     const stationTable = document.getElementById(T.tableId);
-    const currStations = JSON.parse(localStorage.getItem('stations'));
+    const currStations = getLocalStorage(STORAGE_KEY_STATION);
     const updatedStations = currStations.filter(station => station !== name);
-    localStorage.setItem('stations', JSON.stringify(updatedStations));
+    setLocalStorage(STORAGE_KEY_STATION, updatedStations);
     const rowToBeDeleted = stationTable.querySelector(`[data-station=${name}]`);
     stationTable.removeChild(rowToBeDeleted);
   }

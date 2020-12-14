@@ -1,6 +1,8 @@
 import { clearPage } from './utils.js';
+import { getLocalStorage } from './storage.js';
 
 const app = document.getElementById('app');
+const STORAGE_KEY_LINE = 'lines';
 
 export const initMapManager = () => {
   clearPage();
@@ -11,7 +13,7 @@ const createResultArea = () => {
   const resultArea = document.createElement('div');
   resultArea.setAttribute('class', 'map');
 
-  const currLines = JSON.parse(localStorage.getItem('lines'));
+  const currLines = getLocalStorage(STORAGE_KEY_LINE);
   if (currLines) {
     Object.entries(currLines).map(([line, stations]) => {
       const lineTitle = document.createElement('h3');
