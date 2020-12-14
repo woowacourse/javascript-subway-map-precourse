@@ -48,6 +48,9 @@ class RoleInterface {
     const target =
       nodeSelector.selectId(targetName) ?? nodeSelector.selectClass(targetName);
 
+    if (!target) {
+      return;
+    }
     status === ACTIVE && target.classList.remove(HIDE);
     status === HIDE && target.classList.add(HIDE);
   }
@@ -55,6 +58,9 @@ class RoleInterface {
   displayContents(targetClass, status) {
     const targets = nodeSelector.selectClassAll(targetClass);
 
+    if (!targets) {
+      return;
+    }
     targets.forEach(target => {
       status === ACTIVE && target.classList.remove(HIDE);
       status === HIDE && target.classList.add(HIDE);
@@ -146,6 +152,10 @@ class RoleInterface {
     const title = nodeSelector.selectId(SECTION_LINE_TITLE);
 
     title.innerHTML = `${target} ${MANAGE_K}`;
+    this.renderSectionLine(target);
+  }
+
+  renderSectionLine(target) {
     this.clearNode(SECTION_TABLE);
     this.fillSectionLine(target);
     this.displayContent(SECTION_LINE, ACTIVE);
@@ -153,7 +163,7 @@ class RoleInterface {
 
   fillSectionLine(target) {
     const table = nodeSelector.selectId(SECTION_TABLE);
-    const sections = this.getSectionLine(target);
+    const sections = this.getSectionLine(target) ?? [];
 
     sections.forEach((section, idx) => {
       const row = this.getRow(SECTION_ROW, SECTION_HEADER);

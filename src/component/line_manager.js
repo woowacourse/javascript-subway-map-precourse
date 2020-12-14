@@ -37,17 +37,6 @@ export default class LineManager extends Role {
       this.onClickDeleteButton,
       this
     );
-    this.updateData();
-  }
-
-  updateData() {
-    roleInterface.renderLineMenuButtons();
-    roleInterface.clickButtons(
-      SECTION_LINE_MENU_BUTTON,
-      roleInterface.onClickLineMenuButton,
-      roleInterface
-    );
-    roleInterface.printMap();
   }
 
   renderLines() {
@@ -89,6 +78,7 @@ export default class LineManager extends Role {
     ) {
       this.addLine(input, lineStart, lineEnd);
       this.initialize();
+      this.updateData();
     }
   }
 
@@ -103,12 +93,23 @@ export default class LineManager extends Role {
     localStorage.setItem(LINES_LS, JSON.stringify(this._lineInfos));
   }
 
+  updateData() {
+    roleInterface.renderLineMenuButtons();
+    roleInterface.clickButtons(
+      SECTION_LINE_MENU_BUTTON,
+      roleInterface.onClickLineMenuButton,
+      roleInterface
+    );
+    roleInterface.printMap();
+  }
+
   onClickDeleteButton(event) {
     const target = event.target.dataset.line;
 
     if (confirm(LINE_CONFIRM)) {
       this.deleteLine(target);
       this.initialize();
+      this.updateData();
     }
   }
 

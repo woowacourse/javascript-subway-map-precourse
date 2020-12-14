@@ -1,6 +1,8 @@
 import { nodeSelector } from '../selector/node_selector.js';
 
 export default class Validator {
+  constructor() {}
+
   isOverlapped(value, compareKey) {
     const compareValues = nodeSelector.selectClassAll(compareKey);
 

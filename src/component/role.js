@@ -5,6 +5,7 @@ import {
   ROLE,
   ROLE_BUTTON_SECTION,
   ROLE_NAMES,
+  SECTION_LINE,
 } from '../library/constant/constant.js';
 import { roleInterface } from './role_interface.js';
 
@@ -34,6 +35,7 @@ export default class Role {
 
   displayRole() {
     roleInterface.displayContents(ROLE, HIDE);
+    roleInterface.displayContent(SECTION_LINE, HIDE);
     roleInterface.displayContent(this.roleId, ACTIVE);
   }
 }

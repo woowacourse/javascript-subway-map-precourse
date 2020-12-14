@@ -1,4 +1,3 @@
-import { roleInterface } from '../../component/role_interface.js';
 import {
   LINE,
   LINE_NAMES,

@@ -67,6 +67,10 @@ export const LINE_MENU_BUTTON_SECTION = 'line-menu-button-section';
 export const SECTION_TABLE = 'section-table';
 export const SECTION_HEADER = 'section-header';
 export const SECTION_ROW = 'section-row';
+export const SECTION_ALERT_ORDER =
+  '순서는 상행, 하행 종점 사이의 정수 값만 입력할 수 있어요. 😅';
+export const SECTION_ALERT_OVERLAP =
+  '역은 각 노선마다 한 번만 추가가 가능해요. 😅';
 
 // map print manager
 export const MAP = 'map';
