@@ -51,7 +51,8 @@ const words = {
     MANAGEMENT: "관리",
     ENROLLMENT: "등록",
     NAME: "이름",
-    ORDER: "순서"
+    ORDER: "순서",
+    MAP: "map"
 }
 
 export default words;
