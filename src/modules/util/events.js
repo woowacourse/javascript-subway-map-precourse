@@ -2,9 +2,12 @@ import Subway from '../subwayManager.js';
 import Station from '../station/station.js';
 import { deleteStation } from '../station/stationDataHandler.js';
 import Line from '../line/line.js';
-import { deleteLine, updateLine } from '../line/lineDataHandler.js';
+import { deleteLine } from '../line/lineDataHandler.js';
 import { showSectionManager } from '../section/sectionElemGenerator.js';
-import { deleteStationFromLine } from '../section/sectionDataHandler.js';
+import {
+  deleteStationFromLine,
+  updateLine,
+} from '../section/sectionDataHandler.js';
 
 export const addEventToManagerBtn = () => {
   const managerButtons = document.querySelector('#manager-buttons');

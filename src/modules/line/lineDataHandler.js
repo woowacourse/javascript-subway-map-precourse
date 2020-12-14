@@ -1,8 +1,7 @@
 import { setStationDataToOption } from './lineElemGenerator.js';
 
-import Subway from '../subwayManager.js';
 import { getStation } from '../station/stationDataHandler.js';
-import { printLines, printSection } from '../util/output.js';
+import { printLines } from '../util/output.js';
 
 export const loadStationData = () => {
   const stations = getStation();
@@ -25,17 +24,6 @@ export const setLine = (lineName, stations) => {
 
 export const getSelectedLineData = (lineName) => {
   return JSON.parse(localStorage.getItem(lineName));
-};
-
-export const updateLine = () => {
-  const lineName = document.querySelector('#title').dataset.line;
-  const station = document.querySelector('#section-station-selector').value;
-  const input = document.querySelector('#section-order-input');
-  let stations = getSelectedLineData(lineName);
-  stations.splice(input.value, 0, station);
-  localStorage.setItem(lineName, JSON.stringify(stations));
-  printSection(lineName);
-  Subway.clearInput(input);
 };
 
 export const deleteLine = (e) => {
