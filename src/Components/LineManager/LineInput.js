@@ -1,3 +1,9 @@
+import { clearInput } from "../../utils/domUtil.js";
+import {
+  isSameStation,
+  isValidLineName,
+} from "../../utils/validations/lineValidation.js";
+
 class LineInput {
   constructor($target, { stationStore, lineStore }) {
     this.$target = $target;
@@ -50,7 +56,27 @@ class LineInput {
     this.$button = this.$target.querySelector(`#line-add-button`);
   }
 
-  bindEvents() {}
+  bindEvents() {
+    this.$button.addEventListener(`click`, this.onClick.bind(this));
+  }
+
+  onClick({ target }) {
+    if (target.id !== `line-add-button`) return;
+    const name = this.$input.value.trim();
+    const startStation = this.$startSelect.value;
+    const endStation = this.$endSelect.value;
+
+    if (
+      !isValidLineName(this.$input, this.lineStore.getLineNames(), name) ||
+      !isSameStation(startStation, endStation)
+    ) {
+      return;
+    }
+
+    clearInput(this.$input);
+    this.lineStore.addLine(name, startStation, endStation);
+    localStorage.setItem(`LINE`, JSON.stringify(this.lineStore.lines));
+  }
 
   render = () => {
     this.mountTemplate();

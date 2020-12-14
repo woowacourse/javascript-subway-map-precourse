@@ -4,6 +4,8 @@ class LineTable {
     this.stationStore = stationStore;
     this.lineStore = lineStore;
 
+    this.lineStore.subscribe(this.render);
+
     this.render();
     this.bindEvents();
   }
@@ -24,7 +26,7 @@ class LineTable {
   }
 
   createTableRowsHTML(lines) {
-    return lines.reduce(({ html, line }) => {
+    return lines.reduce((html, line) => {
       html += this.TableRowHTML([
         line.name,
         line.sections[0],
