@@ -1,4 +1,11 @@
-import { STATION_DIV, LINE_DIV, SELECTION_DIV } from "../constant.js";
+import { getNewId } from "./getNewId.js";
+import {
+  STATION_DIV,
+  LINE_DIV,
+  SELECTION_DIV,
+  ERR_MESSAGE_STATION,
+  DELETE_MESSAGE_STATION,
+} from "../constant.js";
 import {
   controlDisplay,
   cleanPreView,
@@ -6,13 +13,12 @@ import {
   printStation,
 } from "./controlView.js";
 import { getDataFromLocalStorage } from "./getDataFromLocalStorage.js";
-import { ERR_MESSAGE_STATION } from "../constant.js";
 
 export function stationAddHandler() {
   const stationNameInput = document.getElementById("station-name-input");
   if (this.isValidStation(stationNameInput.value)) {
     this.station.push({
-      id: Math.random().toString(36).substr(2, 16),
+      id: getNewId(),
       name: stationNameInput.value,
     });
     printStation.call(this);
@@ -46,9 +52,11 @@ export function mapPrintHandler() {
 }
 
 export function removeStationHandler(e) {
-  let tr = e.target.parentNode.parentNode;
-  const clearStation = this.station.filter((v) => v.id !== tr.dataset.id);
-  this.station = clearStation;
-  console.log(clearStation);
-  printStation.call(this);
+  if (confirm(DELETE_MESSAGE_STATION)) {
+    const tr = e.target.parentNode.parentNode;
+    const clearStation = this.station.filter((v) => v.id !== tr.dataset.id);
+    this.station = clearStation;
+    console.log(clearStation);
+    printStation.call(this);
+  }
 }

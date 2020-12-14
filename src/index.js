@@ -1,5 +1,5 @@
 import Subway from "./Subway.js";
-import { cleanView } from "./utils/cleanView.js";
+import { cleanView } from "./utils/controlView.js";
 import { getDataFromLocalStorage } from "./utils/getDataFromLocalStorage.js";
 import {
   stationEventHandler,
@@ -16,7 +16,6 @@ const mapPrintManageButton = document.getElementById("map-print-manage-button");
 const init = () => {
   cleanView();
   let subway = new Subway();
-  getDataFromLocalStorage(subway);
   stationManagerButton.addEventListener(
     "click",
     stationEventHandler.bind(subway)

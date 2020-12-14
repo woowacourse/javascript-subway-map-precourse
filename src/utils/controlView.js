@@ -1,14 +1,14 @@
 import { STATION_DIV } from "../constant.js";
 import { removeStationHandler } from "./eventHandler.js";
 export const cleanView = () => {
-  const children = document.getElementById("app").children;
+  const { children } = document.getElementById("app");
   for (let i = STATION_DIV; i < children.length; i += 1) {
     children[i].style.display = "none";
   }
 };
 
 export const cleanPreView = (num) => {
-  const children = document.getElementById("app").children;
+  const { children } = document.getElementById("app");
   for (let i = STATION_DIV; i < children.length; i += 1) {
     if (i !== num) children[i].style.display = "none";
   }
@@ -33,7 +33,7 @@ export function makeTableStation(table) {
     <th>역 이름 </th> <th>설정</th>
   </thead>`;
   this.station.map((v) => {
-    let row = `<tr data-id=${v.id}>
+    const row = `<tr data-id=${v.id}>
     <td>${v.name}</td>
     <td> <button class="station-delete-button">삭제</button></td>
   </tr>`;
