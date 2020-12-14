@@ -28,8 +28,11 @@ export default class SectionManager extends Component {
     this.handleAddButtonClick = (station, order) => {
       this.state.selectedLineStation.splice(order, 0, station);
       this.setState({ ...this.state });
-      console.log(station, order);
-      console.log(this.state.selectedLineStation);
+    };
+
+    this.handleDeleteButtonClick = (index) => {
+      this.state.selectedLineStation.splice(index, 1);
+      this.setState({ ...this.state });
     };
   }
 
@@ -59,6 +62,15 @@ export default class SectionManager extends Component {
         sectionStationSelector.value,
         sectionOrderInput.value
       );
+    });
+
+    const sectionDeleteButtons = document.getElementsByClassName(
+      elementMap.sectionDeleteButton
+    );
+    [...sectionDeleteButtons].forEach((button, index) => {
+      button.addEventListener("click", () => {
+        this.handleDeleteButtonClick(index);
+      });
     });
   }
 
