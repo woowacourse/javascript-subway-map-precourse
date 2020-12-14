@@ -1,4 +1,5 @@
 import { isValidStationManager } from "../../utils/validation.js";
+
 export class StationManagerInput {
   constructor({ getStations, addNewStation }) {
     this.initializeDom();

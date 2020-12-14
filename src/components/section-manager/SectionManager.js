@@ -1,7 +1,7 @@
 import { SectionManagerHeaderButtons } from "./SectionManagerHeaderButtons.js";
-import { getLineTableHeader } from "../../utils/templates.js";
 import { showDOM } from "../../utils/handleDom.js";
 import { SectionManagerInput } from "./SectionManagerInput.js";
+import { SectionManagerList } from "./SectionManagerList.js";
 export class SectionManager {
   constructor({ getLines, getStations, setLines }) {
     this.getLines = getLines;
@@ -11,8 +11,11 @@ export class SectionManager {
   }
 
   render = () => {
-    this.sectionManagerBody = document.getElementById(
+    this.sectionManagerContaionerByLines = document.getElementById(
       "section-inputs-container-by-lines"
+    );
+    this.sectionManagerListContainer = document.getElementById(
+      "section-manager-list-container"
     );
     this.renderHeader();
     this.renderInputContainer();
@@ -31,13 +34,18 @@ export class SectionManager {
       addStationInLine: this.addStationInLine,
       getLines: this.getLines,
     });
-    // new SectionManagerList({ line: line });
+    this.sectionManagerList = new SectionManagerList({
+      deleteStationInLine: this.deleteStationInLine,
+      getLines: this.getLines,
+    });
   };
 
   updateSectionManagerByLine = (lineName) => {
-    let line = this.getLineMatchedWith(lineName);
-    showDOM(this.sectionManagerBody);
+    // let line = this.getLineMatchedWith(lineName);
+    showDOM(this.sectionManagerContaionerByLines);
+    showDOM(this.sectionManagerListContainer);
     this.sectionManagerInput.render({ lineName: lineName });
+    this.sectionManagerList.render({ lineName: lineName });
   };
 
   getLineMatchedWith = (lineName) => {
@@ -62,6 +70,19 @@ export class SectionManager {
       if (line.lineName === lineName) {
         let newStations = line.stations;
         newStations.splice(order, 0, station);
+        line.stations = newStations;
+      }
+    });
+    this.setLines(lines);
+  };
+
+  deleteStationInLine = (order, lineName) => {
+    let lines = this.getLines();
+
+    lines.forEach((line) => {
+      if (line.lineName === lineName) {
+        let newStations = line.stations;
+        newStations.splice(order, 1);
         line.stations = newStations;
       }
     });

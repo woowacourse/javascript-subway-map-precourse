@@ -10,9 +10,16 @@ export const MESSAGE = {
   NUMBER_ERROR: "숫자만 적었는지",
   NEGATIVE_ERROR: "양수를 적었는지",
   CHECK_GUIDE: " 를/을 확인해주세요.",
+  DELETE_DOUBLE_CHECK: "정말 삭제하시겠습니까?",
 };
 
 export const DELETE_GUIDE = {
   DELETE: "삭제",
   DELETE_IN_LINE: "노선에서 제거",
+};
+
+export const FIELD = {
+  STATION: "station",
+  LINE: "line",
+  SECTION: "section",
 };

@@ -1,15 +1,19 @@
 export const getStationsTableHeader = () => {
   return `<th>역 이름</th>
-            <th>설정</th>`;
+          <th>설정</th>`;
 };
 
 export const getLineTableHeader = () => {
   return `<th>노선 이름</th>
-            <th>하행 종점역</th>
-            <th>상행 종점역</th>
-            <th>설정</th>`;
+          <th>하행 종점역</th>
+          <th>상행 종점역</th>
+          <th>설정</th>`;
 };
-
+export const getSectionTableHeader = () => {
+  return `<th>순서</th>
+          <th>이름</th>
+          <th>설정</th>`;
+};
 export const printLine = (line) => {
   let lineHTML = `<div class="map"> 
                   <h3>${line.lineName}</h3>`;
@@ -27,8 +31,4 @@ const printStations = (stations) => {
 
 export const getLineNameButton = (lineName) => {
   return `<button class="section-line-menu-button" data-name="${lineName}">${lineName}</button>\n`;
-};
-
-export const getLineNameHeader = (lineName) => {
-  return `<h3>${lineName} 관리</h3>`;
 };

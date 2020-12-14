@@ -1,5 +1,6 @@
 import { addRowInListTable } from "../../utils/handleDom.js";
 import { getLineTableHeader } from "../../utils/templates.js";
+import { MESSAGE, FIELD } from "../../constants/constants.js";
 
 export class LineManagerList {
   constructor({ getLines, deleteLine }) {
@@ -32,14 +33,14 @@ export class LineManagerList {
         line.lineName,
         line.stations[0],
         line.stations[lastIndex],
-        "line"
+        FIELD.LINE
       );
     });
   };
 
   handleDeleteLine = (e) => {
     if (e.target.classList.contains("delete-button")) {
-      let confirmDelete = confirm("정말로 삭제하시겠습니까?");
+      let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
       if (confirmDelete) {
         this.deleteLine(e.target.dataset.line);
         this.render();

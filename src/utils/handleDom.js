@@ -29,6 +29,15 @@ export const addRowInListTable = (table, name, start, end, field) => {
   table.appendChild(tr);
 };
 
+export const addRowInSectionTable = (table, order, station, field) => {
+  const tr = document.createElement("tr");
+
+  addCell(tr, order);
+  addCell(tr, station);
+  addCell(tr, addDeleteButton(name, `${DELETE_GUIDE.DELETE_IN_LINE}`, field));
+  table.appendChild(tr);
+};
+
 const addCell = (tr, value) => {
   const td = document.createElement("td");
 

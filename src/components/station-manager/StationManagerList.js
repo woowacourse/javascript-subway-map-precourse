@@ -1,5 +1,6 @@
 import { addRowInStationTable } from "../../utils/handleDom.js";
 import { getStationsTableHeader } from "../../utils/templates.js";
+import { MESSAGE, FIELD } from "../../constants/constants.js";
 
 export class StationManagerList {
   constructor({ getStations, deleteStation }) {
@@ -25,13 +26,13 @@ export class StationManagerList {
     this.stations = this.getStations();
 
     this.stations.forEach((station) => {
-      addRowInStationTable(this.stationTable, station, "station");
+      addRowInStationTable(this.stationTable, station, FIELD.STATION);
     });
   };
 
   handleDeleteStation = (e) => {
     if (e.target.classList.contains("delete-button")) {
-      let confirmDelete = confirm("정말로 삭제하시겠습니까?");
+      let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
       if (confirmDelete) {
         this.deleteStation(e.target.dataset.station);
         this.render();
