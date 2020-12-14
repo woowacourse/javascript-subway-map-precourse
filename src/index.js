@@ -1,10 +1,11 @@
 import { deleteStation } from './controllers/stationManager.js';
 import { saveData, loadData } from './controllers/storage.js';
 import { tabController } from './controllers/tab.js';
+import { Line } from './models/Line.js';
 
 export default function SubwayMap() {
   this.stationList = loadData('stations');
-  this.LineList = loadData('lines');
+  this.lineList = loadData('lines');
 
   this.addStation = name => {
     this.stationList.push(name);
@@ -19,7 +20,7 @@ export default function SubwayMap() {
 
   this.reload = () => {
     this.stationList = loadData('stations');
-    this.LineList = loadData('lines');
+    this.lineList = loadData('lines');
   };
 
   this.saveStation = () => {
@@ -27,9 +28,10 @@ export default function SubwayMap() {
   };
 
   this.saveLine = () => {
-    saveData('lines', this.LineList);
+    saveData('lines', this.lineList);
   };
 }
+
 const init = subwayMap => {
   tabController(subwayMap);
 };

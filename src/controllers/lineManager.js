@@ -1,5 +1,4 @@
-import { overTwo, notDuplicate } from '../controllers/validation.js';
-import { showAddedStation } from '../views/stationManager.js';
+import { notDuplicateLine } from '../controllers/validation.js';
 import { clearFocus } from '../views/utils.js';
 
 const lineNameInput = document.querySelector('#line-name-input');
@@ -19,5 +18,11 @@ export const lineAddListener = subwayMap => {
 };
 
 const addNewLine = (name, start, end, subwayMap) => {
+  if (notDuplicateLine(name, subwayMap.lineList) && start !== end) {
+    // subwayMap.addStation(name);
+    // showAddedStation(subwayMap);
+  } else {
+    alert('잘못된 값입니다. 다시 입력해주세요.');
+  }
   clearFocus(lineNameInput);
 };
