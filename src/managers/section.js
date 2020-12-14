@@ -61,13 +61,13 @@ const initButtonContainer = () => {
     const lineObject = JSON.parse(localStorage);
 
     for (let i = 0; i < Object.keys(lineObject).length; i++) {
-      const lineButton = createlineButton(Object.keys(lineObject)[i]);
+      const lineButton = createLineButton(Object.keys(lineObject)[i]);
       sectionButtonContainer.appendChild(lineButton);
     }
   }
 };
 
-const createlineButton = (lineName) => {
+const createLineButton = (lineName) => {
   const lineButton = createElement("button");
   lineButton.setAttribute("class", "section-line-menu-button");
   lineButton.innerText = lineName;
