@@ -35,6 +35,7 @@ export default class Line {
     const removedSectionIndex = selectedLine.station.indexOf(
       removedSectionName,
     );
+
     return selectedLine.station.splice(removedSectionIndex, 1);
   }
 }
