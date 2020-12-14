@@ -9,7 +9,21 @@ import {
   setDataSelect,
   printTable,
 } from "./controlView.js";
-import { LINE_DIV, ERR_MESSAGE_LINE, LINE_NAME_LIMIT } from "../constant.js";
+import {
+  LINE_DIV,
+  ERR_MESSAGE_LINE,
+  LINE_NAME_LIMIT,
+  DELETE_MESSAGE,
+} from "../constant.js";
+
+export function removeLineHandler(e) {
+  if (confirm(DELETE_MESSAGE)) {
+    const tr = e.target.parentNode.parentNode;
+    const clearLine = this.line.filter((v) => v.id !== tr.dataset.id);
+    this.line = clearLine;
+    printTable.call(this, LINE_DIV);
+  }
+}
 
 export function addLinetoStation(lineId, stationId) {
   let stationIndex = this.station.findIndex((v) => v.id == stationId);
@@ -52,7 +66,6 @@ export function lineAddHandler(e) {
     destination
   ) {
     createLine.call(this, lineNameInput.value, destination);
-    console.log(this.line);
     printTable.call(this, LINE_DIV);
     lineNameInput.value = "";
   } else {

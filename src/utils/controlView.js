@@ -1,6 +1,5 @@
 import { STATION_DIV, LINE_DIV } from "../constant.js";
-import { removeStationHandler } from "./station.js";
-
+import { getButtonFunction, getDivName } from "./data.js";
 export const cleanView = () => {
   const { children } = document.getElementById("app");
   for (let i = STATION_DIV; i < children.length; i += 1) {
@@ -14,6 +13,7 @@ export const cleanPreView = (num) => {
     if (i !== num) children[i].style.display = "none";
   }
 };
+
 export const controlDisplay = (child) => {
   child.style.display === "none"
     ? (child.style.display = "")
@@ -21,10 +21,11 @@ export const controlDisplay = (child) => {
 };
 
 export function tableButton(buttonNodes) {
+  let buttonFunction = getButtonFunction(buttonNodes);
   Array.prototype.forEach.call(
     buttonNodes,
     function (button) {
-      button.addEventListener("click", removeStationHandler.bind(this));
+      button.addEventListener("click", buttonFunction.bind(this));
     }.bind(this)
   );
 }
@@ -54,7 +55,7 @@ export function makeTableLine(table) {
   </tr>`;
     table.innerHTML += row;
   });
-  tableButton.call(this, document.querySelectorAll(".station-delete-button"));
+  tableButton.call(this, document.querySelectorAll(".line-delete-button"));
 }
 
 export function printTable(NAME_DIV) {
@@ -66,11 +67,7 @@ export function printTable(NAME_DIV) {
   }
   table = parent.getElementsByTagName("table")[0];
   table.innerHTML = "";
-  if (NAME_DIV === STATION_DIV) {
-    makeTableStation.call(this, table);
-  } else if (NAME_DIV === LINE_DIV) {
-    makeTableLine.call(this, table);
-  }
+  getDivName.call(this, NAME_DIV, table);
 }
 
 export function clearSelect(lineSelect) {

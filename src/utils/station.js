@@ -1,18 +1,17 @@
 import {
   STATION_NAME_LIMIT,
   STATION_DIV,
-  DELETE_MESSAGE_STATION,
+  DELETE_MESSAGE,
   ERR_MESSAGE_STATION,
 } from "../constant.js";
 import { getNewId, getDataFromLocalStorage } from "./data.js";
 import { printTable, cleanPreView, controlDisplay } from "./controlView.js";
 
 export function removeStationHandler(e) {
-  if (confirm(DELETE_MESSAGE_STATION)) {
+  if (confirm(DELETE_MESSAGE)) {
     const tr = e.target.parentNode.parentNode;
     const clearStation = this.station.filter((v) => v.id !== tr.dataset.id);
     this.station = clearStation;
-    console.log(clearStation);
     printTable.call(this, STATION_DIV);
   }
 }
