@@ -14,7 +14,7 @@ const buttonContentMap = {
 
 export class SubwayMap {
   constructor() {
-    localStorage.clear();
+    localStorage.clear(); //지우고제출
     this.props = {
       setStations: this.setStations,
       getStations: this.getStations,
@@ -45,6 +45,7 @@ export class SubwayMap {
   onHeaderClick = (e) => {
     const { id } = e.currentTarget;
     const contentId = buttonContentMap[id];
+
     this.contentContainer.render({ id: contentId });
   };
 
@@ -60,7 +61,6 @@ export class SubwayMap {
   deleteStation = (target) => {
     let stations = this.getStations();
     stations = stations.filter((station) => {
-      // TODOS: 노선에 등록되어있는지 확인.
       return station !== target;
     });
     this.setStations(stations);
@@ -71,17 +71,17 @@ export class SubwayMap {
     this.sectionManager.updateStationsInInput();
   };
 
+  setLines = (lines) => {
+    localStorage.setItem("lines", JSON.stringify(lines));
+    this.updateLineView();
+  };
+
   setNewLine = (lineName, newLines) => {
     let lines = this.getLines();
     let newLine = { lineName: lineName, stations: newLines };
 
     lines.push(newLine);
     this.setLines(lines);
-  };
-
-  setLines = (lines) => {
-    localStorage.setItem("lines", JSON.stringify(lines));
-    this.updateLineView();
   };
 
   getLines = () => {

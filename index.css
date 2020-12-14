@@ -19,11 +19,11 @@ table,th ,td{
 }
 
 #section-inputs-container-by-lines {
-  visibility: hidden;
+  display: none;
 }
 
 #section-manager-list-container{
-  visibility: hidden;
+  display: none;
 }
 
 #line-selector-container{

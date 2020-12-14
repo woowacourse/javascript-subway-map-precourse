@@ -1,5 +1,5 @@
 import { SectionManagerHeaderButtons } from "./SectionManagerHeaderButtons.js";
-import { showDOM } from "../../utils/handleDom.js";
+import { displayShow, displayhide } from "../../utils/handleDom.js";
 import { SectionManagerInput } from "./SectionManagerInput.js";
 import { SectionManagerList } from "./SectionManagerList.js";
 
@@ -43,14 +43,15 @@ export class SectionManager {
 
   updateSectionManagerByLine = (lineName) => {
     this.lineName = lineName;
-    showDOM(this.sectionManagerContaionerByLines);
-    showDOM(this.sectionManagerListContainer);
+    displayShow(this.sectionManagerContaionerByLines);
+    displayShow(this.sectionManagerListContainer);
     this.sectionManagerInput.render({ lineName: lineName });
     this.sectionManagerList.render({ lineName: lineName });
   };
 
   getLineMatchedWith = (lineName) => {
     let lines = this.getLines();
+
     return lines.filter((line) => {
       line.lineName === lineName;
     });
