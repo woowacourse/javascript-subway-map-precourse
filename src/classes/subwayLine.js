@@ -1,3 +1,5 @@
+import { SUBWAY_STATION_IN_LINE_DELETE_LENGTH_LIMIT } from '../constants/configuration.js';
+
 export default class SubwayLine {
   #allStationsInLine = [];
   #upTerminatingStationName;
@@ -10,9 +12,9 @@ export default class SubwayLine {
     return downTerminatingStationName === upTerminatingStationName;
   }
 
-  constructor(upTerminatingStationName, downTerminatingStationName) {
-    this.#upTerminatingStationName = upTerminatingStationName;
-    this.#downTerminatingStationName = downTerminatingStationName;
+  constructor({ upTerminatingStationName, downTerminatingStationName }) {
+    this.#allStationsInLine.push(upTerminatingStationName);
+    this.#allStationsInLine.push(downTerminatingStationName);
   }
 
   get allStationsInLine() {
@@ -37,5 +39,12 @@ export default class SubwayLine {
         this.#allStationsInLine.splice(index, 1);
       }
     });
+  }
+
+  isAllStationsInLineLessThanLimit() {
+    return (
+      this.#allStationsInLine.length <
+      SUBWAY_STATION_IN_LINE_DELETE_LENGTH_LIMIT
+    );
   }
 }
