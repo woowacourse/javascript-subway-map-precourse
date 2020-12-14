@@ -19,7 +19,7 @@
   <body>
     <div id="app">
       <h1>🚇 지하철 노선도 관리</h1>
-      <nav class="menu">
+      <nav id="menu">
         <button id="station-manager-button">1.역 관리</button>
         <button id="line-manager-button">2.노선 관리</button>
         <button id="section-manager-button">3.구간 관리</button>
@@ -48,7 +48,7 @@
           </table>
         </section>
       </div>
-      <div id="line-manager">
+      <div id="line-manager" style="display: none">
         <form id="line-form">
           <label for="line-name-input"><strong>노선 이름</strong></label>
           <input
@@ -83,7 +83,7 @@
           </h2>
         </section>
       </div>
-      <div id="section-manager">
+      <div id="section-manager" style="display: none">
         <h2>구간을 수정할 노선을 선택해 주세요.</h2>
         <nav id="section-line-menu">
           <button class="section-line-menu-button">sample1</button>
@@ -119,7 +119,7 @@
           </section>
         </div>
       </div>
-      <div id="map-print-manager"></div>
+      <div id="map-print-manager" style="display: none"></div>
     </div>
     <script type="module" src="src/index.js"></script>
   </body>
