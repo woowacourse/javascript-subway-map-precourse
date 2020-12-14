@@ -40,6 +40,18 @@ export default class SectionManager extends Component {
   }
 
   mount() {
+    const sectionStationSelector = document.getElementById(
+      elementMap.sectionStationSelector
+    );
+    const sectionOrderInput = document.getElementById(
+      elementMap.sectionOrderInput
+    );
+    this.mountLineMenuButton();
+    this.mountAddButton(sectionOrderInput, sectionStationSelector);
+    this.mountDeleteButton();
+  }
+
+  mountLineMenuButton() {
     const sectionLineMenuButtons = document.getElementsByClassName(
       elementMap.sectionLineMenuButton
     );
@@ -48,15 +60,9 @@ export default class SectionManager extends Component {
         this.handleLineButtonClick(index);
       });
     });
+  }
 
-    const sectionStationSelector = document.getElementById(
-      elementMap.sectionStationSelector
-    );
-
-    const sectionOrderInput = document.getElementById(
-      elementMap.sectionOrderInput
-    );
-
+  mountAddButton(sectionOrderInput, sectionStationSelector) {
     const sectionAddButton = document.getElementById(
       elementMap.sectionAddButton
     );
@@ -66,7 +72,9 @@ export default class SectionManager extends Component {
         sectionStationSelector.value
       );
     });
+  }
 
+  mountDeleteButton() {
     const sectionDeleteButtons = document.getElementsByClassName(
       elementMap.sectionDeleteButton
     );

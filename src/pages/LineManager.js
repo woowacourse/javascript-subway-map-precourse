@@ -47,26 +47,44 @@ export default class LineManager extends Component {
   }
 
   mount() {
+    this.mountNameInput();
+    this.mountStartSelector();
+    this.mountEndSelector();
+    this.mountAddButton();
+    this.mountDeleteButton();
+  }
+
+  mountNameInput() {
     const lineNameInput = document.getElementById(elementMap.lineNameInput);
     lineNameInput.addEventListener("blur", (event) => {
       this.setState({ ...this.state, lineName: event.target.value });
     });
+  }
+
+  mountStartSelector() {
     const lineStartStationSelector = document.getElementById(
       elementMap.lineStartStationSelector
     );
     lineStartStationSelector.addEventListener("change", (event) => {
       this.setState({ ...this.state, lineStartStation: event.target.value });
     });
+  }
+
+  mountEndSelector() {
     const lineEndStationSelector = document.getElementById(
       elementMap.lineEndStationSelector
     );
     lineEndStationSelector.addEventListener("change", (event) => {
       this.setState({ ...this.state, lineEndStation: event.target.value });
     });
+  }
 
+  mountAddButton() {
     const lineAddButton = document.getElementById(elementMap.lineAddButton);
     lineAddButton.addEventListener("click", this.handleLineAddButton);
+  }
 
+  mountDeleteButton() {
     const lineDeleteButtons = document.getElementsByClassName(
       elementMap.lineDeleteButton
     );

@@ -34,15 +34,26 @@ export default class StationManager extends Component {
   }
 
   mount() {
+    this.mountNameInput();
+    this.mountAddButton();
+    this.mountDeleteButton();
+  }
+  mountNameInput() {
     const stationNameInput = document.getElementById(
       elementMap.stationNameInput
     );
+  }
+
+  mountAddButton() {
     const stationAddButton = document.getElementById(
       elementMap.stationAddButton
     );
     stationAddButton.addEventListener("click", () => {
       this.handleAddButtonClick(stationNameInput.value);
     });
+  }
+
+  mountDeleteButton() {
     const stationDeleteButtons = document.getElementsByClassName(
       elementMap.stationDeleteButton
     );
