@@ -15,7 +15,7 @@ export default class MapPrintManager extends Component {
     const { lineInfo } = this.props;
     
     if (lineInfo.length === 0) {
-      this.$component.innerHTML = "<div>등록된 지하철 노선이 없습니다.</div>";
+      this.$component.innerHTML = "<h3>등록된 지하철 노선이 없습니다.</h3>";
     } else {
       this.renderMap();
     }
@@ -26,7 +26,7 @@ export default class MapPrintManager extends Component {
 
     this.$component.innerHTML = lineInfo.map(({ lineName, stations }) => {
       return `
-        <div>${lineName}</div>
+        <h3>${lineName}</h3>
         <ul>
           ${stations.map(stationName => `<li>${stationName}</li>`).join("")}
         </ul>
