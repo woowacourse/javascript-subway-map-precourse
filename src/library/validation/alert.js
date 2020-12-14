@@ -74,9 +74,7 @@ function ununiqueLineNameAlert(inputValue) {
 
 //상행종점, 하행종점역 검증
 function startAndEndStationAlert(startAndEndStations) {
-  return unUniqueLineAlert(startAndEndStations);
-  // sameStartAndEndStationAlert()
-  // divergentPathAlert()
+  return unUniqueLineAlert(startAndEndStations) || sameStartAndEndStationAlert(startAndEndStations);
 }
 
 //상행 종점역과 하행 종점역이 중복되는 호선이 이미 존재하는 경우
@@ -91,16 +89,16 @@ function unUniqueLineAlert(startAndEndStations) {
     }
   });
   return alertMsg;
-  // let alertMsg = "";
 }
 
-//상행 종점역과 하행 종점역이 동일한 역인 경우 alert
-// function sameStartAndEndStationAlert() {
+// 상행 종점역과 하행 종점역이 동일한 역인 경우 alert
+function sameStartAndEndStationAlert(startAndEndStations) {
+  let alertMsg = "";
 
-// }
+  if (startAndEndStations[0] === startAndEndStations[1]) {
+    alertMsg = "상행 종점과 하행 종점으로 동일한 역을 선택하셨습니다.";
+  }
+  return alertMsg;
+}
 
-//갈래길 등록(같은 노선이면서 상행 종점역이나 하행 종점역이 같은 경우)시 alert
-// function divergentPathAlert() {
-
-// }
 export { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert };

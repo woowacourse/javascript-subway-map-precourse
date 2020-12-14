@@ -14,7 +14,6 @@ function onAddLineHandler() {
   let lineName = validateInput(document.getElementById("line-name-input").value, "line-name-input");
 
   if (lineName !== "") {
-    // console.log(lineName);
     let line = {
       name: name,
       stops: [],

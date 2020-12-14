@@ -11,28 +11,6 @@ function validateInput(input, inputTagID) {
   return input;
 }
 
-// function validName(inputValue) {
-//   let alertMsg = stationNameAlert(inputValue);
-//   if (alertMsg !== "") {
-//     alert(alertMsg);
-//     document.getElementById("station-add-input").focus();
-//     return "";
-//   }
-//   return inputValue;
-// }
-
-// function validLineName(inputValue) {
-//   let alertMsg = lineNameAlert(inputValue);
-
-//   if (alertMsg !== "") {
-//     alert(alertMsg);
-//     document.getElementById("line-name-input").focus();
-//     return "";
-//   }
-//   console.log(inputValue);
-//   return inputValue;
-// }
-
 function validateStationDelete(deleteTarget) {
   let alertMsg = stationDeleteAlert(deleteTarget);
 
