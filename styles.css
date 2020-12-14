@@ -1,3 +1,24 @@
+table {
+  border: 1px solid black;
+}
+
+th,
+td {
+  border: 1px solid black;
+}
+
+td {
+  text-align: center;
+}
+
+p {
+  margin: 0px;
+}
+
+table {
+  margin: 32px 0;
+}
+
 .navigation {
   display: flex;
   list-style: none;
