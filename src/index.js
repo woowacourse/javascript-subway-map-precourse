@@ -11,6 +11,7 @@ export default function stationPageInit() {
     const mapPrintManagerButton = document.getElementById('map-print-manager-button');
     addClickEventListener(stationManagerButton, () => {new StationManager()});
     addClickEventListener(lineManagerButton, () => {new LineManager()});
+    // addClickEventListener(lineManagerButton, () => {new LineManager()});
 }
 
 new stationPageInit();

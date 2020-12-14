@@ -6,7 +6,7 @@ import {
     addClickEventListener, 
     pageInit,
     addClickEventInDeleteButton
-} from "./common/elements.js?ver=24";
+} from "./common/elements.js";
 import { 
     isEmpty,
     addItem,
@@ -14,8 +14,8 @@ import {
     removeWhiteSpaceValue,
     deleteKey, 
     deleteItem
-} from "./common/items.js?ver=15";
-import words from "./common/words.js?ver=1";
+} from "./common/items.js";
+import words from "./common/words.js";
 
 export default class LineManager {
     constructor() {
@@ -87,21 +87,12 @@ export default class LineManager {
         localStorage.setItem(lineInputName, JSON.stringify(itemList));
     } 
 
-    addLineInTable(lineInputName) {
-        const lineStartStationSelector = document.getElementById(words.LINE_START_STATION_SELECTOR);
-        const lineEndStationSelector = document.getElementById(words.LINE_END_STATION_SELECTOR);
-        const lineStartStationName = lineStartStationSelector.options[lineStartStationSelector.selectedIndex].value;
-        const lineEndStationName = lineEndStationSelector.options[lineEndStationSelector.selectedIndex].value;
-        this.addTableRow(lineInputName, lineStartStationName, lineEndStationName);
+    addLineInTable(lineInputName, lineStartStationName, lineEndStationName) {this.addTableRow(lineInputName, lineStartStationName, lineEndStationName);
         this.addLineSection(lineInputName, lineStartStationName, lineEndStationName);
         addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.confirmDeleteLine.bind(this), true);
     }
 
     getAlertText(lineInputName) {
-        const lineStartStationSelector = document.getElementById(words.LINE_START_STATION_SELECTOR);
-        const lineEndStationSelector = document.getElementById(words.LINE_END_STATION_SELECTOR);
-        const lineStartStationName = lineStartStationSelector.options[lineStartStationSelector.selectedIndex].value;
-        const lineEndStationName = lineEndStationSelector.options[lineEndStationSelector.selectedIndex].value;
         let text = "";
         if(!isEmpty(lineInputName)) {
             text = words.LINE_INPUT_ALERT;
@@ -112,12 +103,21 @@ export default class LineManager {
         return text;
     }
 
+    getLineStationName() {
+        const lineStartStationSelector = document.getElementById(words.LINE_START_STATION_SELECTOR);
+        const lineEndStationSelector = document.getElementById(words.LINE_END_STATION_SELECTOR);
+        const lineStartStationName = lineStartStationSelector.options[lineStartStationSelector.selectedIndex].value;
+        const lineEndStationName = lineEndStationSelector.options[lineEndStationSelector.selectedIndex].value;
+        return [lineStartStationName, lineEndStationName];
+    }
+
     addLine() {
         const lineInputName = removeWhiteSpaceValue(document.getElementById(words.LINE_NAME_INPUT).value);
-        const alertText = this.getAlertText(lineInputName);
+        const lineStationName = getLineStationName();
+        const alertText = this.getAlertText(lineInputName, lineStationName[0], lineStationName[1]);
         if(alertText === "") {
             if(addItem(words.LINES, lineInputName)) {
-                this.addLineInTable(lineInputName);
+                this.addLineInTable(lineInputName, lineStationName[0], lineStationName[1]);
             }
             else {
                 alert(`${lineInputName}${words.LINE_DUPLICATE_ALERT}`);
