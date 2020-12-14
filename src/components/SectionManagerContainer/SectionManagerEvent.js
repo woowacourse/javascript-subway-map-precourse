@@ -1,5 +1,5 @@
 import SectionManagerRender from "./SectionManagerRender.js";
-import { DOM_SECTION } from "../../utils/constants.js";
+import { DOM_SECTION, ERROR_MESSAGE } from "../../utils/constants.js";
 
 export default class SectionManagerEvent extends SectionManagerRender {
   constructor(stateId) {
@@ -27,7 +27,7 @@ export default class SectionManagerEvent extends SectionManagerRender {
         newSectionStation
       )
     ) {
-      window.alert("연속된 역 이름은 등록 하실수 없습니다.");
+      window.alert(ERROR_MESSAGE.IS_CONTINUOUS_STAION_ADD);
       return;
     }
 
@@ -54,7 +54,7 @@ export default class SectionManagerEvent extends SectionManagerRender {
     console.log(target.dataset);
     console.log(order, linesIndex);
 
-    if (!window.confirm("정말로 노선에서 제거하겠습니까?")) {
+    if (!window.confirm(ERROR_MESSAGE.DELETE_MSG_CONFIRM)) {
       return;
     }
     if (this.isMinSectionCount(this.lines[this.lineIndex].line.length)) {

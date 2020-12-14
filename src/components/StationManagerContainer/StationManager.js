@@ -1,5 +1,6 @@
 import StationManagerEvent from "./StationManagerEvent.js";
 import isValidValue from "../../utils/isValidValue.js";
+import { ERROR_MESSAGE } from "../../utils/constants.js";
 
 export default class StationManager extends StationManagerEvent {
   constructor(stateId) {
@@ -21,13 +22,13 @@ export default class StationManager extends StationManagerEvent {
 
   is2Digits(station) {
     if (station.length >= 2) return true;
-    window.alert("역 이름은 2자리수 이상이여야 합니다");
+    window.alert(ERROR_MESSAGE.IS_VALID_2DIGITS);
     return false;
   }
 
   isDuplicate(station) {
     if (!this.stations.includes(station)) return true;
-    window.alert(`${station}은 중복되는 역 이름 입니다.`);
+    window.alert(ERROR_MESSAGE.IS_DUPLICATE_STATION_NAME);
     return false;
   }
 

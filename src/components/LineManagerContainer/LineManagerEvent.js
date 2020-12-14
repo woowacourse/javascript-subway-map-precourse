@@ -1,5 +1,5 @@
 import LineManagerRender from "./LineManagerRender.js";
-import { DOM_LINE } from "../../utils/constants.js";
+import { DOM_LINE, ERROR_MESSAGE } from "../../utils/constants.js";
 
 export default class LineManagerEvent extends LineManagerRender {
   constructor(stateId) {
@@ -43,7 +43,7 @@ export default class LineManagerEvent extends LineManagerRender {
     super._onClickDeleteLineTr(e);
     console.dir(e.target);
 
-    if (!window.confirm("정말로 삭제 하시겠습니까?")) {
+    if (!window.confirm(ERROR_MESSAGE.DELETE_MSG_CONFIRM)) {
       return;
     }
 

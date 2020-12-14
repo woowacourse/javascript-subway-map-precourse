@@ -1,5 +1,5 @@
 import StationManagerRender from "./StationManagerRender.js";
-import { DOM_STATION } from "../../utils/constants.js";
+import { DOM_STATION, ERROR_MESSAGE } from "../../utils/constants.js";
 
 export default class StationManagerEvent extends StationManagerRender {
   constructor(stateId) {
@@ -34,7 +34,7 @@ export default class StationManagerEvent extends StationManagerRender {
   _onClickDeleteTr(e) {
     super._onClickDeleteTr(e);
 
-    if (!window.confirm("정말로 삭제 하시겠습니까?")) {
+    if (!window.confirm(ERROR_MESSAGE.DELETE_MSG_CONFIRM)) {
       return;
     }
 

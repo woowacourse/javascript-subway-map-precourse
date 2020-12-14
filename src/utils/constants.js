@@ -39,4 +39,19 @@ export const DOM_ID = {
   ID: "app",
 };
 
-export const INITIAL_STATE_ID = "map-print-manager-button";
+export const INITIAL_STATE_ID = "station-manager-button";
+
+export const ERROR_MESSAGE = {
+  DELETE_MSG_CONFIRM: "정말로 삭제 하시겠습니까?",
+  IS_VALID_2DIGITS: "역 이름은 2자리수 이상이여햐 합니다.",
+  IS_DUPLICATE_STATION_NAME: "역 이름이 중복 됩니다.",
+  IS_DUPLICATE_LINE_NAME: "같은 이름의 노선이 있습니다. 다시 입력해 주세요",
+  IS_MIN_STATION_COUNT: "역의 개수는 2개 이상이여야 합니다. 역을 추가해주세요",
+  IS_START_END_SANME:
+    "상행 종점과 하행 종점이 같습니다. 서로 다른 종점을 선택해 주세요",
+  IS_CONTINUOUS_STAION_ADD: "연속된 역 이름은 등록 하실 수 없습니다.",
+  IS_MAX_ORDER: (order) => `0부터 ${order}까지의 순서만 입력 가능합니다.`,
+  IS_MIN_ORDER: "0이상의 순서를 입력해주세요",
+  IS_EMPTY: "값을 입력해 주세요",
+  IS_MIN_SECTION_COUNT: "구간의 개수가 2개 이하는 삭제 할 수 없습니다.",
+};

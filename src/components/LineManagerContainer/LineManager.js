@@ -1,5 +1,6 @@
 import LineManagerEvent from "./LineManagerEvent.js";
 import isValidValue from "../../utils/isValidValue.js";
+import { ERROR_MESSAGE } from "../../utils/constants.js";
 
 export default class LineManager extends LineManagerEvent {
   constructor(stateId) {
@@ -12,7 +13,7 @@ export default class LineManager extends LineManagerEvent {
     if (
       this.isDuplicateLineName(lineInfo.lineName) &&
       isValidValue(lineInfo.lineName) &&
-      this.isStationDigit() &&
+      this.isMinStationCount() &&
       this.isStartEndSame(lineInfo.line[0], lineInfo.line[1])
     ) {
       return true;
@@ -23,24 +24,22 @@ export default class LineManager extends LineManagerEvent {
   isDuplicateLineName(inputLineName) {
     for (const line of this.lines) {
       if (line.lineName === inputLineName) {
-        window.alert("같은 노선이 있습니다. 다시 입력해 주세요");
+        window.alert(ERROR_MESSAGE.IS_DUPLICATE_LINE_NAME);
         return false;
       }
     }
     return true;
   }
 
-  isStationDigit() {
+  isMinStationCount() {
     if (this.stations.length >= 2) return true;
-    window.alert("역의 개수는 2개 이상이여야 합니다. 역을 추가해주세요");
+    window.alert(ERROR_MESSAGE.IS_MIN_STATION_COUNT);
     return false;
   }
 
   isStartEndSame(start, end) {
     if (start !== end) return true;
-    window.alert(
-      "상행 종점과 하행 종점이 같습니다. 서로 다른 종점을 선택해 주세요"
-    );
+    window.alert(ERROR_MESSAGE.IS_START_END_SANME);
     return false;
   }
 }

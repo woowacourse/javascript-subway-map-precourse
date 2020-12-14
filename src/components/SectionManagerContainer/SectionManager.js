@@ -1,4 +1,5 @@
 import SectionManagerEvent from "./SectionManagerEvent.js";
+import { ERROR_MESSAGE } from "../../utils/constants.js";
 
 export default class SectionManager extends SectionManagerEvent {
   constructor(stateId) {
@@ -27,7 +28,7 @@ export default class SectionManager extends SectionManagerEvent {
       return true;
     }
 
-    window.alert(`0부터 ${maxOrder}까지의 순서만 입력 가능합니다.`);
+    window.alert(ERROR_MESSAGE.IS_MAX_ORDER(maxOrder));
     return false;
   }
 
@@ -36,7 +37,7 @@ export default class SectionManager extends SectionManagerEvent {
       return true;
     }
 
-    window.alert("0 이상의 순서를 입력해주세요");
+    window.alert(ERROR_MESSAGE.IS_MIN_ORDER);
     return false;
   }
 
@@ -45,7 +46,7 @@ export default class SectionManager extends SectionManagerEvent {
       return true;
     }
 
-    window.alert("값을 입력해 주세요");
+    window.alert(ERROR_MESSAGE.IS_EMPTY);
     return false;
   }
 
@@ -55,7 +56,7 @@ export default class SectionManager extends SectionManagerEvent {
       return false;
     }
 
-    window.alert("구간의 개수가 2개 이하는 삭제 할 수 없습니다");
+    window.alert(ERROR_MESSAGE.IS_MIN_SECTION_COUNT);
     return true;
   }
 

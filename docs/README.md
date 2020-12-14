@@ -33,7 +33,7 @@
 - [x] 노선 삭제시 노선 목록에 삭제 되어야 한다.
 - [x] 입력된 노선 정보가 올바른 값인지 검증해야 한다.
   - [x] 노선 이름이 중복된 값인지 검증한다.
-  - [x] 역의 이름이 2개 이상 일때 노선 정보를 입력 할 수 있다.
+  - [x] 저장된 역의 이름이 2개 이상 일때 새로운 노선을 생성할 수 있다.
   - [x] 상행 종점과 하행 종점은 달라야 한다.
 
 ### 지하철 구간 관리 기능
@@ -64,3 +64,57 @@
 - [x] 기존 요구사항
 - [x] data속성을 활용하여 html 태그에 역, 노선, 구간의 유일한 데이터 값들을 관리한다.
 - [x] localStorage를 이용하여, 새로고침하더라도 가장 최근에 작업한 정보들을 불러올 수 있도록 한다.
+
+---
+
+## 🔨 프로젝트 구조
+
+```sh
+.
+├── LICENSE
+├── README.md
+├── docs
+│   └── README.md
+├── images
+│   ├── line_manager.gif
+│   ├── map_print_manager.gif
+│   ├── section1.png
+│   ├── section2.png
+│   ├── section_manager.gif
+│   └── station_manager.gif
+├── index.html
+└── src
+    ├── components
+    │   ├── LineManagerContainer
+    │   │   ├── LineManager.js
+    │   │   ├── LineManagerEvent.js
+    │   │   └── LineManagerRender.js
+    │   ├── MapPrintManagerContainer
+    │   │   ├── MapPrintManager.js
+    │   │   ├── MapPrintManagerEvent.js
+    │   │   └── MapPrintManagerRender.js
+    │   ├── MenuComponent.js
+    │   ├── MenuComponentEvent.js
+    │   ├── MenuComponentRender.js
+    │   ├── SectionManagerContainer
+    │   │   ├── SectionManager.js
+    │   │   ├── SectionManagerEvent.js
+    │   │   └── SectionManagerRender.js
+    │   └── StationManagerContainer
+    │       ├── StationManager.js
+    │       ├── StationManagerEvent.js
+    │       └── StationManagerRender.js
+    ├── index.js
+    ├── js
+    │   ├── App.js
+    │   └── Component.js
+    ├── styles
+    │   └── global.css
+    └── utils
+        ├── constants.js
+        ├── isValidValue.js
+        ├── myLocalStorageKey.js
+        └── selectMenuComponent.js
+```
+
+---
