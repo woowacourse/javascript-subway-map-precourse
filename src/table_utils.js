@@ -83,6 +83,10 @@ export default class TableUtils {
   //   }
   // }
 
+  refreshLineSelect() {
+
+  }
+
   addTableStyle(table) {
     table.style.border = '1px solid black';
   }
@@ -234,19 +238,27 @@ export default class TableUtils {
     const lineList = this._privateCommonUtils.getLocalStorageLine();
 
     if (this.checkTableId(button) === this.STATION_TABLE_NAME) {
-      const station = datasetArray[0];
-
-      this.removeFromObject(stationList, station);
-      this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
+      this.updateStationDelete(stationList, datasetArray);
     }
     else if (this.checkTableId(button) === this.LINE_TABLE_NAME) {
-      const line = datasetArray[0];
-
-      this.removeStationFromLine(line, lineList, stationList);
-      this.removeFromObject(lineList, line);
-      this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
-      this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
+      this.updateLineDelete(stationList, lineList, datasetArray);
     }
+  }
+
+  updateStationDelete(stationList, datasetArray) {
+    const station = datasetArray[0];
+
+    this.removeFromObject(stationList, station);
+    this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
+  }
+
+  updateLineDelete(stationList, lineList, datasetArray) {
+    const line = datasetArray[0];
+
+    this.removeStationFromLine(line, lineList, stationList);
+    this.removeFromObject(lineList, line);
+    this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
+    this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
   }
 
   checkTableId(button) {

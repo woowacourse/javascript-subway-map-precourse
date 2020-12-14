@@ -1,8 +1,9 @@
 import DomUtils from './dom_utils.js';
 import StringUtils from './string_utils.js';
-import ManageStation from './manage_station.js';
 import TableUtils from './table_utils.js';
 import CommonUtils from './common_utils.js';
+import ManageLine from './manage_line.js';
+import SelectUtils from './select_utils.js';
 
 export default class Menu {
   constructor() {
@@ -10,6 +11,7 @@ export default class Menu {
     this._privateStringUtils = new StringUtils();
     this._privateTableUtils = new TableUtils();
     this._privateCommonUtils = new CommonUtils();
+    this._privateSelectUtils = new SelectUtils();
     this.setIdNAme();
     this.managerButton();
     this.createMenu();
@@ -19,6 +21,10 @@ export default class Menu {
     this.APP = 'app';
     this.ARTICLE_AREA = 'articleArea';
     this.DO_NOT_APPEND = false;
+
+    this.LINE_ARTICLE = 'lineArticle';
+    this.SECTION_ARTICLE = 'sectionArticle';
+    this.MAP_PRINT_ARTICLE = 'mapPrintArticle';
   }
 
   managerButton() {
@@ -64,7 +70,7 @@ export default class Menu {
   addEventToButton(varName, articleName) {
     this[`_${varName}`].addEventListener('click', () => {
       this.showArticle(articleName);
-      // this._privateTableUtils.refreshTable(articleName);
+      this.refreshArticle(articleName);
     });
   }
 
@@ -81,5 +87,25 @@ export default class Menu {
 
   showCorrespondingArticle(articleName) {
     this[`_${articleName}`].style.display = 'block';
+  }
+
+  refreshArticle(articleName) {
+    if (articleName === this.LINE_ARTICLE) {
+      this.refreshLineSelect();
+      // this._privateTableUtils.refreshLineTable();
+    }
+  }
+
+  refreshLineSelect() {
+    const startSelect = document.getElementById('line-start-station-selector');
+    const endSelect = document.getElementById('line-end-station-selector');
+    
+
+    startSelect.innerHTML = '';
+    endSelect.innerHTML = '';
+
+    this._privateSelectUtils.addStationsToSelect(startSelect, this._privateCommonUtils, this._privateDomUtils);
+    this._privateSelectUtils.addStationsToSelect(endSelect, this._privateCommonUtils, this._privateDomUtils);
+    
   }
 }

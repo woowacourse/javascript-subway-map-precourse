@@ -1,6 +1,7 @@
 import CommonUtils from "./common_utils.js";
 import DomUtils from "./dom_utils.js";
 import TableUtils from "./table_utils.js";
+import SelectUtils from "./select_utils.js";
 
 export default class ManageLine {
   constructor() {
@@ -8,8 +9,10 @@ export default class ManageLine {
     this._privateCommonUtils = new CommonUtils();
     this._privateDomUtils = new DomUtils();
     this._privateTableUtils = new TableUtils();
+    this._privateSelectUtils = new SelectUtils();
     this.initPage();
   }
+
   setConst() {
     this.ARTICLE_NAME = 'lineArticle';
 
@@ -18,20 +21,15 @@ export default class ManageLine {
     this.LINE_INPUT_TITLE_TEXT = '노선 이름';
     this.LINE_INPUT_PLACEHOLDER = '노선 이름을 입력해주세요';
     this.LINE_INPUT_TYPE = 'String';
-
-    this.LINE_START_SELECT_TEXT = '상행 종점 ';
-    this.LINE_END_SELECT_TEXT = '하행 종점 '
-    this.LINE_START_SELECT_ID = 'line-start-station-select';
-    this.LINE_END_SELECT_ID = 'line-end-station-select';
-
+    
     this.ADD_BUTTON_ID = 'line-add-button';
     this.ADD_BUTTON_TEXT = '노선 추가';
 
     this.LINE_LIST_TITLE_TAG = 'h1';
     this.LINE_LIST_TITLE_TEXT = '🚉 지하철 역 목록';
     
-    this.IS_VALID = true;
-    this.IS_NOT_VALID = false;
+    this.IS_VALID = 1;
+    this.IS_NOT_VALID = 0;
 
     this.DELETE_BUTTON_TEXT = '삭제';
     this.IS_NOT_VALID = false;
@@ -45,7 +43,7 @@ export default class ManageLine {
   initPage() {
     this.initLists();
     this.createInputSection();
-    this.createSelectSection();
+    this._privateSelectUtils.createSelectSection(this.ARTICLE_NAME);
     this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this.createLineAddButton();
@@ -77,43 +75,6 @@ export default class ManageLine {
     }
 
     return inputObject;
-  }
-
-  createSelectSection() {
-    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
-    this.createSelectStation('start');
-    this.createSelectStation('end');
-  }
-
-  createSelectStation(position) {
-    const positionUpper = position.toUpperCase();
-
-    this._privateCommonUtils.createTitle('span', this[`LINE_${positionUpper}_SELECT_TEXT`], this.ARTICLE_NAME);
-    this[`_${position}Select`] = this.createSelect(this.ARTICLE_NAME, this[`LINE_${positionUpper}_SELECT_ID`]);
-  }
-
-  createSelect(toIdName, idName) {
-    const select = document.createElement('SELECT');
-
-    this._privateDomUtils.setAttribute('id', select, idName);
-    this._privateDomUtils.appendToIdName(toIdName, select);
-    this.addStationsToselect(select);
-
-    return select;
-  }
-
-  addStationsToselect(select) {
-    for (const station in this._stationList) {
-      this.createselectOption(select, station);
-    }
-  }
-
-  createselectOption(select, station) {
-    const option = document.createElement('option');
-
-    this._privateDomUtils.addDataAttribute(option, station)
-    option.innerHTML = station;
-    select.add(option);
   }
 
   createLineAddButton() {
@@ -171,7 +132,8 @@ export default class ManageLine {
   }
 
   overlap() {
-    if  (this._lineInput.value in this._lineList) {
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
+    if  (this._lineInput.value in lineList) {
       return this.IS_NOT_VALID;
     }
 
@@ -179,11 +141,17 @@ export default class ManageLine {
   }
 
   sameStartEnd() {
+    this.getSelect();
     if (this._startSelect.value === this._endSelect.value) {
       return this.IS_NOT_VALID;
     }
 
     return this.IS_VALID;
+  }
+
+  getSelect() {
+    this._startSelect = document.getElementById('line-start-station-selector');
+    this._endSelect = document.getElementById('line-end-station-selector');
   }
 
   updateAddToLocalStorage() {
