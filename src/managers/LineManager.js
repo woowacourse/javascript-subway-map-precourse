@@ -1,7 +1,7 @@
 import Component from '../factory/Component.js';
 import Line from '../factory/Line.js';
 import { LINE } from '../share/selector.js';
-import { checkOverlap } from '../share/utils.js';
+import { checkOverlap, checkSameStation } from '../share/utils.js';
 import { optionTemplate } from '../share/template.js';
 
 export default class LineManager extends Component {
@@ -11,17 +11,27 @@ export default class LineManager extends Component {
     this.state.lineList = [];
 
     this.form = this.container.querySelector(`#${LINE.LINE_FORM_ID}`);
-    this.userInput = this.container.querySelector(`#${LINE.LINE_NAME_INPUT_ID}`);
-    this.startStationSelector = this.container.querySelector(`#${LINE.LINE_START_STATION_SELECTOR_ID}`);
-    this.endStationSelector = this.container.querySelector(`#${LINE.LINE_END_STATION_SELECTOR}`);
+    this.userInput = this.container.querySelector(
+      `#${LINE.LINE_NAME_INPUT_ID}`,
+    );
+    this.startStationSelector = this.container.querySelector(
+      `#${LINE.LINE_START_STATION_SELECTOR_ID}`,
+    );
+    this.endStationSelector = this.container.querySelector(
+      `#${LINE.LINE_END_STATION_SELECTOR}`,
+    );
     this.addBtn = this.container.querySelector(`#${LINE.LINE_ADD_BUTTON_ID}`);
 
     this.form.addEventListener('submit', this.onSubmit);
   }
 
   updateStationList() {
-    this.startStationSelector.innerHTML = this.state.stationList.map((station) => optionTemplate(station)).join('');
-    this.endStationSelector.innerHTML = this.state.stationList.map((station) => optionTemplate(station)).join('');
+    this.startStationSelector.innerHTML = this.state.stationList
+      .map((station) => optionTemplate(station))
+      .join('');
+    this.endStationSelector.innerHTML = this.state.stationList
+      .map((station) => optionTemplate(station))
+      .join('');
   }
 
   onSubmit = (event) => {
@@ -29,7 +39,7 @@ export default class LineManager extends Component {
     const constructorObj = this.getValues();
     const newLine = new Line(constructorObj);
     this.addLineToList(newLine);
-  }
+  };
 
   addLineToList(line) {
     if (!this.checkValidity(line)) return;
@@ -40,18 +50,18 @@ export default class LineManager extends Component {
     });
   }
 
-  checkValidity=({ name }) => checkOverlap(name, this.getAllLineNames())
+  checkValidity = ({ name, startStation, endStation }) =>
+    checkOverlap(name, this.getAllLineNames()) &&
+    checkSameStation(startStation, endStation);
 
-  getAllLineNames() {
-    return this.state.lineList.map((line) => line.name);
-  }
+  getAllLineNames = () => this.state.lineList.map((line) => line.name);
 
   getValues = () => {
     const { value: name } = this.userInput;
     const { value: startStation } = this.startStationSelector;
     const { value: endStation } = this.endStationSelector;
     return { name, startStation, endStation };
-  }
+  };
 
   setState(nextData) {
     this.state = {
