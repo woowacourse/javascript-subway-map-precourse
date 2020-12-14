@@ -1,4 +1,5 @@
-import { state } from "../index.js";
+import { state, saveToLocalStorage } from "../index.js";
+import { LINE_ARRAY_KEY } from "../global/constant.js";
 
 function removeAllChild(element) {
   while (element.firstChild) {
@@ -77,18 +78,26 @@ export default function sectionManageContainer() {
       for (const [index, station] of Object.entries(line.stations)) {
         const tr = document.createElement("tr");
         const tdIndex = newElementWithInnerHtml("td", index);
-        const tdStationName = newElementWithInnerHtml(
-          "td",
-          station.stationName
-        );
+        const tdStationName = newElementWithInnerHtml("td", station.stationName);
 
         const tdDeleteBtn = newElementWithInnerHtml("button", "노선에서 삭제");
         tdDeleteBtn.id = station.id;
-
         const tdDelete = newTdWithElement(tdDeleteBtn);
 
         tr.append(...[tdIndex, tdStationName, tdDelete]);
         tableBody.append(tr);
+
+        tdDeleteBtn.addEventListener("click", () => {
+          if (confirm("정말로 삭제하시겠습니까?")) {
+            const deleteStationFromLine = line.stations.filter(station => {
+              return parseInt(tdDeleteBtn.id) !== parseInt(station.id);
+            });
+            tr.remove();
+
+            line.stations = deleteStationFromLine;
+          }
+          saveToLocalStorage(LINE_ARRAY_KEY, JSON.stringify(state.subwayLines));
+        });
       }
       table.append(tableBody);
       lineWrapperDiv.append(table);
@@ -110,8 +119,7 @@ function newTdWithElement(element) {
 }
 
 function appendHTML(parent, html) {
-  const htmlDOM = new DOMParser().parseFromString(html, "text/html").body
-    .childNodes;
+  const htmlDOM = new DOMParser().parseFromString(html, "text/html").body.childNodes;
 
   for (const node of htmlDOM) {
     parent.append(node);
