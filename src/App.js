@@ -5,9 +5,11 @@ import SectionManager from "./SectionManager.js";
 import MapPrintManager from "./MapPrintManager.js";
 import {
   createButtonHTMLElement,
+  createHTMLElement,
   retrieveState,
   storeState
 } from "./util.js";
+import { classname } from "./constant.js";
 
 /* 
   App.js이 관리하는 상태값은 아래와 같다.
@@ -66,7 +68,7 @@ export default class App extends Component{
   }
 
   createNav() {
-    const $nav = document.createElement("nav");
+    const $nav = createHTMLElement({ tagname: "nav", classList: ["subway-map-button-nav"] });
     const $navButtonArray = this.createNavButtonArray();
     $nav.append(...$navButtonArray);
 
@@ -90,7 +92,8 @@ export default class App extends Component{
   createStationManagerButton() {
     return createButtonHTMLElement({
       id: this.STATION_MANAGER_BUTTON_ID,
-      name: "1. 역 관리",
+      name: "1. 역 관리", 
+      classList: [classname.MEDIUM_BUTTOM, classname.CENTER]
     });
   }
 
@@ -98,6 +101,7 @@ export default class App extends Component{
     return createButtonHTMLElement({
       id: this.LINE_MANAGER_BUTTON_ID,
       name: "2. 노선 관리",
+      classList: [classname.MEDIUM_BUTTOM, classname.CENTER]
     });
   }
 
@@ -105,6 +109,7 @@ export default class App extends Component{
     return createButtonHTMLElement({
       id: this.SECTION_MANAGER_BUTTON_ID,
       name: "3. 구간 관리",
+      classList: [classname.MEDIUM_BUTTOM, classname.CENTER]
     });
   }
 
@@ -112,6 +117,7 @@ export default class App extends Component{
     return createButtonHTMLElement({
       id: this.MAP_PRINT_MANAGER_BUTTON_ID,
       name: "4. 지하철 노선도 출력",
+      classList: [classname.MEDIUM_BUTTOM, classname.CENTER]
     });
   }
 

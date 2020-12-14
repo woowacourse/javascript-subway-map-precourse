@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+.subway-map-button-nav {
+  display: flex;
+  column-gap: 10px;
+}
+
 .station-name-nav__station-name-label {
   display: block;
 }
