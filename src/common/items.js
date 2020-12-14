@@ -3,10 +3,10 @@ export function removeWhiteSpaceValue(value) {
 }
 
 export function isEmpty(value) {
-    let result = true;
+    let result = false;
     if(value === "" || value === null || value === undefined || (value !== null 
         && typeof value === "object" && !Object.keys(value).length)) {
-        result = false;
+        result = true;
     }
     return result;
 }
@@ -23,7 +23,7 @@ export function getItemList(key) {
     return JSON.parse(localStorage.getItem(key));
 }
 
-export function addItem(key, value) {
+export function addItem(key, value, index) {
     let itemList = getItemList(key);
     let isComplete = false;
     // 수정 - 더 효율적으로 수정하기
@@ -31,7 +31,7 @@ export function addItem(key, value) {
         itemList = [];
     }
     if(!isDuplicateItem(itemList, value)){
-        itemList.push(value);
+        itemList.splice(index, 0, value);
         localStorage.setItem(key, JSON.stringify(itemList));
         isComplete = true;
     }

@@ -91,7 +91,7 @@ export default class StationManager{
 
     getAlertText(stationInputName) {
         let text = "";
-        if(!isEmpty(stationInputName)) {
+        if(isEmpty(stationInputName)) {
             text = words.STATION_INPUT_ALERT;
         }
         else if(stationInputName.length < 2) {
@@ -104,7 +104,7 @@ export default class StationManager{
         const stationInputName = removeWhiteSpaceValue(document.getElementById(words.STATION_NAME_INPUT).value);
         const alertText = this.getAlertText(stationInputName);
         if(alertText === "") {
-            if(addItem(words.STATIONS, stationInputName)) {
+            if(addItem(words.STATIONS, stationInputName, -1)) {
                 this.addStationInTable(stationInputName);
             }
             else {

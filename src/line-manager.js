@@ -94,7 +94,7 @@ export default class LineManager {
 
     getAlertText(lineInputName, lineStartStationName, lineEndStationName) {
         let text = "";
-        if(!isEmpty(lineInputName)) {
+        if(isEmpty(lineInputName)) {
             text = words.LINE_INPUT_ALERT;
         }
         else if(lineStartStationName === lineEndStationName) {
@@ -116,7 +116,7 @@ export default class LineManager {
         const lineStationName = this.getLineStationName();
         const alertText = this.getAlertText(lineInputName, lineStationName[0], lineStationName[1]);
         if(alertText === "") {
-            if(addItem(words.LINES, lineInputName)) {
+            if(addItem(words.LINES, lineInputName, -1)) {
                 this.addLineInTable(lineInputName, lineStationName[0], lineStationName[1]);
             }
             else {

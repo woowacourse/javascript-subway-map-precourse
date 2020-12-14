@@ -13,7 +13,8 @@ import {
     getItemList,
     removeWhiteSpaceValue,
     deleteKey, 
-    deleteItem
+    deleteItem,
+    isDuplicateItem
 } from "./common/items.js";
 import words from "./common/words.js";
 
@@ -21,8 +22,7 @@ export default class SectionManager {
     constructor() {
         this.setPage();
         this.setSectionLineMenuButton();
-        // addClickEventListener(document.getElementById(words.SECTION_ADD_BUTTON), () => {this.addSection()});
-    }
+     }
 
     setPage() {
         pageInit();
@@ -38,7 +38,6 @@ export default class SectionManager {
     }
 
     addTableRow(section, sectionTableTbody) {
-        const index = sectionTableTbody.length;
         const row = sectionTableTbody.insertRow();
         row.setAttribute("data-section-name", section);
         const cell1 = row.insertCell(0);
@@ -61,6 +60,40 @@ export default class SectionManager {
         }
     }
 
+    getAlertText(order) {
+        const tableRowCount = document.getElementById(words.SECTION_TABLE_TBODY).childElementCount;
+        let text = "";
+        if(isEmpty(order)) {
+            text = words.SECTION_STATION_ORDER_INPUT_ALERT;
+        }
+        else if(order < 0 || order > tableRowCount) {
+            text = `0~${tableRowCount} ${words.SECTION_STATION_ORDER_CORRECT_ALERT}`;
+        }
+        return text;
+    }
+
+    addSectionInLine(lineName, sectionStationName, order) {
+        const alertText = this.getAlertText(order);
+        if(alertText === "") {
+            if(addItem(lineName, sectionStationName, order)) {
+                this.setTableContent(lineName);
+            }
+            else {
+                alert(`${sectionStationName}${words.SECTION_STATION_DUPLICATE_ALERT}`);
+            }
+        }
+        else {
+            alert(alertText);
+        }
+    }
+
+    addSection(lineName) {
+        const order = removeWhiteSpaceValue(document.getElementById(words.SECTION_ORDER_INPUT).value);
+        const sectionStationSelector = document.getElementById(words.SECTION_STATION_SELECTOR);
+        const sectionStationName = sectionStationSelector.options[sectionStationSelector.selectedIndex].value;
+        this.addSectionInLine(lineName, sectionStationName, order);
+    }
+
     setSectionLineElement(menuButton) {
         const sectionManagementPart = document.getElementById(words.SECTION_MANAGEMENT_PART);
         const lineName = menuButton.innerText;
@@ -72,6 +105,7 @@ export default class SectionManager {
         addElement("button", words.ENROLLMENT, "id", words.SECTION_ADD_BUTTON, sectionManagementPart);
         addElement("p", null, null, null, sectionManagementPart);
         addTableElement([words.ORDER, words.NAME, words.SETTING], words.SECTION_TABLE_TBODY, sectionManagementPart);
+        addClickEventListener(document.getElementById(words.SECTION_ADD_BUTTON), () => {this.addSection(lineName)});
         this.setTableContent(lineName);
     }
    
