@@ -13,31 +13,30 @@ export const isCorrectStationName = (newStationName) => {
   return false;
 };
 export const isOverlappedStationName = (newStationName) => {
-  const overlappedName = manager.stationList.find(
-    (station) => station.name === newStationName
-  );
-  if (overlappedName) {
-    alert("중복된 역 이름 입니다.");
-    document.getElementById("station-name-input").value = "";
+  if (manager.stationList.length > 0) {
+    const overlappedName = manager.stationList.find(
+      (station) => station.name === newStationName
+    );
+    if (overlappedName) {
+      alert("중복된 역 이름 입니다.");
+      document.getElementById("station-name-input").value = "";
 
-    return true;
-  }
-  return false;
-};
-export const isPossibleToDeleteStation = (stationName) => {
-  const deleteStation = manager.stationList.find((station) => {
-    return station.name === stationName;
-  });
-  if (deleteStation.isIncluded !== null) {
-    alert("이미 노선에 등록되어 있는 역입니다.");
-
+      return true;
+    }
     return false;
   }
-  return true;
 };
-export const deleteStationInList = (stationName) => {
+export const isPossibleToDeleteStation = (stationIsIncluded) => {
+  if (stationIsIncluded === "null") {
+    return true;
+  }
+  alert("이미 노선에 등록되어 있는 역입니다.");
+
+  return false;
+};
+export const deleteStationInList = (stationName, stationIsIncluded) => {
   const parent = document.querySelector("table#staion-list-table tbody");
-  if (isPossibleToDeleteStation(stationName)) {
+  if (isPossibleToDeleteStation(stationIsIncluded)) {
     const deleteIdx = manager.stationList.findIndex((station) => {
       return station.name === stationName && station.isIncluded === null;
     });
@@ -47,9 +46,10 @@ export const deleteStationInList = (stationName) => {
       )
     );
     manager.stationList.splice(deleteIdx, 1);
+    showAllStationInManager(makeStationList());
   }
 };
-export const makeStationBox = (newStationName) => {
+export const makeStationBox = (newStationName, newStationIsIncluded) => {
   const newStation = document.createElement("tr");
   const stationName = document.createElement("td");
   const deleteButton = document.createElement("td");
@@ -57,7 +57,7 @@ export const makeStationBox = (newStationName) => {
   stationName.innerHTML = newStationName;
   deleteButton.setAttribute("class", "station-delete-class");
   deleteButton.onclick = () => {
-    deleteStationInList(`${newStationName}`);
+    deleteStationInList(`${newStationName}`, `${newStationIsIncluded}`);
   };
   deleteButton.innerHTML = "삭제";
   newStation.appendChild(stationName);
@@ -69,7 +69,7 @@ export const showAllStationInManager = (stationList) => {
   const table = document.getElementById("station-list");
   table.innerHTML = "";
   stationList.forEach((station) => {
-    const newStation = makeStationBox(station.name);
+    const newStation = makeStationBox(station.name, station.isIncluded);
     table.appendChild(newStation);
   });
 };
