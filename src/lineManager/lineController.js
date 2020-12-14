@@ -20,18 +20,10 @@ export const makeLineIfPossible = (name, startStation, endStation) => {
 }
 
 const isEmptyLineName = (input) => {
-    return hasEmptyLineName(input)
-}
-
-const hasEmptyLineName = (input) => {
     return input.trim() === text.EMPTY;
 }
 
 const isSameLineExite = (input) => {
-    return hasSameLine(input);
-}
-
-const hasSameLine = (input) => {
     return Data.getLineRepository().hasOwnProperty(input)
 }
 
