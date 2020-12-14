@@ -8,11 +8,11 @@ class Line {
     return [...this.sections];
   }
 
-  getStartStation() {
+  startName() {
     return this.sections[0];
   }
 
-  getEndStation() {
+  endName() {
     return this.sections[this.sections.length - 1];
   }
 

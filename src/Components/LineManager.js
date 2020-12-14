@@ -1,4 +1,10 @@
-import { SelectInnerHTML } from "../utils/templates/lineManager.js";
+import { clearInput } from "../utils/domUtil.js";
+import {
+  SelectInnerHTML,
+  LineHeaderHTML,
+  LineRowHTML,
+} from "../utils/templates/lineManager.js";
+import { isSameStation, isValidLineName } from "../utils/validation.js";
 
 class LineManager {
   constructor({ $target, stationStore, lineStore }) {
@@ -29,6 +35,21 @@ class LineManager {
 
   onClickAddButton({ target }) {
     if (target.id !== `line-add-button`) return;
+
+    const name = this.$input.value.trim();
+    const startName = this.$startSelect.value;
+    const endName = this.$endSelect.value;
+
+    if (
+      !isValidLineName(this.$input, this.lineStore.getLineNames(), name) ||
+      !isSameStation(startName, endName)
+    ) {
+      return;
+    }
+
+    clearInput(this.$input);
+    this.lineStore.addLine(name, startName, endName);
+    this.renderTable(this.lineStore.getLines());
   }
 
   onClickDeleteButton({ target }) {
@@ -40,7 +61,12 @@ class LineManager {
     this.$endSelect.innerHTML = SelectInnerHTML(names);
   }
 
-  renderTable(lines) {}
+  renderTable(lines) {
+    this.$table.innerHTML = lines.reduce((html, line) => {
+      html += LineRowHTML(line.name, line.startName(), line.endName());
+      return html;
+    }, LineHeaderHTML());
+  }
 
   render() {}
 }

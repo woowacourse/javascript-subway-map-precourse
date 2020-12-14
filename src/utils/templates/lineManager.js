@@ -31,11 +31,11 @@ const OptionHTML = name => `
 const TableHTML = () => `
   <h3>🚉 지하철 노선 목록</h3>
   <table id="line-table" border="1">
-    ${TableHeaderHTML()}
+    ${LineHeaderHTML()}
   </table>
 `;
 
-export const TableHeaderHTML = () => `
+export const LineHeaderHTML = () => `
   <tr>
     <th>노선 이름</th>
     <th>상행 종점역</th>
@@ -44,7 +44,7 @@ export const TableHeaderHTML = () => `
   </tr>
 `;
 
-export const TableRowHTML = (name, startStation, endStation) => `
+export const LineRowHTML = (name, startStation, endStation) => `
   <tr>
     <td data-name=${name}>${name}</td>
     <td>${startStation}</td>
