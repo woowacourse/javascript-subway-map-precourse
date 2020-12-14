@@ -1,6 +1,6 @@
 import {
-  isValidOrder,
-  isValidOption,
+  hasValidOrder,
+  hasValidOption,
 } from "../../utility/input-check-utility.js";
 import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.js";
 import { contentsUI } from "./contents-ui.js";
@@ -104,7 +104,7 @@ class SectionRegisterUI extends contentsUI {
     const stationName = this._getSelectedOptionByID(
       SECTION_STATION_SELECTOR_ID
     );
-    if (!this._isValidSectionAddInput(orderToRegister, stationName)) {
+    if (!this._hasValidSectionAddInput(orderToRegister, stationName)) {
       return;
     }
     this._stationINFOManager.registerStationToLine(
@@ -114,10 +114,10 @@ class SectionRegisterUI extends contentsUI {
     );
     this.updateAllContents();
   }
-  _isValidSectionAddInput(orderToRegister, stationName) {
-    const hasValidOrder = isValidOrder(orderToRegister);
-    const hasValidOption = isValidOption([stationName]);
-    return hasValidOrder && hasValidOption;
+  _hasValidSectionAddInput(orderToRegister, stationName) {
+    const isValidOrder = hasValidOrder(orderToRegister);
+    const isValidOption = hasValidOption([stationName]);
+    return isValidOrder && isValidOption;
   }
   _setComboboxOption() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);

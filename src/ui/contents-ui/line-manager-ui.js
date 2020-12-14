@@ -1,7 +1,7 @@
 import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.js";
 import {
-  isValidLine,
-  isValidOption,
+  hasValidLine,
+  hasValidOption,
 } from "../../utility/input-check-utility.js";
 import { contentsUI } from "./contents-ui.js";
 
@@ -17,7 +17,6 @@ export default class LineManagerUI extends contentsUI {
     this._addEventToLineAddButton();
     this.updateLinesTable();
   }
-
   updateLinesTable() {
     const liness = this._stationINFOManager.getLines();
     const tableContainer = document.getElementById(TABLE_ID);
@@ -39,11 +38,17 @@ export default class LineManagerUI extends contentsUI {
       this._callbackLineAddButton
     );
   }
+  _addEventToAllTableDeleteButton() {
+    this._addClickEventToAllButtonByClassName(
+      LINE_DELETE_BUTTON_CLASS,
+      this._callbackOfDeleteButton
+    );
+  }
   _callbackLineAddButton() {
     const lineName = this._getInputTextByID(NAME_INPUT_ID);
     const startStation = this._getSelectedOptionByID(START_STATION_SELECTOR_ID);
     const endStation = this._getSelectedOptionByID(END_STATION_SELECTOR_ID);
-    if (!this._isValidLineInput(lineName, startStation, endStation)) {
+    if (!this._hasValidLineInput(lineName, startStation, endStation)) {
       return;
     }
     this._stationINFOManager.addNewLine({
@@ -53,12 +58,6 @@ export default class LineManagerUI extends contentsUI {
     });
     this.updateLinesTable();
   }
-  _addEventToAllTableDeleteButton() {
-    this._addClickEventToAllButtonByClassName(
-      LINE_DELETE_BUTTON_CLASS,
-      this._callbackOfDeleteButton
-    );
-  }
   _callbackOfDeleteButton(event) {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
@@ -66,8 +65,8 @@ export default class LineManagerUI extends contentsUI {
     this._stationINFOManager.deleteLine(event.target.dataset.name);
     this.updateLinesTable();
   }
-  _isValidLineInput(lineName, startStationName, endStationName) {
-    const hasValidLine = isValidLine(
+  _hasValidLineInput(lineName, startStationName, endStationName) {
+    const isValidLine = hasValidLine(
       lineName,
       startStationName,
       endStationName
@@ -75,8 +74,8 @@ export default class LineManagerUI extends contentsUI {
     const isNotOverlapName = this._stationINFOManager.hasNotOverlapNameAmongLines(
       lineName
     );
-    const hasValidOption = isValidOption([startStationName, endStationName]);
-    return hasValidLine && isNotOverlapName && hasValidOption;
+    const isValidOption = hasValidOption([startStationName, endStationName]);
+    return isValidLine && isNotOverlapName && isValidOption;
   }
   _makeNewTableRowHTML({ name, stationsOfLine }) {
     return `

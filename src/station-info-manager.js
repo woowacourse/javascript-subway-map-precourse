@@ -1,4 +1,4 @@
-import { canSatisfyMaxLengthCondition } from "./utility/input-check-utility.js";
+import { hasSatisfiedMaxLengthCondition } from "./utility/input-check-utility.js";
 
 export default class StationINFOManager {
   constructor() {
@@ -37,7 +37,7 @@ export default class StationINFOManager {
     const stationIndexToDelete = this._stations.findIndex(({ name }) => {
       return nameToDelete === name;
     });
-    const isSatisfyMaxLengthCondition = canSatisfyMaxLengthCondition({
+    const isSatisfyMaxLengthCondition = hasSatisfiedMaxLengthCondition({
       operandLength: this._stations[stationIndexToDelete].linesOfStation.size,
       maxLength: MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION,
       errorMessage: STATION_INCLUDE_IN_LINE_ERROR_MESSAGE,
@@ -121,14 +121,14 @@ export default class StationINFOManager {
     return returnlines;
   }
   hasNotOverlapNameAmongStations(inputName) {
-    const isValid = this._isNotOverlapName(this._stations, inputName);
+    const isValid = this._hasNotOverlapName(this._stations, inputName);
     if (!isValid) {
       alert(OVERLAP_STATION_ERROR_MESSAGE);
     }
     return isValid;
   }
   hasNotOverlapNameAmongLines(inputName) {
-    const isValid = this._isNotOverlapName(this._lines, inputName);
+    const isValid = this._hasNotOverlapName(this._lines, inputName);
     if (!isValid) {
       alert(OVERLAP_LINE_ERROR_MESSAGE);
     }
@@ -159,7 +159,7 @@ export default class StationINFOManager {
     }
     return value;
   }
-  _isNotOverlapName(targetToFindOverlap, inputName) {
+  _hasNotOverlapName(targetToFindOverlap, inputName) {
     const overlapIndex = targetToFindOverlap.findIndex(
       ({ name }) => name === inputName
     );

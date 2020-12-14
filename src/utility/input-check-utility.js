@@ -1,15 +1,15 @@
 import { SELECTEOR_NONE } from "./share-constant-utility.js";
 
-export function isValidStationName(name) {
-  const isValidLength = canSatisfyMinLengthCondition({
+export function hasValidStationName(name) {
+  const isValidLength = hasSatisfiedMinLengthCondition({
     operandLength: name.length,
     minLength: MINIMUM_LENGTH_OF_STATION_NAME,
     errorMessage: MINIMUM_LENGTH_STATION_NAME_ERROR_MESSAGE,
   });
   return isValidLength;
 }
-export function isValidLine(name, startStationName, endStationName) {
-  const isValidLength = canSatisfyMinLengthCondition({
+export function hasValidLine(name, startStationName, endStationName) {
+  const isValidLength = hasSatisfiedMinLengthCondition({
     operandLength: name.length,
     minLength: MINIMUM_LENGTH_OF_LINE_NAME,
     errorMessage: MINIMUM_LENGTH_LINE_NAME_ERROR_MESSAGE,
@@ -17,19 +17,19 @@ export function isValidLine(name, startStationName, endStationName) {
   const isNotEqualName = hasNotEqualName(startStationName, endStationName);
   return isValidLength && isNotEqualName;
 }
-export function isValidOrder(order) {
+export function hasValidOrder(order) {
   const isTypeOfNumber = hasTypeOfNumber({
     operand: order,
     errorMessage: NOT_TYPE_OF_NUMBER_ERROR_MESSAGE,
   });
-  const isSatisfyLengthCondition = canSatisfyMinLengthCondition({
+  const isSatisfyLengthCondition = hasSatisfiedMinLengthCondition({
     operandLength: Number(order),
     minLength: MINIMUM_VAILD_ORDER,
     errorMessage: LESS_THAN_MINIMUM_ORDER_ERROR_MESSAGE,
   });
   return isTypeOfNumber && isSatisfyLengthCondition;
 }
-export function isValidOption(inputOptions) {
+export function hasValidOption(inputOptions) {
   let retBool = true;
   for (let inputOption of inputOptions) {
     if (inputOption === SELECTEOR_NONE) {
@@ -40,7 +40,7 @@ export function isValidOption(inputOptions) {
   }
   return retBool;
 }
-export function canSatisfyMinLengthCondition({
+export function hasSatisfiedMinLengthCondition({
   operandLength,
   minLength,
   errorMessage,
@@ -52,7 +52,7 @@ export function canSatisfyMinLengthCondition({
   }
   return boolToReturn;
 }
-export function canSatisfyMaxLengthCondition({
+export function hasSatisfiedMaxLengthCondition({
   operandLength,
   maxLength,
   errorMessage,

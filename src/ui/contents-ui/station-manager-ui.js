@@ -1,4 +1,4 @@
-import { isValidStationName } from "../../utility/input-check-utility.js";
+import { hasValidStationName } from "../../utility/input-check-utility.js";
 import { contentsUI } from "./contents-ui.js";
 
 export default class StationManagerUI extends contentsUI {
@@ -29,6 +29,12 @@ export default class StationManagerUI extends contentsUI {
       this._callbackOfNameInputButton
     );
   }
+  _addEventToAllTableDeleteButton() {
+    this._addClickEventToAllButtonByClassName(
+      STATION_DELETE_BUTTON_CLASS,
+      this._callbackOfTableDeleteButton
+    );
+  }
   _callbackOfNameInputButton() {
     const name = this._getInputTextByID(STATION_NAME_INPUT_ID);
     if (!this._isValidStationInput(name)) {
@@ -39,12 +45,6 @@ export default class StationManagerUI extends contentsUI {
     });
     this.updateStationsTable();
   }
-  _addEventToAllTableDeleteButton() {
-    this._addClickEventToAllButtonByClassName(
-      STATION_DELETE_BUTTON_CLASS,
-      this._callbackOfTableDeleteButton
-    );
-  }
   _callbackOfTableDeleteButton(event) {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
@@ -52,12 +52,12 @@ export default class StationManagerUI extends contentsUI {
     this._stationINFOManager.deleteStation(event.target.dataset.name);
     this.updateStationsTable();
   }
-  _isValidStationInput(name) {
-    const hasValidStationName = isValidStationName(name);
+  _hasValidStationInput(name) {
+    const isValidStationName = hasValidStationName(name);
     const isNotOverlapName = this._stationINFOManager.hasNotOverlapNameAmongStations(
       name
     );
-    return hasValidStationName && isNotOverlapName;
+    return isValidStationName && isNotOverlapName;
   }
   _makeNewTableRowHTML(name) {
     return `
