@@ -1,6 +1,5 @@
 import station from "../service/station.service.js";
 import section from "../service/section.service.js";
-import { createStationTableRowHTML } from "../common/template.js";
 import { errorMessage } from "../common/error-message.js";
 const {
   INVALID_LENGTH_STATION_NAME,
@@ -9,38 +8,22 @@ const {
   INVALID_DELETE_STATION_IN_LINE,
 } = errorMessage;
 export default class StationManager {
-  constructor() {
+  constructor(view) {
     this.station = station;
     this.section = section;
+    this.view = view;
 
     this.MIN_STATION_NAME_LENGTH = 2;
   }
 
-  renderStationTable() {
-    const allStations = this.station.getAllStations();
-
-    const stationTableHTML = allStations.reduce((stationRowHTML, stationName) => {
-      stationRowHTML += createStationTableRowHTML(stationName);
-      return stationRowHTML;
-    }, "");
-
-    document.getElementById("station-table").querySelector("tbody").innerHTML = stationTableHTML;
-  }
-
   getStationNameInput() {
-    const stationNameInputField = document.getElementById("station-name-input"); //dom
-    const stationName = stationNameInputField.value;
-
-    return stationName;
-  }
-
-  resetStationNameInput() {
-    const stationNameInputField = document.getElementById("station-name-input"); //dom
-    stationNameInputField.value = "";
+    const stationNameInputField = this.view.accessStationNameInputField();
+    return stationNameInputField.value;
   }
 
   validateStationNameLength(stationName) {
     const isValidLength = stationName.length >= this.MIN_STATION_NAME_LENGTH;
+
     if (!isValidLength) {
       throw new Error(INVALID_LENGTH_STATION_NAME);
     }
@@ -48,6 +31,7 @@ export default class StationManager {
 
   validateStationNameUnique(stationName) {
     const isExistStation = !this.station.findStationByName(stationName).length;
+
     if (!isExistStation) {
       throw new Error(DUPLICATE_STAION_NAME);
     }
@@ -60,16 +44,17 @@ export default class StationManager {
       this.validateStationNameUnique(stationName);
 
       this.station.createStation(stationName);
-      this.renderStationTable();
-      //
+
+      this.view.renderStationTable();
     } catch (error) {
+      this.view.resetStationNameInputField();
       alert(error);
-      this.resetStationNameInput();
     }
   }
 
   validateDeleteStationInLine(stationName) {
     const isStationInLine = this.section.findSectionByStationName(stationName).length;
+
     if (isStationInLine) {
       throw new Error(INVALID_DELETE_STATION_IN_LINE);
     }
@@ -82,7 +67,7 @@ export default class StationManager {
     try {
       this.validateDeleteStationInLine(targetStation);
       this.station.deleteStation(targetStation);
-      this.renderStationTable();
+      this.view.renderStationTable();
     } catch (error) {
       alert(error);
     }
