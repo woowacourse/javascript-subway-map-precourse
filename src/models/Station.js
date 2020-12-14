@@ -1,15 +1,15 @@
 class Station {
   constructor(name) {
     this.name = name;
-    this.lines = new Set();
+    this.lines = [];
   }
 
   addLine(lineName) {
-    this.lines.add(lineName);
+    this.lines = [...this.lines, lineName];
   }
 
   removeLine(lineName) {
-    this.lines.delete(lineName);
+    this.lines = this.lines.filter(line => line !== lineName);
   }
 }
 
