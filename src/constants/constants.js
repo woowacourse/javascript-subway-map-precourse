@@ -11,6 +11,7 @@ export const MESSAGE = {
   NUMBER_ERROR: "숫자만 적었는지",
   NEGATIVE_ERROR: "양수를 적었는지",
   CHECK_GUIDE: " 를/을 확인해주세요.",
+  HAVE_TWO_ELEMENTS: "역이 2개일 경우 더이상 삭제할 수 없습니다.",
   DELETE_DOUBLE_CHECK: "정말 삭제하시겠습니까?",
 };
 
@@ -23,4 +24,8 @@ export const FIELD = {
   STATION: "station",
   LINE: "line",
   SECTION: "section",
+};
+
+export const NUMBER = {
+  DELETE_STATION_LIMIT: 2,
 };

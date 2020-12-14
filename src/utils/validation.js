@@ -1,4 +1,4 @@
-import { STANDARD, MESSAGE } from "../constants/constants.js";
+import { STANDARD, MESSAGE, NUMBER } from "../constants/constants.js";
 import { showErrors } from "../utils/handleDom.js";
 
 export const isValidStationManager = (stationName, stations) => {
@@ -29,6 +29,17 @@ export const isValidSectionInfo = (number, station, line) => {
     return false;
   }
   return true;
+};
+
+export const canDeleteMore = (stations) => {
+  if (haveTwoElements(stations)) {
+    showErrors(MESSAGE.HAVE_TWO_ELEMENTS);
+    return false;
+  }
+  return true;
+};
+const haveTwoElements = (stations) => {
+  return stations.length === NUMBER.DELETE_STATION_LIMIT;
 };
 
 const isEmpty = (name) => {

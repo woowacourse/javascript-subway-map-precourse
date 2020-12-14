@@ -1,6 +1,7 @@
 import { addRowInSectionTable } from "../../utils/handleDom.js";
 import { getSectionTableHeader } from "../../utils/templates.js";
 import { FIELD, MESSAGE } from "../../constants/constants.js";
+import { canDeleteMore } from "../../utils/validation.js";
 
 export class SectionManagerList {
   constructor({ getLines, deleteStationInLine }) {
@@ -24,6 +25,7 @@ export class SectionManagerList {
 
     lines.forEach((line) => {
       if (line.lineName === this.lineName) {
+        this.stations = line.stations;
         this.makeTableBody(line.stations);
       }
     });
@@ -38,8 +40,10 @@ export class SectionManagerList {
   handleDeleteStation = (e) => {
     let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
     if (confirmDelete) {
-      let order = e.target.dataset.section;
-      this.deleteStationInLine(order);
+      if (canDeleteMore(this.stations)) {
+        let order = e.target.dataset.section;
+        this.deleteStationInLine(order);
+      }
     }
   };
 }
