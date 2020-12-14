@@ -1,5 +1,6 @@
 import Station from "./Station.js";
 import Line from "./Line.js";
+import { DELETE_FROM_LINE_BUTTON } from "../constant/constant.js";
 
 export default class SectionManager {
   constructor() {
@@ -8,6 +9,7 @@ export default class SectionManager {
     this._addSectionContainer = document.querySelector(
       "#add-section-container"
     );
+    this._tableBody = document.querySelector("#line-section-list tbody");
     this._station = new Station();
     this._line = new Line();
 
@@ -19,9 +21,41 @@ export default class SectionManager {
     const button = document.createElement("button");
     button.textContent = name;
     button.classList.add("section-line-menu-button");
+    button.addEventListener("click", this._handleSectionLineMenuButton);
 
     li.appendChild(button);
     this._lineMenuList.appendChild(li);
+  };
+
+  _createNameTd = name => {
+    const nameTd = document.createElement("td");
+    nameTd.textContent = name;
+
+    return nameTd;
+  };
+
+  _createDeleteButtonTd = name => {
+    const deleteButtonTd = document.createElement("td");
+    const deleteButton = document.createElement("button");
+
+    deleteButton.classList.add("section-delete-button");
+    deleteButton.dataset.name = name;
+    deleteButton.textContent = DELETE_FROM_LINE_BUTTON;
+    deleteButtonTd.appendChild(deleteButton);
+
+    return deleteButtonTd;
+  };
+
+  _setTableElements = (lineName, index) => {
+    const tr = document.createElement("tr");
+    const indexTd = this._createNameTd(index);
+    const lineNameTd = this._createNameTd(lineName);
+    const deleteButtonTd = this._createDeleteButtonTd(lineName);
+
+    tr.appendChild(indexTd);
+    tr.appendChild(lineNameTd);
+    tr.appendChild(deleteButtonTd);
+    this._tableBody.appendChild(tr);
   };
 
   _printLineMenuList = () => {
@@ -31,6 +65,27 @@ export default class SectionManager {
     lineList.forEach(line => {
       this._createLineMenu(line.name);
     });
+  };
+
+  _printSectionList = lineName => {
+    const lineList = this._line.getLineList();
+    const selectedLine = lineList.filter(line => line.name === lineName)[0];
+
+    this._tableBody.innerHTML = "";
+    selectedLine.list.forEach((line, index) => {
+      this._setTableElements(line, index);
+    });
+  };
+
+  _handleSectionLineMenuButton = e => {
+    const selectedLineName = this._addSectionContainer.querySelector(
+      ".station-line-name"
+    );
+    const lineName = e.target.innerText;
+
+    this._addSectionContainer.classList.add("active");
+    selectedLineName.textContent = `${lineName} 관리`;
+    this._printSectionList(lineName);
   };
 
   _render = () => {
