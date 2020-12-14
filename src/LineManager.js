@@ -232,8 +232,13 @@ export default class LineManager extends Component {
 
   handleDeleteButton(targetLineName) {      
     if (confirm(`${targetLineName}을 삭제하시겠습니까?`)) {
-      const targetExcluded = this.state.lineInfo.filter(({ lineName }) => lineName !== targetLineName);
+      const { lineInfo } = this.state;
+      const { deleteSectionLineName } = this.props;
+
+      const targetExcluded = lineInfo.filter(({ lineName }) => lineName !== targetLineName);
       this.setLineInfoArray(targetExcluded);
+
+      deleteSectionLineName(targetLineName);
     }
   }
 

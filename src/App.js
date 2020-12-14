@@ -182,7 +182,8 @@ export default class App extends Component{
       $parent: this.$main,
       stationNameArray,
       initialLineInfo: lineInfo,
-      setLineInfo: lineInfo => this.setLineInfo(lineInfo)
+      setLineInfo: lineInfo => this.setLineInfo(lineInfo),
+      deleteSectionLineName: sectionLineName => this.deleteSectionLineName(sectionLineName)
     });
   }
 
@@ -196,6 +197,14 @@ export default class App extends Component{
     this.setState({
       lineInfo: [...sortedLineInfo]
     });
+  }
+
+  deleteSectionLineName(targetLineName) {
+    const { sectionLineName } = this.state;
+
+    if (targetLineName === sectionLineName) {
+      this.setSectionLineName("");
+    }
   }
 
   renderSectionManager() {
