@@ -48,9 +48,10 @@ export default class SubwayMapModel {
     const linesInstances = {};
 
     Object.entries(lines).forEach(line => {
-      linesInstances[`${line[0]}`] = new Line({
-        lineId: line[1]._lineId,
-        sections: line[1]._sections.map(section => {
+      const [lineId, lineObject] = line;
+      linesInstances[`${lineId}`] = new Line({
+        lineId: lineObject._lineId,
+        sections: lineObject._sections.map(section => {
           return section._stationId;
         }),
       });
