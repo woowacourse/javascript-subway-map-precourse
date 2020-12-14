@@ -1,4 +1,7 @@
 import Role from './role.js';
+import { roleInterface } from './role_interface.js';
+import { nodeSelector } from '../util/selector/node_selector.js';
+import { lineValidator } from '../util/validator/line_validator.js';
 import {
   LINE_MANAGER,
   LINE_MANAGER_BUTTON,
@@ -10,32 +13,44 @@ import {
   LINES_LS,
   LINE_NAMES,
   LINE_TABLE,
+  LINE_HEADER,
   LINE,
   LINE_DELETE_BUTTON,
   DELETE_K,
   LINE_ROW,
   LINE_CONFIRM,
+  SECTION_LINE_MENU_BUTTON,
 } from '../library/constant/constant.js';
-import { nodeSelector } from '../util/selector/node_selector.js';
-import LineValidator from '../util/validator/line_validator.js';
 
 export default class LineManager extends Role {
   constructor() {
     super(LINE_MANAGER, LINE_MANAGER_BUTTON, LINE_MANAGER_K);
-    this._lines = this.getSections();
     this.initialize();
-    this.renderSelectors();
-    this.clickButton(LINE_ADD_BUTTON, this.onClickAddButton, this);
+    roleInterface.clickButton(LINE_ADD_BUTTON, this.onClickAddButton, this);
   }
 
   initialize() {
-    this.clearTable(LINE_TABLE);
+    roleInterface.clearNode(LINE_TABLE);
     this.renderLines();
-    this.clickButtons(LINE_DELETE_BUTTON, this.onClickDeleteButton, this);
+    roleInterface.clickButtons(
+      LINE_DELETE_BUTTON,
+      this.onClickDeleteButton,
+      this
+    );
+    this.renderLineMenuButtons();
+  }
+
+  renderLineMenuButtons() {
+    roleInterface.renderLineMenuButtons();
+    roleInterface.clickButtons(
+      SECTION_LINE_MENU_BUTTON,
+      roleInterface.onClickLineMenuButton,
+      roleInterface
+    );
   }
 
   renderLines() {
-    for (const lineInfo of this._lines) {
+    for (const lineInfo of this._lineInfos) {
       if (!lineInfo) {
         continue;
       }
@@ -49,66 +64,42 @@ export default class LineManager extends Role {
   }
 
   renderLine(line, lineStart, lineEnd) {
-    const lineTable = nodeSelector.selectId(LINE_TABLE);
-    const row = this.getLineRow();
-    const lineDeleteButton = this.getLineDeleteButton(line);
+    const table = nodeSelector.selectId(LINE_TABLE);
+    const row = roleInterface.getRow(LINE_ROW, LINE_HEADER);
+    const button = roleInterface.getButton(LINE_DELETE_BUTTON, DELETE_K);
 
+    button.dataset.line = line;
     row.childNodes[0].className = LINE;
     row.childNodes[0].append(line);
     row.childNodes[1].append(lineStart);
     row.childNodes[2].append(lineEnd);
-    row.childNodes[3].append(lineDeleteButton);
-    lineTable.append(row);
-  }
-
-  getLineRow() {
-    const row = document.createElement('tr');
-    const blank = document.createElement('td');
-
-    row.className = LINE_ROW;
-    row.append(
-      blank,
-      blank.cloneNode(true),
-      blank.cloneNode(true),
-      blank.cloneNode(true)
-    );
-
-    return row;
-  }
-
-  getLineDeleteButton(line) {
-    const button = document.createElement('button');
-
-    button.className = LINE_DELETE_BUTTON;
-    button.dataset.line = line;
-    button.append(DELETE_K);
-
-    return button;
+    row.childNodes[3].append(button);
+    table.append(row);
   }
 
   onClickAddButton() {
-    const validator = new LineValidator();
-    const lineNameInput = nodeSelector.selectId(LINE_NAME_INPUT);
+    const input = nodeSelector.selectId(LINE_NAME_INPUT);
     const lineStart = nodeSelector.selectId(LINE_START_STATION_SELECTOR);
     const lineEnd = nodeSelector.selectId(LINE_END_STATION_SELECTOR);
 
     if (
-      validator.checkValidInput(lineNameInput) &&
-      validator.checkValidOptions(this._lines, lineStart, lineEnd)
+      lineValidator.checkValidInput(input) &&
+      lineValidator.checkValidOptions(this._lineInfos, lineStart, lineEnd)
     ) {
-      this.addLine(lineNameInput, lineStart, lineEnd);
+      this.addLine(input, lineStart, lineEnd);
       this.initialize();
     }
   }
 
-  addLine(line, lineStart, lineEnd) {
+  addLine(input, lineStart, lineEnd) {
     const lineInfo = {};
-    const index = LINE_NAMES.indexOf(line.value);
+    const line = input.value;
+    const index = LINE_NAMES.indexOf(line);
 
-    lineInfo[line.value] = [lineStart.value, lineEnd.value];
-    this._lines[index] = lineInfo;
-    localStorage.setItem(LINES_LS, JSON.stringify(this._lines));
-    line.value = '';
+    input.value = '';
+    lineInfo[line] = [lineStart.value, lineEnd.value];
+    this._lineInfos[index] = lineInfo;
+    localStorage.setItem(LINES_LS, JSON.stringify(this._lineInfos));
   }
 
   onClickDeleteButton(event) {
@@ -121,12 +112,12 @@ export default class LineManager extends Role {
   }
 
   deleteLine(target) {
-    for (let i = 0; i < this._lines.length; i++) {
-      const lineInfo = this._lines[i] ?? {};
+    for (let i = 0; i < this._lineInfos.length; i++) {
+      const lineInfo = this._lineInfos[i] ?? {};
 
       if (lineInfo.hasOwnProperty(target)) {
-        this._lines.splice(i, 1);
-        localStorage.setItem(LINES_LS, JSON.stringify(this._lines));
+        this._lineInfos.splice(i, 1);
+        localStorage.setItem(LINES_LS, JSON.stringify(this._lineInfos));
 
         return;
       }

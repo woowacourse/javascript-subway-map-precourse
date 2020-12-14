@@ -8,7 +8,7 @@ import {
   LINES_LS,
 } from '../../library/constant/constant.js';
 
-export default class StationValidator extends Validator {
+class StationValidator extends Validator {
   constructor() {
     super();
   }
@@ -91,3 +91,5 @@ export default class StationValidator extends Validator {
     alert(`${STATION_ALERT_HAS_LINE} ${lines.join(', ')}`);
   }
 }
+
+export const stationValidator = new StationValidator();

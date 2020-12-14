@@ -1,6 +1,7 @@
 import Role from './role.js';
+import { roleInterface } from './role_interface.js';
 import { nodeSelector } from '../util/selector/node_selector.js';
-import StationValidator from '../util/validator/station_validator.js';
+import { stationValidator } from '../util/validator/station_validator.js';
 import {
   DELETE_K,
   STATION_ADD_BUTTON,
@@ -11,6 +12,7 @@ import {
   STATION,
   STATION_NAME_INPUT,
   STATION_TABLE,
+  STATION_HEADER,
   STATION_ROW,
   STATIONS_LS,
   STATION_CONFIRM,
@@ -19,32 +21,46 @@ import {
 export default class StationManager extends Role {
   constructor() {
     super(STATION_MANAGER, STATION_MANAGER_BUTTON, STATION_MANAGER_K);
-    this._stations = this.getStations();
     this.initialize();
-    this.clickButton(STATION_ADD_BUTTON, this.onClickAddButton, this);
+    roleInterface.clickButton(STATION_ADD_BUTTON, this.onClickAddButton, this);
   }
 
   initialize() {
-    this.clearTable(STATION_TABLE);
+    roleInterface.clearNode(STATION_TABLE);
     this.renderStations();
-    this.clickButtons(STATION_DELETE_BUTTON, this.onClickDeleteButton, this);
+    roleInterface.clickButtons(
+      STATION_DELETE_BUTTON,
+      this.onClickDeleteButton,
+      this
+    );
+    roleInterface.renderSelectors();
   }
 
   renderStations() {
     this._stations.forEach(station => this.renderStation(station));
   }
 
+  renderStation(station) {
+    const table = nodeSelector.selectId(STATION_TABLE);
+    const row = roleInterface.getRow(STATION_ROW, STATION_HEADER);
+    const button = roleInterface.getButton(STATION_DELETE_BUTTON, DELETE_K);
+
+    button.dataset.station = station;
+    row.childNodes[0].className = STATION;
+    row.childNodes[0].append(station);
+    row.childNodes[1].append(button);
+    table.append(row);
+  }
+
   onClickAddButton() {
-    const stationNameInput = nodeSelector.selectId(STATION_NAME_INPUT);
-    const validator = new StationValidator();
-    const response = validator.checkValidInput(stationNameInput);
+    const input = nodeSelector.selectId(STATION_NAME_INPUT);
+    const response = stationValidator.checkValidInput(input);
 
     if (response) {
-      response.then(isValidate => {
-        if (isValidate) {
-          this.addStation(stationNameInput);
+      response.then(isValid => {
+        if (isValid) {
+          this.addStation(input);
           this.initialize();
-          this.renderSelectors();
         }
       });
     }
@@ -59,47 +75,14 @@ export default class StationManager extends Role {
     localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
   }
 
-  renderStation(station) {
-    const stationTable = nodeSelector.selectId(STATION_TABLE);
-    const row = this.getStationRow();
-    const stationDeleteButton = this.getStationDeleteButton(station);
-
-    row.childNodes[0].className = STATION;
-    row.childNodes[0].append(station);
-    row.childNodes[1].append(stationDeleteButton);
-    stationTable.append(row);
-  }
-
-  getStationRow() {
-    const row = document.createElement('tr');
-    const blank = document.createElement('td');
-
-    row.className = STATION_ROW;
-    row.append(blank, blank.cloneNode(true));
-
-    return row;
-  }
-
-  getStationDeleteButton(station) {
-    const button = document.createElement('button');
-
-    button.className = STATION_DELETE_BUTTON;
-    button.dataset.station = station;
-    button.append(DELETE_K);
-
-    return button;
-  }
-
   onClickDeleteButton(event) {
     const target = event.target.dataset.station;
-    const validator = new StationValidator();
 
-    if (!validator.canDelete(target)) {
+    if (!stationValidator.canDelete(target)) {
       return;
     }
     if (confirm(STATION_CONFIRM)) {
       this.deleteStation(target);
-      this.renderSelectors();
       this.initialize();
     }
   }

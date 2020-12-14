@@ -25,6 +25,7 @@ export const STATION_ADD_BUTTON = 'station-add-button';
 export const STATION_DELETE_BUTTON = 'station-delete-button';
 export const STATION_NAME_INPUT = 'station-name-input';
 export const STATION_TABLE = 'station-table';
+export const STATION_HEADER = 'station-header';
 export const STATION_ROW = 'station-row';
 export const STATION_ALERT_INVALID =
   '일치하는 역 이름이 없네요. 😅\n실제 (서울) 지하철 역만 추가할 수 있어요!';
@@ -42,6 +43,7 @@ export const LINE_DELETE_BUTTON = 'line-delete-button';
 export const LINE_NAME_INPUT = 'line-name-input';
 export const LINE_START_STATION_SELECTOR = 'line-start-station-selector';
 export const LINE_END_STATION_SELECTOR = 'line-end-station-selector';
+export const LINE_HEADER = 'line-header';
 export const LINE_TABLE = 'line-table';
 export const LINE_ROW = 'line-row';
 export const LINE_ALERT_INVALID =
@@ -62,6 +64,7 @@ export const SECTION_ORDER_INPUT = 'section-order-input';
 export const SECTION_STAION_SELECTOR = 'section-station-selector';
 export const LINE_MENU_BUTTON_SECTION = 'line-menu-button-section';
 export const SECTION_TABLE = 'section-table';
+export const SECTION_HEADER = 'section-header';
 export const SECTION_ROW = 'section-row';
 
 // map print manager

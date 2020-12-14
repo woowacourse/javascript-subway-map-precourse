@@ -79,7 +79,7 @@ select {
 /* section manager */
 
 .section-line-menu-button {
-  width: 70px;
+  width: 100px;
   margin-right: 5px;
 }
 
@@ -89,6 +89,10 @@ select {
 
 #section-name-header {
   width: 150px;
+}
+
+.section-row > td:nth-child(1) {
+  text-align: center;
 }
 
 /* behavior */

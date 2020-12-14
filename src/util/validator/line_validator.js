@@ -95,3 +95,5 @@ export default class LineValidator extends Validator {
     alert(OPTION_ALERT_INVALID);
   }
 }
+
+export const lineValidator = new LineValidator();
