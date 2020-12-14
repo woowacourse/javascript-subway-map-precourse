@@ -1,3 +1,6 @@
+import { clearInput } from "../../utils/domUtil.js";
+import { isVaildStationName } from "../../utils/validations/stationValidation.js";
+
 class StationInput {
   constructor($target, { stationStore }) {
     this.$target = $target;
@@ -26,8 +29,15 @@ class StationInput {
 
   onClick({ target }) {
     if (target.id !== `station-add-button`) return;
+    const name = this.$input.value.trim();
 
-    console.log(this.$input.value);
+    if (!isVaildStationName(this.$input, this.stationStore.stations, name)) {
+      return;
+    }
+
+    clearInput(this.$input);
+    this.stationStore.addStation(name);
+    localStorage.setItem(`STATION`, JSON.stringify(this.stationStore.stations));
   }
 
   render = () => {
