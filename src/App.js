@@ -79,7 +79,10 @@ export default class App {
 
   renderSectionManager() {
     this._container.innerHTML = '';
-    this._sectionManager = new SectionManager({ target: this._container });
+    this._sectionManager = new SectionManager({
+      target: this._container,
+      subway: this._subway,
+    });
   }
 
   renderMapPrintManager() {
@@ -120,7 +123,6 @@ export default class App {
     if (isOk) {
       this._subway.deleteLine({ lineName });
       this._lineManager.setSubway(this._subway);
-      console.log(this._subway);
     }
   }
 }

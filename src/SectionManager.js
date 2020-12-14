@@ -1,8 +1,10 @@
 export default class SectionManager {
-  constructor({ target }) {
+  constructor({ target, subway }) {
     this._target = target;
+    this._subway = subway;
 
     this.createHeader(target);
+    this.createSectionButtons(target);
   }
 
   createContainerElement(target, classNames = '') {
@@ -19,5 +21,56 @@ export default class SectionManager {
     h3.innerHTML = `구간을 수정할 노선을 선택해주세요.`;
 
     target.appendChild(h3);
+  }
+
+  createSectionManagerContainer(target, line) {
+    target.innerHTML = ``;
+    const _container = this.createContainerElement(target);
+    const stations = this._subway.getStationName();
+
+    _container.innerHTML = `
+      <h3>${line.lineName} 관리</h3>
+      <h4>구간 등록</h4>
+      <div>
+        <select id="section-station-selector">
+          ${stations.map((station) => `
+            <option value=${station}>${station}</option>
+          `).join('')}
+        </select>
+        <input
+          type="number"
+          placeholder="순서"
+          id="seletion-order-input"
+        />
+        <button id="section-add-button">등록</button>
+      </div>
+    `;
+  }
+
+  addSectionUpdateClickEvent(target, lines) {
+    const sectionLineMenuButtons = document.querySelectorAll(
+      '.section-line-menu-button',
+    );
+    this._wrapper = this.createContainerElement(target, 'section-manager');
+
+    sectionLineMenuButtons.forEach((button, index) => {
+      button.addEventListener(
+        'click', () => this.createSectionManagerContainer(
+          this._wrapper, lines[index],
+        ),
+      );
+    });
+  }
+
+  createSectionButtons(target) {
+    const _container = this.createContainerElement(target, 'section-line-menu');
+    const lines = this._subway.getLines();
+
+    _container.innerHTML = `
+      ${lines.map(({ lineName }) => `
+        <button class="section-line-menu-button">${lineName}</button>
+      `).join('')}
+    `;
+    this.addSectionUpdateClickEvent(target, lines);
   }
 }
