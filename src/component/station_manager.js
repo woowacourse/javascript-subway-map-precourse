@@ -21,17 +21,13 @@ export default class StationManager extends Role {
     super(STATION_MANAGER, STATION_MANAGER_BUTTON, STATION_MANAGER_K);
     this._stations = this.getStations();
     this.initialize();
-    this.clickAddButton(STATION_ADD_BUTTON, this.onClickAddButton, this);
+    this.clickButton(STATION_ADD_BUTTON, this.onClickAddButton, this);
   }
 
   initialize() {
     this.clearTable(STATION_TABLE);
     this.renderStations();
-    this.clickDeleteButton(
-      STATION_DELETE_BUTTON,
-      this.onClickDeleteButton,
-      this
-    );
+    this.clickButtons(STATION_DELETE_BUTTON, this.onClickDeleteButton, this);
   }
 
   renderStations() {

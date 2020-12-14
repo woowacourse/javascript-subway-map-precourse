@@ -2,6 +2,7 @@
 
 // active
 export const ACTIVE = 'active';
+export const HIDE = 'hide';
 
 // app
 export const APP = 'app';
@@ -53,11 +54,15 @@ export const LINE_CONFIRM = '정말로 해당 호선을 삭제하시나요?';
 // section manager
 export const SECTION_MANAGER = 'section-manager';
 export const SECTION_MANAGER_BUTTON = 'section-manager-button';
+export const SECTION_LINE = 'section-line';
 export const SECTION_LINE_MENU_BUTTON = 'section-line-menu-button';
 export const SECTION_ADD_BUTTON = 'section-add-button';
 export const SECTION_DELETE_BUTTON = 'section-delete-button';
 export const SECTION_ORDER_INPUT = 'section-order-input';
-export const SECTION_STAION_SELECTOR = 'section_station_selector';
+export const SECTION_STAION_SELECTOR = 'section-station-selector';
+export const LINE_MENU_BUTTON_SECTION = 'line-menu-button-section';
+export const SECTION_TABLE = 'section-table';
+export const SECTION_ROW = 'section-row';
 
 // map print manager
 export const MAP = 'map';
@@ -67,6 +72,7 @@ export const MAP_PRINT_MANAGER_BUTTON = 'map-print-manager-button';
 export const SELECTORS = [
   LINE_START_STATION_SELECTOR,
   LINE_END_STATION_SELECTOR,
+  SECTION_STAION_SELECTOR,
 ];
 
 // fetch url
@@ -84,7 +90,7 @@ export const DELETE_K = '삭제';
 export const STATION_MANAGER_K = '역 관리';
 export const LINE_MANAGER_K = '노선 관리';
 export const SECTION_MANAGER_K = '구간 관리';
-export const SECTION_LINE_DELETE_K = '노선에서 제거';
+export const SECTION_DELETE_K = '노선에서 제거';
 export const MAP_PRINT_MANAGER_K = '지하철 노선도 출력';
 
 export const ROLE_NAMES = [

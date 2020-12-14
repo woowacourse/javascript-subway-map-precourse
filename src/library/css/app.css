@@ -19,6 +19,8 @@ td {
 
 select {
   width: 80px;
+  font-size: medium;
+  padding: 2px;
 }
 
 /* role button section */
@@ -28,7 +30,6 @@ select {
 
 /* role section */
 .role {
-  display: none;
   margin-top: 30px;
 }
 
@@ -76,20 +77,21 @@ select {
 }
 
 /* section manager */
-#section-line {
-  display: none;
+
+.section-line-menu-button {
+  width: 70px;
+  margin-right: 5px;
 }
 
 #section-table-container {
   margin-top: 50px;
 }
 
-#section-name-header,
-#section-update-header {
+#section-name-header {
   width: 150px;
 }
 
 /* behavior */
-.active {
-  display: block;
+.hide {
+  display: none;
 }

@@ -2,6 +2,7 @@ import { nodeSelector } from './util/selector/node_selector.js';
 import StationManager from './component/station_manager.js';
 import LineManager from './component/line_manager.js';
 import SectionManager from './component/section_manager.js';
+import { HIDE } from './library/constant/constant.js';
 
 export default class SubwayMap {
   constructor() {
@@ -30,9 +31,11 @@ export default class SubwayMap {
 
   activate() {
     this.roles.forEach(role => {
+      const roleSection = nodeSelector.selectId(role.roleId);
       const roleButton = nodeSelector.selectId(role.buttonId);
 
-      roleButton.addEventListener('click', role.display.bind(role));
+      roleSection.classList.add(HIDE);
+      roleButton.addEventListener('click', role.displayRole.bind(role));
     });
   }
 }

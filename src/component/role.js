@@ -1,6 +1,6 @@
 import { nodeSelector } from '../util/selector/node_selector.js';
 import {
-  ACTIVE,
+  HIDE,
   LINES_LS,
   NONE_K,
   ROLE,
@@ -25,7 +25,7 @@ export default class Role {
     return stations;
   }
 
-  getLines() {
+  getSections() {
     const loadedLines = localStorage.getItem(LINES_LS);
     const lines = loadedLines ? JSON.parse(loadedLines) : [];
 
@@ -46,18 +46,18 @@ export default class Role {
     return ROLE_NAMES.indexOf(this._roleName);
   }
 
-  display() {
+  displayRole() {
     const role = nodeSelector.selectId(this.roleId);
 
-    this.resetDisplay();
-    role.classList.add(ACTIVE);
+    this.hideRoles();
+    role.classList.remove(HIDE);
   }
 
-  resetDisplay() {
+  hideRoles() {
     const roles = nodeSelector.selectClassAll(ROLE);
 
     roles.forEach(role => {
-      role.classList.remove(ACTIVE);
+      role.classList.add(HIDE);
     });
   }
 
@@ -67,17 +67,17 @@ export default class Role {
     table.innerHTML = '';
   }
 
-  clickAddButton(buttonId, onEvent, binder) {
-    const addButton = nodeSelector.selectId(buttonId);
+  clickButton(buttonId, onEvent, binder) {
+    const button = nodeSelector.selectId(buttonId);
 
-    addButton.addEventListener('click', onEvent.bind(binder));
+    button.addEventListener('click', onEvent.bind(binder));
   }
 
-  clickDeleteButton(buttonClass, onEvent, binder) {
-    const deleteButtons = nodeSelector.selectClassAll(buttonClass);
+  clickButtons(buttonClass, onEvent, binder) {
+    const buttons = nodeSelector.selectClassAll(buttonClass);
 
-    deleteButtons.forEach(deleteButton => {
-      deleteButton.addEventListener('click', onEvent.bind(binder));
+    buttons.forEach(button => {
+      button.addEventListener('click', onEvent.bind(binder));
     });
   }
 

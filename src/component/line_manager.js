@@ -22,16 +22,16 @@ import LineValidator from '../util/validator/line_validator.js';
 export default class LineManager extends Role {
   constructor() {
     super(LINE_MANAGER, LINE_MANAGER_BUTTON, LINE_MANAGER_K);
-    this._lines = this.getLines();
+    this._lines = this.getSections();
     this.initialize();
     this.renderSelectors();
-    this.clickAddButton(LINE_ADD_BUTTON, this.onClickAddButton, this);
+    this.clickButton(LINE_ADD_BUTTON, this.onClickAddButton, this);
   }
 
   initialize() {
     this.clearTable(LINE_TABLE);
     this.renderLines();
-    this.clickDeleteButton(LINE_DELETE_BUTTON, this.onClickDeleteButton, this);
+    this.clickButtons(LINE_DELETE_BUTTON, this.onClickDeleteButton, this);
   }
 
   renderLines() {
