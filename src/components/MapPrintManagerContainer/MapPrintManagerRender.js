@@ -10,6 +10,7 @@ export default class MapPrintManagerRender extends Component {
 
   initDOM() {
     this.mapElement = document.createElement("div");
+    this.mapElement.setAttribute("class", "map");
   }
 
   render() {
