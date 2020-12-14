@@ -29,4 +29,11 @@ export default class SubwayLine {
     }
   }
 
+  pullOutStationFromLineByName(stationName) {
+    this.#allStationsInLine.forEach((registeredStationName, index) => {
+      if (registeredStationName === stationName) {
+        this.#allStationsInLine.splice(index, 1);
+      }
+    });
+  }
 }
