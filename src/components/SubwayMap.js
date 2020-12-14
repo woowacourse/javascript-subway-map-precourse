@@ -96,7 +96,7 @@ export class SubwayMap {
   };
 
   updateLineView = () => {
-    this.sectionManager.render();
+    this.sectionManager.updateHeaderButtons();
     this.mapPrintManager.render();
   };
 }

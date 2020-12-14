@@ -13,14 +13,13 @@ export class SectionManager {
   };
 
   renderHeader = () => {
-    let lines = this.getLines();
-    new SectionManagerHeaderButtons({
-      lines: lines,
-      handleSectionManagerByLine: this.handleSectionManagerByLine,
+    this.sectionHeader = new SectionManagerHeaderButtons({
+      getLines: this.getLines,
+      renderSectionManagerByLine: this.renderSectionManagerByLine,
     });
   };
 
-  handleSectionManagerByLine = (lineName) => {
+  renderSectionManagerByLine = (lineName) => {
     let line = this.getLineMatchedWith(lineName);
     new SectionManagerInput({
       getStations: this.getStations,
@@ -34,5 +33,9 @@ export class SectionManager {
     return lines.filter((line) => {
       line.lineName === lineName;
     });
+  };
+
+  updateHeaderButtons = () => {
+    this.sectionHeader.render();
   };
 }
