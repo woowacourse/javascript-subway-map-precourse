@@ -22,20 +22,17 @@ export default class SubwayMapMapPrintView {
   }
 
   renderLinesUls(lines) {
-    let linesUls = ``;
-
-    lines.map(line => {
-      let sectionlis = ``;
-      line[1].sections.map(section => {
-        sectionlis += `<li>${section.stationId}</li>`;
-      });
-      let lineUl = `
-      <h3>${line[0]}</h3>
-      <ul>${sectionlis}</ul>
-      `;
-      linesUls += lineUl;
-    });
-
-    return linesUls;
+    return lines
+      .map(line => {
+        return `<h3>${line[0]}</h3>
+            <ul>${line[1]._sections
+              .map(section => {
+                return `<li>${section._stationId}</li>`;
+              })
+              .join('')}
+            </ul>
+          `;
+      })
+      .join('');
   }
 }
