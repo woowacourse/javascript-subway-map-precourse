@@ -4,6 +4,7 @@ import LineStore from "../store/lineStore.js";
 import StationManager from "./StationManager/index.js";
 import LineManager from "./LineManager/index.js";
 import SectionManager from "./SectionManager/index.js";
+import MapPrintManager from "./MapPrintManager/index.js";
 
 class App {
   constructor($target) {
@@ -55,6 +56,9 @@ class App {
         lineStore: this.lineStore,
       });
     } else if (id === `map-print-manager-button`) {
+      new MapPrintManager(this.$managerContainer, {
+        lineStore: this.lineStore,
+      });
     }
   }
 
