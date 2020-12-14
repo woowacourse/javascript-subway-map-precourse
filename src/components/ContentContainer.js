@@ -14,13 +14,16 @@ export class ContentContainer {
   constructor(props) {
     this.props = {
       ...props,
-      setStations: this.setStations,
+      updateStationView: this.updateStationView,
       getStations: this.getStations,
-      deleteStation: this.deleteStation,
       setNewLine: this.setNewLine,
       setLines: this.setLines,
       getLines: this.getLines,
       deleteLine: this.deleteLine,
+    };
+    this.state = {
+      stations: [],
+      lines: [],
     };
     this.initiateData();
     this.initiateDOM();
@@ -31,15 +34,38 @@ export class ContentContainer {
     this.lineManager = new LineManager(this.props);
     this.mapPrintManager = new MapPrint(this.props);
     this.sectionManager = new SectionManager(this.props);
+    this.contents = [
+      this.stationManager,
+      this.lineManager,
+      this.mapPrintManager,
+      this.sectionManager,
+    ];
   };
+
+  onUpdate = (newState) => {
+    this.state = newState;
+    this.render(this.props);
+  };
+
   initiateData = () => {
     localStorage.setItem("stations", JSON.stringify([]) || []);
     localStorage.setItem("lines", JSON.stringify([]) || []);
   };
-  render = ({ id }) => {
+  render = (props) => {
+    this.props = props;
+    this.id = props.id;
+
+    // this.contents.forEach((content) => {
+    //   content.render({
+    //     ...props,
+    //     ...this.state,
+    //     onUpdate: this.onUpdate,
+    //     // isShow: content.id === contentId,
+    //   });
+    // });
     contentIds.forEach((contentId) => {
       const content = document.getElementById(contentId);
-      if (contentId === id) {
+      if (contentId === this.id) {
         displayShow(content);
       } else {
         displayhide(content);
@@ -47,22 +73,22 @@ export class ContentContainer {
     });
   };
 
-  setStations = (names) => {
-    localStorage.setItem("stations", JSON.stringify(names));
-    this.updateStationView();
-  };
+  // setStations = (names) => {
+  //   localStorage.setItem("stations", JSON.stringify(names));
+  //   this.updateStationView();
+  // };
 
   getStations = () => {
     return JSON.parse(localStorage.getItem("stations"));
   };
 
-  deleteStation = (target) => {
-    let stations = this.getStations();
-    stations = stations.filter((station) => {
-      return station !== target;
-    });
-    this.setStations(stations);
-  };
+  // deleteStation = (target) => {
+  //   let stations = this.getStations();
+  //   stations = stations.filter((station) => {
+  //     return station !== target;
+  //   });
+  //   this.setStations(stations);
+  // };
 
   updateStationView = () => {
     this.lineManager.updateStations();

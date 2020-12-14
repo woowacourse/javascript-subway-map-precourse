@@ -23,9 +23,9 @@ export class StationManagerList {
       .addEventListener("click", this.handleDeleteStation);
   };
 
-  render = ({ getStations }) => {
+  render = (props) => {
     this.stationTable.innerHTML = getStationsTableHeader();
-    this.stations = getStations();
+    this.stations = this.getStations();
     this.stations.forEach((station) => {
       addRowInStationTable(this.stationTable, station, FIELD.STATION);
     });

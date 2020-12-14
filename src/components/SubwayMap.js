@@ -32,6 +32,6 @@ export class SubwayMap {
     const { id } = e.currentTarget;
     const contentId = buttonContentMap[id];
 
-    this.content.render({ id: contentId });
+    this.content.render({ ...this.props, id: contentId });
   };
 }
