@@ -8,13 +8,13 @@ export default function SubwayMap() {
 
   this.addStation = name => {
     this.stationList.push(name);
-    this.saveAll();
+    this.saveStation();
   };
 
   this.delStation = name => {
     const index = this.stationList.findIndex(stationName => stationName === name);
     this.stationList.splice(index, 1);
-    this.saveAll();
+    this.saveStation();
   };
 
   this.reload = () => {
@@ -22,8 +22,11 @@ export default function SubwayMap() {
     this.LineList = loadData('lines');
   };
 
-  this.saveAll = () => {
+  this.saveStation = () => {
     saveData('stations', this.stationList);
+  };
+
+  this.saveLine = () => {
     saveData('lines', this.LineList);
   };
 }

@@ -1,5 +1,6 @@
 import { tabManager } from '../views/tab.js';
 import { stationAddListener } from './stationManager.js';
+import { lineAddListener } from './lineManager.js';
 
 const stationManagerBtn = document.querySelector('#station-manager-button');
 const lineManagerBtn = document.querySelector('#line-manager-button');
@@ -12,4 +13,5 @@ export const tabController = subwayMap => {
   sectionManagerBtn.addEventListener('click', e => tabManager(e.target.value, subwayMap));
   mapPrintManagerBtn.addEventListener('click', e => tabManager(e.target.value, subwayMap));
   stationAddListener(subwayMap);
+  lineAddListener(subwayMap);
 };
