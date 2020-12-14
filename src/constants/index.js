@@ -38,6 +38,7 @@ export const WORDS = {
 };
 
 export const REFRENCE_STATION_LENGTH = 2;
+export const DELETE_REFRENCE = 2;
 
 export const MESSAGE = {
   EMPTY: "공백 입력은 허용되지 않습니다.",

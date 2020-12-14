@@ -1,4 +1,4 @@
-import { MESSAGE } from "../constants/index.js";
+import { DELETE_REFRENCE, MESSAGE } from "../constants/index.js";
 import { loadLines, saveLines } from "../Line/lineContainer.js";
 import { checkSectionList, confirmDelete } from "../utils/message.js";
 import {
@@ -9,10 +9,9 @@ import {
 import { displaySectionUtil } from "./sectionPresenter.js";
 
 const checkStationCountValid = (currentSection, deleteTargetStation) => {
-  const deleteRefrence = 2;
   let filteredSection = [];
 
-  if (currentSection.length > deleteRefrence) {
+  if (currentSection.length > DELETE_REFRENCE) {
     filteredSection = currentSection.filter(
       (station) => station !== deleteTargetStation
     );
