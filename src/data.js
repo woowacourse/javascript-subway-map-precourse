@@ -70,7 +70,6 @@ export class Data {
         let lineRepository = this.getLineRepository();
 
         lineRepository[lineName][dataText.STATION_ARRAY].splice(order, 0, stationName);
-
         localStorage.setItem(dataText.LINE_REPOSITORY, JSON.stringify(lineRepository));
     }
 
@@ -79,7 +78,6 @@ export class Data {
         let lineRepository = this.getLineRepository()
 
         lineRepository[lineName][dataText.STATION_ARRAY].splice(order, 1)
-
         localStorage.setItem(dataText.LINE_REPOSITORY, JSON.stringify(lineRepository));
     }
 }

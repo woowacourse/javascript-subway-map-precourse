@@ -12,6 +12,10 @@ export const makeLineIfPossible = (name, startStation, endStation) => {
         throw alertText.SAME_LINE_EXITE;
     }
 
+    if (isStartStationEndStationSame(startStation, endStation)) {
+        throw alertText.START_STATION_SAME_WHIT_END_STATION;
+    }
+
     return new Line(name, startStation, endStation);
 }
 
@@ -29,4 +33,8 @@ const isSameLineExite = (input) => {
 
 const hasSameLine = (input) => {
     return Data.getLineRepository().hasOwnProperty(input)
+}
+
+const isStartStationEndStationSame = (startStation, endStation) => {
+    return startStation === endStation
 }

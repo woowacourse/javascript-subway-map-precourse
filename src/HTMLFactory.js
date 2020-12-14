@@ -1,15 +1,4 @@
-import { text } from "./text.js"
-
 export class HTMLUtil {
-
-    static appendManyChild = (parent, childs) => {
-        for (const child of childs) {
-            parent.appendChild(child);
-        }
-
-        return parent;
-    }
-
     static makeTag = ({ tag, id, classe, placeholder, innerHTML, type, value, border }) => {
         let element = document.createElement(tag);
 

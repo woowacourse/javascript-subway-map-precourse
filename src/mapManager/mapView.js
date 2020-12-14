@@ -1,6 +1,8 @@
+import { HTMLUtil } from "../HTMLFactory.js"
+
 export const showMapHTML = (lineRepository) => {
-    let body = document.querySelector("body")
-    let mapHTML = templateTotalMap(lineRepository);
+    let body = document.querySelector("#app")
+    let mapHTML = makeTotalMap(lineRepository);
 
     body.appendChild(mapHTML);
 }
@@ -8,27 +10,30 @@ export const showMapHTML = (lineRepository) => {
 export const hideMapHTML = () => {
     let mapHTML = document.querySelector(".map")
     if (mapHTML) {
-        document.querySelector("body").removeChild(document.querySelector(".map"));
+        document.querySelector("#app").removeChild(mapHTML);
     }
 }
 
-const templateTotalMap = (lineRepository) => {
-    let mapHTML = document.createElement("div");
-
-    mapHTML.setAttribute("class", "map")
+const makeTotalMap = (lineRepository) => {
+    let mapHTML = HTMLUtil.makeTag({ tag: "div", classe: "map" });
+    let allLineMap = ""
 
     for (const line of Object.values(lineRepository)) {
-        mapHTML.innerHTML += templateOneLineMap(line);
+        allLineMap += templateOneLineMap(line);
     }
+
+    mapHTML.innerHTML = allLineMap;
 
     return mapHTML;
 }
 
 const templateOneLineMap = (line) => {
-    let oneLineMapHTML = `<div><h3>${line.name}</h3><ul>`;
-
-    oneLineMapHTML += line.stationArray.map((station) => `<li>${station}</li>`).join("");
-    oneLineMapHTML += `</ul></div>`;
+    let oneLineMapHTML = `<div>
+                            <h3>${line.name}</h3>
+                            <ul>
+                            ${line.stationArray.map((station) => `<li>${station}</li>`).join("")}
+                            </ul>
+                          </div>`;
 
     return oneLineMapHTML;
 }

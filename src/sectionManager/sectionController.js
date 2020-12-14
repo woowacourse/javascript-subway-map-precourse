@@ -29,7 +29,7 @@ const checkInput = (orderInput) => {
 }
 
 const checkOrder = (lineName, orderInput, selectedStation) => {
-    const stationArray = Data.getLineRepository()[lineName]["stationArray"];
+    const stationArray = Data.getLineRepository()[lineName][dataText.STATION_ARRAY];
 
     if (isNeighborStationSame(stationArray, Number(orderInput), selectedStation)) {
         throw alertText.NEIGHBOR_STATION_SAME;

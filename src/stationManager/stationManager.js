@@ -1,8 +1,6 @@
 import {
     addResultToBody,
     makeStationHTML,
-    addStationNameToTable,
-    stationNameInputClear,
     removeStationManagerHTML
 } from "./stationView.js"
 import { makeStationIfPossible, checkStationInLine } from "./stationController.js"
@@ -24,18 +22,12 @@ export class StationManager {
 }
 
 const addEventToAddStationButton = () => {
-    const addStationButton = document.querySelector("#station-add-button");
-    const addStaitonInput = document.querySelector("#station-name-input");
-
-    addStationButton.addEventListener("click", () => {
+    document.querySelector("#station-add-button").addEventListener("click", () => {
         try {
-            const station = makeStationIfPossible(addStaitonInput.value);
-            Data.addStation(station);
-            addStationNameToTable(station.name);
-            addEventToDeleteButton();
-            stationNameInputClear();
+            Data.addStation(makeStationIfPossible(document.querySelector("#station-name-input").value));
+            updateStationView();
         } catch (error) {
-            alert(error)
+            alert(error);
         }
     });
 }
@@ -43,7 +35,7 @@ const addEventToAddStationButton = () => {
 const addEventToDeleteButton = () => {
     Array.prototype.forEach.call(document.querySelectorAll(".station-delete-button"), (button) => {
         button.addEventListener("click", function (button) {
-            const stationName = button.target.parentNode.parentNode.dataset.stationName
+            const stationName = button.target.parentNode.parentNode.dataset.stationName;
             try {
                 checkStationInLine(stationName);
                 if (confirm(alertText.CONFIRM_MESSAGE)) {
@@ -55,4 +47,11 @@ const addEventToDeleteButton = () => {
             }
         })
     })
+}
+
+const updateStationView = () => {
+    removeStationManagerHTML();
+    addResultToBody(makeStationHTML(Data.getStationRepository()));
+    addEventToAddStationButton();
+    addEventToDeleteButton();
 }

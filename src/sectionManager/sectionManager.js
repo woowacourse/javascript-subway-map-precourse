@@ -1,11 +1,12 @@
-import { templateLineButtonHTML, removeSubSectionHTML, removeSectionHTML, templateSectionHTML } from "./sectionView.js"
+import { makeSubSectionHTML, removeSubSectionHTML, removeSectionHTML, makeSectionHTML } from "./sectionView.js"
 import { checkSection, checkStationArrayLengths } from "./sectionController.js"
 import { Data } from "../data.js"
 import { alertText } from "../text.js"
+
 export class SectionManager {
 
     static show = () => {
-        templateLineButtonHTML(Data.getLineRepository());
+        makeSectionHTML(Data.getLineRepository());
         addEventToLineButton();
     }
 
@@ -14,14 +15,10 @@ export class SectionManager {
     }
 }
 
-
 const addEventToLineButton = () => {
     Array.prototype.forEach.call(document.querySelectorAll(".section-line-menu-button"), (button) => {
         button.addEventListener("click", (button) => {
-            removeSubSectionHTML();
-            templateSectionHTML(button.target.dataset.selectedLine, Data.getStationRepository());
-            addEventToRegisterButton(button.target.dataset.selectedLine)
-            addEventToRemoveButton(button.target.dataset.selectedLine)
+            updateSectionHTML(button.target.dataset.selectedLine);
         })
     })
 }
@@ -43,6 +40,7 @@ const addEventToRegisterButton = (lineName) => {
 
 const getSelectedStation = () => {
     const selectOption = document.querySelector(`#section-station-selector`)
+
     return selectOption.options[selectOption.selectedIndex].value;
 }
 
@@ -64,7 +62,7 @@ const addEventToRemoveButton = (lineName) => {
 
 const updateSectionHTML = (lineName) => {
     removeSubSectionHTML();
-    templateSectionHTML(lineName, Data.getStationRepository());
+    makeSubSectionHTML(lineName, Data.getStationRepository());
     addEventToRegisterButton(lineName)
     addEventToRemoveButton(lineName);
 }
