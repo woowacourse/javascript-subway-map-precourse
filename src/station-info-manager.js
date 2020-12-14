@@ -7,18 +7,17 @@ export default class StationINFOManager {
     this._loadAllFromLocalStorage();
   }
   addNewStation({ name }) {
-    const newStation = {
-      name: name,
-      linesOfStation: new Set(),
-    };
+    const newStation = this._makeNewStationByTemplate(name);
     this._stations.push(newStation);
     this._saveAllToLocalStorage();
+    console.log(this._stations);
   }
   addNewLine({ lineName, startStationName, endStationName }) {
-    const newLine = {
-      name: lineName,
-      stationsOfLine: [startStationName, endStationName],
-    };
+    const newLine = this._makeNewLineByTemplate(
+      lineName,
+      startStationName,
+      endStationName
+    );
     const startStation = this.getOneStationByName(startStationName);
     const endStation = this.getOneStationByName(endStationName);
     this._lines.push(newLine);
@@ -69,13 +68,6 @@ export default class StationINFOManager {
     this._deleteStationInLine(targetStationName, targetLineName);
     this._saveAllToLocalStorage();
   }
-  getStationsNames() {
-    const stationNames = [];
-    this._stations.forEach(({ name }) => {
-      stationNames.push(name);
-    });
-    return stationNames;
-  }
   getOneStationByName(name) {
     for (let station of this._stations) {
       if (station.name === name) {
@@ -83,6 +75,13 @@ export default class StationINFOManager {
       }
     }
     return -1;
+  }
+  getStationsNames() {
+    const stationNames = [];
+    this._stations.forEach(({ name }) => {
+      stationNames.push(name);
+    });
+    return stationNames;
   }
   getStationNamesByCondition(condition) {
     const returnStations = [];
@@ -93,6 +92,14 @@ export default class StationINFOManager {
     });
     return returnStations;
   }
+  getOneLineByName(name) {
+    for (let line of this._lines) {
+      if (line.name === name) {
+        return line;
+      }
+    }
+    return -1;
+  }
   getLines() {
     const linesINFOs = [];
     this._lines.forEach(({ name, stationsOfLine }) => {
@@ -102,14 +109,6 @@ export default class StationINFOManager {
       });
     });
     return linesINFOs;
-  }
-  getOneLineByName(name) {
-    for (let line of this._lines) {
-      if (line.name === name) {
-        return line;
-      }
-    }
-    return -1;
   }
   getAllLinesByCondition(condition) {
     const returnlines = [];
@@ -185,6 +184,18 @@ export default class StationINFOManager {
       targetStation.linesOfStation.delete(name);
     });
   }
+  _makeNewStationByTemplate(stationName) {
+    return {
+      name: stationName,
+      linesOfStation: new Set(),
+    };
+  }
+  _makeNewLineByTemplate(lineName, startStationName, endStationName) {
+    return {
+      name: lineName,
+      stationsOfLine: [startStationName, endStationName],
+    };
+  }
 }
 
 const OVERLAP_STATION_ERROR_MESSAGE = "기존 역 이름과 중복되는 이름입니다.";
@@ -193,4 +204,6 @@ const OVERLAP_LINE_ERROR_MESSAGE = "기존 노선 이름과 중복되는 이름�
 const MINIMUM_NUMBER_STATIONS_OF_LINE = 2;
 const NOT_MINIMUM_NUMBER_STATIONS_OF_LINE_ERROR_MESSAGE = `노선에는 최소 ${MINIMUM_NUMBER_STATIONS_OF_LINE}개의 역이 포함되어 있어야합니다.`;
 const MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION = 0;
-const STATION_INCLUDE_IN_LINE_ERROR_MESSAGE = `${MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION + 1}개 이상의 노선에 포함되어 있는 역은 삭제할 수 없습니다.`;
+const STATION_INCLUDE_IN_LINE_ERROR_MESSAGE = `${
+  MAXIMUM_NUMBER_LINES_OF_STATION_TO_DELETE_STATION + 1
+}개 이상의 노선에 포함되어 있는 역은 삭제할 수 없습니다.`;

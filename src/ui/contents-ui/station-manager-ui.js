@@ -37,7 +37,7 @@ export default class StationManagerUI extends contentsUI {
   }
   _callbackOfNameInputButton() {
     const name = this._getInputTextByID(STATION_NAME_INPUT_ID);
-    if (!this._isValidStationInput(name)) {
+    if (!this._hasValidStationInput(name)) {
       return;
     }
     this._stationINFOManager.addNewStation({

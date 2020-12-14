@@ -14,7 +14,11 @@ export function hasValidLine(name, startStationName, endStationName) {
     minLength: MINIMUM_LENGTH_OF_LINE_NAME,
     errorMessage: MINIMUM_LENGTH_LINE_NAME_ERROR_MESSAGE,
   });
-  const isNotEqualName = hasNotEqualName(startStationName, endStationName);
+  const isNotEqualName = hasNotEqualName({
+    operand1: startStationName,
+    operand2: endStationName,
+    errorMessage: HAS_EQUAL_NAME_ERROR_MESSAGE,
+  });
   return isValidLength && isNotEqualName;
 }
 export function hasValidOrder(order) {
@@ -73,13 +77,13 @@ function hasTypeOfNumber({ operand, errorMessage }) {
   }
   return retBool;
 }
-function hasNotEqualName(startStationName, endStationName) {
-  let boolToReturn = true;
-  if (startStationName === endStationName) {
-    alert(HAS_EQUAL_NAME_ERROR_MESSAGE);
-    boolToReturn = false;
+function hasNotEqualName({ operand1, operand2, errorMessage }) {
+  let isNotEqualName = true;
+  if (operand1 === operand2) {
+    alert(errorMessage);
+    isNotEqualName = false;
   }
-  return boolToReturn;
+  return isNotEqualName;
 }
 
 const MINIMUM_LENGTH_OF_STATION_NAME = 2;
