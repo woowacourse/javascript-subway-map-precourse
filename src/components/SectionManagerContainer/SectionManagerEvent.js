@@ -13,8 +13,12 @@ export default class SectionManagerEvent extends SectionManagerRender {
     const newSectionStation = this.stations[target[0].options.selectedIndex];
     const addPosition = target[1].value;
 
+    console.log(this.lines[this.lineIndex].line.length);
+
     target[1].value = "";
     target[0].options.selectedIndex = "0";
+
+    if (!this.isVaildOrderNumber(addPosition, this.lineIndex)) return;
 
     this.lines[this.lineIndex].line.splice(addPosition, 0, newSectionStation);
     this.saveLocalStorageValue(this.localStorageKey, this.lines);
@@ -25,6 +29,8 @@ export default class SectionManagerEvent extends SectionManagerRender {
       this.lineIndex
     );
   }
+
+  isVaildOrderNumber(order, lineIndex) {}
 
   _onClickDeleteSection(e) {
     super._onClickDeleteSection(e);
