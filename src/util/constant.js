@@ -23,6 +23,9 @@ export const Constant = {
   // 구간 관리
   SECTION_CONTAINER_CLASS: ".section-container",
   SECTION_LINE_MENU_CLASS: ".section-line-menu",
+  SECTION_MANAGER_CLASS: ".section-manager",
+  SECTION_MANAGER_TITLE_CLASS: ".section-manager-title",
+  SECTION_STATION_SELECTOR_ID: "#section-station-selector",
 
   // 지하철 노선 관리
   MAP_PRINT_CONTAINER_CLASS: ".map-print-container",
@@ -38,6 +41,7 @@ export const Constant = {
 
   // tag
   TBODY: "tbody",
+  BUTTON: "BUTTON",
 };
 
 export const ErrorMessage = {

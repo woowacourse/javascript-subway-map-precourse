@@ -7,19 +7,19 @@ const App = () => {
 
 const SubwayManager = () => {
   Element.stationManagerButton.addEventListener(Constant.CLICK, () => {
-    ElementControl.showStataionManger();
+    ElementControl.showStationContainer();
   });
 
   Element.lineManagerButton.addEventListener(Constant.CLICK, () => {
-    ElementControl.showLineManager();
+    ElementControl.showLineContainer();
   });
 
   Element.sectionManagerButton.addEventListener(Constant.CLICK, () => {
-    ElementControl.showSectionManager();
+    ElementControl.showSectionContainer();
   });
 
   Element.mapPrintManagerButton.addEventListener(Constant.CLICK, () => {
-    ElementControl.showMapPrintManager();
+    ElementControl.showMapPrintContainer();
   });
 };
 

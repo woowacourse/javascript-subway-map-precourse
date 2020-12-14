@@ -5,11 +5,11 @@ import { Element } from "./element.js";
 
 export const LineView = {
   render() {
-    this.renderSelector();
-    this.renderTable();
+    this.renderLineStartEndSelector();
+    this.renderLineContainerTable();
   },
 
-  renderSelector() {
+  renderLineStartEndSelector() {
     let content = "";
 
     Station.stations.forEach((station) => {
@@ -22,7 +22,7 @@ export const LineView = {
     Element.lineEndStationSelector.innerHTML = content;
   },
 
-  renderTable() {
+  renderLineContainerTable() {
     let content = "";
 
     Line.lines.forEach(({ name, stations }) => {

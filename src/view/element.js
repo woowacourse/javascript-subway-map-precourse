@@ -37,42 +37,57 @@ export const Element = {
   // 구간 관리
   sectionContainer: document.querySelector(Constant.SECTION_CONTAINER_CLASS),
   sectionLineMenu: document.querySelector(Constant.SECTION_LINE_MENU_CLASS),
+  sectionManager: document.querySelector(Constant.SECTION_MANAGER_CLASS),
+  sectionManagerTitle: document.querySelector(
+    Constant.SECTION_MANAGER_TITLE_CLASS
+  ),
+  sectionStationSelector: document.querySelector(
+    Constant.SECTION_STATION_SELECTOR_ID
+  ),
 
   // 지하철 노선도 관리
   mapPrintContainer: document.querySelector(Constant.MAP_PRINT_CONTAINER_CLASS),
 };
 
 export const ElementControl = {
-  hideAllManagers() {
+  hideAllContainers() {
     Element.stationContainer.style.display = Constant.NONE;
     Element.lineContainer.style.display = Constant.NONE;
     Element.sectionContainer.style.display = Constant.NONE;
     Element.mapPrintContainer.style.display = Constant.NONE;
   },
 
-  showStataionManger() {
-    this.hideAllManagers();
+  showStationContainer() {
+    this.hideAllContainers();
     Element.stationContainer.style.display = Constant.BLOCK;
 
     StationManager.isVisited ? StationView.render() : StationManager.init();
   },
 
-  showLineManager() {
-    this.hideAllManagers();
+  showLineContainer() {
+    this.hideAllContainers();
     Element.lineContainer.style.display = Constant.BLOCK;
 
     LineManager.isVisited ? LineView.render() : LineManager.init();
   },
 
-  showSectionManager() {
-    this.hideAllManagers();
+  showSectionContainer() {
+    this.hideAllContainers();
     Element.sectionContainer.style.display = Constant.BLOCK;
 
     SectionManager.isVisited ? SectionView.render() : SectionManager.init();
   },
 
-  showMapPrintManager() {
-    this.hideAllManagers();
+  showSectionManager() {
+    Element.sectionManager.style.display = Constant.BLOCK;
+  },
+
+  hideSectionManager() {
+    Element.sectionManager.style.display = Constant.NONE;
+  },
+
+  showMapPrintContainer() {
+    this.hideAllContainers();
     Element.mapPrintContainer.style.display = Constant.BLOCK;
   },
 
