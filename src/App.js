@@ -3,13 +3,22 @@ import LineManager from './LineManager.js';
 import SectionManager from './SectionManager.js';
 import MapPrintManager from './MapPrintManager.js';
 
+import Subway from './Subway.js';
+
 export default class App {
+  _state = {
+    stations: new Set(),
+    lines: new Map(),
+  }
+
   constructor(target) {
     this._target = target;
     this.createButtons(target);
 
     this._container = document.createElement('div');
     target.appendChild(this._container);
+
+    this._subway = new Subway({ state: this._state });
   }
 
   addClickButtonEvent(buttons) {
@@ -47,21 +56,30 @@ export default class App {
 
   renderStationManager() {
     this._container.innerHTML = '';
-    new StationManager({ target: this._container });
+    this._stationManager = new StationManager({
+      target: this._container,
+      addStation: this.onClickAddStation.bind(this),
+    });
   }
 
   renderLineManager() {
     this._container.innerHTML = '';
-    new LineManager({ target: this._container });
+    this._lineManager = new LineManager({ target: this._container });
   }
 
   renderSectionManager() {
     this._container.innerHTML = '';
-    new SectionManager({ target: this._container });
+    this._sectionManager = new SectionManager({ target: this._container });
   }
 
   renderMapPrintManager() {
     this._container.innerHTML = '';
-    new MapPrintManager({ target: this._container });
+    this._mapPrintManager = new MapPrintManager({ target: this._container });
+  }
+
+  onClickAddStation() {
+    const _station = document.querySelector('#station-name-input').value;
+    this._subway.addStation({ station: _station });
+    this._stationManager.setSubway(this._subway);
   }
 }

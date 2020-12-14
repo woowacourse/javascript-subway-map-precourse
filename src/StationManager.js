@@ -1,6 +1,7 @@
 export default class StationManager {
-  constructor({ target }) {
+  constructor({ target, addStation }) {
     this._target = target;
+    this.onClickAddStation = addStation;
     this.createStationInput(target);
   }
 
@@ -16,5 +17,14 @@ export default class StationManager {
 
     const _addButton = document.querySelector('#station-add-button');
     _addButton.addEventListener('click', this.onClickAddStation);
+  }
+
+  setSubway(subway) {
+    this._subway = subway;
+    this.render();
+  }
+
+  render() {
+    console.log(this._subway.getStationName());
   }
 }
