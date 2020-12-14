@@ -1,10 +1,21 @@
 import Menu from "./Menu.js";
+import StationStore from "../store/stationStore.js";
+import LineStore from "../store/lineStore.js";
 
 class App {
   constructor({ $target }) {
     this.$target = $target;
 
+    this.initStates();
     this.render();
+  }
+
+  initStates() {
+    const stations = JSON.parse(localStorage.getItem(`STATION`));
+    const lines = JSON.parse(localStorage.getItem(`LINE`));
+
+    this.stationStore = new StationStore(stations || []);
+    this.lineStore = new LineStore(lines || []);
   }
 
   mountTemplates() {
