@@ -3,7 +3,7 @@
  * 노선 링크드리스트에 쓰이는 노드
  */
 export default class StationNode {
-  constructor({ name, line = null, prev = null, next = null } = {}) {
+  constructor({ name, line = [], prev = null, next = null } = {}) {
     this.name = name;
     this.line = line;
     this.prev = prev;

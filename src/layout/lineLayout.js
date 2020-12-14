@@ -79,7 +79,7 @@ export default class LineLayout extends PageLayout {
   }
 
   createStationSubtitle(text) {
-    const subtitle = document.createElement('h3');
+    const subtitle = document.createElement('h3'); // TODO: label로 바꾸기
     subtitle.innerHTML = text;
 
     return subtitle;
@@ -88,6 +88,7 @@ export default class LineLayout extends PageLayout {
   createStationSelector(position) {
     const stationSelector = document.createElement('select');
     stationSelector.id = `line-${position}-station-selector`;
+    stationSelector.name = position;
 
     return stationSelector;
   }
@@ -96,8 +97,66 @@ export default class LineLayout extends PageLayout {
     const lineAddButton = document.createElement('button');
     lineAddButton.id = 'line-add-button';
     lineAddButton.innerHTML = '노선 추가';
+    lineAddButton.addEventListener('click', () => this.handleAddButton());
 
     return lineAddButton;
+  }
+
+  insertRow(lineName, start, end) {
+    const row = this.elements.resultContainer
+      .querySelector('table')
+      .insertRow();
+    row.dataset.lineName = lineName;
+    row.dataset.lineStart = start;
+    row.dataset.lineEnd = end;
+    row.insertCell(0).innerHTML = lineName;
+    row.insertCell(1).innerHTML = start;
+    row.insertCell(2).innerHTML = end;
+    row.insertCell(3).innerHTML = '<button>삭제</button>';
+    // row.insertCell(1).append(this.createDeleteButton());
+  }
+
+  getSelectedOption(selectElement) {
+    return selectElement.options[selectElement.selectedIndex];
+  }
+
+  // override
+  handleAddButton() {
+    const line = this.controller.getInputFromUser(this);
+    const { inputContainer } = this.elements;
+    console.log(`line line: ${line}, inputContainer: ${inputContainer}`);
+    const start = this.getSelectedOption(
+      inputContainer.querySelector(`select[name='start']`),
+    );
+    const end = this.getSelectedOption(
+      inputContainer.querySelector(`select[name='end']`),
+    );
+
+    // TODO: querySelector말고 다른 방법은 없나?
+    // const selectors = this.elements.inputContainer.querySelectorAll('select');
+    this.insertRow(line, start.value, end.value);
+    this.controller.insertLineData(line, start.value, end.value);
+  }
+
+  // override
+  displaySavedData() {
+    const start = this.elements.inputContainer.querySelector(
+      `select[name='start']`,
+    );
+    const end = this.elements.inputContainer.querySelector(
+      `select[name='end']`,
+    );
+    const stationList = this.controller.modelList.station.getList();
+    // FIXME: 새로 역을 추가 후 탭을 이동하면 추가한 역이 나오지 않음
+    // FIXME: displaySavedData를 create시말고 tab show할때로 옮기기
+
+    // TODO: 예외로 등록 ) 이미 노선이 등록된 경우 옵션에 추가하지 않음
+    for (const station of stationList) {
+      start.insertAdjacentHTML('beforeend', `<option>${station.name}</option>`);
+      end.insertAdjacentHTML('beforeend', `<option>${station.name}</option>`);
+    }
+
+    // TODO: 데이터 테이블에 추가하기 -> 데이터 테이블 업데이트 함수 만들어서 그냥 불러오기
   }
 
   createInputContainer() {

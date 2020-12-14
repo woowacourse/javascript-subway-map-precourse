@@ -2,11 +2,11 @@ import StationLayout from '../layout/stationLayout.js';
 import StationModel from '../model/stationModel.js';
 import LineLayout from '../layout/lineLayout.js';
 import SectionLayout from '../layout/sectionLayout.js';
+import LineModel from '../model/lineModel.js';
 
 export default class Controller {
   constructor() {
-    // TODO: model을 여기서 초기화하는게 맞나?
-    this.modelList = { station: new StationModel() };
+    this.modelList = { station: new StationModel(), line: new LineModel() };
     this.viewList = {
       station: new StationLayout(this),
       line: new LineLayout(this),
@@ -42,5 +42,10 @@ export default class Controller {
 
   deleteStationData(stationName) {
     this.modelList.station.deleteData(stationName);
+  }
+
+  insertLineData(line, start, end) {
+    const nodes = this.modelList.line.insertData(line, start, end);
+    this.modelList.station.updateData(nodes);
   }
 }

@@ -1,13 +1,8 @@
-import StationNode from './staionNode.js';
+import StationNode from './stationNode.js';
 
 /**
  * localStorage와 통신하는 DAO
  * 데이터 저장/수정시에 StaionNode를 이용한다.
- * 
- * localStorage 구조:
- * {
- * stationList [] : staionNode 배열
- * }
  */
 export default class StationModel {
   constructor() {}
@@ -21,10 +16,20 @@ export default class StationModel {
     return stationList.find(station => station.name === stationName);
   }
 
-  /**
-   * 
-   * @param {*} stationName 
-   */
+  updateData(newNodes) {
+    const stationList = this.getList();
+    for (const newNode of newNodes) {
+      let oldNode = stationList.find(station => station.name === newNode.name);
+      const newLine = newNode.line;
+      // 만약 없다면 노드에 라인 추가
+      if (!oldNode.line.includes(newLine)) {
+        oldNode.line.push(newLine);
+      }
+    }
+    console.log(stationList);
+    localStorage.setItem('stationList', JSON.stringify(stationList));
+  }
+
   insertData(stationName) {
     const stationList = this.getList();
     stationList.push(this.createNode(stationName));
@@ -37,7 +42,6 @@ export default class StationModel {
     const index = stationList.findIndex(
       station => station.name === stationName,
     );
-    // const index = stationList.findIndex(name => name === stationName);
 
     stationList.splice(index, 1);
     localStorage.setItem('stationList', JSON.stringify(stationList));
