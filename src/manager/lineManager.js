@@ -1,11 +1,11 @@
-import { Data } from "../data.js"
-import { makeLineIfPossible } from "./lineController.js"
-import { alertText } from "../text.js"
+import { Data } from "../component/data.js"
+import { makeLineIfPossible } from "../controller/lineController.js"
+import { alertText } from "../component/text.js"
 import {
     makeLineHTML,
     showLineHTML,
     hideLineHTML
-} from "./lineView.js"
+} from "../view/lineView.js"
 
 export class LineManager {
 

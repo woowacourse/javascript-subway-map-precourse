@@ -1,10 +1,9 @@
-import { StationManager } from "./stationManager/stationManager.js"
-import { LineManager } from "./lineManager/lineManager.js"
-import { MapManager } from "./mapManager/mapManager.js"
-import { SectionManager } from "./sectionManager/sectionManager.js"
+import { StationManager } from "./manager/stationManager.js"
+import { LineManager } from "./manager/lineManager.js"
+import { MapManager } from "./manager/mapManager.js"
+import { SectionManager } from "./manager/sectionManager.js"
 
 export default class SubwayManager {
-
     constructor() {
         this.subwayManagerStart();
     }

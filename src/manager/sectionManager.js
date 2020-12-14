@@ -1,7 +1,7 @@
-import { makeSubSectionHTML, removeSubSectionHTML, removeSectionHTML, makeSectionHTML } from "./sectionView.js"
-import { checkSection, checkStationArrayLengths } from "./sectionController.js"
-import { Data } from "../data.js"
-import { alertText } from "../text.js"
+import { makeSubSectionHTML, removeSubSectionHTML, removeSectionHTML, makeSectionHTML } from "../view/sectionView.js"
+import { checkSection, checkStationArrayLengths } from "../controller/sectionController.js"
+import { Data } from "../component/data.js"
+import { alertText } from "../component/text.js"
 
 export class SectionManager {
 

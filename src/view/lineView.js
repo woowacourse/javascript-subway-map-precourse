@@ -1,4 +1,4 @@
-import { HTMLUtil } from "../HTMLFactory.js"
+import { HTMLUtil } from "../component/HTMLFactory.js"
 
 export const hideLineHTML = () => {
     const lineHTML = document.querySelector("#line-manager-div");

@@ -1,5 +1,5 @@
-import { showMapHTML, hideMapHTML } from "./mapView.js"
-import { Data } from "../data.js"
+import { showMapHTML, hideMapHTML } from "../view/mapView.js"
+import { Data } from "../component/data.js"
 
 export class MapManager {
     static show = () => {

@@ -1,6 +1,6 @@
-import { Data } from "../data.js"
-import { alertText, text } from "../text.js"
-import { Line } from "../line.js"
+import { Data } from "../component/data.js"
+import { alertText, text } from "../component/text.js"
+import { Line } from "../component/line.js"
 
 export const makeLineIfPossible = (name, startStation, endStation) => {
 

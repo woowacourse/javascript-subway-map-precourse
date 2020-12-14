@@ -1,6 +1,6 @@
-import { Data } from "../data.js"
-import { HTMLUtil } from "../HTMLFactory.js"
-import { dataText } from "../text.js"
+import { Data } from "../component/data.js"
+import { HTMLUtil } from "../component/HTMLFactory.js"
+import { dataText } from "../component/text.js"
 
 export const makeSectionHTML = (lineRepository) => {
     let sectionHTML = HTMLUtil.makeTag({ tag: "div", id: "section-manager-div" });

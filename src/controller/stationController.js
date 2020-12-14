@@ -1,6 +1,6 @@
-import { Data } from "../data.js"
-import { alertText, text } from "../text.js"
-import { Station } from "../station.js"
+import { Data } from "../component/data.js"
+import { alertText, text } from "../component/text.js"
+import { Station } from "../component/station.js"
 
 export const makeStationIfPossible = (input) => {
     if (isEmptyName(input)) {

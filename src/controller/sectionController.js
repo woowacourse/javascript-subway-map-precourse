@@ -1,5 +1,5 @@
-import { alertText, text, dataText } from "../text.js";
-import { Data } from "../data.js";
+import { alertText, text, dataText } from "../component/text.js";
+import { Data } from "../component/data.js";
 
 export const checkSection = (lineName, orderInput, selectedStation) => {
     checkInput(orderInput);

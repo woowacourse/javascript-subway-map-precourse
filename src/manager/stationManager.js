@@ -2,10 +2,10 @@ import {
     addResultToBody,
     makeStationHTML,
     removeStationManagerHTML
-} from "./stationView.js"
-import { makeStationIfPossible, checkStationInLine } from "./stationController.js"
-import { alertText } from "../text.js"
-import { Data } from "../data.js"
+} from "../view/stationView.js"
+import { makeStationIfPossible, checkStationInLine } from "../controller/stationController.js"
+import { alertText } from "../component/text.js"
+import { Data } from "../component/data.js"
 
 export class StationManager {
 
