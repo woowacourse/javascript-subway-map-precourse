@@ -1,15 +1,4 @@
-import renderSectionContainer from '../../render/section/renderSectionContainer.js';
-
-function updateSectionList(lineNumber) {
-  renderSectionContainer();
-
-  const $sectionContainer = document.querySelectorAll('.section-container');
-  $sectionContainer.forEach((container) => {
-    if (container.dataset.number === lineNumber) {
-      container.removeAttribute('hidden');
-    }
-  });
-}
+import updateSectionList from './updateSectionList.js';
 
 function addSection(targetLine, lineNumber) {
   const lineList = JSON.parse(localStorage.getItem('lines')).split(',');
