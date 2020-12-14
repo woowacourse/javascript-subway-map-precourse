@@ -1,4 +1,8 @@
-import {$lineNameInput, $upStream, $downStream} from '../View/element.js';
+import {
+  $lineNameInput,
+  $upStreamSelector,
+  $downStreamSelector,
+} from '../View/element.js';
 import {
   addLineScreen,
   addMapPrint,
@@ -42,8 +46,8 @@ export function onRemoveLine(e) {
 export const loadLine = () => {
   lineInstance.loadLine();
   stationInstance.stations.forEach((station) => {
-    addStationSelectOption($upStream, station);
-    addStationSelectOption($downStream, station);
+    addStationSelectOption($upStreamSelector, station);
+    addStationSelectOption($downStreamSelector, station);
   });
   lineInstance.lines.forEach((line) => {
     addLineScreen(line);
@@ -53,6 +57,6 @@ export const loadLine = () => {
 const getLineValue = () => {
   return {
     lineName: $lineNameInput.value,
-    station: [$upStream.value, $downStream.value],
+    station: [$upStreamSelector.value, $downStreamSelector.value],
   };
 };

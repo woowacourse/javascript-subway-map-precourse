@@ -1,9 +1,8 @@
 import {
   $sectionAddButton,
   $sectionNumber,
-  $sectionStation,
-  $sectionLineSelect,
-  $subwaySectionContainer,
+  $sectionSelector,
+  $sectionEditContainer,
   $lineContainer,
 } from '../View/element.js';
 import {
@@ -59,7 +58,7 @@ export function onRemoveSection(e) {
 export const loadSectionTable = () => {
   lineInstance.loadLine();
   stationInstance.stations.forEach((station) =>
-    addStationSelectOption($sectionStation, station),
+    addStationSelectOption($sectionSelector, station),
   );
   lineInstance.lines.forEach((section) => {
     addSectionScreen(section);
@@ -74,7 +73,7 @@ export const loadSectionButton = () => {
 };
 
 export const updateSectionTable = () => {
-  removeTableScreen($subwaySectionContainer);
+  removeTableScreen($sectionEditContainer);
   removeTableScreen($lineContainer);
   removeAllMapPrint();
   lineInstance.lines.forEach((section) => {
@@ -87,7 +86,7 @@ export const updateSectionTable = () => {
 const getSectionValue = (lineName) => {
   return {
     lineName,
-    sectionName: $sectionLineSelect.value,
+    sectionName: $sectionSelector.value,
     number: $sectionNumber.value,
   };
 };

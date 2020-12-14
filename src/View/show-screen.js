@@ -3,7 +3,7 @@ import {
   $lineContainer,
   $sectionContainer,
   $mapContainer,
-  $subwaySectionContainer,
+  $sectionEditContainer,
 } from './element.js';
 import {BUTTON_MANAGEMENT_ID} from '../Controller/utils.js';
 
@@ -24,8 +24,8 @@ export const showScreen = (e) => {
 };
 
 export const showSectionScreen = (line) => {
-  const $allSectionTr = $subwaySectionContainer.querySelectorAll('tr');
-  $subwaySectionContainer.style.display = 'block';
+  const $allSectionTr = $sectionEditContainer.querySelectorAll('tr');
+  $sectionEditContainer.style.display = 'block';
   $allSectionTr.forEach((tr) => {
     if (tr.dataset.line === line) {
       tr.style.display = 'table-row';

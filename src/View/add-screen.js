@@ -9,7 +9,7 @@ import {
   $lineTbody,
   $sectionButtonContainer,
   $sectionTbody,
-  $subwaySectionContainer,
+  $sectionEditContainer,
   $mapContainer,
 } from './element.js';
 import {TEXT, ADD_BUTTON_CLASS} from '../Controller/utils.js';
@@ -75,7 +75,7 @@ export const addSectionScreen = (line) => {
 };
 
 export const addLineTitle = (line) => {
-  const $lineTitle = $subwaySectionContainer.querySelector('h2');
+  const $lineTitle = $sectionEditContainer.querySelector('h2');
   $lineTitle.textContent = `${line} ${LINE_MANAGEMENT}`;
 };
 

@@ -1,8 +1,8 @@
 import {
   $stationAddInput,
-  $upStream,
-  $downStream,
-  $sectionStation,
+  $upStreamSelector,
+  $downStreamSelector,
+  $sectionSelector,
 } from '../View/element.js';
 import {addStationScreen, addStationSelectOption} from '../View/add-screen.js';
 import {
@@ -23,9 +23,9 @@ export function onAddStation() {
     setLocalStorage('station', $stationAddInput.value);
     stationInstance.addStation($stationAddInput.value);
     addStationScreen($stationAddInput.value);
-    addStationSelectOption($upStream, $stationAddInput.value);
-    addStationSelectOption($downStream, $stationAddInput.value);
-    addStationSelectOption($sectionStation, $stationAddInput.value);
+    addStationSelectOption($upStreamSelector, $stationAddInput.value);
+    addStationSelectOption($downStreamSelector, $stationAddInput.value);
+    addStationSelectOption($sectionSelector, $stationAddInput.value);
   }
   $stationAddInput.value = '';
 }
@@ -39,8 +39,8 @@ export function onRemoveStation(e) {
     removeLocalStorage('station', e.target.dataset.station);
     stationInstance.removeStation(e.target.dataset.station);
     removeStationScreen(e.target);
-    removeStationSelectOption($upStream, e.target.dataset.station);
-    removeStationSelectOption($downStream, e.target.dataset.station);
-    removeStationSelectOption($sectionStation, e.target.dataset.station);
+    removeStationSelectOption($upStreamSelector, e.target.dataset.station);
+    removeStationSelectOption($downStreamSelector, e.target.dataset.station);
+    removeStationSelectOption($sectionSelector, e.target.dataset.station);
   }
 }
