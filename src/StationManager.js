@@ -1,11 +1,12 @@
 import Component from "./Component.js";
 import {
+  createHTMLElement,
   clearInputValue,
   createButtonHTMLElement,
   createDivHTMLElement,
-  createInputTextHTMLElement,
   createLabelHTMLElement,
-  throwErrorWithMessage
+  throwErrorWithMessage,
+  createInputHTMLElement
 } from "./util.js";
 
 /* StationManager가 관리하는 상태값을 아래와 같다.
@@ -28,6 +29,8 @@ export default class StationManager extends Component {
   }
 
   declareConstants() {
+    this.STATION_ADD_BUTTON_ID = "station-add-button";
+    this.STATION_NAME_INPUT_ID = "station-name-input";
     this.STATION_DELETE_BUTTON_CLASSNAME = "station-delete-button";
   }
 
@@ -40,18 +43,33 @@ export default class StationManager extends Component {
   }
 
   constructHTMLElements() {
-    this.$stationNameInput = this.createStationNameInput();
+    this.$stationNameNav = createHTMLElement({ tagname: "nav", classList: ["station-name-nav"] });
     this.$stationNameLabel = this.createStationNameLabel();
+
+    this.$stationNameInputContainer = createDivHTMLElement(
+      { classList: ["station-name-nav__station-name-input-container"] });
+    this.$stationNameInput = this.createStationNameInput();
     this.$stationAddButton = this.createStationAddButton();
 
-    this.$stationNameListTitle = createDivHTMLElement({ innerText: "🚉 지하철 역 목록" });
-    this.$stationNameList = createDivHTMLElement({});
+    this.$stationNameMain = createHTMLElement({ tagname: "main"});
+    this.$stationNameListTitle = createHTMLElement({tagname:"h3", innerText: "🚉 지하철 역 목록" });
+    this.$stationNameList = createDivHTMLElement({classList: ["station-name-list"] });
+  }
+
+  createStationNameLabel() {
+    return createLabelHTMLElement({
+      name: "역 이름",
+      htmlFor: this.STATION_NAME_INPUT_ID,
+      classList: ["station-name-nav__station-name-label", "--h3lish", "--strong"]
+    });
   }
 
   createStationNameInput() {
-    return createInputTextHTMLElement({
-      id: "station-name-input",
+    return createInputHTMLElement({
+      type: "text",
+      id: this.STATION_NAME_INPUT_ID,
       placeholder: "역 이름을 입력해주세요.",
+      classList: ["station-name-nav__station-name-input"],
       onKeydown: e => {
         if (e.key === "Enter") {
           this.handleStationAdd();
@@ -60,17 +78,15 @@ export default class StationManager extends Component {
     });
   }
 
-  createStationNameLabel() {
-    return createLabelHTMLElement({
-      name: "역 이름",
-      htmlFor: this.$stationNameInput.id
-    });
-  }
-
   createStationAddButton() {
     return createButtonHTMLElement({
-      id: "station-add-button",
+      id: this.STATION_ADD_BUTTON_ID,
       name: "역 추가",
+      classList: [
+        "station-name-nav__station-add-button",
+        "--medium-button",
+        "--center"
+      ]
     });
   }
 
@@ -161,13 +177,10 @@ export default class StationManager extends Component {
   }
 
   appendChildNodes() {
-    this.$component.append(
-      this.$stationNameLabel,
-      this.$stationNameInput,
-      this.$stationAddButton,
-      this.$stationNameListTitle,
-      this.$stationNameList
-    );
+    this.$component.append(this.$stationNameNav,this.$stationNameMain);
+    this.$stationNameNav.append(this.$stationNameLabel, this.$stationNameInputContainer);
+    this.$stationNameInputContainer.append(this.$stationNameInput, this.$stationAddButton)
+    this.$stationNameMain.append(this.$stationNameListTitle,this.$stationNameList);
   }
 
   setState(state) {
@@ -211,7 +224,7 @@ export default class StationManager extends Component {
       const $stationDeleteButton = this.createStationDeleteButton({ stationName });
 
       return [...$acc, $stationName, $stationDeleteButton];
-    }, []);
+    }, this.createStationListHeaderArray());
   }
 
   createStationDeleteButton({ stationName }) {
@@ -220,5 +233,12 @@ export default class StationManager extends Component {
       classList: [this.STATION_DELETE_BUTTON_CLASSNAME],
       dataset: { stationName }
     });
+  }
+
+  createStationListHeaderArray() {
+    const $nameHeader = createDivHTMLElement({ innerText: "역 이름", classList: ["station-name-list__header", "--center", "--strong"] });
+    const $buttonHeader = createDivHTMLElement({ innerText: "설정", classList: ["station-name-list__header", "--center", "--strong"] });
+
+    return [$nameHeader, $buttonHeader];
   }
 }
