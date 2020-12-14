@@ -66,7 +66,10 @@ export default class App {
 
   renderLineManager() {
     this._container.innerHTML = '';
-    this._lineManager = new LineManager({ target: this._container });
+    this._lineManager = new LineManager({
+      target: this._container,
+      subway: this._subway,
+    });
   }
 
   renderSectionManager() {

@@ -28,3 +28,7 @@ table {
 .navigation li {
   margin-right: 5px;
 }
+
+.line-station {
+  margin: 16px 0;
+}
