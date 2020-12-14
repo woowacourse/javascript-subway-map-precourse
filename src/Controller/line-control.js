@@ -8,7 +8,7 @@ import {
   addMapPrint,
   addSectionButton,
   addSectionScreen,
-  addStationSelectOption,
+  addSelectorOption,
 } from '../View/add-screen.js';
 import {
   removeLineScreen,
@@ -37,11 +37,11 @@ export function onAddLine() {
 export function onRemoveLine(e) {
   const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
   if (removeConfirm) {
-    removeLocalStorage(KEY.LINE, e.target.dataset.line);
-    lineInstance.removeLine(e.target.dataset.line);
+    removeLocalStorage(KEY.LINE, e.target.dataset.lineName);
+    lineInstance.removeLine(e.target.dataset.lineName);
     removeLineScreen(e.target);
-    removeSectionButton(e.target.dataset.line);
-    removeMapPrint(e.target.dataset.line);
+    removeSectionButton(e.target.dataset.lineName);
+    removeMapPrint(e.target.dataset.lineName);
     hideSectionEditContainer();
   }
 }
@@ -49,8 +49,8 @@ export function onRemoveLine(e) {
 export const loadLine = () => {
   lineInstance.loadLine();
   stationInstance.stations.forEach((station) => {
-    addStationSelectOption($upStreamSelector, station);
-    addStationSelectOption($downStreamSelector, station);
+    addSelectorOption($upStreamSelector, station);
+    addSelectorOption($downStreamSelector, station);
   });
   lineInstance.lines.forEach((line) => {
     addLineScreen(line);

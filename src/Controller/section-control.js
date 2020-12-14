@@ -7,7 +7,7 @@ import {
 } from '../View/element.js';
 import {
   addLineTitle,
-  addStationSelectOption,
+  addSelectorOption,
   addSectionScreen,
   addSectionButton,
   addLineScreen,
@@ -26,19 +26,19 @@ import {KEY, TEXT} from './utils.js';
 
 export function onLoadSection(e) {
   hideSectionLine();
-  addLineTitle(e.target.dataset.line);
-  showSectionScreen(e.target.dataset.line);
-  $sectionAddButton.dataset.line = e.target.dataset.line;
+  addLineTitle(e.target.dataset.lineName);
+  showSectionScreen(e.target.dataset.lineName);
+  $sectionAddButton.dataset.lineName = e.target.dataset.lineName;
 }
 
 export function onAddSection(e) {
-  const sectionValue = getSectionValue(e.target.dataset.line);
+  const sectionValue = getSectionValue(e.target.dataset.lineName);
   const selectedSection = getSelectedSection(sectionValue.lineName);
   if (isSectionValid(sectionValue, selectedSection.station)) {
     addSectionOnLocalStorage(KEY.LINE, sectionValue);
     lineInstance.updateAddLine(selectedSection, sectionValue);
     updateSectionTable();
-    showSectionScreen(e.target.dataset.line);
+    showSectionScreen(e.target.dataset.lineName);
   }
   $sectionOrderInput.value = '';
 }
@@ -46,20 +46,20 @@ export function onAddSection(e) {
 export function onRemoveSection(e) {
   const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
   const parsedData = JSON.parse(e.target.dataset.sectionLine);
-  const removedData = {lineName: parsedData.line, station: parsedData.station};
+  const removedData = getRemovedData(parsedData);
   const selectedSection = getSelectedSection(removedData.lineName);
   if (removeConfirm && isMoreThanTwoStation(selectedSection.station)) {
     removeSectionOnLocalStorage(KEY.LINE, removedData);
     lineInstance.updateRemoveLine(selectedSection, parsedData.station);
     updateSectionTable();
-    showSectionScreen(parsedData.line);
+    showSectionScreen(parsedData.lineName);
   }
 }
 
 export const loadSectionTable = () => {
   lineInstance.loadLine();
   stationInstance.stations.forEach((station) =>
-    addStationSelectOption($sectionSelector, station),
+    addSelectorOption($sectionSelector, station),
   );
   lineInstance.lines.forEach((section) => {
     addSectionScreen(section);
@@ -82,6 +82,13 @@ export const updateSectionTable = () => {
     addSectionScreen(section);
   });
   addMapPrint(lineInstance.lines);
+};
+
+const getRemovedData = (data) => {
+  return {
+    lineName: data.lineName,
+    station: data.station,
+  };
 };
 
 const getSectionValue = (lineName) => {

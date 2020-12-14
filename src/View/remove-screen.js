@@ -10,12 +10,12 @@ export const removeStationScreen = (button) => {
   $stationTbody.removeChild($stationTr);
 };
 
-export const removeStationSelectOption = ($stationSelect, station) => {
-  const $stationSelectOptions = $stationSelect.querySelectorAll('option');
-  const removedStationOption = Array.from($stationSelectOptions).find(
-    (option) => option.value === station,
+export const removeSelectorOption = ($stationSelector, stationName) => {
+  const $stationSelectorOptions = $stationSelector.querySelectorAll('option');
+  const removedStationOption = Array.from($stationSelectorOptions).find(
+    (option) => option.value === stationName,
   );
-  $stationSelect.removeChild(removedStationOption);
+  $stationSelector.removeChild(removedStationOption);
 };
 
 export const removeLineScreen = (button) => {
@@ -31,26 +31,26 @@ export const removeTableScreen = ($container) => {
   }
 };
 
-export const removeSectionButton = (line) => {
+export const removeSectionButton = (lineName) => {
   const $sectionAllLineButton = $sectionEditButtonContainer.querySelectorAll(
     'button',
   );
   const $removedSectionButton = Array.from($sectionAllLineButton).find(
-    (button) => button.textContent === line,
+    (button) => button.textContent === lineName,
   );
   $sectionEditButtonContainer.removeChild($removedSectionButton);
 };
 
-export const removeOption = ($select) => {
-  while ($select.firstChild) {
-    $select.removeChild($select.firstChild);
+export const removeAllSelectorOption = ($selector) => {
+  while ($selector.firstChild) {
+    $selector.removeChild($selector.firstChild);
   }
 };
 
-export const removeMapPrint = (line) => {
+export const removeMapPrint = (lineName) => {
   const $mapAllLines = $mapContainer.querySelectorAll('div');
   const $removedMapLine = Array.from($mapAllLines).find(
-    (map) => map.dataset.line === line,
+    (map) => map.dataset.lineName === lineName,
   );
   $mapContainer.removeChild($removedMapLine);
 };

@@ -14,12 +14,12 @@ import {
 } from './element.js';
 
 export const setStationDeleteButton = (station, $button) => {
-  $button.dataset.station = station;
+  $button.dataset.stationName = station;
   $button.addEventListener('click', onRemoveStation);
 };
 
 export const setLineDeleteButton = (line, $button) => {
-  $button.dataset.line = line;
+  $button.dataset.lineName = line;
   $button.addEventListener('click', onRemoveLine);
 };
 
@@ -29,7 +29,7 @@ export const setSectionDeleteButton = (line, $button) => {
 };
 
 export const setSectionLoadButton = (line, $button) => {
-  $button.dataset.line = line;
+  $button.dataset.lineName = line;
   $button.addEventListener('click', onLoadSection);
 };
 

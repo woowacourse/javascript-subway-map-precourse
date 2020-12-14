@@ -23,11 +23,11 @@ export const showScreen = (e) => {
   }
 };
 
-export const showSectionScreen = (line) => {
+export const showSectionScreen = (lineName) => {
   const $allSectionTr = $sectionEditContainer.querySelectorAll('tr');
   $sectionEditContainer.style.display = 'block';
   $allSectionTr.forEach((tr) => {
-    if (tr.dataset.line === line) {
+    if (tr.dataset.lineName === lineName) {
       tr.style.display = 'table-row';
     }
   });

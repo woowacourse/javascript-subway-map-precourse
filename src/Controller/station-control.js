@@ -4,10 +4,10 @@ import {
   $downStreamSelector,
   $sectionSelector,
 } from '../View/element.js';
-import {addStationScreen, addStationSelectOption} from '../View/add-screen.js';
+import {addStationScreen, addSelectorOption} from '../View/add-screen.js';
 import {
   removeStationScreen,
-  removeStationSelectOption,
+  removeSelectorOption,
 } from '../View/remove-screen.js';
 import {setLocalStorage, removeLocalStorage} from './local-storage.js';
 import {isNotLineHaved, isStationInputVaild} from './valid.js';
@@ -24,9 +24,9 @@ export function onAddStation() {
     setLocalStorage(KEY.STATION, $stationNameInput.value);
     stationInstance.addStation($stationNameInput.value);
     addStationScreen($stationNameInput.value);
-    addStationSelectOption($upStreamSelector, $stationNameInput.value);
-    addStationSelectOption($downStreamSelector, $stationNameInput.value);
-    addStationSelectOption($sectionSelector, $stationNameInput.value);
+    addSelectorOption($upStreamSelector, $stationNameInput.value);
+    addSelectorOption($downStreamSelector, $stationNameInput.value);
+    addSelectorOption($sectionSelector, $stationNameInput.value);
   }
   $stationNameInput.value = '';
 }
@@ -35,13 +35,13 @@ export function onRemoveStation(e) {
   const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
   if (
     removeConfirm &&
-    isNotLineHaved(e.target.dataset.station, lineInstance.lines)
+    isNotLineHaved(e.target.dataset.stationName, lineInstance.lines)
   ) {
-    removeLocalStorage(KEY.STATION, e.target.dataset.station);
-    stationInstance.removeStation(e.target.dataset.station);
+    removeLocalStorage(KEY.STATION, e.target.dataset.stationName);
+    stationInstance.removeStation(e.target.dataset.stationName);
     removeStationScreen(e.target);
-    removeStationSelectOption($upStreamSelector, e.target.dataset.station);
-    removeStationSelectOption($downStreamSelector, e.target.dataset.station);
-    removeStationSelectOption($sectionSelector, e.target.dataset.station);
+    removeSelectorOption($upStreamSelector, e.target.dataset.stationName);
+    removeSelectorOption($downStreamSelector, e.target.dataset.stationName);
+    removeSelectorOption($sectionSelector, e.target.dataset.stationName);
   }
 }
