@@ -2,7 +2,7 @@ import Component from '../factory/Component.js';
 import Line from '../factory/Line.js';
 import { LINE } from '../share/selector.js';
 import { checkOverlap, checkSameStation } from '../share/utils.js';
-import { optionTemplate } from '../share/template.js';
+import { lineTableTemplate, optionTemplate } from '../share/template.js';
 
 export default class LineManager extends Component {
   constructor(props) {
@@ -21,6 +21,7 @@ export default class LineManager extends Component {
       `#${LINE.LINE_END_STATION_SELECTOR}`,
     );
     this.addBtn = this.container.querySelector(`#${LINE.LINE_ADD_BUTTON_ID}`);
+    this.table = this.container.querySelector(`#${LINE.LINE_TABLE_BODY}`);
 
     this.form.addEventListener('submit', this.onSubmit);
   }
@@ -63,6 +64,18 @@ export default class LineManager extends Component {
     return { name, startStation, endStation };
   };
 
+  template() {
+    return this.state.lineList
+      .map((line, index) =>
+        lineTableTemplate({
+          ...line,
+          index,
+          buttonClass: LINE.LINE_DELETE_BUTTON_CLASS,
+        }),
+      )
+      .join('');
+  }
+
   setState(nextData) {
     this.state = {
       ...this.state,
@@ -70,5 +83,9 @@ export default class LineManager extends Component {
     };
     this.updateStationList();
     this.render();
+  }
+
+  render() {
+    this.table.innerHTML = this.template();
   }
 }
