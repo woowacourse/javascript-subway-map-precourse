@@ -28,14 +28,14 @@ export default class SectionDetailManager extends Component {
   }
 
   updateOptions() {
-    this.stationSelector.innerHTML = this.state.stationList
+    this.stationSelector.innerHTML = this.data.stationList
       .map((station) => optionTemplate(station))
       .join('');
   }
 
-  setState(nextData) {
-    this.state = {
-      ...this.state,
+  setData(nextData) {
+    this.data = {
+      ...this.data,
       ...nextData,
     };
     this.updateOptions();
@@ -43,12 +43,12 @@ export default class SectionDetailManager extends Component {
   }
 
   updateFormHeader() {
-    const { name } = this.state.currentLineData;
+    const { name } = this.data.currentLineData;
     this.formHeader.innerHTML = `${name} 관리`;
   }
 
   updateTableBody() {
-    this.table.innerHTML = this.state.currentLineData.section
+    this.table.innerHTML = this.data.currentLineData.section
       .map((station, index) =>
         sectionDetailTableTemplate({
           name: station,

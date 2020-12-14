@@ -13,7 +13,7 @@ export default class LineManager extends Component {
   constructor(props) {
     super(props);
 
-    this.state.lineList = [];
+    this.data.lineList = [];
 
     this.form = this.container.querySelector(`#${LINE_SELECTOR.FORM_ID}`);
     this.userInput = this.container.querySelector(
@@ -35,10 +35,10 @@ export default class LineManager extends Component {
   }
 
   updateStationList() {
-    this.startStationSelector.innerHTML = this.state.stationList
+    this.startStationSelector.innerHTML = this.data.stationList
       .map((station) => optionTemplate(station))
       .join('');
-    this.endStationSelector.innerHTML = this.state.stationList
+    this.endStationSelector.innerHTML = this.data.stationList
       .map((station) => optionTemplate(station))
       .join('');
   }
@@ -61,28 +61,28 @@ export default class LineManager extends Component {
 
   addLineToList(line) {
     if (!this.checkValidity(line)) return;
-    const newLineList = [...this.state.lineList];
+    const newLineList = [...this.data.lineList];
     newLineList.push(line);
-    this.setState({
+    this.setData({
       lineList: newLineList,
     });
-    this.props.syncData(this.state);
+    this.props.syncData(this.data);
   }
 
   deleteLineFromList(index) {
-    const newLineList = [...this.state.lineList];
+    const newLineList = [...this.data.lineList];
     newLineList.splice(index, 1);
-    this.setState({
+    this.setData({
       lineList: newLineList,
     });
-    this.props.syncData(this.state);
+    this.props.syncData(this.data);
   }
 
   checkValidity = ({ name, startStation, endStation }) =>
     checkOverlap(name, this.getAllLineNames()) &&
     checkSameStation(startStation, endStation);
 
-  getAllLineNames = () => this.state.lineList.map((line) => line.name);
+  getAllLineNames = () => this.data.lineList.map((line) => line.name);
 
   getValues = () => {
     const { value: name } = this.userInput;
@@ -96,7 +96,7 @@ export default class LineManager extends Component {
   }
 
   template() {
-    return this.state.lineList
+    return this.data.lineList
       .map((line, index) =>
         lineTableTemplate({
           ...line,
@@ -107,9 +107,9 @@ export default class LineManager extends Component {
       .join('');
   }
 
-  setState(nextData) {
-    this.state = {
-      ...this.state,
+  setData(nextData) {
+    this.data = {
+      ...this.data,
       ...nextData,
     };
     this.updateStationList();

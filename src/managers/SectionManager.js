@@ -24,17 +24,17 @@ export default class SectionManager extends Component {
 
   changeSectionDetailManger = (e) => {
     const { name: selectedLineName } = e.target.dataset;
-    this.sectionDetailManager.setState({
+    this.sectionDetailManager.setData({
       currentLineData: this.getSelectedLine(selectedLineName),
     });
     this.sectionDetailManager.show();
   };
 
   getSelectedLine = (name) =>
-    this.state.lineList.find((line) => line.name === name);
+    this.data.lineList.find((line) => line.name === name);
 
   template() {
-    return this.state.lineList
+    return this.data.lineList
       .map((line) => `<button data-name="${line.name}">${line.name}</button>`)
       .join('');
   }

@@ -12,11 +12,11 @@ import {
 } from './share/selector.js';
 import storage from './share/storage.js';
 
-const STORAGE_KEY = 'state';
+const STORAGE_KEY = 'data';
 export default class SubwayManager extends Component {
   constructor() {
     super();
-    this.state = storage.getItem(STORAGE_KEY);
+    this.data = storage.getItem(STORAGE_KEY);
     this.menu = document.querySelector(`#${MENU.MENU_CONTAINER_ID}`);
 
     this.stationManager = new StationManager({
@@ -42,7 +42,7 @@ export default class SubwayManager extends Component {
 
     this.menu.addEventListener('click', this.changeMenu);
 
-    this.syncData(this.state);
+    this.syncData(this.data);
   }
 
   changeMenu = (e) => {
@@ -61,12 +61,12 @@ export default class SubwayManager extends Component {
 
   syncData = (data) => {
     storage.setItem(STORAGE_KEY, data);
-    this.setState(data);
-    this.stationManager.setState(data);
-    this.lineManager.setState(data);
-    this.sectionManager.setState(data);
-    this.sectionManager.sectionDetailManager.setState(data);
-    this.mapPrintManager.setState(data);
+    this.setData(data);
+    this.stationManager.setData(data);
+    this.lineManager.setData(data);
+    this.sectionManager.setData(data);
+    this.sectionManager.sectionDetailManager.setData(data);
+    this.mapPrintManager.setData(data);
   };
 }
 

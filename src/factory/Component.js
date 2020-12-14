@@ -1,14 +1,14 @@
 export default class Component {
   constructor(props = {}) {
-    this.state = {};
+    this.data = {};
     this.props = props;
     this.managerId = props.managerId;
     this.container = document.querySelector(`#${props.containerId}`);
   }
 
-  setState(nextData) {
-    this.state = {
-      ...this.state,
+  setData(nextData) {
+    this.data = {
+      ...this.data,
       ...nextData,
     };
     this.render();

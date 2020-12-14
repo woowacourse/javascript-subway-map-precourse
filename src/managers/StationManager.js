@@ -14,7 +14,7 @@ const ALERT_MESSAGE = '노선에 포함되어있어 삭제가 불가능합니다
 export default class StationManager extends Component {
   constructor(props) {
     super(props);
-    this.state.stationList = [];
+    this.data.stationList = [];
 
     this.userInput = this.container.querySelector(
       `#${STATION_SELECTOR.NAME_INPUT_ID}`,
@@ -53,30 +53,30 @@ export default class StationManager extends Component {
 
   addStationToList(station) {
     if (!this.checkValidity(station)) return;
-    const newStationList = [...this.state.stationList];
+    const newStationList = [...this.data.stationList];
     newStationList.push(station);
-    this.setState({
+    this.setData({
       stationList: newStationList,
     });
-    this.props.syncData(this.state);
+    this.props.syncData(this.data);
   }
 
   deleteStationFromList(index) {
-    const newStationList = [...this.state.stationList];
+    const newStationList = [...this.data.stationList];
     newStationList.splice(index, 1);
-    this.setState({
+    this.setData({
       stationList: newStationList,
     });
-    this.props.syncData(this.state);
+    this.props.syncData(this.data);
   }
 
   getAllStationNamesInLines() {
-    return [...new Set(this.state.lineList.map((line) => line.section).flat())];
+    return [...new Set(this.data.lineList.map((line) => line.section).flat())];
   }
 
   checkValidity(value) {
     return (
-      checkOverlap(value, this.state.stationList) &&
+      checkOverlap(value, this.data.stationList) &&
       checkValueLength(value, MIN_STATION_NAME_LENGTH)
     );
   }
@@ -86,7 +86,7 @@ export default class StationManager extends Component {
   }
 
   template() {
-    return this.state.stationList
+    return this.data.stationList
       .map((station, index) =>
         stationTableTemplate(
           station,
