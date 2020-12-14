@@ -22,8 +22,9 @@ export default class SectionManager extends Component {
     this.sectionDetailManager.hide();
   }
 
-  changeSectionDetailManger = (e) => {
-    const { name: selectedLineName } = e.target.dataset;
+  changeSectionDetailManger = (event) => {
+    if (event.target.nodeName !== 'BUTTON') return;
+    const { name: selectedLineName } = event.target.dataset;
     this.sectionDetailManager.setData({
       currentLineData: this.getSelectedLine(selectedLineName),
     });

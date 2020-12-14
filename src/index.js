@@ -45,9 +45,9 @@ export default class SubwayManager extends Component {
     this.syncData(this.data);
   }
 
-  changeMenu = (e) => {
-    const { nodeName } = e.target;
-    const { id } = e.target;
+  changeMenu = (event) => {
+    const { nodeName } = event.target;
+    const { id } = event.target;
     if (nodeName !== 'BUTTON') return;
     [
       this.stationManager,
