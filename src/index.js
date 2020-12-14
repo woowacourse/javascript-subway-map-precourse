@@ -8,7 +8,6 @@ import { LINE, MAP, MENU, SECTION, STATION } from './share/selector.js';
 export default class SubwayManager {
   constructor() {
     this.menu = document.querySelector(`#${MENU.MENU_CONTAINER_ID}`);
-    console.log(this.menu);
 
     this.stationManager = new StationManager({
       managerId: MENU.STATION_MANGER_BUTTON_ID,
@@ -26,8 +25,6 @@ export default class SubwayManager {
       managerId: MENU.MAP_PRINT_MANAGER_BUTTON_ID,
       containerId: MAP.MAP_PRINT_MANAGER_CONTAINER_ID,
     });
-
-    this.currentManager = this.stationManager;
 
     this.menu.addEventListener('click', this.changeMenu);
   }
