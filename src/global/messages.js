@@ -16,6 +16,12 @@ export const LINE_ALERT_MESSAGES = {
   ERROR_LINE_INPUT_MULTIPLE_SPACES: "1개 이하의 공백만 입력이 가능합니다!",
 };
 
+export const SECTION_ALERT_MESSAGES = {
+  ERROR_SECTION_INPUT_DUPLICATED: "한 구간에 중복된 역은 등록하실 수 없습니다.",
+  ERROR_SECTION_INPUT_NUMBER:
+    "순서에는 정수 형태의 숫자를 입력해 주셔야 합니다.",
+};
+
 export const CONFIRM_MESSAGES = {
   CONFIRM_DELETE: "정말로 삭제하시겠습니까?",
 };
