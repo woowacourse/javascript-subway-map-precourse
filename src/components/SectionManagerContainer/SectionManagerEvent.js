@@ -18,6 +18,12 @@ export default class SectionManagerEvent extends SectionManagerRender {
 
     this.lines[this.lineIndex].line.splice(addPosition, 0, newSectionStation);
     this.saveLocalStorageValue(this.localStorageKey, this.lines);
+
+    document.getElementById(DOM_SECTION.SECTION_LIST_TBODY_ID).innerHTML = "";
+    this.sectionLineManagerListRender(
+      this.lines[this.lineIndex].line,
+      this.lineIndex
+    );
   }
 
   _onClickDeleteSection(e) {

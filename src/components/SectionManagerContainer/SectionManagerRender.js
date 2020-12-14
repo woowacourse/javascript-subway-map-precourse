@@ -5,6 +5,7 @@ export default class SectionManagerRender extends Component {
   constructor(stateId) {
     super(stateId);
     console.log("--SectionManagerRender--");
+    this.lineIndex = 0;
     this.initDOM();
     this.render();
   }
@@ -49,10 +50,13 @@ export default class SectionManagerRender extends Component {
   _onClickMenuLine(e) {
     const selectedMenuDataset = e.target.dataset;
     this.enrollSection.innerHTML = this.sectionLineManagerRender(
-      selectedMenuDataset
+      selectedMenuDataset.lineName
     );
 
-    this.sectionLineManagerListRender(selectedMenuDataset);
+    this.sectionLineManagerListRender(
+      JSON.parse(selectedMenuDataset.lines),
+      selectedMenuDataset.index
+    );
 
     document
       .getElementById(DOM_SECTION.SECTION_ADD_FORM_ID)
@@ -63,9 +67,9 @@ export default class SectionManagerRender extends Component {
     e.preventDefault();
   }
 
-  sectionLineManagerRender(dataset) {
+  sectionLineManagerRender(lineName) {
     return `
-    <h2>${dataset.lineName} 관리</h2>
+    <h2>${lineName} 관리</h2>
     <h3>구간 등록</h3>
     <form id=${DOM_SECTION.SECTION_ADD_FORM_ID}>
       <select name="stations" id=${DOM_SECTION.SECTION_STATION_SELECTOR_ID}>
@@ -102,12 +106,10 @@ export default class SectionManagerRender extends Component {
     return optionInnerHTML;
   }
 
-  sectionLineManagerListRender(dataset) {
+  sectionLineManagerListRender(linesInfo, index) {
+    console.log(linesInfo);
     const tbody = document.getElementById(DOM_SECTION.SECTION_LIST_TBODY_ID);
-
-    console.log(dataset);
-    const linesInfo = JSON.parse(dataset.lines);
-    this.lineIndex = dataset.index;
+    this.lineIndex = index;
 
     linesInfo.forEach((station, idx) => {
       const tr = document.createElement("tr");
