@@ -1,8 +1,8 @@
-export const $screenButton = document.body.querySelectorAll('#app > button');
+export const $screenAllButton = document.body.querySelectorAll('#app > button');
 
 export const $stationContainer = document.body.querySelector('#station');
 export const $stationTbody = $stationContainer.querySelector('table > tbody');
-export const $stationAddInput = $stationContainer.querySelector(
+export const $stationNameInput = $stationContainer.querySelector(
   '#station-name-input',
 );
 export const $stationAddButton = $stationContainer.querySelector(
@@ -22,7 +22,7 @@ export const $lineNameInput = $lineContainer.querySelector('#line-name-input');
 
 export const $sectionContainer = document.body.querySelector('#subway-section');
 export const $sectionTbody = $sectionContainer.querySelector('table > tbody');
-export const $sectionButtonContainer = $sectionContainer.querySelector(
+export const $sectionEditButtonContainer = $sectionContainer.querySelector(
   '#section-select-button',
 );
 export const $sectionEditContainer = $sectionContainer.querySelector(
@@ -31,7 +31,7 @@ export const $sectionEditContainer = $sectionContainer.querySelector(
 export const $sectionAddButton = $sectionContainer.querySelector(
   '#section-add-button',
 );
-export const $sectionNumber = $sectionContainer.querySelector(
+export const $sectionOrderInput = $sectionContainer.querySelector(
   '#section-order-input',
 );
 export const $sectionSelector = $sectionContainer.querySelector(

@@ -1,5 +1,5 @@
 import {
-  $stationAddInput,
+  $stationNameInput,
   $upStreamSelector,
   $downStreamSelector,
   $sectionSelector,
@@ -19,15 +19,15 @@ export const loadStation = () => {
 };
 
 export function onAddStation() {
-  if (isStationInputVaild($stationAddInput.value, stationInstance.stations)) {
-    setLocalStorage('station', $stationAddInput.value);
-    stationInstance.addStation($stationAddInput.value);
-    addStationScreen($stationAddInput.value);
-    addStationSelectOption($upStreamSelector, $stationAddInput.value);
-    addStationSelectOption($downStreamSelector, $stationAddInput.value);
-    addStationSelectOption($sectionSelector, $stationAddInput.value);
+  if (isStationInputVaild($stationNameInput.value, stationInstance.stations)) {
+    setLocalStorage('station', $stationNameInput.value);
+    stationInstance.addStation($stationNameInput.value);
+    addStationScreen($stationNameInput.value);
+    addStationSelectOption($upStreamSelector, $stationNameInput.value);
+    addStationSelectOption($downStreamSelector, $stationNameInput.value);
+    addStationSelectOption($sectionSelector, $stationNameInput.value);
   }
-  $stationAddInput.value = '';
+  $stationNameInput.value = '';
 }
 
 export function onRemoveStation(e) {

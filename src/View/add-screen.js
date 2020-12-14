@@ -7,7 +7,7 @@ import {
 import {
   $stationTbody,
   $lineTbody,
-  $sectionButtonContainer,
+  $sectionEditButtonContainer,
   $sectionTbody,
   $sectionEditContainer,
   $mapContainer,
@@ -56,7 +56,7 @@ export const addSectionButton = (line) => {
   $sectionButton.className = SECTION_LINE_MENU;
   $sectionButton.textContent = line;
   setSectionLoadButton(line, $sectionButton);
-  $sectionButtonContainer.appendChild($sectionButton);
+  $sectionEditButtonContainer.appendChild($sectionButton);
 };
 
 export const addSectionScreen = (line) => {

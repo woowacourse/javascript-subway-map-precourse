@@ -1,6 +1,6 @@
 import {
   $sectionAddButton,
-  $sectionNumber,
+  $sectionOrderInput,
   $sectionSelector,
   $sectionEditContainer,
   $lineContainer,
@@ -39,7 +39,7 @@ export function onAddSection(e) {
     updateSectionTable();
     showSectionScreen(e.target.dataset.line);
   }
-  $sectionNumber.value = '';
+  $sectionOrderInput.value = '';
 }
 
 export function onRemoveSection(e) {
@@ -87,7 +87,7 @@ const getSectionValue = (lineName) => {
   return {
     lineName,
     sectionName: $sectionSelector.value,
-    number: $sectionNumber.value,
+    number: $sectionOrderInput.value,
   };
 };
 

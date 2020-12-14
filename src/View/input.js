@@ -7,7 +7,7 @@ import {
   onLoadSection,
 } from '../Controller/section-control.js';
 import {
-  $screenButton,
+  $screenAllButton,
   $stationAddButton,
   $lineAddButton,
   $sectionAddButton,
@@ -33,7 +33,7 @@ export const setSectionLoadButton = (line, $button) => {
   $button.addEventListener('click', onLoadSection);
 };
 
-$screenButton.forEach((button) =>
+$screenAllButton.forEach((button) =>
   button.addEventListener('click', onChangeScreen),
 );
 

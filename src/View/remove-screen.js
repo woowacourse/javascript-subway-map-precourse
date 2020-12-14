@@ -1,7 +1,7 @@
 import {
   $stationTbody,
   $lineTbody,
-  $sectionButtonContainer,
+  $sectionEditButtonContainer,
   $mapContainer,
 } from './element.js';
 
@@ -32,13 +32,13 @@ export const removeTableScreen = ($container) => {
 };
 
 export const removeSectionButton = (line) => {
-  const $sectionAllLineButton = $sectionButtonContainer.querySelectorAll(
+  const $sectionAllLineButton = $sectionEditButtonContainer.querySelectorAll(
     'button',
   );
   const $removedSectionButton = Array.from($sectionAllLineButton).find(
     (button) => button.textContent === line,
   );
-  $sectionButtonContainer.removeChild($removedSectionButton);
+  $sectionEditButtonContainer.removeChild($removedSectionButton);
 };
 
 export const removeOption = ($select) => {
