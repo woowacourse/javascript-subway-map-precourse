@@ -29,10 +29,7 @@ class Show {
     for (let i = 0; i < Object.keys(this.lines).length; i++) {
       const name = Object.keys(this.lines)[i];
       mapContainer.appendChild(
-        createCustomElement({
-          tag: "h2",
-          innerHTML: name,
-        })
+        createCustomElement({ tag: "h2", innerHTML: name })
       );
       mapContainer.appendChild(this.showLine(name));
     }
@@ -42,6 +39,7 @@ class Show {
 
   showLines = () => {
     const previewContainer = document.getElementById("station-line");
+    previewContainer.innerHTML = "";
     previewContainer.appendChild(this.mapLines());
   };
 }
