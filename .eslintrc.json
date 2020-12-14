@@ -18,7 +18,8 @@
         "prettier/prettier": "error",
         "no-var": "error",
         "no-self-assign": "error",
-        "object-shorthand": "error"
+        "object-shorthand": "error",
+        "no-console":"off",
      
     }
 }
