@@ -5,7 +5,6 @@ class Storage {
 
   loadItems = key => {
     const data = JSON.parse(localStorage.getItem(key));
-    console.log(data);
     if (data === null) {
       return [];
     }

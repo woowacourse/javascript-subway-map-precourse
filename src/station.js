@@ -8,6 +8,7 @@ import {
 export default class Station {
   constructor() {
     this.stations = Storage.loadItems("station");
+    this.showStation();
     this.handleAddNameClick();
   }
 
@@ -71,7 +72,6 @@ export default class Station {
   };
 
   handleAddNameClick = () => {
-    console.log(this.stations);
     const stationAddBtn = document.getElementById("station-add-button");
     stationAddBtn.addEventListener("click", this.addStation);
   };
