@@ -16,23 +16,23 @@ export default class SubwayMapStationView {
   }
 
   resetStationTable() {
-    document.getElementById('#station-table-container').innerHTML = '';
+    this.managerContainer.querySelector('#station-table-container').innerHTML = '';
   }
 
   renderStationManager() {
     this.renderStationInputContainer();
     this.renderStationTableContainer();
 
-    this.eventDelegator.bindEvent(document.getElementById('#station-input-container'));
-    this.eventDelegator.bindEvent(document.getElementById('#station-table-container'));
+    this.eventDelegator.bindEvent(this.managerContainer.querySelector('#station-input-container'));
+    this.eventDelegator.bindEvent(this.managerContainer.querySelector('#station-table-container'));
   }
 
   renderStationInputContainer() {
     this.managerContainer.innerHTML += `
-      <div id="#station-input-container">
+      <div id="station-input-container">
         <p>${message.STATION_NAME}</p>
-        <input id="#station-name-input" placeholder="${message.STATION_INPUT_PLACEHOLDER}"></input>
-        <button id="#station-add-button" data-purpose="addStation">${message.ADD_STATION}</button>
+        <input id="station-name-input" placeholder="${message.STATION_INPUT_PLACEHOLDER}"></input>
+        <button id="station-add-button" data-purpose="addStation">${message.ADD_STATION}</button>
         <h2>${message.LIST_OF_STATIONS}</h2>
       </div>
     `;
@@ -40,22 +40,21 @@ export default class SubwayMapStationView {
 
   renderStationTableContainer() {
     this.managerContainer.innerHTML += `
-      <div id="#station-table-container"></div>
+      <div id="station-table-container"></div>
     `;
 
     this.renderStationTable(Object.entries(this.subwayMapViewModel.getStations()));
   }
 
   renderStationTable(stations) {
-    document.getElementById('#station-table-container').innerHTML += this.combineTheadTbody(
-      this.getStationThead(),
-      this.getStationTbody(stations),
-    );
+    this.managerContainer.querySelector(
+      '#station-table-container',
+    ).innerHTML += this.combineTheadTbody(this.getStationThead(), this.getStationTbody(stations));
   }
 
   combineTheadTbody(stationThead, stationTbody) {
     return `
-      <table id="#station-name-table">
+      <table id="station-name-table">
         ${stationThead}
         ${stationTbody}
       </table>
@@ -85,7 +84,7 @@ export default class SubwayMapStationView {
     <tr>
       <td>${stationId}</td>
       <td>
-        <button class=".station-delete-button" data-stationid="${stationId}" data-purpose="deleteStation">${message.OPTION_DELETE}</button>
+        <button class="station-delete-button" data-stationid="${stationId}" data-purpose="deleteStation">${message.OPTION_DELETE}</button>
       </td>
     </tr>
   `;

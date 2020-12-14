@@ -24,7 +24,7 @@ export default class StationViewEventDelegator {
   }
 
   addStation() {
-    const stationId = document.getElementById('#station-name-input').value;
+    const stationId = this.stationView.managerContainer.querySelector('#station-name-input').value;
     this.subwayMapViewModel.addStation(stationId);
 
     this.stationView.resetStationTable();

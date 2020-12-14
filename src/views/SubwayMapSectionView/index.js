@@ -17,21 +17,23 @@ export default class SubwayMapSectionView {
     this.renderLineMenuButtons(Object.entries(this.subwayMapViewModel.getLines()));
     this.renderSelectedLineSectionManagerContainer();
 
-    this.eventDelegator.bindEvent(document.getElementById('#section-line-menu-button-container'));
+    this.eventDelegator.bindEvent(
+      this.managerContainer.querySelector('#section-line-menu-button-container'),
+    );
   }
 
   renderLineMenuButtons(lines) {
     let lineButtons = '';
     lines.forEach(line => {
       lineButtons += `
-        <button data-id="${line[0]}" data-purpose="selectLine" class=".section-line-menu-button">
+        <button data-id="${line[0]}" data-purpose="selectLine" class="section-line-menu-button">
           ${line[0]}
         </button>
       `;
     });
 
     this.managerContainer.innerHTML = `
-    <div id="#section-line-menu-button-container">
+    <div id="section-line-menu-button-container">
       <h3>${message.SECTION_INFORMATION}</h3>
       ${lineButtons}
     </div>
@@ -41,25 +43,25 @@ export default class SubwayMapSectionView {
 
   renderSelectedLineSectionManagerContainer() {
     this.managerContainer.innerHTML += `
-    <div id="#section-selected-line-manager-container"></div>
+    <div id="section-selected-line-manager-container"></div>
     `;
 
     this.eventDelegator.bindEvent(
-      document.getElementById('#section-selected-line-manager-container'),
+      this.managerContainer.querySelector('#section-selected-line-manager-container'),
     );
   }
 
   resetSelectedLineSectionManagerContainer() {
-    document.getElementById('#section-selected-line-manager-container').innerHTML = '';
+    this.managerContainer.querySelector('#section-selected-line-manager-container').innerHTML = '';
   }
 
   renderSelectedLineSectionManager(line) {
     const sectionSelector = this.renderSectionSelector(
       Object.entries(this.subwayMapViewModel.getStations()),
     );
-    const sectionOrderInput = `<input id="#section-order-input" type="number" placeholder=${message.SECTION_INPUT_PLACEHOLDER}></input>`;
-    const sectionAddButton = `<button id="#section-add-button" data-lineid="${line._lineId}" data-purpose="addSection">${message.ADD}</button>`;
-    document.getElementById('#section-selected-line-manager-container').innerHTML += `
+    const sectionOrderInput = `<input id="section-order-input" type="number" placeholder=${message.SECTION_INPUT_PLACEHOLDER}></input>`;
+    const sectionAddButton = `<button id="section-add-button" data-lineid="${line._lineId}" data-purpose="addSection">${message.ADD}</button>`;
+    this.managerContainer.querySelector('#section-selected-line-manager-container').innerHTML += `
         <h3>${line._lineId} ${message.LINE_MANAGING}</h3>
         <p>${message.ADD_SECTION}</p>
         ${sectionSelector}
@@ -79,7 +81,7 @@ export default class SubwayMapSectionView {
       .join('');
 
     const sectionSelector = `
-      <select id= "#section-station-selector">
+      <select id= "section-station-selector">
         ${selectorOptions}
       </select>
     `;
@@ -88,17 +90,19 @@ export default class SubwayMapSectionView {
   }
 
   renderSectionTableContainer() {
-    document.getElementById('#section-selected-line-manager-container').innerHTML += `
-      <div id="#section-table-container"></div>
+    this.managerContainer.querySelector('#section-selected-line-manager-container').innerHTML += `
+      <div id="section-table-container"></div>
     `;
   }
 
   resetSectionTable() {
-    document.getElementById('#section-table-container').innerHTML = '';
+    this.managerContainer.querySelector('#section-table-container').innerHTML = '';
   }
 
   renderSectionTable(lineId, sections) {
-    document.getElementById('#section-table-container').innerHTML += this.combineTheadTbody(
+    this.managerContainer.querySelector(
+      '#section-table-container',
+    ).innerHTML += this.combineTheadTbody(
       this.getSectionThead(),
       this.getSectionTbody(lineId, sections),
     );
@@ -106,7 +110,7 @@ export default class SubwayMapSectionView {
 
   combineTheadTbody(sectionThead, sectionTbody) {
     return `
-      <table id="#section-name-table">
+      <table id="section-name-table">
         ${sectionThead}
         ${sectionTbody}
       </table>
@@ -137,7 +141,7 @@ export default class SubwayMapSectionView {
       <td>${index}</td>
       <td>${section._stationId}</td>
       <td>
-        <button data-lineid="${lineId}"data-sectionid="${index}" data-purpose="deleteSection" class=".section-delete-button">${message.OPTION_DELETE}</button>
+        <button data-lineid="${lineId}"data-sectionid="${index}" data-purpose="deleteSection" class="section-delete-button">${message.OPTION_DELETE}</button>
       </td>
     </tr>
   `;

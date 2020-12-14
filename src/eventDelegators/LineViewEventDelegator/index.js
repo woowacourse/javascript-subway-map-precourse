@@ -25,13 +25,13 @@ export default class LineViewEventDelegator {
 
   addLine() {
     const lineObject = {
-      lineId: document.getElementById('#line-name-input').value,
+      lineId: this.lineView.managerContainer.querySelector('#line-name-input').value,
       sections: [
-        document.getElementById('#line-start-station-selector')[
-          document.getElementById('#line-start-station-selector').selectedIndex
+        this.lineView.managerContainer.querySelector('#line-start-station-selector')[
+          this.lineView.managerContainer.querySelector('#line-start-station-selector').selectedIndex
         ].dataset.id,
-        document.getElementById('#line-end-station-selector')[
-          document.getElementById('#line-end-station-selector').selectedIndex
+        this.lineView.managerContainer.querySelector('#line-end-station-selector')[
+          this.lineView.managerContainer.querySelector('#line-end-station-selector').selectedIndex
         ].dataset.id,
       ],
     };
