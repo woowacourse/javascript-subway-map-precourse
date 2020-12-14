@@ -26,6 +26,7 @@ export default class SelectUtils {
     this._privateCommonUtils.insertEmptyline(articleName);
     this.createSelectStation('start', articleName);
     this.createSelectStation('end', articleName);
+    this._privateCommonUtils.insertEmptyline(articleName);
   }
 
   createSelectStation(position, articleName) {
@@ -41,6 +42,7 @@ export default class SelectUtils {
     this._privateDomUtils.setAttribute('id', select, idName);
     this._privateDomUtils.appendToIdName(toIdName, select);
     this.addStationsToSelect(select, this._privateCommonUtils, this._privateDomUtils);
+    this._privateCommonUtils.insertEmptyline(toIdName);
 
     return select;
   }

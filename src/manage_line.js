@@ -42,10 +42,9 @@ export default class ManageLine {
 
   initPage() {
     this.initLists();
+    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this.createInputSection();
     this._privateSelectUtils.createSelectSection(this.ARTICLE_NAME);
-    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
-    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this.createLineAddButton();
     this.createTableSection();
   }
@@ -58,6 +57,7 @@ export default class ManageLine {
   createInputSection() {
     this._privateCommonUtils.createTitle('div', this.LINE_INPUT_TITLE_TEXT, this.ARTICLE_NAME);
     this.createLineInput();
+    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
   }
 
   createLineInput() {

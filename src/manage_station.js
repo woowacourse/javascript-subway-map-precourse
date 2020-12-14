@@ -44,6 +44,7 @@ export default class ManageStation {
   }
 
   initPage() {
+    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this._privateCommonUtils.createTitle(this.STATION_INPUT_TITLE_TAG, this.STATION_INPUT_TITLE_TEXT, this.ARTICLE_NAME);
     this.createStationInput();
     this._stationAddButton = this._privateDomUtils.createButton(this.ADD_BUTTON_ID, this.ADD_BUTTON_TEXT);
