@@ -6,8 +6,18 @@ class LineStore extends Observer {
     this.lines = lines;
   }
 
-  getLines() {
-    return this.lines;
+  getLineNames() {
+    return this.lines.map(line => line.name);
+  }
+
+  addLine(name, startStation, endStation) {
+    const newLine = {
+      name,
+      sections: [startStation, endStation],
+    };
+
+    const lines = [...this.lines, newLine];
+    this.setLines(lines);
   }
 
   setLines(lines) {
