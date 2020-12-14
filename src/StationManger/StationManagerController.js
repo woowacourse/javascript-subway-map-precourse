@@ -1,5 +1,6 @@
 import StationManagerView from './StationManagerView.js';
 import StationManagerModel from './StationManagerModel.js';
+import StationErrorMsg from './StationErrorMsg.js';
 
 export default class StationManagerController {
   static buttonEventController() {
@@ -17,8 +18,9 @@ export default class StationManagerController {
 
   static addButtonClicked() {
     const station = document.getElementById('station-name-input').value;
-    if (!StationManagerModel.isValidName(station)) {
-      StationManagerView.alertNameError();
+    const isValid = StationManagerModel.isValidName(station);
+    if (isValid !== 1) {
+      StationManagerView.alertNameError(isValid);
       StationManagerView.stationInputView();
       return;
     }
@@ -31,9 +33,16 @@ export default class StationManagerController {
     const buttons = document.getElementsByClassName('station-delete-button');
     const buttonsArray = Array.from(buttons);
     const station = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
-    if (StationManagerView.confirmDelete()) {
-      StationManagerModel.delete(station);
-      StationManagerView.stationTableView();
+    const isValid = StationManagerModel.checkAfterDelete(station);
+    if (isValid !== 1) {
+      StationManagerView.alertNameError(isValid);
+      return;
     }
+    if (!StationManagerView.confirmDelete()) {
+      StationManagerView.alertNameError(-7);
+      return;
+    }
+    StationManagerModel.delete(station);
+    StationManagerView.stationTableView();
   }
 }

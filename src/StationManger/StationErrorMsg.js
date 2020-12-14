@@ -1,4 +1,18 @@
 export default class StationErrorMsg {
+  static error(number) {
+    const errorMsg = [
+      this.lengthError(),
+      this.spaceError(),
+      this.characterError(),
+      this.languageError(),
+      this.specialCharError(),
+      this.duplicateError(),
+      this.stationNumberError(),
+      this.cancelDeleteError(),
+    ];
+    return errorMsg[number * (-1)];
+  }
+
   /*
    * INPUT ERROR
   */
@@ -32,5 +46,9 @@ export default class StationErrorMsg {
 
   static stationNumberError() {
     return '해당 역이 포함된 노선 중, 포함 된 역이 3개 미만인 역이 있어 삭제가 불가능 합니다.';
+  }
+
+  static cancelDeleteError() {
+    return '삭제를 취소했습니다.';
   }
 }

@@ -1,3 +1,5 @@
+import StationErrorMsg from './StationErrorMsg.js';
+
 export default class StationManagerView {
   static view() {
     this.stationInitView();
@@ -37,8 +39,8 @@ export default class StationManagerView {
     </table>`;
   }
 
-  static alertNameError() {
-    alert('invalid Error');
+  static alertNameError(errorNum) {
+    alert(StationErrorMsg.error(errorNum));
   }
 
   static confirmDelete() {
