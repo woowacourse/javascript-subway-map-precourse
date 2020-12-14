@@ -1,6 +1,7 @@
 import StationLayout from '../layout/stationLayout.js';
 import StationModel from '../model/stationModel.js';
 import LineLayout from '../layout/lineLayout.js';
+import SectionLayout from '../layout/sectionLayout.js';
 
 export default class Controller {
   constructor() {
@@ -9,6 +10,7 @@ export default class Controller {
     this.viewList = {
       station: new StationLayout(this),
       line: new LineLayout(this),
+      section: new SectionLayout(this),
     };
     console.log('new controller: ');
     console.log(this.viewList);
