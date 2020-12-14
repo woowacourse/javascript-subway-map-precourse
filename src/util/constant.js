@@ -22,6 +22,7 @@ export const Constant = {
 
   // 구간 관리
   SECTION_CONTAINER_CLASS: ".section-container",
+  SECTION_LINE_MENU_CLASS: ".section-line-menu",
 
   // 지하철 노선 관리
   MAP_PRINT_CONTAINER_CLASS: ".map-print-container",

@@ -3,6 +3,8 @@ import { StationView } from "./station-view.js";
 import { Constant } from "../util/constant.js";
 import { LineManager } from "../controller/line-manager.js";
 import { LineView } from "./line-view.js";
+import { SectionManager } from "../controller/section-manager.js";
+import { SectionView } from "./section-view.js";
 
 export const Element = {
   // 초기 화면 버튼
@@ -34,6 +36,7 @@ export const Element = {
 
   // 구간 관리
   sectionContainer: document.querySelector(Constant.SECTION_CONTAINER_CLASS),
+  sectionLineMenu: document.querySelector(Constant.SECTION_LINE_MENU_CLASS),
 
   // 지하철 노선도 관리
   mapPrintContainer: document.querySelector(Constant.MAP_PRINT_CONTAINER_CLASS),
@@ -64,6 +67,8 @@ export const ElementControl = {
   showSectionManager() {
     this.hideAllManagers();
     Element.sectionContainer.style.display = Constant.BLOCK;
+
+    SectionManager.isVisited ? SectionView.render() : SectionManager.init();
   },
 
   showMapPrintManager() {

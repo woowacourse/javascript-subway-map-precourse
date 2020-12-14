@@ -73,11 +73,7 @@
     <!-- 3. 구간 관리 -->
     <div class="section-container">
       <h3>구간을 수정할 노선을 선택해주세요.</h3>
-      <div class="section-line-menu">
-        <!-- 예시 -->
-        <button class="section-line-menu-button">1호선</button>
-        <button class="section-line-menu-button">2호선</button>
-      </div>
+      <div class="section-line-menu"></div>
 
       <div class="section-manager">
         <h3 class="section-manager-title">1호선 관리</h3>
@@ -85,17 +81,17 @@
         <select id="section-station-selector"></select>
         <input id="section-order-input" placeholder="순서" />
         <button id="section-add-button">등록</button>
+        <table id="section-table">
+          <thead>
+            <tr>
+              <th>순서</th>
+              <th>이름</th>
+              <th>설정</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
-      <table id="section-table">
-        <thead>
-          <tr>
-            <th>순서</th>
-            <th>이름</th>
-            <th>설정</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
     </div>
 
     <!-- 4. 지하철 노선도 출력 -->
