@@ -4,6 +4,7 @@ import TableUtils from './table_utils.js';
 import CommonUtils from './common_utils.js';
 import ManageLine from './manage_line.js';
 import SelectUtils from './select_utils.js';
+import ManageMapPrint from './manage_map_print.js';
 
 export default class Menu {
   constructor() {
@@ -113,24 +114,12 @@ export default class Menu {
   }
 
   refreshMapPrint(articleName) {
-    this.emptyArticle(articleName);
-    this.displayMapPrint(articleName);
+    const manageMapPrint = new ManageMapPrint();
+
+    manageMapPrint.emptyArticle(articleName);
+    manageMapPrint.displayMapPrint(articleName, this._privateCommonUtils);
   }
 
-  emptyArticle(articleName) {
-    const mapArticle = document.getElementById(articleName);
-
-    mapArticle.innerHTML = '';
-  }
-
-  displayMapPrint(articleName) {
-    const lineList = this._privateCommonUtils.getLocalStorageLine();
-
-    for (const line in lineList) {
-      this._privateCommonUtils.createTitle('h3', line, articleName);
-      this._privateCommonUtils.createUnorderedList(lineList[line], articleName);
-    }
-  }
 
 
 }

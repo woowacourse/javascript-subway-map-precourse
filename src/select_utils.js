@@ -25,6 +25,7 @@ export default class SelectUtils {
 
     this._privateCommonUtils.insertEmptyline(articleName);
     this.createSelectStation('start', articleName);
+    this._privateCommonUtils.insertEmptyline(articleName);
     this.createSelectStation('end', articleName);
     this._privateCommonUtils.insertEmptyline(articleName);
   }
@@ -33,16 +34,15 @@ export default class SelectUtils {
     const positionUpper = position.toUpperCase();
 
     this._privateCommonUtils.createTitle('span', this[`LINE_${positionUpper}_SELECT_TEXT`], articleName);
-    this[`_${position}Select`] = this.createSelect(articleName, this[`LINE_${positionUpper}_SELECT_ID`]);
+    this[`_${position}Select`] = this.createSelect(articleName, this[`LINE_${positionUpper}_SELECT_ID`], this._privateCommonUtils, this._privateDomUtils);
   }
 
-  createSelect(toIdName, idName) {
+  createSelect(toIdName, idName, commonUtils, domUtils) {
     const select = document.createElement('SELECT');
 
-    this._privateDomUtils.setAttribute('id', select, idName);
-    this._privateDomUtils.appendToIdName(toIdName, select);
-    this.addStationsToSelect(select, this._privateCommonUtils, this._privateDomUtils);
-    this._privateCommonUtils.insertEmptyline(toIdName);
+    domUtils.setAttribute('id', select, idName);
+    domUtils.appendToIdName(toIdName, select);
+    this.addStationsToSelect(select, commonUtils, domUtils);
 
     return select;
   }

@@ -51,10 +51,11 @@ export default class DomUtils {
   createInput(inputObject) {
     const input = document.createElement('input');
 
-    this.setAttribute(this.ID_ATTRIBUTE, input, inputObject['idName']);
+    this.setAttribute(inputObject['attribute'], input, inputObject['idName']);
     this.setInputType(input, inputObject['type']);
     this.setPlaceholder(input, inputObject['placeholder']);
     this.appendToIdName(inputObject['toIdName'], input)
+    input.style.margin = '0 2px 0 2px';
 
     return input;
   }

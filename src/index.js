@@ -1,6 +1,7 @@
 import ManageStation from './manage_station.js';
 import Menu from './menu.js';
 import ManageLine from './manage_line.js';
+import ManageSection from './manage_section.js';
 
 export default class SubwayMap {
   constructor() {
@@ -9,6 +10,7 @@ export default class SubwayMap {
 
     new ManageStation();
     new ManageLine();
+    new ManageSection();
   }
 }
 

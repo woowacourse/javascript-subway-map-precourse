@@ -9,6 +9,13 @@ export default class CommonUtils {
     alert(errorMessage);
   }
 
+  createDiv(toIdName, idName) {
+    const div = document.createElement('div');
+
+    this._privateDomUtils.setAttribute('id', div, idName);
+    this._privateDomUtils.appendToIdName(toIdName, div);
+  }
+
   createTitle(titleTag, titleContent, toIdName) {
     const title = document.createElement(titleTag);
 

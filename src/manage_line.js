@@ -25,7 +25,7 @@ export default class ManageLine {
     this.ADD_BUTTON_ID = 'line-add-button';
     this.ADD_BUTTON_TEXT = '노선 추가';
 
-    this.LINE_LIST_TITLE_TAG = 'h1';
+    this.LINE_LIST_TITLE_TAG = 'h2';
     this.LINE_LIST_TITLE_TEXT = '🚉 지하철 역 목록';
     
     this.IS_VALID = 1;
@@ -45,6 +45,7 @@ export default class ManageLine {
     this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this.createInputSection();
     this._privateSelectUtils.createSelectSection(this.ARTICLE_NAME);
+    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this.createLineAddButton();
     this.createTableSection();
   }
@@ -68,6 +69,7 @@ export default class ManageLine {
 
   lineInputObject() {
     const inputObject = {
+      'attribute': 'id',
       'toIdName': this.ARTICLE_NAME,
       'idName': this.LINE_INPUT_ID,
       'placeholder': this.LINE_INPUT_PLACEHOLDER,

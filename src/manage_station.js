@@ -25,7 +25,7 @@ export default class ManageStation {
 
     this.STATION_INPUT_TITLE_TAG = 'div';
     this.STATION_INPUT_TITLE_TEXT = '역 이름';
-    this.STATION_LIST_TITLE_TAG = 'h1';
+    this.STATION_LIST_TITLE_TAG = 'h2';
     this.STATION_LIST_TITLE_TEXT = '🚉 지하철 역 목록';
 
     this.STATION_INPUT_ID = 'station-name-input';
@@ -62,6 +62,7 @@ export default class ManageStation {
 
   stationInputObject() {
     const inputObject = {
+      'attribute': 'id',
       'toIdName': this.ARTICLE_NAME,
       'idName': this.STATION_INPUT_ID,
       'placeholder': this.STATION_INPUT_PLACEHOLDER,
