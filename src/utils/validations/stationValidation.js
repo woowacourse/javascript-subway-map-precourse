@@ -4,6 +4,8 @@ import {
   isDuplicatedValue,
 } from "./index.js";
 import { alertMessage } from "../domUtil.js";
+import { NUM } from "../constants/number.js";
+import { MESSAGE } from "../constants/message.js";
 
 export const isVaildStationName = ($input, nameList, name) => {
   if (isEmptyValue(name)) {
