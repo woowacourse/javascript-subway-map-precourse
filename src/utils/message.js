@@ -27,7 +27,7 @@ export const checkStationList = (checkList, input) => {
 };
 
 export const checkLineList = (checkList, input) => {
-  const { isEmpty, isDuplicate, isSameStation } = checkList;
+  const { isEmpty, isDuplicate, isSameStation, isInclude } = checkList;
 
   if (isEmpty) {
     alertMessage(input, MESSAGE.EMPTY);
@@ -35,6 +35,8 @@ export const checkLineList = (checkList, input) => {
     alertMessage(input, MESSAGE.DUPLICATE);
   } else if (isSameStation) {
     alertMessage(input, MESSAGE.SAME_STATION);
+  } else if (!isInclude) {
+    alertMessage(input, MESSAGE.LINE_WORD_INCLUDE);
   } else {
     return true;
   }

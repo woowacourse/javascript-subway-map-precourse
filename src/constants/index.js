@@ -10,6 +10,8 @@ export const WORDS = {
     DELETE_BUTTON: "삭제",
   },
   LINE: {
+    VALIDATION: "선",
+
     INPUT_TITLE: "노선 이름",
     INPUT_PLACEHOLDER: "노선 이름을 입력해주세요",
 
@@ -44,6 +46,8 @@ export const MESSAGE = {
   SAME_STATION: "상행선 종점과 하행선 종점은 같을 수 없습니다.",
   WRONG_RANGE: "구간 범위안에서 숫자를 입력해주세요.",
   CONFIRM: "정말로 삭제하시겠습니까 ?",
+  LINE_WORD_INCLUDE:
+    "어떤 노선인지 끝에 '선' 단어를 포함해주세요 ex)경의중앙선, 1호선",
 };
 
 export const KEY = {

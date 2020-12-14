@@ -59,3 +59,5 @@ export const checkInSection = (targetStation) => {
 
   return stationInSection.includes(true);
 };
+
+export const checkIsLine = (line) => (line.includes("선") ? true : false);

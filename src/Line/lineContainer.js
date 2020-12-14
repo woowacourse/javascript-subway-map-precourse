@@ -3,6 +3,7 @@ import { checkLineList, confirmDelete } from "../utils/message.js";
 import {
   checkDuplicateLine,
   checkEmpty,
+  checkIsLine,
   checkSameStation,
 } from "../validation/index.js";
 import { displayAddedLine, removeDisplayLine } from "./linePresenter.js";
@@ -73,7 +74,8 @@ const lineAddClicked = () => {
   const isEmpty = checkEmpty(lineInputValue);
   const isDuplicate = checkDuplicateLine(lineInputValue);
   const isSameStation = checkSameStation(startStation, endStation);
-  const checkList = { isEmpty, isDuplicate, isSameStation };
+  const isInclude = checkIsLine(lineInputValue);
+  const checkList = { isEmpty, isDuplicate, isSameStation, isInclude };
   const isValid = checkLineList(checkList, lineInput);
 
   if (isValid) {
