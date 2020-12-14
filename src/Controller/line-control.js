@@ -3,6 +3,7 @@ import {
   addLineScreen,
   addMapPrint,
   addSectionButton,
+  addSectionScreen,
   addStationSelectOption,
 } from '../View/add-screen.js';
 import {
@@ -21,6 +22,7 @@ export function onAddLine() {
     lineInstance.addLine(lineValue);
     addLineScreen(lineValue);
     addSectionButton(lineValue.lineName);
+    addSectionScreen(lineValue);
     addMapPrint([lineValue]);
   }
   $lineNameInput.value = '';
