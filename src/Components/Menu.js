@@ -1,6 +1,14 @@
 class Menu {
-  constructor({ $target }) {
+  constructor({ $target, changeMenu }) {
     this.$target = $target;
+    this.changeMenu = changeMenu;
+
+    this.buttonsId = [
+      "station-manager-button",
+      "line-manager-button",
+      "section-manager-button",
+      "map-print-manager-button",
+    ];
 
     this.render();
     this.bindEvents();
@@ -20,7 +28,9 @@ class Menu {
   }
 
   onClick({ target }) {
-    console.log(target.id);
+    if (!this.buttonsId.includes(target.id)) return;
+
+    this.changeMenu(target.id);
   }
 
   render = () => {

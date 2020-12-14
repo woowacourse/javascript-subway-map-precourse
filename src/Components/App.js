@@ -21,7 +21,27 @@ class App {
   }
 
   mountComponents() {
-    new Menu({ $target: this.$menu });
+    new Menu({ $target: this.$menu, changeMenu: this.changeMenu.bind(this) });
+  }
+
+  changeMenu(id) {
+    switch (id) {
+      case `station-manager-button`:
+        console.log("역 관리");
+        break;
+      case `line-manager-button`:
+        console.log("노선 관리");
+        break;
+      case `section-manager-button`:
+        console.log("구간 관리");
+        break;
+      case `map-print-manager-button`:
+        console.log("노선도 관리");
+        break;
+
+      default:
+        return;
+    }
   }
 
   render = () => {
