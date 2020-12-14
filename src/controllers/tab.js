@@ -11,9 +11,5 @@ export const tabController = subwayMap => {
   lineManagerBtn.addEventListener('click', e => tabManager(e.target.value, subwayMap));
   sectionManagerBtn.addEventListener('click', e => tabManager(e.target.value, subwayMap));
   mapPrintManagerBtn.addEventListener('click', e => tabManager(e.target.value, subwayMap));
-  btnAddListener(subwayMap);
-};
-
-const btnAddListener = subwayMap => {
   stationAddListener(subwayMap);
 };

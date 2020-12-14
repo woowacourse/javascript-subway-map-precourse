@@ -19,10 +19,16 @@ export const stationAddListener = subwayMap => {
 const addNewStation = (name, subwayMap) => {
   if (overTwo(name) && notDuplicate(name, subwayMap.stationList)) {
     subwayMap.addStation(name);
-    subwayMap.saveAll();
     showAddedStation(subwayMap);
   } else {
     alert('잘못된 값입니다. 다시 입력해주세요.');
   }
   clearFocus(stationManagerInput);
+};
+
+export const deleteStation = (name, subwayMap) => {
+  if (confirm('정말로 삭제하시겠습니까?')) {
+    subwayMap.delStation(name);
+    showAddedStation(subwayMap);
+  }
 };

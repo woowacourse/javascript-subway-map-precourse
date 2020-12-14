@@ -16,6 +16,7 @@ export const showAddedStation = subwayMap => {
     });
     const deleteBtn = makeElement({
       tag: 'button',
+      elementClass: 'station-delete-button',
       innerHTML: '삭제',
       dataName: 'station-name',
       dataValue: name,
