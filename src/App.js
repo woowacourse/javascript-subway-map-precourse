@@ -5,13 +5,12 @@ import MapPrintManager from './MapPrintManager.js';
 
 import Subway from './Subway.js';
 
+import { saveItem, loadItem } from './utils/storage.js';
+
 export default class App {
-  _state = {
-    stations: new Set(['인천', '동인천', '도원', '소요산', '사당', '오이도', '당고개']),
-    lines: new Map([
-      ['1호선', ['인천', '소요산']],
-      ['4호선', ['오이도', '당고개']],
-    ]),
+  _initialState = {
+    stations: new Set([]),
+    lines: new Map([]),
   };
 
   constructor(target) {
@@ -21,7 +20,7 @@ export default class App {
     this._container = document.createElement('div');
     target.appendChild(this._container);
 
-    this._subway = new Subway({ state: this._state });
+    this._subway = new Subway({ state: this.loadSubway() });
   }
 
   addClickButtonEvent(buttons) {
@@ -55,6 +54,25 @@ export default class App {
     target.appendChild(_ul);
 
     this.addClickButtonEvent(_buttons);
+  }
+
+  saveSubway() {
+    const stations = this._subway.getStationName();
+    const lines = this._subway.getLines();
+    const subwayState = { stations, lines };
+    saveItem('subway', subwayState);
+  }
+
+  loadSubway() {
+    const subway = loadItem('subway');
+    if (!subway) {
+      return this._initialState;
+    }
+    const stations = new Set([...subway.stations]);
+    const lines = new Map(
+      subway.lines.map(({ lineName, section }) => [lineName, section]),
+    );
+    return { stations, lines };
   }
 
   renderStationManager() {
@@ -99,6 +117,7 @@ export default class App {
     const _station = document.querySelector('#station-name-input').value;
     this._subway.addStation({ station: _station });
     this._stationManager.setSubway(this._subway);
+    this.saveSubway();
   }
 
   onClickDeleteStation(station) {
@@ -106,6 +125,7 @@ export default class App {
     if (isOk) {
       this._subway.deleteStation({ station });
       this._stationManager.setSubway(this._subway);
+      this.saveSubway();
     }
   }
 
@@ -120,6 +140,7 @@ export default class App {
     const end = this.getSelectorValue('#line-end-station-selector');
     this._subway.addLine({ lineName, start, end });
     this._lineManager.setSubway(this._subway);
+    this.saveSubway();
   }
 
   onClickDeleteLine({ lineName }) {
@@ -127,6 +148,7 @@ export default class App {
     if (isOk) {
       this._subway.deleteLine({ lineName });
       this._lineManager.setSubway(this._subway);
+      this.saveSubway();
     }
   }
 
@@ -136,6 +158,7 @@ export default class App {
     const order = document.querySelector('#seletion-order-input').value;
     this._subway.addSection({ lineName, order, station });
     this._sectionManager.setSubway(this._subway, line);
+    this.saveSubway();
   }
 
   onClickDeleteSection(station, line) {
@@ -144,6 +167,7 @@ export default class App {
     if (isOk) {
       this._subway.deleteSection({ lineName, station });
       this._sectionManager.setSubway(this._subway, line);
+      this.saveSubway();
     }
   }
 }

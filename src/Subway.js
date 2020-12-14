@@ -5,6 +5,14 @@ export default class Subway {
     this._lines = state.lines;
   }
 
+  get state() {
+    return this._state;
+  }
+
+  get stations() {
+    return this._stations;
+  }
+
   isIncludeSection = ({ station }) => {
     const sections = this.getSection();
     function findStation(section) {
