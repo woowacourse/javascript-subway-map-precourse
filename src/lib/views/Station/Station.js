@@ -1,26 +1,18 @@
 import Typography from "../components/Typography.js";
 import Button from "../components/Button.js";
 import Input from "../components/Input.js";
-import Table from "../components/Table.js";
 import Div from "../components/Div.js";
-import getNewStationDataRowSet from "./getNewStationDataRowSet.js";
 import submitStationName from "../../_action/Station/submitStationName.js";
-import { stationSelector } from "../../_store/selectors.js";
 
 import {
   STATION_DIV,
   STATION_NAME_INPUT_CONTAINER_ID,
-  STATION_LIST_VIEW_CONTAINER_ID,
   STATION_NAME_INPUT,
   ADD_STATION_INPUT,
-  STATION_LIST,
 } from "../../common/IdAndClassNames.js";
 
 export default class Station {
   constructor() {
-    this.stationDataList = stationSelector();
-    this.stationDataListIsEmpty =
-      this.stationDataList === null || this.stationDataList.length === 0;
     this.element = document.createElement("div");
     this.element.id = STATION_DIV.substring(1);
   }
@@ -48,30 +40,10 @@ export default class Station {
     return $stationInputContainer.element;
   }
 
-  _getStationListViewContainerChildNodes() {
-    const $title = new Typography("🚉 지하철 역 목록", "h2");
-    const $stationDataListTable = new Table(STATION_LIST);
-    $stationDataListTable.insertTableHeader(["역 이름", "설정"]);
-    $stationDataListTable.insertTableData(
-      getNewStationDataRowSet(this.stationDataList),
-      this.stationDataListIsEmpty,
-    );
-    return [$title, $stationDataListTable];
-  }
-
-  _getStationListViewContainer() {
-    const $stationListViewContainer = new Div(STATION_LIST_VIEW_CONTAINER_ID);
-    this._getStationListViewContainerChildNodes().forEach(({ element }) => {
-      $stationListViewContainer.element.appendChild(element);
-    });
-    return $stationListViewContainer.element;
-  }
-
   render() {
-    [
-      this._getStationInputContainer(),
-      this._getStationListViewContainer(),
-    ].forEach(($element) => this.element.appendChild($element));
+    [this._getStationInputContainer()].forEach(($element) =>
+      this.element.appendChild($element),
+    );
     return this.element;
   }
 }
