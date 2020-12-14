@@ -20,18 +20,34 @@ export default class StationManager extends Component {
     this.table = this.container.querySelector(`#${STATION.STATION_TABLE_BODY}`);
 
     this.form.addEventListener('submit', this.onSubmit);
+    this.table.addEventListener('click', this.onTableClick);
   }
 
   onSubmit = (event) => {
     event.preventDefault();
     const { value } = this.userInput;
-    this.updateStationList(value);
+    this.addStationToList(value);
   };
 
-  updateStationList(station) {
+  onTableClick = (event) => {
+    const { className } = event.target;
+    const { index } = event.target.dataset;
+    if (className !== STATION.STATION_DELETE_BUTTON_CLASS) return;
+    this.deleteStationFromList(index);
+  }
+
+  addStationToList(station) {
     if (!this.checkValidity(station)) return;
     const newStationList = [...this.state.stationList];
     newStationList.push(station);
+    this.setState({
+      stationList: newStationList,
+    });
+  }
+
+  deleteStationFromList(index) {
+    const newStationList = [...this.state.stationList];
+    newStationList.splice(index, 1);
     this.setState({
       stationList: newStationList,
     });
