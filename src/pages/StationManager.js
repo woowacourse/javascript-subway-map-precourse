@@ -34,17 +34,14 @@ export default class StationManager extends Component {
   }
 
   mount() {
-    this.mountNameInput();
-    this.mountAddButton();
-    this.mountDeleteButton();
-  }
-  mountNameInput() {
     const stationNameInput = document.getElementById(
       elementMap.stationNameInput
     );
+    this.mountAddButton(stationNameInput);
+    this.mountDeleteButton();
   }
 
-  mountAddButton() {
+  mountAddButton(stationNameInput) {
     const stationAddButton = document.getElementById(
       elementMap.stationAddButton
     );
@@ -106,21 +103,15 @@ export default class StationManager extends Component {
 }
 
 function isMoreThanTwoWords(stationName) {
-  if (stationName.length > 1) {
-    return true;
-  }
+  return stationName.length > 1;
 }
 
 function isNotDuplicateSatationName(stationName, stations = []) {
-  if (!stations.includes(stationName)) {
-    return true;
-  }
+  return !stations.includes(stationName);
 }
 
 function hasNotSpaceInStationName(stationName) {
-  if (![...stationName].includes(" ")) {
-    return true;
-  }
+  return ![...stationName].includes(" ");
 }
 
 function isOnlyWord(stationName) {
@@ -129,12 +120,10 @@ function isOnlyWord(stationName) {
   const check_spc = /[~!@#$%^&*()_+|<>?:{}]/;
   const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 
-  if (
+  return (
     check_kor.test(stationName) &&
     !check_eng.test(stationName) &&
     !check_num.test(stationName) &&
     !check_spc.test(stationName)
-  ) {
-    return true;
-  }
+  );
 }
