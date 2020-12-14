@@ -17,7 +17,7 @@ export default class SectionManagerRender extends Component {
   render() {
     this.sectionLineMenu.innerHTML = this.sectionLineMenuNavRender();
 
-    this._app.append(this.sectionLineMenu);
+    this._app.append(this.sectionLineMenu, this.enrollSection);
     this.sectionLineMenuButtonRender();
   }
 
@@ -33,9 +33,11 @@ export default class SectionManagerRender extends Component {
       DOM_SECTION.SECTION_LINE_MENU_NAV_ID
     );
 
-    this.lines.forEach((lineInfo) => {
+    this.lines.forEach((lineInfo, index) => {
       const menuBtn = document.createElement("button");
       menuBtn.dataset.lineName = lineInfo.lineName;
+      menuBtn.dataset.lines = JSON.stringify(lineInfo.line);
+      menuBtn.dataset.index = index;
       menuBtn.innerText = lineInfo.lineName;
       menuBtn.setAttribute("class", DOM_SECTION.SECTION_LINE_MENU_BUTTON_CLASS);
       menuBtn.addEventListener("click", (e) => this._onClickMenuLine(e));
@@ -45,11 +47,48 @@ export default class SectionManagerRender extends Component {
   }
 
   _onClickMenuLine(e) {
-    const selectedMenu = e.target.dataset.lineName;
-    this.sectionLineManagerRender(selectedMenu);
+    const selectedMenuDataset = e.target.dataset;
+    this.enrollSection.innerHTML = this.sectionLineManagerRender(
+      selectedMenuDataset
+    );
   }
 
-  sectionLineManagerRender(line) {
-    console.log(line);
+  sectionLineManagerRender(dataset) {
+    return `
+    <h2>${dataset.lineName} 관리</h2>
+    <h3>구간 등록</h3>
+    <form id=${DOM_SECTION.SECTION_ADD_FORM_ID}>
+      <select name="stations" id=${DOM_SECTION.SECTION_STATION_SELECTOR_ID}>
+        ${this.sectionSelectorOptionRender()}
+      </select>
+      <input type="number" id=${
+        DOM_SECTION.SECTION_ORDER_INPUT_ID
+      } placeholder="순서"/>
+      <button id=${DOM_SECTION.SECTION_ADD_BUTTON_ID}>등록</button>
+    </form>
+    <div>
+      <table>
+        <thead>
+          <th>순서</th>
+          <th>이름</th>
+          <th>설정</th>
+        </thead>
+        <tbody id=${DOM_SECTION.SECTION_DELETE_TBODY_ID}>
+        </tbody>
+      </table>
+    </div>
+    `;
+  }
+
+  sectionSelectorOptionRender() {
+    let optionInnerHTML = ``;
+
+    this.stations.forEach((station) => {
+      optionInnerHTML += `
+        <option value=${station}>${station}</option>
+      `;
+    });
+
+    return optionInnerHTML;
   }
 }

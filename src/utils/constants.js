@@ -31,6 +31,8 @@ export const DOM_SECTION = {
   SECTION_ADD_BUTTON_ID: "section-add-button",
   SECTION_DELETE_BUTTON_CLASS: "section-delete-button",
   SECTION_LINE_MENU_NAV_ID: "section-line-menu-nav",
+  SECTION_ADD_FORM_ID: "section-add-form",
+  SECTION_DELETE_TBODY_ID: "section-delete-tbody",
 };
 
 export const DOM_ID = {
