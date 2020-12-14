@@ -20,6 +20,11 @@ class LineStore extends Observer {
     this.setLines(lines);
   }
 
+  removeLine(name) {
+    const lines = this.lines.filter(line => line.name !== name);
+    this.setLines(lines);
+  }
+
   setLines(lines) {
     this.lines = lines;
     this.notify();
