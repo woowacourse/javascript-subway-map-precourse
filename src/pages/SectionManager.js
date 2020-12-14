@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import { ERROR } from "../utils/errors.js";
 
 const elementMap = {
   sectionLineMenuButton: "section-line-menu-button",
@@ -21,7 +22,7 @@ export default class SectionManager extends Component {
     this.handleAddButtonClick = (order, station) => {
       const { selectedLine } = this.state;
       if (order.length === 0) {
-        alert("순서를 입력하세요");
+        alert(ERROR.RE_TYPING_ORDER);
         return;
       }
       this.store.lines[selectedLine].stations.splice(order, 0, station);
@@ -34,7 +35,7 @@ export default class SectionManager extends Component {
         stations.splice(index, 1);
         this.setStore(cloneDeep(this.store));
       } else {
-        alert("2개 이하는 지울 수 없습니다.");
+        alert(ERROR.NOT_DELETE);
       }
     };
   }

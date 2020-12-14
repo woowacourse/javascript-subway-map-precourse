@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import { ERROR } from "../utils/errors.js";
 
 const elementMap = {
   lineNameInput: "line-name-input",
@@ -25,7 +26,7 @@ export default class LineManager extends Component {
       const lines = this.store.lines ? [...this.store.lines, line] : [line];
 
       if (isDuplicateLine(this.store.lines, this.state.lineName)) {
-        alert("중복된 노선이 존재합니다");
+        alert(ERROR.RE_TYPING_LINE);
       } else {
         this.setStore({ ...this.store, lines });
       }

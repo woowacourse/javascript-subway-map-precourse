@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import { ERROR } from "../utils/errors.js";
 
 const elementMap = {
   stationNameInput: "station-name-input",
@@ -22,7 +23,7 @@ export default class StationManager extends Component {
           : [newStation];
         this.setStore({ ...this.store, stations });
       } else {
-        alert("다시 입력해 주세요");
+        alert(ERROR.RE_TYPING_STATION);
       }
     };
 
