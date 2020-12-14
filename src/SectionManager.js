@@ -45,6 +45,10 @@ export default class SectionManager {
         <button id="section-add-button">등록</button>
       </div>
     `;
+
+    this.createTable(target);
+    this.createTableHeader();
+    this.render(line);
   }
 
   addSectionUpdateClickEvent(target, lines) {
@@ -72,5 +76,42 @@ export default class SectionManager {
       `).join('')}
     `;
     this.addSectionUpdateClickEvent(target, lines);
+  }
+
+  createTable(target) {
+    const table = document.createElement('table');
+    this.table = table;
+    target.appendChild(table);
+
+    const thead = document.createElement('thead');
+    this.thead = thead;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    this.tbody = tbody;
+    table.appendChild(tbody);
+  }
+
+  createTableHeader() {
+    this.thead.innerHTML = `
+      <tr>
+        <th>순서</th>
+        <th>이름</th>
+        <th>설정</th>
+      </tr>
+    `;
+  }
+
+  render(line) {
+    const { section } = line;
+    this.tbody.innerHTML = `
+      ${section.map((name, index) => `
+        <tr>
+          <td>${index}</td>
+          <td>${name}</td>
+          <td><button class="section-delete-button">노선에서 제거</button></td>
+        </tr>
+      `).join('')}
+    `;
   }
 }
