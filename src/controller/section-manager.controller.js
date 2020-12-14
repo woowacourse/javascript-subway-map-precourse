@@ -90,7 +90,7 @@ export default class SectionManager {
 
       this.view.renderSectionTable(targetLine);
     } catch (error) {
-      this.view.resetSectionOrderInputFild();
+      this.view.resetSectionOrderInputField();
       alert(error);
     }
   }
