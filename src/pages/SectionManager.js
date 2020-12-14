@@ -24,14 +24,18 @@ export default class SectionManager extends Component {
         alert("순서를 입력하세요");
         return;
       }
-
       this.store.lines[selectedLine].stations.splice(order, 0, station);
-      deepClone();
+      this.setStore(cloneDeep(this.store));
     };
 
     this.handleDeleteButtonClick = (index) => {
-      this.store.lines[this.state.selectedLine].stations.splice(index, 1);
-      deepClone();
+      const stations = this.store.lines[this.state.selectedLine].stations;
+      if (isLessThanTwoStation(stations)) {
+        stations.splice(index, 1);
+        this.setStore(cloneDeep(this.store));
+      } else {
+        alert("2개 이하는 지울 수 없습니다.");
+      }
     };
   }
 
@@ -138,19 +142,12 @@ export default class SectionManager extends Component {
   }
 }
 
-function isEmpty(value) {
-  if (typeof value === "number") {
-    return false;
-  }
-  return Boolean(value);
+function isLessThanTwoStation(stations) {
+  return stations.length > 2;
 }
 
 function isNull(value) {
-  if (String(value) === "null") return true;
-  if (String(value) === "undefined") return true;
+  return String(value) === "null" || String(value) === "undefined";
 }
 
-function deepClone() {
-  const store = JSON.stringify(this.store);
-  this.setStore(JSON.parse(store));
-}
+const cloneDeep = (value) => JSON.parse(JSON.stringify(value));
