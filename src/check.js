@@ -16,5 +16,5 @@ export function isDuplicated(inputValue) {
 export function isRegistered(stationName) {
   const stationNameValue = localStorage.getItem(stationName)
   const parsedStationNameValue = JSON.parse(stationNameValue)
-  return (parsedStationNameValue[1] === false)
+  return (parsedStationNameValue.register > 0)
 }
