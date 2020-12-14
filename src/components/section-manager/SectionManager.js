@@ -57,9 +57,7 @@ export class SectionManager {
   addStationInLine = (order, station, lineName) => {
     let line = this.getLines().filter((line) => {
       return line.lineName === lineName;
-    });
-
-    let newLine = line.stations.splice(order, 0, station);
-    console.log(newLine);
+    })[0].stations;
+    line.splice(order, 0, station);
   };
 }
