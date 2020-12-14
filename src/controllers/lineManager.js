@@ -27,3 +27,10 @@ const addNewLine = (name, start, end, subwayMap) => {
   }
   clearFocus(lineNameInput);
 };
+
+export const deleteLine = (name, subwayMap) => {
+  if (confirm('정말로 삭제하시겠습니까?')) {
+    subwayMap.delLine(name);
+    showAddedLine(subwayMap);
+  }
+};
