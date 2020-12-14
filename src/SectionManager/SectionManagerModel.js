@@ -4,7 +4,7 @@ export default class SectionManagerModel {
   }
 
   static isValidRange(line, number) {
-    const linesLength = JSON.parse(localStorage.getItem('Lines'))[line].length;
+    const linesLength = JSON.parse(localStorage.getItem('Lines'))[line].stations.length;
     return linesLength + 1 >= number && number >= 0;
   }
 
@@ -13,27 +13,27 @@ export default class SectionManagerModel {
   }
 
   static isInLines(line, station) {
-    const lines = JSON.parse(localStorage.getItem('Lines'))[line];
-    return lines.indexOf(station) > -1;
+    const stations = JSON.parse(localStorage.getItem('Lines'))[line].stations;
+    return stations.indexOf(station) > -1;
   }
 
   static add(line, station, index) {
-    const linesJson = JSON.parse(localStorage.getItem('Lines'));
-    const lines = JSON.parse(localStorage.getItem('Lines'))[line];
-    lines.splice(index, 0, station);
-    linesJson[line] = lines;
-    localStorage.setItem('Lines', JSON.stringify(linesJson));
+    const lines = JSON.parse(localStorage.getItem('Lines'));
+    const stations = JSON.parse(localStorage.getItem('Lines'))[line].stations;
+    stations.splice(index, 0, station);
+    lines[line].stations = stations;
+    localStorage.setItem('Lines', JSON.stringify(lines));
   }
 
   static checkNumOfStations(line) {
-    return JSON.parse(localStorage.getItem('Lines'))[line].length > 2;
+    return JSON.parse(localStorage.getItem('Lines'))[line].stations.length > 2;
   }
 
   static delete(line, station) {
-    const linesJson = JSON.parse(localStorage.getItem('Lines'));
-    const lines = JSON.parse(localStorage.getItem('Lines'))[line];
-    lines.splice(lines.indexOf(station), 1);
-    linesJson[line] = lines;
-    localStorage.setItem('Lines', JSON.stringify(linesJson));
+    const lines = JSON.parse(localStorage.getItem('Lines'));
+    const stations = JSON.parse(localStorage.getItem('Lines'))[line].stations;
+    stations.splice(stations.indexOf(station), 1);
+    lines[line].stations = stations;
+    localStorage.setItem('Lines', JSON.stringify(lines));
   }
 }

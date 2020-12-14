@@ -18,12 +18,12 @@ export default class SectionManagerView {
   }
 
   static sectionInputView(line) {
-    const stations = localStorage.getItem('Stations').split(',');
+    const stations = JSON.parse(localStorage.getItem('Stations'));
     document.getElementById('section-input').innerHTML = `
       <h3>${line} 관리</h3>
       <h4>구간 등록</h4>
       <select id="section-station-selector">
-        ${stations.map((station) => `<option value='${station}'>${station}</option>`)}
+        ${Object.keys(stations).map((station) => `<option value='${station}'>${station}</option>`)}
       </select>
       <input id='section-order-input' type='number' min='0' placeholder='순서'/>
       <button id='section-add-button'>등록</button>`;
@@ -31,7 +31,7 @@ export default class SectionManagerView {
 
   static sectionTableView(line) {
     const lines = JSON.parse(localStorage.getItem('Lines'));
-    const stations = lines[line];
+    const stations = lines[line].stations;
     document.getElementById('section-table').innerHTML = `<table border='1px solid black'>
     <tr>
       <th align='center'>순서</th>
