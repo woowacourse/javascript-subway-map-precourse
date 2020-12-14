@@ -51,7 +51,7 @@ export default class StationManager{
         return result;
     }
 
-    confirmDeleteSection(deleteButton) {
+    confirmDeleteStation(deleteButton) {
         const isConfirm = confirm(words.DELETE_ALERT);
         const deleteRow = deleteButton.parentElement.parentElement;
         const stationName = deleteRow.dataset.stationName;
@@ -80,13 +80,13 @@ export default class StationManager{
             stationList.forEach(station => {
                 this.addTableRow(station);
             });
-            addClickEventInButtons(words.STATION_DELETE_BUTTON, this.confirmDeleteSection.bind(this), false);
+            addClickEventInButtons(words.STATION_DELETE_BUTTON, this.confirmDeleteStation.bind(this), false);
         }
     }
 
     addStationInTable(station) {
         this.addTableRow(station);
-        addClickEventInButtons(words.STATION_DELETE_BUTTON, this.confirmDeleteSection.bind(this), true);
+        addClickEventInButtons(words.STATION_DELETE_BUTTON, this.confirmDeleteStation.bind(this), true);
     }
 
     getAlertText(stationInputName) {

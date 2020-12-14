@@ -35,6 +35,7 @@ const words = {
     SECTION_STATION_DUPLICATE_ALERT: "역은 이미 해당 노선에 등록되어 있습니다.",
     SECTION_STATION_ORDER_INPUT_ALERT: "순서를 입력해주세요",
     SECTION_STATION_ORDER_CORRECT_ALERT: "사이의 숫자를 입력해주세요",
+    SECTION_STATION_NO_DELETE_ALERT: "노선에는 최소 2개 이상의 역이 등록되어 있어야 합니다.",
     SECTION_LINE_MENU_BUTTON: "section-line-menu-button",
     SECTION_MANAGEMENT_PART: "section-management-part",
     SECTION_STATION_SELECTOR: "section-station-selector",

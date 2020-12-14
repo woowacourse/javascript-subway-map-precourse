@@ -1,8 +1,8 @@
 import {addClickEventListener} from './common/elements.js'
-import StationManager from './station-manager.js';
+import StationManager from './station-manager.js;
 import LineManager from './line-manager.js';
 import SectionManager from './section-manager.js';
-// import MapPringManager from './map-print-manager.js';
+// import MapPrintManager from './map-print-manager.js';
 
 export default function stationPageInit() {
     const stationManagerButton = document.getElementById('station-manager-button');
@@ -12,6 +12,7 @@ export default function stationPageInit() {
     addClickEventListener(stationManagerButton, () => {new StationManager()});
     addClickEventListener(lineManagerButton, () => {new LineManager()});
     addClickEventListener(sectionManagerButton, () => {new SectionManager()});
+    // addClickEventListener(mapPrintManagerButton, () => {new MapPrintManager()});
 }
 
 new stationPageInit();
