@@ -22,6 +22,17 @@ export default function LineManager() {
     }
   }
 
+  this.registerStation = function(startStationInput, endStationInput) {
+    const registerList = [startStationInput, endStationInput]
+    const loop = 2
+    let i;
+    for (i = 0; i < loop; i++) {
+      const stationObject = JSON.parse(localStorage.getItem(registerList[i]))
+      stationObject.register += 1;
+      localStorage.setItem(registerList[i], JSON.stringify(stationObject))
+    }
+  }
+
   this.addLine = function(lineName, startStationInput, endStationInput) {
     const lineAddButton = document.querySelector("#line-add-button");
     lineAddButton.addEventListener("click", () => {
@@ -30,6 +41,7 @@ export default function LineManager() {
       const lineList = document.querySelector("#line-list");
       localStorage.setItem(key, JSON.stringify(value));
       lineList.innerHTML += `<tr id="line-${lineName}"><td>${lineName}</td><td>${startStationInput}</td><td>${endStationInput}</td><td><button data-name="line-${lineName}" class="line-delete-button">삭제</button></td></tr>`;
+      this.registerStation(startStationInput, endStationInput);
       this.confirmDeleteLine(lineName);
     }, {once: true});
   }

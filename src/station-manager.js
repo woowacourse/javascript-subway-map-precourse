@@ -29,7 +29,7 @@ export default function StationManager() {
 
   this.addStation = function(stationName) {
     const key = stationName;
-    const value = new Station(key)
+    const value = new Station(key);
     const stationNameInput = document.querySelector("#station-name-input");
     let stationList = document.querySelector("#station-list");
 
