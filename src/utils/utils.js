@@ -1,6 +1,4 @@
-import { container } from "../consts/consts.js";
-
-export const clearContainer = () => {
+export const clearContainer = (container) => {
   container.innerHTML = "";
 };
 
