@@ -1,5 +1,3 @@
-import { dataStrings } from './index.js';
-
 export const DOMs = {
   STATION_MANAGER_BUTTON: document.getElementById('station-manager-button'),
   LINE_MANAGER_BUTTON: document.getElementById('line-manager-button'),
@@ -40,7 +38,7 @@ export const DOMStrings = {
   MAP_PRINT_MANAGER: 'map',
 };
 
-const strings = {
+export const strings = {
   STATION_NAME: '역 이름',
   STATION_PLACEHOLDER: '역 이름을 입력해주세요.',
   STATION_ADD: '역 추가',
@@ -62,199 +60,14 @@ const strings = {
   MANAGE: '관리',
   ADD: '등록',
   NAME: '이름',
+  CONFIRM_DELETION: '정말로 삭제하시겠습니까?',
+  CONFIRM_DELETE_FROM_LINE: '정말로 노선에서 제거하시겠습니까?',
+  VALID_ADDITION: 'addition',
+  VALID_DELETION: 'deletion',
 };
 
 export const DOMCtrl = {
   clearManagerContainer() {
     DOMs.MANAGER_CONTAINER.innerHTML = '';
-  },
-
-  openStationManager() {
-    const stationManager = `
-      <div id="${DOMStrings.STATION_MANAGER}"><br>
-        <span>${strings.STATION_NAME}</span><br>
-        <input type="text" id="${DOMStrings.STATION_NAME_INPUT}" placeholder="${strings.STATION_PLACEHOLDER}"/>
-        <button id="${DOMStrings.STATION_ADD_BUTTON}"> ${strings.STATION_ADD}</button>
-        <h1>${strings.STATION_LIST_TITLE}</h1>
-        ${DOMCtrl.getStationList(this.stations)}
-      </div>
-    `;
-    DOMCtrl.clearManagerContainer();
-    DOMs.MANAGER_CONTAINER.innerHTML = stationManager;
-  },
-
-  getStationList(stations) {
-    return `
-      <table id="${DOMStrings.STATION_LIST_TABLE}">
-        <tr>
-          <th><b>${strings.STATION_NAME}</b></th>
-          <th><b>${strings.SETTING}</b></th>
-        </tr>
-        ${stations
-          .map(
-            station => `<tr><td>${station}</td><td><button class="${DOMStrings.STATION_DELETE_BUTTON}" 
-              data-${dataStrings.DATA_STATION}="${station}">${strings.DELETE}</button></td></tr>`
-          )
-          .join('')}
-      </table>
-    `;
-  },
-
-  openLineManager() {
-    const lineManager = `
-      <div id="${DOMStrings.LINE_MANAGER}"><br>
-        <span>${strings.LINE_NAME}</span><br>
-        <input type="text" id="${DOMStrings.LINE_NAME_INPUT}" 
-          placeholder="${strings.LINE_PLACEHOLDER}" /><br><br>
-        ${DOMCtrl.getLineSelectors(this.stations)}
-        <button id="${DOMStrings.LINE_ADD_BUTTON}">${strings.LINE_ADD}</button>
-        <h1>${strings.LINE_LIST_TITLE}</h1>
-        ${DOMCtrl.getLineList(this.lines)}
-      </div>
-    `;
-    DOMCtrl.clearManagerContainer();
-    DOMs.MANAGER_CONTAINER.innerHTML = lineManager;
-  },
-
-  getLineSelectors(stations) {
-    return `
-      <span>${strings.LINE_START} 
-        <select id="${DOMStrings.LINE_START_STATION_SELECTOR}">
-          ${stations.map(station => `<option>${station}</option>`).join('')}
-        </select>
-      </span><br>
-      <span>${strings.LINE_END} 
-        <select id="${DOMStrings.LINE_END_STATION_SELECTOR}">
-          ${stations.map(station => `<option>${station}</option>`).join('')}
-        </select>
-      </span><br><br>
-    `;
-  },
-
-  getLineList(lines) {
-    return `
-      <table id="${DOMStrings.LINE_LIST_TABLE}">
-        ${DOMCtrl.getLineListHeader()}
-        ${lines.map(line => this.getLineListContent(line)).join('')}
-      </table>
-    `;
-  },
-
-  getLineListHeader() {
-    return `
-      <tr>
-        <th><b>${strings.LINE_NAME}</b></th>
-        <th><b>${strings.LINE_START_STATION}</b></th>
-        <th><b>${strings.LINE_END_STATION}</b></th>
-        <th><b>${strings.SETTING}</b></th>
-      </tr>
-    `;
-  },
-
-  getLineListContent(line) {
-    return `
-      <tr>
-        <td>${line.lineName}</td>
-        <td>${line.start}</td>
-        <td>${line.end}</td>
-        <td><button class="${DOMStrings.LINE_DELETE_BUTTON}" 
-          data-${dataStrings.DATA_LINE}="${line.lineName}">${strings.DELETE}</button></td>
-      </tr>
-    `;
-  },
-
-  openSectionManager() {
-    const sectionContainer = `
-      <div id="${DOMStrings.SECTION_CONTAINER}"><h2>${strings.SECTION_SELECT_TITLE}</h2>
-        ${this.lines
-          .map(
-            line =>
-              `<button class="${DOMStrings.SECTION_LINE_MENU_BUTTON}" 
-              data-${dataStrings.DATA_LINE}="${line.lineName}">${line.lineName}</button>`
-          )
-          .join(' ')}
-        <div id="${DOMStrings.SECTION_MANAGER}"></div>
-      </div>
-    `;
-    DOMCtrl.clearManagerContainer();
-    DOMs.MANAGER_CONTAINER.innerHTML = sectionContainer;
-  },
-
-  openMapPrintManager() {
-    const mapManager = `
-      <div class="${DOMStrings.MAP_PRINT_MANAGER}">
-        ${this.lines
-          .map(
-            line => `
-              <h3>${line.lineName}</h3>
-              <ul>${line.stations.map(station => `<li>${station}</li>`).join('')}</ul>`
-          )
-          .join('')}
-      </div>
-    `;
-    DOMCtrl.clearManagerContainer();
-    DOMs.MANAGER_CONTAINER.innerHTML = mapManager;
-  },
-
-  selectLine(event) {
-    const {
-      target: { className },
-    } = event;
-    if (className === DOMStrings.SECTION_LINE_MENU_BUTTON) {
-      const lineSelect = event.target.dataset['line'];
-      const lineIndex = this.lines.findIndex(line => line.lineName === lineSelect);
-      DOMCtrl.openSection.bind(this)(lineSelect, lineIndex);
-    }
-  },
-
-  openSection(lineSelect, lineIndex) {
-    const sectionManager = `
-      <h2 id="${DOMStrings.SECTION_HEADER}" data-${dataStrings.DATA_TARGET}="${lineSelect}">
-        ${lineSelect} ${strings.MANAGE}</h2>
-      <h3>${strings.SECTION_ADD_TITLE}</h3>
-      ${DOMCtrl.getSectionSelector(this.stations)}
-      <input type="number" id="${DOMStrings.SECTION_ORDER_INPUT}" placeholder="${strings.ORDER}">
-      <button id="${DOMStrings.SECTION_ADD_BUTTON}">${strings.ADD}</button><br><br><br>
-      ${DOMCtrl.getSectionList(this.lines[lineIndex].stations)}
-    `;
-    document.getElementById(DOMStrings.SECTION_MANAGER).innerHTML = sectionManager;
-  },
-
-  getSectionSelector(stations) {
-    return `
-      <select id="${DOMStrings.SECTION_STATION_SELECTOR}">
-        ${stations.map(station => `<option>${station}</option>`).join('')}
-      </select>
-    `;
-  },
-
-  getSectionList(stations) {
-    return `
-      <table id="${DOMStrings.SECTION_LIST_TABLE}">
-        ${DOMCtrl.getSectionListHeader()}
-        ${stations.map((station, index) => this.getSectionListContent(station, index)).join('')}
-      </table>
-    `;
-  },
-
-  getSectionListHeader() {
-    return `
-      <tr>
-        <th><b>${strings.ORDER}</b></th>
-        <th><b>${strings.NAME}</b></th>
-        <th><b>${strings.SETTING}</b></th>
-      </tr>
-    `;
-  },
-
-  getSectionListContent(station, index) {
-    return `
-      <tr>
-        <td>${index}</td>
-        <td>${station}</td>
-        <td><button class="${DOMStrings.SECTION_DELETE_BUTTON}" data-${dataStrings.DATA_INDEX}="${index}">
-          ${strings.SECTION_DELETE}</button></td>
-      </tr>
-    `;
   },
 };

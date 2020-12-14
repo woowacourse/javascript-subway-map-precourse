@@ -1,3 +1,5 @@
+import { strings } from './doms.js';
+
 const MIN_STRING_LENGTH = 2;
 const MIN_SECTION_LENGTH = 2;
 const SECTION_START = 0;
@@ -8,8 +10,7 @@ const ERROR_SECTION_LENGTH_UNDER_MIN = `노선에 역이 ${MIN_SECTION_LENGTH}�
 const ERROR_STATION_INCLUDED = '노선에 포함되어있는 역은 삭제가 불가능합니다.';
 const ERROR_STATION_ALREADY_EXISTS = '기존의 노선에 해당 역이 존재합니다.';
 const ERROR_SECTION_OUT_OF_RANGE = '구간 범위를 벗어난 숫자입니다.';
-export const VALID_ADDITION = 'addition';
-export const VALID_DELETION = 'deletion';
+const ERROR_START_EQUALS_END = '상행 종점과 하행 종점이 동일합니다.';
 
 const isDuplicatedName = (list, input) => list.indexOf(input) !== -1;
 
@@ -47,7 +48,6 @@ export const isValidStationName = (list, input) => {
     alert(ERROR_UNDER_MINUMUM_LENGTH);
     return false;
   }
-
   return true;
 };
 
@@ -60,7 +60,6 @@ export const isValidLineName = (list, input) => {
     alert(ERROR_EMPTY_STRING);
     return false;
   }
-
   return true;
 };
 
@@ -88,12 +87,11 @@ export const isValidSectionDeletion = stations => {
 };
 
 export const isEndSection = (stations, targetIndex, type) => {
-  if (type === VALID_DELETION) {
+  if (type === strings.VALID_DELETION) {
     return targetIndex === stations.length - 1;
-  } else if (type === VALID_ADDITION) {
+  } else if (type === strings.VALID_ADDITION) {
     return targetIndex === stations.length;
   }
-
   return false;
 };
 
@@ -103,7 +101,7 @@ export const isStartSection = targetIndex => {
 
 export const isStartDiffersWithEnd = (startStation, endStation) => {
   if (startStation === endStation) {
-    alert('상행 종점과 하행 종점이 동일합니다.');
+    alert(ERROR_START_EQUALS_END);
     return false;
   }
   return true;
