@@ -120,8 +120,9 @@ function orderAlert(order) {
 
   subwayDatas.lines.map((line, idx) => {
     if (line.name === subwayDatas.targetLine) {
-      console.log(order, subwayDatas.lines[idx].stops.length);
-      if (0 >= order || order >= subwayDatas.lines[idx].stops.length) {
+      if (0 > order) {
+        alertMsg = "양수만 입력 가능합니다.";
+      } else if (0 >= order || order >= subwayDatas.lines[idx].stops.length) {
         alertMsg = "역과 역 사이에만 구간 등록이 가능합니다.";
       }
     }
