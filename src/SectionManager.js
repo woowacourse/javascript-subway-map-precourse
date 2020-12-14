@@ -1,12 +1,17 @@
+import Table from './Table.js';
+
 export default class SectionManager {
   constructor({ target, subway, addSection, deleteSection }) {
     this._target = target;
     this._subway = subway;
     this.onClickAddSection = addSection;
     this.onClickDeleteSection = deleteSection;
-
     this.createHeader(target);
     this.createSectionButtons(target);
+  }
+
+  get currentLine() {
+    return this._currentLine;
   }
 
   createContainerElement(target, classNames = '') {
@@ -26,6 +31,7 @@ export default class SectionManager {
   }
 
   createSectionManagerContainer(target, line) {
+    this._currentLine = line;
     target.innerHTML = ``;
     const _container = this.createContainerElement(target);
     const stations = this._subway.getStationName();
@@ -48,11 +54,9 @@ export default class SectionManager {
       </div>
     `;
     const _addButton = document.querySelector('#section-add-button');
-    _addButton.addEventListener('click', () => this.onClickAddSection(line));
+    _addButton.addEventListener('click', () => this.onClickAddSection());
 
-    this.createTable(target);
-    this.createTableHeader();
-    this.render(line);
+    this.createSectionTable(target);
   }
 
   addSectionUpdateClickEvent(target, lines) {
@@ -82,55 +86,32 @@ export default class SectionManager {
     this.addSectionUpdateClickEvent(target, _lines);
   }
 
-  createTable(target) {
-    const table = document.createElement('table');
-    this.table = table;
-    target.appendChild(table);
-
-    const thead = document.createElement('thead');
-    this.thead = thead;
-    table.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
-    this.tbody = tbody;
-    table.appendChild(tbody);
+  createSectionTable(target) {
+    const headers = ['순서', '이름', '설정'];
+    this._sectionTable = new Table({ target });
+    this._sectionTable.createTableHeader(headers);
+    this.render();
   }
 
-  createTableHeader() {
-    this.thead.innerHTML = `
+  setSubway(subway) {
+    this._subway = subway;
+    this.render();
+  }
+
+  render() {
+    const { section } = this._currentLine;
+    const callbackRender = (name, index) => `
       <tr>
-        <th>순서</th>
-        <th>이름</th>
-        <th>설정</th>
+        <td>${index}</td>
+        <td>${name}</td>
+        <td><button class="section-delete-button">노선에서 제거</button></td>
       </tr>
     `;
-  }
-
-  setSubway(subway, line) {
-    this._subway = subway;
-    this.render(line);
-  }
-
-  addSectionDeleteEvent(section, line) {
-    const deleteButtons = this.tbody.querySelectorAll('.section-delete-button');
-    deleteButtons.forEach((deleteButton, index) => {
-      deleteButton.addEventListener(
-        'click', () => this.onClickDeleteSection(section[index], line),
-      );
+    this._sectionTable.renderTable({
+      data: section,
+      callbackRender,
+      onClickDelete: this.onClickDeleteSection.bind(this),
+      className: '.section-delete-button',
     });
-  }
-
-  render(line) {
-    const { section } = line;
-    this.tbody.innerHTML = `
-      ${section.map((name, index) => `
-        <tr>
-          <td>${index}</td>
-          <td>${name}</td>
-          <td><button class="section-delete-button">노선에서 제거</button></td>
-        </tr>
-      `).join('')}
-    `;
-    this.addSectionDeleteEvent(section, line);
   }
 }

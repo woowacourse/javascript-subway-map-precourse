@@ -152,21 +152,21 @@ export default class App {
     }
   }
 
-  onClickAddSection(line) {
-    const { lineName } = line;
+  onClickAddSection() {
+    const { lineName } = this._sectionManager._currentLine;
     const station = this.getSelectorValue('#section-station-selector');
     const order = document.querySelector('#seletion-order-input').value;
     this._subway.addSection({ lineName, order, station });
-    this._sectionManager.setSubway(this._subway, line);
+    this._sectionManager.setSubway(this._subway);
     this.saveSubway();
   }
 
-  onClickDeleteSection(station, line) {
-    const { lineName } = line;
+  onClickDeleteSection(station) {
+    const { lineName } = this._sectionManager._currentLine;
     const isOk = window.confirm('정말로 삭제하시겠습니까?');
     if (isOk) {
       this._subway.deleteSection({ lineName, station });
-      this._sectionManager.setSubway(this._subway, line);
+      this._sectionManager.setSubway(this._subway);
       this.saveSubway();
     }
   }

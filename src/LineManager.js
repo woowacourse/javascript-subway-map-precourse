@@ -1,3 +1,5 @@
+import Table from './Table.js';
+
 import {
   LINE_PLACEHOLDER,
   DELETE_TEXT,
@@ -13,10 +15,7 @@ export default class LineManager {
     this.createLineInput(target);
     this.createSelector(target);
     this.createLineListHeader(target);
-
-    this.createTable(target);
-    this.createTableHeader();
-    this.render();
+    this.createLineTable(target);
   }
 
   createContainerElement(target, classNames = '') {
@@ -109,29 +108,11 @@ export default class LineManager {
     target.appendChild(h2);
   }
 
-  createTable(target) {
-    const table = document.createElement('table');
-    this.table = table;
-    target.appendChild(table);
-
-    const thead = document.createElement('thead');
-    this.thead = thead;
-    table.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
-    this.tbody = tbody;
-    table.appendChild(tbody);
-  }
-
-  createTableHeader() {
-    this.thead.innerHTML = `
-      <tr>
-        <th>노선 이름</th>
-        <th>상행 종점역</th>
-        <th>하행 종점역</th>
-        <th>설정</th>
-      </tr>
-    `;
+  createLineTable(target) {
+    const headers = ['노선 이름', '상행 종점역', '하행 종점역', '설정'];
+    this._lineTable = new Table({ target });
+    this._lineTable.createTableHeader(headers);
+    this.render();
   }
 
   setSubway(subway) {
@@ -139,31 +120,21 @@ export default class LineManager {
     this.render();
   }
 
-  addLineDeleteEvent(lines) {
-    const deleteButtons = this.tbody.querySelectorAll('.line-delete-button');
-
-    deleteButtons.forEach((deleteButton, index) => {
-      deleteButton.addEventListener(
-        'click', () => this.onClickDeleteLine(lines[index]),
-      );
-    });
-  }
-
   render() {
     const lines = this._subway.getLines();
-    if (lines.length === 0) {
-      this.tbody.innerHTML = '';
-      return;
-    }
-    this.tbody.innerHTML = `
-      ${lines.map(({ lineName, section }) => `
-        <tr>
-          <td>${lineName}</td>
-          <td>${section[0]}</td>
-          <td>${section[section.length - 1]}</td>
-          <td><button class="line-delete-button">${DELETE_TEXT}</button></td>
-        </tr>`).join('')}
-      `;
-    this.addLineDeleteEvent(lines);
+    const callbackRender = ({ lineName, section }) => `
+      <tr>
+        <td>${lineName}</td>
+        <td>${section[0]}</td>
+        <td>${section[section.length - 1]}</td>
+        <td><button class="line-delete-button">${DELETE_TEXT}</button></td>
+      </tr>`;
+
+    this._lineTable.renderTable({
+      data: lines,
+      callbackRender,
+      onClickDelete: this.onClickDeleteLine.bind(this),
+      className: '.line-delete-button',
+    });
   }
 }

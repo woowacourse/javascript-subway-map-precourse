@@ -1,3 +1,5 @@
+import Table from './Table.js';
+
 import { DELETE_TEXT } from './constants/Constants.js';
 
 export default class StationManager {
@@ -9,9 +11,7 @@ export default class StationManager {
 
     this.createStationInput(target);
     this.createStationListHeader(target);
-    this.createTable(target);
-    this.createTableHeader();
-    this.render();
+    this.createStationTable(target);
   }
 
   createStationInput(target) {
@@ -33,6 +33,13 @@ export default class StationManager {
     _h2.innerHTML = `🚉 지하철 역 목록`;
 
     target.appendChild(_h2);
+  }
+
+  createStationTable(target) {
+    const headers = ['역 이름', '설정'];
+    this._stationTable = new Table({ target });
+    this._stationTable.createTableHeader(headers);
+    this.render();
   }
 
   createTable(target) {
@@ -63,29 +70,19 @@ export default class StationManager {
     this.render();
   }
 
-  addStationDeleteEvent(stations) {
-    const deleteButtons = this.tbody.querySelectorAll('.station-delete-button');
-
-    deleteButtons.forEach((deleteButton, index) => {
-      deleteButton.addEventListener(
-        'click', () => this.onClickDeleteStation(stations[index]),
-      );
-    });
-  }
-
   render() {
     const stations = this._subway.getStationName();
-    if (stations.length === 0) {
-      this.tbody.innerHTML = '';
-      return;
-    }
-    this.tbody.innerHTML = `
-      ${stations.map((station) => `
-        <tr>
-          <td>${station}</td>
-          <td><button class="station-delete-button">${DELETE_TEXT}</button></td>
-        </tr>`).join('')}
-      `;
-    this.addStationDeleteEvent(stations);
+    const callbackRender = (station) => `
+      <tr>
+        <td>${station}</td>
+        <td><button class="station-delete-button">${DELETE_TEXT}</button></td>
+      </tr>`;
+
+    this._stationTable.renderTable({
+      data: stations,
+      callbackRender,
+      onClickDelete: this.onClickDeleteStation.bind(this),
+      className: '.station-delete-button',
+    });
   }
 }
