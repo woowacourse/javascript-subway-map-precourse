@@ -1,6 +1,6 @@
 import render from "../../components/render.js";
 import app from "../../components/app.js";
-import { validLineName } from "../validation/validation.js";
+import { validateInput } from "../validation/validation.js";
 
 function onLineHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -11,7 +11,7 @@ function onLineHandler() {
 
 function onAddLineHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-  let lineName = validLineName(document.getElementById("line-name-input").value);
+  let lineName = validateInput(document.getElementById("line-name-input").value, "line-name-input");
 
   if (lineName !== "") {
     console.log(lineName);

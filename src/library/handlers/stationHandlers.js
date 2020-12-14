@@ -1,6 +1,6 @@
 import render from "../../components/render.js";
 import app from "../../components/app.js";
-import { validName, validStationDelete } from "../validation/validation.js";
+import { validateInput, validStationDelete } from "../validation/validation.js";
 
 function onStationHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -11,7 +11,7 @@ function onStationHandler() {
 
 function onAddStationHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-  let stationName = validName(document.getElementById("station-add-input").value);
+  let stationName = validateInput(document.getElementById("station-add-input").value, "station-add-input");
 
   if (stationName !== "") {
     let subwayStations = {
