@@ -14,19 +14,11 @@ export default function lineStorage() {
   };
 
   const getStartPoints = () => {
-    if (!localStorage.getItem(LINE_STORAGE_NAME)) {
-      return [];
-    }
-    const startPoints = localStorage.getItem(LINE_STORAGE_NAME);
-    return JSON.parse(startPoints).map((line) => line.stations[0]);
+    return getLine().map((line) => line.stations[0]);
   };
 
   const getEndPoints = () => {
-    if (!localStorage.getItem(LINE_STORAGE_NAME)) {
-      return [];
-    }
-    const startPoints = localStorage.getItem(LINE_STORAGE_NAME);
-    return JSON.parse(startPoints).map((line) => line.stations[line.stations.length - 1]);
+    return getLine().map((line) => line.stations[line.stations.length - 1]);
   };
 
   return {
