@@ -31,8 +31,8 @@ export default class MenubarUI {
     });
   }
   _addEventToMapPrintButton() {
-    const button_ = document.getElementById(MAP_PRINT_ID);
-    button_.addEventListener("click", () => {
+    const button = document.getElementById(MAP_PRINT_ID);
+    button.addEventListener("click", () => {
       this._htmlManager.setContentsUIOnMapPrintUI();
     });
   }

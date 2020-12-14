@@ -67,7 +67,7 @@ export function canSatisfyMaxLengthCondition({
 
 function hasTypeOfNumber({ operand, errorMessage }) {
   let retBool = true;
-  if (String) {
+  if (operand === "") {
     alert(errorMessage);
     retBool = false;
   }
