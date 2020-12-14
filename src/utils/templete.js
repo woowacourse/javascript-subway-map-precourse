@@ -16,10 +16,10 @@ const STATION_MANAGER_PAGE_TEMPLATE =
   '</table>' +
   '</div>';
 
-const STATION_TABLE_TEMPLATE = (stationName) => {
-  return `<tr>
-      <td>${stationName}</td>
-      <td><button class=".station-delete-button">삭제</button></td>
+const STATION_TABLE_TEMPLATE = (station) => {
+  return `<tr id=${station.id} data-lines=${station.line}>
+      <td data-name=${station.name}>${station.name}</td>
+      <td><button class="station-delete-button">삭제</button></td>
       </tr>`;
 };
 
