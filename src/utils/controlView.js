@@ -1,5 +1,5 @@
 import { STATION_DIV } from "../constant.js";
-import { removeStationHandler } from "./eventHandler.js";
+import { removeStationHandler } from "./station.js";
 export const cleanView = () => {
   const { children } = document.getElementById("app");
   for (let i = STATION_DIV; i < children.length; i += 1) {

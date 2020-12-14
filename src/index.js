@@ -1,31 +1,16 @@
 import Subway from "./Subway.js";
 import { cleanView } from "./utils/controlView.js";
-import { getDataFromLocalStorage } from "./utils/getDataFromLocalStorage.js";
-import {
-  stationEventHandler,
-  lineEventHandler,
-  sectionEventHandler,
-  mapPrintHandler,
-} from "./utils/eventHandler.js";
-
-const stationManagerButton = document.getElementById("station-manager-button");
-const lineManagerButton = document.getElementById("line-manager-button");
-const sectionManagerButton = document.getElementById("section-manager-button");
-const mapPrintManageButton = document.getElementById("map-print-manage-button");
-
+import { stationInit } from "./utils/station.js";
+import { lineInit } from "./utils/line.js";
+import { sectionInit } from "./utils/section.js";
+import { printMapInit } from "./utils/mapPrint.js";
 const init = () => {
   cleanView();
   let subway = new Subway();
-  stationManagerButton.addEventListener(
-    "click",
-    stationEventHandler.bind(subway)
-  );
-  sectionManagerButton.addEventListener(
-    "click",
-    sectionEventHandler.bind(subway)
-  );
-  lineManagerButton.addEventListener("click", lineEventHandler.bind(subway));
-  mapPrintManageButton.addEventListener("click", mapPrintHandler.bind(subway));
+  stationInit.call(subway);
+  lineInit.call(subway);
+  sectionInit.call(subway);
+  printMapInit.call(subway);
 };
 
 init();
