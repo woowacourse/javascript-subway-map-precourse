@@ -5,10 +5,10 @@ export default class SubwayMapModel {
     this._lines = {};
     this._stations = {};
 
-    this.setLocalStorage();
+    this.loadFromLocalStorageData();
   }
 
-  setLocalStorage() {
+  loadFromLocalStorageData() {
     if ('stations' in localStorage) {
       this.setStations(JSON.parse(localStorage.getItem('stations')));
     }
@@ -16,6 +16,10 @@ export default class SubwayMapModel {
     if ('lines' in localStorage) {
       this.setLines(JSON.parse(localStorage.getItem('lines')));
     }
+  }
+
+  saveDataInLocalStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
   }
 
   getStations() {
@@ -28,12 +32,12 @@ export default class SubwayMapModel {
 
   addStation(stationId) {
     this._stations[stationId] = stationId;
-    localStorage.setItem('stations', JSON.stringify(this._stations));
+    this.saveDataInLocalStorage('stations', this._stations);
   }
 
   deleteStation(stationId) {
     delete this._stations[stationId];
-    localStorage.setItem('stations', JSON.stringify(this._stations));
+    this.saveDataInLocalStorage('stations', this._stations);
   }
 
   getLines() {
@@ -61,21 +65,17 @@ export default class SubwayMapModel {
 
   addLine(lineObject) {
     this._lines[lineObject.lineId] = new Line(lineObject);
-    localStorage.setItem('lines', JSON.stringify(this._lines));
+    this.saveDataInLocalStorage('lines', this._lines);
   }
 
   deleteLine(lineId) {
     delete this._lines[lineId];
-    localStorage.setItem('lines', JSON.stringify(this._lines));
+    this.saveDataInLocalStorage('lines', this._lines);
   }
-
-  // selectLine(lineId) {
-  //   return this._lines[lineId].getSections();
-  // }
 
   addSectionToLine(sectionId, lineId, order) {
     this._lines[lineId].addSection(sectionId, order);
-    localStorage.setItem('lines', JSON.stringify(this._lines));
+    this.saveDataInLocalStorage('lines', this._lines);
   }
 
   getSectionsFromLine(lineId) {
@@ -84,6 +84,6 @@ export default class SubwayMapModel {
 
   deleteSectionFromLine(lineId, order) {
     this._lines[lineId].deleteSection(order);
-    localStorage.setItem('lines', JSON.stringify(this._lines));
+    this.saveDataInLocalStorage('lines', this._lines);
   }
 }
