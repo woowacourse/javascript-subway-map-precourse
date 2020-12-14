@@ -15,3 +15,11 @@ td {
 .section-line-menu-button {
   margin: 0 2px;
 }
+
+#section-order-input {
+  width: 120px;
+}
+
+#section-list {
+  margin-top: 52px;
+}
