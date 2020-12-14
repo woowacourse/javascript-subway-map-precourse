@@ -62,9 +62,8 @@ function onSectionDeleteHandler() {
   let deleteTargetIdx = event.target.parentNode.parentNode.childNodes[1].outerText;
   let deleteTargetName = event.target.parentNode.parentNode.childNodes[3].outerText;
   let targetLine = subwayDatas.targetLine;
-  //   console.log(deleteTargetName);
 
-  let deleteConfirmed = validateSectionDelete(targetLine);
+  let deleteConfirmed = validateSectionDelete();
 
   if (deleteConfirmed === true) {
     //lines에서 삭제하고

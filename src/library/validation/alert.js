@@ -13,6 +13,7 @@ function ununiqueStationNameAlert(inputValue) {
       alertMsg = "중복된 역 이름을 입력하셨습니다.";
     }
   });
+
   return alertMsg;
 }
 
@@ -23,6 +24,7 @@ function spaceAlert(inputValue) {
   if (inputValue === "") {
     alertMsg = "공백을 입력하셨습니다.";
   }
+
   return alertMsg;
 }
 
@@ -33,6 +35,7 @@ function underTwoCharacterAlert(inputValue) {
   if (inputValue.length < 2) {
     alertMsg = "2글자 이상으로 입력해주세요.";
   }
+
   return alertMsg;
 }
 
@@ -51,6 +54,7 @@ function inlineAlert(deleteTarget) {
       alertMsg = "노선에 포함된 역은 삭제할 수 없습니다.";
     }
   });
+
   return alertMsg;
 }
 
@@ -69,6 +73,7 @@ function ununiqueLineNameAlert(inputValue) {
       alertMsg = "중복된 노선 이름을 입력하셨습니다.";
     }
   });
+
   return alertMsg;
 }
 
@@ -80,14 +85,14 @@ function startAndEndStationAlert(startAndEndStations) {
 //상행 종점역과 하행 종점역이 중복되는 호선이 이미 존재하는 경우
 function unUniqueLineAlert(startAndEndStations) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-
   let alertMsg = "";
 
-  subwayDatas.lines.map((line, idx) => {
+  subwayDatas.lines.map((line) => {
     if (line.stops[0] === startAndEndStations[0] && line.stops[line.stops.length - 1] === startAndEndStations[1]) {
       alertMsg = "상행, 하행 종점역이 중복되는 노선이 이미 존재합니다.";
     }
   });
+
   return alertMsg;
 }
 
@@ -98,35 +103,34 @@ function sameStartAndEndStationAlert(startAndEndStations) {
   if (startAndEndStations[0] === startAndEndStations[1]) {
     alertMsg = "상행 종점과 하행 종점으로 동일한 역을 선택하셨습니다.";
   }
+
   return alertMsg;
 }
 
 //노선에 포함된 역이 2개 이하일 때 노선에서 제거 시 alert
-function sectionDeleteAlert(targetLine) {
+function sectionDeleteAlert() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
+  let targetLineIdx = subwayDatas.lines.findIndex((line) => line.name === subwayDatas.targetLine);
 
-  subwayDatas.lines.map((line) => {
-    if (line.name === targetLine && line.stops.length <= 2) {
-      alertMsg = "노선에 포함된 역이 2개 이하일 때에는 삭제할 수 없습니다.";
-    }
-  });
+  if (subwayDatas.lines[targetLineIdx].stops.length <= 2) {
+    alertMsg = "노선에 포함된 역이 2개 이하일 때에는 삭제할 수 없습니다.";
+  }
+
   return alertMsg;
 }
 
 function orderAlert(order) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
+  let targetLineIdx = subwayDatas.lines.findIndex((line) => line.name === subwayDatas.targetLine);
 
-  subwayDatas.lines.map((line, idx) => {
-    if (line.name === subwayDatas.targetLine) {
-      if (0 > order) {
-        alertMsg = "양수만 입력 가능합니다.";
-      } else if (0 >= order || order >= subwayDatas.lines[idx].stops.length) {
-        alertMsg = "역과 역 사이에만 구간 등록이 가능합니다.";
-      }
-    }
-  });
+  if (0 > order) {
+    alertMsg = "양수만 입력 가능합니다.";
+  } else if (order <= 0 || subwayDatas.lines[targetLineIdx].stops.length <= order) {
+    alertMsg = "역과 역 사이에만 구간 등록이 가능합니다.";
+  }
+
   return alertMsg;
 }
 
@@ -134,13 +138,12 @@ function sectionAlert(stationName) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
 
-  subwayDatas.lines.map((line) => {
-    if (line.name === subwayDatas.targetLine) {
-      if (line.stops.indexOf(stationName) !== -1) {
-        alertMsg = "이미 구간에 등록된 역입니다.";
-      }
-    }
-  });
+  let targetLineIdx = subwayDatas.lines.findIndex((line) => line.name === subwayDatas.targetLine);
+
+  if (subwayDatas.lines[targetLineIdx].stops.indexOf(stationName) !== -1) {
+    alertMsg = "이미 구간에 등록된 역입니다.";
+  }
+
   return alertMsg;
 }
 
