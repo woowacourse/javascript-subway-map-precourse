@@ -2,17 +2,31 @@ import Component from "./Component.js";
 import SectionMain from "./SectionMain.js";
 import {
   createButtonHTMLElement,
-  createDivHTMLElement,
-  getLineNameArray
+  createDivHTMLElement
 } from "./util.js";
 
 /*
-  StationManager가 관리하는 상태값은 구간을 관리하고자 하는 노선 이름이다.
-  사용자가 지하철 노선을 선택하기 전에는 선택된 노선 이름이 없다.
+  SectionManager가 관리하는 상태값은 아래와 같다.
+  state: {
+  lineName: string //구간을 관리하고자 하는 노선 이름
+  }
+   
+  사용자가 지하철 노선을 선택하기 전에는 선택된 노선 이름은 공백문자이다.
 */
+/* 
+  props: { 
+    $parent, 
+    stationNameArray,  // 등록된 모든 지하철 역 이름들
+    lineInfo,          // 등록된 모든 지하철 노선 정보
+    initialLineName,   // 현재 선택된 지하철 노선 이름의 초기값
+    setLineInfo,       // 지하철 노선 정보를 App.js의 상태값으로 등록하는 함수
+    setSectionLineName // 선택된 지하철 노선 이름이 업데이트되면 
+                       // 이를 App.js의 상태값으로 등록하는 함수
+  }
+ */
 export default class SectionManager extends Component {
-  constructor({ $parent }) {
-    super({ $parent });
+  constructor(props) {
+    super(props);
     this.declareConstants();
     this.initializeState();
     this.initializeVariables();
@@ -30,11 +44,17 @@ export default class SectionManager extends Component {
   }
 
   initializeState() {
-    this.state = {};
+    const { initialLineName } = this.props;
+
+    this.state = {
+      lineName: initialLineName
+    };
   }
 
   initializeVariables() {
-    this.lineNameArray = getLineNameArray().sort(); // 노선 이름을 사전 순으로 정렬
+    const { lineInfo } = this.props;
+
+    this.lineNameArray = lineInfo.map(({ lineName }) => lineName); // 노선 이름은 이미 사전 순으로 정렬되어 있음
   }
 
   constructHTMLElements() {
@@ -83,8 +103,10 @@ export default class SectionManager extends Component {
     this.$component.addEventListener("click", e => {
       const { target: { classList } } = e;
       const { target: { dataset: { lineName } } } = e;
+      const { lineName: currentLineName } = this.state;
 
-      if (classList.contains(this.SECTION_LINE_MENU_BUTTON_CLASSNAME)) {
+      if (lineName !== currentLineName &&
+        classList.contains(this.SECTION_LINE_MENU_BUTTON_CLASSNAME)) {
         this.handleLineMenuButton(lineName);
       }
     });
@@ -94,11 +116,50 @@ export default class SectionManager extends Component {
     this.setState({ lineName });
   }
 
+  setState(state) {
+    super.setState(state);
+
+    const { lineName } = this.state;
+    const { setSectionLineName } = this.props;
+
+    setSectionLineName(lineName);
+  }
+
   render() {
     const { lineName } = this.state;
     if (lineName) {
-      this.$sectionMain.innerHTML = "";
-      new SectionMain({ $parent: this.$sectionMain, lineName });
+      this.renderSectionMain();
     }
+  }
+
+  renderSectionMain() {
+    const { lineName } = this.state;
+    const { stationNameArray, lineInfo } = this.props;
+
+    this.$sectionMain.innerHTML = "";
+    new SectionMain({
+      $parent: this.$sectionMain,
+      lineName,
+      initialStations: this.getStations(lineName),
+      stationNameArray,
+      lineInfo,
+      setStations: stations => this.setStations(stations)
+    });
+  }
+
+  getStations(targetLineName) {
+    const { lineInfo } = this.props;
+
+    return lineInfo.find(({ lineName }) => lineName === targetLineName).stations;
+  }
+
+  setStations(stations) {
+    const { lineInfo, setLineInfo } = this.props;
+    const { lineName } = this.state;
+
+    const targetExcludedLineInfo = lineInfo.filter(({ lineName: oldLineName }) => oldLineName !== lineName);
+    const updatedLineInfo = [...targetExcludedLineInfo, { lineName, stations }];
+
+    setLineInfo(updatedLineInfo);
   }
 }

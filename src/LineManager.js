@@ -6,33 +6,25 @@ import {
   createSelectHTMLElement,
   createDivHTMLElement,
   clearInputValue,
-  retrieveLineInfo,
-  getStationNameArray,
-  storeLineInfo,
   throwErrorWithMessage
 } from "./util.js";
 
 /* LineManager가 관리하는 상태값을 아래와 같다. 
-다른 Manager가 관리하는 상태값은 localStorage에서 가져올 수 있다.
   state: {
     lineInfo: [
       {
-        lineName: string // 노선 이름
-        stations: [
-          string
-        ] // 해당 노선에 속한 역 이름들
-          // 배열의 순서가 노선의 순서이다.
-          // 상행종점(0) -> 하행종점(length-1)
+        lineName: string   // 노선 이름
+        stations: [string] // 해당 노선에 속한 역 이름들. 
+                           // 배열의 순서가 노선의 순서이다. 상행종점: 0 하행종점: length-1
       }
     ]
   }
 */
 export default class LineManager extends Component {
-  constructor({ $parent }) {
-    super({ $parent });
+  constructor({ $parent, stationNameArray, initialLineInfo, setLineInfo }) {
+    super({ $parent, stationNameArray, initialLineInfo, setLineInfo });
     this.declareConstants();
     this.initializeState();
-    this.initializeVariables();
     
     this.constructHTMLElements();
     this.appendChildNodes();
@@ -47,15 +39,11 @@ export default class LineManager extends Component {
   }
 
   initializeState() {
+    const { initialLineInfo } = this.props;
+    
     this.state = {
-      lineInfo: retrieveLineInfo().sort(({ lineName: aLineName }, { lineName: bLineName }) => {
-        return aLineName < bLineName ? -1 : 1;
-      })
+      lineInfo: initialLineInfo // 이미 지하철 노선 이름순으로 정렬되어 있다.
     };
-  }
-
-  initializeVariables() {
-    this.stationNameArray = getStationNameArray().sort(); // 역 이름을 사전 순으로 정렬
   }
 
   constructHTMLElements() {
@@ -94,9 +82,11 @@ export default class LineManager extends Component {
   }
 
   createLineStartStationSelector() {
+    const { stationNameArray } = this.props;
+
     return createSelectHTMLElement({
       id: "line-start-station-selector",
-      options: this.stationNameArray
+      options: stationNameArray
     });
   }
 
@@ -108,9 +98,11 @@ export default class LineManager extends Component {
   }
 
   createLineEndStationSelector() {
+    const { stationNameArray } = this.props;
+
     return createSelectHTMLElement({
       id: "line-end-station-selector",
-      options: this.stationNameArray
+      options: stationNameArray
     });
   }
 
@@ -241,7 +233,10 @@ export default class LineManager extends Component {
   setState(state) {
     super.setState(state);
 
-    storeLineInfo(this.state.lineInfo);
+    const { lineInfo } = this.state;
+    const { setLineInfo } = this.props;
+    
+    setLineInfo(lineInfo);
   }
 
   render() {
@@ -250,14 +245,22 @@ export default class LineManager extends Component {
     this.$lineNameList.innerHTML = "";
     
     if (lineInfo.length === 0) {
-      const $noLineMessage = createDivHTMLElement({ innerText: "등록된 지하철 노선이 없습니다." });
-
-      this.$lineNameList.append($noLineMessage);
+      this.renderNoLineMessage();
     } else {
-      const $childNodes = this.createLineNameChildNodes();
-      
-      this.$lineNameList.append(...$childNodes);
+      this.renderLineNameList();
     }
+  }
+
+  renderNoLineMessage() {
+    const $noLineMessage = createDivHTMLElement({ innerText: "등록된 지하철 노선이 없습니다." });
+
+    this.$lineNameList.append($noLineMessage);
+  }
+
+  renderLineNameList() {
+    const $childNodes = this.createLineNameChildNodes();
+      
+    this.$lineNameList.append(...$childNodes);
   }
 
   createLineNameChildNodes() {

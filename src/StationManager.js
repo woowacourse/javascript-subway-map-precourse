@@ -5,23 +5,19 @@ import {
   createDivHTMLElement,
   createInputTextHTMLElement,
   createLabelHTMLElement,
-  retrieveLineInfo,
-  retrieveStationNameArray,
-  storeStationNameArray,
   throwErrorWithMessage
 } from "./util.js";
 
-/* StationManager가 관리하는 상태값을 아래와 같다. 다른 Manager가 관리하는 상태값은 localStorage에서 가져올 수 있다.
+/* StationManager가 관리하는 상태값을 아래와 같다.
   state: {
-    stationNameArray: [ string ] 
+    stationNameArray: [ string ]  // 등록된 모든 지하철 역 이름
   }
 */
 export default class StationManager extends Component {
-  constructor({ $parent }) {
-    super({ $parent });
+  constructor({ $parent, initialStationNameArray, lineInfo, setStationNameArray }) {
+    super({ $parent, initialStationNameArray, lineInfo, setStationNameArray });
     this.declareConstants();
     this.initializeState(); 
-    this.initializeVariable();
 
     this.constructHTMLElements();
     this.addClickEventListener();
@@ -36,16 +32,11 @@ export default class StationManager extends Component {
   }
 
   initializeState() {
-    this.state = {
-      stationNameArray: retrieveStationNameArray()
-        .sort((aStationName, bStationName) => {
-          return aStationName < bStationName ? -1 : 1;
-        })
-    };
-  }
+    const { initialStationNameArray } = this.props;
 
-  initializeVariable() {
-    this.lineInfo = retrieveLineInfo();
+    this.state = {
+      stationNameArray: initialStationNameArray // 이미 사전순으로 정렬이 되어 있다
+    };
   }
 
   constructHTMLElements() {
@@ -120,7 +111,7 @@ export default class StationManager extends Component {
   validateUniqueStationName(stationNameUserInput) {
     const { stationNameArray } = this.state;
 
-    if (stationNameArray.some(stationName  => stationName === stationNameUserInput)) {
+    if (stationNameArray.some(stationName => stationName === stationNameUserInput)) {
       throwErrorWithMessage("중복된 지하철 역 이름은 등록될 수 없습니다.");
     }
   }
@@ -158,7 +149,8 @@ export default class StationManager extends Component {
   }
 
   getMatchedLineName(stationName) {
-    const matchedLineInfo = this.lineInfo.filter(({ stations }) => stations.includes(stationName));
+    const { lineInfo } = this.props;
+    const matchedLineInfo = lineInfo.filter(({ stations }) => stations.includes(stationName));
     const matchedLineName = matchedLineInfo.map(({ lineName }) => lineName);
 
     return matchedLineName;
@@ -181,7 +173,10 @@ export default class StationManager extends Component {
   setState(state) {
     super.setState(state);
 
-    storeStationNameArray(this.state.stationNameArray);
+    const { stationNameArray } = this.state;
+    const { setStationNameArray } = this.props;
+
+    setStationNameArray(stationNameArray);
   }
 
   render() {
@@ -190,14 +185,22 @@ export default class StationManager extends Component {
     this.$stationNameList.innerHTML = "";
 
     if (stationNameArray.length === 0) {
-      const $noStationMessage = createDivHTMLElement({ innerText: "등록된 지하철 역이 없습니다." });
-
-      this.$stationNameList.append($noStationMessage);
+      this.renderNoStationMessage();
     } else {
-      const $childNodes = this.createStationNameChildNodes();
-
-      this.$stationNameList.append(...$childNodes);
+      this.renderStationNameList();
     }
+  }
+
+  renderNoStationMessage() {
+    const $noStationMessage = createDivHTMLElement({ innerText: "등록된 지하철 역이 없습니다." });
+
+    this.$stationNameList.append($noStationMessage);
+  }
+
+  renderStationNameList() {
+    const $childNodes = this.createStationNameChildNodes();
+
+    this.$stationNameList.append(...$childNodes);
   }
 
   createStationNameChildNodes() {

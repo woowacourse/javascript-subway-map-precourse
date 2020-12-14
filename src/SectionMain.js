@@ -6,18 +6,30 @@ import {
   createInputNumberHTMLElement,
   createLabelHTMLElement,
   createSelectHTMLElement,
-  getStationNameArray,
-  getStations,
-  throwErrorWithMessage,
-  updateLineInfo
+  throwErrorWithMessage
 } from "./util.js";
-
+/*
+  SectionMain이 관리하는 상태값은 아래와 같다.
+  state: {
+    stations: [string] // 현재 선택된 지하철 노선에 속해져 있는 지하철 역 이름들
+  }
+   
+*/
 export default class SectionMain extends Component {
-  constructor({ $parent, lineName }) {
-    super({ $parent, lineName });
+  /*  props: { 
+    $parent, 
+    lineName,         // 현재 선택된 지하철 노선 이름
+    initialStations,  // 현재 선택된 지하철 노선에 속한 지하철 역 이름들의 초기값
+    stationNameArray, // 등록된 모든 지하철 역 이름들
+    lineInfo,         // 등록된 모든 지하철 노선 정보
+    setStations       // 해당 지하철 노선에 속한 지하철 역 이름들이 업데이트되면 
+                      // 해당 지하철 노선 정보를 업데이트하여 App.js의 상태값으로 저장하는 함수
+    } 
+  */
+  constructor(props) {
+    super(props);
     this.declareConstants();
     this.initializeState();
-    this.initializeVariables();
 
     this.constructHTMLElements();
     this.appendChildNodes();
@@ -32,13 +44,11 @@ export default class SectionMain extends Component {
   }  
   
   initializeState() {
-    this.state = {
-      stations: getStations(this.props.lineName)
-    };
-  }
+    const { initialStations } = this.props;
 
-  initializeVariables() {
-    this.stationsArray = getStationNameArray();
+    this.state = {
+      stations: initialStations
+    };
   }
 
   constructHTMLElements() {
@@ -56,14 +66,7 @@ export default class SectionMain extends Component {
   createSectionStationSelector() {
     return createSelectHTMLElement({
       id: "section-station-selector",
-      options: this.getExcludedStationsArray()
     });
-  }
-
-  getExcludedStationsArray() {
-    const { stations } = this.state;
-    
-    return this.stationsArray.filter(stationName => !stations.includes(stationName));
   }
 
   createSectionStationLabel() {
@@ -113,8 +116,8 @@ export default class SectionMain extends Component {
     const sectionOrderString = this.$sectionOrderInput.value;
 
     if (this.isValidSectionInfo(stationName, sectionOrderString)) {
-      this.addNewSection(stationName, sectionOrderString);
-      this.updateSectionStationSelectorOptions();
+      const updatedStations = this.getUpdatedStations(stationName, sectionOrderString);
+      this.setState({ stations: updatedStations });
     }
   }
 
@@ -156,25 +159,15 @@ export default class SectionMain extends Component {
     }
   }
 
-  addNewSection(stationName, sectionOrderInteger) {
-    if (sectionOrderInteger < 0) {
-      sectionOrderInteger = 0;
-    }
-
+  getUpdatedStations(stationName, sectionOrderString) {
     const { stations } = this.state;
-    const before = stations.slice(0, sectionOrderInteger);
-    const after = stations.slice(sectionOrderInteger);
-  
-    this.setState({
-      stations: [...before, stationName, ...after]
-    });
 
-    console.log(this.state.stations);
-  }
+    const safeSectionOrderInteger = Math.max(0, Number(sectionOrderString));
 
-  updateSectionStationSelectorOptions() {
-    this.$sectionStationSelector.innerHTML = this.getExcludedStationsArray()
-      .map(stationName => `<option>${stationName}</option>`).join("");
+    const before = stations.slice(0, safeSectionOrderInteger);
+    const after = stations.slice(safeSectionOrderInteger);
+    
+    return [...before, stationName, ...after];
   }
 
   handleSectionDeleteButton(targetStationName) {
@@ -193,14 +186,38 @@ export default class SectionMain extends Component {
   setState(state) {
     super.setState(state);
 
-    const newLineInfo = {
-      lineName: this.props.lineName,
-      stations: [...this.state.stations]
-    };
-    updateLineInfo(newLineInfo);
+    const { stations } = this.state;
+    const { setStations } = this.props;
+
+    setStations(stations);
   }
 
   render() {
+    this.renderSectionStationSelectorOptions();
+    this.renderSectionStationList();
+  }
+  
+  renderSectionStationSelectorOptions() {
+    this.$sectionStationSelector.innerHTML = "";
+
+    const $options = this.getNotRegisteredStationsArray().reduce((acc, stationName) => {
+      const $option = document.createElement("option");
+      $option.innerText = stationName;
+
+      return [...acc, $option];
+    }, []);
+
+    this.$sectionStationSelector.append(...$options);
+  }
+
+  getNotRegisteredStationsArray() {
+    const { stationNameArray } = this.props;
+    const { stations } = this.state;
+    
+    return stationNameArray.filter(stationName => !stations.includes(stationName));
+  }
+
+  renderSectionStationList() {
     this.$sectionStationList.innerHTML = "";
 
     const $childNodes = this.state.stations.reduce((acc, stationName, order) => {
