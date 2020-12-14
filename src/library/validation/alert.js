@@ -53,4 +53,22 @@ function inlineAlert(deleteTarget) {
   return alertMsg;
 }
 
-export { stationNameAlert, stationDeleteAlert };
+//라인 검증
+function lineNameAlert(inputValue) {
+  return ununiqueLineNameAlert(inputValue) || spaceAlert(inputValue);
+}
+
+//중복된 라인 이름 검증
+function ununiqueLineNameAlert(inputValue) {
+  let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  let alertMsg = "";
+
+  subwayDatas.lines.map((line) => {
+    if (line.name === inputValue) {
+      alertMsg = "중복된 노선 이름을 입력하셨습니다.";
+    }
+  });
+  return alertMsg;
+}
+
+export { stationNameAlert, stationDeleteAlert, lineNameAlert };

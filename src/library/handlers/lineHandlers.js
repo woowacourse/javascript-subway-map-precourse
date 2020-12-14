@@ -1,5 +1,6 @@
 import render from "../../components/render.js";
 import app from "../../components/app.js";
+import { validLineName } from "../validation/validation.js";
 
 function onLineHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -10,38 +11,42 @@ function onLineHandler() {
 
 function onAddLineHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+  let lineName = validLineName(document.getElementById("line-name-input").value);
 
-  let line = {
-    name: name,
-    stops: [],
-  };
+  if (lineName !== "") {
+    console.log(lineName);
+    let line = {
+      name: name,
+      stops: [],
+    };
 
-  line.name = document.getElementById("line-name-input").value;
-  line.stops.push(document.getElementById("line-start-station-selector").value);
-  line.stops.push(document.getElementById("line-end-station-selector").value);
+    line.name = lineName;
+    line.stops.push(document.getElementById("line-start-station-selector").value);
+    line.stops.push(document.getElementById("line-end-station-selector").value);
 
-  let startStop = line.stops[0];
-  let endStop = line.stops[line.stops.length - 1];
+    let startStop = line.stops[0];
+    let endStop = line.stops[line.stops.length - 1];
 
-  //상행선 역 정보에 노선 정보 추가
-  subwayDatas.subwayStations.forEach((station, idx) => {
-    if (startStop === station.name) {
-      subwayDatas.subwayStations[idx].line.push(line.name);
-    }
-  });
+    //상행선 역 정보에 노선 정보 추가
+    subwayDatas.subwayStations.forEach((station, idx) => {
+      if (startStop === station.name) {
+        subwayDatas.subwayStations[idx].line.push(line.name);
+      }
+    });
 
-  //하행선 역 정보에 노선 정보 추가
-  subwayDatas.subwayStations.forEach((station, idx) => {
-    if (endStop === station.name) {
-      subwayDatas.subwayStations[idx].line.push(line.name);
-    }
-  });
+    //하행선 역 정보에 노선 정보 추가
+    subwayDatas.subwayStations.forEach((station, idx) => {
+      if (endStop === station.name) {
+        subwayDatas.subwayStations[idx].line.push(line.name);
+      }
+    });
 
-  subwayDatas.lines.push(line);
-  localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+    subwayDatas.lines.push(line);
+    localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
 
-  render(app("line", subwayDatas));
-  subwayDatas && updateEvent();
+    render(app("line", subwayDatas));
+    subwayDatas && updateEvent();
+  }
 }
 
 function updateEvent() {
