@@ -17,5 +17,8 @@ export const Line = {
     Storage.save(this.key, this.lines);
   },
 
-  delete() {},
+  delete(name) {
+    this.lines = this.lines.filter((el) => el.name !== name);
+    Storage.save(this.key, this.lines);
+  },
 };

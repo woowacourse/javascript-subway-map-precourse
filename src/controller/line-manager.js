@@ -1,6 +1,6 @@
 import { Line, LineObject } from "../model/line.js";
 import { Station } from "../model/station.js";
-import { Constant } from "../util/constant.js";
+import { ConfirmMessage, Constant } from "../util/constant.js";
 import { Storage } from "../util/storage.js";
 import { LineValidation } from "../util/validation.js";
 import { Element, ElementControl } from "../view/element.js";
@@ -18,12 +18,15 @@ export const LineManager = {
   },
 
   setEventListener() {
-    // 추가
     Element.lineAddButton.addEventListener(Constant.CLICK, () => {
       this.onClickAddButton();
     });
 
-    // 삭제
+    Element.lineContainer
+      .querySelector(Constant.TBODY)
+      .addEventListener(Constant.CLICK, (e) => {
+        this.onClickDeleteButton(e);
+      });
   },
 
   onClickAddButton() {
@@ -38,5 +41,12 @@ export const LineManager = {
     ElementControl.clearInput(Element.lineNameInput);
   },
 
-  onClickDeleteButton() {},
+  onClickDeleteButton(e) {
+    const name = e.target.dataset.name;
+
+    if (confirm(ConfirmMessage.CHECK_DELETION)) {
+      Line.delete(name);
+      LineView.render();
+    }
+  },
 };

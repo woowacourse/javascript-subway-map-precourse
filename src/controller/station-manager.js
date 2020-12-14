@@ -26,9 +26,11 @@ export const StationManager = {
     // document.querySelector(Constant.STATION_DELELE_BUTTON_CLASS).addEventListener(Constant.CLICK, (e) => {
     //   this.onClickDeleteBtn(e);
     // });
-    Element.querySelectorTbody.addEventListener(Constant.CLICK, (e) => {
-      this.onClickDeleteButton(e);
-    });
+    Element.stationContainer
+      .querySelector(Constant.TBODY)
+      .addEventListener(Constant.CLICK, (e) => {
+        this.onClickDeleteButton(e);
+      });
   },
 
   onClickAddButton() {
