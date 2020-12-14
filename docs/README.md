@@ -6,7 +6,6 @@
 
 - [x] 각각의 관리 버튼 생성
 - [x] element를 생성하고 화면에 띄우는 기능
-- [x] Station 생성
 - [x] Line 생성
 - [x] localStorage에 데이터 저장 및 불러오기
 

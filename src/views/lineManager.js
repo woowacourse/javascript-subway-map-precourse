@@ -18,7 +18,7 @@ export const showStationSelector = subwayMap => {
 
 export const showAddedLine = subwayMap => {
   const lineTbody = document.querySelector('#line-manager-screen table tbody');
-  let addedLines = '';
+  let addedLinesHTML = '';
   subwayMap.lineList.forEach(element => {
     const lineTr = makeElement({
       tag: 'tr',
@@ -47,7 +47,7 @@ export const showAddedLine = subwayMap => {
     });
     appendElements([deleteBtn], btnTd);
     appendElements([nameTd, startTd, endTd, btnTd], lineTr);
-    addedLines += lineTr.outerHTML;
+    addedLinesHTML += lineTr.outerHTML;
   });
-  lineTbody.innerHTML = addedLines;
+  lineTbody.innerHTML = addedLinesHTML;
 };

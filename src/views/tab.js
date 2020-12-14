@@ -1,5 +1,6 @@
 import { showAddedStation } from './stationManager.js';
 import { showStationSelector, showAddedLine } from './lineManager.js';
+import { showModifyLineBtn } from './sectionManager.js';
 
 const stationManagerScreen = document.querySelector('#station-manager-screen');
 const lineManagerScreen = document.querySelector('#line-manager-screen');
@@ -25,4 +26,5 @@ export const tabManager = (value, subwayMap) => {
   showAddedStation(subwayMap);
   showAddedLine(subwayMap);
   showStationSelector(subwayMap);
+  showModifyLineBtn(subwayMap);
 };

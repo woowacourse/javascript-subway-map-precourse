@@ -15,3 +15,7 @@ table td {
 .active {
   display: block;
 }
+
+#section-manager {
+  display: none;
+}

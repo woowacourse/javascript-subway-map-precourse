@@ -2,7 +2,7 @@ import { makeElement, appendElements } from './utils.js';
 
 export const showAddedStation = subwayMap => {
   const stationTbody = document.querySelector('#station-manager-screen table tbody');
-  let addedStations = '';
+  let addedStationsHTML = '';
   subwayMap.stationList.forEach(name => {
     const stationTr = makeElement({
       tag: 'tr',
@@ -23,7 +23,7 @@ export const showAddedStation = subwayMap => {
     });
     appendElements([deleteBtn], btnTd);
     appendElements([nameTd, btnTd], stationTr);
-    addedStations += stationTr.outerHTML;
+    addedStationsHTML += stationTr.outerHTML;
   });
-  stationTbody.innerHTML = addedStations;
+  stationTbody.innerHTML = addedStationsHTML;
 };
