@@ -1,5 +1,5 @@
 import renderLine from "../../render/renderLine.js";
-import { alertMessage } from "../../alertMessage.js";
+import { alertMessage } from "../../common/alertMessage.js";
 
 function delLine(line) {
   const lines = JSON.parse(localStorage.lines);

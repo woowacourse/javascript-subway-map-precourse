@@ -3,6 +3,7 @@ import { renderSection } from "../../render/renderSection.js";
 function onClickLine(event) {
   const $target = event.target;
   const targetName = $target.dataset.name;
+
   renderSection(targetName);
 }
 

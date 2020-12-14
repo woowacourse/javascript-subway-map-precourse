@@ -3,6 +3,7 @@ import delLineEvent from "../event/line/delLineEvent.js";
 function selectListTemplate() {
   const stations = JSON.parse(localStorage.stations);
   let newHTML = "";
+
   stations.forEach((station) => (newHTML += `<option>${station}</option>`));
 
   return newHTML;
@@ -17,13 +18,13 @@ function initSelectContainer() {
 
 function lineTableTemplate() {
   return `<table class="line-table" border="1">
-    <tr>
-    <th>노선 이름</th>
-    <th>상행 종점역</th>
-    <th>하행 종점역</th>
-    <th>설정</th>
-    </tr>
-    </table>`;
+            <tr>
+              <th>노선 이름</th>
+              <th>상행 종점역</th>
+              <th>하행 종점역</th>
+              <th>설정</th>
+            </tr>
+          </table>`;
 }
 
 function initLineListContainer() {
@@ -33,19 +34,19 @@ function initLineListContainer() {
 
 function lineListTemplate(line, lineNumber) {
   return `<tr class="line-table-row" data-number=${lineNumber}>
-              <td>
-                <span>${line.name}</span>
-              </td>
-              <td>
-                <span>${line.sections[0]}</span>
-              </td>
-              <td>
-                <span>${line.sections[line.sections.length - 1]}</span>
-              </td>
-              <td>
-                <button class="line-delete-button">삭제</button>
-              </td>
-            </tr>`;
+            <td>
+              <span>${line.name}</span>
+            </td>
+            <td>
+              <span>${line.sections[0]}</span>
+            </td>
+            <td>
+              <span>${line.sections[line.sections.length - 1]}</span>
+            </td>
+            <td>
+              <button class="line-delete-button">삭제</button>
+            </td>
+          </tr>`;
 }
 
 function initLineList(lines) {
@@ -62,6 +63,7 @@ function initLineList(lines) {
 export default function renderStation() {
   initSelectContainer();
   initLineListContainer();
+
   const lines = JSON.parse(localStorage.lines);
   if (lines !== null) {
     initLineList(lines);

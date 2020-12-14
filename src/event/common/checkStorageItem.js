@@ -14,6 +14,7 @@ export default function checkLocalStorageItem() {
       "당고개",
     ]);
   }
+
   if (localStorage.lines === undefined) {
     localStorage.lines = JSON.stringify([
       { name: "1호선", sections: ["인천", "소요산"] },

@@ -3,6 +3,7 @@ import delSectionEvent from "../event/section/delSectionEvent.js";
 
 function lineSelectButtonTemplate() {
   const lines = JSON.parse(localStorage.lines);
+
   return lines
     .map(
       (line) =>
@@ -33,12 +34,14 @@ function sectionInputTemplate(line) {
 function initSectionInputContainer(selectedLine) {
   const $sectionInputContainer = document.getElementById("section-input-container");
   $sectionInputContainer.innerHTML = sectionInputTemplate(selectedLine);
+
   addSectionEvent(selectedLine);
 }
 
 function sectionSelectorTemplate() {
   const stations = JSON.parse(localStorage.stations);
   let newHTML = "";
+
   stations.forEach((station) => (newHTML += `<option>${station}</option>`));
 
   return newHTML;
@@ -83,6 +86,7 @@ function initSectionList(selectedLine) {
   const lines = JSON.parse(localStorage.lines);
   const $sectionTable = document.querySelector(".section-table");
   let sectionNumber = 0;
+
   for (let i = 0; i < lines.length; i++) {
     if (selectedLine === lines[i].name) {
       lines[i].sections.forEach((section) =>

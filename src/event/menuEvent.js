@@ -11,6 +11,7 @@ function setHiddenPages() {
 
 function changeManagerContainer({ target }) {
   setHiddenPages();
+
   if (target.id === "station-manager-button") {
     document.getElementById("station-page").style.display = "block";
     addStationEvent();
@@ -31,6 +32,8 @@ function changeManagerContainer({ target }) {
 
 export default function menuEvent() {
   const $menuButton = document.querySelector(".menu-button");
+
   checkLocalStorageItem();
+
   $menuButton.addEventListener("click", changeManagerContainer);
 }

@@ -1,10 +1,11 @@
 import renderStation from "../../render/renderStation.js";
-import { isStationOnLine } from "../../inputCheck.js";
-import { alertMessage } from "../../alertMessage.js";
+import { isStationOnLine } from "../../common/checkInput.js";
+import { alertMessage } from "../../common/alertMessage.js";
 
 function delStation(station) {
-  const stations = JSON.parse(localStorage.stations);
   const lines = JSON.parse(localStorage.lines);
+  const stations = JSON.parse(localStorage.stations);
+
   stations.splice(stations.indexOf(station), 1);
 
   if (isStationOnLine(lines, station)) {

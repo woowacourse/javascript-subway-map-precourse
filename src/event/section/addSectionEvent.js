@@ -1,6 +1,7 @@
 import { renderSection } from "../../render/renderSection.js";
-import { isSectionAlreadyExist, isTransferStation } from "../../inputCheck.js";
-import { alertMessage } from "../../alertMessage.js";
+import { isSectionAlreadyExist, isTransferStation } from "../../common/checkInput.js";
+import { alertMessage } from "../../common/alertMessage.js";
+import { clearInput } from "../../common/clearInput.js";
 
 export function getIndexOfLine(lineName) {
   const lines = JSON.parse(localStorage.lines);
@@ -24,7 +25,9 @@ function addSection(indexOfLine, selectedLine, selectedStaion, stationOrder) {
     ...lines[indexOfLine].sections.slice(stationOrder),
   ];
   localStorage.lines = JSON.stringify(lines);
+
   renderSection(selectedLine);
+  clearInput();
 }
 
 function checkValidSection(selectedLine) {
@@ -39,6 +42,7 @@ function checkValidSection(selectedLine) {
   } else if (isTransferStation(lines, selectedStation)) {
     return alert(`${selectedStation}` + alertMessage.TRANSFER_STATION_MESSAGE);
   }
+
   addSection(indexOfLine, selectedLine, selectedStation, stationOrder);
 }
 
