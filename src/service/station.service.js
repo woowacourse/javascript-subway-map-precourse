@@ -23,14 +23,6 @@ class Station {
     this.storage.setItem("stations", allStations);
   }
 
-  hasSameName(newStationName) {
-    const allStations = this.getAllStations();
-    const duplicates = allStations.filter((stationName) => stationName === newStationName);
-    const hasSameName = duplicates.length;
-
-    return hasSameName;
-  }
-
   deleteStation(stationName) {
     const allStations = this.getAllStations();
     const index = allStations.indexOf(stationName);
@@ -38,6 +30,13 @@ class Station {
     allStations.splice(index, this.DELETE_ITEM_COUNT);
 
     this.storage.setItem("stations", allStations);
+  }
+
+  findStationByName(stationName) {
+    const allStations = this.getAllStations();
+    const station = allStations.filter((name) => name === stationName);
+
+    return station;
   }
 }
 

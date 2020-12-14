@@ -91,7 +91,7 @@ export default class SectionManager {
   }
 
   validateSectionExist(lineName, stationName) {
-    const sectionExist = this.section.findSectionByLineAndStation(lineName, stationName);
+    const sectionExist = this.section.findSectionByLineAndStationName(lineName, stationName);
     if (sectionExist) {
       throw new Error(DUPLICATE_SECTION_STATION);
     }

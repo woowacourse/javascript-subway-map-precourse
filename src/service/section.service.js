@@ -17,11 +17,6 @@ class Section {
     return sections;
   }
 
-  findSectionByLineAndStation(lineName, stationName) {
-    const sections = this.getSectionsByLineName(lineName);
-    return sections.includes(stationName);
-  }
-
   addSection(lineName, stationName, order) {
     const sections = this.getSectionsByLineName(lineName);
     sections.splice(order, this.START_SECTION_ORDER, stationName);
@@ -36,6 +31,22 @@ class Section {
     sections.splice(order, this.DELETED_ITEM_COUNT);
 
     this.storage.setItem(lineName, sections);
+  }
+
+  findSectionByStationName(stationName) {
+    const allLines = this.storage.getItem("lines").split(",");
+
+    const allLinesSections = allLines.map((lineName) => this.storage.getItem(lineName));
+    const station = allLinesSections.filter((sections) => {
+      return sections.split(",").includes(stationName);
+    });
+
+    return station;
+  }
+
+  findSectionByLineAndStationName(lineName, stationName) {
+    const sections = this.getSectionsByLineName(lineName);
+    return sections.includes(stationName);
   }
 
   hasMinStationCount(lineName) {

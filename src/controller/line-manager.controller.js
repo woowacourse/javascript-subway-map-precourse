@@ -80,13 +80,13 @@ export default class LineManager {
 
   validateLineName(lineName) {
     const isValidLength = lineName.length >= this.MIN_LINE_NAME_LENGTH;
-    const isUnique = !this.line.hasSameName(lineName);
+    const isExistName = this.line.findLineByName(lineName).length;
 
     if (!isValidLength) {
       throw new Error(INVALID_LENGTH_LINE_NAME);
     }
 
-    if (!isUnique) {
+    if (isExistName) {
       throw new Error(DUPLICATE_LINE_NAME);
     }
   }

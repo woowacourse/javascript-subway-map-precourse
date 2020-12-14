@@ -33,25 +33,11 @@ class Line {
     this.storage.removeItem(lineName);
   }
 
-  //findLineByLineName
-  hasSameName(newLineName) {
+  findLineByName(lineName) {
     const allLines = this.getAllLines();
-    const duplicates = allLines.filter((lineName) => lineName === newLineName);
-    const hasSameName = duplicates.length;
+    const line = allLines.filter((name) => name === lineName);
 
-    return hasSameName;
-  }
-
-  //findAllLinesSectionByStationName
-  isStationIncluded(stationName) {
-    const allLines = this.getAllLines();
-
-    const allLinesSections = allLines.map((lineName) => this.storage.getItem(lineName));
-    const includedStation = allLinesSections.filter((sections) => {
-      return sections.split(",").includes(stationName);
-    });
-
-    return includedStation.length;
+    return line;
   }
 }
 

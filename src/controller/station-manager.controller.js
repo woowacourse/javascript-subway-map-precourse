@@ -1,5 +1,5 @@
 import station from "../service/station.service.js";
-import line from "../service/line.service.js";
+import section from "../service/section.service.js";
 import { createStationTableRowHTML } from "../common/template.js";
 import { errorMessage } from "../common/error-message.js";
 const {
@@ -10,8 +10,8 @@ const {
 } = errorMessage;
 export default class StationManager {
   constructor() {
-    this.line = line;
     this.station = station;
+    this.section = section;
 
     this.MIN_STATION_NAME_LENGTH = 2;
   }
@@ -47,8 +47,8 @@ export default class StationManager {
   }
 
   validateStationNameUnique(stationName) {
-    const isUnique = !this.station.hasSameName(stationName);
-    if (!isUnique) {
+    const isExistStation = !this.station.findStationByName(stationName).length;
+    if (!isExistStation) {
       throw new Error(DUPLICATE_STAION_NAME);
     }
   }
@@ -69,7 +69,7 @@ export default class StationManager {
   }
 
   validateDeleteStationInLine(stationName) {
-    const isStationInLine = this.line.isStationIncluded(stationName);
+    const isStationInLine = this.section.findSectionByStationName(stationName).length;
     if (isStationInLine) {
       throw new Error(INVALID_DELETE_STATION_IN_LINE);
     }
