@@ -4,12 +4,12 @@ import Line from "./line.js";
 import Station from "./station.js";
 
 export const deleteLineInList = (lineName) => {
-  const parent = document.querySelector("table#line-list-table tbody");
+  const parent = document.querySelector("tbody#line-list");
   const deleteIdx = manager.lineList.findIndex((line) => {
     return line.name === lineName;
   });
+  parent.removeChild(document.getElementById(`${lineName}-line`));
   manager.lineList[deleteIdx].deleteAllStationInLine();
-  parent.removeChild(document.querySelector(`#line-list [id = ${lineName}]`));
   manager.lineList.splice(deleteIdx, 1);
 };
 export const makeLineChildUI = (line) => {
@@ -34,7 +34,7 @@ export const makeLineUI = (line) => {
     line
   );
   const newLine = document.createElement("tr");
-  newLine.setAttribute("id", `${line.name}`);
+  newLine.setAttribute("id", `${line.name}-line`);
   newLine.append(lineName, startStation, endStation, deleteButton);
 
   return newLine;
