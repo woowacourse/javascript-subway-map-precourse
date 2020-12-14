@@ -76,12 +76,12 @@ export const clearInputValue = $input => {
 
 const retrieveInfoFromLocalStorage = KEY => JSON.parse(localStorage.getItem(KEY)) || [];
 
-export const retrieveStationInfo = () => retrieveInfoFromLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY);
+export const retrieveStationNameArray = () => retrieveInfoFromLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY);
 
 export const retrieveLineInfo = () => retrieveInfoFromLocalStorage(LINE_INFO_LOCAL_STORAGE_KEY);
 
 
-export const getStationNameArray = () => retrieveStationInfo().map(({ stationName }) => stationName);
+export const getStationNameArray = () => retrieveStationNameArray();
   
 export const getStations = targetLineName => {
   return retrieveLineInfo().find(({ lineName }) => lineName === targetLineName)?.stations || [];
@@ -93,7 +93,7 @@ const storeInfoToLocalStorage = (LOCAL_STORAGE_KEY, info) => localStorage.setIte
 
 export const storeLineInfo = lineInfo => storeInfoToLocalStorage(LINE_INFO_LOCAL_STORAGE_KEY, lineInfo);
 
-export const storeStationInfo = stationInfo => storeInfoToLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY, stationInfo);
+export const storeStationNameArray = stationNameArray => storeInfoToLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY, stationNameArray);
 
 export const updateLineInfo = newLineInfo => {
   const storedLineInfo = retrieveLineInfo();

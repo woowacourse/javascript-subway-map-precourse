@@ -6,19 +6,14 @@ import {
   createInputTextHTMLElement,
   createLabelHTMLElement,
   retrieveLineInfo,
-  retrieveStationInfo,
-  storeStationInfo,
+  retrieveStationNameArray,
+  storeStationNameArray,
   throwErrorWithMessage
 } from "./util.js";
 
 /* StationManager가 관리하는 상태값을 아래와 같다. 다른 Manager가 관리하는 상태값은 localStorage에서 가져올 수 있다.
   state: {
-    stationInfo: [
-      {
-        stationName: string // 역 이름
-        lineName   : string // 해당 역이 속한 노선 이름
-      }
-    ]
+    stationNameArray: [ string ] 
   }
 */
 export default class StationManager extends Component {
@@ -42,8 +37,8 @@ export default class StationManager extends Component {
 
   initializeState() {
     this.state = {
-      stationInfo: retrieveStationInfo()
-        .sort(({ stationName: aStationName }, { stationName: bStationName }) => {
+      stationNameArray: retrieveStationNameArray()
+        .sort((aStationName, bStationName) => {
           return aStationName < bStationName ? -1 : 1;
         })
     };
@@ -104,7 +99,7 @@ export default class StationManager extends Component {
   handleStationAdd() {
     const newStationName = this.$stationNameInput.value;
     if (this.isValidStationName(newStationName)) {
-      this.addNewStationName(newStationName);    
+      this.setStationNameArray([ ...this.state.stationNameArray, newStationName ]);
       clearInputValue(this.$stationNameInput);
     }
   }
@@ -123,9 +118,9 @@ export default class StationManager extends Component {
   }
 
   validateUniqueStationName(stationNameUserInput) {
-    const { stationInfo } = this.state;
+    const { stationNameArray } = this.state;
 
-    if (stationInfo.some(({ stationName }) => stationName === stationNameUserInput)) {
+    if (stationNameArray.some(stationName  => stationName === stationNameUserInput)) {
       throwErrorWithMessage("중복된 지하철 역 이름은 등록될 수 없습니다.");
     }
   }
@@ -149,17 +144,6 @@ export default class StationManager extends Component {
     clearInputValue(this.$stationNameInput);
   }
 
-  addNewStationName(newStationName) {
-    this.setState({
-      stationInfo: [
-        ...this.state.stationInfo,
-        {
-          stationName: newStationName,
-        }
-      ]
-    });
-  }
-
   handleDeleteButton(targetStationName) {      
     if (confirm(`${targetStationName}을 삭제하시겠습니까?`)) {
       const matchedLineNameArray = this.getMatchedLineName(targetStationName);
@@ -167,8 +151,8 @@ export default class StationManager extends Component {
       if (matchedLineNameArray.length > 0) {
         alert(`${targetStationName}은 ${matchedLineNameArray.join(", ")}에 등록되어 있어 삭제할 수 없습니다.`);
       } else {
-        const targetExcludedStationInfo = this.state.stationInfo.filter(({ stationName }) => stationName !== targetStationName);
-        this.setStationInfoArray(targetExcludedStationInfo);
+        const targetExcluded = this.state.stationNameArray.filter(stationName => stationName !== targetStationName);
+        this.setStationNameArray(targetExcluded);
       }
     }
   }
@@ -180,8 +164,8 @@ export default class StationManager extends Component {
     return matchedLineName;
   }
 
-  setStationInfoArray(stationInfo) {
-    this.setState({ stationInfo });
+  setStationNameArray(stationNameArray) {
+    this.setState({ stationNameArray });
   }
 
   appendChildNodes() {
@@ -197,15 +181,15 @@ export default class StationManager extends Component {
   setState(state) {
     super.setState(state);
 
-    storeStationInfo(this.state.stationInfo);
+    storeStationNameArray(this.state.stationNameArray);
   }
 
   render() {
-    const { stationInfo } = this.state;
+    const { stationNameArray } = this.state;
 
     this.$stationNameList.innerHTML = "";
 
-    if (stationInfo.length === 0) {
+    if (stationNameArray.length === 0) {
       const $noStationMessage = createDivHTMLElement({ innerText: "등록된 지하철 역이 없습니다." });
 
       this.$stationNameList.append($noStationMessage);
@@ -217,9 +201,9 @@ export default class StationManager extends Component {
   }
 
   createStationNameChildNodes() {
-    const { stationInfo } = this.state;
+    const { stationNameArray } = this.state;
 
-    return stationInfo.reduce(($acc, { stationName }) => {
+    return stationNameArray.reduce(($acc, stationName ) => {
       const $stationName = createDivHTMLElement({ innerText: stationName });
       const $stationDeleteButton = this.createStationDeleteButton({ stationName });
 
