@@ -1,4 +1,4 @@
-class Line {
+export class Line {
   constructor() {
     this.storage = window.localStorage;
 
@@ -41,5 +41,4 @@ class Line {
   }
 }
 
-const line = new Line();
-export default line;
+export const line = new Line();

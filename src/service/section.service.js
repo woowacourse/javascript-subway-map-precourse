@@ -1,9 +1,9 @@
-class Section {
+import { Line } from "./line.service.js";
+class Section extends Line {
   constructor() {
-    this.storage = window.localStorage;
+    super();
 
     this.START_SECTION_ORDER = 0;
-    this.DELETED_ITEM_COUNT = 1;
     this.MIN_SECTION_STATION_COUNT = 2;
   }
 
@@ -34,11 +34,11 @@ class Section {
   }
 
   findSectionByStationName(stationName) {
-    const allLines = this.storage.getItem("lines").split(",");
+    const allLines = this.getAllLines();
 
-    const allLinesSections = allLines.map((lineName) => this.storage.getItem(lineName));
+    const allLinesSections = allLines.map((lineName) => this.getSectionsByLineName(lineName));
     const station = allLinesSections.filter((sections) => {
-      return sections.split(",").includes(stationName);
+      return sections.includes(stationName);
     });
 
     return station;

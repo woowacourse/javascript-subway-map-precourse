@@ -1,4 +1,4 @@
-import line from "../service/line.service.js";
+import { line } from "../service/line.service.js";
 import station from "../service/station.service.js";
 import section from "../service/section.service.js";
 import {

@@ -1,4 +1,4 @@
-import line from "../service/line.service.js";
+import { line } from "../service/line.service.js";
 import { errorMessage } from "../common/error-message.js";
 const {
   INVALID_LENGTH_LINE_NAME,

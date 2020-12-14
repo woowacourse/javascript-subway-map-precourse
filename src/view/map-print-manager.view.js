@@ -1,4 +1,4 @@
-import line from "../service/line.service.js";
+import { line } from "../service/line.service.js";
 import section from "../service/section.service.js";
 import { mapPrintManagerViewHTML } from "./template.view.js";
 
