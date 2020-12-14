@@ -3,7 +3,13 @@ import LineManager from './managers/LineManager.js';
 import MapPrintManager from './managers/MapPrintManager.js';
 import SectionManager from './managers/SectionManager.js';
 import StationManager from './managers/StationManager.js';
-import { LINE, MAP, MENU, SECTION, STATION } from './share/selector.js';
+import {
+  MENU,
+  STATION_SELECTOR,
+  LINE_SELECTOR,
+  SECTION_SELECTOR,
+  MAP_SELECTOR,
+} from './share/selector.js';
 import storage from './share/storage.js';
 
 const STORAGE_KEY = 'state';
@@ -15,22 +21,22 @@ export default class SubwayManager extends Component {
 
     this.stationManager = new StationManager({
       managerId: MENU.STATION_MANGER_BUTTON_ID,
-      containerId: STATION.STATION_MANAGER_CONTAINER_ID,
+      containerId: STATION_SELECTOR.MANAGER_CONTAINER_ID,
       syncData: this.syncData,
     });
     this.lineManager = new LineManager({
       managerId: MENU.LINE_MANAGER_BUTTON_ID,
-      containerId: LINE.LINE_MANAGER_CONTAINER_ID,
+      containerId: LINE_SELECTOR.MANAGER_CONTAINER_ID,
       syncData: this.syncData,
     });
     this.sectionManager = new SectionManager({
       managerId: MENU.SECTION_MANAGER_BUTTON_ID,
-      containerId: SECTION.SECTION_MANAGER_CONTAINER_ID,
+      containerId: SECTION_SELECTOR.MANAGER_CONTAINER_ID,
       syncData: this.syncData,
     });
     this.mapPrintManager = new MapPrintManager({
       managerId: MENU.MAP_PRINT_MANAGER_BUTTON_ID,
-      containerId: MAP.MAP_PRINT_MANAGER_CONTAINER_ID,
+      containerId: MAP_SELECTOR.PRINT_MANAGER_CONTAINER_ID,
       syncData: this.syncData,
     });
 

@@ -1,6 +1,6 @@
 import Component from '../factory/Component.js';
 import Line from '../factory/Line.js';
-import { LINE } from '../share/selector.js';
+import { LINE_SELECTOR } from '../share/selector.js';
 import {
   checkOverlap,
   checkSameStation,
@@ -8,25 +8,27 @@ import {
 } from '../share/utils.js';
 import { lineTableTemplate, optionTemplate } from '../share/template.js';
 
-const CONFIRM_MSG = '정말 노선을 삭제하시겠습니까?';
+const CONFIRM_MESSAGE = '정말 노선을 삭제하시겠습니까?';
 export default class LineManager extends Component {
   constructor(props) {
     super(props);
 
     this.state.lineList = [];
 
-    this.form = this.container.querySelector(`#${LINE.LINE_FORM_ID}`);
+    this.form = this.container.querySelector(`#${LINE_SELECTOR.FORM_ID}`);
     this.userInput = this.container.querySelector(
-      `#${LINE.LINE_NAME_INPUT_ID}`,
+      `#${LINE_SELECTOR.NAME_INPUT_ID}`,
     );
     this.startStationSelector = this.container.querySelector(
-      `#${LINE.LINE_START_STATION_SELECTOR_ID}`,
+      `#${LINE_SELECTOR.START_STATION_SELECTOR_ID}`,
     );
     this.endStationSelector = this.container.querySelector(
-      `#${LINE.LINE_END_STATION_SELECTOR}`,
+      `#${LINE_SELECTOR.END_STATION_SELECTOR}`,
     );
-    this.addBtn = this.container.querySelector(`#${LINE.LINE_ADD_BUTTON_ID}`);
-    this.table = this.container.querySelector(`#${LINE.LINE_TABLE_BODY}`);
+    this.addButton = this.container.querySelector(
+      `#${LINE_SELECTOR.ADD_BUTTON_ID}`,
+    );
+    this.table = this.container.querySelector(`#${LINE_SELECTOR.TABLE_BODY}`);
 
     this.form.addEventListener('submit', this.onSubmit);
     this.table.addEventListener('click', this.onTableClick);
@@ -51,8 +53,8 @@ export default class LineManager extends Component {
   onTableClick = (event) => {
     const { className } = event.target;
     const { index } = event.target.dataset;
-    if (className !== LINE.LINE_DELETE_BUTTON_CLASS) return;
-    if (!customConfirm(CONFIRM_MSG)) return;
+    if (className !== LINE_SELECTOR.DELETE_BUTTON_CLASS) return;
+    if (!customConfirm(CONFIRM_MESSAGE)) return;
     this.deleteLineFromList(index);
   };
 
@@ -94,7 +96,7 @@ export default class LineManager extends Component {
         lineTableTemplate({
           ...line,
           index,
-          buttonClass: LINE.LINE_DELETE_BUTTON_CLASS,
+          buttonClass: LINE_SELECTOR.DELETE_BUTTON_CLASS,
         }),
       )
       .join('');

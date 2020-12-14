@@ -1,7 +1,7 @@
-export const stationTableTemplate = (stationName, index, btnClass) => `
+export const stationTableTemplate = (stationName, index, buttonClass) => `
   <tr data-name="${stationName}" data-index="${index}">
     <td>${stationName}</td>
-    <td><button class="${btnClass}" data-index="${index}">삭제</button></td>
+    <td><button class="${buttonClass}" data-index="${index}">삭제</button></td>
   </tr>
 `;
 
