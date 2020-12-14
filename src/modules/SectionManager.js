@@ -10,6 +10,7 @@ export default class SectionManager {
       "#add-section-container"
     );
     this._tableBody = document.querySelector("#line-section-list tbody");
+    this._selectedLineName = "";
     this._station = new Station();
     this._line = new Line();
 
@@ -41,6 +42,7 @@ export default class SectionManager {
     deleteButton.classList.add("section-delete-button");
     deleteButton.dataset.name = name;
     deleteButton.textContent = DELETE_FROM_LINE_BUTTON;
+    deleteButton.addEventListener("click", this._deleteStation);
     deleteButtonTd.appendChild(deleteButton);
 
     return deleteButtonTd;
@@ -56,6 +58,11 @@ export default class SectionManager {
     tr.appendChild(lineNameTd);
     tr.appendChild(deleteButtonTd);
     this._tableBody.appendChild(tr);
+  };
+
+  _deleteStation = e => {
+    const stationName = e.target.dataset.name;
+    this._line.deleteStationFromLine(stationName, this._selectedLineName);
   };
 
   _printLineMenuList = () => {
@@ -82,6 +89,7 @@ export default class SectionManager {
       ".station-line-name"
     );
     const lineName = e.target.innerText;
+    this._selectedLineName = lineName;
 
     this._addSectionContainer.classList.add("active");
     selectedLineName.textContent = `${lineName} 관리`;
