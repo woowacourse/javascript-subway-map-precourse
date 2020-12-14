@@ -38,11 +38,32 @@ export default class StationManagerModel {
   }
 
   static delete(station) {
-    if (this.isDuplicated(station)) {
+    if (this.isDuplicated(station) && this.checkAfterDelete(station)) {
       const stations = JSON.parse(localStorage.getItem('Stations'));
+      const lines = JSON.parse(localStorage.getItem('Lines'));
+      const linesOfStation = JSON.parse(localStorage.getItem('Stations'))[station].lines;
       delete stations[station];
+      linesOfStation.forEach((line) => {
+        lines[line].stations.splice(lines[line].stations.indexOf(station), 1);
+      });
+      localStorage.setItem('Lines', JSON.stringify(lines));
       localStorage.setItem('Stations', JSON.stringify(stations));
-      console.log(JSON.parse(localStorage.getItem('Stations')));
+    } else {
+      // error
+      return 0;
     }
+  }
+
+  static checkAfterDelete(station) {
+    const lines = JSON.parse(localStorage.getItem('Lines'));
+    const linesOfStation = JSON.parse(localStorage.getItem('Stations'))[station].lines;
+    let isValid = true;
+    linesOfStation.forEach((line) => {
+      if (lines[line].stations.length <= 2) {
+        isValid = false;
+        return;
+      }
+    });
+    return isValid;
   }
 }
