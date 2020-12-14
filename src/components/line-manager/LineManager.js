@@ -3,14 +3,14 @@ import { LineManagerList } from "./LineManagerList.js";
 
 export class LineManager {
   constructor(props) {
-    this.setLines = props.setLines;
+    this.setNewLine = props.setNewLine;
     this.render(props);
   }
 
   render = ({ getStations, getLines, deleteLine }) => {
     this.lineManagerInput = new LineManagerInput({
       getStations: getStations,
-      setLines: this.addNewLines,
+      setNewLine: this.addNewLines,
     });
     this.lineManagerList = new LineManagerList({
       getLines: getLines,
@@ -23,7 +23,7 @@ export class LineManager {
   };
 
   addNewLines = (lineName, newLine) => {
-    this.setLines(lineName, newLine);
+    this.setNewLine(lineName, newLine);
     this.lineManagerList.render();
   };
 }

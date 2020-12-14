@@ -3,9 +3,10 @@ import { getLineTableHeader } from "../../utils/templates.js";
 import { showDOM } from "../../utils/handleDom.js";
 import { SectionManagerInput } from "./SectionManagerInput.js";
 export class SectionManager {
-  constructor({ getLines, getStations }) {
+  constructor({ getLines, getStations, setLines }) {
     this.getLines = getLines;
     this.getStations = getStations;
+    this.setLines = setLines;
     this.render();
   }
 
@@ -55,9 +56,15 @@ export class SectionManager {
   };
 
   addStationInLine = (order, station, lineName) => {
-    let line = this.getLines().filter((line) => {
-      return line.lineName === lineName;
-    })[0].stations;
-    line.splice(order, 0, station);
+    let lines = this.getLines();
+
+    lines.forEach((line) => {
+      if (line.lineName === lineName) {
+        let newStations = line.stations;
+        newStations.splice(order, 0, station);
+        line.stations = newStations;
+      }
+    });
+    this.setLines(lines);
   };
 }

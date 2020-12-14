@@ -19,7 +19,8 @@ export class SubwayMap {
       setStations: this.setStations,
       getStations: this.getStations,
       deleteStation: this.deleteStation,
-      setLines: this.setNewLines,
+      setNewLine: this.setNewLine,
+      setLines: this.setLines,
       getLines: this.getLines,
       deleteLine: this.deleteLine,
     };
@@ -70,7 +71,7 @@ export class SubwayMap {
     this.sectionManager.updateStationsInInput();
   };
 
-  setNewLines = (lineName, newLines) => {
+  setNewLine = (lineName, newLines) => {
     let lines = this.getLines();
     let newLine = { lineName: lineName, stations: newLines };
 
