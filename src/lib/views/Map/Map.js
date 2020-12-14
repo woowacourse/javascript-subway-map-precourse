@@ -10,10 +10,11 @@ export default class Map {
   }
 
   _renderLineList(stations) {
-    return stations.reduce((stationListTags, stationName) => {
-      stationListTags += `<li>${stationName}</li>`;
-      return stationListTags;
-    }, "");
+    return stations.reduce(
+      (stationListTags, stationName) =>
+        stationListTags + `<li>${stationName}</li>`,
+      "",
+    );
   }
 
   _renderStationMap({ lineName, stations }) {
