@@ -1,3 +1,5 @@
+import {ERROR_MESSAGE, MIN_LETTER, MIN_LINE_LENGTH} from './utils.js';
+
 export const isStationInputVaild = (station, exStation) => {
   if (!isMatched(station)) {
     return false;
@@ -39,15 +41,15 @@ export const isSectionValid = (userSection, exSection) => {
 
 export const isNotLineHaved = (station, lines) => {
   if (lines.find((line) => line.station.includes(station))) {
-    return alert('노선에 존재하는 역은 삭제할 수 없습니다.');
+    return alert(ERROR_MESSAGE.LINE_HAVE_SAME_STATION);
   }
 
   return true;
 };
 
 export const isMoreThanTwoStation = (line) => {
-  if (line.length <= 2) {
-    return alert('노선에 역이 2개 이하이면 삭제할 수 없습니다.');
+  if (line.length <= MIN_LINE_LENGTH) {
+    return alert(ERROR_MESSAGE.LESS_THAN_TWO_STATION);
   }
 
   return true;
@@ -55,10 +57,10 @@ export const isMoreThanTwoStation = (line) => {
 
 const isMatched = (value) => {
   if (value.match(/[^가-힣0-9]/)) {
-    return alert('띄어쓰기 없이 한글과 숫자만 입력해주세요.');
+    return alert(ERROR_MESSAGE.WRONG_INPUT);
   }
-  if (value.length < 2) {
-    return alert('2글자 이상으로 입력해주세요.');
+  if (value.length < MIN_LETTER) {
+    return alert(ERROR_MESSAGE.LESS_THAN_ONE_LETTER);
   }
 
   return true;
@@ -66,7 +68,7 @@ const isMatched = (value) => {
 
 const isAllDifferentStation = (station, allStations) => {
   if (allStations && allStations.includes(station)) {
-    return alert('같은 이름의 역이 존재합니다.');
+    return alert(ERROR_MESSAGE.SAME_STATION);
   }
 
   return true;
@@ -74,7 +76,7 @@ const isAllDifferentStation = (station, allStations) => {
 
 const isAllDifferentLine = (userLine, allLines) => {
   if (allLines.find((line) => line.lineName === userLine)) {
-    return alert('같은 이름의 노선이 존재합니다.');
+    return alert(ERROR_MESSAGE.SAME_LINE);
   }
 
   return true;
@@ -82,7 +84,7 @@ const isAllDifferentLine = (userLine, allLines) => {
 
 const isAllDifferentSection = (userSection, allSection) => {
   if (allSection.find((station) => station === userSection.sectionName)) {
-    return alert('이미 역이 추가되어 있습니다.');
+    return alert(ERROR_MESSAGE.ALREADY_INCLUDE_STATION);
   }
 
   return true;
@@ -90,7 +92,7 @@ const isAllDifferentSection = (userSection, allSection) => {
 
 const isLastStopDifferent = (station) => {
   if (station[0] === station[station.length - 1]) {
-    return alert('상행과 하행이 같은 역이 될 수 없습니다.');
+    return alert(ERROR_MESSAGE.SAME_LAST_STOP);
   }
 
   return true;
@@ -98,7 +100,7 @@ const isLastStopDifferent = (station) => {
 
 const isNumber = (number) => {
   if (number.match(/\D/) || number === '') {
-    return alert('숫자를 입력해주세요.');
+    return alert(ERROR_MESSAGE.NOT_NUMBER);
   }
 
   return true;
@@ -106,7 +108,7 @@ const isNumber = (number) => {
 
 const isMoreThanMaxNumber = (userSection, section) => {
   if (section.length < userSection.number) {
-    return alert(`${section.length}이하의 수를 입력해주세요.`);
+    return alert(`${section.length}${ERROR_MESSAGE.LENGTH_LIMIT}`);
   }
 
   return true;
