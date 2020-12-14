@@ -17,3 +17,8 @@ export const TEXT = {
   DELETE_FROM_LINE: '노선에서 삭제',
   DELETE: '삭제',
 };
+
+export const KEY = {
+  STATION: 'station',
+  LINE: 'line',
+};

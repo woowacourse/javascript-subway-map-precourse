@@ -1,3 +1,5 @@
+import {KEY} from './utils.js';
+
 export const addSectionOnLocalStorage = (key, value) => {
   const localStorageValue = getLocalStorage(key);
   const sectionIndex = localStorageValue.findIndex(
@@ -45,10 +47,10 @@ export const removeSectionOnLocalStorage = (key, value) => {
 export const removeLocalStorage = (key, value) => {
   const localStorageValue = getLocalStorage(key);
   const filteredStorage = localStorageValue.filter((storage) => {
-    if (key === 'station') {
+    if (key === KEY.STATION) {
       return storage !== value;
     }
-    if (key === 'line') {
+    if (key === KEY.LINE) {
       return storage.lineName !== value;
     }
   });

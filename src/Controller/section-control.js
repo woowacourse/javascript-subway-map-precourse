@@ -22,6 +22,7 @@ import {
   removeSectionOnLocalStorage,
 } from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
+import {KEY} from './utils.js';
 
 export function onLoadSection(e) {
   hideSectionLine();
@@ -34,7 +35,7 @@ export function onAddSection(e) {
   const sectionValue = getSectionValue(e.target.dataset.line);
   const selectedSection = getSelectedSection(sectionValue.lineName);
   if (isSectionValid(sectionValue, selectedSection.station)) {
-    addSectionOnLocalStorage('line', sectionValue);
+    addSectionOnLocalStorage(KEY.LINE, sectionValue);
     lineInstance.updateAddLine(selectedSection, sectionValue);
     updateSectionTable();
     showSectionScreen(e.target.dataset.line);
@@ -48,7 +49,7 @@ export function onRemoveSection(e) {
   const removedData = {lineName: parsedData.line, station: parsedData.station};
   const selectedSection = getSelectedSection(removedData.lineName);
   if (removeConfirm && isMoreThanTwoStation(selectedSection.station)) {
-    removeSectionOnLocalStorage('line', removedData);
+    removeSectionOnLocalStorage(KEY.LINE, removedData);
     lineInstance.updateRemoveLine(selectedSection, parsedData.station);
     updateSectionTable();
     showSectionScreen(parsedData.line);

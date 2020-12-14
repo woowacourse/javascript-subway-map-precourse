@@ -12,6 +12,7 @@ import {
 import {setLocalStorage, removeLocalStorage} from './local-storage.js';
 import {isNotLineHaved, isStationInputVaild} from './valid.js';
 import {stationInstance, lineInstance} from '../index.js';
+import {KEY} from './utils.js';
 
 export const loadStation = () => {
   stationInstance.loadStation();
@@ -20,7 +21,7 @@ export const loadStation = () => {
 
 export function onAddStation() {
   if (isStationInputVaild($stationNameInput.value, stationInstance.stations)) {
-    setLocalStorage('station', $stationNameInput.value);
+    setLocalStorage(KEY.STATION, $stationNameInput.value);
     stationInstance.addStation($stationNameInput.value);
     addStationScreen($stationNameInput.value);
     addStationSelectOption($upStreamSelector, $stationNameInput.value);
@@ -36,7 +37,7 @@ export function onRemoveStation(e) {
     removeConfirm &&
     isNotLineHaved(e.target.dataset.station, lineInstance.lines)
   ) {
-    removeLocalStorage('station', e.target.dataset.station);
+    removeLocalStorage(KEY.STATION, e.target.dataset.station);
     stationInstance.removeStation(e.target.dataset.station);
     removeStationScreen(e.target);
     removeStationSelectOption($upStreamSelector, e.target.dataset.station);
