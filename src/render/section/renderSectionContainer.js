@@ -5,10 +5,12 @@ function sectionListTemplate(lineList) {
   let listNumber = 0;
   return lineList
     .map((line) => {
-      return `<tr>
+      return `<tr data-number=${listNumber}>
               <td>${listNumber++}</td>
               <td>${line}</td>
-              <td><button>노선에서 삭제</button></td>
+              <td>
+                <button class="section-delete-button" data-number=${listNumber}>노선에서 삭제</button>
+              </td>
             </tr>`;
     })
     .join('');
@@ -32,7 +34,7 @@ function sectionContainerTemplate(line, lineNumber) {
             <div>
               <select class="station-selector"></select>
               <input class="section-position-input" type="number"
-                placeholder="순서" min="0" max="${line.length - 1}"/>
+                placeholder="순서" min="0" />
               <button id="section-add-button" data-number=${lineNumber}>
                 등록
               </button>

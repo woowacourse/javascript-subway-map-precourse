@@ -1,7 +1,6 @@
 import updateSectionList from './updateSectionList.js';
 
 function addSection(targetLine, lineNumber) {
-  console.log(targetLine);
   const lineList = JSON.parse(localStorage.getItem('lines')).split(',');
 
   lineList[lineNumber] = targetLine.join(' ');
