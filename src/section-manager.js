@@ -1,6 +1,16 @@
-import { isInLine } from './check.js'
+import { isInLine, isValidNumber } from './check.js'
 
 export default function SectionManager() {
+  this.getLineLength = function(lineName) {
+    let objects = JSON.parse(localStorage.getItem("line"));
+    let i;
+    for (i = 0; i < objects.length; i++) {
+      if (objects[i].name === lineName) {
+        return objects[i].line.length
+      }
+    }    
+  }
+
   this.getLineStations = function(lineName) {
     let objects = JSON.parse(localStorage.getItem("line"));
     let i;
@@ -9,6 +19,20 @@ export default function SectionManager() {
         return objects[i].line
       }
     }
+  }
+
+  this.getOrderInput = function(lineName) {
+    const orderInput = document.querySelector("#section-order-input")
+    orderInput.addEventListener("change", () => {
+      const orderInputValue = orderInput.value;
+      const lineLength = this.getLineLength(lineName);
+      const alertText = "가능한 순서를 입력해 주세요."
+      if (isValidNumber(orderInputValue, lineLength)) {
+        return orderInputValue
+      } else {
+        alert(alertText)
+      }
+    })
   }
 
   this.getSelectInput = function(lineName) {
@@ -25,12 +49,16 @@ export default function SectionManager() {
     })
   }
 
-  this.addTable = function(lineName) {
+  this.showContents = function(lineName) {
+    const section = document.querySelector("#section")
+    const lineText = document.querySelector("#line-text")
     const table = document.querySelector("#section-list")
     const lineStations = this.getLineStations(lineName);
-    let i;
+    section.style.display = "block"
+    lineText.innerText = `${lineName} 관리`
     table.innerHTML = `<tr><th scope="row">순서</th><th scope="row">이름</th><th scope="row">설정</th></tr>`;
     table.style.display = "table"
+    let i;
     for (i = 0; i < lineStations.length; i++) {
       const index = lineStations.indexOf(lineStations[i])
       table.innerHTML += `<tr id="${lineStations[i]}"><td id="index">${index}</td><td>${lineStations[i]}</td><td><button>설정</button></td></tr>`
@@ -43,12 +71,9 @@ export default function SectionManager() {
     for (i = 0; i < sectionLineMenuButton.length; i++) {
       const lineName = sectionLineMenuButton[i].dataset.buttonId;
       sectionLineMenuButton[i].addEventListener("click", () => {
-        const section = document.querySelector("#section")
-        const lineText = document.querySelector("#line-text")
-        section.style.display = "block"
-        lineText.innerText = `${lineName} 관리`
-        this.addTable(lineName);
+        this.showContents(lineName);
         this.getSelectInput(lineName);
+        this.getOrderInput(lineName);
       })
     }
   }

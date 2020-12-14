@@ -32,6 +32,10 @@ export function isInLine(selectInputValue, lineStations) {
   }
 }
 
+export function isValidNumber(orderInputValue, lineLength) {
+  return (lineLength > orderInputValue > 0)
+}
+
 export function removeData(key, dataName) {
   let objects = JSON.parse(localStorage.getItem(key));
   let i;
