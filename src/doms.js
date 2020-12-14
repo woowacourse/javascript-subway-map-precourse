@@ -212,7 +212,6 @@ export const DOMCtrl = {
       <h3>${strings.SECTION_ADD_TITLE}</h3>
       ${DOMCtrl.getSectionSelector(this.stations)}
       <input type="number" id="${DOMStrings.SECTION_ORDER_INPUT}" placeholder="${strings.ORDER}">
-      &nbsp;
       <button id="${DOMStrings.SECTION_ADD_BUTTON}">${strings.ADD}</button><br><br><br>
       ${DOMCtrl.getSectionList(this.lines[lineIndex].stations)}
     `;

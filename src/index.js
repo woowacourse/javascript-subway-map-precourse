@@ -29,27 +29,45 @@ export default class SubwayManager {
     DOMs.LINE_MANAGER_BUTTON.addEventListener('click', DOMCtrl.openLineManager.bind(this));
     DOMs.SECTION_MANAGER_BUTTON.addEventListener('click', DOMCtrl.openSectionManager.bind(this));
     DOMs.MAP_PRINT_MANAGER_BUTTON.addEventListener('click', DOMCtrl.openMapPrintManager.bind(this));
-    DOMs.MANAGER_CONTAINER.addEventListener('click', this.addStation.bind(this));
+    DOMs.MANAGER_CONTAINER.addEventListener('click', this.addStationByClick.bind(this));
+    DOMs.MANAGER_CONTAINER.addEventListener('keydown', this.addStationByEnterKey.bind(this));
     DOMs.MANAGER_CONTAINER.addEventListener('click', this.deleteStation.bind(this));
-    DOMs.MANAGER_CONTAINER.addEventListener('click', this.addLine.bind(this));
+    DOMs.MANAGER_CONTAINER.addEventListener('click', this.addLineByClick.bind(this));
+    DOMs.MANAGER_CONTAINER.addEventListener('keydown', this.addLineByEnterKey.bind(this));
     DOMs.MANAGER_CONTAINER.addEventListener('click', this.deleteLine.bind(this));
     DOMs.MANAGER_CONTAINER.addEventListener('click', DOMCtrl.selectLine.bind(this));
-    DOMs.MANAGER_CONTAINER.addEventListener('click', this.addSection.bind(this));
+    DOMs.MANAGER_CONTAINER.addEventListener('click', this.addSectionByClick.bind(this));
+    DOMs.MANAGER_CONTAINER.addEventListener('keydown', this.addSectionByEnterKey.bind(this));
     DOMs.MANAGER_CONTAINER.addEventListener('click', this.deleteSection.bind(this));
   }
 
-  addStation(event) {
-    console.log(event);
+  addStationByClick(event) {
     const {
       target: { id },
     } = event;
     if (id === DOMStrings.STATION_ADD_BUTTON) {
-      const station = document.getElementById(DOMStrings.STATION_NAME_INPUT).value.trim();
-      if (isValidStationName(this.stations, station)) {
-        this.stations.push(station);
-        localStorage.setItem(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
-        DOMCtrl.openStationManager.bind(this)();
+      this.addStation();
+    }
+  }
+
+  addStationByEnterKey(event) {
+    const {
+      key,
+      target: { id },
+    } = event;
+    if (key === 'Enter') {
+      if (id === DOMStrings.STATION_NAME_INPUT) {
+        this.addStation();
       }
+    }
+  }
+
+  addStation() {
+    const station = document.getElementById(DOMStrings.STATION_NAME_INPUT).value.trim();
+    if (isValidStationName(this.stations, station)) {
+      this.stations.push(station);
+      localStorage.setItem(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
+      DOMCtrl.openStationManager.bind(this)();
     }
   }
 
@@ -72,19 +90,35 @@ export default class SubwayManager {
     }
   }
 
-  addLine(event) {
+  addLineByClick(event) {
     const {
       target: { id },
     } = event;
     if (id === DOMStrings.LINE_ADD_BUTTON) {
-      const lineName = document.getElementById(DOMStrings.LINE_NAME_INPUT).value.trim();
-      if (isValidLineName(this.lines, lineName)) {
-        const startStation = document.getElementById(DOMStrings.LINE_START_STATION_SELECTOR).value;
-        const endStation = document.getElementById(DOMStrings.LINE_END_STATION_SELECTOR).value;
-        this.lines.push(new SubwayLine(lineName, startStation, endStation));
-        localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
-        DOMCtrl.openLineManager.bind(this)();
+      this.addLine();
+    }
+  }
+
+  addLineByEnterKey(event) {
+    const {
+      key,
+      target: { id },
+    } = event;
+    if (key === 'Enter') {
+      if (id === DOMStrings.LINE_NAME_INPUT) {
+        this.addLine();
       }
+    }
+  }
+
+  addLine() {
+    const lineName = document.getElementById(DOMStrings.LINE_NAME_INPUT).value.trim();
+    if (isValidLineName(this.lines, lineName)) {
+      const startStation = document.getElementById(DOMStrings.LINE_START_STATION_SELECTOR).value;
+      const endStation = document.getElementById(DOMStrings.LINE_END_STATION_SELECTOR).value;
+      this.lines.push(new SubwayLine(lineName, startStation, endStation));
+      localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
+      DOMCtrl.openLineManager.bind(this)();
     }
   }
 
@@ -104,35 +138,51 @@ export default class SubwayManager {
     }
   }
 
-  addSection(event) {
+  addSectionByClick(event) {
     const {
       target: { id },
     } = event;
     if (id === DOMStrings.SECTION_ADD_BUTTON) {
-      const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2').dataset[
-        dataStrings.DATA_TARGET
-      ];
-      const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
-      const stationOrder = +document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value.trim();
-      const stationName = document.getElementById(DOMStrings.SECTION_STATION_SELECTOR).value;
-      if (isInvalidStationName(this.lines[targetLineIndex].stations, stationName)) {
-        return;
-      }
-      if (isInvalidStationOrder(this.lines[targetLineIndex].stations, stationOrder)) {
-        return;
-      }
-      if (isEndSection(this.lines[targetLineIndex].stations, stationOrder, VALID_ADDITION)) {
-        this.lines[targetLineIndex].end = stationName;
-      } else if (isStartSection(stationOrder)) {
-        this.lines[targetLineIndex].start = stationName;
-      }
-      this.lines[targetLineIndex].stations = this.lines[targetLineIndex].stations
-        .slice(0, stationOrder)
-        .concat(stationName, this.lines[targetLineIndex].stations.slice(stationOrder));
-      localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
-      DOMCtrl.openSectionManager.bind(this)();
-      DOMCtrl.openSection.bind(this)(targetLine, targetLineIndex);
+      this.addSection();
     }
+  }
+
+  addSectionByEnterKey(event) {
+    const {
+      key,
+      target: { id },
+    } = event;
+    if (key === 'Enter') {
+      if (id === DOMStrings.SECTION_ORDER_INPUT) {
+        this.addSection();
+      }
+    }
+  }
+
+  addSection() {
+    const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2').dataset[
+      dataStrings.DATA_TARGET
+    ];
+    const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
+    const stationOrder = +document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value.trim();
+    const stationName = document.getElementById(DOMStrings.SECTION_STATION_SELECTOR).value;
+    if (isInvalidStationName(this.lines[targetLineIndex].stations, stationName)) {
+      return;
+    }
+    if (isInvalidStationOrder(this.lines[targetLineIndex].stations, stationOrder)) {
+      return;
+    }
+    if (isEndSection(this.lines[targetLineIndex].stations, stationOrder, VALID_ADDITION)) {
+      this.lines[targetLineIndex].end = stationName;
+    } else if (isStartSection(stationOrder)) {
+      this.lines[targetLineIndex].start = stationName;
+    }
+    this.lines[targetLineIndex].stations = this.lines[targetLineIndex].stations
+      .slice(0, stationOrder)
+      .concat(stationName, this.lines[targetLineIndex].stations.slice(stationOrder));
+    localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
+    DOMCtrl.openSectionManager.bind(this)();
+    DOMCtrl.openSection.bind(this)(targetLine, targetLineIndex);
   }
 
   deleteSection(event) {
@@ -143,23 +193,24 @@ export default class SubwayManager {
       if (!confirm(CONFIRM_DELETE_FROM_LINE)) {
         return;
       }
-      const targetLine = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2').dataset[
+      const targetLineName = document.getElementById(DOMStrings.SECTION_MANAGER).querySelector('h2').dataset[
         dataStrings.DATA_TARGET
       ];
-      const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLine);
-      if (isInvalidSectionDeletion(this.lines[targetLineIndex].stations)) {
+      const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLineName);
+      const targetLine = this.lines[targetLineIndex];
+      if (isInvalidSectionDeletion(targetLine.stations)) {
         return;
       }
       const targetSectionIndex = +event.target.dataset[dataStrings.DATA_INDEX];
-      if (isEndSection(this.lines[targetLineIndex].stations, targetSectionIndex, VALID_DELETION)) {
-        this.lines[targetLineIndex].end = this.lines[targetLineIndex].stations[targetSectionIndex - 1];
+      if (isEndSection(targetLine.stations, targetSectionIndex, VALID_DELETION)) {
+        targetLine.end = targetLine.stations[targetSectionIndex - 1];
       } else if (isStartSection(targetSectionIndex)) {
-        this.lines[targetLineIndex].start = this.lines[targetLineIndex].stations[targetSectionIndex + 1];
+        targetLine.start = targetLine.stations[targetSectionIndex + 1];
       }
-      this.lines[targetLineIndex].stations.splice(targetSectionIndex, 1);
+      targetLine.stations.splice(targetSectionIndex, 1);
       localStorage.setItem(dataStrings.DATA_LINES, JSON.stringify(this.lines));
       DOMCtrl.openSectionManager.bind(this)();
-      DOMCtrl.openSection.bind(this)(targetLine, targetLineIndex);
+      DOMCtrl.openSection.bind(this)(targetLineName, targetLineIndex);
     }
   }
 }
