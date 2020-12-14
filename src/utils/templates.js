@@ -5,8 +5,8 @@ export const getStationsTableHeader = () => {
 
 export const getLineTableHeader = () => {
   return `<th>노선 이름</th>
-          <th>하행 종점역</th>
           <th>상행 종점역</th>
+          <th>하행 종점역</th>
           <th>설정</th>`;
 };
 export const getSectionTableHeader = () => {

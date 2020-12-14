@@ -31,8 +31,8 @@ export class LineManagerList {
       addRowInListTable(
         this.lineTable,
         line.lineName,
-        line.stations[0],
         line.stations[lastIndex],
+        line.stations[0],
         FIELD.LINE
       );
     });
