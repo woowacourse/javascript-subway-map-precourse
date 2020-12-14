@@ -1,11 +1,6 @@
 import Station from "./models.js";
-import { isNull, isUnderTwo, isDuplication } from "../utils.js";
-import {
-  stationInputForm,
-  stationList,
-  stationListHeader,
-  stationDeleteBtn,
-} from "./templates.js";
+import { isNull, isUnderTwo, isDuplication, isZero } from "../utils.js";
+import { printLayout, createStationList } from "./templates.js";
 
 const stationManagerBtn = document.getElementById("station-manager-button");
 
@@ -15,26 +10,6 @@ const loadStations = () => {
 
 const saveStations = (_stations) => {
   stationManagerBtn.dataset.stations = JSON.stringify(_stations);
-};
-
-const printLayout = () => {
-  const managerContainer = document.getElementById("manager-container");
-
-  managerContainer.innerHTML = stationInputForm + stationList;
-};
-
-const createStationList = (_stations) => {
-  const stationNames = document.getElementById("station-names");
-  stationNames.innerHTML = stationListHeader;
-
-  for (let i = 0; i < _stations.length; i++) {
-    stationNames.innerHTML += `<tr data-station-index="${i}"><td>${_stations[i].name}</td>${stationDeleteBtn}</tr>`;
-  }
-};
-
-const updateStationList = (_stations) => {
-  saveStations(_stations);
-  createStationList(_stations);
 };
 
 const isValid = (_stationName) => {
@@ -63,6 +38,14 @@ const getStationName = () => {
   }
 };
 
+const createStation = () => {
+  const stationName = getStationName();
+
+  if (stationName) {
+    return new Station(stationName);
+  }
+};
+
 const useStation = (_stationName) => {
   const stations = loadStations();
 
@@ -77,23 +60,11 @@ const disUseStation = (_stationName) => {
   saveStations(stations);
 };
 
-const createStation = () => {
-  const stationName = getStationName();
-
-  if (stationName) {
-    return new Station(stationName);
-  }
-};
-
-const isUsed = (_station) => {
-  return _station.usedCount !== 0;
-};
-
 const deleteStation = (_stationDeletebtn) => {
   const stations = loadStations();
   const stationIndex = _stationDeletebtn.path[2].dataset.stationIndex;
 
-  if (isUsed(stations[stationIndex])) {
+  if (!isZero(stations[stationIndex].usedCount)) {
     alert("사용중인 역입니다.");
     return;
   }
@@ -113,28 +84,33 @@ const setStationDeleteBtn = () => {
       const stationsWithoutDeleteStation = deleteStation(e);
 
       if (stationsWithoutDeleteStation) {
-        updateStationList(stationsWithoutDeleteStation);
+        saveStations(stationsWithoutDeleteStation);
+        createStationList(stationsWithoutDeleteStation);
         setStationDeleteBtn();
       }
     });
   }
 };
 
-export default function StationManager() {
-  printLayout();
-  createStationList(loadStations());
-  setStationDeleteBtn();
-
+const setStationAddBtn = () => {
   const stationAddBtn = document.getElementById("station-add-button");
 
   stationAddBtn.addEventListener("click", () => {
     const newStation = createStation();
 
     if (newStation) {
-      updateStationList([...loadStations(), newStation]);
+      saveStations([...loadStations(), newStation]);
+      createStationList(loadStations());
       setStationDeleteBtn();
     }
   });
+};
+
+export default function StationManager() {
+  printLayout();
+  setStationAddBtn();
+  createStationList(loadStations());
+  setStationDeleteBtn();
 }
 
 export { loadStations, useStation, disUseStation };

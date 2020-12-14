@@ -2,10 +2,9 @@ import Line from "./models.js";
 import { isNull, isDuplication, isEmpty } from "../utils.js";
 import { disUseStation, loadStations, useStation } from "../station/actions.js";
 import {
-  lineInputForm,
-  lineList,
-  lineListHeader,
-  lineDeleteBtn,
+  printLayout,
+  createStationSelector,
+  createLineList,
 } from "./templates.js";
 
 const lineManagerBtn = document.getElementById("line-manager-button");
@@ -18,62 +17,6 @@ const loadLines = () => {
 
 const saveLines = (_lines) => {
   lineManagerBtn.dataset.lines = JSON.stringify(_lines);
-};
-
-const printLayout = () => {
-  const managerContainer = document.getElementById("manager-container");
-
-  managerContainer.innerHTML = lineInputForm + lineList;
-};
-
-const createStationSelector = (_stations) => {
-  const startStationSelector = document.getElementById(
-    "line-start-station-selector"
-  );
-  const endStationSelector = document.getElementById(
-    "line-end-station-selector"
-  );
-
-  for (let i = 0; i < _stations.length; i++) {
-    startStationSelector.innerHTML += `<option>${_stations[i].name}</option>`;
-    endStationSelector.innerHTML += `<option>${_stations[i].name}</option>`;
-  }
-};
-
-const createLineList = (_lines) => {
-  const lineNames = document.getElementById("line-names");
-  lineNames.innerHTML = lineListHeader;
-
-  for (let i = 0; i < _lines.length; i++) {
-    lineNames.innerHTML += `
-    <tr data-line-index="${i}">
-      <td>${_lines[i].name}</td>
-      <td>${_lines[i].startStation()}</td>
-      <td>${_lines[i].endStation()}</td>
-      ${lineDeleteBtn}
-    </tr>
-    `;
-  }
-};
-
-const updateLineList = (_lines) => {
-  saveLines(_lines);
-  createLineList(_lines);
-};
-
-const isValid = (_lineName, _startStation, _endStation) => {
-  if (isNull(_lineName)) {
-    alert("노선 이름을 입력해주세요.");
-    return;
-  } else if (isDuplication(loadLines(), _lineName)) {
-    alert("중복된 노선 이름입니다.");
-    return;
-  } else if (_startStation === _endStation) {
-    alert("상행 종점과 하행 종점은 서로 다른 역을 선택해주세요.");
-    return;
-  }
-
-  return true;
 };
 
 const getLineName = () => {
@@ -91,6 +34,21 @@ const getStartStation = () => {
 
 const getEndStation = () => {
   return document.getElementById("line-end-station-selector").value;
+};
+
+const isValid = (_lineName, _startStation, _endStation) => {
+  if (isNull(_lineName)) {
+    alert("노선 이름을 입력해주세요.");
+    return;
+  } else if (isDuplication(loadLines(), _lineName)) {
+    alert("중복된 노선 이름입니다.");
+    return;
+  } else if (_startStation === _endStation) {
+    alert("상행 종점과 하행 종점은 서로 다른 역을 선택해주세요.");
+    return;
+  }
+
+  return true;
 };
 
 const createLine = () => {
@@ -133,29 +91,34 @@ const setLineDeleteBtn = () => {
       const linesWithoutDeleteLine = deleteLine(e);
 
       if (linesWithoutDeleteLine) {
-        updateLineList(linesWithoutDeleteLine);
+        saveLines(linesWithoutDeleteLine);
+        createLineList(linesWithoutDeleteLine);
         setLineDeleteBtn();
       }
     });
   }
 };
 
-export default function LineManager() {
-  printLayout();
-  createStationSelector(loadStations());
-  createLineList(loadLines());
-  setLineDeleteBtn();
-
+const setLineAddBtn = () => {
   const lineAddBtn = document.getElementById("line-add-button");
 
   lineAddBtn.addEventListener("click", () => {
     const newLine = createLine();
 
     if (newLine) {
-      updateLineList([...loadLines(), newLine]);
+      saveLines([...loadLines(), newLine]);
+      createLineList(loadLines());
       setLineDeleteBtn();
     }
   });
+};
+
+export default function LineManager() {
+  printLayout();
+  createStationSelector(loadStations());
+  setLineAddBtn();
+  createLineList(loadLines());
+  setLineDeleteBtn();
 }
 
 export { loadLines, saveLines };

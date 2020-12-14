@@ -1,68 +1,18 @@
-import { isNegative, isInLine } from "../utils.js";
+import { isNull, isNegative, isInLine } from "../utils.js";
 import { loadLines, saveLines } from "../line/actions.js";
 import { loadStations, useStation, disUseStation } from "../station/actions.js";
 import {
-  sectionLineMenu,
-  sectionStationInputForm,
-  sectionList,
-  sectionListHeader,
-  sectionDeleteBtn,
+  printLayout,
+  createSectionLineMenu,
+  createSectionLineContainer,
+  createSectionStationSelector,
+  createSectionList,
 } from "./templates.js";
 
 let sectionLineName;
 
 const getSectionLine = () => {
   return loadLines().find((x) => x.name === sectionLineName);
-};
-
-const printLayout = () => {
-  const managerContainer = document.getElementById("manager-container");
-
-  managerContainer.innerHTML = sectionLineMenu;
-};
-
-const createSectionLineMenu = (_lines) => {
-  const sectionLineMenu = document.getElementById("section-line-menu");
-
-  for (let i = 0; i < _lines.length; i++) {
-    sectionLineMenu.innerHTML += `<button class="section-line-menu-button">${_lines[i].name}</button>\n`;
-  }
-};
-
-const createSectionLineContainer = () => {
-  const sectionLineContainer = document.getElementById(
-    "section-line-container"
-  );
-
-  sectionLineContainer.innerHTML =
-    `<h3>${sectionLineName} 관리</h3>` + sectionStationInputForm + sectionList;
-};
-
-const createSectionStationSelector = (_stations) => {
-  const sectionStationSelector = document.getElementById(
-    "section-station-selector"
-  );
-
-  for (let i = 0; i < _stations.length; i++) {
-    sectionStationSelector.innerHTML += `<option>${_stations[i].name}</option>`;
-  }
-};
-
-const createSectionList = () => {
-  const sections = getSectionLine().inLineStations;
-  const sectionNames = document.getElementById("section-names");
-
-  sectionNames.innerHTML = sectionListHeader;
-
-  for (let i = 0; i < sections.length; i++) {
-    sectionNames.innerHTML += `
-    <tr data-section-index="${i}" data-section-name="${sections[i]}">
-      <td class="section-order">${i}</td>
-      <td>${sections[i]}</td>
-      ${sectionDeleteBtn}
-    </tr>
-    `;
-  }
 };
 
 const getSectionStationName = () => {
@@ -81,9 +31,13 @@ const isValid = (_sectionStationName, _sectionOrder) => {
   if (isInLine(getSectionLine().inLineStations, _sectionStationName)) {
     alert("노선의 구간은 중복일 수 없습니다.");
     return;
-  }
-
-  if (isNegative(_sectionOrder) || !Number.isInteger(Number(_sectionOrder))) {
+  } else if (isNull(_sectionOrder)) {
+    alert("구간의 순서를 입력해주세요.");
+    return;
+  } else if (
+    isNegative(_sectionOrder) ||
+    !Number.isInteger(Number(_sectionOrder))
+  ) {
     alert("순서는 0 이상의 자연수를 입력해주세요.");
     return;
   }
@@ -102,6 +56,8 @@ const addSection = () => {
       .addStation(sectionStationName, sectionOrder);
     useStation(sectionStationName);
     saveLines(lines);
+
+    return lines;
   }
 };
 
@@ -130,7 +86,7 @@ const setSectionDeleteBtn = () => {
   for (let i = 0; i < sectionDeleteBtn.length; i++) {
     sectionDeleteBtn[i].addEventListener("click", (e) => {
       if (deleteSection(e)) {
-        createSectionList();
+        createSectionList(getSectionLine().inLineStations);
         setSectionDeleteBtn();
       }
     });
@@ -141,9 +97,10 @@ const setSectionAddBtn = () => {
   const sectionAddBtn = document.getElementById("section-add-button");
 
   sectionAddBtn.addEventListener("click", () => {
-    addSection();
-    createSectionList();
-    setSectionDeleteBtn();
+    if (addSection()) {
+      createSectionList(getSectionLine().inLineStations);
+      setSectionDeleteBtn();
+    }
   });
 };
 
@@ -156,10 +113,10 @@ const setSectionLineMenuBtn = () => {
     sectionLineMenuBtn[i].addEventListener("click", (e) => {
       sectionLineName = e.target.innerText;
 
-      createSectionLineContainer();
+      createSectionLineContainer(sectionLineName);
       createSectionStationSelector(loadStations());
       setSectionAddBtn();
-      createSectionList();
+      createSectionList(getSectionLine().inLineStations);
       setSectionDeleteBtn();
     });
   }
