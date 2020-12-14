@@ -5,6 +5,7 @@ import SectionManager from "./controller/section-manager.controller.js";
 import StationManagerView from "./view/station-manager.view.js";
 import LineManagerView from "./view/line-manager.view.js";
 import SectionManagerView from "./view/section-manager.view.js";
+import MapPrintView from "./view/map-print-manager.view.js";
 
 export default class App {
   constructor() {
@@ -12,6 +13,7 @@ export default class App {
     this.stationManagerView = new StationManagerView(this.contentView);
     this.lineManagerView = new LineManagerView(this.contentView);
     this.sectionManagerView = new SectionManagerView(this.contentView);
+    this.mapPrintManagerView = new MapPrintView(this.contentView);
 
     this.stationManager = new StationManager(this.stationManagerView);
     this.lineManager = new LineManager(this.lineManagerView);
@@ -33,6 +35,7 @@ export default class App {
     }
 
     if (target.id === "map-print-manager-button") {
+      this.mapPrintManagerView.renderLineMapView();
     }
   }
 }

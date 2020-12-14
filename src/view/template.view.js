@@ -52,6 +52,8 @@ export const sectionManagerViewHTML = `
   
 `;
 
+export const mapPrintManagerViewHTML = `<div id="map"></div>`;
+
 export const createStationTableRowHTML = (stationName) => {
   const sectionRowHTML = `
       <tr data-station = ${stationName}>
