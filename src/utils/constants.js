@@ -54,4 +54,5 @@ export const ERROR_MESSAGE = {
   IS_MIN_ORDER: "0이상의 순서를 입력해주세요",
   IS_EMPTY: "값을 입력해 주세요",
   IS_MIN_SECTION_COUNT: "구간의 개수가 2개 이하는 삭제 할 수 없습니다.",
+  IS_USED_LINE: "노선에 등록된 역은 삭제 할 수 없습니다.",
 };

@@ -41,9 +41,16 @@ export default class StationManagerEvent extends StationManagerRender {
     const targetTr = e.target.parentNode.parentNode;
     const stationName = targetTr.dataset["stationName"];
 
+    if (this.isUsedLine(stationName)) {
+      window.alert(ERROR_MESSAGE.IS_USED_LINE);
+      return;
+    }
+
     this.deleteTrData(stationName);
     targetTr.remove();
   }
 
   deleteTrData(stationName) {}
+
+  isUsedLine(stationName) {}
 }

@@ -43,4 +43,16 @@ export default class StationManager extends StationManagerEvent {
     this.stations = this.stations.filter((station) => station !== stationName);
     this.saveLocalStorageValue(this.localStorageKey, this.stations);
   }
+
+  isUsedLine(stationName) {
+    super.isUsedLine(stationName);
+    for (const lineInfo of this.lines) {
+      if (lineInfo.line.includes(stationName)) {
+        console.log(stationName);
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
