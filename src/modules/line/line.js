@@ -1,4 +1,5 @@
 import { setLine } from './lineDataHandler.js';
+import { validateUserInput } from './lineValidator.js';
 
 import Subway from '../subwayManager.js';
 import {
@@ -18,6 +19,10 @@ export default class Line {
       .value;
     const endStation = document.querySelector('#line-end-station-selector')
       .value;
+    if (!validateUserInput(lineNameInput.value, startStation, endStation)) {
+      alert('노선이나 역 이름이 중복되지 않았는지 다시 한 번 확인해주세요🚨');
+      return Subway.clearInput(lineNameInput);
+    }
     setLine(lineNameInput.value, [startStation, endStation]);
     Subway.clearInput(lineNameInput);
   }
