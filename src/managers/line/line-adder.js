@@ -30,7 +30,7 @@ export const requestToAddLine = (menu) => {
 
 const processException = (exception, input, start) => {
   alert(EXCEPTION_MESSAGE[exception]);
-  if (exception === 'bothStartEndSame') {
+  if (exception === 'BOTH_START_END_STATION_SAME') {
     return start.focus();
   }
   emptyElement(input);

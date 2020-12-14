@@ -30,7 +30,7 @@ export const requestToAddSection = (menu, lineSelected) => {
 
 const processException = (exception, select, input) => {
   alert(EXCEPTION_MESSAGE[exception]);
-  if (exception === 'sectionAleardyRegistered') {
+  if (exception === 'SECTION_ALREADY_REGISTERED') {
     return select.focus();
   }
   emptyElement(input);

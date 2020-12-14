@@ -6,13 +6,13 @@ export class Line {
 
   unableToAddLine(lineList) {
     if (this.stationList[0] === this.stationList[1]) {
-      return 'bothStartEndSame';
+      return 'BOTH_START_END_STATION_SAME';
     }
     if (this.name.replace(/ /g, '').length == 0) {
-      return 'lineNameOnlySpace';
+      return 'LINE_NAME_ONLY_SPACE';
     }
     if (lineList?.map((v) => v.name).includes(this.name)) {
-      return 'lineNameAlreadyRegistered';
+      return 'LINE_NAME_ALREADY_REGISTERED';
     }
     return false;
   }
@@ -23,26 +23,26 @@ export class Line {
 
   unableToAddSection(station, order) {
     if (this.stationList.includes(station)) {
-      return 'sectionAleardyRegistered';
+      return 'SECTION_ALREADY_REGISTERED';
     }
     if (order.replace(/ /g, '').length == 0) {
-      return 'orderOnlySpace';
+      return 'ORDER_ONLY_SPACE';
     }
     if (isNaN(order)) {
-      return 'orderNotNumber';
+      return 'ORDER_NOT_NUMBER';
     }
     if (!Number.isInteger(+order)) {
-      return 'orderNotInteger';
+      return 'ORDER_NOT_INTEGER';
     }
     if (+order < 0) {
-      return 'orderNegativeNumber';
+      return 'ORDER_NEGATIVE_NUMBER';
     }
     return false;
   }
 
   unableToDeleteSection() {
     if (this.stationList.length <= 2) {
-      return 'sectionOnlyOneLeft';
+      return 'SECTION_ONLY_ONE_LEFT';
     }
     return false;
   }

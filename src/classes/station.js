@@ -9,13 +9,13 @@ export class Station {
 
   unableToAddStation(stationList) {
     if (this.name.replace(/ /g, '').length == 0) {
-      return 'stationNameOnlySpace';
+      return 'STATION_NAME_ONLY_SPACE';
     }
     if (this.name.replace(/ /g, '').length < STATION_NAME_LENGTH_LOW_LIMIT) {
-      return 'stationNameTooShort';
+      return 'STATION_NAME_TOO_SHORT';
     }
     if (stationList?.map((v) => v.name).includes(this.name)) {
-      return 'stationNameAlreadyRegistered';
+      return 'STATION_NAME_ALREADY_REGISTERED';
     }
     return false;
   }
@@ -24,7 +24,7 @@ export class Station {
     const station = getItemFromLocalStorage('station', this.name);
 
     if (station.lineList.length) {
-      return 'stationRegisteredToLine';
+      return 'STATION_REGISTERED_TO_LINE';
     }
   }
 
