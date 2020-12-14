@@ -67,6 +67,7 @@ export class SubwayMap {
 
   updateStationView = () => {
     this.lineManager.update();
+    this.sectionManager.updateStationsInInput();
   };
 
   setNewLines = (lineName, newLines) => {

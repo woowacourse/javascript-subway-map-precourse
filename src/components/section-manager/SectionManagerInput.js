@@ -26,10 +26,15 @@ export class SectionManagerInput {
   };
 
   render = ({ lineName }) => {
-    this.stations = this.getStations();
     this.lineName = lineName;
     this.header.innerHTML = `${lineName} 관리`;
 
+    this.updateStations();
+  };
+
+  updateStations = () => {
+    this.stations = this.getStations();
+    console.log("fddfsdfss");
     initSelector(this.sectionStationSelector);
     this.stations.forEach((station) => {
       addOptionTag(this.sectionStationSelector, station);
@@ -42,7 +47,7 @@ export class SectionManagerInput {
     let line = this.getLines().filter((line) => {
       return line.lineName === this.lineName;
     })[0];
-    console.log(line);
+
     if (!isValidSectionInfo(order, station, line.stations)) {
       return;
     }

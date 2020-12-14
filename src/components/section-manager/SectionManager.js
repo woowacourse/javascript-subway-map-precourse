@@ -50,6 +50,10 @@ export class SectionManager {
     this.sectionHeader.render();
   };
 
+  updateStationsInInput = () => {
+    this.sectionManagerInput.updateStations();
+  };
+
   addStationInLine = (order, station, lineName) => {
     let line = this.getLines().filter((line) => {
       return line.lineName === lineName;
