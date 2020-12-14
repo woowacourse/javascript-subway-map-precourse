@@ -128,7 +128,7 @@ export default class StationLayout extends PageLayout {
     const input = this.controller.getInputFromUser(this);
     console.log(input);
     this.insertRow(input);
-    this.controller.addStationData(input);
+    this.controller.insertStationData(input);
     this.clearInput();
   }
 
