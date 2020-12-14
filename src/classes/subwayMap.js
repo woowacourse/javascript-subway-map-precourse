@@ -6,6 +6,10 @@ export default class SubwayMap {
     return this.#allStations;
   }
 
+  get allLines() {
+    return this.#allLines;
+  }
+
   addStation(station) {
     this.#allStations.push(station);
   }
