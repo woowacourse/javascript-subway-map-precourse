@@ -1,10 +1,53 @@
 import { isInLine, isValidNumber } from './check.js'
 
 export default function SectionManager() {
+  this.getLineStations = function(lineName) {
+    let objects = JSON.parse(localStorage.getItem("line"));
+    let i;
+    for (i = 0; i < objects.length; i++) {
+      if (objects[i].name === lineName) {
+        return objects[i].line
+      }
+    }
+  }
+
+  this.printLineList = function(lineName) {
+    const lineStations = this.getLineStations(lineName);
+    const table = document.querySelector("#section-list")
+    table.innerHTML = '';  
+    table.innerHTML = `<tr><th scope="row">순서</th><th scope="row">이름</th><th scope="row">설정</th></tr>`;
+    table.style.display = "table"
+    let i;
+    for (i = 0; i < lineStations.length; i++) {
+      const index = lineStations.indexOf(lineStations[i])
+      table.innerHTML += `<tr id="${lineStations[i]}"><td id="index">${index}</td><td>${lineStations[i]}</td><td><button>노선에서 제거</button></td></tr>`
+    }
+  }
+
+  this.storeLocalStorage = function(lineName, lineStations) {
+    let localStorageLine = JSON.parse(localStorage.getItem("line"))
+    let i;
+    for (i = 0; i < localStorageLine.length; i++) {
+      if (localStorageLine[i].name === lineName) {
+        localStorageLine[i].line = lineStations
+        localStorage.setItem("line", JSON.stringify(localStorageLine))
+        this.printLineList(lineName);
+      }
+    }
+
+  }
+
+  this.addNewStation = function(lineName, orderInputValue, selectInputValue) {
+    let lineStations = this.getLineStations(lineName);
+    lineStations.splice(orderInputValue, 0, selectInputValue)
+    this.storeLocalStorage(lineName, lineStations)
+    this.addShowEvent();
+  }
+
   this.getAllInput = function(lineName, orderInputValue, selectInputValue) {
     const sectionAddButton = document.querySelector("#section-add-button")
     sectionAddButton.addEventListener("click", () => {
-      console.log(lineName, orderInputValue, selectInputValue)
+      this.addNewStation(lineName, orderInputValue, selectInputValue)
     })
   }
 
@@ -16,16 +59,6 @@ export default function SectionManager() {
         return objects[i].line.length
       }
     }    
-  }
-
-  this.getLineStations = function(lineName) {
-    let objects = JSON.parse(localStorage.getItem("line"));
-    let i;
-    for (i = 0; i < objects.length; i++) {
-      if (objects[i].name === lineName) {
-        return objects[i].line
-      }
-    }
   }
 
   this.getOrderInput = function(lineName, selectInputValue) {
@@ -59,17 +92,8 @@ export default function SectionManager() {
   this.showContents = function(lineName) {
     const section = document.querySelector("#section")
     const lineText = document.querySelector("#line-text")
-    const table = document.querySelector("#section-list")
-    const lineStations = this.getLineStations(lineName);
     section.style.display = "block"
     lineText.innerText = `${lineName} 관리`
-    table.innerHTML = `<tr><th scope="row">순서</th><th scope="row">이름</th><th scope="row">설정</th></tr>`;
-    table.style.display = "table"
-    let i;
-    for (i = 0; i < lineStations.length; i++) {
-      const index = lineStations.indexOf(lineStations[i])
-      table.innerHTML += `<tr id="${lineStations[i]}"><td id="index">${index}</td><td>${lineStations[i]}</td><td><button>노선에서 제거</button></td></tr>`
-    }
   }
 
   this.addShowEvent = function() {
@@ -79,6 +103,7 @@ export default function SectionManager() {
       const lineName = sectionLineMenuButton[i].dataset.buttonId;
       sectionLineMenuButton[i].addEventListener("click", () => {
         this.showContents(lineName);
+        this.printLineList(lineName);
         this.getSelectInput(lineName);
       })
     }
@@ -114,7 +139,9 @@ export default function SectionManager() {
    if (localStorage.getItem("station")) {
      this.addOption();
    }
-   this.addSelectButton();
+   if (localStorage.getItem("line")) {
+     this.addSelectButton();
+   }
   }
   this.init();
 }
