@@ -39,9 +39,7 @@ export default class LineManager extends Component {
 
     this.addClickEventListener();
 
-    if (this.state.lineInfo.length > 0) {
-      this.render();
-    }
+    this.render();
   }
 
   declareConstants() {
@@ -72,6 +70,7 @@ export default class LineManager extends Component {
 
     this.$lineAddButton = this.createLineAddButton();
 
+    this.$lineNameListTitle = createDivHTMLElement({ innerText: "🚉 지하철 노선 목록" });
     this.$lineNameList = createDivHTMLElement({});
   }
 
@@ -138,6 +137,7 @@ export default class LineManager extends Component {
       this.$lineEndStationLabel,
       this.$lineEndStationSelector,
       this.$lineAddButton,
+      this.$lineNameListTitle,
       this.$lineNameList
     );
   }
@@ -245,27 +245,45 @@ export default class LineManager extends Component {
   }
 
   render() {
-    this.$lineNameList.innerHTML = "<div>🚉 지하철 노선 목록</div>";
-    const $childNodes = this.state.lineInfo.reduce((acc, {lineName,stations}) => {
-      const lineNameRowElements = this.createLineNameRowElements({ lineName, stations });
+    const { lineInfo } = this.state;
 
-      return [...acc, ...lineNameRowElements];
+    this.$lineNameList.innerHTML = "";
+    
+    if (lineInfo.length === 0) {
+      const $noLineMessage = createDivHTMLElement({ innerText: "등록된 지하철 노선이 없습니다." });
+
+      this.$lineNameList.append($noLineMessage);
+    } else {
+      const $childNodes = this.createLineNameChildNodes();
+      
+      this.$lineNameList.append(...$childNodes);
+    }
+  }
+
+  createLineNameChildNodes() {
+    const { lineInfo } = this.state;
+
+    return lineInfo.reduce(($acc, {lineName,stations}) => {
+      const $lineNameRowElements = this.createLineNameRowElements({ lineName, stations });
+      
+      return [...$acc, ...$lineNameRowElements];
     }, []);
-
-    this.$lineNameList.append(...$childNodes);
   }
 
   createLineNameRowElements({ lineName, stations }) {
     const $lineName = createDivHTMLElement({ innerText: lineName });
     const $lineStartStation = createDivHTMLElement({ innerText: stations[0] });
     const $lineEndStation = createDivHTMLElement({ innerText: stations[stations.length-1] });
+    const $lineDeleteButton = this.createLineDeleteButton({ lineName });
 
-    const $lineDeleteButton = createButtonHTMLElement({
+    return [$lineName, $lineStartStation, $lineEndStation, $lineDeleteButton];
+  }
+
+  createLineDeleteButton({ lineName }) {
+    return createButtonHTMLElement({
       name: "삭제",
       classList: [this.LINE_DELETE_BUTTON_CLASSNAME],
       dataset: { lineName }
     });
-
-    return [$lineName, $lineStartStation, $lineEndStation, $lineDeleteButton];
   }
 }

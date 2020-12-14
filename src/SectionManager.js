@@ -44,17 +44,27 @@ export default class SectionManager extends Component {
   }
 
   createSectionLineMenu() {
-    const $sectionLineMenu = createDivHTMLElement({});
-    const $sectionLineMenuLabel = createDivHTMLElement({ innerText: "구간을 수정할 노선을 선택해주세요." });
-    const $sectionLineMenuButtonArray = this.lineNameArray.reduce((acc, lineName) => {
-      const $sectionLineMenuButton = this.createSectionLineMenuButton({ lineName });
+    const $sectionLineMenu = createDivHTMLElement({});    
 
-      return [...acc, $sectionLineMenuButton];
-    }, []);
-
-    $sectionLineMenu.append($sectionLineMenuLabel, ...$sectionLineMenuButtonArray);
+    if (this.lineNameArray.length === 0) {
+      const $noLineMessage = createDivHTMLElement({ innerText: "등록된 지하철 노선이 없습니다." });      
+      $sectionLineMenu.append($noLineMessage);
+    } else {
+      const $sectionLineMenuLabel = createDivHTMLElement({ innerText: "구간을 수정할 노선을 선택해주세요." });
+      const $sectionLineMenuButtonArray = this.createSectionLineMenuButtonArray();
+      
+      $sectionLineMenu.append($sectionLineMenuLabel, ...$sectionLineMenuButtonArray);
+    }
 
     return $sectionLineMenu;
+  }
+
+  createSectionLineMenuButtonArray() {
+    return this.lineNameArray.reduce((acc, lineName) => {
+      const $sectionLineMenuButton = this.createSectionLineMenuButton({ lineName });
+      
+      return [...acc, $sectionLineMenuButton];
+    }, []);
   }
 
   createSectionLineMenuButton({lineName}) {

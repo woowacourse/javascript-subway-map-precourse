@@ -33,9 +33,7 @@ export default class StationManager extends Component {
     this.appendChildNodes();    
     clearInputValue(this.$stationNameInput);
 
-    if (this.state.stationInfo.length > 0) {
-      this.render();
-    }
+    this.render();
   }
 
   declareConstants() {
@@ -60,9 +58,8 @@ export default class StationManager extends Component {
     this.$stationNameLabel = this.createStationNameLabel();
     this.$stationAddButton = this.createStationAddButton();
 
+    this.$stationNameListTitle = createDivHTMLElement({ innerText: "🚉 지하철 역 목록" });
     this.$stationNameList = createDivHTMLElement({});
-
-    this.childNodes = [this.$stationNameLabel, this.$stationNameInput, this.$stationAddButton, this.$stationNameList];
   }
 
   createStationNameInput() {
@@ -188,7 +185,13 @@ export default class StationManager extends Component {
   }
 
   appendChildNodes() {
-    this.$component.append(...this.childNodes);
+    this.$component.append(
+      this.$stationNameLabel,
+      this.$stationNameInput,
+      this.$stationAddButton,
+      this.$stationNameListTitle,
+      this.$stationNameList
+    );
   }
 
   setState(state) {
@@ -198,18 +201,37 @@ export default class StationManager extends Component {
   }
 
   render() {
-    this.$stationNameList.innerHTML = "<div>🚉 지하철 역 목록</div>";
-    const $childNodes = this.state.stationInfo.reduce((acc, { stationName }) => {
-      const $stationName = createDivHTMLElement({innerText: stationName});
-      const $stationDeleteButton = createButtonHTMLElement({
-        name: "삭제",
-        classList: [this.STATION_DELETE_BUTTON_CLASSNAME],
-        dataset: { stationName }
-      });
+    const { stationInfo } = this.state;
 
-      return [...acc, $stationName, $stationDeleteButton];
+    this.$stationNameList.innerHTML = "";
+
+    if (stationInfo.length === 0) {
+      const $noStationMessage = createDivHTMLElement({ innerText: "등록된 지하철 역이 없습니다." });
+
+      this.$stationNameList.append($noStationMessage);
+    } else {
+      const $childNodes = this.createStationNameChildNodes();
+
+      this.$stationNameList.append(...$childNodes);
+    }
+  }
+
+  createStationNameChildNodes() {
+    const { stationInfo } = this.state;
+
+    return stationInfo.reduce(($acc, { stationName }) => {
+      const $stationName = createDivHTMLElement({ innerText: stationName });
+      const $stationDeleteButton = this.createStationDeleteButton({ stationName });
+
+      return [...$acc, $stationName, $stationDeleteButton];
     }, []);
+  }
 
-    this.$stationNameList.append(...$childNodes);
+  createStationDeleteButton({ stationName }) {
+    return createButtonHTMLElement({
+      name: "삭제",
+      classList: [this.STATION_DELETE_BUTTON_CLASSNAME],
+      dataset: { stationName }
+    });
   }
 }

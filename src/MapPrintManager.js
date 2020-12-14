@@ -19,13 +19,17 @@ export default class MapPrintManager extends Component {
   }
 
   render() {
-    this.$component.innerHTML = this.lineInfo.map(({ lineName, stations }) => {
-      return `
+    if (this.lineInfo.length === 0) {
+      this.$component.innerHTML = "<div>등록된 지하철 노선이 없습니다.</div>";
+    } else {
+      this.$component.innerHTML = this.lineInfo.map(({ lineName, stations }) => {
+        return `
         <div>${lineName}</div>
         <ul>
           ${stations.map(stationName => `<li>${stationName}</li>`).join("")}
         </ul>
       `;
-    }).join("");
+      }).join("");
+    }
   }
 }
