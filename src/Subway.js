@@ -56,6 +56,9 @@ export default class Subway {
     if (section.includes(station)) {
       return alert('이미 등록된 역입니다.');
     }
+    if (order <= 0 || order >= section.length) {
+      return alert('상행 종점역과 하행 종점역 사이의 순서를 입력해주세요.');
+    }
     section.splice(order, 0, station);
   }
 
