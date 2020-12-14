@@ -1,4 +1,7 @@
-import { STATION_MANAGER_PAGE_TEMPLATE, STATION_TABLE_TEMPLATE } from '../utils/templete.js';
+import {
+  STATION_MANAGER_PAGE_TEMPLATE,
+  STATION_TABLE_TEMPLATE,
+} from './template/stationManagerTemplate.js';
 import {
   stationNameValidator,
   stationDeleteValidation,

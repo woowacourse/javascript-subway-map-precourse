@@ -2,7 +2,7 @@ import {
   LINE_MANAGER_PAGE_TEMPLATE,
   ALL_STATION_OPTION_LIST,
   LINE_TABLE_TEMPLATE,
-} from '../utils/templete.js';
+} from './template/lineManagerTemplate.js';
 import { lineNameValidator, lineStationsValidator } from '../utils/validator/lineValidator.js';
 import stationStorage from '../utils/stationStorage.js';
 import lineStorage from '../utils/lineStorage.js';
