@@ -1,4 +1,5 @@
 import { STATION_MANAGER_PAGE_TEMPLATE, STATION_TABLE_TEMPLATE } from '../utils/templete.js';
+import { stationNameValidator, stationDeleteValidation } from '../utils/stationValidator.js';
 import stationStorage from '../utils/stationStorage.js';
 import Station from '../utils/Station.js';
 
@@ -10,24 +11,13 @@ export default function stationManagerPage($element) {
 
   let stations = stationStorage().getStation();
 
-  const stationNameValidator = (stationName) => {
-    if (stationName.length < 2) {
-      return alert('이름은 두글자 이상입니다');
-    }
-    if (stations && stations.map((value) => value.name).includes(stationName)) {
-      return alert('중복된 이름입니다.');
-    }
-
-    return true;
-  };
-
   const showStations = () => {
     $stationTablebody.innerHTML = stations.map(STATION_TABLE_TEMPLATE).join('');
   };
 
   const deleteStation = (stationTag) => {
-    if (stationTag.dataset.lines.length !== 0) {
-      return alert('노선에 포함되어 있는 라인은 삭제할 수 없습니다');
+    if (!stationDeleteValidation(stationTag)) {
+      return;
     }
     stations = stations.filter((station) => station.id !== parseInt(stationTag.id));
     stationStorage().setStation(stations);
@@ -60,7 +50,7 @@ export default function stationManagerPage($element) {
 
   const onStationSubmitHandler = () => {
     const newStationName = $userStationInput.value;
-    if (stationNameValidator(newStationName)) {
+    if (stationNameValidator(stations, newStationName)) {
       createStation(newStationName);
     }
     $userStationInput.value = '';
