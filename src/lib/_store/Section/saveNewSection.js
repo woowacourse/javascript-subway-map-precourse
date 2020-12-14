@@ -11,7 +11,6 @@ export default (sectionData) => {
     }
     return lineData;
   });
-  console.log(updatedLineList);
-  // add reducer
-  // add table update
+  lineReducer(updatedLineList);
+  updateTable({ tabIndex: SECTION_TAB_INDEX, lineName });
 };

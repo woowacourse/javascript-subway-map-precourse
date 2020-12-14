@@ -11,10 +11,9 @@ export default class Line {
 
   addSectionInfo(sectionInfo) {
     const { stationName, order } = sectionInfo;
-    const START = 0;
-    const END = this.lineLength - 1;
-
-    console.log(this.stations, sectionInfo);
+    const prevStations = this.stations.slice(0, order);
+    const nextStations = this.stations.slice(order);
+    this.stations = [...prevStations, stationName, ...nextStations];
   }
 
   deleteStation(stationName) {
