@@ -60,7 +60,7 @@ export default function stationManagerPage($element) {
 
     if (
       lineNameValidator(lines, newLineName) &&
-      lineStationsValidator(lines, startStationName, endStationName)
+      lineStationsValidator(startStationName, endStationName)
     ) {
       createLine(newLineName, startStationName, endStationName);
     }

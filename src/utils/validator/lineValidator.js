@@ -1,3 +1,5 @@
+import lineStorage from '../lineStorage.js';
+
 const isEqualName = (lines, lineName) => {
   if (lines.some((line) => line.name === lineName)) {
     return alert('중복된 노선 이름입니다.');
@@ -26,16 +28,27 @@ const isEqualPoints = (startStationName, endStationName) => {
   return true;
 };
 
-const isEqualLine = (lines, startStationName, endStationName) => {
-  const linesStations = lines.map((line) => line.stations);
-  const linesPoints = linesStations.filter(
-    (currentLineStations, index) => index === 0 || index === currentLineStations.length - 1
-  );
+const isEqualLine = (startStationName, endStationName) => {
+  const startStations = lineStorage()
+    .getStartPoints()
+    .map((station) => station.name === startStationName);
+  const endStations = lineStorage()
+    .getEndPoints()
+    .map((station) => station.name === endStationName);
 
-  const equalLine = linesPoints.filter(
-    (currentLinePoint) =>
-      currentLinePoint[0].name === startStationName && currentLinePoint[1].name === endStationName
-  );
+  const equalLine = startStations.filter((station, index) => station && endStations[index]);
+  return equalLine.length !== 0 ? alert('동일한 종점을 가진 노선이 있습니다') : true;
+};
+
+const isEqualReverseLine = (startStationName, endStationName) => {
+  const endStations = lineStorage()
+    .getStartPoints()
+    .map((station) => station.name === endStationName);
+  const StartStations = lineStorage()
+    .getEndPoints()
+    .map((station) => station.name === startStationName);
+
+  const equalLine = StartStations.filter((station, index) => station && endStations[index]);
   return equalLine.length !== 0 ? alert('동일한 종점을 가진 노선이 있습니다') : true;
 };
 
@@ -43,10 +56,11 @@ function lineNameValidator(lines, lineName) {
   return isEqualName(lines, lineName) && isNameNotNull(lineName) && isCorrectName(lineName);
 }
 
-function lineStationsValidator(lines, startStationName, endStationName) {
+function lineStationsValidator(startStationName, endStationName) {
   return (
     isEqualPoints(startStationName, endStationName) &&
-    isEqualLine(lines, startStationName, endStationName)
+    isEqualLine(startStationName, endStationName) &&
+    isEqualReverseLine(startStationName, endStationName)
   );
 }
 
