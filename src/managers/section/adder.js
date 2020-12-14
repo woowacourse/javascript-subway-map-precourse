@@ -1,11 +1,12 @@
 import { Line } from '../../classes/line.js';
-import { makeTable } from '../../util/util-table.js';
+import { createSectionManagerUI } from './launcher.js';
 import { addSubItemToLocalStroage } from '../../util/util-local-storage.js';
 import { emptyElement } from '../../util/util-ui.js';
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
 
 // 3. 구간 관리 - 신규 구간 추가 요청
 export const requestToAddSection = (menu, lineSelected) => {
+  const subContainer = document.getElementById('sub-container');
   const line = new Line(lineSelected.name, lineSelected.stationList);
   const stationSelector = document.getElementById(`${menu}-station-selector`);
   const orderInput = document.getElementById(`${menu}-order-input`);
@@ -18,7 +19,7 @@ export const requestToAddSection = (menu, lineSelected) => {
     return processException(exception, stationSelector, orderInput);
   }
   addNewSection(menu, line, stationSelector.value, orderInput.value);
-  emptyElement(orderInput);
+  createSectionManagerUI(menu, subContainer, line);
 };
 
 const processException = (exception, select, input) => {
@@ -31,8 +32,6 @@ const processException = (exception, select, input) => {
 };
 
 const addNewSection = (menu, line, stationName, order) => {
-  let tableDiv = document.getElementById(`${menu}-table`);
-
   addSubItemToLocalStroage(
     'line',
     'stationList',
@@ -41,5 +40,4 @@ const addNewSection = (menu, line, stationName, order) => {
     order
   );
   addSubItemToLocalStroage('station', 'lineList', stationName, line.name);
-  tableDiv.innerHTML = makeTable(menu, line).outerHTML;
 };

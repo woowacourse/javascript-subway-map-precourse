@@ -90,3 +90,11 @@ export const addEventListenerOnDeleteButton = (button, menu, handler) => {
     handler(e, menu);
   });
 };
+
+export const getNthParent = (element, n) => {
+  while (n && element) {
+    element = element.parentNode;
+    n--;
+  }
+  return element;
+};

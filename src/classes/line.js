@@ -1,14 +1,10 @@
-import { getArrayFromLocalStorage } from '../util/util-local-storage.js';
-
 export class Line {
   constructor(name, stationList) {
     this.name = name;
     this.stationList = stationList;
   }
 
-  unableToAddLine() {
-    const lineList = getArrayFromLocalStorage('line');
-
+  unableToAddLine(lineList) {
     if (this.stationList[0] === this.stationList[1]) {
       return 'bothStartEndSame';
     }
@@ -26,7 +22,6 @@ export class Line {
   }
 
   unableToAddSection(station, order) {
-    console.log(station, order);
     if (this.stationList.includes(station)) {
       return 'sectionAleardyRegistered';
     }
@@ -46,6 +41,9 @@ export class Line {
   }
 
   unableToDeleteSection() {
+    if (this.stationList.length === 2) {
+      return 'sectionOnlyOneLeft';
+    }
     return false;
   }
 

@@ -6,6 +6,7 @@ import {
   deleteSubItemFromLocalStorage,
 } from '../../util/util-local-storage.js';
 import { EXCEPTION_MESSAGE } from '../../configuration.js';
+import { getNthParent } from '../../util/util-ui.js';
 
 // 2. 노선 관리 - 기존 노선 삭제 요청
 export const requestToDeleteLine = (e, menu) => {
@@ -25,10 +26,12 @@ const processException = (exception) => {
   alert(EXCEPTION_MESSAGE[exception]);
 };
 
-const deleteLine = (menu, line, button) => {
-  deleteItemFromLocalStroage(menu, line);
+const deleteLine = (menu, line) => {
+  let tableDiv = document.getElementById('line.name');
+
+  deleteItemFromLocalStroage(menu, line.name);
   line.stationList.forEach((stationName) =>
-    deleteSubItemFromLocalStorage('station', 'lineList', stationName, line)
+    deleteSubItemFromLocalStorage('station', 'lineList', stationName, line.name)
   );
-  deleteItemFromTable(button);
+  tableDiv.innerHTML = makeTable(menu, line).outerHTML;
 };

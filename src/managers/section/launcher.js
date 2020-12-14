@@ -8,7 +8,6 @@ import {
   addEventListenerOnAddButton,
   addEventListenerOnDeleteButton,
   appendSelector,
-  createButton,
 } from '../../util/util-ui.js';
 
 // 3. 구간 관리
@@ -43,7 +42,7 @@ const appendLineMenuButton = (lineMenuBar, subContainer, menu, line) => {
   return button;
 };
 
-const createSectionManagerUI = (menu, subContainer, line) => {
+export const createSectionManagerUI = (menu, subContainer, line) => {
   const form = makeForm(menu);
   const table = makeTable(menu, line);
 
@@ -53,7 +52,7 @@ const createSectionManagerUI = (menu, subContainer, line) => {
   appendNew('button', subContainer, '등록', `${menu}-add-button`);
   addEventListenerOnAddButton(menu, requestToAddSection, line);
   appendNew('br', subContainer);
-  appendNew('div', subContainer, table.outerHTML, `${menu}-table`);
+  appendNew('div', subContainer, table.outerHTML, `${line.name}`);
   document
     .querySelectorAll(`.${menu}-delete-button`)
     .forEach((button) =>

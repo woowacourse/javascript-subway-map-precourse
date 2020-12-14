@@ -1,5 +1,5 @@
 import { getArrayFromLocalStorage } from './util-local-storage.js';
-import { appendNew, createButton } from './util-ui.js';
+import { appendNew, createButton, getNthParent } from './util-ui.js';
 
 export const makeTable = (menu, key) => {
   const table = document.createElement('table');
@@ -91,8 +91,7 @@ export const addItemToTable = (menu, item) => {
 
 // 기존 역, 노선, 구간 삭제 시 사용
 export const deleteItemFromTable = (button) => {
-  const cell = button.parentNode;
-  const row = cell.parentNode;
+  const row = getNthParent(button, 2);
 
   row.remove();
 };

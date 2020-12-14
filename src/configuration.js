@@ -22,6 +22,8 @@ export const EXCEPTION_MESSAGE = {
     '입력해주신 순서값은 정수가 아닙니다.😥\n원하시는 순서값을 양의 정수로 입력해주세요',
   orderNegativeNumber:
     '입력해주신 순서값은 음수입니다.😥\n0 이상의 값으로 다시 입력해주세요',
+  sectionOnlyOneLeft:
+    '해당 노선에는 구간이 하나밖에 남지 않아 삭제할 수 없습니다.😥\n노선의 완전한 삭제를 원하신다면 노선 관리메뉴를 이용해주세요.',
 };
 
 export const MENU_LIST = [

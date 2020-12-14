@@ -13,14 +13,14 @@ export const requestToDeleteStation = (e, menu) => {
   if (exception) {
     return processException(exception);
   }
-  deleteStation(menu, station, button);
+  deleteStation(menu, stationName, button);
 };
 
 const processException = (exception) => {
   alert(EXCEPTION_MESSAGE[exception]);
 };
 
-const deleteStation = (menu, station, button) => {
-  deleteItemFromLocalStroage(menu, station);
+const deleteStation = (menu, stationName, button) => {
+  deleteItemFromLocalStroage(menu, stationName);
   deleteItemFromTable(button);
 };
