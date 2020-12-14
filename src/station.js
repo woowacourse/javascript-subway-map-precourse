@@ -10,7 +10,7 @@ STATION.ADD.addEventListener('click', () => {
 })
 
 export function setStationTable() {
-    let stationList = getList(STATION.LIST);
+    let stationList = getList(STATION.LISTNAME);
     for (let i=0; i<stationList.length; i++) {
         addStationTable(stationList[i]);
     }
@@ -29,17 +29,17 @@ function createStationDeleteButton(stationName) {
 }
 
 function deleteStationStorage(stationName) {
-    deleteItem(stationName, STATION.LIST);
-    console.log(localStorage.getItem(STATION.LIST));
+    deleteItem(stationName, STATION.LISTNAME);
+    console.log(localStorage.getItem(STATION.LISTNAME));
 }
 
 function addStationStorage(stationName) {
-    addItem(stationName, STATION.LIST);
-    console.log(getList(STATION.LIST));
+    addItem(stationName, STATION.LISTNAME);
+    console.log(getList(STATION.LISTNAME));
 }
 
 function deleteStationTable(stationName) {
-    STATION.TABLE.deleteRow(getIndex(stationName,STATION.LIST));
+    STATION.TABLE.deleteRow(getIndex(stationName,STATION.LISTNAME));
 }
 
 function addStationTable(stationName) {
@@ -58,6 +58,6 @@ function addStationTable(stationName) {
 }
 
 function isStationValid (stationName) {
-    const stationList = getList(STATION.LIST);
+    const stationList = getList(STATION.LISTNAME);
     return !stationList.includes(stationName);
 }
