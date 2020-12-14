@@ -6,7 +6,103 @@
   </head>
   <body>
     <div id="app">
-      <h1>🚇 지하철 노선도 관리 </h1>
+      <h1>🚇 지하철 노선도 관리</h1>
+    </div>
+    <div>
+      <a class="link" href="#station-manager"><button id="#station-manager-button">1.역 관리</button></a>
+      <a class="link" href="#line-manager"><button id="#line-manager-button">2.노선 관리</button></a>
+      <a class="link" href="#section-manager"><button id="#section-manager-button">3.구간 관리</button></a>
+      <a class="link" href="#map-print"><button id="#map-print-manager-button">4.지하철 노선도 출력</button></a>
+    </div>
+    <div id="#station-manager" class="content">
+      <div class="station-name">
+        <h3>역 이름</h3>
+        <input type="text" placeholder="역 이름을 입력해주세요." />
+        <button>역 추가</button>
+      </div>
+      <div class="station-list">
+        <h2><span>&#128649</span>지하철 역 목록</h2>
+        <table class="station-item-table">
+          <thead>
+            <th>역 이름</th>
+            <th>설정</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>인천</td>
+              <td><button>삭제</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="#line-manager" class="content">
+      <div class="line-name">
+        <h3>노선 이름</h3>
+        <input type="text" placeholder="노선 이름을 입력해주세요" />
+      </div>
+      <div class="terminating-lines">
+        <span>상행 종점</span>
+        <select name="" id=""></select>
+        <span>하행 종점</span>
+        <select name="" id=""></select>
+      </div>
+      <button>노선 추가</button>
+      <div class="lines-list">
+        <h2><span>&#128649</span>지하철 노선 목록</h2>
+        <table class="line-item-table">
+          <thead>
+            <th>노선 이름</th>
+            <th>상행 종점역</th>
+            <th>하행 종점역</th>
+            <th>설정</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1호선</td>
+              <td>인천</td>
+              <td>소요산</td>
+              <td><button>삭제</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="#section-manager" class="content">
+      <h2>구간을 수정할 노선을 선택해주세요</h2>
+      <div class="section-select-button-list">
+        <button class="section-select-button">1호선</button>
+        <button class="section-select-button">2호선</button>
+        <button class="section-select-button">3호선</button>
+      </div>
+      <div class="station-register">
+        <h2>1호선 관리</h2>
+        <h3>구간 등록</h3>
+        <select name="" id=""></select>
+        <input type="text" placeholder="등록" />
+        <button>등록</button>
+      </div>
+      <table class="registerd-station-item-table">
+        <thead>
+          <th>순서</th>
+          <th>이름</th>
+          <th>설정</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0</td>
+            <td>인천</td>
+            <td><button>노선에서 제거</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="#map-print" class="content">
+      <h2>1호선</h2>
+      <ul>
+        <li>인천</li>
+        <li>소요산</li>
+      </ul>
     </div>
     <script type="module" src="src/index.js"></script>
   </body>
