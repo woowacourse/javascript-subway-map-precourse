@@ -24,6 +24,8 @@ export default class SubwayLine {
   }
 
   insertStationToLineByName(stationName, positionIndex) {
-    this.#allStationsInLine.splice(positionIndex, 0, stationName);
+    if (stationName in this.#allStationsInLine === false) {
+      this.#allStationsInLine.splice(positionIndex, 0, stationName);
+    }
   }
 }
