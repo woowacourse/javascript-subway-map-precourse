@@ -35,6 +35,7 @@ export default class StationManager extends Component {
     event.preventDefault();
     const { value } = this.userInput;
     this.addStationToList(value);
+    this.clearInput();
   };
 
   onTableClick = (event) => {
@@ -78,6 +79,10 @@ export default class StationManager extends Component {
       checkOverlap(value, this.state.stationList) &&
       checkValueLength(value, MIN_STATION_NAME_LENGTH)
     );
+  }
+
+  clearInput() {
+    this.userInput.value = '';
   }
 
   template() {

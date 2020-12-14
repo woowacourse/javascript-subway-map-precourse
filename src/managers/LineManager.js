@@ -48,6 +48,7 @@ export default class LineManager extends Component {
     const constructorObj = this.getValues();
     const newLine = new Line(constructorObj);
     this.addLineToList(newLine);
+    this.clearInput();
   };
 
   onTableClick = (event) => {
@@ -89,6 +90,10 @@ export default class LineManager extends Component {
     const { value: endStation } = this.endStationSelector;
     return { name, startStation, endStation };
   };
+
+  clearInput() {
+    this.userInput.value = '';
+  }
 
   template() {
     return this.state.lineList
