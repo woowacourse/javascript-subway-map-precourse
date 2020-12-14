@@ -1,5 +1,6 @@
-import { message } from '../../constants';
 import { LineViewEventDelegator } from '../../eventDelegators';
+import { message } from '../../constants';
+import { addTemplateToDomInnerHTML } from '../../utils';
 
 export default class SubwayMapLineView {
   constructor(subwayMapViewModel, managerContainer, lineManagerButton) {
@@ -25,9 +26,8 @@ export default class SubwayMapLineView {
   }
 
   renderLineInputContainer() {
-    this.managerContainer.innerHTML += `
-      <div id="line-input-container"></div>
-    `;
+    addTemplateToDomInnerHTML(this.managerContainer, `<div id="line-input-container"></div>`);
+
     this.renderLineNameInput();
     this.renderStartStationSelector(Object.entries(this.subwayMapViewModel.getStations()));
     this.renderEndStationSelector(Object.entries(this.subwayMapViewModel.getStations()));
@@ -35,10 +35,11 @@ export default class SubwayMapLineView {
   }
 
   renderLineNameInput() {
-    this.managerContainer.querySelector('#line-input-container').innerHTML = `
-      <p>${message.LINE_NAME}</p>
-      <input id="line-name-input" placeholder="${message.LINE_INPUT_PLACEHOLDER}"></input>
-    `;
+    addTemplateToDomInnerHTML(
+      this.managerContainer.querySelector('#line-input-container'),
+      `<p>${message.LINE_NAME}</p>
+      <input id="line-name-input" placeholder="${message.LINE_INPUT_PLACEHOLDER}"></input>`,
+    );
   }
 
   renderStartStationSelector(stations) {
@@ -49,12 +50,13 @@ export default class SubwayMapLineView {
       })
       .join('');
 
-    this.managerContainer.querySelector('#line-input-container').innerHTML += `
-    <div>
-      <p>${message.START_STATION}</p>
-      <select id="line-start-station-selector">${selectorOptions}</select>
-    </div>
-  `;
+    addTemplateToDomInnerHTML(
+      this.managerContainer.querySelector('#line-input-container'),
+      `<div>
+        <p>${message.START_STATION}</p>
+        <select id="line-start-station-selector">${selectorOptions}</select>
+      </div>`,
+    );
   }
 
   renderEndStationSelector(stations) {
@@ -65,33 +67,36 @@ export default class SubwayMapLineView {
       })
       .join('');
 
-    this.managerContainer.querySelector('#line-input-container').innerHTML += `
-    <div>
-      <p>${message.END_STATION}</p>
-      <select id="line-end-station-selector">${selectorOptions}</select>
-    </div>
-  `;
+    addTemplateToDomInnerHTML(
+      this.managerContainer.querySelector('#line-input-container'),
+      `<div>
+        <p>${message.END_STATION}</p>
+        <select id="line-end-station-selector">${selectorOptions}</select>
+      </div>`,
+    );
   }
 
   renderLineAddButton() {
-    this.managerContainer.querySelector('#line-input-container').innerHTML += `
-      <button id="line-add-button" data-purpose="addLine">${message.LINE_ADD_BUTTON}</button>
-    `;
+    addTemplateToDomInnerHTML(
+      this.managerContainer.querySelector('#line-input-container'),
+      `<button id="line-add-button" data-purpose="addLine">${message.LINE_ADD_BUTTON}</button>`,
+    );
   }
 
   renderLineTableContainer() {
-    this.managerContainer.innerHTML += `
-      <h2>${message.LIST_OF_LINES}</h2>
-      <div id="line-table-container"></div>
-    `;
-
+    addTemplateToDomInnerHTML(
+      this.managerContainer,
+      `<h2>${message.LIST_OF_LINES}</h2>
+      <div id="line-table-container"></div>`,
+    );
     this.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
   }
 
   renderLineTable(lines) {
-    this.managerContainer.querySelector(
-      '#line-table-container',
-    ).innerHTML += this.combineTheadTbody(this.getLineThead(), this.getLineTbody(lines));
+    addTemplateToDomInnerHTML(
+      this.managerContainer.querySelector('#line-table-container'),
+      this.combineTheadTbody(this.getLineThead(), this.getLineTbody(lines)),
+    );
   }
 
   combineTheadTbody(lineThead, lineTbody) {

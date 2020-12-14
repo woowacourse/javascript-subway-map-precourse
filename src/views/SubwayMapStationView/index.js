@@ -1,4 +1,5 @@
 import { message } from '../../constants';
+import { addTemplateToDomInnerHTML } from '../../utils';
 import { StationViewEventDelegator } from '../../eventDelegators';
 
 export default class SubwayMapStationView {
@@ -26,28 +27,30 @@ export default class SubwayMapStationView {
   }
 
   renderStationInputContainer() {
-    this.managerContainer.innerHTML += `
-      <div id="station-input-container">
-        <p>${message.STATION_NAME}</p>
-        <input id="station-name-input" placeholder="${message.STATION_INPUT_PLACEHOLDER}"></input>
-        <button id="station-add-button" data-purpose="addStation">${message.ADD_STATION}</button>
-        <h2>${message.LIST_OF_STATIONS}</h2>
-      </div>
-    `;
+    addTemplateToDomInnerHTML(
+      this.managerContainer,
+      `
+    <div id="station-input-container">
+      <p>${message.STATION_NAME}</p>
+      <input id="station-name-input" placeholder="${message.STATION_INPUT_PLACEHOLDER}"></input>
+      <button id="station-add-button" data-purpose="addStation">${message.ADD_STATION}</button>
+      <h2>${message.LIST_OF_STATIONS}</h2>
+    </div>
+  `,
+    );
   }
 
   renderStationTableContainer() {
-    this.managerContainer.innerHTML += `
-      <div id="station-table-container"></div>
-    `;
+    addTemplateToDomInnerHTML(this.managerContainer, `<div id="station-table-container"></div>`);
 
     this.renderStationTable(Object.entries(this.subwayMapViewModel.getStations()));
   }
 
   renderStationTable(stations) {
-    this.managerContainer.querySelector(
-      '#station-table-container',
-    ).innerHTML += this.combineTheadTbody(this.getStationThead(), this.getStationTbody(stations));
+    addTemplateToDomInnerHTML(
+      this.managerContainer.querySelector('#station-table-container'),
+      this.combineTheadTbody(this.getStationThead(), this.getStationTbody(stations)),
+    );
   }
 
   combineTheadTbody(stationThead, stationTbody) {

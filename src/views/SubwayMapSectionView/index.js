@@ -1,4 +1,5 @@
 import { message } from '../../constants';
+import { addTemplateToDomInnerHTML } from '../../utils';
 import { SectionViewEventDelegator } from '../../eventDelegators';
 
 export default class SubwayMapSectionView {
@@ -23,22 +24,21 @@ export default class SubwayMapSectionView {
   }
 
   renderLineMenuButtons(lines) {
-    let lineButtons = '';
-    lines.forEach(line => {
-      lineButtons += `
-        <button data-id="${line[0]}" data-purpose="selectLine" class="section-line-menu-button">
+    const lineButtons = lines
+      .map(line => {
+        return `<button data-id="${line[0]}" data-purpose="selectLine" class="section-line-menu-button">
           ${line[0]}
-        </button>
-      `;
-    });
+        </button>`;
+      })
+      .join(' ');
 
-    this.managerContainer.innerHTML = `
-    <div id="section-line-menu-button-container">
+    addTemplateToDomInnerHTML(
+      this.managerContainer,
+      `<div id="section-line-menu-button-container">
       <h3>${message.SECTION_INFORMATION}</h3>
       ${lineButtons}
-    </div>
-   
-    `;
+    </div>`,
+    );
   }
 
   renderSelectedLineSectionManagerContainer() {
@@ -56,20 +56,31 @@ export default class SubwayMapSectionView {
   }
 
   renderSelectedLineSectionManager(line) {
+    this.renderSectionInputContainer();
+    this.renderSectionInput(line);
+    this.renderSectionTableContainer();
+    this.renderSectionTable(line._lineId, this.subwayMapViewModel.getSections(line._lineId));
+  }
+
+  renderSectionInputContainer() {
+    return `<div id="section-input-container"></div>`;
+  }
+
+  renderSectionInput(line) {
     const sectionSelector = this.renderSectionSelector(
       Object.entries(this.subwayMapViewModel.getStations()),
     );
     const sectionOrderInput = `<input id="section-order-input" type="number" placeholder=${message.SECTION_INPUT_PLACEHOLDER}></input>`;
     const sectionAddButton = `<button id="section-add-button" data-lineid="${line._lineId}" data-purpose="addSection">${message.ADD}</button>`;
-    this.managerContainer.querySelector('#section-selected-line-manager-container').innerHTML += `
-        <h3>${line._lineId} ${message.LINE_MANAGING}</h3>
+
+    addTemplateToDomInnerHTML(
+      this.managerContainer.querySelector('#section-selected-line-manager-container'),
+      `<h3>${line._lineId} ${message.LINE_MANAGING}</h3>
         <p>${message.ADD_SECTION}</p>
         ${sectionSelector}
         ${sectionOrderInput}
-        ${sectionAddButton}
-    `;
-    this.renderSectionTableContainer();
-    this.renderSectionTable(line._lineId, this.subwayMapViewModel.getSections(line._lineId));
+        ${sectionAddButton}`,
+    );
   }
 
   renderSectionSelector(sections) {
@@ -80,19 +91,18 @@ export default class SubwayMapSectionView {
       })
       .join('');
 
-    const sectionSelector = `
+    return `
       <select id= "section-station-selector">
         ${selectorOptions}
       </select>
-    `;
-
-    return sectionSelector;
+      `;
   }
 
   renderSectionTableContainer() {
-    this.managerContainer.querySelector('#section-selected-line-manager-container').innerHTML += `
-      <div id="section-table-container"></div>
-    `;
+    addTemplateToDomInnerHTML(
+      this.managerContainer.querySelector('#section-selected-line-manager-container'),
+      `<div id="section-table-container"></div>`,
+    );
   }
 
   resetSectionTable() {
@@ -100,11 +110,9 @@ export default class SubwayMapSectionView {
   }
 
   renderSectionTable(lineId, sections) {
-    this.managerContainer.querySelector(
-      '#section-table-container',
-    ).innerHTML += this.combineTheadTbody(
-      this.getSectionThead(),
-      this.getSectionTbody(lineId, sections),
+    addTemplateToDomInnerHTML(
+      this.managerContainer.querySelector('#section-table-container'),
+      this.combineTheadTbody(this.getSectionThead(), this.getSectionTbody(lineId, sections)),
     );
   }
 

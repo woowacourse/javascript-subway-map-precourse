@@ -1,4 +1,5 @@
 import { MapPrintViewEventDelegator } from '../../eventDelegators';
+import { addTemplateToDomInnerHTML } from '../../utils';
 
 export default class SubwayMapMapPrintView {
   constructor(subwayMapViewModel, managerContainer, mapPrintManagerButton) {
@@ -14,18 +15,16 @@ export default class SubwayMapMapPrintView {
 
   renderMapPrintManager() {
     const linesUls = this.renderLinesUls(Object.entries(this.subwayMapViewModel.getLines()));
-    this.managerContainer.innerHTML += `
-      <div class="map">
-        ${linesUls}
-      </div>
-    `;
+
+    addTemplateToDomInnerHTML(this.managerContainer, `<div class="map">${linesUls}</div>`);
   }
 
   renderLinesUls(lines) {
     return lines
       .map(line => {
-        return `<h3>${line[0]}</h3>
-            <ul>${line[1]._sections
+        const [lineId, lineInstance] = line;
+        return `<h3>${lineId}</h3>
+            <ul>${lineInstance._sections
               .map(section => {
                 return `<li>${section._stationId}</li>`;
               })

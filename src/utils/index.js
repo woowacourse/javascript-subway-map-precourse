@@ -1,5 +1,5 @@
-// function addTemplateToDomInnerHTML(dom, template) {
-//   dom.innerHTML += template;
-// }
+function addTemplateToDomInnerHTML(dom, template) {
+  dom.innerHTML += template;
+}
 
-// export { addTemplateToDomInnerHTML };
+export { addTemplateToDomInnerHTML };
