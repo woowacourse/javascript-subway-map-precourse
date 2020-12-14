@@ -1,11 +1,13 @@
 import { addRowInStationTable } from "../../utils/handleDom.js";
 import { getStationsTableHeader } from "../../utils/templates.js";
 import { MESSAGE, FIELD } from "../../constants/constants.js";
+import { isInvolvedInLine } from "../../utils/validation.js";
 
 export class StationManagerList {
-  constructor({ getStations, deleteStation }) {
+  constructor({ getStations, deleteStation, getLines }) {
     this.getStations = getStations;
     this.deleteStation = deleteStation;
+    this.getLines = getLines;
     this.initializeDOM();
     this.initializeEvents();
     this.render();
@@ -31,10 +33,15 @@ export class StationManagerList {
   };
 
   handleDeleteStation = (e) => {
+    let lines = this.getLines();
     let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
+
     if (confirmDelete) {
-      this.deleteStation(e.target.dataset.station);
-      this.render();
+      let station = e.target.dataset.station;
+      if (!isInvolvedInLine(lines, station)) {
+        this.deleteStation(station);
+        this.render();
+      }
     }
   };
 }

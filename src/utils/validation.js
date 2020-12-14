@@ -38,6 +38,16 @@ export const canDeleteMore = (stations) => {
   }
   return true;
 };
+
+export const isInvolvedInLine = (lines, station) => {
+  for (let line of lines) {
+    if (line.stations.includes(station)) {
+      showErrors(MESSAGE.INVOLVED_IN_LINE);
+      return true;
+    }
+  }
+  return false;
+};
 const haveTwoElements = (stations) => {
   return stations.length === NUMBER.DELETE_STATION_LIMIT;
 };
