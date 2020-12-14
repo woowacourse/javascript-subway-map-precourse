@@ -151,7 +151,7 @@ export default class StationLayout extends PageLayout {
     // TODO: storageData 비동기?
     const stationList = this.controller.modelList.station.getList();
     for (const station of stationList) {
-      this.insertRow(station);
+      this.insertRow(station.name);
     }
   }
 
