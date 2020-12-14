@@ -1,10 +1,11 @@
 import Station from "./Station.js";
-import { LINE_LIST } from "../constant/constant.js";
+import { LINE_LIST, MIN_SECTION_LENGTH } from "../constant/constant.js";
 import {
   INVAILD_LINE_NAME_LENGTH_ALERT,
   INVALID_LINE_STATION,
   SAVED_LINE_ALERT,
   SAVED_STATION_IN_LINE_ALERT,
+  TWO_STATION_IN_LINE_ALERT,
 } from "../constant/message.js";
 
 export default class Line {
@@ -23,6 +24,12 @@ export default class Line {
     const line = this._lineList.filter(line => line.name === lineName)[0];
 
     return line.list.includes(stationName);
+  };
+
+  _isValidLengthToDelete = lineName => {
+    const line = this._lineList.filter(line => line.name === lineName)[0];
+
+    return line.list.length >= MIN_SECTION_LENGTH;
   };
 
   _setLineList = lineList => {
@@ -100,6 +107,12 @@ export default class Line {
   };
 
   deleteStationFromLine = (stationName, lineName) => {
+    if (!this._isValidLengthToDelete(lineName)) {
+      alert(TWO_STATION_IN_LINE_ALERT);
+
+      return;
+    }
+
     const newLineList = this._lineList.map(({ name, list }) => {
       if (name === lineName) {
         const index = list.indexOf(stationName);
