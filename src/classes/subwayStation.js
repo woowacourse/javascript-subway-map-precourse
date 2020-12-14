@@ -6,13 +6,12 @@ export default class SubwayStation {
   }
 
   static checkIsStationBelongToLine(station) {
-    return station.belongingLines.length > 0;
+    return station.belongingLineNames.length > 0;
   }
 
-  constructor(name) {
-    this.name = name;
-    this.nextStations = [];
-    this.prevStations = [];
+  constructor() {
+    this.nextStationNames = [];
+    this.prevStationNames = [];
     this.belongingLineNames = [];
   }
 }

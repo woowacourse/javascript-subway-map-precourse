@@ -1,6 +1,6 @@
 export default class SubwayMap {
-  #allStations = [];
-  #allLines = [];
+  #allStations = {};
+  #allLines = {};
 
   get allStations() {
     return this.#allStations;
@@ -10,45 +10,35 @@ export default class SubwayMap {
     return this.#allLines;
   }
 
-  addStation(station) {
-    this.#allStations.push(station);
-  }
-
-  checkIsDuplicatedStationName(stationName) {
-    const isDuplicatedStationName = this.#allStations.some(
-      (registerdStation) => registerdStation.name === stationName
-    );
-
-    return isDuplicatedStationName;
-  }
-
-  deleteStationByName(stationName) {
-    const deletingStationIndex = this.#allStations.findIndex(
-      (registeredStation) => registeredStation.name === stationName
-    );
-    if (deletingStationIndex !== -1) {
-      this.#allStations.splice(deletingStationIndex, 1);
+  addStation(station, stationName) {
+    if (stationName in this.#allStations === false) {
+      this.#allStations[stationName] = station;
     }
   }
 
-  addLine(line) {
-    this.#allLines.push(line);
+  checkIsDuplicatedStationName(stationName) {
+    return stationName in this.#allStations;
+  }
+
+  deleteStationByName(stationName) {
+    if (stationName in this.#allStations) {
+      delete this.#allStations[stationName];
+    }
+  }
+
+  addLine(line, lineName) {
+    if (lineName in this.#allLines === false) {
+      this.#allLines[lineName] = line;
+    }
   }
 
   checkIsDuplicatedLineName(lineName) {
-    const isDuplicatedLineName = this.#allStations.some(
-      (registerdLine) => registerdLine.name === lineName
-    );
-
-    return isDuplicatedLineName;
+    return lineName in this.#allLines;
   }
 
   deleteLineByName(lineName) {
-    const deletingLineIndex = this.#allLines.findIndex(
-      (registerdLine) => registerdLine.name === lineName
-    );
-    if (deletingLineIndex !== -1) {
-      this.#allLines.splice(deletingLineIndex, 1);
+    if (lineName in this.#allLines) {
+      delete this.#allLines[lineName];
     }
   }
 }
