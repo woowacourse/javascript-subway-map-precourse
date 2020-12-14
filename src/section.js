@@ -14,8 +14,11 @@ class Section {
   }
 
   refreshSection = () => {
-    this.stations = Storage.loadItems("station");
-    this.lines = Storage.loadItems("line");
+    const stations = Storage.loadItems("station");
+    const lines = Storage.loadItems("line");
+    if (stations !== null) this.stations = stations;
+    if (lines !== null) this.lines = lines;
+
     this.showStationSelect();
     this.showMenuButton();
     this.resetSectionContainer();

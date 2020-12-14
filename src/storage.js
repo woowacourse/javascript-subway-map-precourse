@@ -7,12 +7,11 @@ class Storage {
 
   loadItems = key => {
     let data = localStorage.getItem(key);
-    console.log(data);
-    if (data === null) {
-      return [];
+    if (data !== null) {
+      data = JSON.parse(data);
     }
 
-    return JSON.parse(data);
+    return data;
   };
 
   createStationSelect = container => {

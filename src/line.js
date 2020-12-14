@@ -15,9 +15,11 @@ class Line {
   }
 
   refreshLine = () => {
-    console.log("Re");
-    this.stations = Storage.loadItems("station");
-    this.lines = Storage.loadItems("line");
+    const stations = Storage.loadItems("station");
+    const lines = Storage.loadItems("line");
+    if (stations !== null) this.stations = stations;
+    if (lines !== null) this.lines = lines;
+
     this.showStationSelect();
     this.showLines();
   };
@@ -85,7 +87,9 @@ class Line {
     const { lineName, upStation, downStation } = this.getLineInput();
     console.log(lineName, upStation, downStation, "Sd");
     if (this.checkLineVaild(lineName, upStation, downStation)) {
+      console.log(this.lines);
       this.lines[lineName] = [upStation, downStation];
+      console.log(this.lines);
       Storage.saveItems("line", this.lines);
       this.showLines();
     } else {

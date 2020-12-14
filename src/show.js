@@ -8,7 +8,8 @@ class Show {
   }
 
   refreshShow = () => {
-    this.lines = Storage.loadItems("line");
+    const lines = Storage.loadItems("line");
+    if (lines !== null) this.lines = lines;
     this.showLines();
   };
 
