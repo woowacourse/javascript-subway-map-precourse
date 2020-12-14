@@ -22,7 +22,9 @@ class InnerSectionTable {
           <th>설정</th>
         </tr>
         ${this.createTableRowsHTML(
-          this.lineStore.getLine(this.lineName).sections,
+          this.lineStore.getLine(this.lineName)
+            ? this.lineStore.getLine(this.lineName).sections
+            : [],
         )}
       </table>`;
   }
@@ -58,6 +60,9 @@ class InnerSectionTable {
     if (!isRemovableSection(sections) || !confirm(MESSAGE.CONFIRM)) {
       return;
     }
+
+    this.lineStore.removeSection(this.lineName, index);
+    localStorage.setItem(`LINE`, JSON.stringify(this.lineStore.lines));
   }
 
   render = () => {

@@ -34,12 +34,18 @@ class LineStore extends Observer {
     sections.splice(order, 0, station);
 
     const newLines = this.lines.map(line => {
-      return line.name === lineName
-        ? {
-            ...line,
-            sections,
-          }
-        : line;
+      return line.name === lineName ? { ...line, sections } : line;
+    });
+
+    this.setLines(newLines);
+  }
+
+  removeSection(lineName, order) {
+    const sections = [...this.getLine(lineName).sections];
+    sections.splice(order, 1);
+
+    const newLines = this.lines.map(line => {
+      return line.name === lineName ? { ...line, sections } : line;
     });
 
     this.setLines(newLines);
