@@ -1,6 +1,7 @@
 import { DOMs, DOMCtrl, DOMStrings, dataStrings, strings } from '../doms.js';
 
 export default class SectionManagerUI {
+  // '구간 관리' 버튼을 클릭했을 때 노선 버튼들을 보여준다.
   openSectionManager(lines) {
     const sectionContainer = `
       <div id="${DOMStrings.SECTION_CONTAINER}"><h2>${strings.SECTION_SELECT_TITLE}</h2>
@@ -18,6 +19,7 @@ export default class SectionManagerUI {
     DOMs.MANAGER_CONTAINER.innerHTML = sectionContainer;
   }
 
+  // 특정 노선 버튼을 클릭했을 때, 해당 노선에 대한 section manager를 보여준다.
   openSection(stations, lines, lineName) {
     const lineIndex = lines.findIndex(line => line.lineName === lineName);
     const sectionManager = `
@@ -69,6 +71,17 @@ export default class SectionManagerUI {
           ${strings.SECTION_DELETE}</button></td>
       </tr>
     `;
+  }
+
+  // 노선 선택 버튼 조작
+  selectLine(event, stations, lines) {
+    const {
+      target: { className },
+    } = event;
+    if (className === DOMStrings.SECTION_LINE_MENU_BUTTON) {
+      const targetLineName = event.target.dataset[dataStrings.DATA_LINE];
+      this.openSection(stations, lines, targetLineName);
+    }
   }
 
   refreshSectionManager(stations, lines, targetLineName) {

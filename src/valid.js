@@ -106,6 +106,7 @@ const isSectionUnderMinLength = targetLength => targetLength <= MIN_SECTION_LENG
 
 const isOutOfRange = (range, order) => order < SECTION_START || order > range.length;
 
+// 한글, 영문, 숫자만 허용
 const isNotAText = input => {
   const texts = new RegExp('[^ㄱ-ㅎ가-힣a-zA-Z0-9]', 'g');
   return texts.test(input);

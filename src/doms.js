@@ -80,6 +80,7 @@ export const DOMCtrl = {
     DOMs.MANAGER_CONTAINER.innerHTML = '';
   },
 
+  // station name input의 내용을 비우고, 포커스를 옮긴다.
   focusStationNameInput() {
     const stationNameInput = document.getElementById(DOMStrings.STATION_NAME_INPUT);
     stationNameInput.value = '';

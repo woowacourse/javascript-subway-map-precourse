@@ -16,7 +16,9 @@ export default class SectionManager {
     DOMs.SECTION_MANAGER_BUTTON.addEventListener('click', () => {
       this.UIController.openSectionManager(this.lines);
     });
-    DOMs.MANAGER_CONTAINER.addEventListener('click', this.selectLine.bind(this));
+    DOMs.MANAGER_CONTAINER.addEventListener('click', event => {
+      this.UIController.selectLine(event, this.stations, this.lines);
+    });
     DOMs.MANAGER_CONTAINER.addEventListener('click', this.addSectionByClick.bind(this));
     DOMs.MANAGER_CONTAINER.addEventListener('keydown', this.addSectionByEnterKey.bind(this));
     DOMs.MANAGER_CONTAINER.addEventListener('click', this.deleteSectionButtonClick.bind(this));
@@ -60,6 +62,8 @@ export default class SectionManager {
     }
   }
 
+  // 'line list'는 line manager의 노선 목록을 의미함.
+  // 노선 목록의 '상행 종점역'과 '하행 종점역'에 변경 사항을 반영하는 메소드
   changeLineListWithAddition(targetLine, stationOrder, stationName) {
     if (isEndSection(targetLine.stations, stationOrder, strings.VALID_ADDITION)) {
       targetLine.end = stationName;
@@ -68,6 +72,7 @@ export default class SectionManager {
     }
   }
 
+  // 실질적으로 노선 배열에 역(구간)을 추가하는 메소드
   addSectionInLine(targetLine, stationOrder, stationName) {
     targetLine.stations = targetLine.stations
       .slice(0, stationOrder)
@@ -106,16 +111,6 @@ export default class SectionManager {
       targetLine.end = targetLine.stations[targetSectionIndex - 1];
     } else if (isStartSection(targetSectionIndex)) {
       targetLine.start = targetLine.stations[targetSectionIndex + 1];
-    }
-  }
-
-  selectLine(event) {
-    const {
-      target: { className },
-    } = event;
-    if (className === DOMStrings.SECTION_LINE_MENU_BUTTON) {
-      const targetLineName = event.target.dataset[dataStrings.DATA_LINE];
-      this.UIController.openSection(this.stations, this.lines, targetLineName);
     }
   }
 }
