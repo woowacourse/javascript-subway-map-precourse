@@ -1,11 +1,14 @@
+import Section from "../../models/section.js";
 import { lineSelector } from "../../_store/selectors.js";
 import actionResult from "../actionResult.js";
 import { MIN_LENGTH_OF_LINE } from "../../common/constants.js";
 import { DELETE_STATION_ERROR } from "../../common/alertMessages.js";
 
-export default class DeleteStationValidation {
+export default class DeleteStationValidation extends Section {
   constructor(props) {
     const { stationName, lineName } = props;
+    console.log(stationName, lineName);
+    super(stationName, null, lineName);
     this.deletedStationName = stationName;
     this.updatedLineName = lineName;
     this.isSectionManagement = lineName !== undefined;

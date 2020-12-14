@@ -23,4 +23,4 @@ export const DELETE_STATION_ERROR = `현재 지울 역이 포함된 노선은 ${
 
 export const ALREADY_EXIST_ERROR = "노선에 해당하는 역이 이미 존재합니다.";
 export const LARGE_ORDER_NUMBER_ERROR =
-  "순서는 해당 노선의 길이 이상의 숫자가 올 수 없습니다.";
+  "순서는 해당 노선의 길이를 넘는 숫자가 올 수 없습니다.";

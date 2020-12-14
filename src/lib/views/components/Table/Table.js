@@ -45,6 +45,7 @@ export default class Table {
     return $tableHead;
   }
 
+  // 역 삭제 시 여기서 로직 잘못됨...
   _getDeleteButton({ stationName, lineName }) {
     const $buttonContainer = document.createElement("td");
     const $deleteButton = new Button(
@@ -106,7 +107,7 @@ export default class Table {
         [
           this._getTextTd(index),
           this._getTextTd(stationName),
-          this._getDeleteButton({ stationName }),
+          this._getDeleteButton({ stationName, lineName: this.lineName }),
         ].forEach(($element) => $tr.appendChild($element));
         trList.push($tr);
         return trList;

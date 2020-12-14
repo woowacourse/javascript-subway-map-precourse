@@ -25,7 +25,7 @@ export default class AddSectionValidation extends Section {
   }
 
   _orderIsLargerThanLineLength() {
-    return this.order >= this.lineStationsList.length;
+    return this.order > this.lineStationsList.length;
   }
 
   getInputResult() {
