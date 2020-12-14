@@ -21,7 +21,7 @@ export class Line {
     return false;
   }
 
-  unableToAddSection(station, order) {
+  isUnableToAddSection(station, order) {
     if (this.stationList.includes(station)) {
       return 'sectionAleardyRegistered';
     }
@@ -41,7 +41,7 @@ export class Line {
   }
 
   unableToDeleteSection() {
-    if (this.stationList.length === 2) {
+    if (this.stationList.length <= 2) {
       return 'sectionOnlyOneLeft';
     }
     return false;

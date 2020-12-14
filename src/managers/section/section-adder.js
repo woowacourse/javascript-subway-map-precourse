@@ -16,7 +16,7 @@ export const requestToAddSection = (menu, lineSelected) => {
   );
   const stationSelector = document.getElementById(`${menu}-station-selector`);
   const orderInput = document.getElementById(`${menu}-order-input`);
-  const exception = line.unableToAddSection(
+  const exception = line.isUnableToAddSection(
     stationSelector.value,
     orderInput.value
   );

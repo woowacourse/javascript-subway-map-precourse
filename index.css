@@ -1,0 +1,62 @@
+body {
+  margin: 5px 10px;
+}
+
+#app {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+#menu-bar {
+  margin: 20px 0 48px;
+}
+
+#menu-bar button {
+  margin-right: 8px;
+  min-width: 120px;
+  font-weight: 600;
+}
+
+#container h2,
+#container h3 {
+  margin: 28px 0 24px;
+}
+
+#container label {
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+#container input {
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+#container select {
+  margin-right: 8px;
+}
+
+#container button {
+  margin-right: 8px;
+  min-width: 50px;
+  padding: 1px 15px;
+  font-weight: 600;
+}
+
+#container form {
+  display: inline-block;
+}
+
+#container table {
+  margin-top: 10px;
+}
+
+#container table button {
+  margin: 0;
+}
+
+#line-add-button {
+  margin-top: 8px;
+  display: block;
+}

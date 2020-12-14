@@ -21,7 +21,7 @@ const createLineMenuUI = (menu, container) => {
   const lineMenuBar = appendNew('div', container, '', '#line-menu-bar');
   const subContainer = appendNew('div', container, '', '#sub-container');
 
-  appendNew('div', lineMenuBar, '구간을 수정할 노선을 선택해주세요');
+  appendNew('h3', lineMenuBar, '구간을 수정할 노선을 선택해주세요');
   lineList.forEach((line) =>
     appendLineMenuButton(lineMenuBar, subContainer, menu, line)
   );
@@ -47,7 +47,7 @@ export const createSectionManagerUI = (menu, subContainer, line) => {
   const table = makeTable(menu, line);
 
   emptyElement(subContainer);
-  appendNew('h3', subContainer, `🚉${line.name} 관리`);
+  appendNew('h3', subContainer, `🚉 ${line.name} 관리`);
   appendNew('form', subContainer, form.innerHTML);
   appendNew('button', subContainer, '등록', `${menu}-add-button`);
   addEventListenerOnAddButton(menu, requestToAddSection, line);

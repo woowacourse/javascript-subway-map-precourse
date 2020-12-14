@@ -16,7 +16,7 @@ const printSubwayMap = (menu, container) => {
 const printLine = (subContainer, line) => {
   let ul;
 
-  appendNew('h2', subContainer, line.name);
+  appendNew('h3', subContainer, line.name);
   ul = appendNew('ul', subContainer);
   line.stationList.map((stationName) => appendNew('li', ul, stationName));
 };

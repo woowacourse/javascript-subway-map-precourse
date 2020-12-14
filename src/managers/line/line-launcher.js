@@ -24,7 +24,7 @@ const createLineManagerUI = (menu, container) => {
   appendNew('button', container, '노선 추가', `${menu}-add-button`);
   addEventListenerOnAddButton(menu, requestToAddLine);
   appendNew('br', container);
-  appendNew('h2', container, '🚉지하철 노선 목록');
+  appendNew('h2', container, '🚉 g지하철 노선 목록');
   appendNew('div', container, table.outerHTML);
   document
     .querySelectorAll(`.${menu}-delete-button`)
