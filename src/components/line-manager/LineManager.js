@@ -3,20 +3,25 @@ import { LineManagerList } from "./LineManagerList.js";
 
 export class LineManager {
   constructor(props) {
-    this.setNewLine = props.setNewLine;
-    this.render(props);
+    this.setLines = props.setLines;
+    this.getLines = props.getLines;
+    this.initializeDOM(props);
   }
 
-  render = ({ getStations, getLines, deleteLine }) => {
+  initializeDOM = (props) => {
     this.lineManagerInput = new LineManagerInput({
-      getStations: getStations,
-      setNewLine: this.addNewLines,
-      getLines: getLines,
+      ...props,
+      addNewLines: this.addNewLines,
     });
     this.lineManagerList = new LineManagerList({
-      getLines: getLines,
-      deleteLine: deleteLine,
+      ...props,
+      deleteLine: this.deleteLine,
     });
+  };
+
+  render = (props) => {
+    this.lineManagerInput.render();
+    this.lineManagerList.render();
   };
 
   updateStations = () => {
@@ -30,5 +35,22 @@ export class LineManager {
   addNewLines = (lineName, newLine) => {
     this.setNewLine(lineName, newLine);
     this.lineManagerList.render();
+  };
+
+  setNewLine = (lineName, newLines) => {
+    let lines = this.getLines();
+    let newLine = { lineName: lineName, stations: newLines };
+
+    lines.push(newLine);
+    this.setLines(lines);
+  };
+
+  deleteLine = (lineName) => {
+    let lines = this.getLines();
+    let newLines = lines.filter((line) => {
+      return line.lineName != lineName;
+    });
+
+    this.setLines(newLines);
   };
 }

@@ -16,14 +16,8 @@ export class ContentContainer {
       ...props,
       updateStationView: this.updateStationView,
       getStations: this.getStations,
-      setNewLine: this.setNewLine,
       setLines: this.setLines,
       getLines: this.getLines,
-      deleteLine: this.deleteLine,
-    };
-    this.state = {
-      stations: [],
-      lines: [],
     };
     this.initiateData();
     this.initiateDOM();
@@ -34,17 +28,6 @@ export class ContentContainer {
     this.lineManager = new LineManager(this.props);
     this.mapPrintManager = new MapPrint(this.props);
     this.sectionManager = new SectionManager(this.props);
-    this.contents = [
-      this.stationManager,
-      this.lineManager,
-      this.mapPrintManager,
-      this.sectionManager,
-    ];
-  };
-
-  onUpdate = (newState) => {
-    this.state = newState;
-    this.render(this.props);
   };
 
   initiateData = () => {
@@ -73,26 +56,8 @@ export class ContentContainer {
     });
   };
 
-  // setStations = (names) => {
-  //   localStorage.setItem("stations", JSON.stringify(names));
-  //   this.updateStationView();
-  // };
-
   getStations = () => {
     return JSON.parse(localStorage.getItem("stations"));
-  };
-
-  // deleteStation = (target) => {
-  //   let stations = this.getStations();
-  //   stations = stations.filter((station) => {
-  //     return station !== target;
-  //   });
-  //   this.setStations(stations);
-  // };
-
-  updateStationView = () => {
-    this.lineManager.updateStations();
-    this.sectionManager.updateStationsInInput();
   };
 
   setLines = (lines) => {
@@ -100,25 +65,13 @@ export class ContentContainer {
     this.updateLineView();
   };
 
-  setNewLine = (lineName, newLines) => {
-    let lines = this.getLines();
-    let newLine = { lineName: lineName, stations: newLines };
-
-    lines.push(newLine);
-    this.setLines(lines);
-  };
-
   getLines = () => {
     return JSON.parse(localStorage.getItem("lines"));
   };
 
-  deleteLine = (lineName) => {
-    let lines = this.getLines();
-    let newLines = lines.filter((line) => {
-      return line.lineName != lineName;
-    });
-
-    this.setLines(newLines);
+  updateStationView = () => {
+    this.lineManager.updateStations();
+    this.sectionManager.updateStationsInInput();
   };
 
   updateLineView = () => {

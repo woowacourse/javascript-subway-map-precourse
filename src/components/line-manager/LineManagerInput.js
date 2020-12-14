@@ -2,9 +2,9 @@ import { addOptionTag, initSelector } from "../../utils/handleDom.js";
 import { isValidLineInfo } from "../../utils/validation.js";
 
 export class LineManagerInput {
-  constructor({ getStations, setNewLine, getLines }) {
+  constructor({ getStations, addNewLines, getLines }) {
     this.getStations = getStations;
-    this.setNewLine = setNewLine;
+    this.addNewLines = addNewLines;
     this.getLines = getLines;
     this.initializeDOM();
     this.initializeEvents();
@@ -48,7 +48,7 @@ export class LineManagerInput {
     }
 
     let newLine = [start, end];
-    this.setNewLine(lineName, newLine);
+    this.addNewLines(lineName, newLine);
   };
 
   getLineNames = (lines) => {
