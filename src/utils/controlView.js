@@ -1,4 +1,4 @@
-import { STATION_DIV } from "../constant.js";
+import { STATION_DIV, LINE_DIV } from "../constant.js";
 import { removeStationHandler } from "./station.js";
 
 export const cleanView = () => {
@@ -35,8 +35,22 @@ export function makeTableStation(table) {
   </thead>`;
   this.station.map((v) => {
     const row = `<tr data-id=${v.id} data-value=${v.name}>
-    <td>${v.name}</td>
-    <td> <button class="station-delete-button">삭제</button></td>
+    <td>${v.name}</td> <td> <button class="station-delete-button">삭제</button></td>
+  </tr>`;
+    table.innerHTML += row;
+  });
+  tableButton.call(this, document.querySelectorAll(".station-delete-button"));
+}
+
+export function makeTableLine(table) {
+  table.innerHTML += `<thead>
+    <th>노선 이름 </th> <th>상행 종점역 </th> <th>하행 종점역 </th> <th> 설정 </th>
+  </thead>`;
+  this.line.map((v) => {
+    const row = `<tr data-id=${v.id}>
+    <td>${v.name}</td> <td>${v.stations[0].station}</td> 
+    <td>${v.stations[v.stations.length - 1].station}</td>
+    <td> <button class="line-delete-button">삭제</button></td>
   </tr>`;
     table.innerHTML += row;
   });
@@ -45,14 +59,18 @@ export function makeTableStation(table) {
 
 export function printTable(NAME_DIV) {
   let table;
-  if (!document.querySelector("table")) {
+  const parent = document.getElementById("app").children[NAME_DIV];
+  if (!parent.getElementsByTagName("table").length) {
     table = document.createElement("table");
-    document.getElementById("app").children[NAME_DIV].append(table);
+    parent.append(table);
   }
-  table = document.querySelector("table");
+  table = parent.getElementsByTagName("table")[0];
   table.innerHTML = "";
-  if (NAME_DIV === STATION_DIV) makeTableStation.call(this, table);
-  else if (NAME_DIV === LINE_DIV) makeTableLine.call(this, table);
+  if (NAME_DIV === STATION_DIV) {
+    makeTableStation.call(this, table);
+  } else if (NAME_DIV === LINE_DIV) {
+    makeTableLine.call(this, table);
+  }
 }
 
 export function clearSelect(lineSelect) {

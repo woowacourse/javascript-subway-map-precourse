@@ -52,7 +52,8 @@ export function lineAddHandler(e) {
     destination
   ) {
     createLine.call(this, lineNameInput.value, destination);
-    // printTable.call(this, LINE_DIV);
+    console.log(this.line);
+    printTable.call(this, LINE_DIV);
     lineNameInput.value = "";
   } else {
     alert(ERR_MESSAGE_LINE);
