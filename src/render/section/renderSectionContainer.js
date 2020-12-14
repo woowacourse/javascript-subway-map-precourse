@@ -1,3 +1,4 @@
+import addSectionEvent from '../../event/section/addSectionEvent.js';
 import renderSelector from '../common/renderSelector.js';
 
 function sectionListTemplate(lineList) {
@@ -30,9 +31,9 @@ function sectionContainerTemplate(line, lineNumber) {
             <strong>구간 등록</strong><br /><br />
             <div>
               <select class="station-selector"></select>
-              <input class="section-postion-input" type="number"
-                placeholder="순서" />
-              <button class="section-add-button" data-number=${lineNumber}>
+              <input class="section-position-input" type="number"
+                placeholder="순서" min="0" max="${line.length - 1}"/>
+              <button id="section-add-button" data-number=${lineNumber}>
                 등록
               </button>
             </div><br />
@@ -61,4 +62,5 @@ export default function renderSectionContainer() {
   if (lines) {
     initSectionContainer(lines.split(','));
   }
+  addSectionEvent();
 }

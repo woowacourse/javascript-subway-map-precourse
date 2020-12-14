@@ -1,3 +1,5 @@
+import selectLineButtonEvent from '../../event/section/selectLineButtonEvent.js';
+
 function selectButtonTemplate(line, lineNumber) {
   return `<button class="line-select-button" data-number=${lineNumber}>
             ${line}
@@ -18,6 +20,7 @@ function renderSelectButton(lines, $lineSelectContainer) {
       selectButtonTemplate(line, lineNumber++),
     );
   });
+  selectLineButtonEvent();
 }
 
 export default function renderLineSelector() {
