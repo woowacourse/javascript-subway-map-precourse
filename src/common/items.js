@@ -37,3 +37,14 @@ export function addItem(key, value) {
     }
     return isComplete;
 }
+
+export function deleteKey(key) {
+    localStorage.removeItem(key);
+}
+
+export function deleteItem(key, value) {
+    let itemList = getItemList(key);
+    itemList.splice(itemList.indexOf(value), 1);
+    localStorage.setItem(key, JSON.stringify(itemList));
+}
+

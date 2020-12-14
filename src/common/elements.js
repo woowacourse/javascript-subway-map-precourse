@@ -52,13 +52,19 @@ export function addSelectElement(idName) {
     managerPart.append(element);
 }
 
-export function addClickEventInDeleteButton(buttonName, event) {
-    const deleteButtons = document.getElementsByClassName(buttonName); 
-    for(let i=0; i<deleteButtons.length; i++) {
-        addClickEventListener(deleteButtons[i], event);
+export function addClickEventInDeleteButton(buttonName, event, isNew) {
+    const deleteButtons = document.querySelectorAll(`.${buttonName}`);
+    if(isNew) {
+        const length = deleteButtons.length;
+        addClickEventListener(deleteButtons[length - 1], () => {event(deleteButtons[length-1])});
+    }
+    else {
+        deleteButtons.forEach(deleteButton => {
+            addClickEventListener(deleteButton, () => {event(deleteButton)});
+        })
     }
 }
 
 export function pageInit() {
-    managerPart.innerHTML = ""; 
+    managerPart.innerHTML = "";
 }

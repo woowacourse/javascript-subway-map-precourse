@@ -19,6 +19,7 @@ const words = {
     LINE_ADD: "노선 추가",
     LINE_INPUT_ALERT: "노선 이름을 입력해주세요.",
     LINE_DUPLICATE_ALERT: "은 이미 등록된 노선입니다.",
+    LINE_SAME_STATION_ALERT:"상행종점역과 하행종점역을 다르게 선택해주세요.",
     LINE_NAME_INPUT: "line-name-input",
     LINE_STATION_TEXT: "line-station-text",
     LINE_START_STATION_SELECTOR: "line-start-station-selector",

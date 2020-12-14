@@ -11,7 +11,9 @@ import {
     isEmpty,
     addItem,
     getItemList,
-    removeWhiteSpaceValue 
+    removeWhiteSpaceValue,
+    deleteKey, 
+    deleteItem
 } from "./common/items.js";
 import words from "./common/words.js";
 
@@ -21,7 +23,6 @@ export default class LineManager {
         this.lineTableTbody = document.getElementById(words.LINE_TABLE_TBODY);
         this.setTableContent();
         addClickEventListener(document.getElementById(words.LINE_ADD_BUTTON), () => {this.addLine()});
-        
     }
 
     setPage() {
@@ -38,13 +39,28 @@ export default class LineManager {
         addElement("h2", words.LINE_LIST, null, null, null);
         addTableElement([words.LINE_NAME, `${words.LINE_START_STATION}역`, `${words.LINE_END_STATION}역`, words.SETTING], words.LINE_TABLE_TBODY);
     }
-    // 수정해야함
-    deleteLine() {
-        console.log("delete");
+   
+    deleteLine(deleteButton) {
+        const deleteRow = deleteButton.parentElement.parentElement;
+        const lineName = deleteRow.dataset.lineName
+        this.lineTableTbody.removeChild(deleteRow);
+        deleteKey(lineName);
+        deleteItem(words.LINES, lineName);
+        if(this.lineTableTbody.childElementCount === 0) {
+            deleteKey(words.LINES);
+        }
+    }
+
+    confirmDeleteLine(deleteButton) {
+        const isConfirm = confirm(words.DELETE_ALERT);
+        if(isConfirm) {
+            this.deleteLine(deleteButton);
+        }
     }
 
     addTableRow(lineName, lineStartStationName, lineEndStationName) {
         const row = this.lineTableTbody.insertRow(this.lineTableTbody.length);
+        row.setAttribute("data-line-name", lineName);
         const cell1 = row.insertCell(0);
         const cell2 = row.insertCell(1);
         const cell3 = row.insertCell(2);
@@ -62,14 +78,14 @@ export default class LineManager {
                 const lineSectionList = getItemList(line);
                 this.addTableRow(line, lineSectionList[0], lineSectionList[lineSectionList.length - 1]);
             });
-            addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.deleteLine);
+            addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.confirmDeleteLine.bind(this), false);
         }
     }
 
     addLineSection(lineInputName, lineStartStationName, lineEndStationName) {
         const itemList = [lineStartStationName, lineEndStationName];
         localStorage.setItem(lineInputName, JSON.stringify(itemList));
-    }
+    } 
 
     addLineInTable(lineInputName) {
         const lineStartStationSelector = document.getElementById(words.LINE_START_STATION_SELECTOR);
@@ -78,7 +94,7 @@ export default class LineManager {
         const lineEndStationName = lineEndStationSelector.options[lineEndStationSelector.selectedIndex].value;
         this.addTableRow(lineInputName, lineStartStationName, lineEndStationName);
         this.addLineSection(lineInputName, lineStartStationName, lineEndStationName);
-        addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.deleteLine);
+        addClickEventInDeleteButton(words.LINE_DELETE_BUTTON, this.confirmDeleteLine.bind(this), true);
     }
 
     setAlert(lineInputName) {
