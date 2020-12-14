@@ -96,7 +96,6 @@ export default class SectionManager {
 
   onClickButton(event) {
     const target = event.target;
-
     if (target.className === "section-line-menu-button") {
       this.selectSectionLine(target);
     }

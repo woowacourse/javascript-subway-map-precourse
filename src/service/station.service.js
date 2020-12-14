@@ -3,10 +3,11 @@ class Station {
     this.storage = window.localStorage;
 
     this.DELETE_ITEM_COUNT = 1;
+    this.ENTITY_NAME = "stations";
   }
 
   getAllStations() {
-    const rawStations = this.storage.getItem("stations");
+    const rawStations = this.storage.getItem(this.ENTITY_NAME);
     const stations = [];
 
     if (rawStations) {
@@ -20,7 +21,7 @@ class Station {
     const allStations = this.getAllStations();
     allStations.push(stationName);
 
-    this.storage.setItem("stations", allStations);
+    this.storage.setItem(this.ENTITY_NAME, allStations);
   }
 
   deleteStation(stationName) {
@@ -29,7 +30,7 @@ class Station {
 
     allStations.splice(index, this.DELETE_ITEM_COUNT);
 
-    this.storage.setItem("stations", allStations);
+    this.storage.setItem(this.ENTITY_NAME, allStations);
   }
 
   findStationByName(stationName) {

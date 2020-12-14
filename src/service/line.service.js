@@ -3,10 +3,11 @@ export class Line {
     this.storage = window.localStorage;
 
     this.DELETED_ITEM_COUNT = 1;
+    this.ENTITY_NAME = "lines";
   }
 
   getAllLines() {
-    const rawLines = this.storage.getItem("lines");
+    const rawLines = this.storage.getItem(this.ENTITY_NAME);
     if (!rawLines) {
       return [];
     }
@@ -19,7 +20,7 @@ export class Line {
     const allLines = this.getAllLines();
     allLines.push(lineName);
 
-    this.storage.setItem(`lines`, allLines);
+    this.storage.setItem(this.ENTITY_NAME, allLines);
     this.storage.setItem(lineName, `${startStation},${endStation}`);
   }
 
@@ -29,7 +30,7 @@ export class Line {
 
     allLines.splice(index, this.DELETED_ITEM_COUNT);
 
-    this.storage.setItem(`lines`, allLines);
+    this.storage.setItem(this.ENTITY_NAME, allLines);
     this.storage.removeItem(lineName);
   }
 

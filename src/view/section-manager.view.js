@@ -11,11 +11,11 @@ import {
 
 export default class SectionManagerView {
   constructor(parentView) {
+    this.parentView = parentView;
+
     this.line = line;
     this.station = station;
     this.section = section;
-
-    this.parentView;
   }
 
   renderSectionLineMenu() {

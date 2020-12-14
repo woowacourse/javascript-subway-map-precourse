@@ -1,4 +1,3 @@
-import { line } from "../service/line.service.js";
 import station from "../service/station.service.js";
 import section from "../service/section.service.js";
 import {
@@ -9,11 +8,10 @@ import {
 
 export default class LineManagerView {
   constructor(parentView) {
-    this.line = line;
+    this.parentView = parentView;
+
     this.station = station;
     this.section = section;
-
-    this.parentView = parentView;
   }
 
   renderLineStationSelector() {
@@ -28,7 +26,7 @@ export default class LineManagerView {
   }
 
   renderLineTable() {
-    const allLines = this.line.getAllLines();
+    const allLines = this.section.getAllLines();
 
     const lineTableHTML = allLines.reduce((lineRowHTML, lineName) => {
       const sections = this.section.getSectionsByLineName(lineName);
