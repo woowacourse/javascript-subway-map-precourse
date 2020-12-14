@@ -5,3 +5,4 @@ export const DELETE_BUTTON = "삭제";
 export const DELETE_FROM_LINE_BUTTON = "노선에서 제거";
 
 export const MIN_STATION_NAME_LENGTH = 2;
+export const MIN_SECTION_LENGTH = 2;
