@@ -9,6 +9,7 @@ import {
   isValidDeleteSection,
 } from '../utils/index.js';
 import { CONFIRM_MESSAGE } from '../constants/index.js';
+import Station from '../station.js';
 
 export default function SectionManagerContainer({
   getLines,
@@ -43,13 +44,14 @@ export default function SectionManagerContainer({
     const lines = getLines();
     const targetLine = lines[this.selectedLineNumber];
     const stations = targetLine.stations;
-    const station = document.getElementById('section-station-selector').value;
+    const stationName = document.getElementById('section-station-selector')
+      .value;
     const order = Number(document.getElementById('section-order-input').value);
     if (
       isValidSectionOrder(stations, order) &&
-      isValidSection(stations, station)
+      isValidSection(stations, stationName)
     ) {
-      addSection(this.selectedLineNumber, order, station);
+      addSection(this.selectedLineNumber, new Station(stationName), order);
     }
   };
 

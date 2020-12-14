@@ -10,91 +10,82 @@ import Line from './line.js';
 import { save, load } from './utils/index.js';
 
 export default function SubwayMapManagement() {
-  this.subwayStations = load('stations') || [];
-  this.subwayLines = load('lines') || [];
+  this.stations = load('stations') || [];
+  this.lines = load('lines') || [];
+
   this.selectMenu = number => {
     this.selectedMenu = this.menu[number];
     this.selectedMenu.render();
   };
 
-  this.addSubwayStation = name => {
-    this.subwayStations = [...this.subwayStations, new Station({ name })];
-    save('stations', this.subwayStations);
+  this.addStation = name => {
+    this.stations = [...this.stations, new Station(name)];
+    save('stations', this.stations);
     this.selectedMenu.render();
   };
 
-  this.deleteSubwayStation = idx => {
-    this.subwayStations = [
-      ...this.subwayStations.slice(0, idx),
-      ...this.subwayStations.slice(idx + 1),
+  this.deleteStation = idx => {
+    this.stations = [
+      ...this.stations.slice(0, idx),
+      ...this.stations.slice(idx + 1),
     ];
-    save('stations', this.subwayStations);
+    save('stations', this.stations);
     this.selectedMenu.render();
   };
 
-  this.getSubwayStations = () => {
-    return this.subwayStations;
+  this.getStations = () => {
+    return this.stations;
   };
 
-  this.addSubwayLine = subwayLine => {
-    this.subwayLines = [...this.subwayLines, new Line(subwayLine)];
-    save('lines', this.subwayLines);
+  this.addLine = (name, stations) => {
+    this.lines = [...this.lines, new Line(name, stations)];
+    save('lines', this.lines);
     this.selectedMenu.render();
   };
 
-  this.deleteSubwayLine = idx => {
-    this.subwayLines = [
-      ...this.subwayLines.slice(0, idx),
-      ...this.subwayLines.slice(idx + 1),
-    ];
-    save('lines', this.subwayLines);
+  this.deleteline = idx => {
+    this.lines = [...this.lines.slice(0, idx), ...this.lines.slice(idx + 1)];
+    save('lines', this.lines);
     this.selectedMenu.render();
   };
 
-  this.getSubwayLines = () => {
-    return this.subwayLines;
+  this.getLines = () => {
+    return this.lines;
   };
 
-  this.addSubwaySection = (lineIndex, orderIndex, name) => {
-    this.subwayLines[lineIndex].stations = [
-      ...this.subwayLines[lineIndex].stations.slice(0, orderIndex),
-      new Station({ name }),
-      ...this.subwayLines[lineIndex].stations.slice(orderIndex),
-    ];
-    save('lines', this.subwayLines);
+  this.addSection = (lineIndex, station, orderIndex) => {
+    this.lines[lineIndex].addStation(station, orderIndex);
+    save('lines', this.lines);
     this.selectedMenu.renderTable();
   };
 
-  this.deleteSubwaySection = (lineIndex, orderIndex) => {
-    this.subwayLines[lineIndex].stations = [
-      ...this.subwayLines[lineIndex].stations.slice(0, orderIndex),
-      ...this.subwayLines[lineIndex].stations.slice(orderIndex + 1),
-    ];
-    save('lines', this.subwayLines);
+  this.deleteSection = (lineIndex, orderIndex) => {
+    this.lines[lineIndex].deleteStation(orderIndex);
+    save('lines', this.lines);
     this.selectedMenu.renderTable();
   };
 
   new ManagerButtonContainer({ selectMenu: this.selectMenu });
   this.menu = [
     new StationManagerContainer({
-      addStation: this.addSubwayStation,
-      deleteStation: this.deleteSubwayStation,
-      getStations: this.getSubwayStations,
-      getLines: this.getSubwayLines,
+      getLines: this.getLines,
+      getStations: this.getStations,
+      addStation: this.addStation,
+      deleteStation: this.deleteStation,
     }),
     new LineManagerContainer({
-      addLine: this.addSubwayLine,
-      deleteLine: this.deleteSubwayLine,
-      getLines: this.getSubwayLines,
-      getStations: this.getSubwayStations,
+      getLines: this.getLines,
+      getStations: this.getStations,
+      addLine: this.addLine,
+      deleteLine: this.deleteline,
     }),
     new SectionManagerContainer({
-      getLines: this.getSubwayLines,
-      getStations: this.getSubwayStations,
-      addSection: this.addSubwaySection,
-      deleteSection: this.deleteSubwaySection,
+      getLines: this.getLines,
+      getStations: this.getStations,
+      addSection: this.addSection,
+      deleteSection: this.deleteSection,
     }),
-    new MapPrintContainer({ getLines: this.getSubwayLines }),
+    new MapPrintContainer({ getLines: this.getLines }),
   ];
 }
 

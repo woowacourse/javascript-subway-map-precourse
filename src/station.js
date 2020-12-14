@@ -1,3 +1,3 @@
-export default function Station({ name }) {
+export default function Station(name) {
   this.name = name;
 }

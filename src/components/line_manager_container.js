@@ -1,7 +1,7 @@
-import Station from '../station.js';
 import { lineAddContainer, lineList } from '../templates/index.js';
 import { isValidLine, isValidLineName } from '../utils/index.js';
 import { CONFIRM_MESSAGE } from '../constants/index.js';
+import Station from '../station.js';
 
 export default function LineManagerContainer({
   addLine,
@@ -35,12 +35,8 @@ export default function LineManagerContainer({
     const start = document.getElementById('line-start-station-selector').value;
     const end = document.getElementById('line-end-station-selector').value;
     const lines = getLines();
-    const newLine = {
-      name,
-      stations: [new Station({ name: start }), new Station({ name: end })],
-    };
-    if (isValidLineName(lines, newLine) && isValidLine(start, end)) {
-      addLine(newLine);
+    if (isValidLineName(lines, name) && isValidLine(start, end)) {
+      addLine(name, [new Station(start), new Station(end)]);
     }
   };
 

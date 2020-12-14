@@ -38,13 +38,13 @@ export const isAddedStation = (lines, station) => {
   return true;
 };
 
-export const isValidLineName = (lines, newLine) => {
-  if (newLine.name.length < 1) {
+export const isValidLineName = (lines, newLineName) => {
+  if (newLineName.length < 1) {
     alert(SHORT_LINE_NAME);
     return false;
   }
 
-  if (lines.map(line => line.name).includes(newLine.name)) {
+  if (lines.map(line => line.name).includes(newLineName)) {
     alert(REGISTERED_LINE_NAME);
     return false;
   }

@@ -1,5 +1,6 @@
 export default function ManagerButtonContainer({ selectMenu }) {
   this.container = document.querySelector('.manager-button-container');
+
   this.handelClickContainer = ({ target: { id } }) => {
     if (id === 'station-manager-button') {
       return selectMenu(0);

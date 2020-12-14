@@ -1,8 +1,6 @@
-import Station from './station.js';
-
-export default function Line({ name, stations }) {
+export default function Line(name, stations) {
   this.name = name;
-  this.stations = [...stations.map(station => new Station(station))];
+  this.stations = stations;
 
   this.getStart = () => {
     return this.stations[0];
@@ -15,7 +13,7 @@ export default function Line({ name, stations }) {
   this.addStation = (station, idx) => {
     this.stations = [
       ...this.stations.slice(0, idx),
-      new Station({ station }),
+      station,
       ...this.stations.slice(idx),
     ];
   };
