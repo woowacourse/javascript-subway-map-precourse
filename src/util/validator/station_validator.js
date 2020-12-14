@@ -5,8 +5,8 @@ import {
   STATION_ALERT_INVALID,
   STATION_ALERT_OVERLAP,
   STATION_ALERT_HAS_LINE,
-  LINES_LS,
 } from '../../library/constant/constant.js';
+import { roleInterface } from '../../component/role_interface.js';
 
 class StationValidator extends Validator {
   constructor() {
@@ -73,15 +73,14 @@ class StationValidator extends Validator {
   }
 
   getIncludedLines(station) {
-    const loadedLines = localStorage.getItem(LINES_LS);
-    const lines = loadedLines ? JSON.parse(loadedLines) : [];
+    const lineInfos = roleInterface.getLineInfos();
     const included = [];
 
-    for (const lineInfo of lines) {
+    for (const lineInfo of lineInfos) {
       const line = lineInfo ? Object.keys(lineInfo)[0] : '';
-      const section = lineInfo ? Object.values(lineInfo)[0] : [];
+      const sections = lineInfo ? Object.values(lineInfo)[0] : [];
 
-      section.includes(station) && included.push(line);
+      sections.includes(station) && included.push(line);
     }
 
     return included;

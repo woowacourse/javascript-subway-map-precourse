@@ -2,6 +2,7 @@ import { nodeSelector } from './util/selector/node_selector.js';
 import StationManager from './component/station_manager.js';
 import LineManager from './component/line_manager.js';
 import SectionManager from './component/section_manager.js';
+import MapPrintManager from './component/map_print_manager.js';
 import { HIDE } from './library/constant/constant.js';
 
 export default class SubwayMap {
@@ -15,6 +16,7 @@ export default class SubwayMap {
     this.loadStationManager();
     this.loadLineManager();
     this.loadSectionManager();
+    this.loadMapPrintManager();
   }
 
   loadStationManager() {
@@ -27,6 +29,10 @@ export default class SubwayMap {
 
   loadSectionManager() {
     this.roles.push(new SectionManager());
+  }
+
+  loadMapPrintManager() {
+    this.roles.push(new MapPrintManager());
   }
 
   activate() {

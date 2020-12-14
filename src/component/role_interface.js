@@ -13,6 +13,10 @@ import {
   STATIONS_LS,
   SECTION_DELETE_BUTTON,
   SECTION_DELETE_K,
+  SECTION_LINE_TITLE,
+  MANAGE_K,
+  MAP_PRINT_MANAGER,
+  MAP,
 } from '../library/constant/constant.js';
 import { nodeSelector } from '../util/selector/node_selector.js';
 
@@ -30,6 +34,13 @@ class RoleInterface {
     const lines = loadedLines ? JSON.parse(loadedLines) : [];
 
     return lines;
+  }
+
+  destructureLineInfo(lineInfo) {
+    const line = Object.keys(lineInfo)[0];
+    const sections = Object.values(lineInfo)[0];
+
+    return { line: line, sections: sections };
   }
 
   // display contents
@@ -132,7 +143,9 @@ class RoleInterface {
   // handle line menu button event
   onClickLineMenuButton(event) {
     const target = event.target.dataset.sectionLine;
+    const title = nodeSelector.selectId(SECTION_LINE_TITLE);
 
+    title.innerHTML = `${target} ${MANAGE_K}`;
     this.clearNode(SECTION_TABLE);
     this.fillSectionLine(target);
     this.displayContent(SECTION_LINE, ACTIVE);
@@ -165,6 +178,46 @@ class RoleInterface {
         return lineInfo[line];
       }
     }
+  }
+
+  // map printer
+  printMap() {
+    this.clearNode(MAP_PRINT_MANAGER);
+    for (const lineInfo of this.getLineInfos()) {
+      if (!lineInfo) {
+        continue;
+      }
+      const mapSection = nodeSelector.selectId(MAP_PRINT_MANAGER);
+      const { line, sections } = this.destructureLineInfo(lineInfo);
+      const map = this.getMap(line, sections);
+
+      mapSection.append(map);
+    }
+    roleInterface.displayContent(MAP, ACTIVE);
+  }
+
+  getMap(line, sections) {
+    const map = document.createElement('div');
+    const heading = document.createElement('h3');
+    const list = this.getSectionList(sections);
+
+    map.className = MAP;
+    heading.append(line);
+    map.append(heading, list);
+
+    return map;
+  }
+
+  getSectionList(sections) {
+    const list = document.createElement('ul');
+    const item = document.createElement('li');
+
+    sections.forEach(section => {
+      item.innerHTML = section;
+      list.append(item.cloneNode(true));
+    });
+
+    return list;
   }
 
   // table contents getter

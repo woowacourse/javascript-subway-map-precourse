@@ -1,3 +1,4 @@
+import { roleInterface } from '../../component/role_interface.js';
 import {
   LINE,
   LINE_NAMES,
@@ -43,10 +44,10 @@ export default class LineValidator extends Validator {
     alert(LINE_ALERT_INVALID);
   }
 
-  checkValidOptions(lines, lineStart, lineEnd) {
+  checkValidOptions(lineInfos, lineStart, lineEnd) {
     if (
       this.isSameLines(lineStart, lineEnd) ||
-      !this.isValidOptions(lines, lineStart, lineEnd)
+      !this.isValidOptions(lineInfos, lineStart, lineEnd)
     ) {
       this.alertOptionsInvalid();
 
@@ -64,8 +65,8 @@ export default class LineValidator extends Validator {
     return false;
   }
 
-  isValidOptions(lines, lineStart, lineEnd) {
-    const lastStations = this.getLastStations(lines);
+  isValidOptions(lineInfos, lineStart, lineEnd) {
+    const lastStations = this.getLastStations(lineInfos);
 
     for (const station of lastStations) {
       if (lineStart.value === station || lineEnd.value === station) {
@@ -76,16 +77,16 @@ export default class LineValidator extends Validator {
     return true;
   }
 
-  getLastStations(lines) {
+  getLastStations(lineInfos) {
     const stations = [];
 
-    for (const line of lines) {
-      if (!line) {
+    for (const lineInfo of lineInfos) {
+      if (!lineInfo) {
         continue;
       }
-      const section = Object.values(line)[0];
+      const sections = Object.values(lineInfo)[0];
 
-      stations.push(section[0], section[section.length - 1]);
+      stations.push(sections[0], sections[sections.length - 1]);
     }
 
     return stations;

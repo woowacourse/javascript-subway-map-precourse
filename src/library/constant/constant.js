@@ -58,6 +58,7 @@ export const SECTION_MANAGER = 'section-manager';
 export const SECTION_MANAGER_BUTTON = 'section-manager-button';
 export const SECTION_LINE = 'section-line';
 export const SECTION_LINE_MENU_BUTTON = 'section-line-menu-button';
+export const SECTION_LINE_TITLE = 'section-line-title';
 export const SECTION_ADD_BUTTON = 'section-add-button';
 export const SECTION_DELETE_BUTTON = 'section-delete-button';
 export const SECTION_ORDER_INPUT = 'section-order-input';
@@ -69,6 +70,7 @@ export const SECTION_ROW = 'section-row';
 
 // map print manager
 export const MAP = 'map';
+export const MAP_PRINT_MANAGER = 'map-print-manager';
 export const MAP_PRINT_MANAGER_BUTTON = 'map-print-manager-button';
 
 // selectors
@@ -90,6 +92,7 @@ export const STATION_FETCH_URL = `${STATION_URL}/${STATION_KEY}/${STATION_FORMAT
 // constants (kor)
 export const NONE_K = '없음';
 export const DELETE_K = '삭제';
+export const MANAGE_K = '관리';
 export const STATION_MANAGER_K = '역 관리';
 export const LINE_MANAGER_K = '노선 관리';
 export const SECTION_MANAGER_K = '구간 관리';

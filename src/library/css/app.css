@@ -78,8 +78,14 @@ select {
 
 /* section manager */
 
+#line-menu-button-section {
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .section-line-menu-button {
-  width: 100px;
+  width: 30%;
   margin-right: 5px;
 }
 

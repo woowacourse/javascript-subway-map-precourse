@@ -38,6 +38,7 @@ export default class LineManager extends Role {
       this
     );
     this.renderLineMenuButtons();
+    roleInterface.printMap();
   }
 
   renderLineMenuButtons() {
@@ -48,7 +49,6 @@ export default class LineManager extends Role {
       roleInterface
     );
   }
-
   renderLines() {
     for (const lineInfo of this._lineInfos) {
       if (!lineInfo) {
