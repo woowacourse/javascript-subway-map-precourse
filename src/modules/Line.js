@@ -4,6 +4,7 @@ import {
   INVAILD_LINE_NAME_LENGTH_ALERT,
   INVALID_LINE_STATION,
   SAVED_LINE_ALERT,
+  SAVED_STATION_IN_LINE_ALERT,
 } from "../constant/message.js";
 
 export default class Line {
@@ -16,6 +17,12 @@ export default class Line {
     const savedLine = this._lineList.filter(line => line.name === name);
 
     return savedLine.length !== 0;
+  };
+
+  _isStationinLine = (stationName, lineName) => {
+    const line = this._lineList.filter(line => line.name === lineName)[0];
+
+    return line.list.includes(stationName);
   };
 
   _setLineList = lineList => {
@@ -75,6 +82,12 @@ export default class Line {
   };
 
   saveStationToLine = (stationName, lineName) => {
+    if (this._isStationinLine(stationName, lineName)) {
+      alert(SAVED_STATION_IN_LINE_ALERT);
+
+      return;
+    }
+
     const newLineList = this._lineList.map(({ name, list }) => {
       if (name === lineName) {
         list.push(stationName);
