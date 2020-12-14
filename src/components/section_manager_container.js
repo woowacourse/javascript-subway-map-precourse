@@ -9,7 +9,7 @@ import {
   isValidDeleteSection,
 } from '../utils/index.js';
 import { CONFIRM_MESSAGE } from '../constants/index.js';
-import Station from '../station.js';
+import { Station } from '../models/index.js';
 
 export default function SectionManagerContainer({
   getLines,

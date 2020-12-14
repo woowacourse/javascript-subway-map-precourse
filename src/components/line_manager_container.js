@@ -1,7 +1,7 @@
 import { lineAddContainer, lineList } from '../templates/index.js';
 import { isValidLine, isValidLineName } from '../utils/index.js';
 import { CONFIRM_MESSAGE } from '../constants/index.js';
-import Station from '../station.js';
+import { Station } from '../models/index.js';
 
 export default function LineManagerContainer({
   addLine,

@@ -5,8 +5,7 @@ import {
   SectionManagerContainer,
   MapPrintContainer,
 } from './components/index.js';
-import Station from './station.js';
-import Line from './line.js';
+import { Station, Line } from './models/index.js';
 import { save, load } from './utils/index.js';
 
 export default function SubwayMapManagement() {

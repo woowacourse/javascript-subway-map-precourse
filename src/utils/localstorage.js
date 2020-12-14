@@ -1,5 +1,4 @@
-import Station from '../station.js';
-import Line from '../line.js';
+import { Station, Line } from '../models/index.js';
 
 export const save = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
