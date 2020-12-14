@@ -6,6 +6,10 @@ class LineStore extends Observer {
     this.lines = lines;
   }
 
+  getLine(name) {
+    return this.lines.find(line => line.name === name);
+  }
+
   getLineNames() {
     return this.lines.map(line => line.name);
   }
