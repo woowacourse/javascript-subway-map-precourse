@@ -1,6 +1,7 @@
 import {
   rendStationMangeDom,
   clearMangeContainer,
+  addStation,
 } from "../views/domController.js";
 
 export default class StationManager {
@@ -18,7 +19,7 @@ export default class StationManager {
     document
       .getElementById("station-add-button")
       .addEventListener("click", () => {
-        //add Station
+        addStation();
       });
   }
 }
