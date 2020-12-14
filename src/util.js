@@ -1,7 +1,4 @@
-import {
-  LINE_INFO_LOCAL_STORAGE_KEY,
-  STATION_INFO_LOCAL_STORAGE_KEY
-} from "./constant.js";
+import { SUBWAY_MAP_LOCAL_STORAGE_KEY } from "./constant.js";
 
 export const createButtonHTMLElement = ({ id = "", name, onClick, classList = [], dataset = {} }) => {
   const $button = document.createElement("button");
@@ -74,34 +71,13 @@ export const clearInputValue = $input => {
   $input.focus();
 };
 
-const retrieveInfoFromLocalStorage = KEY => JSON.parse(localStorage.getItem(KEY)) || [];
+const retrieveInfoFromLocalStorage = KEY => JSON.parse(localStorage.getItem(KEY));
 
-export const retrieveStationNameArray = () => retrieveInfoFromLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY);
-
-export const retrieveLineInfo = () => retrieveInfoFromLocalStorage(LINE_INFO_LOCAL_STORAGE_KEY);
-
-
-export const getStationNameArray = () => retrieveStationNameArray();
-  
-export const getStations = targetLineName => {
-  return retrieveLineInfo().find(({ lineName }) => lineName === targetLineName)?.stations || [];
-};
-
-export const getLineNameArray = () => retrieveLineInfo().map(({ lineName }) => lineName);
+export const retrieveState = () => retrieveInfoFromLocalStorage(SUBWAY_MAP_LOCAL_STORAGE_KEY);
 
 const storeInfoToLocalStorage = (LOCAL_STORAGE_KEY, info) => localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(info));
 
-export const storeLineInfo = lineInfo => storeInfoToLocalStorage(LINE_INFO_LOCAL_STORAGE_KEY, lineInfo);
-
-export const storeStationNameArray = stationNameArray => storeInfoToLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY, stationNameArray);
-
-export const updateLineInfo = newLineInfo => {
-  const storedLineInfo = retrieveLineInfo();
-  const targetExcluded = storedLineInfo.filter(({ lineName }) => lineName !== newLineInfo.lineName);
-  const updatedLineInfo = [...targetExcluded, newLineInfo];
-
-  storeLineInfo(updatedLineInfo);
-};
+export const storeState = state => storeInfoToLocalStorage(SUBWAY_MAP_LOCAL_STORAGE_KEY, state);
 
 export const throwErrorWithMessage = errorMessage => {
   throw Error(errorMessage);

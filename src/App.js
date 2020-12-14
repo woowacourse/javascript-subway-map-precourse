@@ -4,7 +4,9 @@ import LineManager from "./LineManager.js";
 import SectionManager from "./SectionManager.js";
 import MapPrintManager from "./MapPrintManager.js";
 import {
-  createButtonHTMLElement
+  createButtonHTMLElement,
+  retrieveState,
+  storeState
 } from "./util.js";
 
 /* 
@@ -50,8 +52,7 @@ export default class App extends Component{
   }
 
   intializeState() {
-    // TODO: localStorage에저장된 초기 상태값 불러오기
-    this.state = {
+    this.state = retrieveState() || {
       managerId: "",
       stationNameArray: [],
       lineInfo: [],
@@ -132,7 +133,7 @@ export default class App extends Component{
   setState(state) {
     super.setState(state);
     
-    // TODO: localStorage에 상태값 저장
+    storeState(this.state);
   }
 
   render() {
