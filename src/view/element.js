@@ -23,8 +23,14 @@ export const Element = {
 
   // 노선 관리
   lineContainer: document.querySelector(Constant.LINE_CONTAINER_CLASS),
-  lineStartStationSelector: document.querySelector(Constant.LINE_START_STATION_SELECTOR_ID),
-  lineEndStationSelector: document.querySelector(Constant.LINE_END_STATION_SELECTOR_ID),
+  lineStartStationSelector: document.querySelector(
+    Constant.LINE_START_STATION_SELECTOR_ID
+  ),
+  lineEndStationSelector: document.querySelector(
+    Constant.LINE_END_STATION_SELECTOR_ID
+  ),
+  lineAddButton: document.querySelector(Constant.LINE_ADD_BUTTON_ID),
+  lineNameInput: document.querySelector(Constant.LINE_NAME_INPUT_ID),
 
   // 구간 관리
   sectionContainer: document.querySelector(Constant.SECTION_CONTAINER_CLASS),

@@ -18,7 +18,7 @@ export const StationManager = {
   setEventListener() {
     // 추가
     Element.stationAddButton.addEventListener(Constant.CLICK, () => {
-      this.onClickAddBtn();
+      this.onClickAddButton();
     });
 
     // 삭제
@@ -27,11 +27,11 @@ export const StationManager = {
     //   this.onClickDeleteBtn(e);
     // });
     Element.querySelectorTbody.addEventListener(Constant.CLICK, (e) => {
-      this.onClickDeleteBtn(e);
+      this.onClickDeleteButton(e);
     });
   },
 
-  onClickAddBtn() {
+  onClickAddButton() {
     const name = Element.stationNameInput.value;
 
     if (StationValidation.isValidStation(name)) {
@@ -41,7 +41,7 @@ export const StationManager = {
     ElementControl.clearInput(Element.stationNameInput);
   },
 
-  onClickDeleteBtn(e) {
+  onClickDeleteButton(e) {
     const name = e.target.dataset.name;
 
     if (confirm(ConfirmMessage.CHECK_DELETION)) {

@@ -14,8 +14,11 @@ export const Constant = {
 
   // 노선 관리
   LINE_CONTAINER_CLASS: ".line-container",
+  STORAGE_KEY_LINE: "lines",
   LINE_START_STATION_SELECTOR_ID: "#line-start-station-selector",
   LINE_END_STATION_SELECTOR_ID: "#line-end-station-selector",
+  LINE_ADD_BUTTON_ID: "#line-add-button",
+  LINE_NAME_INPUT_ID: "#line-name-input",
 
   // 구간 관리
   SECTION_CONTAINER_CLASS: ".section-container",
@@ -23,7 +26,7 @@ export const Constant = {
   // 지하철 노선 관리
   MAP_PRINT_CONTAINER_CLASS: ".map-print-container",
 
-  // 
+  //
   MINIMUM_NAME_LENGTH: 2,
   REGEX_CATCHING_WHITESPACE: /^\s*$/,
 
@@ -37,8 +40,15 @@ export const Constant = {
 };
 
 export const ErrorMessage = {
-  MINIMUM_NAME_LENGTH: "공백이 아닌 2글자 이상의 역 이름을 입력해 주세요.",
+  // 공통
   DUPLICATED_NAME: "중복되지 않은 역 이름을 입력해 주세요.",
+
+  // 역 관리
+  MINIMUM_NAME_LENGTH: "공백이 아닌 2글자 이상의 역 이름을 입력해 주세요.",
+
+  // 노선 관리
+  NAME_WHITE_SPACE: "공백이 아닌 노선 이름을 입력해 주세요.",
+  SAME_START_END_STATION: "서로 다른 종점을 선택해 주세요.",
 };
 
 export const ConfirmMessage = {

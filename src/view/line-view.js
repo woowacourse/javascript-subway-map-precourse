@@ -20,7 +20,5 @@ export const LineView = {
     Element.lineEndStationSelector.innerHTML = content;
   },
 
-  renderTable() {
-
-  }
-}
+  renderTable() {},
+};
