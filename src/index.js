@@ -1,12 +1,14 @@
-import StationManager from "./managers/StationManager.js";
 import LineManager from "./managers/LineManager.js";
+import StationManager from "./managers/StationManager.js";
 import SectionManager from "./managers/SectionManager.js";
+import MapPrintManager from "./managers/MapPrintManager.js";
 
 export default class SubwayManager {
   constructor() {
     this.stationManger = new StationManager();
     this.lineManager = new LineManager();
     this.sectionManager = new SectionManager();
+    this.mapPrintManager = new MapPrintManager();
     this.initEvent();
   }
 
@@ -25,6 +27,11 @@ export default class SubwayManager {
       .getElementById("section-manager-button")
       .addEventListener("click", () => {
         this.sectionManager.render();
+      });
+    document
+      .getElementById("map-print-manager-button")
+      .addEventListener("click", () => {
+        this.mapPrintManager.render();
       });
   }
 }

@@ -5,6 +5,7 @@ import {
   getLineRow,
   selectLineContainer,
   sectionManageContainer,
+  mapContainer,
 } from "./dom.js";
 import Station from "../components/Station.js";
 import Line from "../components/Line.js";
@@ -184,5 +185,14 @@ export const rendLineSelectDom = () => {
   const container = document.getElementById("subway-manager-container");
   const div = document.createElement("div");
   div.innerHTML = selectLineContainer();
+  container.appendChild(div);
+};
+
+//Map
+export const rendStationMap = () => {
+  const container = document.getElementById("subway-manager-container");
+  const div = document.createElement("div");
+  div.setAttribute("class", "map");
+  div.innerHTML = mapContainer();
   container.appendChild(div);
 };

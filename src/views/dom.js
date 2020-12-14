@@ -98,3 +98,18 @@ export const sectionManageContainer = (lineName) => {
                .join("")}
         </table>`;
 };
+
+//map
+export const mapContainer = () => {
+  const lines = JSON.parse(localStorage.getItem("lines")) || [];
+  return `<br>
+      ${lines
+        .map(
+          (line) => `<b>${line.lineName}</b>
+              <ul>${line.stationsInLine
+                .map((station) => `<li>${station}</li>`)
+                .join("")}</ul><br>`
+        )
+        .join("")}
+  `;
+};
