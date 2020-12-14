@@ -25,26 +25,14 @@ export const checkStationInLine = (input) => {
 }
 
 const isEmptyName = (input) => {
-    return hasEmptyName(input);
-}
-
-const hasEmptyName = (input) => {
     return input.trim() === text.EMPTY;
 }
 
 const isShortName = (input) => {
-    return hasShortName(input);
-}
-
-const hasShortName = (input) => {
     return input.length < text.MINIMUM_STATION_LENGTH;
 }
 
 const isSameNameExite = (input) => {
-    return hasSameName(input);
-}
-
-const hasSameName = (input) => {
     return Data.getStationRepository().hasOwnProperty(input);
 }
 
