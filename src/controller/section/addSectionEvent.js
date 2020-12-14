@@ -14,9 +14,11 @@ function checkSectionInput({ target }) {
   const targetLine = JSON.parse(localStorage.getItem('lines'))
     .split(',')
     [target.dataset.number].split(' ');
-
   if (targetLine.slice(1).includes(selectedStation)) {
     return alert('이미 노선에 존재하는 역은 등록할 수 없습니다.');
+  }
+  if (inputPosition < 0 || inputPosition > targetLine.length - 1) {
+    return alert('해당 순서에는 역을 추가할 수 없습니다.');
   }
   targetLine.splice(inputPosition + 1, 0, selectedStation);
   return addSection(targetLine, target.dataset.number);
