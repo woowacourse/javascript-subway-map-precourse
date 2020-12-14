@@ -21,10 +21,15 @@ export default function lineStorage() {
     return getLine().map((line) => line.stations[line.stations.length - 1]);
   };
 
+  const getOneLine = (lineId) => {
+    return getLine().filter((line) => line.id === parseInt(lineId))[0];
+  };
+
   return {
     getLine,
     setLine,
     getStartPoints,
     getEndPoints,
+    getOneLine,
   };
 }
