@@ -15,10 +15,12 @@ export default class SubwayMapViewModel {
 
   addStation(stationId) {
     const errorMessage = this.validStationId(stationId);
+
     if (errorMessage) {
       alert(errorMessage);
       return;
     }
+
     this.subwayMapModel.addStation(stationId);
   }
 
@@ -27,6 +29,7 @@ export default class SubwayMapViewModel {
       alert(message.ALERT_FOR_STATION_IN_LINES);
       return;
     }
+
     this.subwayMapModel.deleteStation(stationId);
   }
 
@@ -42,32 +45,30 @@ export default class SubwayMapViewModel {
     return this.subwayMapModel.getLine(lineId);
   }
 
-  deleteLine(lineId) {
-    this.subwayMapModel.deleteLine(lineId);
-  }
-
   addLine(lineObject) {
     const errorMessage = this.validLineObject(lineObject);
+
     if (errorMessage) {
       alert(errorMessage);
       return;
     }
+
     this.subwayMapModel.addLine(lineObject);
   }
 
+  deleteLine(lineId) {
+    this.subwayMapModel.deleteLine(lineId);
+  }
+
+  getSections(lineId) {
+    return this.subwayMapModel.getSectionsFromLine(lineId);
+  }
+
   addSection(sectionId, lineId, order) {
-    if (isNaN(order)) {
-      alert(message.ALERT_FOR_NOT_A_NUMBER);
-      return;
-    }
+    const errorMessage = this.validSectionIdAndOrder(sectionId, lineId, order);
 
-    if (order < 0 || order > this.getSections(lineId).length) {
-      alert(message.ALERT_FOR_BETWEEN_STATION_AND_STATION);
-      return;
-    }
-
-    if (this.isInLine(sectionId, lineId)) {
-      alert(message.ALERT_FOR_STATION_IS_IN_LINE);
+    if (errorMessage) {
+      alert(errorMessage);
       return;
     }
 
@@ -81,38 +82,6 @@ export default class SubwayMapViewModel {
     }
 
     this.subwayMapModel.deleteSectionFromLine(lineId, order);
-  }
-
-  getSections(lineId) {
-    return this.subwayMapModel.getSectionsFromLine(lineId);
-  }
-
-  isInLines(stationId) {
-    const found = Object.entries(this.subwayMapModel.getLines()).find(line => {
-      console.log(line);
-      let lineInstance = line[1];
-      return lineInstance._sections.some(section => {
-        return stationId === section._stationId;
-      });
-    });
-
-    if (found) {
-      return true;
-    }
-
-    return false;
-  }
-
-  isInLine(stationId, lineId) {
-    const found = this.getSections(lineId).find(section => {
-      return stationId === section._stationId;
-    });
-
-    if (found) {
-      return true;
-    }
-
-    return false;
   }
 
   validStationId(stationId) {
@@ -153,5 +122,49 @@ export default class SubwayMapViewModel {
     }
 
     return '';
+  }
+
+  validSectionIdAndOrder(sectionId, lineId, order) {
+    if (isNaN(order)) {
+      return message.ALERT_FOR_NOT_A_NUMBER;
+    }
+
+    if (order < 0 || order > this.getSections(lineId).length) {
+      return message.ALERT_FOR_BETWEEN_STATION_AND_STATION;
+    }
+
+    if (this.isInLine(sectionId, lineId)) {
+      return message.ALERT_FOR_STATION_IS_IN_LINE;
+    }
+
+    return '';
+  }
+
+  isInLines(stationId) {
+    const found = Object.entries(this.subwayMapModel.getLines()).find(line => {
+      console.log(line);
+      let lineInstance = line[1];
+      return lineInstance._sections.some(section => {
+        return stationId === section._stationId;
+      });
+    });
+
+    if (found) {
+      return true;
+    }
+
+    return false;
+  }
+
+  isInLine(stationId, lineId) {
+    const found = this.getSections(lineId).find(section => {
+      return stationId === section._stationId;
+    });
+
+    if (found) {
+      return true;
+    }
+
+    return false;
   }
 }
