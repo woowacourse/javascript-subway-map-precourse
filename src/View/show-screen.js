@@ -5,18 +5,20 @@ import {
   $mapContainer,
   $subwaySectionContainer,
 } from './element.js';
+import {BUTTON_MANAGEMENT_ID} from '../Controller/utils.js';
 
 export const showScreen = (e) => {
-  if (e.target.id === 'station-manager-button') {
+  const {STATION, LINE, SECTION, MAP} = BUTTON_MANAGEMENT_ID;
+  if (e.target.id === STATION) {
     return ($stationContainer.style.display = 'block');
   }
-  if (e.target.id === 'line-manager-button') {
+  if (e.target.id === LINE) {
     return ($lineContainer.style.display = 'block');
   }
-  if (e.target.id === 'section-manager-button') {
+  if (e.target.id === SECTION) {
     return ($sectionContainer.style.display = 'block');
   }
-  if (e.target.id === 'map-print-manager-button') {
+  if (e.target.id === MAP) {
     return ($mapContainer.style.display = 'block');
   }
 };
