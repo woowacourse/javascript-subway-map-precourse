@@ -24,13 +24,17 @@ export default class Line {
   }
 
   updateAddLine(selectedLine, lineValue) {
-    selectedLine.station.splice(lineValue.number, 0, lineValue.sectionName);
+    return selectedLine.station.splice(
+      lineValue.number,
+      0,
+      lineValue.sectionName,
+    );
   }
 
   updateRemoveLine(selectedLine, removedSectionName) {
     const removedSectionIndex = selectedLine.station.indexOf(
       removedSectionName,
     );
-    selectedLine.station.splice(removedSectionIndex, 1);
+    return selectedLine.station.splice(removedSectionIndex, 1);
   }
 }
