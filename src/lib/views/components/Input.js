@@ -1,4 +1,4 @@
-import { getComponentIdOrClassQuerySelectorName } from "../utils/utils.js";
+import { getComponentIdOrClassQuerySelectorName } from "../common/utils.js";
 
 export default class Input {
   constructor(id, helperText, callbackFunction) {

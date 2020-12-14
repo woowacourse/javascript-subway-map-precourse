@@ -1,4 +1,4 @@
-import { getComponentIdOrClassQuerySelectorName } from "../utils/utils.js";
+import { getComponentIdOrClassQuerySelectorName } from "../common/utils.js";
 
 export default class Button {
   constructor(querySelector, buttonInnerText, callbackFunction) {
