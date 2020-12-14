@@ -1,9 +1,14 @@
 import Component from '../factory/Component.js';
 import Line from '../factory/Line.js';
 import { LINE } from '../share/selector.js';
-import { checkOverlap, checkSameStation } from '../share/utils.js';
+import {
+  checkOverlap,
+  checkSameStation,
+  customConfirm,
+} from '../share/utils.js';
 import { lineTableTemplate, optionTemplate } from '../share/template.js';
 
+const CONFIRM_MSG = '정말 노선을 삭제하시겠습니까?';
 export default class LineManager extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +52,7 @@ export default class LineManager extends Component {
     const { className } = event.target;
     const { index } = event.target.dataset;
     if (className !== LINE.LINE_DELETE_BUTTON_CLASS) return;
+    if (!customConfirm(CONFIRM_MSG)) return;
     this.deleteLineFromList(index);
   };
 
