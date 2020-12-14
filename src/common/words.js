@@ -6,6 +6,7 @@ const words = {
     STATION_INPUT_ALERT: "역 이름을 입력해주세요.",
     STATION_LENGTH_ALERT: "역 이름을 2글자 이상 작성해주세요.",
     STATION_DUPLICATE_ALERT: "역은 이미 등록된 역입니다.",
+    STATION_IN_LINE_ALERT: "역은 이미 노선에 등록되어 있어 삭제가 불가능합니다.",
     STATION_NAME_INPUT: "station-name-input",
     STATION_ADD_BUTTON: "station-add-button",
     STATION_DELETE_BUTTON: "station-delete-button",

@@ -11,7 +11,7 @@ export function isEmpty(value) {
     return result;
 }
 
-export function isItemDuplicate(itemList, value) {
+export function isDuplicateItem(itemList, value) {
     let isDuplicate = false;
     if(itemList.includes(value)) {
         isDuplicate = true;
@@ -30,7 +30,7 @@ export function addItem(key, value) {
     if(itemList === null){
         itemList = [];
     }
-    if(!isItemDuplicate(itemList, value)){
+    if(!isDuplicateItem(itemList, value)){
         itemList.push(value);
         localStorage.setItem(key, JSON.stringify(itemList));
         isComplete = true;

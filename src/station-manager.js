@@ -10,7 +10,9 @@ import {
     isEmpty,
     addItem,
     getItemList,
-    removeWhiteSpaceValue} 
+    removeWhiteSpaceValue,
+    deleteItem,
+    deleteKey} 
 from "./common/items.js";
 import words from "./common/words.js";
 
@@ -30,14 +32,42 @@ export default class StationManager{
         addElement("h2", words.STATION_LIST, null, null, null);
         addTableElement([words.STATION_NAME, words.SETTING], words.STATION_TABLE_TBODY, null);
     }
+    
+    deleteStation(stationName, deleteRow) {
+        this.stationTableTbody.removeChild(deleteRow);
+        deleteItem(words.STATIONS, stationName);
+        if(this.stationTableTbody.childElementCount === 0) {
+            deleteKey(words.STATIONS);
+        }
+    }
 
-    // 수정해야함
-    deleteStation() {
-        alert("delete");
+    isStationInLine(stationName) {
+        const lineList = getItemList(words.LINES);
+        let result = false;
+        lineList.forEach(line => {
+            const lineSectionList = getItemList(line);
+            result = lineSectionList.includes(stationName) ? true : result;
+        })
+        return result;
+    }
+
+    confirmDeleteSection(deleteButton) {
+        const isConfirm = confirm(words.DELETE_ALERT);
+        const deleteRow = deleteButton.parentElement.parentElement;
+        const stationName = deleteRow.dataset.stationName;
+        if(isConfirm) {
+            if(this.isStationInLine(stationName)) {
+                alert(`${stationName}${words.STATION_IN_LINE_ALERT}`);
+            }
+            else {
+                this.deleteStation(stationName, deleteRow);
+            }
+        }
     }
 
     addTableRow(station) {
         const row = this.stationTableTbody.insertRow();
+        row.setAttribute("data-station-name", station);
         const cell1 = row.insertCell(0);
         const cell2 = row.insertCell(1);
         cell1.innerHTML = station;
@@ -50,13 +80,13 @@ export default class StationManager{
             stationList.forEach(station => {
                 this.addTableRow(station);
             });
-            addClickEventInButtons(words.STATION_DELETE_BUTTON, this.deleteStation);
+            addClickEventInButtons(words.STATION_DELETE_BUTTON, this.confirmDeleteSection.bind(this), false);
         }
     }
 
     addStationInTable(station) {
         this.addTableRow(station);
-        addClickEventInButtons(words.STATION_DELETE_BUTTON, this.deleteStation);
+        addClickEventInButtons(words.STATION_DELETE_BUTTON, this.confirmDeleteSection.bind(this), true);
     }
 
     getAlertText(stationInputName) {
