@@ -1,6 +1,7 @@
 import { addRowInSectionTable } from "../../utils/handleDom.js";
 import { getSectionTableHeader } from "../../utils/templates.js";
-import { FIELD } from "../../constants/constants.js";
+import { FIELD, MESSAGE } from "../../constants/constants.js";
+
 export class SectionManagerList {
   constructor({ getLines, deleteStationInLine }) {
     this.getLines = getLines;
@@ -35,7 +36,10 @@ export class SectionManagerList {
   };
 
   handleDeleteStation = (e) => {
-    let order = e.target.dataset.section;
-    this.deleteStationInLine(order);
+    let confirm = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
+    if (confirm) {
+      let order = e.target.dataset.section;
+      this.deleteStationInLine(order);
+    }
   };
 }
