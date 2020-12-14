@@ -1,13 +1,17 @@
 import Typography from "../Typography.js";
-import { lineSelector, stationSelector } from "../../../_store/selectors.js";
-import { tableTitleList, tableHeaderList } from "./tableSubComponents.js";
+import Button from "../Button.js";
+import { stationSelector, lineSelector } from "../../../_store/selectors.js";
 import {
-  TABLE_CONTAINER_DIV,
-  TABLE,
-  DELETE_STATION_INPUT,
-  DELETE_LINE_BUTTON,
-  DELETE_SECTION_BUTTON,
-} from "../../../common/IdAndClassNames.js";
+  tableTitleList,
+  tableHeaderList,
+  deleteHelperText,
+  deleteButtonClass,
+} from "./tableSubComponents.js";
+import deleteStationName from "../../../_action/Station/deleteStationName.js";
+import deleteLineName from "../../../_action/Line/deleteLineName.js";
+import deleteSectionData from "../../../_action/Section/deleteSectionData.js";
+
+import { TABLE_CONTAINER_DIV, TABLE } from "../../../common/IdAndClassNames.js";
 
 export default class Table {
   constructor(props) {
@@ -36,16 +40,96 @@ export default class Table {
     return $tableHead;
   }
 
+  _getDeleteButton(dataObject) {
+    const { stationName, lineName } = dataObject;
+    const $buttonContainer = document.createElement("td");
+    const $deleteButton = new Button(
+      deleteButtonClass[this.tabIndex],
+      deleteHelperText[this.tabIndex],
+      () =>
+        stationName !== undefined && lineName !== undefined
+          ? deleteSectionData(dataObject)
+          : stationName !== undefined
+          ? deleteStationName(dataObject)
+          : deleteLineName(dataObject),
+    );
+    $buttonContainer.appendChild($deleteButton.element);
+    return $buttonContainer;
+  }
+
+  _getTextTd(elementName) {
+    const $td = document.createElement("td");
+    $td.innerText = elementName;
+    return $td;
+  }
+
+  _getStationTableData() {
+    if (this.tabIndex !== 0) return [];
+    return stationSelector().reduce((trList, stationName) => {
+      const $tr = document.createElement("tr");
+      [
+        this._getTextTd(stationName),
+        this._getDeleteButton({ stationName }),
+      ].forEach(($element) => $tr.appendChild($element));
+      trList.push($tr);
+      return trList;
+    }, []);
+  }
+
+  // 노선 데이터 (노선 이름, 기점, 종점, 삭제) tr 배열
+  _getLineTableData() {
+    if (this.tabIndex !== 1) return [];
+    return lineSelector().reduce((trList, { lineName, stations }) => {
+      const $tr = document.createElement("tr");
+      [
+        this._getTextTd(lineName),
+        this._getTextTd(stations[0]),
+        this._getTextTd(stations[stations.length - 1]),
+        this._getDeleteButton({ lineName }),
+      ].forEach(($element) => $tr.appendChild($element));
+      trList.push($tr);
+      return trList;
+    }, []);
+  }
+
+  // 현재 라인에 해당하는 구간 데이터 (순서, 역 이름, 노선에서 삭제) tr 배열
+  _getSectionTableData() {
+    if (this.tabIndex !== 2) return [];
+    return lineSelector()
+      .filter(({ lineName }) => lineName === this.lineName)[0]
+      .stations.reduce((trList, stationName, index) => {
+        const $tr = document.createElement("tr");
+        [
+          this._getTextTd(index),
+          this._getTextTd(stationName),
+          this._getDeleteButton({ stationName }),
+        ].forEach(($element) => $tr.appendChild($element));
+        trList.push($tr);
+        return trList;
+      }, []);
+  }
+
+  _getTableData() {
+    return [
+      this._getStationTableData(),
+      this._getLineTableData(),
+      this._getSectionTableData(),
+    ];
+  }
+
   _getTableBody() {
     // 타입에 따라 다르게 리턴해주기
     const $tableBody = document.createElement("tbody");
-
+    this._getTableData()[this.tabIndex].forEach(($tableRow) =>
+      $tableBody.appendChild($tableRow),
+    );
     return $tableBody;
   }
 
   createNewTable() {
     const $table = document.createElement("table");
     $table.id = TABLE.substring(1);
+    this.element.innerHTML = "";
     [this._getTableHead(), this._getTableBody()].forEach(($element) =>
       $table.appendChild($element),
     );
@@ -54,7 +138,6 @@ export default class Table {
   }
 
   render() {
-    console.log(this.lineName);
     [this._getTitle(), this.createNewTable()].forEach(($element) =>
       this.element.appendChild($element),
     );
