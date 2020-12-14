@@ -7,7 +7,8 @@ import {
   createLabelHTMLElement,
   createSelectHTMLElement,
   getStationNameArray,
-  getStations
+  getStations,
+  throwErrorWithMessage
 } from "./util.js";
 
 export default class SectionMain extends Component {
@@ -108,46 +109,49 @@ export default class SectionMain extends Component {
 
   handleSectionAdd() {
     const stationName = this.$sectionStationSelector.value;
-    const sectionOrderNumber = Number(this.$sectionOrderInput.value);
+    const sectionOrderString = this.$sectionOrderInput.value;
 
-    if (this.isValidSectionInfo(stationName, sectionOrderNumber)) {
-      this.addNewSection(stationName, sectionOrderNumber);
+    if (this.isValidSectionInfo(stationName, sectionOrderString)) {
+      this.addNewSection(stationName, sectionOrderString);
       this.updateSectionStationSelectorOptions();
     }
   }
 
-  isValidSectionInfo(stationName, sectionOrderNumber) {
+  isValidSectionInfo(stationName, sectionOrderString) {
     try {
       this.validateStationName(stationName);
-      this.validateSectionOrderNumber(sectionOrderNumber);
+      this.validateSectionOrder(sectionOrderString);
+
+      clearInputValue(this.$sectionStationSelector);      
+      clearInputValue(this.$sectionOrderInput);
 
       return true;
     } catch (error) {
       alert(error.message);
       
-      return false;      
-    } finally {
-      clearInputValue(this.$sectionOrderInput);
-      clearInputValue(this.$sectionStationSelector);
+      return false;
     }
   }
 
   validateStationName(stationName) {
     if (stationName === "") {
-      const errorMessage = [`구간 등록할 지하철 역을 선택해주세요.`].join("\n");
+      clearInputValue(this.$sectionStationSelector);
       
-      throw new Error(errorMessage);
+      throwErrorWithMessage(`구간 등록할 지하철 역을 선택해주세요.`);
     }
   }
 
-  validateSectionOrderNumber(sectionOrderNumber) {
-    if (!Number.isInteger(sectionOrderNumber)) {
-      const errorMessage = [
-        `구간 순서는 정수이어야 합니다.`,
-        `입력된 구간 순서: ${sectionOrderNumber}`
-      ].join("\n");
+  validateSectionOrder(sectionOrderString) {
+    const sectionOrderNumber = Number(sectionOrderString);
+      
+    if (sectionOrderString === "") {
+      clearInputValue(this.$sectionOrderInput);
 
-      throw new Error(errorMessage);
+      throwErrorWithMessage(`구간 순서를 입력해주세요`);      
+    } else if (!Number.isInteger(sectionOrderNumber)) {
+      clearInputValue(this.$sectionOrderInput);
+
+      throwErrorWithMessage([`구간 순서는 정수이어야 합니다.`,`입력된 구간 순서: ${sectionOrderNumber}`].join("\n"));
     }
   }
 

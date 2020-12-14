@@ -94,3 +94,7 @@ const storeInfoToLocalStorage = (LOCAL_STORAGE_KEY, info) => localStorage.setIte
 export const storeLineInfo = lineInfo => storeInfoToLocalStorage(LINE_INFO_LOCAL_STORAGE_KEY, lineInfo);
 
 export const storeStationInfo = stationInfo => storeInfoToLocalStorage(STATION_INFO_LOCAL_STORAGE_KEY, stationInfo);
+
+export const throwErrorWithMessage = errorMessage => {
+  throw Error(errorMessage);
+};
