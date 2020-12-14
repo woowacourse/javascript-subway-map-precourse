@@ -1,6 +1,7 @@
 import updateSectionList from './updateSectionList.js';
 
 function addSection(targetLine, lineNumber) {
+  console.log(targetLine);
   const lineList = JSON.parse(localStorage.getItem('lines')).split(',');
 
   lineList[lineNumber] = targetLine.join(' ');
@@ -20,7 +21,7 @@ function checkSectionInput({ target }) {
   if (inputPosition < 0 || inputPosition > targetLine.length - 1) {
     return alert('해당 순서에는 역을 추가할 수 없습니다.');
   }
-  targetLine.splice(inputPosition + 1, 0, selectedStation);
+  targetLine.splice(Number(inputPosition) + 1, 0, selectedStation);
   return addSection(targetLine, target.dataset.number);
 }
 
