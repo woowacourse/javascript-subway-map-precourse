@@ -5,13 +5,14 @@ import LineNameInputValidation from "../../controllers/line/lineNameInputValidat
 export default (lineName) => {
   const $inputForm = document.querySelector(LINE_NAME_INPUT);
   const checkInput = new LineNameInputValidation({ lineName });
+  const { ok, message } = checkInput.getInputResult();
   return new Promise((resolve, reject) => {
-    if (checkInput.getInputResult().ok) {
+    if (ok) {
       $inputForm.disabled = true;
       resolve(alert(ADD_LINE_INFO_ALERT));
     } else {
       $inputForm.value = "";
-      reject(alert(checkInput.getInputResult().message));
+      reject(alert(message));
     }
   });
 };

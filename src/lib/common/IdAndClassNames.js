@@ -30,17 +30,17 @@ export const DELETE_STATION_INPUT = ".station-delete-button";
 export const LINE_NAME_INPUT = "#Line-name-input";
 
 export const LINE_INFO_INPUT_CONTAINER_ID = "#line-info-input-container";
-export const SELECT_START_STATION = "#Line-start-station-selector";
-export const SELECT_END_STATION = "#Line-end-station-selector";
-export const ADD_LINE_BUTTON = "#Line-add-button";
+export const SELECT_START_STATION = "#line-start-station-selector";
+export const SELECT_END_STATION = "#line-end-station-selector";
+export const ADD_LINE_BUTTON = "#line-add-button";
 
 export const LINE_LIST_VIEW_CONTAINER_ID = "#line-list-view-container";
 export const LINE_LIST = "#line-list";
-export const DELETE_LINE_BUTTON = ".Line-delete-button";
+export const DELETE_LINE_BUTTON = ".line-delete-button";
 
 export const LINE_LIST_VIEW_BUTTON_GROUP_CONTAINER_ID =
   "station-list-view-button-group-container";
-export const SELECT_LINE_BUTTON = ".section-Line-menu-button";
+export const SELECT_LINE_BUTTON = ".section-line-menu-button";
 
 export const SECTION_MANAGER_CONTAINER = "#section-manager";
 
