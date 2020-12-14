@@ -12,7 +12,7 @@ export default function subwayMapApp($element) {
     stationManagerPage($contentSection);
   };
   const onLineManageHandler = () => {
-    console.log('노선관리 입니다.');
+    lineManagerPage($contentSection);
   };
   const onSectionManageHandler = () => {
     console.log('구간관리 입니다.');
