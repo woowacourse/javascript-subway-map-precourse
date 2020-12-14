@@ -44,10 +44,13 @@ export default class StationManager {
 
   addStation() {
     const station = document.getElementById(DOMStrings.STATION_NAME_INPUT).value.trim();
-    if (isValidStationName(this.stations, station)) {
+    try {
+      isValidStationName(this.stations, station);
       this.stations.push(station);
       saveData(dataStrings.DATA_STATIONS, this.stations);
       this.refreshStationManager();
+    } catch (error) {
+      alert(error);
     }
   }
 
@@ -64,11 +67,14 @@ export default class StationManager {
   }
 
   deleteStation(targetStationName) {
-    if (isValidStationDeletion(this.lines, targetStationName)) {
+    try {
+      isValidStationDeletion(this.lines, targetStationName);
       const index = this.stations.indexOf(targetStationName);
       this.stations.splice(index, 1);
       saveData(dataStrings.DATA_STATIONS, this.stations);
       this.refreshStationManager();
+    } catch (error) {
+      alert(error);
     }
   }
 

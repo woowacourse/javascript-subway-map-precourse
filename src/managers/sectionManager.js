@@ -49,13 +49,14 @@ export default class SectionManager {
     const targetLine = this.lines[targetLineIndex];
     const stationOrder = +document.getElementById(DOMStrings.SECTION_ORDER_INPUT).value.trim();
     const stationName = document.getElementById(DOMStrings.SECTION_STATION_SELECTOR).value;
-    if (isValidSection(targetLine.stations, stationName, stationOrder)) {
+    try {
+      isValidSection(targetLine.stations, stationName, stationOrder);
       this.changeLineListWithAddition(targetLine, stationOrder, stationName);
-      targetLine.stations = targetLine.stations
-        .slice(0, stationOrder)
-        .concat(stationName, targetLine.stations.slice(stationOrder));
+      this.addSectionInLine(targetLine, stationOrder, stationName);
       saveData(dataStrings.DATA_LINES, this.lines);
       this.refreshSectionManager(targetLineName);
+    } catch (error) {
+      alert(error);
     }
   }
 
@@ -65,6 +66,12 @@ export default class SectionManager {
     } else if (isStartSection(stationOrder)) {
       targetLine.start = stationName;
     }
+  }
+
+  addSectionInLine(targetLine, stationOrder, stationName) {
+    targetLine.stations = targetLine.stations
+      .slice(0, stationOrder)
+      .concat(stationName, targetLine.stations.slice(stationOrder));
   }
 
   deleteSectionButtonClick(event) {
@@ -83,11 +90,14 @@ export default class SectionManager {
     const targetLineName = document.getElementById(DOMStrings.SECTION_HEADER).dataset[dataStrings.DATA_TARGET];
     const targetLineIndex = this.lines.findIndex(line => line.lineName === targetLineName);
     const targetLine = this.lines[targetLineIndex];
-    if (isValidSectionDeletion(targetLine.stations)) {
+    try {
+      isValidSectionDeletion(targetLine.stations);
       this.changeLineListWithDeletion(targetLine, targetSectionIndex);
       targetLine.stations.splice(targetSectionIndex, 1);
       saveData(dataStrings.DATA_LINES, this.lines);
       this.refreshSectionManager(targetLineName);
+    } catch (error) {
+      alert(error);
     }
   }
 

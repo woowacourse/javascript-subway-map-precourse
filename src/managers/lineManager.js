@@ -44,14 +44,16 @@ export default class LineManager {
 
   addLine() {
     const lineName = document.getElementById(DOMStrings.LINE_NAME_INPUT).value.trim();
-    if (isValidLineName(this.lines, lineName)) {
+    try {
+      isValidLineName(this.lines, lineName);
       const startStation = document.getElementById(DOMStrings.LINE_START_STATION_SELECTOR).value;
       const endStation = document.getElementById(DOMStrings.LINE_END_STATION_SELECTOR).value;
-      if (isStartDiffersWithEnd(startStation, endStation)) {
-        this.lines.push(new SubwayLine(lineName, startStation, endStation));
-        saveData(dataStrings.DATA_LINES, this.lines);
-        this.refreshLineManager();
-      }
+      isStartDiffersWithEnd(startStation, endStation);
+      this.lines.push(new SubwayLine(lineName, startStation, endStation));
+      saveData(dataStrings.DATA_LINES, this.lines);
+      this.refreshLineManager();
+    } catch (error) {
+      alert(error);
     }
   }
 

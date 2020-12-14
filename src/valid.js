@@ -12,74 +12,67 @@ const ERROR_STATION_ALREADY_EXISTS = '기존의 노선에 해당 역이 존재�
 const ERROR_SECTION_OUT_OF_RANGE = '구간 범위를 벗어난 숫자입니다.';
 const ERROR_START_EQUALS_END = '상행 종점과 하행 종점이 동일합니다.';
 const ERROR_MUST_BE_AN_INTEGER = '정수 값을 입력해야 합니다.';
-
-const isDuplicatedName = (list, input) => list.indexOf(input) !== -1;
-
-const isUnderMinLength = input => input.length < MIN_STRING_LENGTH;
-
-const isEmptyString = input => !input && input !== 0;
-
-const isNotAnInteger = input => !Number.isInteger(input);
+const ERROR_SYMBOLS_NOT_PERMITTED = '특수문자는 입력할 수 없습니다.';
 
 export const isValidStationName = (list, input) => {
   if (isDuplicatedName(list, input)) {
-    alert(ERROR_DUPLICATED_NAME);
     DOMCtrl.focusStationNameInput();
-    return false;
+    throw new Error(ERROR_DUPLICATED_NAME);
   } else if (isEmptyString(input)) {
-    alert(ERROR_EMPTY_STRING);
     DOMCtrl.focusStationNameInput();
-    return false;
+    throw new Error(ERROR_EMPTY_STRING);
   } else if (isUnderMinLength(input)) {
-    alert(ERROR_UNDER_MINUMUM_LENGTH);
     DOMCtrl.focusStationNameInput();
-    return false;
+    throw new Error(ERROR_UNDER_MINUMUM_LENGTH);
+  } else if (isNotAText(input)) {
+    DOMCtrl.focusStationNameInput();
+    throw new Error(ERROR_SYMBOLS_NOT_PERMITTED);
   }
-  return true;
 };
 
 export const isValidLineName = (list, input) => {
   const nameList = list.map(item => item.lineName);
   if (isDuplicatedName(nameList, input)) {
-    alert(ERROR_DUPLICATED_NAME);
     DOMCtrl.focusLineNameInput();
-    return false;
+    throw new Error(ERROR_DUPLICATED_NAME);
   } else if (isEmptyString(input)) {
-    alert(ERROR_EMPTY_STRING);
     DOMCtrl.focusLineNameInput();
-    return false;
+    throw new Error(ERROR_EMPTY_STRING);
+  } else if (isNotAText(input)) {
+    DOMCtrl.focusLineNameInput();
+    throw new Error(ERROR_SYMBOLS_NOT_PERMITTED);
   }
-  return true;
 };
 
 export const isValidSection = (stations, stationName, stationOrder) => {
-  if (!isValidSectionName(stations, stationName)) {
+  if (isDuplicatedName(stations, stationName)) {
     DOMCtrl.focusLineSelector();
-    return false;
-  } else if (!isValidSectionOrder(stations, stationOrder)) {
+    throw new Error(ERROR_STATION_ALREADY_EXISTS);
+  } else if (isOutOfRange(stations, stationOrder)) {
     DOMCtrl.focusSectionOrderInput();
-    return false;
+    throw new Error(ERROR_SECTION_OUT_OF_RANGE);
+  } else if (isEmptyString(stationOrder)) {
+    DOMCtrl.focusSectionOrderInput();
+    throw new Error(ERROR_EMPTY_STRING);
+  } else if (isNotAnInteger(stationOrder)) {
+    DOMCtrl.focusSectionOrderInput();
+    throw new Error(ERROR_MUST_BE_AN_INTEGER);
   }
-  return true;
 };
 
 export const isValidStationDeletion = (lines, targetStation) => {
   for (let i = SECTION_START; i < lines.length; i++) {
     const index = lines[i].stations.indexOf(targetStation);
     if (index !== -1) {
-      alert(ERROR_STATION_INCLUDED);
-      return false;
+      throw new Error(ERROR_STATION_INCLUDED);
     }
   }
-  return true;
 };
 
 export const isValidSectionDeletion = stations => {
-  if (stations.length <= MIN_SECTION_LENGTH) {
-    alert(ERROR_SECTION_LENGTH_UNDER_MIN);
-    return false;
+  if (isSectionUnderMinLength(stations.length)) {
+    throw new Error(ERROR_SECTION_LENGTH_UNDER_MIN);
   }
-  return true;
 };
 
 export const isEndSection = (stations, targetIndex, type) => {
@@ -97,30 +90,23 @@ export const isStartSection = targetIndex => {
 
 export const isStartDiffersWithEnd = (startStation, endStation) => {
   if (startStation === endStation) {
-    alert(ERROR_START_EQUALS_END);
-    return false;
+    throw new Error(ERROR_START_EQUALS_END);
   }
-  return true;
 };
 
-const isValidSectionName = (list, input) => {
-  if (isDuplicatedName(list, input)) {
-    alert(ERROR_STATION_ALREADY_EXISTS);
-    return false;
-  }
-  return true;
-};
+const isDuplicatedName = (list, input) => list.indexOf(input) !== -1;
 
-const isValidSectionOrder = (line, order) => {
-  if (order < SECTION_START || order > line.length) {
-    alert(ERROR_SECTION_OUT_OF_RANGE);
-    return false;
-  } else if (isEmptyString(order)) {
-    alert(ERROR_EMPTY_STRING);
-    return false;
-  } else if (isNotAnInteger(order)) {
-    alert(ERROR_MUST_BE_AN_INTEGER);
-    return false;
-  }
-  return true;
+const isUnderMinLength = input => input.length < MIN_STRING_LENGTH;
+
+const isEmptyString = input => !input && input !== 0;
+
+const isNotAnInteger = input => !Number.isInteger(input);
+
+const isSectionUnderMinLength = targetLength => targetLength <= MIN_SECTION_LENGTH;
+
+const isOutOfRange = (range, order) => order < SECTION_START || order > range.length;
+
+const isNotAText = input => {
+  const texts = new RegExp('[^ㄱ-ㅎ가-힣a-zA-Z0-9]', 'g');
+  return texts.test(input);
 };
