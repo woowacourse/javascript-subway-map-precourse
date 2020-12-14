@@ -1,5 +1,6 @@
 import { stationAddContainer, stationList } from '../templates/index.js';
 import { isValidStationName, isAddedStation } from '../utils/index.js';
+import { CONFIRM_MESSAGE } from '../constants/index.js';
 
 export default function StationManagerContainer({
   addStation,
@@ -37,10 +38,9 @@ export default function StationManagerContainer({
   };
 
   this.deleteStation = index => {
-    const isSure = confirm('정말로 삭제하시겠습니까?');
     const lines = getLines();
     const stations = getStations();
-    if (isSure && isAddedStation(lines, stations[index])) {
+    if (confirm(CONFIRM_MESSAGE) && isAddedStation(lines, stations[index])) {
       deleteStation(index);
     }
   };

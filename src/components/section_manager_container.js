@@ -8,6 +8,7 @@ import {
   isValidSection,
   isValidDeleteSection,
 } from '../utils/index.js';
+import { CONFIRM_MESSAGE } from '../constants/index.js';
 
 export default function SectionManagerContainer({
   getLines,
@@ -56,8 +57,7 @@ export default function SectionManagerContainer({
     const lines = getLines();
     const targetLine = lines[this.selectedLineNumber];
     const stations = targetLine.stations;
-    const isSure = confirm('정말로 삭제하시겠습니까?');
-    if (isSure && isValidDeleteSection(stations)) {
+    if (confirm(CONFIRM_MESSAGE) && isValidDeleteSection(stations)) {
       deleteSection(this.selectedLineNumber, index);
     }
   };

@@ -1,6 +1,7 @@
 import Station from '../station.js';
 import { lineAddContainer, lineList } from '../templates/index.js';
 import { isValidLine, isValidLineName } from '../utils/index.js';
+import { CONFIRM_MESSAGE } from '../constants/index.js';
 
 export default function LineManagerContainer({
   addLine,
@@ -38,15 +39,13 @@ export default function LineManagerContainer({
       name,
       stations: [new Station({ name: start }), new Station({ name: end })],
     };
-    console.log(newLine, ':????');
     if (isValidLineName(lines, newLine) && isValidLine(start, end)) {
       addLine(newLine);
     }
   };
 
   this.deleteLine = index => {
-    const isSure = confirm('정말로 삭제하시겠습니까?');
-    if (isSure) {
+    if (confirm(CONFIRM_MESSAGE)) {
       deleteLine(Number(index));
     }
   };
