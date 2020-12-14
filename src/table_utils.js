@@ -128,6 +128,7 @@ export default class TableUtils {
     const deleteButton = document.createElement('button');
 
     this.addDataAttribute(deleteButton, rowArray);
+    this._privateDomUtils.setAttribute('class', deleteButton, 'station-delete-button')
     this._privateDomUtils.setInnerHtml(deleteButton, this.DELETE_BUTTON_TEXT);
     this._privateDomUtils.appendToVarName(cell, deleteButton);
     this.addEventToDeleteButton(deleteButton, rowArray);

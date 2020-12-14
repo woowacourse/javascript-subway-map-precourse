@@ -22,8 +22,8 @@ export default class DomUtils {
     return article
   }
 
-  setAttribute(attribute, varName, idName) {
-    varName.setAttribute(attribute, idName);
+  setAttribute(attribute, varName, attributeName) {
+    varName.setAttribute(attribute, attributeName);
   }
 
   setInnerHtml(varName, buttonText) {
@@ -60,7 +60,7 @@ export default class DomUtils {
   }
 
   setInputType(input, type) {
-    input.setAttribute(this.ID_ATTRIBUTE, 'type', type);
+    input.setAttribute('type', type);
   }
 
   setPlaceholder(input, placeholder) {

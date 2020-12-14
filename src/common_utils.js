@@ -5,6 +5,10 @@ export default class CommonUtils {
     this._privateDomUtils = new DomUtils();
   }
 
+  alertError(errorMessage) {
+    alert(errorMessage);
+  }
+
   createTitle(titleTag, titleContent, toIdName) {
     const title = document.createElement(titleTag);
 

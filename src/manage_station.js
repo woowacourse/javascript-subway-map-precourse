@@ -17,6 +17,8 @@ export default class ManageStation {
   }
 
   setConst() {
+    this.ARTICLE_NAME = 'stationArticle';
+
     this.MENU_TYPE = 'station',
     this.ADD_TYPE = 'Add',
     this.DELETE_TYPE = 'Delete',
@@ -26,24 +28,16 @@ export default class ManageStation {
     this.STATION_LIST_TITLE_TAG = 'h1';
     this.STATION_LIST_TITLE_TEXT = '🚉 지하철 역 목록';
 
-    this.ARTICLE_NAME = 'stationArticle';
-    
-    this.SETTING = '설정';
-    this.STATION_LIST = '지하철 역 목록';
-
     this.STATION_INPUT_ID = 'station-name-input';
     this.ADD_BUTTON_ID = 'station-add-button';
-    this.DELETE_BUTTON_CLASS = 'station-delete-button';
 
     this.STATION_INPUT_PLACEHOLDER = '역 이름을 입력해주세요';
     this.STATION_INPUT_TYPE = 'String';
     this.MINLENGTH_ERROR_MESSAGE = '역 이름을 두 글자 이상 입력해주세요';
     this.OVERLAP_ERROR_MESSAGE = '이미 존재하는 역입니다.'
 
-
     this.ADD_BUTTON_TEXT = '역 추가';
     this.DELETE_BUTTON_TEXT = '삭제';
-    this.DELETE_ALERT_MESSAGE = '정말로 삭제하시겠습니까?';
 
     this.IS_VALID = true;
     this.IS_NOT_VALID = false;
@@ -58,7 +52,6 @@ export default class ManageStation {
     this._privateCommonUtils.createTitle(this.STATION_LIST_TITLE_TAG, this.STATION_LIST_TITLE_TEXT, this.ARTICLE_NAME);
     this._privateTableUtils.initTable(this.ARTICLE_NAME);
   }
-
 
   createStationInput() {
     const inputObject = this.stationInputObject();
@@ -101,13 +94,13 @@ export default class ManageStation {
 
   checkStationValidity() {
     if (this.minLength() === this.IS_NOT_VALID) {
-      this.alertError(this.MINLENGTH_ERROR_MESSAGE);
+      this._privateCommonUtils.alertError(this.MINLENGTH_ERROR_MESSAGE);
 
       return this.IS_NOT_VALID;
     }
 
     if (this.overlap() === this.IS_NOT_VALID) {
-      this.alertError(`"${this._stationInput.value}"은/는 ` + this.OVERLAP_ERROR_MESSAGE)
+      this._privateCommonUtils.alertError(`"${this._stationInput.value}"은/는 ` + this.OVERLAP_ERROR_MESSAGE)
 
       return this.IS_NOT_VALID;
     }
@@ -129,10 +122,6 @@ export default class ManageStation {
     }
 
     return this.IS_VALID;
-  }
-
-  alertError(errorMessage) {
-    alert(errorMessage);
   }
 
   addToStationList(stationName) {
