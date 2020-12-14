@@ -41,28 +41,41 @@ export default class TableUtils {
   }
 
   initTableData(articleName) {
+    if (articleName === 'stationArticle') {
+      this.initStationTableData(articleName);
+    }
+    else if (articleName === 'lineArticle') {
+      this.initArticleTableData(articleName);
+    }
+  }
+
+  initStationTableData(articleName) {
     const stationList = this._privateCommonUtils.getLocalStorageStation();
 
     for (const station in stationList) {
-      const rowArray = this.createRowArray(station, this.DELETE_BUTTON_TEXT);
+      const rowArray = [station, this.DELETE_BUTTON_TEXT];
       this.addRow(rowArray, articleName);
     }
   }
 
-  refreshTable(articleName) {
-    // if (articleName === '') {
-    //   this.refreshStationTable(articleName);
-    // }
-  }
+  initArticleTableData(articleName) {
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
 
-  refreshStationTable(articleName) {
-    const stationList = this._privateCommonUtils.getLocalStorageStation();
-
-    for (const station in stationList) {
-      const rowArray = this.createRowArray(station, this.DELETE_BUTTON_TEXT);
+    for (const line in lineList) {
+      const lineLen = lineList[line].length;
+      const rowArray = [line, lineList[line][0], lineList[line][lineLen - 1], this.DELETE_BUTTON_TEXT];
       this.addRow(rowArray, articleName);
     }
   }
+
+  // refreshStationTable(articleName) {
+  //   const stationList = this._privateCommonUtils.getLocalStorageStation();
+
+  //   for (const station in stationList) {
+  //     const rowArray = this.createRowArray(station, this.DELETE_BUTTON_TEXT);
+  //     this.addRow(rowArray, articleName);
+  //   }
+  // }
 
   addTableStyle(table) {
     table.style.border = '1px solid black';
@@ -86,10 +99,6 @@ export default class TableUtils {
     cell.style.border = '1px solid black';
     cell.style.fontWeight = 'bold';
     cell.style.textAlign = 'center';
-  }
-
-  createRowArray(newStation, deleteText) {
-    return [newStation, deleteText];
   }
 
   addRow(rowArray, tableType) {

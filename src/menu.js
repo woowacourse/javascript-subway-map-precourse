@@ -64,7 +64,7 @@ export default class Menu {
   addEventToButton(varName, articleName) {
     this[`_${varName}`].addEventListener('click', () => {
       this.showArticle(articleName);
-      this._privateTableUtils.refreshTable(articleName);
+      // this._privateTableUtils.refreshTable(articleName);
     });
   }
 
