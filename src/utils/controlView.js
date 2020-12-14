@@ -1,5 +1,6 @@
 import { STATION_DIV } from "../constant.js";
 import { removeStationHandler } from "./station.js";
+
 export const cleanView = () => {
   const { children } = document.getElementById("app");
   for (let i = STATION_DIV; i < children.length; i += 1) {
@@ -51,4 +52,20 @@ export function printStation() {
   table = document.querySelector("table");
   table.innerHTML = "";
   makeTableStation.call(this, table);
+}
+
+export function clearSelect(lineSelect) {
+  while (lineSelect.hasChildNodes()) {
+    lineSelect.removeChild(lineSelect.firstChild);
+  }
+}
+export function setDataSelect(name) {
+  const lineSelect = document.getElementById(name);
+  clearSelect(lineSelect);
+  this.station.forEach((v) => {
+    let option = document.createElement("option");
+    option.dataset.id = v.id;
+    option.innerText = v.name;
+    lineSelect.append(option);
+  });
 }

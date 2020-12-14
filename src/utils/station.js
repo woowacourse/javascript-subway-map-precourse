@@ -1,4 +1,5 @@
 import {
+  STATION_NAME_LIMIT,
   STATION_DIV,
   DELETE_MESSAGE_STATION,
   ERR_MESSAGE_STATION,
@@ -18,7 +19,7 @@ export function removeStationHandler(e) {
 }
 export function stationAddHandler() {
   const stationNameInput = document.getElementById("station-name-input");
-  if (this.isValidStation(stationNameInput.value)) {
+  if (this.isValidName(stationNameInput.value, "station", STATION_NAME_LIMIT)) {
     this.station.push({
       id: getNewId(),
       name: stationNameInput.value,

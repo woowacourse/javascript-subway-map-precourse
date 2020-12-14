@@ -1,12 +1,11 @@
-import { STATION_NAME_LIMIT } from "./constant.js";
 export default function Subway() {
   this.station = [];
   this.line = [];
 }
 
-Subway.prototype.isValidStation = function (stationInput) {
+Subway.prototype.isValidName = function (inputValue, name, LIMIT_VALUE) {
   return (
-    stationInput.trim().length >= STATION_NAME_LIMIT &&
-    this.station.every((v) => v.name !== stationInput)
+    inputValue.trim().length >= LIMIT_VALUE &&
+    this[name].every((v) => v.name !== inputValue)
   );
 };
