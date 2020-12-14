@@ -1,6 +1,7 @@
 export default class MapPrintManager {
-  constructor({ target }) {
+  constructor({ target, subway }) {
     this._target = target;
+    this._subway = subway;
 
     const _wrapper = this.createContainerElement(target, 'map');
     this.render(_wrapper);
@@ -15,7 +16,23 @@ export default class MapPrintManager {
     return _container;
   }
 
+  renderSection(section) {
+    return `
+      <ul>
+        ${section.map((stationName) => `
+          <li>${stationName}</li>
+        `).join('')}
+      </ul>
+    `;
+  }
+
   render(wrapper) {
-    wrapper.innerHTML = `Map print`;
+    const lines = this._subway.getLines();
+    wrapper.innerHTML = `
+      ${lines.map(({ lineName, section }) => `
+        <h3>${lineName}</h3>
+        ${this.renderSection(section)}
+      `).join('')}
+    `;
   }
 }

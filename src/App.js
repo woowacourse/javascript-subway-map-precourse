@@ -89,7 +89,10 @@ export default class App {
 
   renderMapPrintManager() {
     this._container.innerHTML = '';
-    this._mapPrintManager = new MapPrintManager({ target: this._container });
+    this._mapPrintManager = new MapPrintManager({
+      target: this._container,
+      subway: this._subway,
+    });
   }
 
   onClickAddStation() {
