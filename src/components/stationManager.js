@@ -1,8 +1,8 @@
 import Stations from '../model/stations.js';
-import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
+import { ID, CLASS, ALERT } from '../constants/index.js';
 import { stationManagerTemplate, stationTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
-import { isValidNameLength, isDuplicatedName } from '../util/userException.js';
+import { isValidStationNameLength, isDuplicatedName } from '../util/userException.js';
 
 export default class StationManager {
   constructor($target) {
@@ -75,15 +75,19 @@ export default class StationManager {
   hasValidName(stationName) {
     const stations = this.stations.getStations();
 
-    if (!isValidNameLength(stationName)) {
+    if (!isValidStationNameLength(stationName)) {
       alert(ALERT.VALID_STATION_NAME_LENGTH);
     } else if (isDuplicatedName(stations, stationName)) {
       alert(ALERT.DUPLICATED_STATION);
     } else {
-      this.stations.addStation(stationName);
-      this.stations.saveStations();
+      this.addStations(stationName);
       this.render();
     }
+  }
+
+  addStations(stationName) {
+    this.stations.addStation(stationName);
+    this.stations.saveStations();
   }
 
   handleStationDeleteButton() {
@@ -91,12 +95,16 @@ export default class StationManager {
 
     deleteStationButton.forEach((button) => {
       button.addEventListener('click', (event) => {
-        const index = event.target.parentNode.dataset.index;
+        const stationIndex = event.target.parentNode.dataset.index;
 
-        this.stations.deleteStation(index);
-        this.stations.saveStations();
+        this.deleteStations(stationIndex);
         this.render();
       });
     });
+  }
+
+  deleteStations(stationIndex) {
+    this.stations.deleteStation(stationIndex);
+    this.stations.saveStations();
   }
 }

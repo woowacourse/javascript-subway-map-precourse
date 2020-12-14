@@ -2,7 +2,11 @@ import Lines from '../model/lines.js';
 import Stations from '../model/stations.js';
 import { ID, CLASS, NAME, ALERT } from '../constants/index.js';
 import { initialize } from '../util/initialize.js';
-import { isDuplicatedSection } from '../util/userException.js';
+import {
+  isDuplicatedSection,
+  isValidOrderInput,
+  isValidDeleteSection,
+} from '../util/userException.js';
 import {
   sectionLineMenuTemplate,
   sectionManagerTemplate,
@@ -132,16 +136,20 @@ export default class SectionManager {
   hasValidInput(orderInput, stationSelect) {
     if (isDuplicatedSection(this.sections, stationSelect)) {
       alert(ALERT.DUPLICATED_NAME);
-    } else if (orderInput < 0 || orderInput > this.sections.length || orderInput === '') {
+    } else if (isValidOrderInput(this.sections, orderInput)) {
       alert(ALERT.VALID_SECTION_NUMBER);
     } else {
-      this.lines.addSection(this.lineIndex, orderInput, stationSelect);
-      this.stations.addLine(stationSelect);
-      this.lines.saveLines();
-      this.stations.saveStations();
+      this.addSections(orderInput, stationSelect);
       this.updateSections();
       this.render();
     }
+  }
+
+  addSections(orderInput, stationSelect) {
+    this.lines.addSection(this.lineIndex, orderInput, stationSelect);
+    this.lines.saveLines();
+    this.stations.addLine(stationSelect);
+    this.stations.saveStations();
   }
 
   handleSectionDeleteButton() {
@@ -149,23 +157,27 @@ export default class SectionManager {
 
     sectionDeleteButton.forEach((button) => {
       button.addEventListener('click', (event) => {
-        const index = event.target.parentNode.dataset.index;
-        const name = event.target.parentNode.dataset.name;
+        const sectionIndex = event.target.parentNode.dataset.index;
+        const stationName = event.target.parentNode.dataset.name;
 
-        this.hasValidDeleteSection(index, name);
+        this.hasValidDeleteSection(sectionIndex, stationName);
       });
     });
   }
 
-  hasValidDeleteSection(index, name) {
-    if (this.sections.length <= 2) {
+  hasValidDeleteSection(sectionIndex, stationName) {
+    if (isValidDeleteSection(this.sections)) {
       alert(ALERT.DELETE_ERROR);
     } else {
-      this.stations.deleteLine(name);
-      this.stations.saveStations();
-      this.lines.deleteSection(this.lineIndex, index);
-      this.lines.saveLines();
+      this.deleteSections(sectionIndex, stationName);
       this.render();
     }
+  }
+
+  deleteSections(sectionIndex, stationName) {
+    this.stations.deleteLine(stationName);
+    this.stations.saveStations();
+    this.lines.deleteSection(this.lineIndex, sectionIndex);
+    this.lines.saveLines();
   }
 }

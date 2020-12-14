@@ -3,7 +3,11 @@ import Stations from '../model/stations.js';
 import { ID, CLASS, ALERT } from '../constants/index.js';
 import { lineManagerTemplate, lineTableTemplate } from '../view/template.js';
 import { initialize } from '../util/initialize.js';
-import { isDuplicatedName } from '../util/userException.js';
+import {
+  isDuplicatedName,
+  isValidLineNameLength,
+  isDuplicatedStation,
+} from '../util/userException.js';
 
 export default class LineManager {
   constructor($target) {
@@ -89,17 +93,19 @@ export default class LineManager {
 
     if (isDuplicatedName(lines, lineName)) {
       alert(ALERT.DUPLICATED_NAME);
-    } else if (lineStartStation === lineEndStation) {
+    } else if (isDuplicatedStation(lineStartStation, lineEndStation)) {
       alert(ALERT.DUPLICATED_STATION);
+    } else if (isValidLineNameLength(lineName)) {
+      alert(ALERT.VALID_LINE_NAME_LENGTH);
     } else {
-      this.lines.addLine(lineName, [lineStartStation, lineEndStation]);
-      this.lines.saveLines();
+      this.addLines(lineName, lineStartStation, lineEndStation);
       this.render();
-      this.saveLineToStation(lineStartStation, lineEndStation);
     }
   }
 
-  saveLineToStation(lineStartStation, lineEndStation) {
+  addLines(lineName, lineStartStation, lineEndStation) {
+    this.lines.addLine(lineName, [lineStartStation, lineEndStation]);
+    this.lines.saveLines();
     this.stations.addLine(lineStartStation);
     this.stations.addLine(lineEndStation);
     this.stations.saveStations();
@@ -114,12 +120,16 @@ export default class LineManager {
         const lines = this.lines.getLines();
         const lineSection = lines[index].section;
 
-        this.stations.deleteLine(lineSection);
-        this.stations.saveStations();
-        this.lines.deleteLine(index);
-        this.lines.saveLines();
+        this.deleteLines(lineSection, index);
         this.render();
       });
     });
+  }
+
+  deleteLines(lineSection, index) {
+    this.stations.deleteLine(lineSection);
+    this.stations.saveStations();
+    this.lines.deleteLine(index);
+    this.lines.saveLines();
   }
 }

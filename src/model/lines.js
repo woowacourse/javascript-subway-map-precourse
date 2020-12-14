@@ -1,5 +1,5 @@
 import { loadStorage, saveStorage } from '../util/handleStorage.js';
-import { NAME, ALERT } from '../constants/index.js';
+import { NAME } from '../constants/index.js';
 
 export default class Lines {
   constructor() {
@@ -36,7 +36,7 @@ export default class Lines {
     this.lines[index].section.splice(order, 0, station);
   }
 
-  deleteSection(lineIndex, index) {
-    this.lines[lineIndex].section.splice(index, 1);
+  deleteSection(lineIndex, sectionIndex) {
+    this.lines[lineIndex].section.splice(sectionIndex, 1);
   }
 }

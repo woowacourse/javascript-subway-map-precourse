@@ -47,6 +47,13 @@ export const ALERT = {
   VALID_STATION_NAME_LENGTH: '2글자 이상으로 적어주세요.',
   DUPLICATED_NAME: '중복된 이름이 존재합니다.',
   DUPLICATED_STATION: '중복된 역이 존재합니다.',
+  VALID_LINE_NAME_LENGTH: '1글자 이상으로 적어주세요.',
   DELETE_ERROR: '삭제가 불가능합니다.',
   VALID_SECTION_NUMBER: '잘못된 순서입니다.',
+};
+
+export const NUMBER = {
+  VALID_STATION_NAME_LENGTH: 2,
+  VALID_LINE_NAME_LENGTH: 1,
+  VALID_SECTION_LENGTH: 2,
 };
