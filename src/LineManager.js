@@ -40,8 +40,8 @@ export default class LineManager {
   }
 
   renderOptions(stations) {
-    return stations.map((station) => `
-      <option value=${station}>${station}</option>
+    return stations.map((station, index) => `
+      <option value=${index}>${station}</option>
     `).join('');
   }
 

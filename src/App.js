@@ -111,8 +111,7 @@ export default class App {
 
   getSelectorValue(id) {
     const selector = document.querySelector(id);
-    const value = selector.options[selector.selectedIndex].value;
-    return value;
+    return selector.options[selector.selectedIndex].text;
   }
 
   onClickAddLine() {

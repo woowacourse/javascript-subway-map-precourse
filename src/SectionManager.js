@@ -35,8 +35,8 @@ export default class SectionManager {
       <h4>구간 등록</h4>
       <div>
         <select id="section-station-selector">
-          ${stations.map((station) => `
-            <option value=${station}>${station}</option>
+          ${stations.map((station, index) => `
+            <option value=${index}>${station}</option>
           `).join('')}
         </select>
         <input
