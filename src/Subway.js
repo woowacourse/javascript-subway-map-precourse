@@ -42,6 +42,10 @@ export default class Subway {
     this._lines.set(lineName, section);
   }
 
+  deleteLine = ({ lineName }) => {
+    this._lines.delete(lineName);
+  }
+
   getStationName = () => {
     return [...this._stations];
   }

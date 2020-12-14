@@ -1,8 +1,9 @@
 export default class LineManager {
-  constructor({ target, subway, addLine }) {
+  constructor({ target, subway, addLine, deleteLine }) {
     this._target = target;
     this._subway = subway;
     this.onClickAddLine = addLine;
+    this.onClickDeleteLine = deleteLine;
 
     this.createLineInput(target);
     this.createSelector(target);
@@ -133,6 +134,16 @@ export default class LineManager {
     this.render();
   }
 
+  addLineDeleteEvent(lines) {
+    const deleteButtons = this.tbody.querySelectorAll('.line-delete-button');
+
+    deleteButtons.forEach((deleteButton, index) => {
+      deleteButton.addEventListener(
+        'click', () => this.onClickDeleteLine(lines[index]),
+      );
+    });
+  }
+
   render() {
     const lines = this._subway.getLines();
     if (lines.length === 0) {
@@ -148,5 +159,6 @@ export default class LineManager {
           <td><button class="line-delete-button">삭제</button></td>
         </tr>`).join('')}
       `;
+    this.addLineDeleteEvent(lines);
   }
 }

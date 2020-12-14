@@ -73,6 +73,7 @@ export default class App {
       target: this._container,
       subway: this._subway,
       addLine: this.onClickAddLine.bind(this),
+      deleteLine: this.onClickDeleteLine.bind(this),
     });
   }
 
@@ -112,5 +113,14 @@ export default class App {
     const end = this.getSelectorValue('#line-end-station-selector');
     this._subway.addLine({ lineName, start, end });
     this._lineManager.setSubway(this._subway);
+  }
+
+  onClickDeleteLine({ lineName }) {
+    const isOk = window.confirm('정말로 삭제하시겠습니까?');
+    if (isOk) {
+      this._subway.deleteLine({ lineName });
+      this._lineManager.setSubway(this._subway);
+      console.log(this._subway);
+    }
   }
 }
