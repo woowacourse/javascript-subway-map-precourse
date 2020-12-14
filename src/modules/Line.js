@@ -85,4 +85,17 @@ export default class Line {
     this._lineList = newLineList;
     this._setLineList = newLineList;
   };
+
+  deleteStationFromLine = (stationName, lineName) => {
+    const newLineList = this._lineList.map(({ name, list }) => {
+      if (name === lineName) {
+        const index = list.indexOf(stationName);
+        list.splice(index, 1);
+      }
+
+      return { name, list };
+    });
+    this._lineList = newLineList;
+    this._setLineList = newLineList;
+  };
 }
