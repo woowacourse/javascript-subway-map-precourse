@@ -48,6 +48,7 @@ export const MESSAGE = {
   CONFIRM: "정말로 삭제하시겠습니까 ?",
   LINE_WORD_INCLUDE:
     "어떤 노선인지 끝에 '선' 단어를 포함해주세요 ex)경의중앙선, 1호선",
+  IS_FEW_STATION: '"구간에서 역이 2개 이하일 경우 삭제할 수 없습니다."',
 };
 
 export const KEY = {
