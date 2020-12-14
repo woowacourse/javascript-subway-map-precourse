@@ -2,6 +2,7 @@ import stationManageContainer from "./station-manage-container.js";
 import lineManageContainer from "./line-manage-container.js";
 import sectionManageContainer from "./section-manage-container.js";
 import { state } from "../index.js";
+import mapPrintManageContainer from "./map-print-manage-container.js";
 
 const menuIDs = {
   0: {
@@ -30,7 +31,7 @@ const menuIDs = {
             <tbody id="stations"></tbody>
           </table>
         </div>
-      </div>`,
+      </div>`
   },
   1: {
     id: "manage-lines",
@@ -67,16 +68,21 @@ const menuIDs = {
             </table>
           </div>
       </div>
-    `,
+    `
   },
   2: {
     id: "manage-sections",
     html: `
   <div id="manage-sections">
     <h4>구간을 수정할 노선을 선택해 주세요.</h4>
-  </div>`,
+  </div>`
   },
-  3: { id: "manage-map-print", html: `` },
+  3: {
+    id: "manage-map-print",
+    html: `
+  <div id="manage-map-print"></div>
+  `
+  }
 };
 
 const menus = document.querySelectorAll("#menu > button");
@@ -109,6 +115,8 @@ export default function totalSubwayManageContainer() {
         new lineManageContainer(state);
       } else if (index === 2) {
         new sectionManageContainer();
+      } else if (index === 3) {
+        new mapPrintManageContainer();
       }
     });
   }

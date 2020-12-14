@@ -29,14 +29,14 @@ export function makeTdDeleteBtn(objectToMake, tr) {
 
 function deleteObject(object, tr) {
   if (object.type === "STATION") {
-    const deleteStation = state.stationArray.filter((station) => {
+    const deleteStation = state.stationArray.filter(station => {
       return station.id !== object.id;
     });
     tr.remove();
     state.stationArray = deleteStation;
     saveToLocalStorage(STATION_ARRAY_KEY, JSON.stringify(state.stationArray));
   } else if (object.type === "LINE") {
-    const deleteLine = state.subwayLines.filter((line) => {
+    const deleteLine = state.subwayLines.filter(line => {
       return line.id !== object.id;
     });
     tr.remove();
@@ -65,4 +65,18 @@ export function makeSelectOptions(selectBox, optionToMakeArray) {
     option.text = optionValue.stationName;
     selectBox.appendChild(option);
   }
+}
+
+export function makeNewElementWithInnerHtml(elementType, innerHTML) {
+  const element = document.createElement(elementType);
+  element.innerHTML = innerHTML;
+
+  return element;
+}
+
+export function makeNewTdWithElement(element) {
+  const td = document.createElement("td");
+  td.append(element);
+
+  return td;
 }
