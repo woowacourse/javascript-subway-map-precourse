@@ -47,11 +47,25 @@ export default function SectionManager() {
     }
   }
 
+  this.addOption = function() {
+    const key = "station";
+    const stations = JSON.parse(localStorage.getItem(key));
+    const sectionStationSelector = document.querySelector("#section-station-selector")
+    let i;
+
+    for (i = 0; i < stations.length; i++) {
+      sectionStationSelector.innerHTML += `<option>${stations[i].name}</option>`;
+    }
+  }
+
   this.init = function() {
    const section = document.querySelector("#section");
    const table = document.querySelector("#section-list");
    section.style.display = "none";
    table.style.display = "none";
+   if (localStorage.getItem("station")) {
+     this.addOption();
+   }
    this.addSelectButton();
   }
   this.init();
