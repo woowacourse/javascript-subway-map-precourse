@@ -68,11 +68,20 @@ export default class ManageSection {
 
   addEventToSelectButton(button, line) {
     button.addEventListener('click', () => {
-      
+      this.showManageLineSection();
+      this.changeManageLineSection(line);
     })
   }
 
+  showManageLineSection() {
+    this._manageLineSection.style.display = 'block';
+  }
 
+  changeManageLineSection(line) {
+    const manageLineTitle = document.querySelector("#manageLineSection h3");
+
+    manageLineTitle.innerHTML = line + this.MANAGE_LINE_TITLE;
+  }
 
   createManageLineSection() {
     this._privateCommonUtils.createDiv(this.ARTICLE_NAME, this.MANAGE_LINE_SECTION);
