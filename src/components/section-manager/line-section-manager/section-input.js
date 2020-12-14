@@ -49,27 +49,15 @@ class SectionInput extends Component {
     const sectionToAdd = this._$target.querySelector(
       '#section-station-selector'
     ).value;
-    if (!this.isValidInput(order, sectionToAdd)) {
-      this.alertByCase(order, sectionToAdd);
+    if (this.hasEmptyInput(order, sectionToAdd)) {
+      alert(EMPTY_INPUT_MESSAGE + LEFTOVER_MESSAGE);
       return;
     }
     this.insertSection(this._props.targetLine, { order, sectionToAdd });
   }
 
-  isValidInput(order, sectionToAdd) {
-    return !this.hasEmptyInput(order, sectionToAdd);
-  }
-
   hasEmptyInput(order, sectionToAdd) {
-    return !order === '' && sectionToAdd !== '';
-  }
-
-  alertByCase(order, sectionToAdd) {
-    const alertCases = [];
-    if (this.hasEmptyInput(order, sectionToAdd)) {
-      alertCases.push(EMPTY_INPUT_MESSAGE);
-    }
-    alert(alertCases.join(', ') + LEFTOVER_MESSAGE);
+    return order === '' || sectionToAdd === '';
   }
 
   insertSection(targetLine, { order, sectionToAdd }) {
