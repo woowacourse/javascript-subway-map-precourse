@@ -9,7 +9,7 @@ import {
   checkLength,
 } from "../validation/index.js";
 import { checkStationList, confirmDelete } from "../utils/message.js";
-import { KEY } from "../constants/index.js";
+import { KEY, MESSAGE } from "../constants/index.js";
 
 const saveStations = (stationArray) =>
   localStorage.setItem(KEY.STATION, JSON.stringify(stationArray));
@@ -39,9 +39,9 @@ const removeStation = (event) => {
     (station) => station !== targetStation
   );
   const isInSection = checkInSection(targetStation);
-  console.log(isInSection);
+
   if (isInSection) {
-    alert("노선에 등록된 역은 삭제 할 수 없습니다.");
+    alert(MESSAGE.IS_IN_LINE);
   } else {
     clearStations();
     saveStations(filteredStations);
