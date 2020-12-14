@@ -1,6 +1,7 @@
 import {
   rendLineMangeDom,
   clearMangeContainer,
+  addLine,
 } from "../views/domController.js";
 
 export default class LineManager {
@@ -14,5 +15,9 @@ export default class LineManager {
     this.initEvent();
   }
 
-  initEvent() {}
+  initEvent() {
+    document.getElementById("line-add-button").addEventListener("click", () => {
+      addLine();
+    });
+  }
 }
