@@ -4,14 +4,13 @@ import MapPrintManager from './managers/MapPrintManager.js';
 import SectionManager from './managers/SectionManager.js';
 import StationManager from './managers/StationManager.js';
 import { LINE, MAP, MENU, SECTION, STATION } from './share/selector.js';
+import storage from './share/storage.js';
 
+const STORAGE_KEY = 'state';
 export default class SubwayManager extends Component {
   constructor() {
     super();
-    this.state = {
-      stationList: [],
-      lineList: [],
-    };
+    this.state = storage.getItem(STORAGE_KEY);
     this.menu = document.querySelector(`#${MENU.MENU_CONTAINER_ID}`);
 
     this.stationManager = new StationManager({
@@ -55,6 +54,7 @@ export default class SubwayManager extends Component {
   };
 
   syncData = (data) => {
+    storage.setItem(STORAGE_KEY, data);
     this.setState(data);
     this.stationManager.setState(data);
     this.lineManager.setState(data);
