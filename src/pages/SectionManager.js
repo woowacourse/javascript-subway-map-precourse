@@ -14,6 +14,7 @@ export default class SectionManager extends Component {
       selectedLineName: null,
       selectedLineStation: null,
     };
+
     this.handleLineButtonClick = (index) => {
       const line = this.store.lines[index];
       this.setState({
@@ -22,6 +23,13 @@ export default class SectionManager extends Component {
         selectedLineStation: [line.start, line.end],
       });
       console.log(this.state.selectedLine);
+    };
+
+    this.handleAddButtonClick = (station, order) => {
+      this.state.selectedLineStation.splice(order, 0, station);
+      this.setState({ ...this.state });
+      console.log(station, order);
+      console.log(this.state.selectedLineStation);
     };
   }
 
@@ -33,6 +41,24 @@ export default class SectionManager extends Component {
       button.addEventListener("click", () => {
         this.handleLineButtonClick(index);
       });
+    });
+
+    const sectionStationSelector = document.getElementById(
+      elementMap.sectionStationSelector
+    );
+
+    const sectionOrderInput = document.getElementById(
+      elementMap.sectionOrderInput
+    );
+
+    const sectionAddButton = document.getElementById(
+      elementMap.sectionAddButton
+    );
+    sectionAddButton.addEventListener("click", () => {
+      this.handleAddButtonClick(
+        sectionStationSelector.value,
+        sectionOrderInput.value
+      );
     });
   }
 
