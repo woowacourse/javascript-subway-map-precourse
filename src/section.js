@@ -1,25 +1,24 @@
 import Storage from "./storage.js";
 import {
   createCustomElement,
-  createSelect,
   createTable,
   createTr,
-  createValueTd,
-  createButtonTd,
+  createButton,
+  createSelect,
 } from "./table.js";
 class Section {
   constructor() {
     this.stations = Storage.loadItems("station");
     this.lines = Storage.loadItems("line");
     this.lineName = null;
-    this.showMenuButton();
     this.resetSection();
   }
 
   resetSection = () => {
-    const sectionInput = document.getElementById("sect-main-contents");
+    const sectionInput = document.getElementById("sect-main");
     sectionInput.style.display = "none";
     this.showStationSelect();
+    this.showMenuButton();
   };
 
   showStationSelect = () => {
@@ -29,12 +28,13 @@ class Section {
 
   createSectionTable = () => {
     const table = createTable(["순서", "이름", "설정"]);
-    const lineStations = this.lines[this.lineName];
-    for (let i = 0; i < lineStations.length; i++) {
+    const selectedLine = this.lines[this.lineName];
+    for (let i = 0; i < selectedLine.length; i++) {
+      const deleteBtn = createButton("노선에서 제거", "section-delete-button");
       const tr = createTr([
-        createValueTd(i.toString()),
-        createValueTd(lineStations[i]),
-        createButtonTd("노선에서 제거", "section-delete-button"),
+        createCustomElement({ tag: "td", innerHTML: i.toString() }),
+        createCustomElement({ tag: "td", innerHTML: selectedLine[i] }),
+        createCustomElement({ tag: "td", toAppend: deleteBtn }),
       ]);
       table.appendChild(tr);
     }
@@ -42,57 +42,12 @@ class Section {
     return table;
   };
 
-  showSectionTable = () => {
-    const sectionTable = this.createSectionTable();
-    const sectionTableContainer = document.getElementById("sect-main-list");
-    sectionTableContainer.innerHTML = "";
-    sectionTableContainer.appendChild(sectionTable);
-
-    this.handleAddStationSection();
-    this.handleDeleteStationSection();
-  };
-
-  showMenuButton = () => {
-    const sectionMenuContainer = document.getElementById("sect-menus");
-    for (let i = 0; i < Object.keys(this.lines).length; i++) {
-      const button = document.createElement("button");
-      button.innerHTML = Object.keys(this.lines)[i];
-      button.className = "section-line-menu-button";
-      sectionMenuContainer.appendChild(button);
-    }
-
-    this.handleMenuButton();
-  };
-
-  showSectionInput = () => {
-    const sectionName = document.querySelector(".sect-main h2");
-    sectionName.innerHTML = `${this.lineName} 관리`;
-
-    const sectionInput = document.getElementById("sect-main-contents");
-    sectionInput.style.display = "block";
-  };
-
-  showSectionLine = e => {
-    this.lineName = e.target.innerHTML;
-    this.showSectionInput();
-    this.showSectionTable();
-  };
-
-  handleMenuButton = () => {
-    const sectionMenuBtns = document.getElementsByClassName(
-      "section-line-menu-button"
-    );
-    for (let i = 0; i < sectionMenuBtns.length; i++) {
-      sectionMenuBtns[i].addEventListener("click", this.showSectionLine);
-    }
-  };
-
   checkSectionVaild = (station, index) => {
     return (
       index.length > 0 &&
       index >= 0 &&
-      index < Line.lines[this.lineName].length &&
-      !Line.lines[this.lineName].includes(station)
+      index < this.lines[this.lineName].length &&
+      !this.lines[this.lineName].includes(station)
     );
   };
 
@@ -100,8 +55,8 @@ class Section {
     const station = document.getElementById("section-station-select").value;
     const index = document.getElementById("section-order-input").value;
     if (this.checkSectionVaild(station, index)) {
-      Line.lines[this.lineName].splice(index, 0, station);
-      Storage.saveItems("line");
+      this.lines[this.lineName].splice(index, 0, station);
+      Storage.saveItems("line", this.lines);
       this.showSectionTable();
     } else {
       alert("이미 노선에 존재하는 역이거나 잘못된 순서값 입니다");
@@ -112,9 +67,9 @@ class Section {
   deleteStationSection = e => {
     const removeIndex = e.target.parentNode.parentNode.querySelector("td")
       .innerHTML;
-    if (Line.lines[this.lineName].length > 2) {
-      Line.lines[this.lineName].splice(removeIndex, 1);
-      Storage.saveItems("line");
+    if (this.lines[this.lineName].length > 2) {
+      this.lines[this.lineName].splice(removeIndex, 1);
+      Storage.saveItems("line", this.lines);
       this.showSectionTable();
     } else {
       alert("노선에는 최소 상행종점, 하행종점 두개의 역이 존재해야 합니다");
@@ -131,6 +86,52 @@ class Section {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", this.deleteStationSection);
     }
+  };
+
+  showSectionInput = () => {
+    const sectionInput = document.getElementById("sect-main");
+    const sectionName = sectionInput.querySelector("h2");
+    sectionInput.style.display = "block";
+    sectionName.innerHTML = `${this.lineName} 관리`;
+
+    this.handleAddStationSection();
+  };
+
+  showSectionTable = () => {
+    const sectionTableContainer = document.getElementById("sect-main-list");
+    sectionTableContainer.innerHTML = "";
+    sectionTableContainer.appendChild(this.createSectionTable());
+
+    //this.handleAddStationSection();
+    this.handleDeleteStationSection();
+  };
+
+  showSectionLine = e => {
+    this.lineName = e.target.innerHTML;
+    this.showSectionInput();
+    this.showSectionTable();
+  };
+
+  // 메뉴 버튼 메서드
+  handleMenuButton = () => {
+    const sectionMenuBtns = document.getElementsByClassName(
+      "section-line-menu-button"
+    );
+    for (let i = 0; i < sectionMenuBtns.length; i++) {
+      sectionMenuBtns[i].addEventListener("click", this.showSectionLine);
+    }
+  };
+
+  showMenuButton = () => {
+    const sectionMenuContainer = document.getElementById("sect-menus");
+    sectionMenuContainer.innerHTML = "";
+    for (let i = 0; i < Object.keys(this.lines).length; i++) {
+      sectionMenuContainer.appendChild(
+        createButton(Object.keys(this.lines)[i], "section-line-menu-button")
+      );
+    }
+
+    this.handleMenuButton();
   };
 }
 

@@ -1,9 +1,9 @@
 import Storage from "./storage.js";
 import {
+  createCustomElement,
   createTable,
   createTr,
-  createValueTd,
-  createButtonTd,
+  createButton,
 } from "./table.js";
 export default class Station {
   constructor() {
@@ -14,10 +14,12 @@ export default class Station {
 
   createStationTable = () => {
     const stationTable = createTable(["역 이름", "설정"]);
+
     for (let i = 0; i < this.stations.length; i++) {
+      const deleteBtn = createButton("삭제", "station-delete-button");
       const tr = createTr([
-        createValueTd(this.stations[i]),
-        createButtonTd("삭제", "station-delete-button"),
+        createCustomElement({ tag: "td", innerHTML: this.stations[i] }),
+        createCustomElement({ tag: "td", toAppend: deleteBtn }),
       ]);
       tr.dataset.index = i;
       stationTable.appendChild(tr);

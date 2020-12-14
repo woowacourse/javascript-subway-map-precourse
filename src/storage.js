@@ -4,12 +4,13 @@ class Storage {
   };
 
   loadItems = key => {
-    const data = JSON.parse(localStorage.getItem(key));
+    let data = localStorage.getItem(key);
+    console.log(data);
     if (data === null) {
       return [];
     }
 
-    return data;
+    return JSON.parse(data);
   };
 }
 

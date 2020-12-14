@@ -1,9 +1,9 @@
 import Storage from "./storage.js";
 import {
+  createCustomElement,
   createTable,
   createTr,
-  createValueTd,
-  createButtonTd,
+  createButton,
   createSelect,
 } from "./table.js";
 
@@ -23,17 +23,23 @@ class Line {
     createSelect(downLineSelect, this.stations);
   };
 
+  createLineTr = i => {
+    const line = this.lines[Object.keys(this.lines)[i]];
+    const deleteBtn = createButton("삭제", "line-delete-button");
+    const tr = createTr([
+      createCustomElement({ tag: "td", innerHTML: Object.keys(this.lines)[i] }),
+      createCustomElement({ tag: "td", innerHTML: line[0] }),
+      createCustomElement({ tag: "td", innerHTML: line[line.length - 1] }),
+      createCustomElement({ tag: "td", toAppend: deleteBtn }),
+    ]);
+
+    return tr;
+  };
+
   createLineTable = () => {
     const table = createTable(["노선이름", "상행종점역", "하행종점역", "설정"]);
     for (let i = 0; i < Object.keys(this.lines).length; i++) {
-      const name = Object.keys(this.lines)[i];
-      const tr = createTr([
-        createValueTd(name),
-        createValueTd(this.lines[name][0]),
-        createValueTd(this.lines[name][this.lines[name].length - 1]),
-        createButtonTd("삭제", "line-delete-button"),
-      ]);
-      table.appendChild(tr);
+      table.appendChild(this.createLineTr(i));
     }
 
     return table;
@@ -48,10 +54,13 @@ class Line {
     this.handleDeleteLineClick();
   };
 
-  checkLineVaild = lineName => {
-    // 라인 이름이 중복되는 이름이 검증한다
+  checkLineVaild = (lineName, upStation, downStation) => {
     return (
-      lineName && lineName.length > 0 && !this.lines.hasOwnProperty(lineName)
+      lineName &&
+      upStation &&
+      downStation &&
+      lineName.length > 0 &&
+      !this.lines.hasOwnProperty(lineName)
     );
   };
 
@@ -68,9 +77,9 @@ class Line {
 
   addLine = () => {
     const { lineName, upStation, downStation } = this.getLineInput();
-    if (this.checkLineVaild(lineName)) {
+    if (this.checkLineVaild(lineName, upStation, downStation)) {
       this.lines[lineName] = [upStation, downStation];
-      this.showLines();
+      Storage.saveItems("line", this.lines);
       this.showLines();
     } else {
       alert("노선 이름이 없거나 중복된 노선 이름입니다");

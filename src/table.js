@@ -1,17 +1,9 @@
 class Table {
-  createCustomElement = ({
-    tag,
-    innerHTML,
-    id,
-    className,
-    style,
-    toAppend,
-  }) => {
+  createCustomElement = ({ tag, innerHTML, id, className, toAppend }) => {
     const element = document.createElement(tag);
     if (innerHTML) element.innerHTML = innerHTML;
     if (className) element.className = className;
     if (id) element.id = id;
-    if (style) element.style.cssText = style;
     if (toAppend) element.appendChild(toAppend);
 
     return element;
@@ -19,13 +11,13 @@ class Table {
 
   createTable = ths => {
     const table = this.createCustomElement({ tag: "table" });
-    table.border = 2;
     for (let i = 0; i < ths.length; i++) {
-      const th = this.createCustomElement({
-        tag: "th",
-        innerHTML: ths[i],
-      });
-      table.appendChild(th);
+      table.appendChild(
+        this.createCustomElement({
+          tag: "th",
+          innerHTML: ths[i],
+        })
+      );
     }
 
     return table;
@@ -40,28 +32,19 @@ class Table {
     return tr;
   };
 
-  createValueTd = value => {
-    return this.createCustomElement({ tag: "td", innerHTML: value });
-  };
-
-  createButtonTd = (innerHTML, className) => {
-    const button = this.createCustomElement({
+  createButton = (innerHTML, className) => {
+    return this.createCustomElement({
       tag: "button",
       innerHTML,
       className,
     });
-    const td = this.createCustomElement({ tag: "td", toAppend: button });
-
-    return td;
   };
 
-  createSelect = (selectContainer, values) => {
-    if (values) {
-      for (let i = 0; i < values.length; i++) {
-        selectContainer.appendChild(
-          this.createCustomElement({ tag: "option", innerHTML: values[i] })
-        );
-      }
+  createSelect = (container, values) => {
+    for (let i = 0; i < values.length; i++) {
+      container.appendChild(
+        this.createCustomElement({ tag: "option", innerHTML: values[i] })
+      );
     }
   };
 }
@@ -69,8 +52,7 @@ class Table {
 export const {
   createCustomElement,
   createTable,
-  createTr,
-  createValueTd,
-  createButtonTd,
-  createSelect,
+  createTr, //
+  createButton, //
+  createSelect, //
 } = new Table();
