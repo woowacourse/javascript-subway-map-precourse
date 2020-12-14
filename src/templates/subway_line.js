@@ -7,22 +7,30 @@ export const lineAddContainer = stations => {
     .join('');
 
   return `<div>
-    <div><strong>노선 이름</strong></div>
+    <div>
+      <strong>노선 이름</strong>
+    </div>
     ${lineNameInput}
-    <div><strong>상행 종점</strong>${lineStartSelector(options)}</div>
-    <div><strong>하행 종점</strong>${lineEndSelector(options)}</div>
+    <div>
+      <strong>상행 종점</strong>
+      ${lineStartSelector(options)}<
+    /div>
+    <div>
+      <strong>하행 종점</strong>
+      ${lineEndSelector(options)}
+    </div>
     ${lineAddButton}
   </div>`;
 };
 
-const lineNameInput = '<input id="line-name-input"></input>';
+const lineNameInput = `<input id="line-name-input"></input>`;
 const lineStartSelector = options => {
   return `<select id="line-start-station-selector">${options}</select>`;
 };
 const lineEndSelector = options => {
   return `<select id="line-end-station-selector">${options}</select>`;
 };
-const lineAddButton = '<button id="line-add-button">노선 추가</button>';
+const lineAddButton = `<button id="line-add-button">노선 추가</button>`;
 
 export const lineList = lines => {
   return `<div> 
@@ -47,8 +55,12 @@ const lineTable = lines => {
   </table>`;
 };
 
-const lineTableHeader =
-  '<tr><th>노선 이름</th><th>상행 종점역</th><th>하행 종점역</th><th>설정</th></tr>';
+const lineTableHeader = `<tr>
+  <th>노선 이름</th>
+  <th>상행 종점역</th>
+  <th>하행 종점역</th>
+  <th>설정</th>
+</tr>`;
 
 const lineDeleteButton = index => {
   return `<td>

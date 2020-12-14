@@ -23,7 +23,7 @@ export const sectionAddContainer = (name, stations) => {
     ${sectionStationSelector(options)}
     ${sectionOrderInput}
     ${sectionAddButton}
-    </div>`;
+  </div>`;
 };
 
 const sectionHeading = name => {
@@ -32,9 +32,8 @@ const sectionHeading = name => {
 const sectionStationSelector = options => {
   return `<select id="section-station-selector">${options}</select>`;
 };
-const sectionOrderInput =
-  '<input id="section-order-input" type="number"></input>';
-const sectionAddButton = '<button id="section-add-button">등록</button>';
+const sectionOrderInput = `<input id="section-order-input" type="number"></input>`;
+const sectionAddButton = `<button id="section-add-button">등록</button>`;
 
 export const sectionTable = sections => {
   return `<table>
@@ -51,7 +50,11 @@ export const sectionTable = sections => {
   </table>`;
 };
 
-const sectionTableHeader = '<tr><th>순서</th><th>이름</th><th>설정</th></tr>';
+const sectionTableHeader = `<tr>
+  <th>순서</th>
+  <th>이름</th>
+  <th>설정</th>
+</tr>`;
 const sectionDeleteButton = index => {
   return `<td>
     <button class="section-delete-button" data-item=${index}>노선에서 제거</button>

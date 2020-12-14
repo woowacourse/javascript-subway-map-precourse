@@ -16,7 +16,7 @@ export default function Line({ name, stations }) {
     this.stations = [
       ...this.stations.slice(0, idx),
       new Station({ station }),
-      ...this.stations.slice(idx + 1),
+      ...this.stations.slice(idx),
     ];
   };
 
