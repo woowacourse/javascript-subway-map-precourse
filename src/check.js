@@ -36,6 +36,17 @@ export function isValidNumber(orderInputValue, lineLength) {
   return (lineLength > orderInputValue > 0)
 }
 
+export function isValidArrayLength(key, lineName) {
+  const objects = JSON.parse(localStorage.getItem(key));
+  const validLength = 2
+  let i;
+  for (i = 0; i < objects.length; i++) {
+    if (objects[i].name === lineName) {
+      return (objects[i].line.length > validLength)
+    }
+  }
+}
+
 export function removeData(key, dataName) {
   let objects = JSON.parse(localStorage.getItem(key));
   let i;

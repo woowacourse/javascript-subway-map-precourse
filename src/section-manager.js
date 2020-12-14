@@ -1,4 +1,4 @@
-import { isInLine, isValidNumber, removeStation } from './check.js'
+import { isInLine, isValidNumber, isValidArrayLength, removeStation } from './check.js'
 
 export default function SectionManager() {
   this.getLineStations = function(lineName) {
@@ -12,10 +12,15 @@ export default function SectionManager() {
   }
 
   this.deleteStation = function(stationName, lineName) {
-    const deleteTarget = document.querySelector(`#${stationName}`);
-    const stationList = this.getLineStations(lineName);
-    deleteTarget.remove();
-    removeStation("line", stationName, lineName, stationList)
+    if (isValidArrayLength("line", lineName)) {
+      const deleteTarget = document.querySelector(`#${stationName}`);
+      const stationList = this.getLineStations(lineName);
+      deleteTarget.remove();
+      removeStation("line", stationName, lineName, stationList)
+    } else {
+      const alertText = "노선에 포함된 역이 두 개 이하일 경우에는 삭제가 불가합니다."
+      alert(alertText)
+    }
   }
 
   this.confirmDeleteStation = function() {
