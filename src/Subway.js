@@ -46,6 +46,11 @@ export default class Subway {
     this._lines.delete(lineName);
   }
 
+  addSection = ({ lineName, order, station }) => {
+    const section = this._lines.get(lineName);
+    section.splice(order, 0, station);
+  }
+
   getStationName = () => {
     return [...this._stations];
   }

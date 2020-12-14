@@ -1,7 +1,8 @@
 export default class SectionManager {
-  constructor({ target, subway }) {
+  constructor({ target, subway, addSection }) {
     this._target = target;
     this._subway = subway;
+    this.onClickAddSection = addSection;
 
     this.createHeader(target);
     this.createSectionButtons(target);
@@ -45,6 +46,8 @@ export default class SectionManager {
         <button id="section-add-button">등록</button>
       </div>
     `;
+    const _addButton = document.querySelector('#section-add-button');
+    _addButton.addEventListener('click', () => this.onClickAddSection(line));
 
     this.createTable(target);
     this.createTableHeader();
@@ -68,14 +71,14 @@ export default class SectionManager {
 
   createSectionButtons(target) {
     const _container = this.createContainerElement(target, 'section-line-menu');
-    const lines = this._subway.getLines();
+    const _lines = this._subway.getLines();
 
     _container.innerHTML = `
-      ${lines.map(({ lineName }) => `
+      ${_lines.map(({ lineName }) => `
         <button class="section-line-menu-button">${lineName}</button>
       `).join('')}
     `;
-    this.addSectionUpdateClickEvent(target, lines);
+    this.addSectionUpdateClickEvent(target, _lines);
   }
 
   createTable(target) {
@@ -100,6 +103,11 @@ export default class SectionManager {
         <th>설정</th>
       </tr>
     `;
+  }
+
+  setSubway(subway, line) {
+    this._subway = subway;
+    this.render(line);
   }
 
   render(line) {

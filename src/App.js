@@ -82,6 +82,7 @@ export default class App {
     this._sectionManager = new SectionManager({
       target: this._container,
       subway: this._subway,
+      addSection: this.onClickAddSection.bind(this),
     });
   }
 
@@ -124,5 +125,13 @@ export default class App {
       this._subway.deleteLine({ lineName });
       this._lineManager.setSubway(this._subway);
     }
+  }
+
+  onClickAddSection(line) {
+    const { lineName } = line;
+    const station = this.getSelectorValue('#section-station-selector');
+    const order = document.querySelector('#seletion-order-input').value;
+    this._subway.addSection({ lineName, order, station });
+    this._sectionManager.setSubway(this._subway, line);
   }
 }
