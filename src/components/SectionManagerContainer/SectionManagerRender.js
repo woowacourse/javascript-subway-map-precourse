@@ -53,9 +53,12 @@ export default class SectionManagerRender extends Component {
       selectedMenuDataset.lineName
     );
 
+    this.lineIndex = selectedMenuDataset.index;
+
+    console.log(selectedMenuDataset);
     this.sectionLineManagerListRender(
-      JSON.parse(selectedMenuDataset.lines),
-      selectedMenuDataset.index
+      this.lines[this.lineIndex].line,
+      this.lineIndex
     );
 
     document
