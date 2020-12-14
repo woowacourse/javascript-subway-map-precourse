@@ -3,6 +3,7 @@ import { LINE_LIST, MIN_SECTION_LENGTH } from "../constant/constant.js";
 import {
   INVAILD_LINE_NAME_LENGTH_ALERT,
   INVALID_LINE_STATION,
+  INVALID_SECTION_ORDER,
   SAVED_LINE_ALERT,
   SAVED_STATION_IN_LINE_ALERT,
   TWO_STATION_IN_LINE_ALERT,
@@ -20,7 +21,7 @@ export default class Line {
     return savedLine.length !== 0;
   };
 
-  _isStationinLine = (stationName, lineName) => {
+  _isStationInLine = (stationName, lineName) => {
     const line = this._lineList.filter(line => line.name === lineName)[0];
 
     return line.list.includes(stationName);
@@ -29,7 +30,13 @@ export default class Line {
   _isValidLengthToDelete = lineName => {
     const line = this._lineList.filter(line => line.name === lineName)[0];
 
-    return line.list.length >= MIN_SECTION_LENGTH;
+    return line.list.length > MIN_SECTION_LENGTH;
+  };
+
+  _isValidOrder = (order, lineName) => {
+    const line = this._lineList.filter(line => line.name === lineName)[0];
+
+    return order >= 0 && order <= line.list.length;
   };
 
   _setLineList = lineList => {
@@ -57,6 +64,16 @@ export default class Line {
 
     if (!isValidStation) {
       alert(INVALID_LINE_STATION);
+    }
+  };
+
+  _failToSaveStationToLine = (isStationInLine, isVaildOrder) => {
+    if (isStationInLine) {
+      alert(SAVED_STATION_IN_LINE_ALERT);
+    }
+
+    if (!isVaildOrder) {
+      alert(INVALID_SECTION_ORDER);
     }
   };
 
@@ -88,22 +105,26 @@ export default class Line {
     this._station.deleteLineFromStation(name);
   };
 
-  saveStationToLine = (stationName, lineName) => {
-    if (this._isStationinLine(stationName, lineName)) {
-      alert(SAVED_STATION_IN_LINE_ALERT);
+  saveStationToLine = (stationName, lineName, order) => {
+    const isStationInLine = this._isStationInLine(stationName, lineName);
+    const isValidOrder = this._isValidOrder(order, lineName);
+
+    if (isStationInLine || !isValidOrder) {
+      this._failToSaveStationToLine(isStationInLine, isValidOrder);
 
       return;
     }
 
     const newLineList = this._lineList.map(({ name, list }) => {
       if (name === lineName) {
-        list.push(stationName);
+        list.splice(order, 0, stationName);
+        this._station.saveLineToStation(lineName, stationName);
       }
 
       return { name, list };
     });
     this._lineList = newLineList;
-    this._setLineList = newLineList;
+    this._setLineList(newLineList);
   };
 
   deleteStationFromLine = (stationName, lineName) => {
@@ -122,6 +143,7 @@ export default class Line {
       return { name, list };
     });
     this._lineList = newLineList;
-    this._setLineList = newLineList;
+    this._setLineList(newLineList);
+    this._station.deleteLineFromStation(lineName, stationName);
   };
 }
