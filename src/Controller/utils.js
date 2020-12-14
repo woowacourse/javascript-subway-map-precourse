@@ -33,7 +33,7 @@ export const ERROR_MESSAGE = {
   SAME_LINE: '❌ 같은 이름의 노선이 존재합니다.',
   ALREADY_INCLUDE_STATION: '❌ 이미 역이 추가되어 있습니다.',
   SAME_LAST_STOP: '❌ 상행과 하행이 같은 역이 될 수 없습니다.',
-  NOT_NUMBER: '❌ 숫자를 입력해주세요.',
+  NOT_NUMBER: '❌ 0이상의 숫자를 입력해주세요.',
   LENGTH_LIMIT: '❌ 이하의 수를 입력해주세요.',
 };
 
