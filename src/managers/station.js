@@ -69,7 +69,12 @@ const handleStationDeleteButton = (value) => {
 };
 
 const inputValidator = (inputString) => {
-  return inputString.length >= 2 && stationArray.indexOf(inputString) === -1;
+  if (inputString.length >= 2 && stationArray.indexOf(inputString) === -1)
+    return true;
+  else {
+    alert(alertLabel.STATION_NAME_MINIMUM);
+    return false;
+  }
 };
 
 const validStationDelete = (stationName) => {

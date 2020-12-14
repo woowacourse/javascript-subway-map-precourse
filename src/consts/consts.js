@@ -15,6 +15,7 @@ export const container = document.getElementById("container");
 export const alertLabel = {
   STATION_NUMBER_MINIMUM: "역은 반드시 두개 이상 존재해야 합니다!",
   STATION_IN_LINE: "노선에 등록된 역은 삭제할 수 없습니다!",
+  STATION_NAME_MINIMUM: "역 이름은 두글자 이상이여야 합니다!",
 
   LINE_START_END_EQUAL: "상행 종점과 하행 종점은 같을 수 없습니다!",
   LINE_NAME_ALREADY_EXISTS: "이미 존재하는 노선 이름입니다!",
