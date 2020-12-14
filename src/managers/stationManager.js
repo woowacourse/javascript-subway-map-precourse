@@ -1,17 +1,21 @@
-import { DOMs, DOMCtrl, DOMStrings, strings } from '../doms.js';
-import { dataStrings, saveData } from '../index.js';
+import { DOMs, DOMStrings, dataStrings, strings } from '../doms.js';
+import { saveData } from '../index.js';
 import { isValidStationName, isValidStationDeletion } from '../valid.js';
+import StationUI from '../views/stationUI.js';
 
 export default class StationManager {
   constructor(stations, lines) {
     this.stations = stations;
     this.lines = lines;
+    this.UIController = new StationUI(stations);
 
     this.setStationEventListeners();
   }
 
   setStationEventListeners() {
-    DOMs.STATION_MANAGER_BUTTON.addEventListener('click', this.openStationManager.bind(this));
+    DOMs.STATION_MANAGER_BUTTON.addEventListener('click', () => {
+      this.UIController.openStationManager(this.stations);
+    });
     DOMs.MANAGER_CONTAINER.addEventListener('click', this.addStationByClick.bind(this));
     DOMs.MANAGER_CONTAINER.addEventListener('keydown', this.addStationByEnterKey.bind(this));
     DOMs.MANAGER_CONTAINER.addEventListener('click', this.deleteStationButtonClick.bind(this));
@@ -43,7 +47,7 @@ export default class StationManager {
     if (isValidStationName(this.stations, station)) {
       this.stations.push(station);
       saveData(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
-      this.openStationManager.bind(this)();
+      this.UIController.openStationManager(this.stations);
     }
   }
 
@@ -64,38 +68,7 @@ export default class StationManager {
       const index = this.stations.indexOf(targetStationName);
       this.stations.splice(index, 1);
       saveData(dataStrings.DATA_STATIONS, JSON.stringify(this.stations));
-      this.openStationManager.bind(this)();
+      this.UIController.openStationManager(this.stations);
     }
-  }
-
-  openStationManager() {
-    const stationManager = `
-      <div id="${DOMStrings.STATION_MANAGER}"><br>
-        <span>${strings.STATION_NAME}</span><br>
-        <input type="text" id="${DOMStrings.STATION_NAME_INPUT}" placeholder="${strings.STATION_PLACEHOLDER}"/>
-        <button id="${DOMStrings.STATION_ADD_BUTTON}"> ${strings.STATION_ADD}</button>
-        <h1>${strings.STATION_LIST_TITLE}</h1>
-        ${this.getStationList(this.stations)}
-      </div>
-    `;
-    DOMCtrl.clearManagerContainer();
-    DOMs.MANAGER_CONTAINER.innerHTML = stationManager;
-  }
-
-  getStationList(stations) {
-    return `
-      <table id="${DOMStrings.STATION_LIST_TABLE}">
-        <tr>
-          <th><b>${strings.STATION_NAME}</b></th>
-          <th><b>${strings.SETTING}</b></th>
-        </tr>
-        ${stations
-          .map(
-            station => `<tr><td>${station}</td><td><button class="${DOMStrings.STATION_DELETE_BUTTON}" 
-              data-${dataStrings.DATA_STATION}="${station}">${strings.DELETE}</button></td></tr>`
-          )
-          .join('')}
-      </table>
-    `;
   }
 }

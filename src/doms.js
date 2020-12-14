@@ -38,6 +38,15 @@ export const DOMStrings = {
   MAP_PRINT_MANAGER: 'map',
 };
 
+export const dataStrings = {
+  DATA_STATIONS: 'stations',
+  DATA_STATION: 'station',
+  DATA_LINES: 'lines',
+  DATA_LINE: 'line',
+  DATA_TARGET: 'target',
+  DATA_INDEX: 'index',
+};
+
 export const strings = {
   STATION_NAME: '역 이름',
   STATION_PLACEHOLDER: '역 이름을 입력해주세요.',

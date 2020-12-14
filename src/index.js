@@ -2,6 +2,7 @@ import LineManager from './managers/lineManager.js';
 import MapPrintManager from './managers/mapPrintManager.js';
 import SectionManager from './managers/sectionManager.js';
 import StationManager from './managers/stationManager.js';
+import { dataStrings } from './doms.js';
 
 export default class SubwayManager {
   constructor() {
@@ -14,15 +15,6 @@ export default class SubwayManager {
     new MapPrintManager(this.stations, this.lines);
   }
 }
-
-export const dataStrings = {
-  DATA_STATIONS: 'stations',
-  DATA_STATION: 'station',
-  DATA_LINES: 'lines',
-  DATA_LINE: 'line',
-  DATA_TARGET: 'target',
-  DATA_INDEX: 'index',
-};
 
 export const saveData = (key, data) => {
   localStorage.setItem(key, data);
