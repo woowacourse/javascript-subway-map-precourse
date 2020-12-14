@@ -9,4 +9,5 @@ export const MESSAGE = {
   SAME_STATION_SELECT_ERROR: `상행 종점과 하행 종점은 달라야합니다.`,
   CONFIRM: `정말로 삭제하시겠습니까 ?`,
   INDEX_OVER_ERROR: `범위가 벗어난 순서입니다.`,
+  SECTION_LENGTH_ERROR: `${NUM.SECTION_LENGTH_LIMIT}개 이하로 역을 삭제할 수 없습니다.`,
 };

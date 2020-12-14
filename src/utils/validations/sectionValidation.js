@@ -1,3 +1,4 @@
+import { NUM } from "../constants/number.js";
 import { MESSAGE } from "../constants/message.js";
 import { alertMessage } from "../domUtil.js";
 import { isDuplicatedValue, isPossibleIndex } from "./index.js";
@@ -15,6 +16,18 @@ export const isValidSectionNumber = ($input, nameList, name, index) => {
 
   if (isDuplicatedValue(nameList, name)) {
     alertMessage($input, MESSAGE.DUPLICATED_NAME_ERROR);
+    return false;
+  }
+
+  return true;
+};
+
+export const isRemovableSection = (
+  sections,
+  limit = NUM.SECTION_LENGTH_LIMIT,
+) => {
+  if (sections.length == limit) {
+    alert(MESSAGE.SECTION_LENGTH_ERROR);
     return false;
   }
 

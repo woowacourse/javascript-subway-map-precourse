@@ -1,3 +1,6 @@
+import { MESSAGE } from "../../../utils/constants/message.js";
+import { isRemovableSection } from "../../../utils/validations/sectionValidation.js";
+
 class InnerSectionTable {
   constructor($target, { lineName, stationStore, lineStore }) {
     this.$target = $target;
@@ -25,7 +28,6 @@ class InnerSectionTable {
   }
 
   createTableRowsHTML(sections) {
-    console.log(sections);
     return sections.reduce((html, station, idx) => {
       html += this.TableRowHTML(idx, station);
       return html;
@@ -42,13 +44,24 @@ class InnerSectionTable {
     `;
   }
 
-  mountDOMs() {}
+  bindEvents() {
+    this.$target.addEventListener(`click`, this.onClick.bind(this));
+  }
 
-  bindEvents() {}
+  onClick({ target }) {
+    if (!target.classList.contains(`section-delete-button`)) return;
+    const index = parseInt(
+      target.closest(`tr`).firstElementChild.dataset.index,
+    );
+    const sections = this.lineStore.getLine(this.lineName).sections;
+
+    if (!isRemovableSection(sections) || !confirm(MESSAGE.CONFIRM)) {
+      return;
+    }
+  }
 
   render = () => {
     this.mountTemplate();
-    this.mountDOMs();
   };
 }
 
