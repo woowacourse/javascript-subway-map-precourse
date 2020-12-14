@@ -83,11 +83,28 @@ export const addLine = () => {
   if (addLineValidate(lineNameElem.value)) {
     addLocalStorageByKey("lines", newLine);
     insertLineTable(newLine);
-    // 삭제 이벤트 등록
+    setLineDeleteEvent();
   } else {
     alert(LINE.INPUT_ERROR_MESSAGE);
   }
   lineNameElem.value = "";
+};
+
+export const confirmLineDelete = (targetElem) => {
+  try {
+    deleteDataByName("lines", targetElem.dataset.index, "lineName");
+    const removeElem = targetElem.parentNode.parentNode;
+    removeElem.parentNode.removeChild(removeElem);
+  } catch (e) {}
+};
+
+export const setLineDeleteEvent = () => {
+  document.querySelectorAll(".line-delete-button").forEach((item) => {
+    item.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (confirm(DELETE_CONFIRM_MESSAGE)) confirmLineDelete(event.target);
+    });
+  });
 };
 
 export const rendLineMangeDom = () => {
@@ -95,5 +112,5 @@ export const rendLineMangeDom = () => {
   const div = document.createElement("div");
   div.innerHTML = lineMangeContainer();
   container.appendChild(div);
-  //setLineDeleteEvent();
+  setLineDeleteEvent();
 };
