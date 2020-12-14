@@ -16,3 +16,7 @@ td {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+#section-line-menu-nav button {
+  margin-right: 5px;
+}

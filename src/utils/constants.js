@@ -30,10 +30,11 @@ export const DOM_SECTION = {
   SECTION_ORDER_INPUT_ID: "section-order-input",
   SECTION_ADD_BUTTON_ID: "section-add-button",
   SECTION_DELETE_BUTTON_CLASS: "section-delete-button",
+  SECTION_LINE_MENU_NAV_ID: "section-line-menu-nav",
 };
 
 export const DOM_ID = {
   ID: "app",
 };
 
-export const INITIAL_STATE_ID = "line-manager-button";
+export const INITIAL_STATE_ID = "section-manager-button";
