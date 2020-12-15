@@ -1,4 +1,8 @@
-import { appendRecursiveChild, getAdvancedEle } from "../common/visualization";
+import {
+  appendChildren,
+  appendRecursiveChild,
+  getAdvancedEle,
+} from "../common/visualization";
 
 const StationCreator = function () {
   this.createAddWrapper = () =>
@@ -37,5 +41,14 @@ const StationCreator = function () {
     );
     appendRecursiveChild(tr, stationTd, [buttonTd, button]);
     return tr;
+  };
+
+  this.createTbody = (stations) => {
+    const tbody = document.createElement("tbody");
+    stations.forEach((station) => {
+      const tr = this.createTr(station);
+      appendChildren(tbody, tr);
+    });
+    return tbody;
   };
 };
