@@ -20,7 +20,6 @@ export default class SubwaySection {
     const line = this.lineList[this.lineName];
 
     line.splice(order, 0, {name: station});
-    this.lineList[this.lineName] = line;
 
     return cb(null, this.lineList, this.lineName);
   }
@@ -31,8 +30,6 @@ export default class SubwaySection {
     if (line.length === 2) return cb(SECTION.ALERT.NOT_DELETE);
 
     line.splice(targetId, 1);
-
-    this.lineList[this.lineName] = line;
 
     return cb(null, this.lineList, this.lineName);
   }
