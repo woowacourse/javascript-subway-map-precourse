@@ -7,7 +7,6 @@ export default class Menu {
     this.$el = document.querySelector("#menu");
     this.$buttons = this.$el.querySelector(".menu-buttons");
     this.$pages = this.$el.querySelectorAll(".menu-page");
-    this.hideAll();
     this.$buttons.addEventListener("click", (e) => {
       if (e.target.tagName !== "BUTTON") return false;
       this.show(e.target.dataset.menuIndex);
