@@ -8,3 +8,11 @@ nav li {
   display: inline;
   margin-right: 10px;
 }
+
+.sr-only {
+  position: fixed;
+  top: -100px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
