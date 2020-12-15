@@ -72,17 +72,23 @@
               placeholder="노선 이름을 입력해주세요."
             />
 
+            <br />
+
             <label for="line-start-station-selector">상행 종점</label>
             <select
               name="line-start-station"
               id="line-start-station-selector"
             ></select>
 
+            <br />
+
             <label for="line-end-station-selector">하행 종점</label>
             <select
               name="line-end-station"
               id="line-end-station-selector"
             ></select>
+
+            <br />
 
             <button type="submit" id="line-add-button">노선 추가</button>
           </form>
@@ -107,7 +113,7 @@
           data-title="section"
         >
           <h2>구간을 수정할 노선을 선택해주세요.</h2>
-          <ul id="line-menu-button-group"></ul>
+          <ul id="line-menu-button-group" class="line-menu-button-group"></ul>
 
           <div id="add-section-container" class="add-section-container">
             <h2 class="station-line-name"></h2>

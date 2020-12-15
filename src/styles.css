@@ -1,6 +1,42 @@
+#app {
+  max-width: 420px;
+  margin: auto;
+}
+
 ul {
-  list-style: none;
   padding: 0;
+  list-style: none;
+}
+
+input {
+  padding: 5px;
+  border: 1px solid #a9a9a9;
+  border-radius: 5px;
+}
+
+select {
+  padding: 5px;
+  border: 1px solid #a9a9a9;
+  border-radius: 5px;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  margin-top: 10px;
+  text-align: left;
+  border: none;
+}
+
+button {
+  padding: 5px 12px;
+  border: 1px solid #a9a9a9;
+  border-radius: 5px;
+  background-color: #fff;
 }
 
 .manager-button-group li {
@@ -15,4 +51,41 @@ ul {
 .contents-container.active,
 .add-section-container.active {
   display: block;
+}
+
+.line-menu-button-group li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.map ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.map li {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  padding: 5px;
+  margin: 5px;
+  border: 2px solid #e3e3e3;
+  border-radius: 50%;
+  background-color: #fff;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.map li::before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 120px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: #ffcb0a;
 }
