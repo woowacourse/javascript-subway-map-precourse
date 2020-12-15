@@ -1,0 +1,21 @@
+#line-name {
+  margin-bottom: 0px;
+}
+
+#start-station{
+  display: inline-block;
+  margin-bottom: 0px;
+}
+
+#end-station{
+  display: inline-block;
+  margin-top: 0px;
+}
+
+#line-list {
+  border: 1px solid black;
+}
+
+th, td {
+  border: 1px solid black;
+}

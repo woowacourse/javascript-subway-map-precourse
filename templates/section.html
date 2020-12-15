@@ -3,14 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>지하철 노선도 관리</title>
-    <style>
-      #select-button {
-        margin-right: 5px;
-      }
-      #index {
-        text-align: center;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/section.css">
   </head>
   <body>
     <div id="app">
@@ -32,8 +25,8 @@
       <input type="text" id="section-order-input" placeholder="순서">
       <button type="button" id="section-add-button">등록</button>
     </div>
-    <div id="table" style="margin-top: 30px;">
-      <table id="section-list" border="1">
+    <div id="table">
+      <table id="section-list">
       </table>
     </div>
     <script type="module" src="../src/section/controller.js"></script>
