@@ -1,4 +1,5 @@
 import {
+  getFormattedLines,
   getFormattedStations,
   getSelectedLineSections,
 } from "../common/function.js";
@@ -9,6 +10,7 @@ import {
   createInitialTitle,
   createLineSelectionButtons,
 } from "../creators/section_creator.js";
+import { setState } from "../state.js";
 
 const SectionContainer = function () {
   this.changeTableBody = () => {
@@ -50,6 +52,12 @@ const SectionContainer = function () {
     const initialTitle = createInitialTitle();
     const lineSelectionButtons = createLineSelectionButtons(lineNames);
     appendChildren(parent, initialTitle, ...lineSelectionButtons);
+  };
+
+  this.renderSection = (parent) => {
+    setState("selectedLineIndex", null);
+    const lineNames = getFormattedLines().map((line) => line.name);
+    this.appendInitialElements(parent, lineNames);
   };
 };
 
