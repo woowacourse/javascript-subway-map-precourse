@@ -3,7 +3,7 @@ import { SUBWAY_STATION_IN_LINE_DELETE_LENGTH_LIMIT } from '../constants/configu
 export default class SubwayLine {
   #allStationsInLine = [];
 
-  static checkIsStartAndEndStationNamesSame(startStationName, endStationName) {
+  static checkIsStationsSame(startStationName, endStationName) {
     return startStationName === endStationName;
   }
 

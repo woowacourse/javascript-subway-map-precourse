@@ -6,8 +6,11 @@ export const lineEndStationSelectorElement = document.getElementById(
   'line-end-station-selector'
 );
 export const lineAddButtonElement = document.getElementById('line-add-button');
-export const lineDeleteButtons = document.querySelectorAll(
+export const lineDeleteButtonElements = document.querySelectorAll(
   '.line-delete-button'
+);
+export const resultLineItemsElement = document.getElementById(
+  'result-line-items'
 );
 
 export default {
@@ -15,5 +18,6 @@ export default {
   lineStartStationSelectorElement,
   lineEndStationSelectorElement,
   lineAddButtonElement,
-  lineDeleteButtons,
+  lineDeleteButtonElements,
+  resultLineItemsElement,
 };

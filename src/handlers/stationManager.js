@@ -9,7 +9,7 @@ import {
   SHORT_STATION_NAME_ALERT_MESSAGE,
   STATION_REGISTERED_IN_LINE_MESSAGE,
 } from '../constants/configuration.js';
-import { getStationItemsTemplate } from '../templates/stationManager.js';
+import { getTableRowsTemplate } from '../templates/table.js';
 
 const getAddStationAlertMessage = (stationName) => {
   let alertMessage = '';
@@ -33,10 +33,13 @@ const getDeleteStationAlertMessage = (stationName) => {
   return alertMessage;
 };
 
-const showResult = () => {
+const showResultTable = () => {
   const registerdStationNames = Object.keys(subwayMap.allStations);
-  resultStationItemsElement.innerHTML = getStationItemsTemplate(
-    registerdStationNames
+  const resultRows = registerdStationNames.map((stationName) => [stationName]);
+  resultStationItemsElement.innerHTML = getTableRowsTemplate(
+    resultRows,
+    0,
+    'station-delete-button'
   );
 };
 
@@ -46,7 +49,7 @@ export const onAddStation = () => {
   if (alertMessage === '') {
     const station = new SubwayStation();
     subwayMap.addStation(station, stationName);
-    showResult();
+    showResultTable();
     stationNameInputElement.value = '';
   } else {
     alert(alertMessage);
@@ -62,7 +65,7 @@ export const onDeleteStation = (event) => {
   const alertMessage = getDeleteStationAlertMessage(deleteTargetName);
   if (alertMessage === '') {
     subwayMap.deleteStationByName(deleteTargetName);
-    showResult();
+    showResultTable();
   } else {
     alert(alertMessage);
   }
