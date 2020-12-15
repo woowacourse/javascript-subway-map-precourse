@@ -7,6 +7,7 @@ import {
   deleteWhiteSpace,
 } from '../share/utils.js';
 import { stationTableTemplate } from '../share/template.js';
+import { DATA_KEY } from '../share/words.js';
 
 const MIN_STATION_NAME_LENGTH = 2;
 const CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
@@ -38,7 +39,8 @@ export default class StationManager extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const stationName = deleteWhiteSpace(this.userInput.value);
-    this.addStationToList(stationName);
+    if (!this.checkValidity(stationName)) return;
+    this.addToTable(stationName, DATA_KEY.STATION_LIST);
     this.clearInput();
   };
 
@@ -52,23 +54,8 @@ export default class StationManager extends Component {
       alert(ALERT_MESSAGE_SECTION_INCLUDES_STATION);
       return;
     }
-    this.deleteStationFromList(index);
+    this.deleteFromTable(index, DATA_KEY.STATION_LIST);
   };
-
-  addStationToList(station) {
-    if (!this.checkValidity(station)) return;
-    const newStationList = [...this.data.stationList];
-    newStationList.push(station);
-    const newData = { ...this.data };
-    newData.stationList.push(station);
-    this.props.syncData(newData);
-  }
-
-  deleteStationFromList(index) {
-    const newData = { ...this.data };
-    newData.stationList.splice(index, 1);
-    this.props.syncData(newData);
-  }
 
   getAllStationNamesInLines() {
     return [...new Set(this.data.lineList.map((line) => line.section).flat())];
@@ -83,12 +70,7 @@ export default class StationManager extends Component {
       alert(ALERT_MESSAGE_STATION_MINLENGTH);
       return false;
     }
-
     return true;
-  }
-
-  clearInput() {
-    this.userInput.value = '';
   }
 
   template() {
@@ -104,6 +86,6 @@ export default class StationManager extends Component {
   }
 
   render() {
-    this.table.innerHTML = this.template();
+    this.updateTable(this.template());
   }
 }

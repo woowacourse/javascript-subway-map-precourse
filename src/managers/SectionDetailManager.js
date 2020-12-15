@@ -19,7 +19,7 @@ export default class SectionDetailManager extends Component {
     this.stationSelector = this.container.querySelector(
       `#${SECTION_SELECTOR.STATION_SELECTOR_ID}`,
     );
-    this.orderInput = this.container.querySelector(
+    this.userInput = this.container.querySelector(
       `#${SECTION_SELECTOR.ORDER_INPUT_ID}`,
     );
     this.addButton = this.container.querySelector(
@@ -52,7 +52,7 @@ export default class SectionDetailManager extends Component {
 
   getValues() {
     const { value: stationName } = this.stationSelector;
-    const { value: index } = this.orderInput;
+    const { value: index } = this.userInput;
     return { stationName, index };
   }
 
@@ -62,22 +62,13 @@ export default class SectionDetailManager extends Component {
       .join('');
   }
 
-  setData(nextData) {
-    this.data = {
-      ...this.data,
-      ...nextData,
-    };
-    this.updateOptions();
-    this.render();
-  }
-
   updateFormHeader() {
     const { name } = this.data.currentLineData;
     this.formHeader.innerHTML = `${name} 관리`;
   }
 
-  updateTableBody() {
-    this.table.innerHTML = this.data.currentLineData.section
+  template() {
+    return this.data.currentLineData.section
       .map((station, index) =>
         sectionDetailTableTemplate({
           name: station,
@@ -89,7 +80,8 @@ export default class SectionDetailManager extends Component {
   }
 
   render() {
+    this.updateOptions();
     this.updateFormHeader();
-    this.updateTableBody();
+    this.updateTable(this.template());
   }
 }

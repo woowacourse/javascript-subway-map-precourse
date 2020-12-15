@@ -14,6 +14,26 @@ export default class Component {
     this.render();
   }
 
+  clearInput() {
+    this.userInput.value = '';
+  }
+
+  addToTable(value, keyName) {
+    const newData = { ...this.data };
+    newData[keyName].push(value);
+    this.props.syncData(newData);
+  }
+
+  deleteFromTable(index, keyName) {
+    const newData = { ...this.data };
+    newData[keyName].splice(index, 1);
+    this.props.syncData(newData);
+  }
+
+  updateTable(template) {
+    this.table.innerHTML = template;
+  }
+
   show() {
     this.container.style.display = 'block';
   }

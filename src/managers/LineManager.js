@@ -8,6 +8,7 @@ import {
   deleteWhiteSpace,
 } from '../share/utils.js';
 import { lineTableTemplate, optionTemplate } from '../share/template.js';
+import { DATA_KEY } from '../share/words.js';
 
 const CONFIRM_MESSAGE = '정말 노선을 삭제하시겠습니까?';
 const ALERT_MESSAGE_SAME_STATION = '상행 종점과 하행 종점은 달라야 합니다.';
@@ -50,7 +51,7 @@ export default class LineManager extends Component {
     const constructorObj = this.getValues();
     const newLine = new Line(constructorObj);
     if (!this.checkValidity(newLine)) return;
-    this.addLineToList(newLine);
+    this.addToTable(newLine, DATA_KEY.LINE_LIST);
     this.clearInput();
   };
 
@@ -59,32 +60,20 @@ export default class LineManager extends Component {
     const { index } = event.target.dataset;
     if (className !== LINE_SELECTOR.DELETE_BUTTON_CLASS) return;
     if (!customConfirm(CONFIRM_MESSAGE)) return;
-    this.deleteLineFromList(index);
+    this.deleteFromTable(index, DATA_KEY.LINE_LIST);
   };
 
-  addLineToList(line) {
-    const newData = { ...this.data };
-    newData.lineList.push(line);
-    this.props.syncData(newData);
-  }
-
-  deleteLineFromList(index) {
-    const newData = { ...this.data };
-    newData.lineList.splice(index, 1);
-    this.props.syncData(newData);
-  }
-
   checkValidity({ name, startStation, endStation }) {
-    if (!checkOverlap(name, this.data.stationList)) {
+    if (!name.length) {
+      alert(ALERT_MESSAGE_NO_WHITESPACE);
+      return false;
+    }
+    if (!checkOverlap(name, this.getAllLineNames())) {
       alert(ALERT_MESSAGE_SAME_NAME);
       return false;
     }
     if (!checkSameStation(startStation, endStation)) {
       alert(ALERT_MESSAGE_SAME_STATION);
-      return false;
-    }
-    if (name.length) {
-      alert(ALERT_MESSAGE_NO_WHITESPACE);
       return false;
     }
     return true;
@@ -99,10 +88,6 @@ export default class LineManager extends Component {
     return { name, startStation, endStation };
   };
 
-  clearInput() {
-    this.userInput.value = '';
-  }
-
   template() {
     return this.data.lineList
       .map((line, index) =>
@@ -115,16 +100,8 @@ export default class LineManager extends Component {
       .join('');
   }
 
-  setData(nextData) {
-    this.data = {
-      ...this.data,
-      ...nextData,
-    };
-    this.updateStationList();
-    this.render();
-  }
-
   render() {
-    this.table.innerHTML = this.template();
+    this.updateStationList();
+    this.updateTable(this.template());
   }
 }

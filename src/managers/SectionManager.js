@@ -34,13 +34,20 @@ export default class SectionManager extends Component {
   getSelectedLine = (name) =>
     this.data.lineList.find((line) => line.name === name);
 
-  template() {
-    return this.data.lineList
+  updateMenuList() {
+    this.sectionLineMenu.innerHTML = this.data.lineList
       .map((line) => `<button data-name="${line.name}">${line.name}</button>`)
       .join('');
   }
 
+  hideDetailManager() {
+    if (this.data.lineList.length === 0) {
+      this.sectionDetailManager.hide();
+    }
+  }
+
   render() {
-    this.sectionLineMenu.innerHTML = this.template();
+    this.hideDetailManager();
+    this.updateMenuList();
   }
 }
