@@ -1,0 +1,1 @@
+export const NOT_EXIST_LINE_ERROR_MESSAGE = "현재 등록된 노선이 없습니다.";

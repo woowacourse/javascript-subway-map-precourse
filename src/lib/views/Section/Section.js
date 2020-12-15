@@ -9,8 +9,7 @@ import {
   SELECT_LINE_BUTTON,
   SECTION_MANAGER_CONTAINER,
 } from "../../common/IdAndClassNames.js";
-
-// 버튼 누르면 현재 구간이 노출된다. 이전 뷰는 지우기
+import NotExistErrorMessage from "../common/NotExistErrorMessage.js";
 
 export default class Section {
   constructor() {
@@ -51,12 +50,21 @@ export default class Section {
     return $selectHelperText.element;
   }
 
-  render() {
+  _renderEditComponent() {
     [
       this._getSelectLineHelperText(),
       this._getLineListViewButtonGroupContainer(),
       this.sectionManagerContainer.element,
     ].forEach(($element) => this.element.appendChild($element));
+  }
+
+  _renderEmptyMessage() {
+    this.element.appendChild(NotExistErrorMessage());
+  }
+
+  render() {
+    if (lineSelector().length > 0) this._renderEditComponent();
+    else this._renderEmptyMessage();
     return this.element;
   }
 }

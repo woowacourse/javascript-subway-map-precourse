@@ -1,6 +1,7 @@
 import Typography from "../components/Typography.js";
 import { MAP_DIV } from "../../common/IdAndClassNames.js";
 import { lineSelector } from "../../store/selectors.js";
+import NotExistErrorMessage from "../common/NotExistErrorMessage.js";
 
 export default class Map {
   constructor() {
@@ -33,8 +34,7 @@ export default class Map {
   }
 
   _renderEmptyMessage() {
-    const $emptyMessage = new Typography("현재 등록된 노선이 없습니다.", "h2");
-    this.element.appendChild($emptyMessage.element);
+    this.element.appendChild(NotExistErrorMessage());
   }
 
   render() {
