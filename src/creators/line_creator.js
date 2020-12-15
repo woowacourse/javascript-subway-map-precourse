@@ -4,6 +4,7 @@ import {
   createStationOptions,
   appendChildren,
   createTd,
+  getTableHavingTableHead,
 } from "../common/visualization.js";
 
 const LineCreator = function () {
@@ -91,5 +92,17 @@ const LineCreator = function () {
     const trs = lines.map((line) => this.createLineTr(line));
     appendChildren(tbody, ...trs);
     return tbody;
+  };
+
+  this.createLineTable = () => {
+    const table = getTableHavingTableHead(
+      "노선 이름",
+      "상행 종점역",
+      "하행 종점역",
+      "설정"
+    );
+    const tbody = this.createTbody();
+    table.appendChild(tbody);
+    return table;
   };
 };

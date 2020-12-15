@@ -78,4 +78,5 @@ export const {
   createStationOptions,
   appendChildren,
   createTd,
+  getTableHavingTableHead,
 } = new Visualization();
