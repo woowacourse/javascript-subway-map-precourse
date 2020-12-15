@@ -57,6 +57,10 @@ export default class LineManager extends Component {
   mountNameInput() {
     const lineNameInput = document.getElementById(elementMap.lineNameInput);
     lineNameInput.addEventListener("blur", (event) => {
+      if (haveSpaceInLineName(event.target.value)) {
+        alert(ERROR.RE_TYPING_LINENAME);
+        return;
+      }
       this.setState({ ...this.state, lineName: event.target.value });
     });
   }
@@ -171,4 +175,6 @@ function isDuplicateLine(lines = [], lineName) {
   return lines.find((line) => line.name === lineName);
 }
 
-// 노선 이름 공백 불가능 하도록
+function haveSpaceInLineName(lineName) {
+  return [...lineName].includes(" ");
+}
