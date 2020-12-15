@@ -1,26 +1,31 @@
 import { isTextOverMinLength } from "../util/validation.js";
 import { ELEMENT_INFO, LINE_NAME_MIN_LENGTH, ERROR_MESSAGE } from "../util/constants.js";
 
-export default function LineInput({ $target, stations, isExistLineName }) {
+export default function LineInput({ $target, stations, isExistLineName, onAddLine }) {
   this.$container = document.createElement("form");
   $target.append(this.$container);
 
   this.stations = stations;
+  this.onAddLine = onAddLine;
 
   const { lineNameInput, lineStartStationSelector, lineEndStationSelector, lineAddButton } = ELEMENT_INFO;
 
-  this.bindOnSubmit = () => {
-    this.$container.addEventListener("submit", (e) => {
-      const $lineNameInput = document.querySelector(`#${lineNameInput.id}`);
-      const startStationName = document.querySelector(`#${lineStartStationSelector.id}`).value;
-      const endStationName = document.querySelector(`#${lineEndStationSelector.id}`).value;
+  this.$container.addEventListener("submit", (e) => {
+    const $lineNameInput = document.querySelector(`#${lineNameInput.id}`);
+    const startStationName = document.querySelector(`#${lineStartStationSelector.id}`).value;
+    const endStationName = document.querySelector(`#${lineEndStationSelector.id}`).value;
 
-      if (this.isValidInput({ $lineNameInput, startStationName, endStationName })) {
-      }
+    if (this.isValidInput({ $lineNameInput, startStationName, endStationName })) {
+      this.onAddLine({
+        name: $lineNameInput.value,
+        stations: [startStationName, endStationName],
+      });
 
-      e.preventDefault();
-    });
-  };
+      e.target.reset();
+    }
+
+    e.preventDefault();
+  });
 
   this.isValidInput = ({ $lineNameInput, startStationName, endStationName }) => {
     return (
@@ -83,5 +88,4 @@ export default function LineInput({ $target, stations, isExistLineName }) {
   };
 
   this.render();
-  this.bindOnSubmit();
 }

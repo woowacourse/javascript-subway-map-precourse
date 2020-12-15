@@ -19,10 +19,7 @@ export default function App($app) {
   });
   this.lines = localStorageManager.getItem({
     key: STORAGE_KEY.line,
-    defaultValue: [
-      { name: "8호선", stations: ["몽촌토성", "잠실"] },
-      { name: "9호선", stations: ["종합운동장", "봉은사"] },
-    ],
+    defaultValue: [],
   });
 
   this.onAddStation = (stationName) => {
@@ -45,23 +42,46 @@ export default function App($app) {
     onDeleteStation: this.onDeleteStation,
   });
 
+  this.onAddLine = (line) => {
+    const nextLines = [...this.lines, line];
+    this.setState({ nextLines });
+  };
+
   this.lineManager = new LineManager({
     $target: this.$main,
     isShow: true,
     stations: this.stations,
     lines: this.lines,
+    onAddLine: this.onAddLine,
   });
 
-  this.setState = ({ nextStations }) => {
+  this.setNextStations = (nextStations) => {
+    this.stations = nextStations;
+
+    localStorageManager.setItem({
+      key: STORAGE_KEY.station,
+      item: nextStations,
+    });
+  };
+
+  this.setNextLines = (nextLines) => {
+    this.lines = nextLines;
+
+    localStorageManager.setItem({
+      key: STORAGE_KEY.line,
+      item: nextLines,
+    });
+  };
+
+  this.setState = ({ nextStations, nextLines }) => {
     if (nextStations) {
-      this.stations = nextStations;
-
-      localStorageManager.setItem({
-        key: STORAGE_KEY.station,
-        item: nextStations,
-      });
-
+      this.setNextStations(nextStations);
       this.stationManager.setState({ nextStations: this.stations });
+    }
+
+    if (nextLines) {
+      this.setNextLines(nextLines);
+      this.lineManager.setState({ nextLines: this.lines });
     }
   };
 }

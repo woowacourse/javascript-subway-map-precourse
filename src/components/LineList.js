@@ -8,6 +8,11 @@ export default function LineList({ $target, lines }) {
 
   const { lineDeleteButton } = ELEMENT_INFO;
 
+  this.setState = ({ nextLines }) => {
+    this.lines = nextLines;
+    this.render();
+  };
+
   this.createTableRowHTMLString = (line) => {
     return `
       <tr>
