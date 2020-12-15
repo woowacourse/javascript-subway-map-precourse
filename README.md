@@ -2,7 +2,7 @@
 
 ## 📝 프로그램 설명
 
-이 프로그램은 **'지하철 노선도 관리 프로그램'**이다.
+이 프로그램은 **지하철 노선도 관리 프로그램**이다.
 사용자는 직접 역을 추가, 삭제 할 수 있으며 노선을 수정할 수 있다.
 또한, 자신이 만든 노선을 확인할 수 있다.
 만든 노선은 브라우저에 저장되며, 브라우저를 닫지 않는 한 정보가 유지된다.
@@ -49,6 +49,42 @@
 - 지하철 맵을 보여준다
 - 맵은 노선에 연결된 순서대로 보여준다
 - 맵을 띄울때는 항상 최신 정보를 가져와서 갱신한다
+
+
+## 🕹️ 실행방법
+
+
+실행하기 전 node.js와 npm을 먼저 설치한다. (<https://nodejs.org/ko/>)
+
+
+### 실행 준비
+
+이 repo를 다운받은 후 sunmon 브랜치로 이동한다
+
+```bash
+git clone https://github.com/Sunmon/javascript-subway-map-precourse.git
+cd javascript-subway-map-precourse
+git checkout sunmon
+```
+
+의존성 패키지를 다운받는다
+
+```bash
+npm install
+```
+
+### 실행
+
+서버를 실행한다
+
+```bash
+cd javascript-subway-map-precourse
+npm start
+```
+
+브라우저에 `localhost:8080`을 쳐서 접속한다
+    
+    
 
 ## 🚀 기능 요구사항
 
