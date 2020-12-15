@@ -7,15 +7,18 @@ export default class Menu {
     this.$el = document.querySelector("#menu");
     this.$buttons = this.$el.querySelector(".menu-buttons");
     this.$pages = this.$el.querySelectorAll(".menu-page");
+    this.hideAll();
     this.$buttons.addEventListener("click", (e) => {
       if (e.target.tagName !== "BUTTON") return false;
       this.show(e.target.dataset.menuIndex);
     });
   }
-
+  hideAll() {
+    this.$pages.forEach((page) => (page.style.display = "none"));
+  }
   show(menuNumber) {
-    console.log(this.$pages, menuNumber);
     const page = this.$pages[menuNumber];
+    this.hideAll();
     page.style.display = "block";
   }
 }
