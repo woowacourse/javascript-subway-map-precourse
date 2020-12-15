@@ -81,4 +81,7 @@ const LineManager = function () {
   };
 };
 
-export const { setLineDeleteButtonClickListener } = new LineManager();
+export const {
+  setLineDeleteButtonClickListener,
+  setLineAddClickListener,
+} = new LineManager();

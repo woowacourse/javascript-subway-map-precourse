@@ -30,4 +30,5 @@ export const {
   getFormattedLines,
   isLineNameLengthBiggerThanOneWithoutSpace,
   setStateAndLocalStorage,
+  clearResultDIV,
 } = new Function();

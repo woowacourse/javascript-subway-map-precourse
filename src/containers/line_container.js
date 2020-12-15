@@ -41,4 +41,9 @@ const LineContainer = function () {
   };
 };
 
-export const { removeTr, appendNewLine, setDefaultValue } = new LineContainer();
+export const {
+  removeTr,
+  appendNewLine,
+  setDefaultValue,
+  renderInitialLine,
+} = new LineContainer();
