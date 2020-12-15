@@ -14,7 +14,7 @@ export default class SectionManager {
   initEvent() {
     document.querySelectorAll(".section-line-menu-button").forEach((item) => {
       item.addEventListener("click", (event) => {
-        rendSectionAddDom(event.target);
+        rendSectionAddDom(event.target.dataset.index);
       });
     });
   }

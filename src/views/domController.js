@@ -1,8 +1,6 @@
 import {
   stationMangeContainer,
-  getStationRow,
   lineMangeContainer,
-  getLineRow,
   selectLineContainer,
   sectionManageContainer,
   mapContainer,
@@ -116,15 +114,13 @@ export const rendLineMangeDom = () => {
 
 //section
 export const insertSectionTable = (targetElem) => {
+  const lineName = targetElem.dataset.name;
   const order = document.getElementById("section-order-input").value;
   const station = document.getElementById("section-station-selector").value;
   try {
-    if (addSectionValidate(parseInt(order), station, targetElem.dataset.name)) {
-      addSection(order, station, targetElem.dataset.name);
-      document.getElementById(
-        "section-table"
-      ).innerHTML = sectionManageContainer(targetElem.dataset.name);
-      setSectionEvent();
+    if (addSectionValidate(parseInt(order), station, lineName)) {
+      addSection(order, station, lineName);
+      rendSectionAddDom(lineName);
     } else {
       alert(SECTION.INPUT_ERROR_MESSAGE);
     }
@@ -132,13 +128,11 @@ export const insertSectionTable = (targetElem) => {
 };
 
 export const confirmSectionDelete = (targetElem) => {
+  const lineName = targetElem.dataset.name;
   try {
     if (deleteSectionValidate(targetElem)) {
-      deleteSection(targetElem.dataset.index, targetElem.dataset.name);
-      document.getElementById(
-        "section-table"
-      ).innerHTML = sectionManageContainer(targetElem.dataset.name);
-      setSectionEvent();
+      deleteSection(targetElem.dataset.index, lineName);
+      rendSectionAddDom(lineName);
     } else {
       alert(SECTION.DELETE_ERROR_MESSAGE);
     }
@@ -160,11 +154,12 @@ export const setSectionEvent = () => {
     });
 };
 
-export const rendSectionAddDom = (target) => {
+export const rendSectionAddDom = (lineName) => {
+  clearMangeContainer();
   const container = document.getElementById("subway-manager-container");
   const div = document.createElement("div");
   div.setAttribute("id", "section-table");
-  div.innerHTML = sectionManageContainer(target.dataset.index);
+  div.innerHTML = sectionManageContainer(lineName);
   container.appendChild(div);
   setSectionEvent();
 };
