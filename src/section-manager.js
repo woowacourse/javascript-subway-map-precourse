@@ -12,8 +12,7 @@ import {
     addItem,
     getItemList,
     removeWhiteSpaceValue,
-    deleteItem,
-    isDuplicateItem
+    deleteItem
 } from "./common/items.js";
 import words from "./common/words.js";
 

@@ -8,12 +8,13 @@ import {
 } from "./common/elements.js";
 import {
     isEmpty,
+    isDuplicateItem,
     addItem,
     getItemList,
     removeWhiteSpaceValue,
     deleteItem,
-    deleteKey} 
-from "./common/items.js";
+    deleteKey,
+} from "./common/items.js";
 import words from "./common/words.js";
 
 export default class StationManager{
@@ -44,10 +45,12 @@ export default class StationManager{
     isStationInLine(stationName) {
         const lineList = getItemList(words.LINES);
         let result = false;
-        lineList.forEach(line => {
-            const lineSectionList = getItemList(line);
-            result = lineSectionList.includes(stationName) ? true : result;
-        })
+        for(let i = 0; i < lineList.length; i++) {
+            result = isDuplicateItem(lineList[i], stationName);
+            if(result) {
+                break;
+            }
+        }
         return result;
     }
 

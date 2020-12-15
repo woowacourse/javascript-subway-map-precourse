@@ -3,20 +3,12 @@ export function removeWhiteSpaceValue(value) {
 }
 
 export function isEmpty(value) {
-    let result = false;
-    if(value === "" || value === null || value === undefined || (value !== null 
-        && typeof value === "object" && !Object.keys(value).length)) {
-        result = true;
-    }
-    return result;
+    return (value === "" || value === null || value === undefined || (value !== null 
+        && typeof value === "object" && !Object.keys(value).length));
 }
 
 export function isDuplicateItem(itemList, value) {
-    let isDuplicate = false;
-    if(itemList.includes(value)) {
-        isDuplicate = true;
-    }
-    return isDuplicate;
+    return itemList.includes(value);
 }
 
 export function getItemList(key) {
