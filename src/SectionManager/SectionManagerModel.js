@@ -3,7 +3,7 @@ export default class SectionManagerModel {
     if (!SectionManagerModel.isValidNumber(line, index)) {
       return 0;
     }
-    if (SectionManagerModel.isInLines(line, station)) {
+    if (SectionManagerModel.isDuplicated(line, station)) {
       return -1;
     }
     return 1;
@@ -22,21 +22,24 @@ export default class SectionManagerModel {
     return !/[^0-9]/.test(`${number}`);
   }
 
-  static isInLines(line, station) {
-    const stations = JSON.parse(localStorage.getItem('Lines'))[line].stations;
-    return stations.indexOf(station) > -1;
+  static isDuplicated(line, station) {
+    const lines = JSON.parse(localStorage.getItem('Lines'));
+    const stationIncludedByLine = lines[line].stations;
+    return stationIncludedByLine.indexOf(station) > -1;
   }
 
   static add(line, station, index) {
     const lines = JSON.parse(localStorage.getItem('Lines'));
-    const stations = JSON.parse(localStorage.getItem('Lines'))[line].stations;
-    const stationJSON = JSON.parse(localStorage.getItem('Stations'));
-    if (stationJSON[station].lines.indexOf(line) < 0) {
-      stationJSON[station].lines.push(line);
+    const stationIncludedByLine = lines[line].stations;
+    const stations = JSON.parse(localStorage.getItem('Stations'));
+
+    if (stations[station].lines.indexOf(line) < 0) {
+      stations[station].lines.push(line);
     }
-    stations.splice(index, 0, station);
-    lines[line].stations = stations;
-    localStorage.setItem('Stations', JSON.stringify(stationJSON));
+    stationIncludedByLine.splice(index, 0, station);
+    lines[line].stations = stationIncludedByLine;
+
+    localStorage.setItem('Stations', JSON.stringify(stations));
     localStorage.setItem('Lines', JSON.stringify(lines));
   }
 
@@ -46,9 +49,9 @@ export default class SectionManagerModel {
 
   static delete(line, station) {
     const lines = JSON.parse(localStorage.getItem('Lines'));
-    const stations = JSON.parse(localStorage.getItem('Lines'))[line].stations;
-    stations.splice(stations.indexOf(station), 1);
-    lines[line].stations = stations;
+    const stationIncludedByLine = JSON.parse(localStorage.getItem('Lines'))[line].stations;
+    stationIncludedByLine.splice(stationIncludedByLine.indexOf(station), 1);
+    lines[line].stations = stationIncludedByLine;
     localStorage.setItem('Lines', JSON.stringify(lines));
   }
 }
