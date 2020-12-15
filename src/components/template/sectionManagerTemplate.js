@@ -33,7 +33,7 @@ const SECTION_TABLE_TEMPLATE = ({ id, stationIds }) => {
         `<tr id=${id}>
            <td data-currentIndex=${index}>${index}</td>
            <td data-name=${station.name}>${station.name}</td>
-           <td><button class="section-delete-button">노선에서 제거</button></td>
+           <td><button class="section-delete-button" data-stationId=${station.id}>노선에서 제거</button></td>
        </tr>`
     )
     .join('');
