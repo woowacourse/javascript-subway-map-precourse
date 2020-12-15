@@ -45,6 +45,22 @@
         <tbody id="line-tbody"></tbody>
       </table>
     </div>
+    <!-- section manager -->
+    <div id="section-manager" style="display:none">
+      <div>
+        <h3>구간을 수정할 노선을 선택해주세요.</h3> 
+        <div id="line-buttons"></div>
+      </div>
+      <div id="add-delete-section" style="display:none"><br />
+        <div id="nline-manage" style="font-size:20px; font-weight:bold;"></div>
+        <h4>구간 등록</h4>
+        <select id="#section-station-selector"></select>
+        <input type="number" id="#section-order-input"></input><button id="#section-add-button">등록</button><br /><br />
+  
+        <input type='hidden' id='selected-line-input' />
+        <div id="section-lists-container"></div>
+      </div>
+    </div>
     <script type="module" src="src/index.js"></script>
   </body>
 </html>
