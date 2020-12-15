@@ -57,7 +57,7 @@ export default function oneSectionManager($container, $table, line) {
 
   const updateSection = (stationName, stationIndex) => {
     const stationId = stationStorage().getStationIdByName(stationName);
-    updateStationState(stationIndex);
+    updateStationState(stationId);
     renderSection(updateLineState(stationId, stationIndex));
   };
 
