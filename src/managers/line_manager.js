@@ -3,7 +3,11 @@ import {
   isLineNameLengthBiggerThanOneWithoutSpace,
   setStateAndLocalStorage,
 } from "../common/function";
-import { removeTr } from "../containers/line_container";
+import {
+  removeTr,
+  appendNewLine,
+  setDefaultValue,
+} from "../containers/line_container";
 
 const LineManager = function () {
   this.getSelectors = () => [
@@ -29,6 +33,17 @@ const LineManager = function () {
     if (this.isOverwritten(lineName))
       return { value: false, errorMessage: OVERWRITEEN };
     return { value: true };
+  };
+
+  this.handleAddProcess = (lineNameInput, startSection, endSection) => {
+    const newLines = getFormattedLines().concat({
+      name: lineNameInput.value,
+      sections: [startSection.value, endSection.value],
+    });
+    setStateAndLocalStorage("lines", newLines);
+    appendNewLine(lineNameInput, startSection.value, endSection.value);
+    setDefaultValue(lineNameInput, startSection, endSection);
+    this.setDeleteButtonClickListener();
   };
 
   this.deleteButtonClickFunction = ({ target }) => {
