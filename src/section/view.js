@@ -2,7 +2,9 @@ import { getLineStations, confirmDeleteStation, addShowEvent } from './controlle
 
 const printLineList = function(lineName) {
   const lineStations = getLineStations(lineName);
+  const orderInput = document.querySelector("#section-order-input");
   const table = document.querySelector("#section-list");
+  orderInput.value = '';
   table.innerHTML = '';  
   table.innerHTML = `<tr><th scope="row">순서</th><th scope="row">이름</th><th scope="row">설정</th></tr>`;
   table.style.display = "table";
