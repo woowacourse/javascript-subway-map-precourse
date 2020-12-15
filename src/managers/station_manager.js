@@ -43,4 +43,11 @@ const StationManager = function () {
     this.removeStationFromStateAndStorage(stationName);
     removeTr(targetButton);
   };
+
+  this.setStationDeleteButtonClickListener = () => {
+    const buttons = document.getElementsByClassName("station-delete-button");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", this.deleteButtonClickFunction);
+    }
+  };
 };
