@@ -1,0 +1,25 @@
+{   "plugins":["prettier","html"],
+
+    "env": {
+        "browser": true,
+        "es2021": true
+       
+    },
+    "extends": [
+        "airbnb-base",
+        "eslint:recommended",
+        "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "rules": {
+        "prettier/prettier": "error",
+        "no-var": "error",
+        "no-self-assign": "error",
+        "object-shorthand": "error",
+        "no-console":"off",
+     
+    }
+}
