@@ -68,4 +68,7 @@ const Visualization = function () {
       { value: VALUE_IN_ARRAY },
       stations
     );
+
+  this.createTd = (text) =>
+    text ? this.getAdvancedEle("td", null, text) : document.createElement("td");
 };
