@@ -47,3 +47,17 @@ function GetLinesArray() {
         }
     }
 }
+
+function addStationToTable() {
+
+    let stationName = document.getElementById('#station-name-input').value;
+
+    let index = arrStations.indexOf(stationName); 
+    if(index != -1) {
+        alert('같은 역 이름을 입력할 수 없습니다.');
+        return;
+    }
+
+    createStationHTML(stationName);  
+    addStationToArray(stationName);
+}
