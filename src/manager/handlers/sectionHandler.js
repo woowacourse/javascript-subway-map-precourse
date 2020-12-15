@@ -1,4 +1,4 @@
-import render from "../../components/render.js";
+import render from "../render.js";
 import app from "../../components/app.js";
 import { validateSectionDelete, validateOrder, validateSection } from "../validation/validation.js";
 

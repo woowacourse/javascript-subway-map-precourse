@@ -1,4 +1,4 @@
-import render from "../../components/render.js";
+import render from "../render.js";
 import app from "../../components/app.js";
 import { validateInput, validateStationDelete } from "../validation/validation.js";
 
@@ -37,10 +37,7 @@ function updateEvent() {
 
 function onDeleteStationHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-  // let deleteTarget = event.target.parentNode.parentNode.childNodes[1].outerText;
 
-  //삭제 전 검증 후 alert하거나,
-  //alert가 없으면 deleteTarget을 return하는 함수
   let deleteTarget = validateStationDelete(event.target.parentNode.parentNode.childNodes[1].outerText);
 
   deleteTarget &&

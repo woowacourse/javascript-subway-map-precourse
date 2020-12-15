@@ -1,10 +1,6 @@
-import { initHTML } from "./uiManager.js";
-import render from "./components/render.js";
+import { initHTML, addEventToMainBtns } from "./manager/uiManager.js";
+import render from "./manager/render.js";
 import app from "./components/app.js";
-import { onStationHandler } from "./library/handlers/stationHandlers.js";
-import { onLineHandler } from "./library/handlers/lineHandlers.js";
-import { onSectionHandler } from "./library/handlers/sectionHandler.js";
-import { onMapPrintHandler } from "./library/handlers/mapPrintHandler.js";
 
 export default function main() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -19,11 +15,4 @@ export default function main() {
   initHTML();
   render(app());
   addEventToMainBtns();
-}
-
-function addEventToMainBtns() {
-  document.getElementById("station-manager-button").addEventListener("click", onStationHandler);
-  document.getElementById("line-manager-button").addEventListener("click", onLineHandler);
-  document.getElementById("section-manager-button").addEventListener("click", onSectionHandler);
-  document.getElementById("map-print-manager-button").addEventListener("click", onMapPrintHandler);
 }
