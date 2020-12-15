@@ -45,6 +45,10 @@ export class SectionManager {
 
   render = (props) => {
     display(props.isShow, this.manager);
+    if (props.isShow === false) {
+      displayHide(this.sectionManagerContaionerByLines);
+      displayHide(this.sectionManagerListContainer);
+    }
   };
 
   updateSectionManagerByLine = (lineName) => {
@@ -53,14 +57,6 @@ export class SectionManager {
     displayShow(this.sectionManagerListContainer);
     this.sectionManagerInput.render({ lineName: lineName });
     this.sectionManagerList.render({ lineName: lineName });
-  };
-
-  getLineMatchedWith = (lineName) => {
-    let lines = this.getLines();
-
-    return lines.filter((line) => {
-      line.lineName === lineName;
-    });
   };
 
   updateHeaderButtons = () => {
