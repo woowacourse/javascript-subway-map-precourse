@@ -1,1 +1,0 @@
-const MapPrintManager = function () {};
