@@ -47,6 +47,7 @@ export const onAddStation = () => {
     const station = new SubwayStation();
     subwayMap.addStation(station, stationName);
     showResult();
+    stationNameInputElement.value = '';
   } else {
     alert(alertMessage);
   }
