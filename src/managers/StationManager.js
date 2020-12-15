@@ -7,16 +7,10 @@ import {
   deleteWhiteSpace,
 } from '../share/utils.js';
 import { stationTableTemplate } from '../share/template.js';
-import { DATA_KEY } from '../share/words.js';
+import { DATA_KEY, STATION_WORDS } from '../share/words.js';
 
 const MIN_STATION_NAME_LENGTH = 2;
-const CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
 
-const ALERT_MESSAGE_SECTION_INCLUDES_STATION =
-  '노선에 포함되어있어 삭제가 불가능합니다.';
-const ALERT_MESSAGE_STATION_MINLENGTH =
-  '역은 공백을 제외하고 2자 이상이여야 합니다.';
-const ALERT_MESSAGE_ALREADY_INCLUDE = '이미 등록된 역입니다.';
 export default class StationManager extends Component {
   constructor(props) {
     super(props);
@@ -49,9 +43,9 @@ export default class StationManager extends Component {
     const { index } = event.target.dataset;
     const { name: stationName } = event.target.parentNode.parentNode.dataset;
     if (className !== STATION_SELECTOR.DELETE_BUTTON_CLASS) return;
-    if (!customConfirm(CONFIRM_MESSAGE)) return;
+    if (!customConfirm(STATION_WORDS.CONFIRM_MESSAGE)) return;
     if (!checkOverlap(stationName, this.getAllStationNamesInLines())) {
-      alert(ALERT_MESSAGE_SECTION_INCLUDES_STATION);
+      alert(STATION_WORDS.ALERT_MESSAGE_SECTION_INCLUDES_STATION);
       return;
     }
     this.deleteFromTable(index, DATA_KEY.STATION_LIST);
@@ -63,7 +57,7 @@ export default class StationManager extends Component {
 
   checkValidity(value) {
     if (!checkOverlap(value, this.data.stationList)) {
-      alert(ALERT_MESSAGE_ALREADY_INCLUDE);
+      alert(STATION_WORDS.ALERT_MESSAGE_ALREADY_INCLUDE);
       return false;
     }
     if (!checkValueLength(value, MIN_STATION_NAME_LENGTH)) {
@@ -75,13 +69,11 @@ export default class StationManager extends Component {
 
   template() {
     return this.data.stationList
-      .map((station, index) =>
-        stationTableTemplate(
-          station,
-          index,
-          STATION_SELECTOR.DELETE_BUTTON_CLASS,
-        ),
-      )
+      .map((station, index) => stationTableTemplate(
+        station,
+        index,
+        STATION_SELECTOR.DELETE_BUTTON_CLASS,
+      ))
       .join('');
   }
 

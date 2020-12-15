@@ -8,12 +8,8 @@ import {
   deleteWhiteSpace,
 } from '../share/utils.js';
 import { lineTableTemplate, optionTemplate } from '../share/template.js';
-import { DATA_KEY } from '../share/words.js';
+import { DATA_KEY, LINE_WORDS } from '../share/words.js';
 
-const CONFIRM_MESSAGE = '정말 노선을 삭제하시겠습니까?';
-const ALERT_MESSAGE_SAME_STATION = '상행 종점과 하행 종점은 달라야 합니다.';
-const ALERT_MESSAGE_SAME_NAME = '이미 등록된 노선이름입니다.';
-const ALERT_MESSAGE_NO_WHITESPACE = '노선이름은 공백으로 지정할 수 없습니다.';
 export default class LineManager extends Component {
   constructor(props) {
     super(props);
@@ -59,21 +55,21 @@ export default class LineManager extends Component {
     const { className } = event.target;
     const { index } = event.target.dataset;
     if (className !== LINE_SELECTOR.DELETE_BUTTON_CLASS) return;
-    if (!customConfirm(CONFIRM_MESSAGE)) return;
+    if (!customConfirm(LINE_WORDS.CONFIRM_MESSAGE)) return;
     this.deleteFromTable(index, DATA_KEY.LINE_LIST);
   };
 
   checkValidity({ name, startStation, endStation }) {
     if (!name.length) {
-      alert(ALERT_MESSAGE_NO_WHITESPACE);
+      alert(LINE_WORDS.ALERT_MESSAGE_NO_WHITESPACE);
       return false;
     }
     if (!checkOverlap(name, this.getAllLineNames())) {
-      alert(ALERT_MESSAGE_SAME_NAME);
+      alert(LINE_WORDS.ALERT_MESSAGE_SAME_NAME);
       return false;
     }
     if (!checkSameStation(startStation, endStation)) {
-      alert(ALERT_MESSAGE_SAME_STATION);
+      alert(LINE_WORDS.ALERT_MESSAGE_SAME_STATION);
       return false;
     }
     return true;
@@ -90,13 +86,11 @@ export default class LineManager extends Component {
 
   template() {
     return this.data.lineList
-      .map((line, index) =>
-        lineTableTemplate({
-          ...line,
-          index,
-          buttonClass: LINE_SELECTOR.DELETE_BUTTON_CLASS,
-        }),
-      )
+      .map((line, index) => lineTableTemplate({
+        ...line,
+        index,
+        buttonClass: LINE_SELECTOR.DELETE_BUTTON_CLASS,
+      }))
       .join('');
   }
 
