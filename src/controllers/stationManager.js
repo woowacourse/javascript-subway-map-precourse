@@ -15,8 +15,8 @@ export const stationAddListener = subwayMap => {
 };
 
 const addNewStation = (name, subwayMap) => {
-  if (geTwo(name) && notDuplicateStation(name, subwayMap.stationList)) {
-    subwayMap.addStation(name);
+  if (geTwo(name.trim()) && notDuplicateStation(name.trim(), subwayMap.stationList)) {
+    subwayMap.addStation(name.trim());
     showAddedStation(subwayMap);
   } else {
     alert('잘못된 값입니다. 다시 입력해주세요.');

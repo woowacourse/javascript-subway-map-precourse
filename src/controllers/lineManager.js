@@ -19,9 +19,13 @@ export const lineAddListener = subwayMap => {
 };
 
 const addNewLine = (name, start, end, subwayMap) => {
-  if (notDuplicateLine(name, subwayMap.lineList) && start !== end) {
-    subwayMap.addLine(name, start, end);
-    showAddedLine(subwayMap);
+  if (notDuplicateLine(name.trim(), subwayMap.lineList) && name.trim() !== '') {
+    if (start !== end) {
+      subwayMap.addLine(name.trim(), start, end);
+      showAddedLine(subwayMap);
+    } else {
+      alert('상행 종점과 하행 종점이 같습니다.');
+    }
   } else {
     alert('잘못된 값입니다. 다시 입력해주세요.');
   }

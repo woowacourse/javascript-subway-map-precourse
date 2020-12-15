@@ -37,11 +37,15 @@ const addNewSection = (station, order, selectedLineName, subwayMap) => {
   const lineList = subwayMap.lineList;
   const sectionIndex = lineList.findIndex(line => line.name === selectedLineName);
   const selectedLine = lineList[sectionIndex].list;
-  if (notFirstOrLast(order, selectedLine) && stationNotInSelectedLine(station, selectedLine)) {
-    subwayMap.addSection(sectionIndex, order, station);
-    showAddedSection(selectedLineName, subwayMap);
+  if (notFirstOrLast(order, selectedLine)) {
+    if (stationNotInSelectedLine(station, selectedLine)) {
+      subwayMap.addSection(sectionIndex, order, station);
+      showAddedSection(selectedLineName, subwayMap);
+    } else {
+      alert('이미 노선에 존재하는 역입니다.');
+    }
   } else {
-    alert('잘못된 값입니다. 다시 입력해주세요.');
+    alert('그 순서에 역을 추가할 수 없습니다.');
   }
   clearFocus(sectionOrderInput);
 };
