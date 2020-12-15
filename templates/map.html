@@ -3,14 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>지하철 노선도 관리</title>
-    <style>
-      #select-button {
-        margin-right: 5px;
-      }
-      #index {
-        text-align: center;
-      }
-    </style>
   </head>
   <body>
     <div id="app">
@@ -22,20 +14,7 @@
       <button type="button" id="section-manager-button" onclick="location.href='./section.html'">3. 구간 관리</button>
       <button type="button" id="map-print-manager-button" onclick="location.href='./map.html'">4. 지하철 노선도 출력</button>
     </div>
-    <div id="select" style="margin-top: 30px;">
-      <h3>구간을 수정할 노선을 선택해주세요.</h3>
-    </div>
-    <div id="section">
-      <h4 id="line-text"></h4>
-      <h5>구간 등록</h5>
-      <select name="" id="section-station-selector"></select>
-      <input type="text" id="section-order-input" placeholder="순서">
-      <button type="button" id="section-add-button">등록</button>
-    </div>
-    <div id="table" style="margin-top: 30px;">
-      <table id="section-list" border="1">
-      </table>
-    </div>
-    <script type="module" src="src/section-manager.js"></script>
+    <div class="map"></div>
+    <script type="module" src="../src/map/controller.js"></script>
   </body>
 </html>
