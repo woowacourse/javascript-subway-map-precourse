@@ -1,6 +1,6 @@
-import { isValidStationName } from "../utils";
+import { isValidStationName, inLine } from "../utils";
 import { stationListTemplate } from "./stationPresenter";
-import { INVALID_STATION_NAME } from "./stationConstant";
+import { INVALID_STATION_NAME, CANNOT_REMOVE } from "./stationConstant";
 
 export default function stationContainer() {
   let stationList = [];
@@ -36,10 +36,14 @@ export default function stationContainer() {
     const stationName = targetStation.dataset.stationname;
     const stationIndex = stationList.indexOf(stationName);
 
-    stationList.splice(stationIndex, 1);
-    setLocalData(stationList);
-    stationListTemplate(stationList);
-    removeStationHandler();
+    if (!inLine(stationName)) {
+      stationList.splice(stationIndex, 1);
+      setLocalData(stationList);
+      stationListTemplate(stationList);
+      removeStationHandler();
+    } else {
+      alert(CANNOT_REMOVE);
+    }
   };
 
   const setLocalData = stationList => {

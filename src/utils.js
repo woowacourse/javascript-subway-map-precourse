@@ -23,3 +23,10 @@ const isSameStation = lineInfo => lineInfo[1] === lineInfo[2];
 export const isValidLineInfo = (lineList, lineInfo) => {
   return !hasDuplicatedLine(lineList, lineInfo) && !isSameStation(lineInfo);
 };
+
+export const inLine = stationName => {
+  let lineList = JSON.parse(window.localStorage.getItem("lineList"));
+
+  lineList = lineList.flat();
+  return lineList.includes(stationName);
+};
