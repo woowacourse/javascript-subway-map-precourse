@@ -15,6 +15,31 @@ export default function stationContainer() {
     stationList.push(stationName);
     setLocalData(stationList);
     stationListTemplate(stationList);
+    removeStationHandler();
+  };
+
+  const removeStationHandler = () => {
+    const stationRemoveButton = document.querySelectorAll(
+      "#station-remove-button",
+    );
+    if (stationRemoveButton !== null) {
+      for (const removeButton of stationRemoveButton) {
+        removeButton.addEventListener("click", event => {
+          removeStation(event);
+        });
+      }
+    }
+  };
+
+  const removeStation = event => {
+    const targetStation = event.target.parentNode.parentNode;
+    const stationName = targetStation.dataset.stationname;
+    const stationIndex = stationList.indexOf(stationName);
+
+    stationList.splice(stationIndex, 1);
+    setLocalData(stationList);
+    stationListTemplate(stationList);
+    removeStationHandler();
   };
 
   const setLocalData = stationList => {
@@ -41,6 +66,7 @@ export default function stationContainer() {
 
     getLocalData();
     stationListTemplate(stationList);
+    removeStationHandler();
     stationContainer.style.display = "block";
     submitButton.addEventListener("click", () => {
       checkStationName(stationNameInput.value);
