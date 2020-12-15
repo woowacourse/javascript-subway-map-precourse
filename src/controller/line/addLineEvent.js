@@ -48,9 +48,8 @@ function addLine(lines, inputLineName) {
   );
 }
 
-function checkValidInput() {
+function checkValidInput(inputLineName) {
   const lines = JSON.parse(localStorage.getItem('lines'));
-  const inputLineName = document.querySelector('#line-name-input').value;
 
   if (!checkValidNameLength(inputLineName)) {
     return alert(`노선 이름은 ${MINIMUN_LINE_LENGTH}글자 이상이어야 합니다.`);
@@ -64,11 +63,20 @@ function checkValidInput() {
   return addLine(lines, inputLineName);
 }
 
+function getLineName() {
+  const inputLineName = document.querySelector('#line-name-input').value.trim();
+
+  if (inputLineName.includes(' ')) {
+    return alert('노선 이름에는 공백이 포함될 수 없습니다.');
+  }
+  return checkValidInput(inputLineName);
+}
+
 export default function addLineEvent() {
   const $lineAddButton = document.querySelector('#line-add-button');
 
   $lineAddButton.addEventListener('click', () => {
-    checkValidInput();
+    getLineName();
     render();
   });
 }
