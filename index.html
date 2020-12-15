@@ -27,6 +27,24 @@
         </table>
       </div>
     </div>
+    <!-- line manager -->
+    <div id="line-manager" style="display:none">
+      <strong>노선 이름</strong><br />
+      <input id="#line-name-input" placeholder="노선 이름을 입력해주세요."></input><br /><br />
+      <strong>상행 종점</strong><select id="#line-start-station-selector"></select><br />
+      <strong>하행 종점</strong><select id="#line-end-station-selector"></select><br /><br />
+      <button id="#line-add-button">노선 추가</button><br />
+      <h2>🚉 지하철 노선 목록</h2>
+      <table border="1" id="#print-line-list">
+        <thead>
+          <th>노선 이름</th>
+          <th>상행 종점역</th>
+          <th>하행 종점역</th>
+          <th>설정</th>
+        </thead>
+        <tbody id="line-tbody"></tbody>
+      </table>
+    </div>
     <script type="module" src="src/index.js"></script>
   </body>
 </html>
