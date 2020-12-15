@@ -4,7 +4,7 @@ import {
   optionTemplate,
   sectionDetailTableTemplate,
 } from '../share/template.js';
-import { customConfirm } from '../share/utils.js';
+import { checkOverlap } from '../share/utils.js';
 import { SECTION_DETAIL_WORDS } from '../share/words.js';
 
 export default class SectionDetailManager extends Component {
@@ -35,6 +35,7 @@ export default class SectionDetailManager extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const targetLine = this.data.currentLineData;
+    if (!this.checkValidity(targetLine)) return;
     targetLine.addStationToSection(this.getValues());
     this.props.syncData(this.data);
   };
@@ -44,10 +45,23 @@ export default class SectionDetailManager extends Component {
     const { index } = event.target.dataset;
     const targetLine = this.data.currentLineData;
     if (className !== SECTION_SELECTOR.DELETE_BUTTON_CLASS) return;
-    if (!customConfirm(SECTION_DETAIL_WORDS.CONFIRM_MESSAGE)) return;
+    if (!confirm(SECTION_DETAIL_WORDS.CONFIRM_MESSAGE)) return;
+    if (targetLine.checkSectionLength()) {
+      alert(SECTION_DETAIL_WORDS.ALERT_MESSAGE_SECTION_MINLENGTH);
+      return;
+    }
     targetLine.deleteStationFromSection({ index });
     this.props.syncData(this.data);
   };
+
+  checkValidity(targetLine) {
+    const { stationName } = this.getValues();
+    if (!checkOverlap(stationName, targetLine.section)) {
+      alert(SECTION_DETAIL_WORDS.ALERT_MESSAGE_SECTION_INCLUDES_STATION);
+      return false;
+    }
+    return true;
+  }
 
   getValues() {
     const { value: stationName } = this.stationSelector;

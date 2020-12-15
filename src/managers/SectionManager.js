@@ -31,8 +31,7 @@ export default class SectionManager extends Component {
     this.sectionDetailManager.show();
   };
 
-  getSelectedLine = (name) =>
-    this.data.lineList.find((line) => line.name === name);
+  getSelectedLine = (name) => this.data.lineList.find((line) => line.name === name);
 
   updateMenuList() {
     this.sectionLineMenu.innerHTML = this.data.lineList

@@ -4,7 +4,6 @@ import { LINE_SELECTOR } from '../share/selector.js';
 import {
   checkOverlap,
   checkSameStation,
-  customConfirm,
   deleteWhiteSpace,
 } from '../share/utils.js';
 import { lineTableTemplate, optionTemplate } from '../share/template.js';
@@ -55,7 +54,7 @@ export default class LineManager extends Component {
     const { className } = event.target;
     const { index } = event.target.dataset;
     if (className !== LINE_SELECTOR.DELETE_BUTTON_CLASS) return;
-    if (!customConfirm(LINE_WORDS.CONFIRM_MESSAGE)) return;
+    if (!confirm(LINE_WORDS.CONFIRM_MESSAGE)) return;
     this.deleteFromTable(index, DATA_KEY.LINE_LIST);
   };
 

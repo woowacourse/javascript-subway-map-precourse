@@ -3,7 +3,6 @@ import { STATION_SELECTOR } from '../share/selector.js';
 import {
   checkOverlap,
   checkValueLength,
-  customConfirm,
   deleteWhiteSpace,
 } from '../share/utils.js';
 import { stationTableTemplate } from '../share/template.js';
@@ -43,7 +42,7 @@ export default class StationManager extends Component {
     const { index } = event.target.dataset;
     const { name: stationName } = event.target.parentNode.parentNode.dataset;
     if (className !== STATION_SELECTOR.DELETE_BUTTON_CLASS) return;
-    if (!customConfirm(STATION_WORDS.CONFIRM_MESSAGE)) return;
+    if (!confirm(STATION_WORDS.CONFIRM_MESSAGE)) return;
     if (!checkOverlap(stationName, this.getAllStationNamesInLines())) {
       alert(STATION_WORDS.ALERT_MESSAGE_SECTION_INCLUDES_STATION);
       return;
@@ -61,7 +60,7 @@ export default class StationManager extends Component {
       return false;
     }
     if (!checkValueLength(value, MIN_STATION_NAME_LENGTH)) {
-      alert(ALERT_MESSAGE_STATION_MINLENGTH);
+      alert(STATION_WORDS.ALERT_MESSAGE_STATION_MINLENGTH);
       return false;
     }
     return true;
