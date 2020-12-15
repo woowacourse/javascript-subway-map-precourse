@@ -1,3 +1,5 @@
+import { menuButtons } from '../templates/index.js';
+
 export default function ManagerButtonContainer({ selectMenu }) {
   this.container = document.querySelector('.manager-button-container');
 
@@ -12,5 +14,6 @@ export default function ManagerButtonContainer({ selectMenu }) {
     }
   };
 
+  this.container.innerHTML = menuButtons();
   this.container.addEventListener('click', this.handelClickContainer);
 }
