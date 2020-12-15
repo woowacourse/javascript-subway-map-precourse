@@ -1,10 +1,21 @@
 import { ELEMENT_INFO } from "../util/constants.js";
 
-export default function StationList({ $target }) {
+export default function StationList({ $target, stations }) {
   this.$container = document.createElement("section");
   $target.append(this.$container);
 
+  this.stations = stations;
+
   const { stationDeleteButton } = ELEMENT_INFO;
+
+  this.createTableRowHTMLString = (stationName) => {
+    return `
+      <tr>
+        <td>${stationName}</td>
+        <td><button class="${stationDeleteButton.className}">${stationDeleteButton.text}</button></td>
+      </tr>
+    `;
+  };
 
   this.render = () => {
     this.$container.innerHTML = `
@@ -17,10 +28,7 @@ export default function StationList({ $target }) {
           </tr>
         </thead>
         </tbody>
-          <tr>
-            <td>test</td>
-            <td><button class="${stationDeleteButton.className}">${stationDeleteButton.text}</button></td>
-          </tr>
+          ${this.stations.map((station) => this.createTableRowHTMLString(station)).join("")}
         </tbody>
       </table>
     `;

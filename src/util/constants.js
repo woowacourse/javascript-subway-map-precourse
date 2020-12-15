@@ -30,3 +30,13 @@ export const ELEMENT_INFO = {
     className: "station-delete-button",
   },
 };
+
+export const ERROR_MESSAGE = {
+  getItem: "⚠ 데이터를 가져올 수 없습니다.",
+  setItem: "⚠ 데이터를 저장하지 못했습니다.",
+};
+
+export const STORAGE_KEY = {
+  station: "station",
+  line: "line",
+};
