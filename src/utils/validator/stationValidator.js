@@ -1,7 +1,7 @@
-import { NAME_MINT_LENGTH } from '../constant.js';
+import { NAME_MIN_LENGTH } from '../constant.js';
 
 const isNameLengthLongerThanTwo = (stationName) => {
-  return stationName.length < NAME_MINT_LENGTH ? alert('이름은 두글자 이상입니다') : true;
+  return stationName.length < NAME_MIN_LENGTH ? alert('이름은 두글자 이상입니다') : true;
 };
 
 const isEqualName = (stations, stationName) => {
