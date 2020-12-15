@@ -31,4 +31,5 @@ export const {
   isLineNameLengthBiggerThanOneWithoutSpace,
   setStateAndLocalStorage,
   clearResultDIV,
+  getSelectedLineSections,
 } = new Function();
