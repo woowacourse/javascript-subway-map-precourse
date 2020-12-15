@@ -5,7 +5,6 @@ export class SectionManagerHeaderButtons {
     this.getLines = props.getLines;
     this.initializeDOM();
     this.initializeEvents();
-    this.render(props);
   }
 
   initializeDOM = () => {

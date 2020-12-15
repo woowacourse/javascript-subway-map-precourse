@@ -7,7 +7,6 @@ export class ContentContainer {
   constructor(props) {
     this.props = {
       ...props,
-      updateStationView: this.updateStationView,
       getStations: this.getStations,
       setLines: this.setLines,
       getLines: this.getLines,
@@ -17,21 +16,21 @@ export class ContentContainer {
   }
 
   initiateDOM = () => {
-    this.stationManager = new StationManager(this.props);
-    this.lineManager = new LineManager(this.props);
-    this.mapPrintManager = new MapPrint(this.props);
-    this.sectionManager = new SectionManager(this.props);
     this.contents = [
-      this.stationManager,
-      this.lineManager,
-      this.sectionManager,
-      this.mapPrintManager,
+      new StationManager(this.props),
+      new LineManager(this.props),
+      new MapPrint(this.props),
+      new SectionManager(this.props),
     ];
   };
 
   initiateData = () => {
     localStorage.setItem("stations", JSON.stringify([]) || []);
     localStorage.setItem("lines", JSON.stringify([]) || []);
+  };
+
+  onUpdate = () => {
+    this.render(this.props);
   };
 
   render = (props) => {
@@ -41,7 +40,6 @@ export class ContentContainer {
     this.contents.forEach((content) => {
       content.render({
         ...props,
-        ...this.state,
         onUpdate: this.onUpdate,
         isShow: content.id === this.id,
       });
@@ -54,22 +52,10 @@ export class ContentContainer {
 
   setLines = (lines) => {
     localStorage.setItem("lines", JSON.stringify(lines));
-    this.updateLineView();
+    this.onUpdate();
   };
 
   getLines = () => {
     return JSON.parse(localStorage.getItem("lines"));
-  };
-
-  updateStationView = () => {
-    this.lineManager.updateStations();
-    this.sectionManager.updateStationsInInput();
-  };
-
-  updateLineView = () => {
-    this.sectionManager.updateHeaderButtons();
-    this.sectionManager.updateSectionList();
-    this.lineManager.updateLines();
-    this.mapPrintManager.render(this.props);
   };
 }

@@ -45,10 +45,13 @@ export class SectionManager {
 
   render = (props) => {
     display(props.isShow, this.manager);
-    if (props.isShow === false) {
+    if (!props.isShow) {
       displayHide(this.sectionManagerContaionerByLines);
       displayHide(this.sectionManagerListContainer);
     }
+    this.sectionHeader.render(props);
+    this.sectionManagerInput.renderStations();
+    this.sectionManagerList.render({ lineName: this.lineName });
   };
 
   updateSectionManagerByLine = (lineName) => {
@@ -57,18 +60,6 @@ export class SectionManager {
     displayShow(this.sectionManagerListContainer);
     this.sectionManagerInput.render({ lineName: lineName });
     this.sectionManagerList.render({ lineName: lineName });
-  };
-
-  updateHeaderButtons = () => {
-    this.sectionHeader.render();
-  };
-
-  updateStationsInInput = () => {
-    this.sectionManagerInput.updateStations();
-  };
-
-  updateSectionList = () => {
-    this.sectionManagerList.render({ lineName: this.lineName });
   };
 
   addStationInLine = (order, station, lineName) => {

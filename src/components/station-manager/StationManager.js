@@ -8,7 +8,6 @@ export class StationManager {
   constructor(props) {
     this.props = props;
     this.getStations = props.getStations;
-    this.updateStationView = props.updateStationView;
     this.initializeDOM(props);
   }
 
@@ -26,16 +25,17 @@ export class StationManager {
 
   render = (props) => {
     display(props.isShow, this.manager);
+    this.onUpdate = props.onUpdate;
+    this.stationList.render();
   };
 
   addNewStation = (stations) => {
     this.setStations(stations);
-    this.stationList.render();
   };
 
   setStations = (names) => {
     localStorage.setItem("stations", JSON.stringify(names));
-    this.updateStationView();
+    this.onUpdate();
   };
 
   deleteStation = (target) => {

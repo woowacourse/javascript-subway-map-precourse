@@ -25,13 +25,8 @@ export class LineManager {
 
   render = (props) => {
     display(props.isShow, this.manager);
-  };
 
-  updateStations = () => {
     this.lineManagerInput.render();
-  };
-
-  updateLines = () => {
     this.lineManagerList.render();
   };
 

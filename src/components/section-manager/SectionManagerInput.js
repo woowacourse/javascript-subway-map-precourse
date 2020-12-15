@@ -29,10 +29,10 @@ export class SectionManagerInput {
     this.lineName = lineName;
     this.header.innerHTML = `${lineName} 관리`;
 
-    this.updateStations();
+    this.renderStations();
   };
 
-  updateStations = () => {
+  renderStations = () => {
     this.stations = this.getStations();
     initSelector(this.sectionStationSelector);
     this.stations.forEach((station) => {
