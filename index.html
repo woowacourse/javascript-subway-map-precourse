@@ -6,7 +6,49 @@
   </head>
   <body>
     <div id="app">
-      <h1>🚇 지하철 노선도 관리 </h1>
+      <h1>🚇 지하철 노선도 관리</h1>
+      <div class="menu-button">
+        <button id="station-manager-button">1. 역 관리</button>
+        <button id="line-manager-button">2. 노선 관리</button>
+        <button id="section-manager-button">3. 구간 관리</button>
+        <button id="map-print-manager-button">4. 지하철 노선도 출력</button>
+      </div>
+    </div>
+    <div id="main-container">
+      <div class="page" id="station-page" style="display: none;">
+        <h4>역 이름</h4>
+        <input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요."></input>
+        <button id="station-add-button">역 추가</button>
+        <h2>🚉 지하철 역 목록</h2>
+        <div id="station-table-container"></div>
+      </div>
+      <div class="page" id="line-page" style="display: none;">
+        <h4>노선 이름</h4>
+            <h4><input type="text" id="line-name-input" placeholder="노선 이름을 입력해주세요."></input></h4>
+          <div>
+            <span>상행 종점</span>
+            <select class="line-station-selector" id="line-start-station-selector">
+            </select>
+          </div><br>
+          <div>
+            <span>하행 종점</span>
+            <select class="line-station-selector" id="line-end-station-selector">
+            </select>
+          </div><br>
+          <button id="line-add-button">노선 추가</button>
+          <h2>🚉 지하철 노선 목록</h2>
+          <div id="line-table-container"></div>
+      </div>
+      <div class="page" id="section-page" style="display: none;">
+        <h3>구간을 수정할 노선을 선택해주세요.</h3>
+        <div id="line-select-button-container">
+        </div>
+        <div id="section-input-container"></div>
+        <div id="section-table-container"></div>
+      </div>
+      <div class="page" id="map-print-page" style="display: none;">
+        <div id="map-print-container"></div>
+      </div>
     </div>
     <script type="module" src="src/index.js"></script>
   </body>
