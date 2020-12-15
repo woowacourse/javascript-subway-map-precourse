@@ -3,13 +3,13 @@ import words from "./words.js";
 
 export const managerPart = document.getElementById("manager-part");
 
-export function addClickEventListener(target, event) {
-    target.addEventListener("click", event);
-}
-
 function appendNode(childNode, parentNode) {
     parentNode = parentNode === null ? managerPart : parentNode;
     parentNode.append(childNode);
+}
+
+export function addClickEventListener(target, event) {
+    target.addEventListener("click", event);
 }
 
 export function addElement(type, content, attribute, attributeName, parentNode) {

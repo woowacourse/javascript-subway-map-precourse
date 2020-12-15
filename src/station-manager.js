@@ -46,7 +46,7 @@ export default class StationManager{
         const lineList = getItemList(words.LINES);
         let result = false;
         for(let i = 0; i < lineList.length; i++) {
-            result = isDuplicateItem(lineList[i], stationName);
+            result = isDuplicateItem(getItemList(lineList[i]), stationName);
             if(result) {
                 break;
             }
@@ -54,17 +54,21 @@ export default class StationManager{
         return result;
     }
 
-    confirmDeleteStation(deleteButton) {
-        const isConfirm = confirm(words.DELETE_ALERT);
+    decideDeleteStation(deleteButton) {
         const deleteRow = deleteButton.parentElement.parentElement;
         const stationName = deleteRow.dataset.stationName;
+        if(this.isStationInLine(stationName)) {
+            alert(`${stationName}${words.STATION_IN_LINE_ALERT}`);
+        }
+        else {
+            this.deleteStation(stationName, deleteRow);
+        }
+    }
+
+    confirmDeleteStation(deleteButton) {
+        const isConfirm = confirm(words.DELETE_ALERT);
         if(isConfirm) {
-            if(this.isStationInLine(stationName)) {
-                alert(`${stationName}${words.STATION_IN_LINE_ALERT}`);
-            }
-            else {
-                this.deleteStation(stationName, deleteRow);
-            }
+            this.decideDeleteStation(deleteButton);
         }
     }
 
@@ -103,19 +107,18 @@ export default class StationManager{
         return text;
     }
 
+    addStationInStorage(stationInputName) {
+        if(addItem(words.STATIONS, stationInputName, -1)) {
+            this.addStationInTable(stationInputName);
+        }
+        else {
+            alert(`${stationInputName}${words.STATION_DUPLICATE_ALERT}`);
+        }
+    }
+
     addStation() {
         const stationInputName = removeWhiteSpaceValue(document.getElementById(words.STATION_NAME_INPUT).value);
         const alertText = this.getAlertText(stationInputName);
-        if(alertText === "") {
-            if(addItem(words.STATIONS, stationInputName, -1)) {
-                this.addStationInTable(stationInputName);
-            }
-            else {
-                alert(`${stationInputName}${words.STATION_DUPLICATE_ALERT}`);
-            }
-        }
-        else {
-            alert(alertText);
-        }
+        alertText === "" ? this.addStationInStorage(stationInputName) : alert(alertText);
     }
 }

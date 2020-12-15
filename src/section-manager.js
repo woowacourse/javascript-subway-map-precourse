@@ -51,22 +51,26 @@ export default class SectionManager {
         }
     }
 
-    deleteSection(deleteButton) {
-        const deleteRow = deleteButton.parentElement.parentElement;
+    deleteSection(deleteRow) {
         deleteItem(this.lineName, deleteRow.dataset.sectionName);
         this.sectionTableTbody.removeChild(deleteRow);
         this.setTableContent();
     }
 
+    decideDeleteSection(deleteButton) {
+        const deleteRow = deleteButton.parentElement.parentElement;
+        if(this.sectionTableTbody.childElementCount <= 2) {
+            alert(words.SECTION_STATION_NO_DELETE_ALERT);
+        }
+        else {
+            this.deleteSection(deleteRow);
+        }
+    }
+
     confirmDeleteSection(deleteButton) {
         const isConfirm = confirm(words.DELETE_ALERT);
         if(isConfirm) {
-            if(this.sectionTableTbody.childElementCount <= 2) {
-                alert(words.SECTION_STATION_NO_DELETE_ALERT);
-            }
-            else {
-                this.deleteSection(deleteButton);
-            }
+            this.decideDeleteSection(deleteButton);
         }
     }
 
@@ -83,17 +87,11 @@ export default class SectionManager {
     }
 
     addSectionInLine(sectionStationName, order) {
-        const alertText = this.getAlertText(order);
-        if(alertText === "") {
-            if(addItem(this.lineName, sectionStationName, order)) {
-                this.setTableContent();
-            }
-            else {
-                alert(`${sectionStationName}${words.SECTION_STATION_DUPLICATE_ALERT}`);
-            }
+        if(addItem(this.lineName, sectionStationName, order)) {
+            this.setTableContent();
         }
         else {
-            alert(alertText);
+            alert(`${sectionStationName}${words.SECTION_STATION_DUPLICATE_ALERT}`);
         }
     }
 
@@ -101,7 +99,8 @@ export default class SectionManager {
         const order = removeWhiteSpaceValue(document.getElementById(words.SECTION_ORDER_INPUT).value);
         const sectionStationSelector = document.getElementById(words.SECTION_STATION_SELECTOR);
         const sectionStationName = sectionStationSelector.options[sectionStationSelector.selectedIndex].value;
-        this.addSectionInLine(sectionStationName, order);
+        const alertText = this.getAlertText(order);
+        alertText === "" ? this.addSectionInLine(sectionStationName, order) : alert(alertText);
     }
 
     setSectionLineElement(menuButton) {

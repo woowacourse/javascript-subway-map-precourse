@@ -112,20 +112,19 @@ export default class LineManager {
         return [lineStartStationName, lineEndStationName];
     }
 
+    addLineInStorage(lineInputName, lineStationName) {
+        if(addItem(words.LINES, lineInputName, -1)) {
+            this.addLineInTable(lineInputName, lineStationName[0], lineStationName[1]);
+        }
+        else {
+            alert(`${lineInputName}${words.LINE_DUPLICATE_ALERT}`);
+        }
+    }
+
     addLine() {
         const lineInputName = removeWhiteSpaceValue(document.getElementById(words.LINE_NAME_INPUT).value);
         const lineStationName = this.getLineStationName();
         const alertText = this.getAlertText(lineInputName, lineStationName[0], lineStationName[1]);
-        if(alertText === "") {
-            if(addItem(words.LINES, lineInputName, -1)) {
-                this.addLineInTable(lineInputName, lineStationName[0], lineStationName[1]);
-            }
-            else {
-                alert(`${lineInputName}${words.LINE_DUPLICATE_ALERT}`);
-            }
-        }
-        else {
-            alert(alertText);
-        } 
+        alertText === "" ? this.addLineInStorage(lineInputName, lineStationName) : alert(alertText);
     }
 }
