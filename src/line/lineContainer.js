@@ -8,8 +8,25 @@ export default function lineContainer() {
     const lineInfo = [lineName, startLine, endLine];
 
     isValidLineInfo(lineList, lineInfo)
-      ? lineList.push(lineInfo)
+      ? addLine(lineInfo)
       : alert(INVALID_LINE_INFO);
+  };
+
+  const addLine = lineInfo => {
+    lineList.push(lineInfo);
+    setLocalData(lineList);
+  };
+
+  const setLocalData = lineList => {
+    window.localStorage.setItem("lineList", JSON.stringify(lineList));
+  };
+
+  const getLocalData = () => {
+    let localData = window.localStorage.getItem("lineList");
+
+    if (localData) {
+      lineList = JSON.parse(localData);
+    }
   };
 
   const setSelectorOption = selector => {
@@ -32,6 +49,7 @@ export default function lineContainer() {
     const lineEndSelector = document.querySelector("#line-start-end-selector");
     const lineNameButton = document.querySelector("#line-name-button");
 
+    getLocalData();
     setSelectorOption(lineStartSelector);
     setSelectorOption(lineEndSelector);
     lineNameContainer.style.display = "block";
