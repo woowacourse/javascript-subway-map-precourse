@@ -61,3 +61,15 @@ tr:last-child > td {
   margin-top: 0;
   margin-bottom: 10px;
 }
+
+.map ul {
+  list-style: none;
+}
+
+.map ol {
+  list-style: disc;
+}
+
+.map ol {
+  margin-left: 50px;
+}

@@ -5,6 +5,7 @@ import LineManager from "./LineManager.js";
 import SectionManager from "./SectionManager.js";
 import localStorageManager from "../util/localStorage.js";
 import { ELEMENT_INFO, STORAGE_KEY } from "../util/constants.js";
+import SubwayMap from "./SubwayMap.js";
 
 export default function App($app) {
   this.$app = $app;
@@ -14,10 +15,17 @@ export default function App($app) {
 
   this.onTogglePosition = (nextPositionId) => {
     this.stationManager.setState({ nextIsShow: nextPositionId === this.stationManager.id });
-    this.lineManager.setState({ nextIsShow: nextPositionId === this.lineManager.id, nextStations: this.stations });
+    this.lineManager.setState({
+      nextIsShow: nextPositionId === this.lineManager.id,
+      nextStations: this.stations,
+    });
     this.sectionManager.setState({
       nextIsShow: nextPositionId === this.sectionManager.id,
       nextStations: this.stations,
+    });
+    this.subwayMap.setState({
+      nextIsShow: nextPositionId === this.subwayMap.id,
+      nextLines: this.lines,
     });
   };
 
@@ -95,6 +103,13 @@ export default function App($app) {
     stations: this.stations,
     lines: this.lines,
     updateSection: this.updateSection,
+  });
+
+  this.subwayMap = new SubwayMap({
+    id: ELEMENT_INFO.navigator[3].id,
+    $target: this.$main,
+    isShow: false,
+    lines: this.lines,
   });
 
   this.setNextStations = (nextStations) => {
