@@ -128,3 +128,20 @@ function addLineToTable() {
 
     createLineHTML(newLine, newLine.name, firstStation, lastStation);
 }
+
+function createLineHTML(newLine, lineName, firstStation, lastStation) {
+    let lineTable = document.getElementById('#print-line-list');
+    let lineRow = lineTable.insertRow(lineTable.rows.length);
+    let cell1 = lineRow.insertCell(0);
+    let cell2 = lineRow.insertCell(1);
+    let cell3 = lineRow.insertCell(2);
+    cell1.innerHTML = lineName;
+    cell2.innerHTML = firstStation;
+    cell3.innerHTML = lastStation;
+    document.getElementById('#line-name-input').value='';
+    
+    let deleteButton = addLineDeleteBtnOnTable(lineRow);
+    makeLineBtnFromArray(newLine);
+    deleteLineFromTable(deleteButton, newLine);
+    makeTableOfLine(newLine);
+}
