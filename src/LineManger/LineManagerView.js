@@ -50,7 +50,7 @@ export default class LineManagerView {
     </table>`;
   }
 
-  static alertNameError(errorNum) {
+  static alertError(errorNum) {
     alert(LineErrorMsg.error(errorNum));
   }
 
