@@ -51,4 +51,10 @@ const StationCreator = function () {
     });
     return tbody;
   };
+
+  this.removeTr = (targetButton) => {
+    const tr = targetButton.parentElement.parentElement;
+    const tbody = tr.parentElement;
+    tbody.removeChild(tr);
+  };
 };
