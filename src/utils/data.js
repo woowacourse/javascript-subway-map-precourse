@@ -14,6 +14,7 @@ import {
 import { removeLineHandler } from "./line.js";
 
 import { removeStationHandler } from "./station.js";
+import { removeSectionHandler } from "./section.js";
 
 export function getDataFromLocalStorage(subwayInfo) {
   const lineFromStorage = localStorage.getItem(SUB_WAY_LINE_INFO);
@@ -48,6 +49,8 @@ export function getButtonFunction(buttonNodes) {
     buttonFunction = removeStationHandler;
   } else if (buttonNodes[0]?.getAttribute("class") === "line-delete-button") {
     buttonFunction = removeLineHandler;
+  } else {
+    buttonFunction = removeSectionHandler;
   }
   return buttonFunction;
 }

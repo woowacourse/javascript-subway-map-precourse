@@ -66,7 +66,7 @@ export function lineAddHandler(e) {
     this.isValidName(lineNameInput.value, "line", LINE_NAME_LIMIT) &&
     isValidSelect()
   ) {
-    createLine.call(this, lineNameInput.value, destination);
+    createLine.call(this, lineNameInput.value, isValidSelect());
     printTable.call(this, LINE_DIV);
     setDataToStorage(this);
     lineNameInput.value = "";

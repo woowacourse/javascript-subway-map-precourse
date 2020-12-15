@@ -1,4 +1,8 @@
-import { getDataFromLocalStorage, getDataFromSelect } from "./data.js";
+import {
+  getDataFromLocalStorage,
+  getDataFromSelect,
+  setDataToStorage,
+} from "./data.js";
 import {
   cleanPreView,
   controlDisplay,
@@ -6,10 +10,32 @@ import {
   printSectionAddDiv,
   printTable,
 } from "./controlView.js";
-import { ERR_MESSAGE_SECTION, SELECTION_DIV } from "../constant.js";
+import {
+  ERR_MESSAGE_SECTION,
+  SELECTION_DIV,
+  DELETE_MESSAGE,
+  ERR__DELETE,
+} from "../constant.js";
 
-export function isValidSelectName(parent, lineIndex) {
-  let selectedId = getDataFromSelect(parent, "id");
+export function removeSectionHandler(e) {
+  if (confirm(DELETE_MESSAGE)) {
+    const tr = e.target.parentNode.parentNode;
+    const sectionId = tr.dataset.sectionid;
+    let index = this.line.findIndex((v) => v.id === sectionId);
+    if (this.line[index].stations.length >= 3) {
+      const clearSection = this.line[index].stations.filter(
+        (v) => v.id !== tr.dataset.id
+      );
+      this.line[index].stations = clearSection;
+      setDataToStorage(this);
+      printTable.call(this, SELECTION_DIV, this.line[index].name);
+    }
+  }
+}
+
+export function isValidSelectName(lineIndex) {
+  const sectionSelector = document.getElementById("section-station-selector");
+  let selectedId = getDataFromSelect(sectionSelector, "id");
   const result = this.line[lineIndex].stations.filter(
     (v) => v.id === selectedId
   );
@@ -26,6 +52,7 @@ export function isValidOrder(lineIndex, sectionOrderInput) {
 }
 
 export function addStationtoLine(lineIndex, sectionOrderInput) {
+  const sectionSelector = document.getElementById("section-station-selector");
   this.line[lineIndex].stations.splice(parseInt(sectionOrderInput), 0, {
     id: getDataFromSelect(sectionSelector, "id"),
     station: getDataFromSelect(sectionSelector, "value"),
@@ -34,10 +61,9 @@ export function addStationtoLine(lineIndex, sectionOrderInput) {
 
 export function sectionAddButtonEventHandler(buttonName) {
   const sectionOrderInput = document.getElementById("section-order-input");
-  const sectionSelector = document.getElementById("section-station-selector");
   let lineIndex = this.line.findIndex((v) => v.name === buttonName);
   if (
-    isValidSelectName.call(this, sectionSelector, lineIndex) &&
+    isValidSelectName.call(this, lineIndex) &&
     isValidOrder.call(this, lineIndex, sectionOrderInput.value)
   ) {
     addStationtoLine.call(this, lineIndex, sectionOrderInput.value);

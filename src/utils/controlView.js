@@ -81,15 +81,15 @@ export function makeTableSection(table, buttonName) {
     <th> 순서 </th> <th> 이름 </th> <th> 설정 </th>
   </thead>`;
   let lineIndex = this.line.findIndex((v) => v.name === buttonName);
-
+  console.log(this.line[lineIndex]);
   this.line[lineIndex].stations.map((v, index) => {
-    const row = `<tr data-id=${v.id}>
+    const row = `<tr data-id=${v.id} data-sectionid=${this.line[lineIndex].id}>
     <td>${index}</td> <td>${v.station}</td>
     <td> <button class="section-delete-button"> 삭제 </button></td>
   </tr>`;
     table.innerHTML += row;
   });
-  // tableButton.call(this, document.querySelectorAll(".section-delete-button"));
+  tableButton.call(this, document.querySelectorAll(".section-delete-button"));
 }
 
 export function printTable(NAME_DIV, buttonName) {

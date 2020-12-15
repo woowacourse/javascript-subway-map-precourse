@@ -18,3 +18,4 @@ export const ERR_MESSAGE_SECTION = ` 구간을 등록할 수 없습니다.
 ※ 순서 번호 : 
 ※ 종점 :상행 종점과 하행 종점은 달라야 합니다.
   `;
+export const ERR__DELETE = ` 삭제가 불가능합니다. `;
