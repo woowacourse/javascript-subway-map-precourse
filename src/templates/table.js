@@ -1,4 +1,9 @@
-const getTableRowTemplate = (row, deleteTarget, deleteButtonClass) => {
+const getTableRowTemplate = ({
+  row,
+  deleteTarget,
+  deleteButtonClass,
+  deletebuttonText,
+}) => {
   let tableCellsTemplate = '';
   row.forEach((cell) => {
     tableCellsTemplate += `<td>${cell}</td>`;
@@ -6,23 +11,30 @@ const getTableRowTemplate = (row, deleteTarget, deleteButtonClass) => {
   return `
     <tr>
       ${tableCellsTemplate}
-      <td><button class="${deleteButtonClass}" data-delete-target="${deleteTarget}">삭제</button></td>
+      <td><button class="${deleteButtonClass}" data-delete-target="${deleteTarget}">${deletebuttonText}</button></td>
     </tr>
   `;
 };
 
-export const getTableRowsTemplate = (
+export const getTableRowsTemplate = ({
   rows,
   deleteTargetCellIndex,
-  deleteButtonClass
-) => {
+  deleteButtonClass,
+  deleteButtonText,
+}) => {
   let rowItemsTemplate = '';
+  let defaultDeleteButtonText = '삭제';
+  if (deleteButtonText) {
+    defaultDeleteButtonText = deleteButtonText;
+  }
   rows.forEach((row) => {
-    rowItemsTemplate += getTableRowTemplate(
+    const deleteTarget = row[deleteTargetCellIndex];
+    rowItemsTemplate += getTableRowTemplate({
       row,
-      row[deleteTargetCellIndex],
-      deleteButtonClass
-    );
+      deleteTarget,
+      deleteButtonClass,
+      deletebuttonText: defaultDeleteButtonText,
+    });
   });
 
   return rowItemsTemplate;

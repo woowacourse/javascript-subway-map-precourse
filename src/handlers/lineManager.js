@@ -40,8 +40,13 @@ const showResultTable = () => {
     const lineTableRow = [lineName, lineStartStation, lineEndStation];
     lineTableRows.push(lineTableRow);
   });
-
-  resultLineItemsElement.innerHTML = getTableRowsTemplate(lineTableRows, 0, 'line-delete-button');
+  const deleteTargetCellIndex = 0;
+  const deleteButtonClass = 'line-delete-button';
+  resultLineItemsElement.innerHTML = getTableRowsTemplate({
+    rows: lineTableRows,
+    deleteTargetCellIndex,
+    deleteButtonClass,
+  });
 };
 
 export const onConverToLineContent = () => {

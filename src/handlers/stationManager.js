@@ -36,11 +36,13 @@ const getDeleteStationAlertMessage = (stationName) => {
 const showResultTable = () => {
   const registerdStationNames = Object.keys(subwayMap.allStations);
   const resultRows = registerdStationNames.map((stationName) => [stationName]);
-  resultStationItemsElement.innerHTML = getTableRowsTemplate(
-    resultRows,
-    0,
-    'station-delete-button'
-  );
+  const deleteTargetCellIndex = 0;
+  const deleteButtonClass = 'station-delete-button';
+  resultStationItemsElement.innerHTML = getTableRowsTemplate({
+    rows: resultRows,
+    deleteTargetCellIndex,
+    deleteButtonClass,
+  });
 };
 
 export const onAddStation = () => {
