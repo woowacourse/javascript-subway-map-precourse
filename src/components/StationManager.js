@@ -23,6 +23,13 @@ export default function StationManager({ $target, isShow }) {
     this.setState({ nextStations });
   };
 
+  this.onDeleteStation = (stationIndex) => {
+    const nextStations = [...this.stations];
+    nextStations.splice(stationIndex, 1);
+
+    this.setState({ nextStations });
+  };
+
   this.stationNameInput = new StationNameInput({
     $target: this.$container,
     isExistStationName: this.isExistStationName,
@@ -31,6 +38,7 @@ export default function StationManager({ $target, isShow }) {
   this.stationList = new StationList({
     $target: this.$container,
     stations: this.stations,
+    onDeleteStation: this.onDeleteStation,
   });
 
   this.setState = ({ nextIsShow, nextStations }) => {
@@ -41,7 +49,7 @@ export default function StationManager({ $target, isShow }) {
         item: nextStations,
       });
 
-      this.stationList.setState({ nextStation: this.stations });
+      this.stationList.setState({ nextStations: this.stations });
     }
 
     if (nextIsShow !== undefined) {

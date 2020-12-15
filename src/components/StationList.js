@@ -1,23 +1,32 @@
 import { ELEMENT_INFO } from "../util/constants.js";
 
-export default function StationList({ $target, stations }) {
+export default function StationList({ $target, stations, onDeleteStation }) {
   this.$container = document.createElement("section");
   $target.append(this.$container);
 
   this.stations = stations;
+  this.onDeleteStation = onDeleteStation;
 
   const { stationDeleteButton } = ELEMENT_INFO;
+
+  this.bindOnDelete = () => {
+    this.$container.addEventListener("click", (e) => {
+      if (e.target.className === stationDeleteButton.className) {
+        this.onDeleteStation(e.target.dataset.stationIndex);
+      }
+    });
+  };
 
   this.setState = ({ nextStations }) => {
     this.stations = nextStations;
     this.render();
   };
 
-  this.createTableRowHTMLString = (stationName) => {
+  this.createTableRowHTMLString = (stationName, index) => {
     return `
       <tr>
         <td>${stationName}</td>
-        <td><button class="${stationDeleteButton.className}">${stationDeleteButton.text}</button></td>
+        <td><button class="${stationDeleteButton.className}" data-station-index="${index}">${stationDeleteButton.text}</button></td>
       </tr>
     `;
   };
@@ -33,11 +42,12 @@ export default function StationList({ $target, stations }) {
           </tr>
         </thead>
         </tbody>
-          ${this.stations.map((station) => this.createTableRowHTMLString(station)).join("")}
+          ${this.stations.map((station, index) => this.createTableRowHTMLString(station, index)).join("")}
         </tbody>
       </table>
     `;
   };
 
   this.render();
+  this.bindOnDelete();
 }
