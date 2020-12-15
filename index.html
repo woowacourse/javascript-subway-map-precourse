@@ -7,7 +7,31 @@
   <body>
     <div id="app">
       <h1>🚇 지하철 노선도 관리 </h1>
+      <div id="manager-menu">
+        <button id="station-manager-button" data-stations="[]">1. 역관리</button>
+        <button id="line-manager-button" data-lines="[]">2. 노선 관리</button>
+        <button id="section-manager-button">3. 구간 관리</button>
+        <button id="map-print-manager-button">4. 지하철 노선도 출력</button>
+      </div>
+      <div id="manager-container"></div>
     </div>
     <script type="module" src="src/index.js"></script>
   </body>
 </html>
+<style>
+div {
+  margin-bottom: 16px;
+}
+
+table, th, td {
+  border: 1px solid black
+}
+
+#section-list {
+  margin-top: 40px;
+}
+
+.section-order {
+  text-align: center;
+}
+</style>
