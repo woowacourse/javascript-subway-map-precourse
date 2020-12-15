@@ -1,4 +1,4 @@
-import { overTwo, notDuplicateStation, stationNotInLine } from '../controllers/validation.js';
+import { geTwo, notDuplicateStation, stationNotInLine } from '../controllers/validation.js';
 import { showAddedStation } from '../views/stationManager.js';
 import { clearFocus } from '../views/utils.js';
 
@@ -15,7 +15,7 @@ export const stationAddListener = subwayMap => {
 };
 
 const addNewStation = (name, subwayMap) => {
-  if (overTwo(name) && notDuplicateStation(name, subwayMap.stationList)) {
+  if (geTwo(name) && notDuplicateStation(name, subwayMap.stationList)) {
     subwayMap.addStation(name);
     showAddedStation(subwayMap);
   } else {

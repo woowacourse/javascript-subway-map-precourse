@@ -1,4 +1,4 @@
-import { notFirstOrLast, stationNotInSelectedLine } from './validation.js';
+import { notFirstOrLast, stationNotInSelectedLine, gtTwo } from './validation.js';
 import { clearFocus } from '../views/utils.js';
 import { showAddedSection } from '../views/sectionManager.js';
 
@@ -35,7 +35,7 @@ export const sectionRemoveListener = () => {
 const addNewSection = (station, order, selectedLineName, subwayMap) => {
   const sectionOrderInput = document.querySelector('#section-order-input');
   const lineList = subwayMap.lineList;
-  let sectionIndex = lineList.findIndex(line => line.name === selectedLineName);
+  const sectionIndex = lineList.findIndex(line => line.name === selectedLineName);
   const selectedLine = lineList[sectionIndex].list;
   if (notFirstOrLast(order, selectedLine) && stationNotInSelectedLine(station, selectedLine)) {
     subwayMap.addSection(sectionIndex, order, station);
@@ -47,8 +47,15 @@ const addNewSection = (station, order, selectedLineName, subwayMap) => {
 };
 
 export const deleteSection = (lineName, stationName, subwayMap) => {
-  if (confirm('정말로 삭제하시겠습니까?')) {
-    subwayMap.delSection(lineName, stationName);
-    showAddedSection(lineName, subwayMap);
+  const lineList = subwayMap.lineList;
+  const sectionIndex = lineList.findIndex(line => line.name === lineName);
+  const selectedLineList = lineList[sectionIndex].list;
+  if (gtTwo(selectedLineList)) {
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      subwayMap.delSection(lineName, stationName);
+      showAddedSection(lineName, subwayMap);
+    }
+  } else {
+    alert('노선에 2개 이상의 역이 존재해야 합니다.');
   }
 };

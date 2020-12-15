@@ -1,4 +1,4 @@
-export const overTwo = name => {
+export const geTwo = name => {
   return name.length >= 2;
 };
 
@@ -30,4 +30,9 @@ export const notFirstOrLast = (order, lineList) => {
 export const stationNotInSelectedLine = (station, selectedLineList) => {
   if (selectedLineList.includes(station)) return false;
   return true;
+};
+
+export const gtTwo = selectedLineList => {
+  if (selectedLineList.length > 2) return true;
+  return false;
 };
