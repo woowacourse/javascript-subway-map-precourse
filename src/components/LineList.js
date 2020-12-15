@@ -1,13 +1,13 @@
 import { ELEMENT_INFO } from "../util/constants.js";
 
 export default function LineList({ $target, lines, onDeleteLine }) {
+  const { lineDeleteButton } = ELEMENT_INFO;
+
   this.$container = document.createElement("section");
   $target.append(this.$container);
 
   this.lines = lines;
   this.onDeleteLine = onDeleteLine;
-
-  const { lineDeleteButton } = ELEMENT_INFO;
 
   this.bindOnDelete = () => {
     this.$container.addEventListener("click", (e) => {

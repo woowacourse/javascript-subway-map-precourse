@@ -2,6 +2,8 @@ import { isNatureNumber } from "../util/validation.js";
 import { ELEMENT_INFO, ERROR_MESSAGE } from "../util/constants.js";
 
 export default function SectionInput({ $target, stations, selectedLineName, stationsInSelectedLine, onAddSection }) {
+  const { sectionStationSelector, sectionOrderInput, sectionAddButton } = ELEMENT_INFO;
+
   this.$container = document.createElement("section");
   this.$container.className = "section-input";
   $target.append(this.$container);
@@ -9,8 +11,6 @@ export default function SectionInput({ $target, stations, selectedLineName, stat
   this.stations = stations;
   this.selectedLineName = selectedLineName;
   this.stationsInSelectedLine = stationsInSelectedLine;
-
-  const { sectionStationSelector, sectionOrderInput, sectionAddButton } = ELEMENT_INFO;
 
   this.bindOnSubmit = () => {
     this.$container.addEventListener("click", (e) => {

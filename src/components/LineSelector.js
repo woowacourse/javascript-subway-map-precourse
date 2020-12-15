@@ -1,14 +1,14 @@
 import { ELEMENT_INFO } from "../util/constants.js";
 
 export default function LineSelector({ $target, lines, onChangeLine }) {
+  const { sectionLineMenuButton } = ELEMENT_INFO;
+
   this.$container = document.createElement("section");
   this.$container.className = "line-selector";
   $target.append(this.$container);
 
   this.lines = lines;
   this.onChangeLine = onChangeLine;
-
-  const { sectionLineMenuButton } = ELEMENT_INFO;
 
   this.bindOnClick = () => {
     this.$container.addEventListener("click", (e) => {

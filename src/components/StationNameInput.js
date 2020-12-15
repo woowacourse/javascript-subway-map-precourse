@@ -2,13 +2,13 @@ import { isTextOverMinLength } from "../util/validation.js";
 import { ELEMENT_INFO, STATION_NAME_MIN_LENGTH, ERROR_MESSAGE } from "../util/constants.js";
 
 export default function StationNameInput({ $target, isExistStationName, onAddStation }) {
+  const { stationNameInput, stationNameSubmit } = ELEMENT_INFO;
+
   this.$container = document.createElement("form");
   $target.append(this.$container);
 
   this.isExistStationName = isExistStationName;
   this.onAddStation = onAddStation;
-
-  const { stationNameInput, stationNameSubmit } = ELEMENT_INFO;
 
   this.bindOnSubmit = () => {
     this.$container.addEventListener("submit", (e) => {

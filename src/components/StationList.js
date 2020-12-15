@@ -1,13 +1,13 @@
 import { ELEMENT_INFO } from "../util/constants.js";
 
 export default function StationList({ $target, stations, onDeleteStation }) {
+  const { stationDeleteButton } = ELEMENT_INFO;
+
   this.$container = document.createElement("section");
   $target.append(this.$container);
 
   this.stations = stations;
   this.onDeleteStation = onDeleteStation;
-
-  const { stationDeleteButton } = ELEMENT_INFO;
 
   this.bindOnDelete = () => {
     this.$container.addEventListener("click", (e) => {

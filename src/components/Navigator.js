@@ -1,9 +1,9 @@
 import { ELEMENT_INFO } from "../util/constants.js";
 
 export default function Navigator({ $target }) {
-  this.$target = $target;
-
   const { navigator: navInfo } = ELEMENT_INFO;
+
+  this.$target = $target;
 
   this.render = () => {
     const HTMLString = `

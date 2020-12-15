@@ -2,13 +2,13 @@ import { isTextOverMinLength } from "../util/validation.js";
 import { ELEMENT_INFO, LINE_NAME_MIN_LENGTH, ERROR_MESSAGE } from "../util/constants.js";
 
 export default function LineInput({ $target, stations, isExistLineName, onAddLine }) {
+  const { lineNameInput, lineStartStationSelector, lineEndStationSelector, lineAddButton } = ELEMENT_INFO;
+
   this.$container = document.createElement("form");
   $target.append(this.$container);
 
   this.stations = stations;
   this.onAddLine = onAddLine;
-
-  const { lineNameInput, lineStartStationSelector, lineEndStationSelector, lineAddButton } = ELEMENT_INFO;
 
   this.$container.addEventListener("submit", (e) => {
     const $lineNameInput = document.querySelector(`#${lineNameInput.id}`);
