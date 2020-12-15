@@ -1,5 +1,9 @@
 # 🚇 지하철 노선도 미션
 
+## URL
+
+### https://yungo1846.github.io/javascript-subway-map-precourse/
+
 ## 디렉토리 구조
 
 ```bash
@@ -92,7 +96,7 @@
 
 - 노선의 상행 종점부터 하행 종점까지 연결된 순서대로 역 목록을 조회할 수 있다. (완료)
 
-### 고민사항
+## 🤔 고민사항
 
 - 사용자 localStorage에 다른 프로그램에서 사용하고 있는 stations와 lines가 있는 경우, 어떻게 처리해야하는가?
 
