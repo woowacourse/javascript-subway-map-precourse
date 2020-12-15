@@ -1,6 +1,6 @@
 import StationNameInput from "./StationNameInput.js";
 
-export default function StationManagement({ $target, isShow }) {
+export default function StationManager({ $target, isShow }) {
   this.$container = document.createElement("div");
   this.$container.className = "station-management";
   $target.append(this.$container);

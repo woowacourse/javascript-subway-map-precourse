@@ -1,6 +1,6 @@
 import Header from "./Header.js";
 import Navigator from "./Navigator.js";
-import StationManagement from "./StationManagement.js";
+import StationManager from "./StationManager.js";
 
 export default function App($app) {
   this.$app = $app;
@@ -11,7 +11,7 @@ export default function App($app) {
   this.$main = document.createElement("main");
   this.$app.append(this.$main);
 
-  this.stationManagement = new StationManagement({
+  this.stationManager = new StationManager({
     $target: this.$main,
     isShow: true,
   });
