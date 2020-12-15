@@ -1,4 +1,8 @@
 import {
+  MINIMUM_STATION_NAME_LENGTH,
+  MINIMUM_LINE_NAME_LENGTH,
+  MINIMUM_ORDER_SIZE,
+  MINIMUM_STATION_SIZE,
   SHORT_STATION_NAME,
   REDUNDANT_STATION_NAME,
   REGISTERED_STATION,
@@ -11,7 +15,7 @@ import {
 } from '../constants/index.js';
 
 export const isValidStationName = (stations, name) => {
-  if (name.length < 2) {
+  if (name.length < MINIMUM_STATION_NAME_LENGTH) {
     alert(SHORT_STATION_NAME);
     return false;
   }
@@ -39,7 +43,7 @@ export const isAddedStation = (lines, name) => {
 };
 
 export const isValidLineName = (lines, newLineName) => {
-  if (newLineName.length < 1) {
+  if (newLineName.length < MINIMUM_LINE_NAME_LENGTH) {
     alert(SHORT_LINE_NAME);
     return false;
   }
@@ -62,7 +66,7 @@ export const isValidLine = (start, end) => {
 };
 
 export const isValidSectionOrder = (stations, order) => {
-  if (order <= 0 || stations.length <= order) {
+  if (order <= MINIMUM_ORDER_SIZE || stations.length <= order) {
     alert(STATION_BETWEEN_STATIONS);
     return false;
   }
@@ -80,7 +84,7 @@ export const isValidSection = (stations, name) => {
 };
 
 export const isValidDeleteSection = stations => {
-  if (stations.length <= 2) {
+  if (stations.length <= MINIMUM_STATION_SIZE) {
     alert(SMALL_SIZE_SECTION);
     return false;
   }
