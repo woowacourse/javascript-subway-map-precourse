@@ -10,6 +10,8 @@ import {
 import { lineTableTemplate, optionTemplate } from '../share/template.js';
 
 const CONFIRM_MESSAGE = '정말 노선을 삭제하시겠습니까?';
+const ALERT_MESSAGE_SAME_STATION = '상행 종점과 하행 종점은 달라야 합니다.';
+const ALERT_MESSAGE_SAME_NAME = '이미 등록된 노선이름입니다.';
 export default class LineManager extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +48,7 @@ export default class LineManager extends Component {
     event.preventDefault();
     const constructorObj = this.getValues();
     const newLine = new Line(constructorObj);
+    if (!this.checkValidity(newLine)) return;
     this.addLineToList(newLine);
     this.clearInput();
   };
@@ -59,27 +62,28 @@ export default class LineManager extends Component {
   };
 
   addLineToList(line) {
-    if (!this.checkValidity(line)) return;
-    const newLineList = [...this.data.lineList];
-    newLineList.push(line);
-    this.setData({
-      lineList: newLineList,
-    });
-    this.props.syncData(this.data);
+    const newData = { ...this.data };
+    newData.lineList.push(line);
+    this.props.syncData(newData);
   }
 
   deleteLineFromList(index) {
-    const newLineList = [...this.data.lineList];
-    newLineList.splice(index, 1);
-    this.setData({
-      lineList: newLineList,
-    });
-    this.props.syncData(this.data);
+    const newData = { ...this.data };
+    newData.lineList.splice(index, 1);
+    this.props.syncData(newData);
   }
 
-  checkValidity = ({ name, startStation, endStation }) =>
-    checkOverlap(name, this.getAllLineNames()) &&
-    checkSameStation(startStation, endStation);
+  checkValidity({ name, startStation, endStation }) {
+    if (!checkOverlap(name, this.data.stationList)) {
+      alert(ALERT_MESSAGE_SAME_NAME);
+      return false;
+    }
+    if (!checkSameStation(startStation, endStation)) {
+      alert(ALERT_MESSAGE_SAME_STATION);
+      return false;
+    }
+    return true;
+  }
 
   getAllLineNames = () => this.data.lineList.map((line) => line.name);
 

@@ -59,19 +59,15 @@ export default class StationManager extends Component {
     if (!this.checkValidity(station)) return;
     const newStationList = [...this.data.stationList];
     newStationList.push(station);
-    this.setData({
-      stationList: newStationList,
-    });
-    this.props.syncData(this.data);
+    const newData = { ...this.data };
+    newData.stationList.push(station);
+    this.props.syncData(newData);
   }
 
   deleteStationFromList(index) {
-    const newStationList = [...this.data.stationList];
-    newStationList.splice(index, 1);
-    this.setData({
-      stationList: newStationList,
-    });
-    this.props.syncData(this.data);
+    const newData = { ...this.data };
+    newData.stationList.splice(index, 1);
+    this.props.syncData(newData);
   }
 
   getAllStationNamesInLines() {
@@ -107,6 +103,8 @@ export default class StationManager extends Component {
   }
 
   render() {
+    console.log('rendered!');
+    console.log(this);
     this.table.innerHTML = this.template();
   }
 }
