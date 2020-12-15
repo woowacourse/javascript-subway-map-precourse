@@ -8,9 +8,42 @@ export default function sectionContainer() {
   let lineData = [];
   let stationData = [];
 
+  const addSection = (station, order, line) => {
+    const sectionManageContainer = document.querySelector(
+      "#section-manage-container",
+    );
+    const lineListTable = document.querySelector("#line-list-table");
+    const prevLineDataIndex = lineData.indexOf(line);
+
+    line.splice(parseInt(order) + 1, 0, station);
+    lineData[prevLineDataIndex] = line;
+    sectionManageContainer.removeChild(lineListTable);
+
+    setLocalData(lineData);
+    lineListTemplate(line);
+    sectionHandler(line);
+  };
+
   const getLocalData = () => {
     stationData = JSON.parse(window.localStorage.getItem("stationList"));
     lineData = JSON.parse(window.localStorage.getItem("lineList"));
+  };
+
+  const setLocalData = lineData => {
+    window.localStorage.setItem("lineList", JSON.stringify(lineData));
+  };
+
+  const sectionHandler = line => {
+    const sectionSelector = document.querySelector("#section-manage-selector");
+    const sectionInputNumber = document.querySelector("#section-manage-input");
+    const sectionButton = document.querySelector("#section-manage-button");
+    sectionButton.addEventListener("click", () => {
+      addSection(
+        sectionSelector.options[sectionSelector.selectedIndex].value,
+        sectionInputNumber.value,
+        line,
+      );
+    });
   };
 
   const MenuButtonHandler = () => {
@@ -30,6 +63,7 @@ export default function sectionContainer() {
       if (line[0] === targetLine) {
         sectionManagePresenter(line, stationData);
         lineListTemplate(line);
+        sectionHandler(line);
       }
     }
   };
