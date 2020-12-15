@@ -1,0 +1,15 @@
+table,
+th,
+td {
+  border: 1px solid #333;
+}
+
+#line-start-station-selector-container {
+  display: flex;
+  align-items: center;
+}
+
+#line-end-station-selector-container {
+  display: flex;
+  align-items: center;
+}
