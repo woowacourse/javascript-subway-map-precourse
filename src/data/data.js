@@ -12,7 +12,7 @@ import {
 } from '../elements/sectionManager.js';
 import { INTERFACE_DATA_ITEM_NAME } from '../constants/configuration.js';
 
-export const data = {
+const data = {
   stationNameInputValue: '',
   lineNameInputValue: '',
   lineStartStationSelectorValue: '',
@@ -22,7 +22,7 @@ export const data = {
   sectionOrderInputNumberValue: '',
 };
 
-export const saveDataToLocalStorage = () => {
+export const syncDataToLocalStorage = () => {
   setItemWithKey(data, INTERFACE_DATA_ITEM_NAME);
 };
 
@@ -61,4 +61,9 @@ export const syncDataToAllElements = () => {
   sectionStationSelectorElement.value = data.sectionStationSelectorValue;
 };
 
-export default {};
+export default {
+  syncDataToLocalStorage,
+  loadDataToLocalStorage,
+  syncDataFromAllElements,
+  syncDataToAllElements,
+};

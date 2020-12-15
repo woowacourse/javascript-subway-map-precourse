@@ -29,7 +29,7 @@ const getAddLineAlertMessage = ({
   return alertMessage;
 };
 
-const showResultTable = () => {
+export const showLineManagerResultTable = () => {
   const lineTableRows = [];
   const allLineNames = Object.keys(subwayMap.allLines);
   allLineNames.forEach((lineName) => {
@@ -37,6 +37,7 @@ const showResultTable = () => {
     const lineStartStation = line.allStationsInLine[0];
     const lineEndStationIndex = line.allStationsInLine.length - 1;
     const lineEndStation = line.allStationsInLine[lineEndStationIndex];
+    console.log(lineStartStation, lineEndStation);
     const lineTableRow = [lineName, lineStartStation, lineEndStation];
     lineTableRows.push(lineTableRow);
   });
@@ -63,7 +64,9 @@ export const onAddLine = () => {
   const lineName = lineNameInputElement.value;
   const startStationName = lineStartStationSelectorElement.value;
   const endStationName = lineEndStationSelectorElement.value;
-  const line = new SubwayLine({ startStationName, endStationName });
+  subwayMap.allStations[startStationName].addBeloningLineByLineName(lineName);
+  subwayMap.allStations[endStationName].addBeloningLineByLineName(lineName);
+  const line = new SubwayLine(startStationName, endStationName);
   const alertMessage = getAddLineAlertMessage({
     lineName,
     startStationName,
@@ -71,7 +74,7 @@ export const onAddLine = () => {
   });
   if (alertMessage === '') {
     subwayMap.addLine(line, lineName);
-    showResultTable();
+    showLineManagerResultTable();
   } else {
     alert(alertMessage);
   }
@@ -83,12 +86,18 @@ export const onDeleteLine = (event) => {
     return;
   }
   const deleteTargetName = targetElement.dataset.deleteTarget;
+  const targetLine = subwayMap.allLines[deleteTargetName];
+  targetLine.allStationsInLine.forEach((stationName) => {
+    const station = subwayMap.allStations[stationName];
+    station.deleteBeloningLineByLineName(deleteTargetName);
+  });
   subwayMap.deleteLineByName(deleteTargetName);
-  showResultTable();
+  showLineManagerResultTable();
 };
 
 export default {
   onAddLine,
   onConverToLineContent,
   onDeleteLine,
+  showLineManagerResultTable,
 };

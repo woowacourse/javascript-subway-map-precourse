@@ -12,4 +12,13 @@ export default class SubwayStation {
   constructor() {
     this.belongingLineNames = [];
   }
+
+  addBeloningLineByLineName(lineName) {
+    this.belongingLineNames.push(lineName);
+  }
+
+  deleteBeloningLineByLineName(lineName) {
+    const deleteLineIndex = this.belongingLineNames.indexOf(lineName);
+    this.belongingLineNames.splice(deleteLineIndex, 1);
+  }
 }

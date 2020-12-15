@@ -33,7 +33,7 @@ const getDeleteStationAlertMessage = (stationName) => {
   return alertMessage;
 };
 
-const showResultTable = () => {
+export const showStationManagerResultTable = () => {
   const registerdStationNames = Object.keys(subwayMap.allStations);
   const resultRows = registerdStationNames.map((stationName) => [stationName]);
   const deleteTargetCellIndex = 0;
@@ -51,7 +51,7 @@ export const onAddStation = () => {
   if (alertMessage === '') {
     const station = new SubwayStation();
     subwayMap.addStation(station, stationName);
-    showResultTable();
+    showStationManagerResultTable();
     stationNameInputElement.value = '';
   } else {
     alert(alertMessage);
@@ -67,7 +67,7 @@ export const onDeleteStation = (event) => {
   const alertMessage = getDeleteStationAlertMessage(deleteTargetName);
   if (alertMessage === '') {
     subwayMap.deleteStationByName(deleteTargetName);
-    showResultTable();
+    showStationManagerResultTable();
   } else {
     alert(alertMessage);
   }
@@ -75,4 +75,5 @@ export const onDeleteStation = (event) => {
 
 export default {
   onAddStation,
+  showStationManagerResultTable
 };

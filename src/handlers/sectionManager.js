@@ -39,28 +39,31 @@ const getPullOutStationAlertMessage = (line) => {
   return alertMessage;
 };
 
-const showResultTable = (allStationsInLine) => {
-  const stationInLineRows = [];
-  allStationsInLine.forEach((stationName, index) => {
-    stationInLineRows.push([index, stationName]);
-  });
-  registeredStationItemsElement.innerHTML = getTableRowsTemplate({
-    rows: stationInLineRows,
-    deleteTargetCellIndex: 0,
-    deleteButtonClass: 'section-delete-button',
-    deleteButtonText: '노선에서 제거',
-  });
+export const showSectionManagerResultTable = () => {
+  const lineName = sectionLineNameElement.innerText;
+  const line = subwayMap.allLines[lineName];
+  if (line) {
+    const stationInLineRows = [];
+    line.allStationsInLine.forEach((stationName, index) => {
+      stationInLineRows.push([index, stationName]);
+    });
+    registeredStationItemsElement.innerHTML = getTableRowsTemplate({
+      rows: stationInLineRows,
+      deleteTargetCellIndex: 0,
+      deleteButtonClass: 'section-delete-button',
+      deleteButtonText: '노선에서 제거',
+    });
+  }
 };
 
 export const onClickSectionLineButton = (event) => {
   const targetElement = event.target;
   if (targetElement.className === 'section-line-menu-button') {
     const lineName = targetElement.innerText;
-    const line = subwayMap.allLines[lineName];
     sectionLineNameElement.innerText = lineName;
     stationRegisterWrapperElement.setAttribute('style', 'display: block;');
     registeredStationItemTableElement.setAttribute('style', 'display: block;');
-    showResultTable(line.allStationsInLine);
+    showSectionManagerResultTable();
   }
 };
 
@@ -86,8 +89,10 @@ export const onInsertStation = () => {
     index,
   });
   if (alertMessage === '') {
+    const insertingStation = subwayMap.allStations[stationName];
+    insertingStation.addBeloningLineByLineName(lineName);
     line.insertStationToLineByNameAndIndex({ stationName, index });
-    showResultTable(line.allStationsInLine);
+    showSectionManagerResultTable(line.allStationsInLine);
   } else {
     alert(alertMessage);
   }
@@ -103,8 +108,12 @@ export const onPullOutStation = (event) => {
   const line = subwayMap.allLines[lineName];
   const alertMessage = getPullOutStationAlertMessage(line);
   if (alertMessage === '') {
-    line.pullOutStationFromLineByIndex(targetIndex);
-    showResultTable(line.allStationsInLine);
+    const pulledOutStationName = line.pullOutStationFromLineByIndex(
+      targetIndex
+    );
+    const pulledOutStation = subwayMap.allStations[pulledOutStationName];
+    pulledOutStation.deleteBeloningLineByLineName(lineName);
+    showSectionManagerResultTable(line.allStationsInLine);
   } else {
     alert(alertMessage);
   }
@@ -114,4 +123,5 @@ export default {
   onInsertStation,
   onConverToSectionContent,
   onClickSectionLineButton,
+  showSectionManagerResultTable,
 };

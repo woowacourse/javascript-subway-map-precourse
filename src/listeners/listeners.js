@@ -17,21 +17,36 @@ import {
   mapPrintManagerButtonElement,
 } from '../elements/contentConvertButtons.js';
 
-import { onAddStation, onDeleteStation } from '../handlers/stationManager.js';
+import {
+  onAddStation,
+  onDeleteStation,
+  showStationManagerResultTable,
+} from '../handlers/stationManager.js';
 import {
   onAddLine,
   onConverToLineContent,
   onDeleteLine,
+  showLineManagerResultTable,
 } from '../handlers/lineManager.js';
 import {
   onConverToSectionContent,
   onClickSectionLineButton,
   onInsertStation,
   onPullOutStation,
+  showSectionManagerResultTable,
 } from '../handlers/sectionManager.js';
-import { onPrintMap } from '../handlers/mapPrint.js';
+import { printMap } from '../handlers/mapPrint.js';
 import { convertContent } from '../routes/routes.js';
-import { loadDataToLocalStorage, syncDataToAllElements } from '../data/data.js';
+import {
+  loadDataToLocalStorage,
+  syncDataToAllElements,
+  syncDataToLocalStorage,
+  syncDataFromAllElements,
+} from '../data/data.js';
+import {
+  syncSubwayMapFromLocalStorage,
+  syncSubwayMapToLocalStorage,
+} from '../store/store.js';
 
 export const addStationManagerEventListeners = () => {
   stationAddButtonElement.addEventListener('click', onAddStation);
@@ -58,12 +73,15 @@ export const addSectionManagerEventListeners = () => {
 };
 
 export const addMapPrintEventListeners = () => {
-  mapPrintManagerButtonElement.addEventListener('click', onPrintMap);
+  mapPrintManagerButtonElement.addEventListener('click', printMap);
 };
 
 export const addSyncDataBeforeUnloadEventListener = () => {
-  syncDataToAllElements();
-
+  window.onbeforeunload = () => {
+    syncDataFromAllElements();
+    syncDataToLocalStorage();
+    syncSubwayMapToLocalStorage();
+  };
 };
 
 export const addSyncDataBeforeOnloadEventListener = (
@@ -77,9 +95,13 @@ export const addSyncDataBeforeOnloadEventListener = (
     } else {
       convertContent(contentElements, defaultContentElement.id);
     }
+    loadDataToLocalStorage();
+    syncDataToAllElements();
+    syncSubwayMapFromLocalStorage();
+    showStationManagerResultTable();
+    showLineManagerResultTable();
+    showSectionManagerResultTable();
   };
-  loadDataToLocalStorage();
-  syncDataToAllElements();
 };
 
 export default {
