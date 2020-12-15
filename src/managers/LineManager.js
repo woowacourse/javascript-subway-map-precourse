@@ -20,7 +20,6 @@ export default class LineManager {
   setLineDeleteEvent() {
     document.querySelectorAll(".line-delete-button").forEach((item) => {
       item.addEventListener("click", (event) => {
-        event.preventDefault();
         if (confirm(DELETE_CONFIRM_MESSAGE))
           this.confirmLineDelete(event.target);
       });
@@ -43,6 +42,12 @@ export default class LineManager {
     lineNameElem.value = "";
   }
 
+  initEvent() {
+    document.getElementById("line-add-button").addEventListener("click", () => {
+      this.addLine();
+    });
+  }
+
   rendLineMangeDom = () => {
     clearMangeContainer();
     const container = document.getElementById("subway-manager-container");
@@ -53,14 +58,7 @@ export default class LineManager {
     this.initEvent();
   };
 
-  initEvent() {
-    document.getElementById("line-add-button").addEventListener("click", () => {
-      this.addLine();
-    });
-  }
-
   render() {
     this.rendLineMangeDom();
-    this.initEvent();
   }
 }
