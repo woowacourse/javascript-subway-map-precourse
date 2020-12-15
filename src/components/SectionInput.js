@@ -46,11 +46,15 @@ export default function SectionInput({ $target, stations, selectedLineName, stat
     return sectionOrder;
   };
 
-  this.setState = (nextSelectedLineName, nextStationsInSelectedLine) => {
-    this.selectedLineName = nextSelectedLineName;
-    this.stationsInSelectedLine = nextStationsInSelectedLine;
+  this.setState = ({ nextStations, nextSelectedLineName, nextStationsInSelectedLine }) => {
+    if (nextStations) {
+      this.stations = nextStations;
+    } else {
+      this.selectedLineName = nextSelectedLineName;
+      this.stationsInSelectedLine = nextStationsInSelectedLine;
 
-    this.render();
+      this.render();
+    }
   };
 
   this.createSelectOptionHTMLString = () => {

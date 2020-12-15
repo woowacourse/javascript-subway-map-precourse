@@ -67,6 +67,12 @@ export default function LineInput({ $target, stations, isExistLineName, onAddLin
     return false;
   };
 
+  this.setState = ({ nextStations }) => {
+    this.stations = nextStations;
+
+    this.render();
+  };
+
   this.createSelectOptionHTMLString = () => {
     return this.stations.map((station) => `<option value="${station}">${station}</option>`).join("");
   };

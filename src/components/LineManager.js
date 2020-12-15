@@ -1,11 +1,12 @@
 import LineInput from "./LineInput.js";
 import LineList from "./LineList.js";
 
-export default function LineManager({ $target, isShow, stations, lines, onAddLine, onDeleteLine }) {
+export default function LineManager({ id, $target, isShow, stations, lines, onAddLine, onDeleteLine }) {
   this.$container = document.createElement("div");
   this.$container.className = "line-manager";
   $target.append(this.$container);
 
+  this.id = id;
   this.isShow = isShow;
   this.stations = stations;
   this.lines = lines;
@@ -31,9 +32,12 @@ export default function LineManager({ $target, isShow, stations, lines, onAddLin
     onDeleteLine,
   });
 
-  this.setState = ({ nextIsShow, nextLines }) => {
+  this.setState = ({ nextIsShow, nextStations, nextLines }) => {
     if (nextIsShow !== undefined) {
       this.isShow = nextIsShow;
+      this.stations = nextStations;
+      this.lineInput.setState({ nextStations });
+
       this.render();
     }
 

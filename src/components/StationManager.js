@@ -1,11 +1,12 @@
 import StationNameInput from "./StationNameInput.js";
 import StationList from "./StationList.js";
 
-export default function StationManager({ $target, stations, isShow, onAddStation, onDeleteStation }) {
+export default function StationManager({ id, $target, stations, isShow, onAddStation, onDeleteStation }) {
   this.$container = document.createElement("div");
   this.$container.className = "station-manager";
   $target.append(this.$container);
 
+  this.id = id;
   this.isShow = isShow;
   this.stations = stations;
 

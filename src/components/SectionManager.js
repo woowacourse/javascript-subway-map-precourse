@@ -2,11 +2,12 @@ import LineSelector from "./LineSelector.js";
 import SectionInput from "./SectionInput.js";
 import SectionList from "./SectionList.js";
 
-export default function SectionManager({ $target, isShow, stations, lines, updateSection }) {
+export default function SectionManager({ id, $target, isShow, stations, lines, updateSection }) {
   this.$container = document.createElement("div");
   this.$container.className = "section-manager";
   $target.append(this.$container);
 
+  this.id = id;
   this.isShow = isShow;
   this.stations = stations;
   this.lines = lines;
@@ -58,30 +59,30 @@ export default function SectionManager({ $target, isShow, stations, lines, updat
     return this.lines[this.selectedLineIndex].stations;
   };
 
-  this.setNextLines = (nextLines) => {
-    this.lines = nextLines;
-    this.sectionInput.setState(this.getSelectedLineName(), this.getStationsInSelectedLine());
+  this.setStateComponents = () => {
+    this.sectionInput.setState({
+      nextSelectedLineName: this.getSelectedLineName(),
+      nextStationsInSelectedLine: this.getStationsInSelectedLine(),
+    });
     this.sectionList.setState(this.getStationsInSelectedLine());
   };
 
-  this.setNextSelectedLineIndex = (nextSelectedLineIndex) => {
-    this.selectedLineIndex = nextSelectedLineIndex;
-    this.sectionInput.setState(this.getSelectedLineName(), this.getStationsInSelectedLine());
-    this.sectionList.setState(this.getStationsInSelectedLine());
-  };
-
-  this.setState = ({ nextIsShow, nextLines, nextSelectedLineIndex }) => {
+  this.setState = ({ nextIsShow, nextStations, nextLines, nextSelectedLineIndex }) => {
     if (nextIsShow !== undefined) {
       this.isShow = nextIsShow;
+      this.stations = nextStations;
+      this.sectionInput.setState({ nextStations: this.stations });
       this.render();
     }
 
     if (nextLines) {
-      this.setNextLines(nextLines);
+      this.lines = nextLines;
+      this.setStateComponents();
     }
 
     if (nextSelectedLineIndex) {
-      this.setNextSelectedLineIndex(nextSelectedLineIndex);
+      this.selectedLineIndex = nextSelectedLineIndex;
+      this.setStateComponents();
     }
   };
 

@@ -4,12 +4,27 @@ import StationManager from "./StationManager.js";
 import LineManager from "./LineManager.js";
 import SectionManager from "./SectionManager.js";
 import localStorageManager from "../util/localStorage.js";
-import { STORAGE_KEY } from "../util/constants.js";
+import { ELEMENT_INFO, STORAGE_KEY } from "../util/constants.js";
 
 export default function App($app) {
   this.$app = $app;
   this.header = new Header({ $target: this.$app });
-  this.navigator = new Navigator({ $target: this.$app });
+
+  this.positionId = "";
+
+  this.onTogglePosition = (nextPositionId) => {
+    this.stationManager.setState({ nextIsShow: nextPositionId === this.stationManager.id });
+    this.lineManager.setState({ nextIsShow: nextPositionId === this.lineManager.id, nextStations: this.stations });
+    this.sectionManager.setState({
+      nextIsShow: nextPositionId === this.sectionManager.id,
+      nextStations: this.stations,
+    });
+  };
+
+  this.navigator = new Navigator({
+    $target: this.$app,
+    onTogglePosition: this.onTogglePosition,
+  });
 
   this.$main = document.createElement("main");
   this.$app.append(this.$main);
@@ -36,6 +51,7 @@ export default function App($app) {
   };
 
   this.stationManager = new StationManager({
+    id: ELEMENT_INFO.navigator[0].id,
     $target: this.$main,
     stations: this.stations,
     isShow: false,
@@ -56,6 +72,7 @@ export default function App($app) {
   };
 
   this.lineManager = new LineManager({
+    id: ELEMENT_INFO.navigator[1].id,
     $target: this.$main,
     isShow: false,
     stations: this.stations,
@@ -72,8 +89,9 @@ export default function App($app) {
   };
 
   this.sectionManager = new SectionManager({
+    id: ELEMENT_INFO.navigator[2].id,
     $target: this.$main,
-    isShow: true,
+    isShow: false,
     stations: this.stations,
     lines: this.lines,
     updateSection: this.updateSection,
