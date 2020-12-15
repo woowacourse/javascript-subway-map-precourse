@@ -79,12 +79,6 @@ export const rendStationMangeDom = () => {
 };
 
 //line
-export const insertLineTable = (line) => {
-  const lineTable = document.getElementById("line-list-table");
-  const row = lineTable.insertRow(lineTable.rows.length);
-  row.innerHTML = getLineRow(line);
-};
-
 export const addLine = () => {
   const lineNameElem = document.getElementById("line-name-input");
   const startStation = document.getElementById("line-start-station-selector")
@@ -93,8 +87,7 @@ export const addLine = () => {
   const newLine = new Line(lineNameElem.value, startStation, endStation);
   if (addLineValidate(lineNameElem.value, startStation, endStation)) {
     addLocalStorageByKey("lines", newLine);
-    insertLineTable(newLine);
-    setLineDeleteEvent();
+    rendLineMangeDom();
   } else {
     alert(LINE.INPUT_ERROR_MESSAGE);
   }
@@ -119,6 +112,7 @@ export const setLineDeleteEvent = () => {
 };
 
 export const rendLineMangeDom = () => {
+  clearMangeContainer();
   const container = document.getElementById("subway-manager-container");
   const div = document.createElement("div");
   div.innerHTML = lineMangeContainer();
