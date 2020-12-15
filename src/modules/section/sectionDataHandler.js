@@ -16,17 +16,18 @@ export const loadLineName = () => {
 
 export const updateLine = () => {
   const lineName = document.querySelector('#title').dataset.line;
-  const station = document.querySelector('#section-station-selector').value;
+  const station = document.querySelector('#section-station-selector');
   const input = document.querySelector('#section-order-input');
-  if (!validateUserInput(lineName, station, input.value)) {
+  if (!validateUserInput(lineName, station.value, input.value)) {
     alert('역 이름과 순서를 다시 한 번 확인해주세요🚨');
     return Subway.clearInput(input);
   }
   let stations = getSelectedLineData(lineName);
-  stations.splice(input.value, 0, station);
+  stations.splice(input.value, 0, station.value);
   localStorage.setItem(lineName, JSON.stringify(stations));
   printSection(lineName);
   Subway.clearInput(input);
+  station.selectedIndex = 0;
 };
 
 export const loadSectionStationData = () => {
