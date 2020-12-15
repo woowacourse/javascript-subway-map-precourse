@@ -69,6 +69,9 @@ function getLineName() {
   if (inputLineName.includes(' ')) {
     return alert('노선 이름에는 공백이 포함될 수 없습니다.');
   }
+  if (inputLineName.includes(',')) {
+    return alert('노선 이름에는 쉼표가 포함될 수 없습니다.');
+  }
   return checkValidInput(inputLineName);
 }
 
