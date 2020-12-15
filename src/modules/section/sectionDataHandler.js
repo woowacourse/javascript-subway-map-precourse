@@ -42,9 +42,7 @@ export const deleteStationFromLine = (e) => {
   const station = e.target.dataset.station;
   const lineName = document.querySelector('#title').dataset.line;
   if (!checkDeleteAvailable(lineName)) {
-    return alert(
-      `노선에 남아있는 역의 갯수가 ${numInCondition.MIN_LENGTH_LINE}개 이상이어야 합니다🚨`
-    );
+    return alert(`노선에 남아있는 역의 갯수가 ${numInCondition.MIN_LENGTH_LINE}개 이상이어야 합니다🚨`);
   }
   let stations = getSelectedLineData(lineName);
   const idx = stations.indexOf(station);

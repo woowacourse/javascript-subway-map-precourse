@@ -36,8 +36,7 @@ export const addEventToDeleteBtn = (tagId) => {
     }
     if (tagId === '#station-list') {
       return deleteStation(event);
-    }
-    if (tagId === '#line-list') {
+    } else if (tagId === '#line-list') {
       return deleteLine(event);
     }
     return deleteStationFromLine(event);

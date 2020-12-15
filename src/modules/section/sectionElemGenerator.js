@@ -12,10 +12,7 @@ export const createLineNameBtn = (lineNames) => {
     lineNameBtn.className = 'section-line-menu-button';
     lineNameBtn.dataset.line = lineName;
     parentElem.appendChild(lineNameBtn);
-    lineNameBtn.insertAdjacentHTML(
-      'afterend',
-      '<span class="space">&nbsp</span>'
-    );
+    lineNameBtn.insertAdjacentHTML('afterend', '<span class="space">&nbsp</span>');
   });
   addEventToLineNameBtn();
 };

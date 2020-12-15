@@ -61,11 +61,8 @@ const clearMapData = () => {
 };
 
 export const printMapData = () => {
-  const mapSection = document.querySelector('#map-module');
-  let map = document.createElement('div');
+  const map = drawDOM();
   let data = '';
-  map.className = 'map';
-  mapSection.appendChild(map);
   const lines = getLineName();
   lines.forEach((line) => {
     let stationsInLine = getSelectedLineData(line);
@@ -77,3 +74,11 @@ export const printMapData = () => {
   });
   map.innerHTML = data;
 };
+
+const drawDOM = () => {
+  const mapSection = document.querySelector('#map-module');
+  let map = document.createElement('div');
+  map.className = 'map';
+  mapSection.appendChild(map);
+  return map;
+}
