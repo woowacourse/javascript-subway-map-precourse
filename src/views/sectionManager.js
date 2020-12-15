@@ -70,7 +70,7 @@ const showAddedSection = (lineName, subwayMap) => {
     });
     const deleteBtn = makeElement({
       tag: 'button',
-      elementClass: 'station-delete-button',
+      elementClass: 'section-delete-button',
       innerHTML: '노선에서 제거',
       dataName: 'station-name',
       dataValue: selectedSectionList[i],
