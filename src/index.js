@@ -117,3 +117,14 @@ function deleteStationFromTable(deleteButton) {
         this.parentElement.parentElement.remove();
     });
 }
+
+function addLineToTable() {
+    let lineName = document.getElementById('#line-name-input').value;
+    let firstStation = document.getElementById('#line-start-station-selector').value;
+    let lastStation = document.getElementById('#line-end-station-selector').value;
+    let newLine = new Line(lineName, firstStation, lastStation);
+    
+    addLineToArray(newLine);
+
+    createLineHTML(newLine, newLine.name, firstStation, lastStation);
+}
