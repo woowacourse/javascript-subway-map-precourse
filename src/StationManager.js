@@ -234,7 +234,7 @@ export default class StationManager extends Component {
     const { stationNameArray } = this.state;
 
     return stationNameArray.reduce(($acc, stationName ) => {
-      const $stationName = createDivHTMLElement({ innerText: stationName });
+      const $stationName = createDivHTMLElement({ innerText: stationName , classList: [classname.CENTER]});
       const $stationDeleteButton = this.createStationDeleteButton({ stationName });
 
       return [...$acc, $stationName, $stationDeleteButton];
