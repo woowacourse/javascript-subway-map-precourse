@@ -1,5 +1,4 @@
-import { clearMangeContainer } from "../views/domController.js";
-import { lineMangeContainer } from "../views/dom.js";
+import { clearMangeContainer, lineMangeContainer } from "../views/dom.js";
 import Line from "../components/Line.js";
 import { addLocalStorageByKey, deleteDataByName } from "../utils/util.js";
 import { addLineValidate } from "../utils/validator.js";

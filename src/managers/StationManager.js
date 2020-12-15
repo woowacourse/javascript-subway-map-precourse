@@ -1,5 +1,4 @@
-import { clearMangeContainer } from "../views/domController.js";
-import { stationMangeContainer } from "../views/dom.js";
+import { clearMangeContainer, stationMangeContainer } from "../views/dom.js";
 import Station from "../components/Station.js";
 import { addLocalStorageByKey, deleteDataByName } from "../utils/util.js";
 import {
@@ -16,7 +15,6 @@ export default class StationManager {
   addStation = () => {
     const stationNameElem = document.getElementById("station-name-input");
     if (addStationValidate(stationNameElem.value)) {
-      console.log("success");
       addLocalStorageByKey("stations", new Station(stationNameElem.value));
       this.rendStationMangeDom();
     } else {

@@ -1,5 +1,11 @@
 import { getStationsInLine } from "../utils/sectionUtil.js";
 
+//common
+export const clearMangeContainer = () => {
+  const container = document.getElementById("subway-manager-container");
+  container.innerHTML = "";
+};
+
 //station
 export const getStationRow = (stationName) =>
   `<tr><td>${stationName}</td> <td><button data-index=${stationName} class="station-delete-button">삭제</button></td></tr>`;
