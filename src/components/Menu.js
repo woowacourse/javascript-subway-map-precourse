@@ -10,7 +10,10 @@ export default class Menu {
     this.$buttons.addEventListener("click", (e) => this.setButtonClick(e));
   }
   setButtonClick(event) {
-    const { dataset } = event;
+    const { tagName, dataset } = event.target;
+    if (tagName !== "BUTTON") {
+      return;
+    }
     this.show(dataset.menuIndex);
   }
   hideAll() {
