@@ -13,6 +13,7 @@ export const stationText = {
   tableId: 'station-table',
   deleteBtnClass: 'station-delete-button',
   deleteBtnText: '삭제',
+  alertStationInLine: '노선에 등록된 역은 삭제할 수 없습니다.',
   alertConfirmDelete: '정말 삭제하시겠습니까?',
 };
 

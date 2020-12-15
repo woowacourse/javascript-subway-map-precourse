@@ -107,6 +107,8 @@ const createDeleteBtn = station => {
 };
 
 const deleteStation = name => {
+  if (!isAbleToDelete(name)) return;
+
   if (confirm(T.alertConfirmDelete)) {
     const stationTable = document.getElementById(T.tableId);
     const currStations = getLocalStorage(STORAGE_KEY_STATION);
@@ -115,4 +117,15 @@ const deleteStation = name => {
     const rowToBeDeleted = stationTable.querySelector(`[data-${DATA_KEY_STATION}=${name}]`);
     stationTable.removeChild(rowToBeDeleted);
   }
+};
+
+const isAbleToDelete = name => {
+  const lines = getLocalStorage(STORAGE_KEY_LINE);
+  for (let stations of Object.values(lines)) {
+    if (stations.includes(name)) {
+      alert(T.alertStationInLine);
+      return false;
+    }
+  }
+  return true;
 };
