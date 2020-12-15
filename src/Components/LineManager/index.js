@@ -1,6 +1,8 @@
 import LineInput from "./LineInput.js";
 import LineTable from "./LineTable.js";
 
+import { ID } from "../../utils/constants/dom.js";
+
 class LineManager {
   constructor($target, { stationStore, lineStore }) {
     this.$target = $target;
@@ -12,14 +14,14 @@ class LineManager {
 
   mountTemplate() {
     this.$target.innerHTML = `
-      <div id="line-input"></div>
-      <div id="line-table"></div>
+      <div id=${ID.LINE_INPUT}></div>
+      <div id=${ID.LINE_TABLE}></div>
     `;
   }
 
   mountDOMs() {
-    this.$lineInput = this.$target.querySelector(`#line-input`);
-    this.$lineTable = this.$target.querySelector(`#line-table`);
+    this.$lineInput = this.$target.querySelector(`#${ID.LINE_INPUT}`);
+    this.$lineTable = this.$target.querySelector(`#${ID.LINE_TABLE}`);
   }
 
   mountComponents() {

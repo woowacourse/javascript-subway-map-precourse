@@ -1,6 +1,8 @@
 import InnerSectionInput from "./InnerSectionInput.js";
 import InnerSectionTable from "./InnerSectionTable.js";
 
+import { ID } from "../../../utils/constants/dom.js";
+
 class InnerSectionManager {
   constructor($target, { lineName, stationStore, lineStore }) {
     this.$target = $target;
@@ -14,14 +16,14 @@ class InnerSectionManager {
   mountTemplate() {
     this.$target.innerHTML = `
       <p>${this.lineName} 관리</p> 
-      <div id="inner-section-input"></div>
-      <div id="inner-section-table"></div>
+      <div id=${ID.INNER_SECTION_INPUT}></div>
+      <div id=${ID.INNER_SECTION_TABLE}></div>
     `;
   }
 
   mountDOMs() {
-    this.$input = this.$target.querySelector(`#inner-section-input`);
-    this.$table = this.$target.querySelector(`#inner-section-table`);
+    this.$input = this.$target.querySelector(`#${ID.INNER_SECTION_INPUT}`);
+    this.$table = this.$target.querySelector(`#${ID.INNER_SECTION_TABLE}`);
   }
 
   mountComponents() {

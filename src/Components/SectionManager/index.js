@@ -1,6 +1,8 @@
 import InnerSectionManager from "./InnerSectionManager/index.js";
 import SectionList from "./SectionList.js";
 
+import { CLASS, ID } from "../../utils/constants/dom.js";
+
 class SectionManager {
   constructor($target, { stationStore, lineStore }) {
     this.$target = $target;
@@ -13,15 +15,15 @@ class SectionManager {
 
   mountTemplate() {
     this.$target.innerHTML = `
-      <div id="section-list"></div>
-      <div id="inner-section-manager"></div>
+      <div id=${ID.SECTION_LIST}></div>
+      <div id=${ID.INNER_SECTION_MANAGER}></div>
     `;
   }
 
   mountDOMs() {
-    this.$sectionList = this.$target.querySelector(`#section-list`);
+    this.$sectionList = this.$target.querySelector(`#${ID.SECTION_LIST}`);
     this.$innerSectionManager = this.$target.querySelector(
-      `#inner-section-manager`,
+      `#${ID.INNER_SECTION_MANAGER}`,
     );
   }
 
@@ -34,7 +36,7 @@ class SectionManager {
   }
 
   onClickLine({ target }) {
-    if (!target.classList.contains(`section-line-menu-button`)) return;
+    if (!target.classList.contains(`${CLASS.SECTION_LINE_MENU_BUTTON}`)) return;
     const name = target.dataset.name;
 
     new InnerSectionManager(this.$innerSectionManager, {

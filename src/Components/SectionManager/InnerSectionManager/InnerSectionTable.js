@@ -1,5 +1,6 @@
 import { MESSAGE } from "../../../utils/constants/message.js";
 import { isRemovableSection } from "../../../utils/validations/sectionValidation.js";
+import { CLASS } from "../../../utils/constants/dom.js";
 
 class InnerSectionTable {
   constructor($target, { lineName, stationStore, lineStore }) {
@@ -41,7 +42,7 @@ class InnerSectionTable {
       <tr>
         <td data-index=${idx}>${idx}</td>
         <td data-name=${station}>${station}</td>
-        <td><button class="section-delete-button">노선에서 제거</button></td>
+        <td><button class=${CLASS.SECTION_DELETE_BUTTON}>노선에서 제거</button></td>
       </tr>
     `;
   }
@@ -51,7 +52,7 @@ class InnerSectionTable {
   }
 
   onClick({ target }) {
-    if (!target.classList.contains(`section-delete-button`)) return;
+    if (!target.classList.contains(`${CLASS.SECTION_DELETE_BUTTON}`)) return;
     const index = parseInt(
       target.closest(`tr`).firstElementChild.dataset.index,
     );

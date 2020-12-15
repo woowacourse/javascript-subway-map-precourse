@@ -1,5 +1,6 @@
 import { clearInput } from "../../../../src_old/utils/domUtil.js";
 import { isValidSectionNumber } from "../../../utils/validations/sectionValidation.js";
+import { ID } from "../../../utils/constants/dom.js";
 
 class InnerSectionInput {
   constructor($target, { lineName, stationStore, lineStore }) {
@@ -15,11 +16,11 @@ class InnerSectionInput {
   mountTemplate() {
     this.$target.innerHTML = `
       <p>구간 등록</p>
-      <select id="section-station-selector">
+      <select id="${ID.SECTION_STATION_SELECT}">
       ${this.createOptionsHTML(this.stationStore.stations)}
       </select>
-      <input type=number id="section-order-input" />
-      <button id='section-add-button'>등록</button>    
+      <input type=number id="${ID.SECTION_ORDER_INPUT}" />
+      <button id='${ID.SECTION_ADD_BUTTON}'>등록</button>    
     `;
   }
 
@@ -35,9 +36,9 @@ class InnerSectionInput {
   }
 
   mountDOMs() {
-    this.$input = this.$target.querySelector(`#section-order-input`);
-    this.$button = this.$target.querySelector(`#section-add-button`);
-    this.$select = this.$target.querySelector(`#section-station-selector`);
+    this.$input = this.$target.querySelector(`#${ID.SECTION_ORDER_INPUT}`);
+    this.$button = this.$target.querySelector(`#${ID.SECTION_ADD_BUTTON}`);
+    this.$select = this.$target.querySelector(`#${ID.SECTION_STATION_SELECT}`);
   }
 
   bindEvents() {
@@ -45,7 +46,7 @@ class InnerSectionInput {
   }
 
   onClick({ target }) {
-    if (target.id !== "section-add-button") return;
+    if (target.id !== `${ID.SECTION_ADD_BUTTON}`) return;
     const order = parseInt(this.$input.value.trim());
     const sections = this.lineStore.getLine(this.lineName).sections;
     const name = this.$select.value;

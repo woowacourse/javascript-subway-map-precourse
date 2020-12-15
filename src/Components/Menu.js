@@ -1,13 +1,15 @@
+import { ID } from "../utils/constants/dom.js";
+
 class Menu {
   constructor($target, { changeMenu }) {
     this.$target = $target;
     this.changeMenu = changeMenu;
 
     this.buttonsId = [
-      "station-manager-button",
-      "line-manager-button",
-      "section-manager-button",
-      "map-print-manager-button",
+      ID.STATION_MANAGER_BUTTON,
+      ID.LINE_MANAGER_BUTTON,
+      ID.SECTION_MANAGER_BUTTON,
+      ID.MAP_PRINT_MANAGER_BUTTON,
     ];
 
     this.render();
@@ -16,10 +18,10 @@ class Menu {
 
   mountTemplate() {
     this.$target.innerHTML = `
-      <button id="station-manager-button">1. 역관리</button>
-      <button id="line-manager-button">2. 노선 관리</button>
-      <button id="section-manager-button">3. 구간 관리</button>
-      <button id="map-print-manager-button">4. 지하철 노선도 출력</button>
+      <button id=${ID.STATION_MANAGER_BUTTON}>1. 역관리</button>
+      <button id=${ID.LINE_MANAGER_BUTTON}>2. 노선 관리</button>
+      <button id=${ID.SECTION_MANAGER_BUTTON}>3. 구간 관리</button>
+      <button id=${ID.MAP_PRINT_MANAGER_BUTTON}>4. 지하철 노선도 출력</button>
     `;
   }
 

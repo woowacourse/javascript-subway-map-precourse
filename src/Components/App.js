@@ -1,11 +1,15 @@
 import Menu from "./Menu.js";
-import StationStore from "../store/stationStore.js";
-import LineStore from "../store/lineStore.js";
 import StationManager from "./StationManager/index.js";
 import LineManager from "./LineManager/index.js";
 import SectionManager from "./SectionManager/index.js";
 import MapPrintManager from "./MapPrintManager/index.js";
+
+import StationStore from "../store/stationStore.js";
+import LineStore from "../store/lineStore.js";
+
 import { loadStorage } from "../utils/storage.js";
+import { STORAGE_KEY } from "../utils/constants/key.js";
+import { ID } from "../utils/constants/dom.js";
 
 class App {
   constructor($target) {
@@ -16,8 +20,8 @@ class App {
   }
 
   initStates() {
-    const stations = loadStorage(`STATION2`);
-    const lines = loadStorage(`LINE2`);
+    const stations = loadStorage(STORAGE_KEY.STATION);
+    const lines = loadStorage(STORAGE_KEY.LINE);
 
     this.stationStore = new StationStore(stations || []);
     this.lineStore = new LineStore(lines || []);
@@ -26,37 +30,37 @@ class App {
   mountTemplates() {
     this.$target.innerHTML = `
       <h1>🚇 지하철 노선도 관리 </h1>
-      <nav id="menu"></nav>
-      <section id="manager-container"></section>
+      <nav id=${ID.MENU}></nav>
+      <section id=${ID.MANAGER_CONTAINER}></section>
     `;
   }
 
   mountDOMs() {
-    this.$menu = document.querySelector(`#menu`);
-    this.$managerContainer = document.querySelector(`#manager-container`);
+    this.$menu = document.querySelector(`#${ID.MENU}`);
+    this.$managerContainer = document.querySelector(`#${ID.MANAGER_CONTAINER}`);
   }
 
   mountComponents() {
     new Menu(this.$menu, { changeMenu: this.changeMenu.bind(this) });
   }
 
-  changeMenu(id) {
-    if (id === `station-manager-button`) {
+  changeMenu(buttonId) {
+    if (buttonId === ID.STATION_MANAGER_BUTTON) {
       new StationManager(this.$managerContainer, {
         stationStore: this.stationStore,
         lineStore: this.lineStore,
       });
-    } else if (id === `line-manager-button`) {
+    } else if (buttonId === ID.LINE_MANAGER_BUTTON) {
       new LineManager(this.$managerContainer, {
         stationStore: this.stationStore,
         lineStore: this.lineStore,
       });
-    } else if (id === `section-manager-button`) {
+    } else if (buttonId === ID.SECTION_MANAGER_BUTTON) {
       new SectionManager(this.$managerContainer, {
         stationStore: this.stationStore,
         lineStore: this.lineStore,
       });
-    } else if (id === `map-print-manager-button`) {
+    } else if (buttonId === ID.MAP_PRINT_MANAGER_BUTTON) {
       new MapPrintManager(this.$managerContainer, {
         lineStore: this.lineStore,
       });

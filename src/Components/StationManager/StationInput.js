@@ -1,6 +1,8 @@
 import { clearInput } from "../../utils/domUtil.js";
 import { isVaildStationName } from "../../utils/validations/stationValidation.js";
 
+import { ID } from "../../utils/constants/dom.js";
+
 class StationInput {
   constructor($target, { stationStore }) {
     this.$target = $target;
@@ -13,14 +15,14 @@ class StationInput {
   mountTemplate() {
     this.$target.innerHTML = `
       <p>역 이름</p>
-      <Input id="station-name-input" placeholder="역 이름을 입력해주세요." />
-      <button id="station-add-button">역 추가</button>
+      <Input id=${ID.STATION_NAME_INPUT} placeholder="역 이름을 입력해주세요." />
+      <button id="${ID.STATION_ADD_BUTTON}">역 추가</button>
     `;
   }
 
   mountDOMs() {
-    this.$input = this.$target.querySelector(`#station-name-input`);
-    this.$button = this.$target.querySelector(`#station-add-button`);
+    this.$input = this.$target.querySelector(`#${ID.STATION_NAME_INPUT}`);
+    this.$button = this.$target.querySelector(`#${ID.STATION_ADD_BUTTON}`);
   }
 
   bindEvents() {
@@ -28,7 +30,7 @@ class StationInput {
   }
 
   onClick({ target }) {
-    if (target.id !== `station-add-button`) return;
+    if (target.id !== ID.STATION_ADD_BUTTON) return;
     const name = this.$input.value.trim();
 
     if (!isVaildStationName(this.$input, this.stationStore.stations, name)) {

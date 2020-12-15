@@ -1,6 +1,8 @@
 import StationInput from "./StationInput.js";
 import StationTable from "./StationTable.js";
 
+import { ID } from "../../utils/constants/dom.js";
+
 class StationManager {
   constructor($target, { stationStore, lineStore }) {
     this.$target = $target;
@@ -13,14 +15,14 @@ class StationManager {
 
   mountTemplate() {
     this.$target.innerHTML = `
-      <div id="station-input"></div>
-      <div id="station-table"></div>
+      <div id=${ID.STATION_INPUT}></div>
+      <div id=${ID.STATION_TABLE}></div>
     `;
   }
 
   mountDOMs() {
-    this.$stationInput = this.$target.querySelector("#station-input");
-    this.$stationTable = this.$target.querySelector("#station-table");
+    this.$stationInput = this.$target.querySelector(`#${ID.STATION_INPUT}`);
+    this.$stationTable = this.$target.querySelector(`#${ID.STATION_TABLE}`);
   }
 
   mountComponents() {

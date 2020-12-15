@@ -1,5 +1,7 @@
-import { MESSAGE } from "../../utils/constants/message.js";
 import { isRemovableStation } from "../../utils/validations/stationValidation.js";
+
+import { MESSAGE } from "../../utils/constants/message.js";
+import { CLASS } from "../../utils/constants/dom.js";
 
 class StationTable {
   constructor($target, { stationStore, lineStore }) {
@@ -37,7 +39,7 @@ class StationTable {
     return `
     <tr>
       <td data-name="${name}">${name}</td>
-      <td ><button class="station-delete-button">삭제</button></td>
+      <td ><button class=${CLASS.STATION_DELETE_BUTTON}>삭제</button></td>
     </tr>
     `;
   }
@@ -47,7 +49,7 @@ class StationTable {
   }
 
   onClick({ target }) {
-    if (!target.classList.contains(`station-delete-button`)) return;
+    if (!target.classList.contains(CLASS.STATION_DELETE_BUTTON)) return;
     const name = target.closest(`tr`).firstElementChild.dataset.name;
 
     if (

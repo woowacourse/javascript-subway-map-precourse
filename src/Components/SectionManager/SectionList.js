@@ -1,3 +1,5 @@
+import { CLASS } from "../../utils/constants/dom.js";
+
 class SectionList {
   constructor($target, { lineStore }) {
     this.$target = $target;
@@ -21,7 +23,7 @@ class SectionList {
   }
 
   ButtonHTML(name) {
-    return `<button class="section-line-menu-button" data-name="${name}" style="margin-right: 4px;"}>${name}</button>`;
+    return `<button class=${CLASS.SECTION_LINE_MENU_BUTTON} data-name="${name}" style="margin-right: 4px;"}>${name}</button>`;
   }
 
   render = () => {

@@ -1,3 +1,4 @@
+import { CLASS } from "../../utils/constants/dom.js";
 import { MESSAGE } from "../../utils/constants/message.js";
 
 class LineTable {
@@ -45,7 +46,7 @@ class LineTable {
       <td data-name=${name}>${name}</td>
       <td>${startStation}</td>
       <td>${endStation}</td>
-      <td><button class="line-delete-button">노선에서 제거</button></td>
+      <td><button class=${CLASS.LINE_DELETE_BUTTON}>노선에서 제거</button></td>
     </tr>
     `;
   }
@@ -55,12 +56,11 @@ class LineTable {
   }
 
   onClick({ target }) {
-    if (!target.classList.contains(`line-delete-button`)) return;
+    if (!target.classList.contains(`${CLASS.LINE_DELETE_BUTTON}`)) return;
     const name = target.closest(`tr`).firstElementChild.dataset.name;
 
     if (!confirm(MESSAGE.CONFIRM)) return;
     this.lineStore.removeLine(name);
-    localStorage.setItem(`LINE`, JSON.stringify(this.lineStore.lines));
   }
 
   render = () => {
