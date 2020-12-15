@@ -73,7 +73,6 @@ export default class StationManager {
   };
 
   updateView = () => {
-    this._station.updateStationList();
     this._printStationList();
   };
 }

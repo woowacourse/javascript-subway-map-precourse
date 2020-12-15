@@ -43,7 +43,6 @@ export default class MapPrintManager {
   };
 
   updateView = () => {
-    this._line.updateLineList();
     this._printLineList();
   };
 }

@@ -40,6 +40,7 @@ export default class Line {
 
   _setLineList = lineList => {
     localStorage.setItem(LINE_LIST, JSON.stringify(lineList));
+    this._updateLineList();
   };
 
   _getSavedLineList = () => {
@@ -76,6 +77,10 @@ export default class Line {
     }
   };
 
+  _updateLineList = () => {
+    this._lineList = this._getSavedLineList();
+  };
+
   saveNewLine = (name, startStation, endStation) => {
     const isValidLength = name.length > 0;
     const isSavedLine = this._isSavedLine(name);
@@ -99,7 +104,6 @@ export default class Line {
 
   deleteLine = name => {
     const newLineList = this._lineList.filter(line => line.name !== name);
-    this._lineList = newLineList;
     this._setLineList(newLineList);
     this._station.deleteLineFromStation(name);
   };
@@ -122,7 +126,6 @@ export default class Line {
 
       return { name, list };
     });
-    this._lineList = newLineList;
     this._setLineList(newLineList);
   };
 
@@ -141,12 +144,7 @@ export default class Line {
 
       return { name, list };
     });
-    this._lineList = newLineList;
     this._setLineList(newLineList);
     this._station.deleteLineFromStation(lineName, stationName);
-  };
-
-  updateLineList = () => {
-    this._lineList = this._getSavedLineList();
   };
 }

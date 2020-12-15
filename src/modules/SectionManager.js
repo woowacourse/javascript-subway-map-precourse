@@ -121,8 +121,6 @@ export default class SectionManager {
   };
 
   updateView = () => {
-    this._station.updateStationList();
-    this._line.updateLineList();
     this._station.setStationOptions(this._stationSelector);
     this._printLineMenuList();
   };

@@ -28,6 +28,7 @@ export default class Station {
 
   _setStationList = stationList => {
     localStorage.setItem(STATION_LIST, JSON.stringify(stationList));
+    this._updateStationList();
   };
 
   _getSavedStationList = () => {
@@ -48,6 +49,10 @@ export default class Station {
     if (isSavedStation) {
       alert(SAVED_STATION_ALERT);
     }
+  };
+
+  _updateStationList = () => {
+    this._stationList = this._getSavedStationList();
   };
 
   saveNewStation = name => {
@@ -86,11 +91,11 @@ export default class Station {
     const newStationList = this._stationList.filter(
       station => station.name !== name
     );
-    this._stationList = newStationList;
     this._setStationList(newStationList);
   };
 
   saveLineToStation = (lineName, stationName) => {
+    console.log(lineName, stationName);
     const newStationList = this._stationList.map(({ name, line }) => {
       if (name === stationName && !line.includes(lineName)) {
         line.push(lineName);
@@ -98,7 +103,6 @@ export default class Station {
 
       return { name, line };
     });
-    this._stationList = newStationList;
     this._setStationList(newStationList);
   };
 
@@ -114,11 +118,6 @@ export default class Station {
 
       return { name, line };
     });
-    this._stationList = newStationList;
     this._setStationList(newStationList);
-  };
-
-  updateStationList = () => {
-    this._stationList = this._getSavedStationList();
   };
 }

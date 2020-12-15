@@ -92,8 +92,6 @@ export default class LineManager {
   };
 
   updateView = () => {
-    this._station.updateStationList();
-    this._line.updateLineList();
     this._printLineList();
     this._station.setStationOptions(this._startStationSelector);
     this._station.setStationOptions(this._endStationSelector);
