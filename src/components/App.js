@@ -1,9 +1,10 @@
 import Header from "./Header.js";
 import Navigator from "./Navigator.js";
 import StationManager from "./StationManager.js";
+import LineManager from "./LineManager.js";
+import SectionManager from "./SectionManager.js";
 import localStorageManager from "../util/localStorage.js";
 import { STORAGE_KEY } from "../util/constants.js";
-import LineManager from "./LineManager.js";
 
 export default function App($app) {
   this.$app = $app;
@@ -56,11 +57,18 @@ export default function App($app) {
 
   this.lineManager = new LineManager({
     $target: this.$main,
-    isShow: true,
+    isShow: false,
     stations: this.stations,
     lines: this.lines,
     onAddLine: this.onAddLine,
     onDeleteLine: this.onDeleteLine,
+  });
+
+  this.sectionManager = new SectionManager({
+    $target: this.$main,
+    isShow: true,
+    stations: this.stations,
+    lines: this.lines,
   });
 
   this.setNextStations = (nextStations) => {

@@ -9,6 +9,10 @@ nav li {
   margin-right: 10px;
 }
 
+section {
+  margin-bottom: 20px;
+}
+
 label {
   display: block;
 }
@@ -46,4 +50,14 @@ tr:last-child > td {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+.line-selector li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.section-input form > * {
+  margin-top: 0;
+  margin-bottom: 10px;
 }

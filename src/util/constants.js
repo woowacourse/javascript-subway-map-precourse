@@ -49,6 +49,24 @@ export const ELEMENT_INFO = {
     text: "삭제",
     className: "line-delete-button",
   },
+  sectionLineMenuButton: {
+    className: "section-line-menu-button",
+  },
+  sectionStationSelector: {
+    id: "section-station-selector",
+  },
+  sectionOrderInput: {
+    text: "순서",
+    id: "section-order-input",
+  },
+  sectionAddButton: {
+    text: "등록",
+    id: "section-add-button",
+  },
+  sectionDeleteButton: {
+    text: "노선에서 제거",
+    className: "section-delete-button",
+  },
 };
 
 export const STATION_NAME_MIN_LENGTH = 2;
