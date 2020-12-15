@@ -9,13 +9,18 @@ import {
   removeStationScreen,
   removeSelectorOption,
 } from '../View/remove-screen.js';
-import {setLocalStorage, removeLocalStorage} from './local-storage.js';
+import {
+  setLocalStorage,
+  getLocalStorage,
+  removeLocalStorage,
+} from './local-storage.js';
 import {isNotLineHaved, isStationInputVaild} from './valid.js';
 import {stationInstance, lineInstance} from '../index.js';
 import {KEY, TEXT} from './utils.js';
 
 export const loadStation = () => {
-  stationInstance.loadStation();
+  const stations = getLocalStorage(KEY.STATION);
+  stationInstance.loadStation(stations);
   stationInstance.stations.forEach((station) => addStationScreen(station));
 };
 

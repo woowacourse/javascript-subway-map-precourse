@@ -1,24 +1,20 @@
-import {getLocalStorage} from '../Controller/local-storage.js';
-import {KEY} from '../Controller/utils.js';
-
 export default class Station {
   constructor() {
     this.stations = [];
   }
 
-  loadStation() {
-    const stations = getLocalStorage(KEY.STATION);
+  loadStation(stations) {
     if (stations) {
       return (this.stations = stations);
     }
   }
 
-  addStation(value) {
-    return this.stations.push(value);
+  addStation(stationName) {
+    return this.stations.push(stationName);
   }
 
-  removeStation(value) {
-    const removedStationIndex = this.stations.indexOf(value);
+  removeStation(stationName) {
+    const removedStationIndex = this.stations.indexOf(stationName);
 
     return this.stations.splice(removedStationIndex, 1);
   }
