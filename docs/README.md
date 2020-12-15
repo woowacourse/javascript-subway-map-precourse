@@ -2,12 +2,16 @@
 
 ## 🚀 기능 요구사항
 
+### 메뉴 버튼 기능
+
+- [x] 해당 버튼을 누르면 해당 관련 기능만 나타나도록 해야 한다.
+
 ### 지하철 역 관련 기능
 
-- [ ] 지하철 역을 등록하고 삭제할 수 있다. (단, 노선에 등록된 역은 삭제할 수 없다)
-- [ ] 중복된 지하철 역 이름이 등록될 수 없다.
-- [ ] 지하철 역은 2글자 이상이어야 한다.
-- [ ] 지하철 역의 목록을 조회할 수 있다.
+- [x] 지하철 역을 등록하고 삭제할 수 있다. (단, 노선에 등록된 역은 삭제할 수 없다)
+- [x] 중복된 지하철 역 이름이 등록될 수 없다.
+- [x] 지하철 역은 2글자 이상이어야 한다.
+- [x] 지하철 역의 목록을 조회할 수 있다.
 
 ### 지하철 노선 관련 기능
 
@@ -36,22 +40,22 @@
 
 ### 메뉴 버튼
 
-- [ ] 역 관리 button 태그는 `#station-manager-button` id값을 가진다.
-- [ ] 노선 관리 button 태그는 `#line-manager-button` id값을 가진다.
-- [ ] 구간 관리 button 태그는 `#section-manager-button` id값을 가진다.
-- [ ] 지하철 노선도 출력 관리 button 태그는 `#map-print-manager-button` id값을 가진다.
+- [x] 역 관리 button 태그는 `#station-manager-button` id값을 가진다.
+- [x] 노선 관리 button 태그는 `#line-manager-button` id값을 가진다.
+- [x] 구간 관리 button 태그는 `#section-manager-button` id값을 가진다.
+- [x] 지하철 노선도 출력 관리 button 태그는 `#map-print-manager-button` id값을 가진다.
 
 ### 지하철 역 관련 기능
 
-- [ ] 지하철 역을 입력하는 input 태그는 `#station-name-input` id값을 가진다.
-- [ ] 지하철 역을 추가하는 button 태그는 `#station-add-button` id값을 가진다.
-- [ ] 지하철 역을 삭제하는 button 태그는 `.station-delete-button` class값을 가진다.
+- [x] 지하철 역을 입력하는 input 태그는 `#station-name-input` id값을 가진다.
+- [x] 지하철 역을 추가하는 button 태그는 `#station-add-button` id값을 가진다.
+- [x] 지하철 역을 삭제하는 button 태그는 `.station-delete-button` class값을 가진다.
 
 ### 지하철 노선 관련 기능
 
 - [ ] 지하철 노선의 이름을 입력하는 input 태그는 `#line-name-input` id값을 가진다.
-- [ ] 지하철 노선의 상행 종점을 선택하는 select 태그는 `#line-start-station-selector` id값을 가진다.
-- [ ] 지하철 노선의 하행 종점을 선택하는 select 태그는 `#line-end-station-selector` id값을 가진다.
+- [x] 지하철 노선의 상행 종점을 선택하는 select 태그는 `#line-start-station-selector` id값을 가진다.
+- [x] 지하철 노선의 하행 종점을 선택하는 select 태그는 `#line-end-station-selector` id값을 가진다.
 - [ ] 지하철 노선을 추가하는 button 태그는 `#line-add-button` id값을 가진다.
 - [ ] 지하철 노선을 삭제하는 button 태그는 `.line-delete-button` class값을 가진다.
 
@@ -69,5 +73,5 @@
 
 ### 추가된 요구사항
 
-- [ ] [data](https://developer.mozilla.org/ko/docs/Learn/HTML/Howto/%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%86%8D%EC%84%B1_%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)속성을 활용하여 html 태그에 역, 노선, 구간의 유일한 데이터 값들을 관리한다.
+- [x] [data](https://developer.mozilla.org/ko/docs/Learn/HTML/Howto/%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%86%8D%EC%84%B1_%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)속성을 활용하여 html 태그에 역, 노선, 구간의 유일한 데이터 값들을 관리한다.
 - [ ] [localStorage](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)를 이용하여, 새로고침하더라도 가장 최근에 작업한 정보들을 불러올 수 있도록 한다.
