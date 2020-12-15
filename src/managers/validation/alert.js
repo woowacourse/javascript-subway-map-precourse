@@ -1,10 +1,10 @@
 //역 검증 (중복, 공백, 2자 미만)
 function stationNameAlert(inputValue) {
-  return ununiqueStationNameAlert(inputValue) || spaceAlert(inputValue) || underTwoCharacterAlert(inputValue);
+  return uniqueStationNameAlert(inputValue) || spaceAlert(inputValue) || underTwoCharacterAlert(inputValue);
 }
 
 //중복된 역 이름 검증
-function ununiqueStationNameAlert(inputValue) {
+function uniqueStationNameAlert(inputValue) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
 
