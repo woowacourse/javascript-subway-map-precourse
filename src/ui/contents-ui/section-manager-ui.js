@@ -6,8 +6,8 @@ import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.
 import { contentsUI } from "./contents-ui.js";
 
 export default class SectionManagerUI extends contentsUI {
-  constructor(contentsID, stationINFOManager) {
-    super(contentsID, stationINFOManager);
+  constructor(contentsID, subwayINFOManager) {
+    super(contentsID, subwayINFOManager);
     this._sectionRegisterUI = null;
     this.setContentsHTML(INITIAL_TEMPLATE);
   }
@@ -18,7 +18,7 @@ export default class SectionManagerUI extends contentsUI {
 
   _updateLineButtons() {
     const buttonDiv = document.getElementById(SECTION_LINE_MENU_DIV_ID);
-    const lines = this._stationINFOManager.getAllLines();
+    const lines = this._subwayINFOManager.getAllLines();
     let buttonDivInnerHTML = "";
     lines.forEach(({ name }) => {
       buttonDivInnerHTML += this._makeNewSelectLineButtonHTML(name);
@@ -32,7 +32,7 @@ export default class SectionManagerUI extends contentsUI {
       button.addEventListener("click", (e) => {
         this._sectionRegisterUI = new SectionRegisterUI(
           SECTION_REGISTER_DIV_ID,
-          this._stationINFOManager,
+          this._subwayINFOManager,
           e.target.dataset.name
         );
       });
@@ -46,8 +46,8 @@ export default class SectionManagerUI extends contentsUI {
 }
 
 class SectionRegisterUI extends contentsUI {
-  constructor(contentsID, stationINFOManager, lineName) {
-    super(contentsID, stationINFOManager);
+  constructor(contentsID, subwayINFOManager, lineName) {
+    super(contentsID, subwayINFOManager);
     this._lineName = lineName;
     this.setContentsHTML(SECTION_REGISTER_TEMPLATE);
   }
@@ -63,7 +63,7 @@ class SectionRegisterUI extends contentsUI {
   }
   updateLineStationsTable() {
     const table = document.getElementById(SECTION_REGISTER_TABLE_ID);
-    const myLine = this._stationINFOManager.getAllLinesByCondition((line) => {
+    const myLine = this._subwayINFOManager.getAllLinesByCondition((line) => {
       return line.name === this._lineName;
     })[0];
     let tableInnerHTML = TABLE_HEADER_TEMPLATE;
@@ -92,7 +92,7 @@ class SectionRegisterUI extends contentsUI {
       return;
     }
     const targetStationName = event.target.dataset.name;
-    this._stationINFOManager.deleteSection(targetStationName, this._lineName);
+    this._subwayINFOManager.deleteSection(targetStationName, this._lineName);
     this.updateAllContents();
   }
   _callbackOfSectionAddButton() {
@@ -103,7 +103,7 @@ class SectionRegisterUI extends contentsUI {
     if (!this._hasValidSectionAddInput(orderToRegister, stationName)) {
       return;
     }
-    this._stationINFOManager.registerStationToLine(
+    this._subwayINFOManager.registerStationToLine(
       this._lineName,
       orderToRegister,
       stationName
@@ -117,7 +117,7 @@ class SectionRegisterUI extends contentsUI {
   }
   _setComboboxOption() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);
-    const optionNames = this._stationINFOManager.getStationNamesByCondition(
+    const optionNames = this._subwayINFOManager.getStationNamesByCondition(
       (station) => {
         return !station.linesOfStation.has(this._lineName);
       }

@@ -2,8 +2,8 @@ import { hasValidStationName } from "../../utility/input-check-utility.js";
 import { contentsUI } from "./contents-ui.js";
 
 export default class StationManagerUI extends contentsUI {
-  constructor(contentsID, stationINFOManager) {
-    super(contentsID, stationINFOManager);
+  constructor(contentsID, subwayINFOManager) {
+    super(contentsID, subwayINFOManager);
     this.setContentsHTML(INITIAL_TEMPLATE);
   }
   setContentsHTML(initialTemplate) {
@@ -12,7 +12,7 @@ export default class StationManagerUI extends contentsUI {
     this.updateStationsTable();
   }
   updateStationsTable() {
-    const stationsNames = this._stationINFOManager.getAllStationsNames();
+    const stationsNames = this._subwayINFOManager.getAllStationsNames();
     const tableContainer = document.getElementById(STATION_NAME_TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     for (let name of stationsNames) {
@@ -39,7 +39,7 @@ export default class StationManagerUI extends contentsUI {
     if (!this._hasValidStationInput(name)) {
       return;
     }
-    this._stationINFOManager.addNewStation({
+    this._subwayINFOManager.addNewStation({
       name: name,
     });
     this.updateStationsTable();
@@ -48,12 +48,12 @@ export default class StationManagerUI extends contentsUI {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
     }
-    this._stationINFOManager.deleteStation(event.target.dataset.name);
+    this._subwayINFOManager.deleteStation(event.target.dataset.name);
     this.updateStationsTable();
   }
   _hasValidStationInput(name) {
     const isValidStationName = hasValidStationName(name);
-    const isNotOverlapName = this._stationINFOManager.hasNotOverlapNameAmongStations(
+    const isNotOverlapName = this._subwayINFOManager.hasNotOverlapNameAmongStations(
       name
     );
     return isValidStationName && isNotOverlapName;

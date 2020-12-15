@@ -1,5 +1,5 @@
 import HTMLManager from "./html-manager.js";
-import StationINFOManager from "./station-info-manager.js";
+import SubwayINFOManager from "./subway-info-manager.js";
 
-const stationINFOManager = new StationINFOManager();
-new HTMLManager(stationINFOManager);
+const subwayINFOManager = new SubwayINFOManager();
+new HTMLManager(subwayINFOManager);

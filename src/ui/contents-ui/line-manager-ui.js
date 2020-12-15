@@ -6,8 +6,8 @@ import {
 import { contentsUI } from "./contents-ui.js";
 
 export default class LineManagerUI extends contentsUI {
-  constructor(contentsID, stationINFOManager) {
-    super(contentsID, stationINFOManager);
+  constructor(contentsID, subwayINFOManager) {
+    super(contentsID, subwayINFOManager);
     this.setContentsHTML(INITIAL_TEMPLATE);
   }
   setContentsHTML(initialTemplate) {
@@ -18,7 +18,7 @@ export default class LineManagerUI extends contentsUI {
     this.updateLinesTable();
   }
   updateLinesTable() {
-    const liness = this._stationINFOManager.getAllLines();
+    const liness = this._subwayINFOManager.getAllLines();
     const tableContainer = document.getElementById(TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     liness.forEach((lineINFOs) => {
@@ -51,7 +51,7 @@ export default class LineManagerUI extends contentsUI {
     if (!this._hasValidLineInput(lineName, startStation, endStation)) {
       return;
     }
-    this._stationINFOManager.addNewLine({
+    this._subwayINFOManager.addNewLine({
       lineName: lineName,
       startStationName: startStation,
       endStationName: endStation,
@@ -62,7 +62,7 @@ export default class LineManagerUI extends contentsUI {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
     }
-    this._stationINFOManager.deleteLine(event.target.dataset.name);
+    this._subwayINFOManager.deleteLine(event.target.dataset.name);
     this.updateLinesTable();
   }
   _hasValidLineInput(lineName, startStationName, endStationName) {
@@ -71,7 +71,7 @@ export default class LineManagerUI extends contentsUI {
       startStationName,
       endStationName
     );
-    const isNotOverlapName = this._stationINFOManager.hasNotOverlapNameAmongLines(
+    const isNotOverlapName = this._subwayINFOManager.hasNotOverlapNameAmongLines(
       lineName
     );
     const isValidOption = hasValidOption([startStationName, endStationName]);
@@ -90,7 +90,7 @@ export default class LineManagerUI extends contentsUI {
     `;
   }
   _makeSelectorInnerHTML() {
-    const stationNames = this._stationINFOManager.getAllStationsNames();
+    const stationNames = this._subwayINFOManager.getAllStationsNames();
     let selectorInnerHTML = SELECTOR_DEFAULT_TEMPLATE;
     stationNames.forEach((name) => {
       selectorInnerHTML += this._makeNewSelectorOptionHTML(name);

@@ -1,6 +1,6 @@
 import { hasSatisfiedMaxLengthCondition } from "./utility/input-check-utility.js";
 
-export default class StationINFOManager {
+export default class SubwayINFOManager {
   constructor() {
     this._stations = [];
     this._lines = [];

@@ -5,8 +5,8 @@ import SectionManagerUI from "./ui/contents-ui/section-manager-ui.js";
 import MapPrintManagerUI from "./ui/contents-ui/map-print-manager-ui.js";
 
 export default class HTMLManager {
-  constructor(stationINFOManager) {
-    this._stationINFOManager = stationINFOManager;
+  constructor(subwayINFOManager) {
+    this._subwayINFOManager = subwayINFOManager;
     this._menubarUI = new MenubarUI({
       htmlManager: this,
       menubarID: MENUBAR_ID,
@@ -17,25 +17,25 @@ export default class HTMLManager {
   setContentsUIOnStationUI() {
     this._contentsUI = new StationManagerUI(
       CONTENTS_ID,
-      this._stationINFOManager
+      this._subwayINFOManager
     );
   }
   setContentsUIOnSectionUI() {
     this._contentsUI = new LineManagerUI(
       CONTENTS_ID,
-      this._stationINFOManager
+      this._subwayINFOManager
     );
   }
   setContentsUIOnLineUI() {
     this._contentsUI = new SectionManagerUI(
       CONTENTS_ID,
-      this._stationINFOManager
+      this._subwayINFOManager
     );
   }
   setContentsUIOnMapPrintUI() {
     this._contentsUI = new MapPrintManagerUI(
       CONTENTS_ID,
-      this._stationINFOManager
+      this._subwayINFOManager
     );
   }
 }
