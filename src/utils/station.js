@@ -3,6 +3,7 @@ import {
   STATION_DIV,
   DELETE_MESSAGE,
   ERR_MESSAGE_STATION,
+  ERR__DELETE,
 } from "../constant.js";
 import { getNewId, getDataFromLocalStorage, setDataToStorage } from "./data.js";
 import { printTable, cleanPreView, controlDisplay } from "./controlView.js";
@@ -10,10 +11,14 @@ import { printTable, cleanPreView, controlDisplay } from "./controlView.js";
 export function removeStationHandler(e) {
   if (confirm(DELETE_MESSAGE)) {
     const tr = e.target.parentNode.parentNode;
-    const clearStation = this.station.filter((v) => v.id !== tr.dataset.id);
-    this.station = clearStation;
-    setDataToStorage(this);
-    printTable.call(this, STATION_DIV);
+    if (this.isValidDeleteStation(tr.dataset.id)) {
+      const clearStation = this.station.filter((v) => v.id !== tr.dataset.id);
+      this.station = clearStation;
+      setDataToStorage(this);
+      printTable.call(this, STATION_DIV);
+    } else {
+      alert(ERR__DELETE);
+    }
   }
 }
 

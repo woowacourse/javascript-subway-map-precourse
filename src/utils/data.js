@@ -12,7 +12,6 @@ import {
 } from "./controlView.js";
 
 import { removeLineHandler } from "./line.js";
-
 import { removeStationHandler } from "./station.js";
 import { removeSectionHandler } from "./section.js";
 

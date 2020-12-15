@@ -15,25 +15,30 @@ import {
   SELECTION_DIV,
   DELETE_MESSAGE,
   ERR__DELETE,
+  SELECTION_DELETE_COUNT_LIMIT,
 } from "../constant.js";
+import { addLinetoStation } from "./line.js";
 
 export function removeSectionHandler(e) {
   if (confirm(DELETE_MESSAGE)) {
     const tr = e.target.parentNode.parentNode;
     const sectionId = tr.dataset.sectionid;
     let index = this.line.findIndex((v) => v.id === sectionId);
-    if (this.line[index].stations.length >= 3) {
+    if (this.line[index].stations.length >= SELECTION_DELETE_COUNT_LIMIT) {
       const clearSection = this.line[index].stations.filter(
         (v) => v.id !== tr.dataset.id
       );
       this.line[index].stations = clearSection;
       setDataToStorage(this);
       printTable.call(this, SELECTION_DIV, this.line[index].name);
+    } else {
+      alert(ERR__DELETE);
     }
   }
 }
 
 export function isValidSelectName(lineIndex) {
+  //같은 역이 인지 확인
   const sectionSelector = document.getElementById("section-station-selector");
   let selectedId = getDataFromSelect(sectionSelector, "id");
   const result = this.line[lineIndex].stations.filter(
@@ -53,10 +58,12 @@ export function isValidOrder(lineIndex, sectionOrderInput) {
 
 export function addStationtoLine(lineIndex, sectionOrderInput) {
   const sectionSelector = document.getElementById("section-station-selector");
+  const stationId = getDataFromSelect(sectionSelector, "id");
   this.line[lineIndex].stations.splice(parseInt(sectionOrderInput), 0, {
-    id: getDataFromSelect(sectionSelector, "id"),
+    id: stationId,
     station: getDataFromSelect(sectionSelector, "value"),
   });
+  addLinetoStation.call(this, this.line[lineIndex].id, stationId); //역에 노선 id 추가
 }
 
 export function sectionAddButtonEventHandler(buttonName) {
@@ -91,6 +98,7 @@ export function lineControlEventHandler(e) {
     e.target.dataset.value
   ); //구간 등록 div 출력
 }
+
 export function sectionEventHandler(e) {
   const parentMenu = document.getElementById("app").children[SELECTION_DIV];
   getDataFromLocalStorage(this);

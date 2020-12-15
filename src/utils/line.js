@@ -28,6 +28,7 @@ export function removeLineHandler(e) {
 }
 
 export function addLinetoStation(lineId, stationId) {
+  //노선에 포함 될때,line 프로퍼티 추가
   let stationIndex = this.station.findIndex((v) => v.id == stationId);
   if (!this.station[stationIndex].hasOwnProperty("line")) {
     this.station[stationIndex].line = [];
@@ -51,6 +52,7 @@ export const isValidSelect = () => {
   const lineStartId = getDataFromSelect(selectStart, "id");
   const lineEndId = getDataFromSelect(selectEnd, "id");
   if (lineStartId == null || lineEndId == null || lineStartId === lineEndId) {
+    //
     return false;
   } else {
     return [

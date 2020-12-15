@@ -1,6 +1,11 @@
 table{
     border: 1px solid #444444;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 th, td {
     border: 1px solid #444444;
   }
+button{
+    margin-right: 5px;
+}
