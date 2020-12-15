@@ -1,4 +1,4 @@
-const hasDuplicatedName = (stationList, stationName) =>
+export const hasDuplicatedName = (stationList, stationName) =>
   stationList.includes(stationName);
 
 const isLengthMoreOne = stationName => stationName.length > 1;

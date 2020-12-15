@@ -3,6 +3,8 @@ import {
   sectionManagePresenter,
   lineListTemplate,
 } from "./sectionPresenter";
+import { hasDuplicatedName } from "../utils";
+import { INVALID_SECTION_NAME } from "./sectionConstant";
 
 export default function sectionContainer() {
   let lineData = [];
@@ -15,13 +17,17 @@ export default function sectionContainer() {
     const lineListTable = document.querySelector("#line-list-table");
     const prevLineDataIndex = lineData.indexOf(line);
 
-    line.splice(parseInt(order) + 1, 0, station);
-    lineData[prevLineDataIndex] = line;
-    sectionManageContainer.removeChild(lineListTable);
+    if (!hasDuplicatedName(line, station)) {
+      line.splice(parseInt(order) + 1, 0, station);
+      lineData[prevLineDataIndex] = line;
+      sectionManageContainer.removeChild(lineListTable);
 
-    setLocalData(lineData);
-    lineListTemplate(line);
-    sectionHandler(line);
+      setLocalData(lineData);
+      lineListTemplate(line);
+      sectionHandler(line);
+    } else {
+      alert(INVALID_SECTION_NAME);
+    }
   };
 
   const getLocalData = () => {
