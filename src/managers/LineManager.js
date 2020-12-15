@@ -12,6 +12,7 @@ import { lineTableTemplate, optionTemplate } from '../share/template.js';
 const CONFIRM_MESSAGE = '정말 노선을 삭제하시겠습니까?';
 const ALERT_MESSAGE_SAME_STATION = '상행 종점과 하행 종점은 달라야 합니다.';
 const ALERT_MESSAGE_SAME_NAME = '이미 등록된 노선이름입니다.';
+const ALERT_MESSAGE_NO_WHITESPACE = '노선이름은 공백으로 지정할 수 없습니다.';
 export default class LineManager extends Component {
   constructor(props) {
     super(props);
@@ -80,6 +81,10 @@ export default class LineManager extends Component {
     }
     if (!checkSameStation(startStation, endStation)) {
       alert(ALERT_MESSAGE_SAME_STATION);
+      return false;
+    }
+    if (name.length) {
+      alert(ALERT_MESSAGE_NO_WHITESPACE);
       return false;
     }
     return true;

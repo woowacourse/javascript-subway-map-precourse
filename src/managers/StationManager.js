@@ -83,6 +83,7 @@ export default class StationManager extends Component {
       alert(ALERT_MESSAGE_STATION_MINLENGTH);
       return false;
     }
+
     return true;
   }
 
@@ -103,8 +104,6 @@ export default class StationManager extends Component {
   }
 
   render() {
-    console.log('rendered!');
-    console.log(this);
     this.table.innerHTML = this.template();
   }
 }
