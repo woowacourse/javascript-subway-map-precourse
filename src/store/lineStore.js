@@ -1,5 +1,6 @@
-import { saveStorage } from "../utils/storage.js";
 import Observer from "./observer.js";
+import { saveStorage } from "../utils/storage.js";
+import { STORAGE_KEY } from "../utils/constants/key.js";
 
 class LineStore extends Observer {
   constructor(lines) {
@@ -55,7 +56,7 @@ class LineStore extends Observer {
   setLines(lines) {
     this.lines = lines;
     this.notify();
-    saveStorage(`LINE`, this.lines);
+    saveStorage(STORAGE_KEY.LINE, this.lines);
   }
 }
 

@@ -1,5 +1,6 @@
-import { saveStorage } from "../utils/storage.js";
 import Observer from "./observer.js";
+import { saveStorage } from "../utils/storage.js";
+import { STORAGE_KEY } from "../utils/constants/key.js";
 
 class StationStore extends Observer {
   constructor(stations) {
@@ -20,7 +21,7 @@ class StationStore extends Observer {
   setStations(stations) {
     this.stations = stations;
     this.notify();
-    saveStorage(`STATION`, this.stations);
+    saveStorage(STORAGE_KEY.STATION, this.stations);
   }
 }
 
