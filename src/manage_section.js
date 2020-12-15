@@ -22,6 +22,7 @@ export default class ManageSection {
     this.ARTICLE_NAME = 'sectionArticle';
     this.SELECT_LINE_SECTION = 'selectLineSection';
     this.MANAGE_LINE_SECTION = 'manageLineSection';
+    this.LINE_TABLE_SECTION = 'lineTableSection';
 
     this.SELECT_LINE_TITLE_TAG = 'h3';
     this.SELECT_LINE_TITLE = '구간을 수정할 노선을 선택해주세요';
@@ -49,6 +50,7 @@ export default class ManageSection {
   initPage() {
     this.createSelectLineSection();
     this.createManageLineSection();
+    this.createManageLineSectionTable();
   }
 
   createSelectLineSection() {
@@ -78,9 +80,18 @@ export default class ManageSection {
   }
 
   changeManageLineSection(line) {
+    this.changeManageLineSectionTitle(line);
+    this.changeManageLineSectionTable(line);
+  }
+
+  changeManageLineSectionTitle(line) {
     const manageLineTitle = document.querySelector("#manageLineSection h3");
 
     manageLineTitle.innerHTML = line + this.MANAGE_LINE_TITLE;
+  }
+
+  changeManageLineSectionTable(line) {
+    this._privateTableUtils.refreshTableData(this.LINE_TABLE_SECTION, line);
   }
 
   createManageLineSection() {
@@ -138,5 +149,12 @@ export default class ManageSection {
 
   addSection() {
 
+  }
+
+  createManageLineSectionTable() {
+    this._privateCommonUtils.createDiv(this.MANAGE_LINE_SECTION, this.LINE_TABLE_SECTION);
+    this._privateCommonUtils.insertEmptyline(this.LINE_TABLE_SECTION);
+    this._privateCommonUtils.insertEmptyline(this.LINE_TABLE_SECTION);
+    this._privateTableUtils.initTable(this.LINE_TABLE_SECTION);
   }
 }

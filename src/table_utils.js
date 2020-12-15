@@ -17,7 +17,7 @@ export default class TableUtils {
     this._tableType = {
       stationArticle: ['역 이름', '설정'],
       lineArticle: ['노선 이름', '상행 종점역', '하행 종점역', '설정'],
-      sectionArticle: ['순서', '이름', '설정'],
+      lineTableSection: ['순서', '이름', '설정'],
     }
   }
 
@@ -33,7 +33,7 @@ export default class TableUtils {
 
     this.STATION_TABLE_NAME = 'stationArticleTable';
     this.LINE_TABLE_NAME = 'lineArticleTable';
-    this.SECTION_TABLE_NAME = 'sectionArticleTable';
+    this.SECTION_TABLE_NAME = 'lineTableSectionTable';
   }
 
   initTable(toIdName) {
@@ -46,12 +46,12 @@ export default class TableUtils {
     this.initTableData(toIdName);
   }
 
-  initTableData(articleName) {
-    if (articleName === 'stationArticle') {
-      this.initStationTableData(articleName);
+  initTableData(toIdName) {
+    if (toIdName === 'stationArticle') {
+      this.initStationTableData(toIdName);
     }
-    else if (articleName === 'lineArticle') {
-      this.initArticleTableData(articleName);
+    else if (toIdName === 'lineArticle') {
+      this.initArticleTableData(toIdName);
     }
   }
 
@@ -72,6 +72,35 @@ export default class TableUtils {
       const rowArray = [line, lineList[line][0], lineList[line][lineLen - 1], this.LINE_DELETE_BUTTON_TEXT];
       this.addRow(rowArray, articleName);
     }
+  }
+
+  refreshTableData(toIdName, line) {
+    this.emptyTableData(toIdName);
+    if (toIdName === 'lineArticle') {
+      this.initStationTableData(toIdName);
+    }
+    else if (toIdName === 'lineTableSection') {
+      this.initSectionTable(line);
+    }
+  }
+
+  emptyTableData(toIdName) {
+    const tbody = document.querySelector(`#${toIdName}Table tbody`);
+    const rowCount = tbody.childElementCount;
+
+    if (rowCount > 1) {
+      this.deleteRows(tbody.parentNode, rowCount);
+    }
+  }
+
+  deleteRows(table, rowCount) {
+    for (let i = 1; i < rowCount; i++) {
+      table.deleteRow(i);
+    }
+  }
+
+  initSectionTable(line) {
+    
   }
 
   // refreshStationTable(articleName) {
