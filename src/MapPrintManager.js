@@ -1,10 +1,10 @@
 export default class MapPrintManager {
   constructor({ target, subway }) {
     this.target = target;
+    target.className = 'map';
     this.subway = subway;
 
-    const wrapper = this.createContainerElement(target, 'map');
-    this.render(wrapper);
+    this.render(target);
   }
 
   createContainerElement(target, classNames = '') {
@@ -26,9 +26,9 @@ export default class MapPrintManager {
     `;
   }
 
-  render(wrapper) {
+  render() {
     const lines = this.subway.getLines();
-    wrapper.innerHTML = `
+    this.target.innerHTML = `
       ${lines.map(({ lineName, section }) => `
         <h3>${lineName}</h3>
         ${this.renderSection(section)}

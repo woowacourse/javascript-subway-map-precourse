@@ -1,13 +1,28 @@
 import Table from './Table.js';
 
+import {
+  SECTION_LINE_MENU_BUTTON_CLASS,
+  SECTION_STATION_SELECTOR_ID,
+  SECTION_ORDER_INPUT_ID,
+  SECTION_ADD_BUTTON_ID,
+  SECTION_DELETE_BUTTON_CLASS,
+} from './constants/CommonConstants.js';
+
 export default class SectionManager {
   constructor({ target, subway, addSection, deleteSection }) {
     this.target = target;
+    target.className = 'section-manager';
     this.subway = subway;
     this.onClickAddSection = addSection;
     this.onClickDeleteSection = deleteSection;
+
+    this.cleanUpPage(target);
     this.createHeader(target);
     this.createSectionButtons(target);
+  }
+
+  cleanUpPage(target) {
+    target.innerHTML = '';
   }
 
   get currentLine() {
@@ -44,7 +59,7 @@ export default class SectionManager {
       <h3>${line.lineName} 관리</h3>
       <h4>구간 등록</h4>
       <div>
-        <select id="section-station-selector">
+        <select id="${SECTION_STATION_SELECTOR_ID}">
           ${stations.map((station, index) => `
             <option value=${index}>${station}</option>
           `).join('')}
@@ -52,12 +67,12 @@ export default class SectionManager {
         <input
           type="number"
           placeholder="순서"
-          id="seletion-order-input"
+          id="${SECTION_ORDER_INPUT_ID}"
         />
-        <button id="section-add-button">등록</button>
+        <button id="${SECTION_ADD_BUTTON_ID}">등록</button>
       </div>
     `;
-    const addButton = document.querySelector('#section-add-button');
+    const addButton = document.getElementById(SECTION_ADD_BUTTON_ID);
     addButton.addEventListener('click', () => this.onClickAddSection());
 
     this.createSectionTable(target);
@@ -65,7 +80,7 @@ export default class SectionManager {
 
   addSectionUpdateClickEvent(target, lines) {
     const sectionLineMenuButtons = document.querySelectorAll(
-      '.section-line-menu-button',
+      `.${SECTION_LINE_MENU_BUTTON_CLASS}`,
     );
     this.wrapper = this.createContainerElement(target, 'section-manager');
 
@@ -84,7 +99,7 @@ export default class SectionManager {
 
     container.innerHTML = `
       ${lines.map(({ lineName }) => `
-        <button class="section-line-menu-button">
+        <button class="${SECTION_LINE_MENU_BUTTON_CLASS}">
           ${lineName}
         </button>
       `).join('')}
@@ -111,7 +126,7 @@ export default class SectionManager {
         <td>${index}</td>
         <td>${name}</td>
         <td>
-          <button class="section-delete-button">
+          <button class="${SECTION_DELETE_BUTTON_CLASS}">
             노선에서 제거
           </button>
         </td>
@@ -121,7 +136,7 @@ export default class SectionManager {
       data: section,
       callbackRender,
       onClickDelete: this.onClickDeleteSection,
-      className: '.section-delete-button',
+      className: `.${SECTION_DELETE_BUTTON_CLASS}`,
     });
   }
 }

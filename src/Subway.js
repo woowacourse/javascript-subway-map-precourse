@@ -2,7 +2,7 @@ import {
   Errors,
   MAX_NAME_LENGTH,
   MIN_NAME_LENGTH,
-} from './constants/Constants.js';
+} from './constants/ErrorConstants.js';
 
 export default class Subway {
   constructor({ state }) {

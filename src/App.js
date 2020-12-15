@@ -8,8 +8,18 @@ import Subway from './Subway.js';
 import { saveItem, loadItem } from './utils/storage.js';
 
 import {
+  STATION_INPUT_ID,
+  LINE_INPUT_ID,
+  SECTION_ORDER_INPUT_ID,
+  LINE_START_SELECTOR_ID,
+  LINE_END_SELECTOR_ID,
+  SECTION_STATION_SELECTOR_ID,
+  STATION_MANAGER_BUTTON_ID,
+  LINE_MANAGER_BUTTON_ID,
+  SECTION_MANAGER_BUTTON_ID,
+  MAP_PRINT_MANAGER_BUTTON_ID,
   DELETE_CONFIRM,
-} from './constants/Constants.js';
+} from './constants/CommonConstants.js';
 
 export default class App {
   initialState = {
@@ -27,39 +37,47 @@ export default class App {
     this.subway = new Subway({ state: this.loadSubway() });
   }
 
-  addClickButtonEvent(buttons) {
-    const components = {
-      'station-manager-button': () => this.renderStationManager(),
-      'line-manager-button': () => this.renderLineManager(),
-      'section-manager-button': () => this.renderSectionManager(),
-      'map-print-manager-button': () => this.renderMapPrintManager(),
-    };
-
-    buttons.forEach(({ id }) => {
-      const button = document.getElementById(id);
-      button.addEventListener('click', components[id]);
+  addClickButtonEvent(controls) {
+    controls.forEach(({ id, renderer }) => {
+      const managerButton = document.getElementById(id);
+      managerButton.addEventListener('click', renderer);
     });
   }
 
   createButtons(target) {
+    const controls = [
+      {
+        id: STATION_MANAGER_BUTTON_ID,
+        label: '1. 역 관리',
+        renderer: () => this.renderStationManager(),
+      },
+      {
+        id: LINE_MANAGER_BUTTON_ID,
+        label: '2. 노선 관리',
+        renderer: () => this.renderLineManager(),
+      },
+      {
+        id: SECTION_MANAGER_BUTTON_ID,
+        label: '3. 구간 관리',
+        renderer: () => this.renderSectionManager(),
+      },
+      {
+        id: MAP_PRINT_MANAGER_BUTTON_ID,
+        label: '4. 지하철 노선도 출력',
+        renderer: () => this.renderMapPrintManager(),
+      },
+    ];
     const ul = document.createElement('ul');
     ul.className = 'navigation';
-    const buttons = [
-      { id: 'station-manager-button', label: '1. 역 관리' },
-      { id: 'line-manager-button', label: '2. 노선 관리' },
-      { id: 'section-manager-button', label: '3. 구간 관리' },
-      { id: 'map-print-manager-button', label: '4. 지하철 노선도 출력' },
-    ];
     ul.innerHTML = `
-      ${buttons.map(({ id, label }) => `
+      ${controls.map(({ id, label }) => `
         <li>
           <button id=${id}>${label}</button>
         </li>
       `).join('')}
     `;
     target.appendChild(ul);
-
-    this.addClickButtonEvent(buttons);
+    this.addClickButtonEvent(controls);
   }
 
   saveSubway() {
@@ -82,7 +100,6 @@ export default class App {
   }
 
   renderStationManager() {
-    this.container.innerHTML = '';
     this.stationManager = new StationManager({
       target: this.container,
       subway: this.subway,
@@ -92,7 +109,6 @@ export default class App {
   }
 
   renderLineManager() {
-    this.container.innerHTML = '';
     this.lineManager = new LineManager({
       target: this.container,
       subway: this.subway,
@@ -102,7 +118,6 @@ export default class App {
   }
 
   renderSectionManager() {
-    this.container.innerHTML = '';
     this.sectionManager = new SectionManager({
       target: this.container,
       subway: this.subway,
@@ -112,7 +127,6 @@ export default class App {
   }
 
   renderMapPrintManager() {
-    this.container.innerHTML = '';
     this.mapPrintManager = new MapPrintManager({
       target: this.container,
       subway: this.subway,
@@ -120,7 +134,7 @@ export default class App {
   }
 
   onClickAddStation() {
-    const station = document.querySelector('#station-name-input').value;
+    const station = document.getElementById(STATION_INPUT_ID).value;
     this.subway.addStation({ station });
     this.stationManager.setSubway(this.subway);
     this.saveSubway();
@@ -136,14 +150,14 @@ export default class App {
   }
 
   getSelectorValue(id) {
-    const selector = document.querySelector(id);
+    const selector = document.getElementById(id);
     return selector.options[selector.selectedIndex].text;
   }
 
   onClickAddLine() {
-    const lineName = document.querySelector('#line-name-input').value;
-    const start = this.getSelectorValue('#line-start-station-selector');
-    const end = this.getSelectorValue('#line-end-station-selector');
+    const lineName = document.getElementById(LINE_INPUT_ID).value;
+    const start = this.getSelectorValue(LINE_START_SELECTOR_ID);
+    const end = this.getSelectorValue(LINE_END_SELECTOR_ID);
     this.subway.addLine({ lineName, start, end });
     this.lineManager.setSubway(this.subway);
     this.saveSubway();
@@ -160,8 +174,8 @@ export default class App {
 
   onClickAddSection() {
     const { lineName } = this.sectionManager.currentLine;
-    const station = this.getSelectorValue('#section-station-selector');
-    const order = document.querySelector('#seletion-order-input').value;
+    const station = this.getSelectorValue(SECTION_STATION_SELECTOR_ID);
+    const order = document.getElementById(SECTION_ORDER_INPUT_ID).value;
     this.subway.addSection({ lineName, order, station });
     this.sectionManager.setSubway(this.subway);
     this.saveSubway();

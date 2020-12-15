@@ -2,19 +2,33 @@ import Table from './Table.js';
 
 import {
   DELETE_TEXT,
-} from './constants/Constants.js';
+} from './constants/CommonConstants.js';
+
+import {
+  LINE_INPUT_ID,
+  LINE_START_SELECTOR_ID,
+  LINE_END_SELECTOR_ID,
+  LINE_ADD_BUTTON_ID,
+  LINE_DELETE_BUTTON_CLASS,
+} from './constants/CommonConstants.js';
 
 export default class LineManager {
   constructor({ target, subway, addLine, deleteLine }) {
     this.target = target;
+    target.className = 'line-manager';
     this.subway = subway;
     this.onClickAddLine = addLine;
     this.onClickDeleteLine = deleteLine;
 
+    this.cleanUpPage(target);
     this.createLineInput(target);
     this.createSelector(target);
     this.createLineListHeader(target);
     this.createLineTable(target);
+  }
+
+  cleanUpPage(target) {
+    target.innerHTML = '';
   }
 
   createContainerElement(target, classNames = '') {
@@ -35,7 +49,7 @@ export default class LineManager {
       <input
         type="text"
         placeholder="노선 이름을 입력해주세요."
-        id="line-name-input"
+        id="${LINE_INPUT_ID}"
       />
     `;
   }
@@ -61,7 +75,7 @@ export default class LineManager {
 
     container.innerHTML = this.renderSelector({
       label: '상행 종점',
-      id: 'line-start-station-selector',
+      id: LINE_START_SELECTOR_ID,
       stations: this.subway.getStationName(),
     });
   }
@@ -72,7 +86,7 @@ export default class LineManager {
 
     container.innerHTML = this.renderSelector({
       label: '하행 종점',
-      id: 'line-end-station-selector',
+      id: LINE_END_SELECTOR_ID,
       stations: this.subway.getStationName(),
     });
   }
@@ -81,10 +95,10 @@ export default class LineManager {
     const container = this.createContainerElement(target, 'line-station');
 
     container.innerHTML = `
-      <button id="line-add-button">노선 추가</button>
+      <button id="${LINE_ADD_BUTTON_ID}">노선 추가</button>
     `;
 
-    const addButton = document.querySelector('#line-add-button');
+    const addButton = document.getElementById(LINE_ADD_BUTTON_ID);
     addButton.addEventListener('click', this.onClickAddLine);
   }
 
@@ -125,7 +139,7 @@ export default class LineManager {
         <td>${section[0]}</td>
         <td>${section[section.length - 1]}</td>
         <td>
-          <button class="line-delete-button">
+          <button class="${LINE_DELETE_BUTTON_CLASS}">
             ${DELETE_TEXT}
           </button>
         </td>
@@ -135,7 +149,7 @@ export default class LineManager {
       data: lines,
       callbackRender,
       onClickDelete: this.onClickDeleteLine,
-      className: '.line-delete-button',
+      className: `.${LINE_DELETE_BUTTON_CLASS}`,
     });
   }
 }

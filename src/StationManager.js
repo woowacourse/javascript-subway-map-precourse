@@ -1,17 +1,29 @@
 import Table from './Table.js';
 
-import { DELETE_TEXT } from './constants/Constants.js';
+import { DELETE_TEXT } from './constants/CommonConstants.js';
+
+import {
+  STATION_INPUT_ID,
+  STATION_ADD_BUTTON_ID,
+  STATION_DELETE_BUTTON_CLASS,
+} from './constants/CommonConstants.js';
 
 export default class StationManager {
   constructor({ target, subway, addStation, deleteStation }) {
     this.target = target;
+    target.className = 'station-manager';
     this.subway = subway;
     this.onClickAddStation = addStation;
     this.onClickDeleteStation = deleteStation;
 
+    this.cleanUpPage(target);
     this.createStationInput(target);
     this.createStationListHeader(target);
     this.createStationTable(target);
+  }
+
+  cleanUpPage(target) {
+    target.innerHTML = '';
   }
 
   createStationInput(target) {
@@ -20,11 +32,11 @@ export default class StationManager {
 
     container.innerHTML = `  
       <p>역 이름</p>
-      <input type="text" id="station-name-input" />
-      <button id="station-add-button">역 추가</button>
+      <input type="text" id="${STATION_INPUT_ID}" />
+      <button id="${STATION_ADD_BUTTON_ID}">역 추가</button>
     `;
 
-    const addButton = document.querySelector('#station-add-button');
+    const addButton = document.getElementById(STATION_ADD_BUTTON_ID);
     addButton.addEventListener('click', this.onClickAddStation);
   }
 
@@ -53,7 +65,7 @@ export default class StationManager {
       <tr>
         <td>${station}</td>
         <td>
-          <button class="station-delete-button">
+          <button class="${STATION_DELETE_BUTTON_CLASS}">
             ${DELETE_TEXT}
           </button>
         </td>
@@ -63,7 +75,7 @@ export default class StationManager {
       data: stations,
       callbackRender,
       onClickDelete: this.onClickDeleteStation,
-      className: '.station-delete-button',
+      className: `.${STATION_DELETE_BUTTON_CLASS}`,
     });
   }
 }
