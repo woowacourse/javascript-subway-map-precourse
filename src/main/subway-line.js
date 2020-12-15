@@ -1,6 +1,5 @@
 import {LINE, STORAGE} from '../constants.js';
 import {getList} from './subway-local-storage.js';
-import {lineModel} from '../model/subway-model.js';
 
 export default class SubwayLine {
   constructor() {
@@ -13,9 +12,7 @@ export default class SubwayLine {
       return cb(this.alertMessage(lineName, start, end));
     }
 
-    this.lineList = Object.assign(
-        {}, this.lineList, lineModel(lineName, start, end),
-    );
+    this.lineList[lineName] = [{name: start}, {name: end}];
 
     return cb(null, this.lineList);
   }
