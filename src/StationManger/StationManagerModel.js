@@ -51,7 +51,7 @@ export default class StationManagerModel {
   }
 
   static isOnlyNumber(station) {
-    return /[^0-9]/.test(station); // 숫자를 제외한 문자열이 있는 경우 true
+    return !(/[^0-9]/.test(station));
   }
 
   static delete(station) {

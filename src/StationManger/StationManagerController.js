@@ -18,6 +18,7 @@ export default class StationManagerController {
   static addButtonClicked() {
     const station = document.getElementById('station-name-input').value;
     const isValid = StationManagerModel.isValidName(station);
+    console.log(isValid);
     if (isValid !== 1) {
       StationManagerView.alertNameError(isValid);
       StationManagerView.stationInputView();
