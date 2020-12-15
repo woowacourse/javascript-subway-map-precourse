@@ -98,4 +98,11 @@ const SectionManager = function () {
     } else rerenderOnlyChange(lineName);
     this.setSectionDeleteButtonClickEvent();
   };
+
+  this.setLineSelectionButtonClickListener = () => {
+    const buttons = document.getElementsByClassName("section-line-menu-button");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", this.onLineSelectionButtonClick);
+    }
+  };
 };
