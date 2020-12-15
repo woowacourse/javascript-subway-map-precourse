@@ -10,6 +10,7 @@ import {
   sectionStationSelectorElement,
   sectionLineNameElement,
 } from '../elements/sectionManager.js';
+import { INTERFACE_DATA_ITEM_NAME } from '../constants/configuration.js';
 
 export const data = {
   stationNameInputValue: '',
@@ -22,11 +23,11 @@ export const data = {
 };
 
 export const saveDataToLocalStorage = () => {
-  setItemWithKey(data, 'data');
+  setItemWithKey(data, INTERFACE_DATA_ITEM_NAME);
 };
 
 export const loadDataToLocalStorage = () => {
-  const loadedData = getItemByKey('data');
+  const loadedData = getItemByKey(INTERFACE_DATA_ITEM_NAME);
   if (loadedData) {
     data.stationNameInputValue = loadedData.stationNameInputValue;
     data.lineNameInputValue = loadedData.lineNameInputValue;
