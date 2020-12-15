@@ -6,9 +6,11 @@ import {
   addMapPrintEventListeners,
   addSectionManagerEventListeners,
   addStationManagerEventListeners,
+  addSyncDataBeforeOnloadEventListener,
+  addSyncDataBeforeUnloadEventListener,
 } from './listeners/listeners.js';
 
-setRouterWithElements(contentElements, contentElements[0]);
+setRouterWithElements(contentElements);
 loadDataToLocalStorage();
 syncDataToAllElements();
 
@@ -16,3 +18,5 @@ addLineMangerEventListeners();
 addMapPrintEventListeners();
 addSectionManagerEventListeners();
 addStationManagerEventListeners();
+addSyncDataBeforeOnloadEventListener(contentElements, contentElements[0]);
+addSyncDataBeforeUnloadEventListener();

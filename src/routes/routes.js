@@ -1,4 +1,4 @@
-const convertContent = (contentElements, contentName) => {
+export const convertContent = (contentElements, contentName) => {
   contentElements.forEach((element) => {
     if (element.id === contentName) {
       element.setAttribute('style', 'display: block;');
@@ -10,22 +10,14 @@ const convertContent = (contentElements, contentName) => {
 
 export const setRouterWithElements = (
   contentElements,
-  defaultContentElement
 ) => {
   window.onhashchange = () => {
     const contentName = window.location.hash.substr(1);
     convertContent(contentElements, contentName);
   };
-  window.onload = () => {
-    const contentName = window.location.hash.substr(1);
-    if (contentName) {
-      convertContent(contentElements, contentName);
-    } else {
-      convertContent(contentElements, defaultContentElement.id);
-    }
-  };
 };
 
 export default {
   setRouterWithElements,
+  convertContent
 };
