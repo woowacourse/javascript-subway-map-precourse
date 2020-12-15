@@ -66,4 +66,5 @@ export const {
   clearSectionInputs,
   appendSpreadElements,
   rerenderOnlyChange,
+  renderSection,
 } = new SectionContainer();

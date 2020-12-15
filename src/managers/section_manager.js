@@ -106,3 +106,5 @@ const SectionManager = function () {
     }
   };
 };
+
+export const { setLineSelectionButtonClickListener } = new SectionManager();
