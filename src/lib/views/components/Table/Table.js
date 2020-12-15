@@ -80,7 +80,6 @@ export default class Table {
     }, []);
   }
 
-  // 노선 데이터 (노선 이름, 기점, 종점, 삭제) tr 배열
   _getLineTableData() {
     if (this.tabIndex !== LINE_TAB_INDEX) return [];
     return lineSelector().reduce((trList, { lineName, stations }) => {
@@ -96,7 +95,6 @@ export default class Table {
     }, []);
   }
 
-  // 현재 라인에 해당하는 구간 데이터 (순서, 역 이름, 노선에서 삭제) tr 배열
   _getSectionTableData() {
     if (this.tabIndex !== SECTION_TAB_INDEX) return [];
     return lineSelector()
@@ -122,7 +120,6 @@ export default class Table {
   }
 
   _getTableBody() {
-    // 타입에 따라 다르게 리턴해주기
     const $tableBody = document.createElement("tbody");
     this._getTableData()[this.tabIndex].forEach(($tableRow) =>
       $tableBody.appendChild($tableRow),
