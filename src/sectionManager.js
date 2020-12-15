@@ -14,7 +14,7 @@ export const initSectionManager = () => {
 const printGuideText = () => {
   const sectionHeader = document.createElement('div');
   const sectionTitle = document.createElement('h3');
-  sectionTitle.innerText = T.guideText;
+  sectionTitle.innerText = T.GUIDE_TEXT;
   sectionHeader.append(sectionTitle);
   createMenuButtons(sectionHeader);
 
@@ -26,7 +26,7 @@ const createMenuButtons = sectionHeader => {
   if (lines) {
     Object.keys(lines).map(line => {
       const menuBtn = document.createElement('button');
-      menuBtn.setAttribute('class', T.menuButtonsClass);
+      menuBtn.setAttribute('class', T.MENU_BUTTON_CLASS);
       menuBtn.innerHTML = line;
       menuBtn.style.margin = '2px';
       menuBtn.addEventListener('click', () => {
@@ -40,9 +40,9 @@ const createMenuButtons = sectionHeader => {
 };
 
 const clearInputs = () => {
-  const sectionInputArea = document.getElementById(T.inputId);
-  const selectArea = document.getElementById(T.selectAreaId);
-  const sectionTable = document.getElementById(T.tableId);
+  const sectionInputArea = document.getElementById(T.INPUT_ID);
+  const selectArea = document.getElementById(T.SELECT_AREA_ID);
+  const sectionTable = document.getElementById(T.TABLE_ID);
 
   if (sectionInputArea && selectArea && sectionTable) {
     app.removeChild(sectionInputArea);
@@ -53,12 +53,12 @@ const clearInputs = () => {
 
 const createPage = line => {
   const sectionInputArea = document.createElement('div');
-  sectionInputArea.setAttribute('id', T.inputId);
+  sectionInputArea.setAttribute('id', T.INPUT_ID);
 
   const manageTitle = document.createElement('h3');
-  manageTitle.innerHTML = `${line} ${T.manageText}`;
+  manageTitle.innerHTML = `${line} ${T.MANAGE_TEXT}`;
   const registerTitle = document.createElement('b');
-  registerTitle.innerHTML = T.registerText;
+  registerTitle.innerHTML = T.REGISTER_TEXT;
 
   sectionInputArea.append(manageTitle, registerTitle);
   app.append(sectionInputArea);
@@ -68,15 +68,15 @@ const createPage = line => {
 
 const createSelectArea = line => {
   const selectArea = document.createElement('div');
-  selectArea.setAttribute('id', T.selectAreaId);
+  selectArea.setAttribute('id', T.SELECTOR_ID);
 
   const stations = getLocalStorage(STORAGE_KEY_STATION);
-  const stationSelect = createSelectbox(T.selectorId, stations);
+  const stationSelect = createSelectbox(T.SELECTOR_ID, stations);
 
   let selectedStation = stationSelect.value;
   stationSelect.addEventListener('change', () => (selectedStation = stationSelect.value));
   const orderInput = createNumberInput();
-  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
+  const submitBtn = createSubmitBtn(T.SUBMIT_ID, T.SUBMIT_TEXT);
 
   submitBtn.addEventListener('click', () => addToSection(line, selectedStation, orderInput));
   selectArea.append(stationSelect, orderInput, submitBtn);
@@ -86,8 +86,8 @@ const createSelectArea = line => {
 const createNumberInput = () => {
   const orderInput = document.createElement('input');
   orderInput.type = 'number';
-  orderInput.setAttribute('id', T.orderInputId);
-  orderInput.setAttribute('placholder', T.placeholder);
+  orderInput.setAttribute('id', T.ORDER_INPUT_ID);
+  orderInput.setAttribute('placholder', T.PLACEHOLDER);
 
   return orderInput;
 };
@@ -109,13 +109,13 @@ const addToSection = (line, station, orderInput) => {
 };
 
 const removeCurrResult = () => {
-  const sectionTable = document.getElementById(T.tableId);
+  const sectionTable = document.getElementById(T.TABLE_ID);
   app.removeChild(sectionTable);
 };
 
 const createResultArea = line => {
-  const sectionTableHeaders = [T.tableHeader1, T.tableHeader2, T.tableHeader3];
-  const sectionTable = createTable(T.tableId, sectionTableHeaders);
+  const sectionTableHeaders = [T.TABLE_HEADER_1, T.TABLE_HEADER_2, T.TABLE_HEADER_3];
+  const sectionTable = createTable(T.TABLE_ID, sectionTableHeaders);
   sectionTable.style.marginTop = '20px';
   app.append(sectionTable);
 
@@ -147,8 +147,8 @@ const addTableData = (table, line, stations) => {
 
 const createDeleteBtn = (station, line) => {
   const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('class', T.deleteBtnClass);
-  deleteBtn.innerHTML = T.deleteBtnText;
+  deleteBtn.setAttribute('class', T.DELETE_BTN_CLASS);
+  deleteBtn.innerHTML = T.DELETE_BTN_TEXT;
   deleteBtn.addEventListener('click', () => deleteStation(station, line));
 
   return deleteBtn;
@@ -160,7 +160,7 @@ const deleteStation = (station, line) => {
 
   if (!isAbleToDelete(currStations)) return;
 
-  if (confirm(T.alertConfirmDelete)) {
+  if (confirm(T.ALERT_CONFIRM_DELETE)) {
     currStations.splice(currStations.indexOf(station), 1);
     const updatedLines = currLines;
     updatedLines[line] = currStations;
@@ -172,7 +172,7 @@ const deleteStation = (station, line) => {
 
 const isAbleToDelete = stations => {
   if (stations.length <= 2) {
-    alert(T.alertStationsUnderTwo);
+    alert(T.ALERT_STATION_UNDER_TWO);
     return false;
   }
   return true;

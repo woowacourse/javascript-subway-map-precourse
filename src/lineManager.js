@@ -19,9 +19,9 @@ export const initLineManager = () => {
 };
 
 const createPage = () => {
-  createTextInput(T.inputLabel, T.inputId, T.placeholder);
+  createTextInput(T.INPUT_LABEL, T.INPUT_ID, T.PLACEHOLDER);
   createSelectArea();
-  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
+  const submitBtn = createSubmitBtn(T.SUBMIT_ID, T.SUBMIT_TEXT);
   handleSubmit(submitBtn);
   createResultArea();
 };
@@ -30,13 +30,13 @@ const createSelectArea = () => {
   const selectArea = document.createElement('div');
   const stations = getLocalStorage(STORAGE_KEY_STATION);
 
-  const upwardSelect = createSelectbox(T.startSelectorId, stations);
+  const upwardSelect = createSelectbox(T.START_SELECTOR_ID, stations);
   const upwardLabel = document.createElement('b');
-  upwardLabel.innerHTML = T.startSelectorText;
+  upwardLabel.innerHTML = T.START_SELECTOR_TEXT;
 
-  const downwardSelect = createSelectbox(T.endSelectorId, stations);
+  const downwardSelect = createSelectbox(T.END_SELECTOR_ID, stations);
   const downwardLabel = document.createElement('b');
-  downwardLabel.innerHTML = T.endSelectorText;
+  downwardLabel.innerHTML = T.END_SELECTOR_TEXT;
 
   selectArea.append(upwardLabel, upwardSelect, document.createElement('br'));
   selectArea.append(downwardLabel, downwardSelect);
@@ -47,9 +47,9 @@ const createSelectArea = () => {
 const handleSubmit = submitBtn => {
   app.append(document.createElement('br'), submitBtn);
 
-  const inputText = document.getElementById(T.inputId);
-  const upwardSelect = document.getElementById(T.startSelectorId);
-  const downwardSelect = document.getElementById(T.endSelectorId);
+  const inputText = document.getElementById(T.INPUT_ID);
+  const upwardSelect = document.getElementById(T.START_SELECTOR_ID);
+  const downwardSelect = document.getElementById(T.END_SELECTOR_ID);
 
   let startStation = upwardSelect.value;
   let endStation = downwardSelect.value;
@@ -75,7 +75,7 @@ const addLine = (line, start, end) => {
 const validateName = lineName => {
   const lines = getLocalStorage(STORAGE_KEY_LINE);
   if (lines && Object.keys(lines).includes(lineName)) {
-    alert(T.alertDuplicateName);
+    alert(T.ALERT_DUPLICATE_NAME);
     return false;
   }
   return true;
@@ -83,11 +83,11 @@ const validateName = lineName => {
 
 const createResultArea = () => {
   const tableName = document.createElement('h2');
-  tableName.innerHTML = T.resultTitle;
+  tableName.innerHTML = T.RESULT_TITLE;
   app.append(tableName);
 
-  const lineTableHeaders = [T.tableHeader1, T.tableHeader2, T.tableHeader3, T.tableHeader4];
-  const lineTable = createTable(T.tableId, lineTableHeaders);
+  const lineTableHeaders = [T.TABLE_HEADER_1, T.TABLE_HEADER_2, T.TABLE_HEADER_3, T.TABLE_HEADER_4];
+  const lineTable = createTable(T.TABLE_ID, lineTableHeaders);
   const lines = getLocalStorage(STORAGE_KEY_LINE);
   if (lines) {
     addTableData(lineTable, lines);
@@ -120,22 +120,22 @@ const addTableRow = (line, upwardEnd, downwardEnd) => {
 };
 
 const addToTable = (line, start, end) => {
-  const lineTable = document.getElementById(T.tableId);
+  const lineTable = document.getElementById(T.TABLE_ID);
   const newRow = addTableRow(line, start, end);
   lineTable.append(newRow);
 };
 
 const createDeleteBtn = line => {
   const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('class', T.deleteBtnClass);
-  deleteBtn.innerHTML = T.deleteBtnText;
+  deleteBtn.setAttribute('class', T.DELETE_BTN_CLASS);
+  deleteBtn.innerHTML = T.DELETE_BTN_TEXT;
   deleteBtn.addEventListener('click', () => deleteLine(line));
 
   return deleteBtn;
 };
 
 const deleteLine = line => {
-  if (confirm(T.alertConfirmDelete)) {
+  if (confirm(T.ALERT_CONFIRM_DELETE)) {
     const lineTable = document.getElementById(T.tableId);
     const currLines = getLocalStorage(STORAGE_KEY_LINE);
     delete currLines[line];

@@ -13,16 +13,16 @@ export const initStationManager = () => {
 };
 
 const createPage = () => {
-  createTextInput(T.inputLabel, T.inputId, T.placeholder);
-  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
+  createTextInput(T.INPUT_LABEL, T.INPUT_ID, T.PLACEHOLDER);
+  const submitBtn = createSubmitBtn(T.SUBMIT_ID, T.SUBMIT_TEXT);
   handleSubmit(submitBtn);
   createResultArea();
 };
 
 const handleSubmit = submitBtn => {
-  const inputArea = document.getElementById(T.inputContainer);
+  const inputArea = document.getElementById(T.INPUT_CONTAINER);
   inputArea.append(submitBtn);
-  const inputText = document.getElementById(T.inputId);
+  const inputText = document.getElementById(T.INPUT_ID);
 
   inputText.addEventListener('keypress', e => {
     if (e.key === 'Enter') {
@@ -49,10 +49,10 @@ const addStation = name => {
 const validateName = name => {
   const stations = getLocalStorage(STORAGE_KEY_STATION);
   if (stations && stations.includes(name)) {
-    alert(T.alertDuplicateName);
+    alert(T.ALERT_DUPLICATE_NAME);
     return false;
   } else if (name.length < 2) {
-    alert(T.alertNameUnderTwo);
+    alert(T.ALERT_NAME_UNDER_TWO);
     return false;
   }
   return true;
@@ -60,10 +60,10 @@ const validateName = name => {
 
 const createResultArea = () => {
   const tableName = document.createElement('h2');
-  tableName.innerHTML = T.resultTitle;
+  tableName.innerHTML = T.RESULT_TITLE;
 
-  const stationTableHeaders = [T.tableHeader1, T.tableHeader2];
-  const stationTable = createTable(T.tableId, stationTableHeaders);
+  const stationTableHeaders = [T.TABLE_HEADER_1, T.TABLE_HEADER_2];
+  const stationTable = createTable(T.TABLE_ID, stationTableHeaders);
 
   const stations = getLocalStorage(STORAGE_KEY_STATION);
   if (stations) {
@@ -92,15 +92,15 @@ const addTableRow = station => {
 };
 
 const addToTable = name => {
-  const stationTable = document.getElementById(T.tableId);
+  const stationTable = document.getElementById(T.TABLE_ID);
   const newRow = addTableRow(name);
   stationTable.append(newRow);
 };
 
 const createDeleteBtn = station => {
   const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('class', T.deleteBtnClass);
-  deleteBtn.innerHTML = T.deleteBtnText;
+  deleteBtn.setAttribute('class', T.DELETE_BTN_CLASS);
+  deleteBtn.innerHTML = T.DELETE_BTN_TEXT;
   deleteBtn.addEventListener('click', () => deleteStation(station));
 
   return deleteBtn;
@@ -109,8 +109,8 @@ const createDeleteBtn = station => {
 const deleteStation = name => {
   if (!isAbleToDelete(name)) return;
 
-  if (confirm(T.alertConfirmDelete)) {
-    const stationTable = document.getElementById(T.tableId);
+  if (confirm(T.ALERT_CONFIRM_DELETE)) {
+    const stationTable = document.getElementById(T.TABLE_ID);
     const currStations = getLocalStorage(STORAGE_KEY_STATION);
     const updatedStations = currStations.filter(station => station !== name);
     setLocalStorage(STORAGE_KEY_STATION, updatedStations);
@@ -123,7 +123,7 @@ const isAbleToDelete = name => {
   const lines = getLocalStorage(STORAGE_KEY_LINE);
   for (let stations of Object.values(lines)) {
     if (stations.includes(name)) {
-      alert(T.alertStationInLine);
+      alert(T.ALERT_STATION_IN_LINE);
       return false;
     }
   }

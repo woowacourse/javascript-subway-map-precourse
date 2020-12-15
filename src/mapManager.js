@@ -12,7 +12,7 @@ export const initMapManager = () => {
 
 const createResultArea = () => {
   const resultArea = document.createElement('div');
-  resultArea.setAttribute('class', T.resultAreaClass);
+  resultArea.setAttribute('class', T.RESULT_AREA_CLASS);
 
   const lines = getLocalStorage(STORAGE_KEY_LINE);
   if (lines) {
