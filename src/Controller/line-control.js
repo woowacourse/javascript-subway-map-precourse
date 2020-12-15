@@ -13,6 +13,7 @@ import {
 import {
   removeLineScreen,
   removeSectionButton,
+  removeSectionScreen,
   removeMapPrint,
 } from '../View/remove-screen.js';
 import {hideSectionEditContainer} from '../View/hide-screen.js';
@@ -45,6 +46,7 @@ export function onRemoveLine(e) {
     lineInstance.removeLine(e.target.dataset.lineName);
     removeLineScreen(e.target);
     removeSectionButton(e.target.dataset.lineName);
+    removeSectionScreen(e.target.dataset.lineName);
     removeMapPrint(e.target.dataset.lineName);
     hideSectionEditContainer();
   }

@@ -3,6 +3,7 @@ import {
   $lineTbody,
   $sectionEditButtonContainer,
   $mapContainer,
+  $sectionTbody,
 } from './element.js';
 
 export const removeStationScreen = (button) => {
@@ -28,6 +29,17 @@ export const removeTableScreen = ($container) => {
   const $tr = $container.querySelectorAll('tr');
   for (let i = 1; i < $tr.length; i++) {
     $tbody.removeChild($tr[i]);
+  }
+};
+
+export const removeSectionScreen = (lineName) => {
+  const $allSectionTr = $sectionTbody.querySelectorAll('tr');
+  const $allDeletedSectionTr = Array.from($allSectionTr).filter(
+    (tr) => tr.dataset.lineName === lineName,
+  );
+
+  for (let i = 0; i < $allDeletedSectionTr.length; i++) {
+    $sectionTbody.removeChild($allDeletedSectionTr[i]);
   }
 };
 
