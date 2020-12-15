@@ -1,3 +1,5 @@
+import { errorMessage } from "../utils/const.js";
+
 export default {
   isAddedEvent: false,
   station: [],
@@ -15,21 +17,22 @@ export default {
     $btnAdd.addEventListener("click", () => this.clickAdd());
   },
   clickAdd() {
+    const { ERROR_NONEXISTENT_STATION, ERROR_SHORT_STATION, ERROR_ALREADY_HAVE_STATION } = errorMessage;
     const $input = document.querySelector("#station-name-input");
     const { value: name } = $input;
     if (!name) {
-      alert("역의 이름이 없습니다. 역 이름을 입력해주세요.");
+      alert(ERROR_NONEXISTENT_STATION);
       return;
     }
-    if (name.length < 2) {
-      alert("역의 이름은 2글자 이상이어야 합니다.");
+    if (name.trim().length < 2) {
+      alert(ERROR_SHORT_STATION);
+      $input.value = "";
       return;
     }
     if (this.station.indexOf(name) > -1) {
-      alert("이미 등록된 역입니다. 다른 역을 입력해주세요.");
+      alert(ERROR_ALREADY_HAVE_STATION);
       return;
     }
-
     this.station.push(name);
     this.render();
     $input.value = "";
