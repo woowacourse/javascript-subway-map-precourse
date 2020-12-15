@@ -1,0 +1,18 @@
+label {
+  margin-top: 2rem;
+  display: block;
+}
+table,
+th,
+tr,
+td {
+  border: 1px solid black;
+}
+
+li{
+  list-style :none
+}
+
+.dot{
+  list-style: disc;
+}

@@ -6,7 +6,9 @@ export const stationTableTemplate = (stationName, index, buttonClass) => `
 `;
 
 export const lineTableTemplate = (data) => {
-  const { name, startStation, endStation, index, buttonClass } = data;
+  const {
+    name, startStation, endStation, index, buttonClass,
+  } = data;
   return `
   <tr data-name="${name}" data-startStation="${startStation}" data-endStation="${endStation}" data-index="${index}">
     <td>${name}</td>
@@ -28,5 +30,14 @@ export const sectionDetailTableTemplate = (data) => {
   `;
 };
 
-export const optionTemplate = (station) =>
-  `<option value="${station}">${station}</option>`;
+export const mapTemplate = (lineList) => lineList
+  .map((line) => `
+  <ul>
+    <li><h2>🚉 ${line.name}</h2></li>
+    <ul>
+      ${line.section.map((stationName) => `<li class="dot">${stationName}</li>`).join('')}
+    </ul>
+  </ul>`)
+  .join('');
+
+export const optionTemplate = (station) => `<option value="${station}">${station}</option>`;
