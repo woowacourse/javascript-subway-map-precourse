@@ -1,4 +1,5 @@
 import { makeElement, appendElements } from './utils.js';
+import { changeAddListener } from '../controllers/sectionManager.js';
 
 export const showModifyLineBtn = subwayMap => {
   const buttonsDiv = document.querySelector('#buttons');
@@ -23,9 +24,10 @@ export const showSectionManager = (lineName, subwayMap) => {
   const sectionManagerDiv = document.querySelector('.section-manager');
   const sectionTitle = document.querySelector('#title');
   sectionManagerDiv.classList.add('active');
-  showSectionStationSelector(subwayMap);
   sectionTitle.innerHTML = `${lineName} 관리`;
+  createInputBtn(subwayMap);
   showAddedSection(lineName, subwayMap);
+  changeAddListener(lineName, subwayMap);
 };
 
 export const hideSectionManager = () => {
@@ -47,7 +49,7 @@ const showSectionStationSelector = subwayMap => {
   sectionStationSelector.innerHTML = stationsHTML;
 };
 
-const showAddedSection = (lineName, subwayMap) => {
+export const showAddedSection = (lineName, subwayMap) => {
   const lineList = subwayMap.lineList;
   const sectionTbody = document.querySelector('.section-manager table tbody');
   const sectionIndex = lineList.findIndex(line => line.name === lineName);
@@ -80,4 +82,29 @@ const showAddedSection = (lineName, subwayMap) => {
     addedSectionsHTML += sectionTr.outerHTML;
   }
   sectionTbody.innerHTML = addedSectionsHTML;
+};
+
+const createInputBtn = subwayMap => {
+  const sectionsRegistrationDiv = document.querySelector('#section-registration-div');
+  const emptyDiv = makeElement({
+    tag: 'div',
+  });
+  const stationSelect = makeElement({
+    tag: 'select',
+    id: 'section-station-selector',
+  });
+  const orderInput = makeElement({
+    tag: 'input',
+    type: 'number',
+    id: 'section-order-input',
+    placeholder: '순서',
+  });
+  const submitBtn = makeElement({
+    tag: 'button',
+    id: 'section-add-button',
+    innerHTML: '등록',
+  });
+  appendElements([stationSelect, orderInput, submitBtn], emptyDiv);
+  sectionsRegistrationDiv.innerHTML = emptyDiv.innerHTML;
+  showSectionStationSelector(subwayMap);
 };

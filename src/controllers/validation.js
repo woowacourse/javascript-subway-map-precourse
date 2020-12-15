@@ -13,11 +13,21 @@ export const notDuplicateLine = (name, list) => {
   return true;
 };
 
-export const stationNotInLine = (stationName, lineList) => {
+export const stationNotInLine = (station, lineList) => {
   for (let line of lineList) {
-    if (line.list.includes(stationName)) {
+    if (line.list.includes(station)) {
       return false;
     }
   }
+  return true;
+};
+
+export const notFirstOrLast = (order, lineList) => {
+  if (order > 0 && order <= lineList.length - 1) return true;
+  return false;
+};
+
+export const stationNotInSelectedLine = (station, selectedLineList) => {
+  if (selectedLineList.includes(station)) return false;
   return true;
 };

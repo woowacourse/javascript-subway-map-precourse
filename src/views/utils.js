@@ -3,6 +3,7 @@ export const makeElement = ({
   id,
   elementClass,
   value,
+  type,
   innerHTML,
   placeholder,
   styles,
@@ -13,6 +14,7 @@ export const makeElement = ({
   if (id) element.id = id;
   if (elementClass) element.classList.add(elementClass);
   if (value) element.value = value;
+  if (type) element.type = type;
   if (innerHTML) element.innerHTML = innerHTML;
   if (placeholder) element.placeholder = placeholder;
   if (styles) element.style.cssText = styles;

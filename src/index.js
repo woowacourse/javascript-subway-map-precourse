@@ -31,6 +31,11 @@ export default function SubwayMap() {
     this.saveLine();
   };
 
+  this.addSection = (lineIndex, order, name) => {
+    this.lineList[lineIndex].list.splice(order, 0, name);
+    this.saveLine();
+  };
+
   this.reload = () => {
     this.stationList = loadData('stations');
     this.lineList = loadData('lines');
