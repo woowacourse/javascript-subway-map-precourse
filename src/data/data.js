@@ -41,6 +41,16 @@ export const loadDataToLocalStorage = () => {
   }
 };
 
+export const syncDataFromAllElements = () => {
+  data.stationNameInputValue = stationNameInputElement.value;
+  data.lineNameInputValue = lineNameInputElement.value;
+  data.lineStartStationSelectorValue = lineStartStationSelectorElement.value;
+  data.lineEndStationSelectorValue = lineEndStationSelectorElement.value;
+  data.sectionOrderInputNumberValue = sectionOrderInputElement.value;
+  data.sectionLineNameValue = sectionLineNameElement.value;
+  data.sectionStationSelectorValue = sectionStationSelectorElement.value;
+};
+
 export const syncDataToAllElements = () => {
   stationNameInputElement.value = data.stationNameInputValue;
   lineNameInputElement.value = data.lineNameInputValue;
