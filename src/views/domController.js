@@ -91,7 +91,7 @@ export const addLine = () => {
     .value;
   const endStation = document.getElementById("line-end-station-selector").value;
   const newLine = new Line(lineNameElem.value, startStation, endStation);
-  if (addLineValidate(lineNameElem.value)) {
+  if (addLineValidate(lineNameElem.value, startStation, endStation)) {
     addLocalStorageByKey("lines", newLine);
     insertLineTable(newLine);
     setLineDeleteEvent();

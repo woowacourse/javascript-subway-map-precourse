@@ -18,10 +18,11 @@ export const deleteStationValidate = (stationName) => {
   return validate;
 };
 
-export const addLineValidate = (lineName) => {
+export const addLineValidate = (lineName, startStation, endStation) => {
   let validate = true;
   if (lineName.length < LINE.NAME_LENGTH_LIMIT) validate = false;
   if (hasDuplicateName("lines", "lineName", lineName)) validate = false;
+  if (startStation === endStation) validate = false;
 
   return validate;
 };
