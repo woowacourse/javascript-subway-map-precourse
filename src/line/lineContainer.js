@@ -5,7 +5,7 @@ import { lineListTemplate } from "./linePresenter";
 export default function lineContainer() {
   let lineList = [];
 
-  const checkLineName = lineName => {
+  const checkLineName = (lineName, startLine, endLine) => {
     const lineInfo = [lineName, startLine, endLine];
 
     isValidLineInfo(lineList, lineInfo)
@@ -17,6 +17,33 @@ export default function lineContainer() {
     lineList.push(lineInfo);
     setLocalData(lineList);
     lineListTemplate(lineList);
+    removeLineHandler();
+  };
+
+  const removeLineHandler = () => {
+    const lineRemoveButton = document.querySelectorAll("#line-remove-button");
+    if (lineRemoveButton !== null) {
+      for (const removeButton of lineRemoveButton) {
+        removeButton.addEventListener("click", event => {
+          removeLine(event);
+        });
+      }
+    }
+  };
+
+  const removeLine = event => {
+    const targetLine = event.target.parentNode.parentNode;
+    const lineName = targetLine.dataset.linename;
+    let lineIndex = 0;
+    for (const line of lineList) {
+      if (line[0] === lineName) {
+        lineIndex = lineList.indexOf(line);
+      }
+    }
+    lineList.splice(lineIndex, 1);
+    setLocalData(lineList);
+    lineListTemplate(lineList);
+    removeLineHandler();
   };
 
   const setLocalData = lineList => {
@@ -53,6 +80,7 @@ export default function lineContainer() {
 
     getLocalData();
     lineListTemplate(lineList);
+    removeLineHandler();
     setSelectorOption(lineStartSelector);
     setSelectorOption(lineEndSelector);
     lineNameContainer.style.display = "block";
