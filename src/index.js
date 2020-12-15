@@ -253,3 +253,28 @@ function addSectionDeleteBtn(sectionTable, sectionCell3) {
         }
     });
 }
+
+function makeSubwayMap() {
+    document.getElementsByClassName('map')[0].innerHTML = '';
+    let tag = '';
+
+    for(let i = 0; i < arrLine.length; i++) {
+        tag += getLineMap(arrLine[i]);
+        tag += '<br />';
+    }
+
+    document.getElementsByClassName('map')[0].innerHTML += tag;
+}
+
+function getLineMap(line) {
+    let tag = '';
+    tag += '<p style="font-size:20px; font-weight:bold;">' + line.name + "</p>";
+
+    tag += '<ul>';
+    for (let i = 0; i < line.section.stations.length; i += 1) {
+        tag += "<li>" + line.section.stations[i] + "</li>";
+    }
+    tag += '</ul>';
+
+    return tag;
+}
