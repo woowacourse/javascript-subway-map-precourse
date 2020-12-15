@@ -21,8 +21,10 @@ export const showModifyLineBtn = subwayMap => {
 
 export const showSectionManager = (lineName, subwayMap) => {
   const sectionManagerDiv = document.querySelector('.section-manager');
+  const sectionTitle = document.querySelector('#title');
   sectionManagerDiv.classList.add('active');
   showSectionStationSelector(subwayMap);
+  sectionTitle.innerHTML = `${lineName} 관리`;
 };
 
 export const hideSectionManager = () => {
