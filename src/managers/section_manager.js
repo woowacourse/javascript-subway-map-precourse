@@ -68,4 +68,15 @@ const SectionManager = function () {
     this.updateDataAndRerender(formattedLines);
     clearSectionInputs(sectionInput, orderInput);
   };
+
+  this.onAddButtonClick = () => {
+    const sectionName = document.getElementById("section-selector");
+    const orderInput = document.getElementById("section-order-input");
+    const validity = this.checkSectionValidity(
+      sectionName.value,
+      orderInput.value
+    );
+    if (!validity.value) alert(validity.errorMessage);
+    else this.handleAddProcess(sectionName, orderInput);
+  };
 };
