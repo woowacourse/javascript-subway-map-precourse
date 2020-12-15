@@ -79,4 +79,9 @@ const SectionManager = function () {
     if (!validity.value) alert(validity.errorMessage);
     else this.handleAddProcess(sectionName, orderInput);
   };
+
+  this.setSectionAddButtonClickEvent = () =>
+    document
+      .getElementById("section-add-button")
+      .addEventListener("click", this.onAddButtonClick);
 };
