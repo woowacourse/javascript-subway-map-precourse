@@ -1,6 +1,9 @@
 import { getSelectedLineSections } from "../common/function.js";
 import { appendChildren } from "../common/visualization.js";
-import { createSectionTrs } from "../creators/section_creator.js";
+import {
+  createSectionTrs,
+  createSpreadElements,
+} from "../creators/section_creator.js";
 
 const SectionContainer = function () {
   this.changeTableBody = () => {
@@ -20,6 +23,17 @@ const SectionContainer = function () {
   this.rerenderOnlyChange = (lineName) => {
     this.changeManagementTitleText(lineName);
     this.changeTableBody();
+  };
+
+  this.appendSpreadElements = (parent, lineName) => {
+    const {
+      managemenetTitle,
+      addTitle,
+      addDiv,
+      sectionTable,
+    } = createSpreadElements(lineName);
+    appendChildren(parent, managemenetTitle, addTitle, addDiv);
+    parent.appendChild(sectionTable);
   };
 };
 
