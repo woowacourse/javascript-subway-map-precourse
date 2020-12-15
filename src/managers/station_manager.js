@@ -4,8 +4,11 @@ import {
   setStateAndLocalStorage,
   isLineNameLengthBiggerThanOneWithoutSpace,
 } from "../common/function";
-import { appendNewTr, clearInputValue } from "../containers/station_container";
-import { removeTr } from "../creators/station_creator";
+import {
+  appendNewTr,
+  clearInputValue,
+  removeTr,
+} from "../containers/station_container";
 
 const StationManager = function () {
   this.isContainedInLengthTwoSections = (stationName) => {
