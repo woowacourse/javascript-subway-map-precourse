@@ -21,6 +21,7 @@ export default class SectionManager extends Component {
 
     this.handleAddButtonClick = (order, station) => {
       const { selectedLine } = this.state;
+
       if (order.length === 0) {
         alert(ERROR.RE_TYPING_ORDER);
         return;
@@ -159,4 +160,6 @@ function isNull(value) {
   return String(value) === "null" || String(value) === "undefined";
 }
 
-const cloneDeep = (value) => JSON.parse(JSON.stringify(value));
+function cloneDeep(value) {
+  return JSON.parse(JSON.stringify(value));
+}
