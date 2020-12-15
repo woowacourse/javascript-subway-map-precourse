@@ -1,19 +1,39 @@
 import { state } from "../index.js";
 
+function printAllLineAndStations(elementToAppend, subwayLines) {
+  for (const line of subwayLines) {
+    printLineName(elementToAppend, line.lineName);
+    printStation(elementToAppend, line.stations);
+  }
+}
+
+function printLineName(elementToAppend, lineName) {
+  const h2 = document.createElement("h2");
+
+  h2.append(lineName);
+  elementToAppend.append(h2);
+}
+
+function printStation(elementToAppend, stationArray) {
+  for (const station of stationArray) {
+    const stationsInLine = document.createElement("li");
+    stationsInLine.append(station.stationName);
+    elementToAppend.append(stationsInLine);
+  }
+}
+
 export default function mapPrintManageContainer() {
   const parent = document.getElementById("manage-map-print");
   const div = document.createElement("div");
 
-  for (const line of state.subwayLines) {
-    const lineName = document.createElement("h2");
-
-    lineName.append(line.lineName);
-    div.append(lineName);
-    for (const station of line.stations) {
-      const stationsInLine = document.createElement("li");
-      stationsInLine.append(station.stationName);
-      div.append(stationsInLine);
-    }
+  if (state.subwayLines.length) {
+    printAllLineAndStations(div, state.subwayLines);
+  } else {
+    const title = `<h2>노선에 등록되지 않은 역</h2>`;
+    const titleElement = new DOMParser().parseFromString(title, "text/html").firstElementChild;
+    div.append(titleElement);
+    printStation(div, state.stationArray);
   }
+
   parent.append(div);
 }
