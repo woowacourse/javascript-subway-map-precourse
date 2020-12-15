@@ -40,7 +40,6 @@ const createMenuButtons = sectionHeader => {
 };
 
 const clearInputs = () => {
-  console.log('clear inputs!');
   const sectionInputArea = document.getElementById(T.INPUT_ID);
   const selectArea = document.getElementById(T.SELECTOR_ID);
   const sectionTable = document.getElementById(T.TABLE_ID);
@@ -95,6 +94,7 @@ const createNumberInput = () => {
 
 const addToSection = (line, station, orderInput) => {
   const order = orderInput.value;
+  if (!validateOrder(line, order)) return;
   orderInput.value = '';
 
   const currLines = getLocalStorage(STORAGE_KEY_LINE);
@@ -107,6 +107,18 @@ const addToSection = (line, station, orderInput) => {
 
   removeCurrResult();
   createResultArea(line);
+};
+
+const validateOrder = (line, order) => {
+  const lines = getLocalStorage(STORAGE_KEY_LINE);
+  if (order < 0) {
+    alert(T.ALERT_NEGATIVE_ORDER);
+    return false;
+  } else if (order > lines[line].length) {
+    alert(T.ALERT_OVERLOAD_ORDER);
+    return false;
+  }
+  return true;
 };
 
 const removeCurrResult = () => {

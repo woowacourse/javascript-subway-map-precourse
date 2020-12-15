@@ -56,6 +56,8 @@ export const sectionText = {
   TABLE_HEADER_3: '설정',
   DELETE_BTN_CLASS: 'section-delete-button',
   DELETE_BTN_TEXT: '노선에서 제거',
+  ALERT_NEGATIVE_ORDER: '0보다 큰 순서를 입력해 주세요.',
+  ALERT_OVERLOAD_ORDER: '노선 범위에 포함되는 순서를 입력해 주세요.',
   ALERT_STATION_UNDER_TWO: '노선에 포함된 역이 2개 이하일 때는 역을 삭제할 수 없습니다.',
   ALERT_CONFIRM_DELETE: '정말 삭제하시겠습니까?',
 };
