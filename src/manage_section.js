@@ -19,6 +19,9 @@ export default class ManageSection {
   }
 
   setConst() {
+    this.IS_VALID = 1;
+    this.IS_NOT_VALID = 0;
+
     this.ARTICLE_NAME = 'sectionArticle';
     this.SELECT_LINE_SECTION = 'selectLineSection';
     this.MANAGE_LINE_SECTION = 'manageLineSection';
@@ -40,6 +43,10 @@ export default class ManageSection {
     this.SECTION_ORDER_INPUT = 'section-order-input';
     this.ADD_BUTTON = 'section-add-button';
     this.ADD_BUTTON_TEXT = '등록';
+
+    this.IS_EMPTY_ERROR_MESSAGE = '순서 입력값이 비었습니다.';
+    this.IS_NEGATIVE_ERROR_MESSAGE = '수가 아닌 정수 순서를 입력해주세요.';
+    this.IS_NOT_CONSECUTIVE_ERROR_MESSAGE = '기존 순서들과 연속되는 순서를 입력해주세요.';
   }
 
   getLocalStorage() {
@@ -52,6 +59,10 @@ export default class ManageSection {
     this.createManageLineSection();
     this.createManageLineSectionTable();
   }
+
+  /*
+   * createSelectLineSection()
+   */
 
   createSelectLineSection() {
     this._privateCommonUtils.createDiv(this.ARTICLE_NAME, this.SELECT_LINE_SECTION);
@@ -94,6 +105,10 @@ export default class ManageSection {
     this._privateTableUtils.refreshTableData(this.LINE_TABLE_SECTION, line);
   }
 
+  /*
+   * createManageLineSection()
+   */
+
   createManageLineSection() {
     this._privateCommonUtils.createDiv(this.ARTICLE_NAME, this.MANAGE_LINE_SECTION);
     this._privateCommonUtils.createTitle(this.MANAGE_LINE_TITLE_TAG, this.MANAGE_LINE_TITLE, this.MANAGE_LINE_SECTION);
@@ -106,15 +121,13 @@ export default class ManageSection {
   createSectionAddArea() {
     this._privateCommonUtils.createTitle(this.ADD_SECTION_TITLE_TAG, this.ADD_SECTION_TITLE, this.MANAGE_LINE_SECTION);
     this._privateSelectUtils.createSelect(this.MANAGE_LINE_SECTION, this.SECTION_STATION_SELECTOR, this._privateCommonUtils, this._privateDomUtils);
-    this._orderInput = this.createSectionOrderInput();
+    this.createSectionOrderInput();
     this.createSectionAddButton();
   }
 
   createSectionOrderInput() {
     const inputObject = this.createInputObject();
-    const input = this._privateDomUtils.createInput(inputObject);
-
-    return input;
+    this._orderInput = this._privateDomUtils.createInput(inputObject);
   }
 
   createInputObject() {
@@ -138,20 +151,101 @@ export default class ManageSection {
 
   addEventToAddButton(button) {
     button.addEventListener('click', () => {
-      this.addSection();
+      this.createNewSection();
     })
     this._orderInput.addEventListener('keypress', (e) => {
       if (e.keyCode === 13) {
-        this.addSection();
+        this.createNewSection();
       }
     })
+  }
+
+  createNewSection() {
+    if (this.checkSectionValidity() === this.IS_VALID) {
+      // this.updateAddToLocalStorage();
+      // this.addSection();
+    }
+    else {
+      this.alertCorrespondingError();
+    }
+  }
+
+  checkSectionValidity() {
+    if (this.isEmpty() === this.IS_NOT_VALID) {
+      return this.IS_NOT_VALID;
+    }
+
+    if (this.isNegative() === this.IS_NOT_VALID) {
+      return this.IS_NOT_VALID;
+    }
+
+    if (this.isNotConsecutive() === this.IS_NOT_VALID) {
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  isEmpty() {
+    if (!this._orderInput.value) {
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  isNegative() {
+    if (this._orderInput.value < 0) {
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  isNotConsecutive() {
+    const tbody = document.querySelector(`#${this.LINE_TABLE_SECTION}Table tbody`);
+    const rowCount = tbody.childElementCount;
+
+    if (this._orderInput.value >= rowCount) {
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  alertCorrespondingError() {
+    if (this.isEmpty() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.IS_EMPTY_ERROR_MESSAGE);
+    }
+    else if (this.isNegative() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.IS_NEGATIVE_ERROR_MESSAGE);
+    }
+    else if (this.isNotConsecutive() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.IS_NOT_CONSECUTIVE_ERROR_MESSAGE);
+    }
+  }
+
+  updateAddToLocalStorage() {
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
+
+    lineList[this._lineInput.value] = [this._startSelect.value, this._endSelect.value];
+    stationList[this._startSelect.value].push(this._lineInput.value);
+    stationList[this._endSelect.value].push(this._lineInput.value);
+
+    this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
+    this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
   }
 
   addSection() {
 
   }
 
-  createManageLineSectionTable() {
+  /*
+   * createManageLineSectionTable
+   */
+
+    createManageLineSectionTable() {
     this._privateCommonUtils.createDiv(this.MANAGE_LINE_SECTION, this.LINE_TABLE_SECTION);
     this._privateCommonUtils.insertEmptyline(this.LINE_TABLE_SECTION);
     this._privateCommonUtils.insertEmptyline(this.LINE_TABLE_SECTION);

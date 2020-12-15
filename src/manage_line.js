@@ -42,7 +42,6 @@ export default class ManageLine {
 
   initPage() {
     this.initLists();
-    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this.createInputSection();
     this._privateSelectUtils.createSelectSection(this.ARTICLE_NAME);
     this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
@@ -50,10 +49,19 @@ export default class ManageLine {
     this.createTableSection();
   }
 
+  /*
+   * this.initLists()
+   */
+
   initLists() {
     this._lineList = this._privateCommonUtils.getLocalStorageLine();
     this._stationList = this._privateCommonUtils.getLocalStorageStation();
+    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
   }
+
+  /*
+   * this.createInputSection()
+   */
 
   createInputSection() {
     this._privateCommonUtils.createTitle('div', this.LINE_INPUT_TITLE_TEXT, this.ARTICLE_NAME);
@@ -78,6 +86,10 @@ export default class ManageLine {
 
     return inputObject;
   }
+
+  /*
+   * this.createLineAddButton()
+   */
 
   createLineAddButton() {
     this._lineAddButton = this._privateDomUtils.createButton(this.ADD_BUTTON_ID, this.ADD_BUTTON_TEXT);
@@ -165,14 +177,18 @@ export default class ManageLine {
     this._privateCommonUtils.saveToLocalStorage('stationList', this._stationList);
   }
 
-  createTableSection() {
-    this._privateCommonUtils.createTitle(this.LINE_LIST_TITLE_TAG, this.LINE_LIST_TITLE_TEXT, this.ARTICLE_NAME);
-    this._privateTableUtils.initTable(this.ARTICLE_NAME);
-  }
-
   addLine() {
     const rowArray = [this._lineInput.value, this._startSelect.value, this._endSelect.value, this.DELETE_BUTTON_TEXT];
 
     this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
+  }
+  
+  /*
+   * this.createTableSection()
+   */
+
+  createTableSection() {
+    this._privateCommonUtils.createTitle(this.LINE_LIST_TITLE_TAG, this.LINE_LIST_TITLE_TEXT, this.ARTICLE_NAME);
+    this._privateTableUtils.initTable(this.ARTICLE_NAME);
   }
 }
