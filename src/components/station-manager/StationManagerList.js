@@ -22,7 +22,7 @@ export class StationManagerList {
       .addEventListener("click", this.handleDeleteStation);
   };
 
-  render = (props) => {
+  render = () => {
     this.stationTable.innerHTML = getStationsTableHeader();
     this.stations = this.getStations();
     this.stations.forEach((station) => {

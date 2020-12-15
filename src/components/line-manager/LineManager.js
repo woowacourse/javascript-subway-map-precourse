@@ -36,7 +36,6 @@ export class LineManager {
 
     lines.push(newLine);
     this.setLines(lines);
-    this.lineManagerList.render();
   };
 
   deleteLine = (lineName) => {

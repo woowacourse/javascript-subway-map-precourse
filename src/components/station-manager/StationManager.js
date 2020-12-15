@@ -15,7 +15,7 @@ export class StationManager {
     this.manager = document.getElementById("station-manager-container");
     this.stationInput = new StationManagerInput({
       ...props,
-      addNewStation: this.addNewStation,
+      setStations: this.setStations,
     });
     this.stationList = new StationManagerList({
       ...props,
@@ -27,10 +27,6 @@ export class StationManager {
     display(props.isShow, this.manager);
     this.onUpdate = props.onUpdate;
     this.stationList.render();
-  };
-
-  addNewStation = (stations) => {
-    this.setStations(stations);
   };
 
   setStations = (names) => {

@@ -29,4 +29,6 @@ export const FIELD = {
 
 export const NUMBER = {
   DELETE_STATION_LIMIT: 2,
+  TO_MAKE_LAST_INDEX: 1,
+  START_INDEX: 0,
 };

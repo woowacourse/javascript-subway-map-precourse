@@ -10,7 +10,6 @@ const buttonContentMap = {
 
 export class SubwayMap {
   constructor() {
-    localStorage.clear(); //지우고제출
     this.props = {
       clickHeaders: this.onHeaderClick,
     };

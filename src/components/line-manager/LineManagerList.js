@@ -1,6 +1,6 @@
 import { addRowInListTable } from "../../utils/handleDom.js";
 import { getLineTableHeader } from "../../utils/templates.js";
-import { MESSAGE, FIELD } from "../../constants/constants.js";
+import { MESSAGE, FIELD, NUMBER } from "../../constants/constants.js";
 
 export class LineManagerList {
   constructor({ getLines, deleteLine }) {
@@ -26,13 +26,13 @@ export class LineManagerList {
     this.lines = this.getLines();
 
     this.lines.forEach((line) => {
-      let lastIndex = line.stations.length - 1;
+      let lastIndex = line.stations.length - NUMBER.TO_MAKE_LAST_INDEX;
 
       addRowInListTable(
         this.lineTable,
         line.lineName,
         line.stations[lastIndex],
-        line.stations[0],
+        line.stations[NUMBER.START_INDEX],
         FIELD.LINE
       );
     });

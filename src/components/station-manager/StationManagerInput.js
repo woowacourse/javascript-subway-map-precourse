@@ -1,11 +1,11 @@
 import { isValidStationManager } from "../../utils/validation.js";
 
 export class StationManagerInput {
-  constructor({ getStations, addNewStation }) {
+  constructor({ getStations, setStations }) {
     this.initializeDom();
     this.initializeEvents();
     this.getStations = getStations;
-    this.addNewStation = addNewStation;
+    this.setStations = setStations;
   }
 
   initializeDom = () => {
@@ -26,7 +26,7 @@ export class StationManagerInput {
       return;
     }
     stations.push(stationName);
-    this.addNewStation(stations);
+    this.setStations(stations);
   };
 
   initInputStatus = () => {
