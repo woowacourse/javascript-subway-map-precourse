@@ -38,7 +38,7 @@ export default class StationManagerController {
       return;
     }
     if (!StationManagerView.confirmDelete()) {
-      StationManagerView.alertNameError(-7);
+      StationManagerView.alertNameError(-8);
       return;
     }
     StationManagerModel.delete(station);

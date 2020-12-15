@@ -7,6 +7,7 @@ export default class StationErrorMsg {
       this.languageError(),
       this.specialCharError(),
       this.duplicateError(),
+      this.onlyNumberError(),
       this.stationNumberError(),
       this.cancelDeleteError(),
     ];
@@ -38,6 +39,10 @@ export default class StationErrorMsg {
 
   static duplicateError() {
     return '이미 해당 이름의 역이 존재합니다.\n';
+  }
+
+  static onlyNumberError() {
+    return '역 이름은 숫자로만 이루어 질 수 없습니다.\n';
   }
 
   /*

@@ -15,6 +15,7 @@ export default class StationManagerModel {
       this.isEnglish(station),
       this.isSpecialChar(station),
       this.isDuplicated(station),
+      this.isOnlyNumber(station),
     ];
     validationCheckFunction.forEach((func, index) => {
       if (func) {
@@ -46,11 +47,14 @@ export default class StationManagerModel {
   }
 
   static isSingleKoreanAlphabet(station) {
-    return /[^가-힣]/.test(station);
+    return /[^가-힣a-x0-9]/.test(station);
+  }
+
+  static isOnlyNumber(station) {
+    return Number.isNaN(station);
   }
 
   static delete(station) {
-    const stations = JSON.parse(localStorage.getItem('Stations'));
     const lines = JSON.parse(localStorage.getItem('Lines'));
     const linesOfStation = stations[station].lines;
     linesOfStation.forEach((line) => {
@@ -67,7 +71,7 @@ export default class StationManagerModel {
     let isValid = 1;
     linesOfStation.forEach((line) => {
       if (lines[line].stations.length <= 2) {
-        isValid = -6;
+        isValid = -7;
       }
     });
     return isValid;
