@@ -16,6 +16,11 @@ const SectionContainer = function () {
     const newText = `${lineName} 관리`;
     TitleElement.textContent = newText;
   };
+
+  this.rerenderOnlyChange = (lineName) => {
+    this.changeManagementTitleText(lineName);
+    this.changeTableBody();
+  };
 };
 
 export const { changeTableBody } = new SectionContainer();
