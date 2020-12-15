@@ -33,7 +33,6 @@ export default function StationManagerContainer({
     const stationName = stationNameInput.value.trim().replace(/\s{2,}/g, ' ');
     if (isValidStationName(stations, stationName)) {
       addStation(stationName);
-      stationNameInput.value = '';
     }
   };
 
