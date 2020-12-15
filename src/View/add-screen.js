@@ -6,7 +6,7 @@ import {
   $sectionEditContainer,
   $mapContainer,
 } from './element.js';
-import {TEXT, ADD_BUTTON_CLASS} from '../Controller/constant.js';
+import {TEXT, ADD_BUTTON_CLASS} from '../constant.js';
 
 const {
   STATION_DELETE,

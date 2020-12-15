@@ -1,4 +1,4 @@
-import {KEY} from './constant.js';
+import {KEY} from '../constant.js';
 
 export const addSectionOnLocalStorage = (key, value) => {
   const localStorageValue = getLocalStorage(key);

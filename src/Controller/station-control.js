@@ -17,7 +17,7 @@ import {
 import {isNotLineHaved, isStationInputVaild} from './valid.js';
 import {stationInstance, lineInstance} from '../index.js';
 import {setStationButtonDeleteEvent} from './set-button-event.js';
-import {KEY, TEXT} from './constant.js';
+import {KEY, TEXT} from '../constant.js';
 
 export const loadStation = () => {
   const stations = getLocalStorage(KEY.STATION);

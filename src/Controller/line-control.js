@@ -29,7 +29,7 @@ import {
   setSectionButtonDeleteEvent,
 } from './set-button-event.js';
 import {isLineInputValid} from './valid.js';
-import {KEY, TEXT} from './constant.js';
+import {KEY, TEXT} from '../constant.js';
 
 export const onAddLine = () => {
   const lineValue = getLineValue();

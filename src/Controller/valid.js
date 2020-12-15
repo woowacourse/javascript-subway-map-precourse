@@ -1,4 +1,4 @@
-import {ERROR_MESSAGE, MIN_LETTER, MIN_LINE_LENGTH} from './constant.js';
+import {ERROR_MESSAGE, MIN_LETTER, MIN_LINE_LENGTH} from '../constant.js';
 
 export const isStationInputVaild = (station, exStation) => {
   if (!isMatched(station)) {

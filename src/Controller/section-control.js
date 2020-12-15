@@ -27,7 +27,7 @@ import {
   setSectionButtonDeleteEvent,
   setSectionButtonLoadEvent,
 } from './set-button-event.js';
-import {KEY, TEXT} from './constant.js';
+import {KEY, TEXT} from '../constant.js';
 
 export function onLoadSection(e) {
   hideSectionLine();
