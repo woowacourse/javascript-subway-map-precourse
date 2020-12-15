@@ -1,4 +1,4 @@
-export const lineNameInputElement = document.getElementById('#line-name-input');
+export const lineNameInputElement = document.getElementById('line-name-input');
 export const lineStartStationSelectorElement = document.getElementById(
   'line-start-station-selector'
 );
