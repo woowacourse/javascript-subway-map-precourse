@@ -28,48 +28,6 @@ export const clearMangeContainer = () => {
   container.innerHTML = "";
 };
 
-//line
-export const addLine = () => {
-  const lineNameElem = document.getElementById("line-name-input");
-  const startStation = document.getElementById("line-start-station-selector")
-    .value;
-  const endStation = document.getElementById("line-end-station-selector").value;
-  const newLine = new Line(lineNameElem.value, startStation, endStation);
-  if (addLineValidate(lineNameElem.value, startStation, endStation)) {
-    addLocalStorageByKey("lines", newLine);
-    rendLineMangeDom();
-  } else {
-    alert(LINE.INPUT_ERROR_MESSAGE);
-  }
-  lineNameElem.value = "";
-};
-
-export const confirmLineDelete = (targetElem) => {
-  try {
-    deleteDataByName("lines", targetElem.dataset.index, "lineName");
-    const removeElem = targetElem.parentNode.parentNode;
-    removeElem.parentNode.removeChild(removeElem);
-  } catch (e) {}
-};
-
-export const setLineDeleteEvent = () => {
-  document.querySelectorAll(".line-delete-button").forEach((item) => {
-    item.addEventListener("click", (event) => {
-      event.preventDefault();
-      if (confirm(DELETE_CONFIRM_MESSAGE)) confirmLineDelete(event.target);
-    });
-  });
-};
-
-export const rendLineMangeDom = () => {
-  clearMangeContainer();
-  const container = document.getElementById("subway-manager-container");
-  const div = document.createElement("div");
-  div.innerHTML = lineMangeContainer();
-  container.appendChild(div);
-  setLineDeleteEvent();
-};
-
 //section
 export const insertSectionTable = (targetElem) => {
   const lineName = targetElem.dataset.name;
