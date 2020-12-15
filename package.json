@@ -1,0 +1,29 @@
+{
+  "name": "javascript-subway-map-precourse",
+  "version": "1.0.0",
+  "description": "> 사용자가 조회, 추가, 삭제 등의 기능을 이용하여 직접 지하철 노선도를 설계하는 어플리케이션입니다.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2SOOY/javascript-subway-map-precourse.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/2SOOY/javascript-subway-map-precourse/issues"
+  },
+  "homepage": "https://github.com/2SOOY/javascript-subway-map-precourse#readme",
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-prettier": "^3.2.0"
+  }
+}

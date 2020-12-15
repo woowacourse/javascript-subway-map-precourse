@@ -1,114 +1,120 @@
 # 🚇 지하철 노선도 미션
 
-## 🚀 기능 요구사항
+> 사용자가 조회, 추가, 삭제 등의 기능을 이용하여 직접 지하철 노선도를 설계하는 어플리케이션입니다.
 
-### 지하철 역 관련 기능
-- 지하철 역을 등록하고 삭제할 수 있다. (단, 노선에 등록된 역은 삭제할 수 없다)
-- 중복된 지하철 역 이름이 등록될 수 없다.
-- 지하철 역은 2글자 이상이어야 한다.
-- 지하철 역의 목록을 조회할 수 있다.
+## 🚀 전반적인 구조
 
-### 지하철 노선 관련 기능
-- 지하철 노선을 등록하고 삭제할 수 있다.
-- 중복된 지하철 노선 이름이 등록될 수 없다.
-- 노선 등록 시 상행 종점역과 하행 종점역을 입력받는다.
-- 지하철 노선의 목록을 조회할 수 있다.
+```sh
+├── index.js
+├── Components             # 컴포넌트 관련 디렉토리
+│   ├── App.js             # 모든 컴포넌트를 관리하는 최상위 컴포넌트
+│   ├── Menu.js            # 메뉴 버튼 컴포넌트
+│   ├── /StationManager    # 역 관리 메뉴 컴포넌트
+│   ├── /LineManager       # 노선 관리 메뉴 컴포넌트
+│   ├── /SectionManager    # 구간 관리 메뉴 컴포넌트
+│   └── /MapPrintManager   # 지하철 노선도 출력 메뉴 컴포넌트
+│
+├── /store                 # 상태 관리 관련 디렉토리
+│   ├── observer.js        # 모든 상태 관리 스토어의 공통 옵저버 추상 클래스
+│   ├── lineStore.js       # 노선 상태 관리 스토어
+│   └── stationStore.js    # 역 상태 관리 스토어
+│
+└── /utils                 # 각종 유틸들을 모아놓은 디렉토리
+    ├── domUtil.js         # DOM API를 활용한 유틸
+    ├── storage.js         # 로컬스토리지 활용 유틸
+    ├── /constants         # 각종 상수값 모아 놓은 유틸
+    ├── /templates         # HTML 템플릿을 모아 놓은 유틸
+    └── /validations       # 어플리케이션 동작과 관련한 각종 검증 유틸
 
-### 지하철 구간 추가 기능
-- 지하철 노선에 구간을 추가하는 기능은 노선에 역을 추가하는 기능이라고도 할 수 있다.
-  - 역과 역사이를 구간이라 하고 이 구간들의 모음이 노선이다.  
-- 하나의 역은 여러개의 노선에 추가될 수 있다.
-- 역과 역 사이에 새로운 역이 추가 될 수 있다.
-- 노선에서 갈래길은 생길 수 없다.
+```
 
-<img width="500" src="/images/section1.png">
+![APP구조1](./images/structure_1.png)
+![APP구조2](./images/structure_2.png)
+![APP구조3](./images/structure_3.png)
 
-### 지하철 구간 삭제 기능
-- 노선에 등록된 역을 제거할 수 있다.
-- 종점을 제거할 경우 다음 역이 종점이 된다.
-- 노선에 포함된 역이 두개 이하일 때는 역을 제거할 수 없다.
+## 🚀 기능 목록
 
-<img width="500" src="/images/section2.png">
+### 0. 메뉴 인터페이스 및 공통 기능
 
-### 지하철 노선에 등록된 역 조회 기능
-- 노선의 상행 종점부터 하행 종점까지 연결된 순서대로 역 목록을 조회할 수 있다.
+1. 메뉴 버튼 렌더링
 
-<br/>
+   - 4개의 메뉴 버튼을 렌더링 하는 기능
+   - 각각의 버튼 클릭시 적절한 메뉴 화면을 보여주는 기능
 
-## 💻 프로그램 실행 결과
+2. localStorage
+   - 로컬스토리지를 통해 저장된 역에 대한 정보를 저장하고 불러오는 기능.
+   - 로컬스토리지를 통해 저장된 노선에 대한 정보를 저장하고 불러오는 기능
 
-### 역관리
-<img width="100%" src="/images/station_manager.gif">
+### 1. 역 관리 메뉴
 
-### 노선관리
-<img width="100%" src="/images/line_manager.gif">
+1. 지하철 역 등록
 
-### 구간관리
-<img width="100%" src="/images/section_manager.gif">
+   - 역을 입력하면 해당 역을 추가하는 기능
+   - 역 입력값에 대한 검증 하는 기능
+     - 지하철 역 이름 2글자 이상
+     - 중복된 이름 등록 X
+     - 빈 입력값 X
 
-### 노선도 출력
-<img width="100%" src="/images/map_print_manager.gif">
+2. 지하철 역 삭제
 
+   - 등록된 역을 삭제하는 기능
+     - 이미 노선에 등록된 역은 삭제 X
 
-## ✅ 프로그래밍 요구사항
+3. 지하철 역 목록 조회
+   - 저장된 역을 테이블 형태로 보여주는 기능
 
-### 메뉴 버튼
-- 역 관리 button 태그는 `#station-manager-button` id값을 가진다.
-- 노선 관리 button 태그는 `#line-manager-button` id값을 가진다.
-- 구간 관리 button 태그는 `#section-manager-button` id값을 가진다.
-- 지하철 노선도 출력 관리 button 태그는 `#map-print-manager-button` id값을 가진다.
+### 2. 노선 관리 메뉴
 
-### 지하철 역 관련 기능
-- 지하철 역을 입력하는 input 태그는 `#station-name-input` id값을 가진다.
-- 지하철 역을 추가하는 button 태그는 `#station-add-button` id값을 가진다.
-- 지하철 역을 삭제하는 button 태그는 `.station-delete-button` class값을 가진다.
+1. 지하철 노선 등록
 
-### 지하철 노선 관련 기능
-- 지하철 노선의 이름을 입력하는 input 태그는 `#line-name-input` id값을 가진다.
-- 지하철 노선의 상행 종점을 선택하는 select 태그는 `#line-start-station-selector` id값을 가진다.
-- 지하철 노선의 하행 종점을 선택하는 select 태그는 `#line-end-station-selector` id값을 가진다.
-- 지하철 노선을 추가하는 button 태그는 `#line-add-button` id값을 가진다.
-- 지하철 노선을 삭제하는 button 태그는 `.line-delete-button` class값을 가진다.
+   - 노선 이름 입력과 상행, 하행 종점을 선택하여 노선을 추가하는 기능
+   - 추가할 노선을 검증하는 기능
+     - 노선 등록 시 상행, 하행 종점역 필요
+     - 동일한 역으로 상행, 하행 종점 설정 X
+     - 중복된 노선 등록 X
 
-### 지하철 구간 추가 기능
-- 지하철 노선을 선택하는 button 태그는 `.section-line-menu-button` class값을 가진다.
-- 지하철 구간을 설정할 역 select 태그는 `#section-station-selector` id값을 가진다.
-- 지하철 구간의 순서를 입력하는 input 태그는 `#section-order-input` id값을 가진다.
-- 지하철 구간을 등록하는 button 태그는 `#section-add-button` id값을 가진다.
-- 지하철 구간을 제거하는 button 태그는 `.section-delete-button` class값을 가진다.
+2. 지하철 노선 삭제
 
-### 지하철 노선도 출력 기능
-- 지하철 노선도 출력 버튼을 누르면 `<div class="map"></div>` 태그를 만들고 해당 태그 내부에 노선도를 출력한다.
+   - 등록된 노선을 삭제하는 기능
 
-### 기존 요구사항
+3. 지하철 노선 목록 조회
 
-- 사용자가 잘못된 입력 값을 작성한 경우 `alert`을 이용해 메시지를 보여주고, 재입력할 수 있게 한다.
-- 외부 라이브러리(jQuery, Lodash 등)를 사용하지 않고, 순수 Vanilla JS로만 구현한다.
-- **자바스크립트 코드 컨벤션을 지키면서 프로그래밍** 한다
-  - [https://google.github.io/styleguide/jsguide.html](https://google.github.io/styleguide/jsguide.html)
-  - [https://ui.toast.com/fe-guide/ko_CODING-CONVENSION/](https://ui.toast.com/fe-guide/ko_CODING-CONVENTION)
-- **indent(인덴트, 들여쓰기) depth를 3이 넘지 않도록 구현한다. 2까지만 허용**한다.
-  - 예를 들어 while문 안에 if문이 있으면 들여쓰기는 2이다.
-  - 힌트: indent(인덴트, 들여쓰기) depth를 줄이는 좋은 방법은 함수(또는 메소드)를 분리하면 된다.
-- **함수(또는 메소드)의 길이가 15라인을 넘어가지 않도록 구현한다.**
-  - 함수(또는 메소드)가 한 가지 일만 잘 하도록 구현한다.
-- 변수 선언시 `var` 를 사용하지 않는다. `const` 와 `let` 을 사용한다.
-  - [const](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/const)
-  - [let](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/let)
-- `import` 문을 이용해 스크립트를 모듈화하고 불러올 수 있게 만든다.
-  - [https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/import](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/import)
-- `template literal`을 이용해 데이터와 html string을 가독성 좋게 표현한다.
-  - [https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Template_literals](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Template_literals)
+   - 저장된 노선을 테이블 형태로 보여주는 기능
 
-### 추가된 요구사항
-- [data](https://developer.mozilla.org/ko/docs/Learn/HTML/Howto/%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%86%8D%EC%84%B1_%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)속성을 활용하여 html 태그에 역, 노선, 구간의 유일한 데이터 값들을 관리한다. 
-- [localStorage](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)를 이용하여, 새로고침하더라도 가장 최근에 작업한 정보들을 불러올 수 있도록 한다.
+### 3. 구간 관리 메뉴
 
-<br/>
+1. 지하철 노선 목록 활성화
 
-## 📝 미션 저장소 및 진행 요구사항
+   - 저장된 노선 목록을 버튼 형태로 보여주는 기능
+   - 노선 버튼 클릭시 해당 노선의 구간 목록을 보여주는 기능
 
-- 미션은 [https://github.com/woowacourse/javascript-subway-map-precours](https://github.com/woowacourse/javascript-subway-map-precourse) 저장소를 fork/clone해 시작한다.
-- **기능을 구현하기 전에 javascript-subway-precourse/docs/README.md 파일에 구현할 기능 목록**을 정리해 추가한다.
-- **git의 commit 단위는 앞 단계에서 README.md 파일에 정리한 기능 목록 단위로 추가**한다.
-- [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서 절차를 따라 미션을 제출한다.
+2. 지하철 구간 등록
+
+   - 구간에 등록할 지하철 역을 선택하고, 구간 순서를 입력하여 추가하는 기능
+   - 등록할 구간에 대해 검증하는 기능
+     - 이미 등록되어 있는 역 X
+     - 음수, 구간의 길이보다 큰 순서 등록 X
+     - 빈 구간 값 등록 X
+     - 0번 순서, 구간 길이 + 1의 순서는 등록 O
+
+3. 지하철 구간 삭제
+
+   - 선택한 역을 구간에서 지우는 기능
+
+     - 0번 구간을 지우면 1번 역이 0번이 됨
+     - 마지막 구간을 지우면 마지막 바로 앞에 역이 마지막이 됨
+     - 중간 구간을 지우면 지워진 역 다음부터 번호를 땡겨 갱신함
+
+   - 지울 구간에 대해 검증하는 기능
+     - 노선내 역이 2개 이하면 구간 삭제 X
+
+### 4. 지하철 노선도 출력 메뉴
+
+1. 모든 노선 및 구간 목록 활성화
+   - 모든 노선에 대한 지하철 역 조회 기능
+     - 모든 노선의 구간 목록을 리스트 형태 보여줌
+     - 노선이 없을 경우 노선이 없다는 안내 메시지를 보여줌
+
+## 🚀 기타
+
+[3WEEK 미션 진행](https://www.notion.so/3WEEK-0584226cc6994eb69918bd1cd9a0477b)

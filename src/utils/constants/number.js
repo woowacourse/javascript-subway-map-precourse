@@ -1,0 +1,4 @@
+export const NUM = {
+  STATION_NAME_LIMIT: 2,
+  SECTION_LENGTH_LIMIT: 2,
+};
