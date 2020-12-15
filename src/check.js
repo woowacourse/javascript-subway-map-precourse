@@ -1,19 +1,19 @@
-export function isSpecialCharacter(inputValue) {
+const isSpecialCharacter = function(inputValue) {
   const rSpecialCharacter = /[^가-힣ㄱ-하-ㅣ0-9]/;
   return rSpecialCharacter.test(inputValue);
 }
 
-export function isValidLength(inputValue) {
+const isValidLength = function(inputValue) {
   const validLength = 2;
   const inputValueLength = inputValue.length;
   return (inputValueLength >= validLength);
 }
 
-export function isDuplicated(inputValue) {
+const isDuplicated = function(inputValue) {
   return (localStorage.getItem(inputValue));
 }
 
-export function isRegisteredStation(stationName) {
+const isRegisteredStation = function(stationName) {
   const stations = JSON.parse(localStorage.getItem("station"));
   let i;
   for (i = 0; i < stations.length; i++) {
@@ -23,7 +23,7 @@ export function isRegisteredStation(stationName) {
   }
 }
 
-export function isInLine(selectInputValue, lineStations) {
+const isInLine = function(selectInputValue, lineStations) {
   let i;
   for (i = 0; i < lineStations.length; i++) {
     if (lineStations[i] === selectInputValue) {
@@ -32,11 +32,11 @@ export function isInLine(selectInputValue, lineStations) {
   }
 }
 
-export function isValidNumber(orderInputValue, lineLength) {
+const isValidNumber = function(orderInputValue, lineLength) {
   return (lineLength > orderInputValue > 0);
 }
 
-export function isValidArrayLength(key, lineName) {
+const isValidArrayLength = function(key, lineName) {
   const objects = JSON.parse(localStorage.getItem(key));
   const validLength = 2;
   let i;
@@ -47,7 +47,7 @@ export function isValidArrayLength(key, lineName) {
   }
 }
 
-export function removeData(key, dataName) {
+const removeData = function(key, dataName) {
   let objects = JSON.parse(localStorage.getItem(key));
   let i;
   for (i = 0; i < objects.length; i++) {
@@ -59,7 +59,7 @@ export function removeData(key, dataName) {
   }
 }
 
-export function removeStation(key, stationName, lineName, stationList) {
+const removeStation = function(key, stationName, lineName, stationList) {
   let objects = JSON.parse(localStorage.getItem(key));
   let i;
   for (i = 0; i < objects.length; i++) {
@@ -70,3 +70,14 @@ export function removeStation(key, stationName, lineName, stationList) {
     }
   }
 }
+
+export { 
+  isSpecialCharacter, 
+  isValidLength, 
+  isDuplicated, 
+  isRegisteredStation, 
+  isInLine, 
+  isValidNumber, 
+  isValidArrayLength, 
+  removeData, 
+  removeStation };
