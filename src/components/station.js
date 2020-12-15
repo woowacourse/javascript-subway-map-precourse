@@ -21,10 +21,15 @@ export default {
       alert("역의 이름이 없습니다. 역 이름을 입력해주세요.");
       return;
     }
+    if (name.length < 2) {
+      alert("역의 이름은 2글자 이상이어야 합니다.");
+      return;
+    }
     if (this.station.indexOf(name) > -1) {
       alert("이미 등록된 역입니다. 다른 역을 입력해주세요.");
       return;
     }
+
     this.station.push(name);
     this.render();
     $input.value = "";
