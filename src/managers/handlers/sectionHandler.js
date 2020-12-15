@@ -1,6 +1,7 @@
 import render from "../render.js";
 import app from "../../components/app.js";
 import { validateSectionDelete, validateOrder, validateSection } from "../validation/validation.js";
+import { SECTION_LINE_MENU_BUTTON, SECTION_STATION_SELECTOR, SECTION_ORDER_INPUT, SECTION_ADD_BUTTON, SECTION_DELETE_BUTTON } from "../../constants/tag.js";
 
 function onSectionHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
@@ -19,8 +20,8 @@ function onLineSelectHandler() {
 }
 
 function onAddSectionHandler() {
-  let station = validateSection(document.getElementById("section-station-selector").value);
-  let order = validateOrder(document.getElementById("section-order-input").value);
+  let station = validateSection(document.getElementById(SECTION_STATION_SELECTOR).value);
+  let order = validateOrder(document.getElementById(SECTION_ORDER_INPUT).value);
 
   if (station && order) {
     addSection(station, order);
@@ -55,10 +56,9 @@ function onSectionDeleteHandler() {
 
 function sectionDelete(deleteTarget, deleteTargetIdx) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-
   let targetLineIdx = subwayDatas.lines.findIndex((line) => line.name === subwayDatas.targetLine);
-  subwayDatas.lines[targetLineIdx].stops.splice(deleteTargetIdx, 1);
 
+  subwayDatas.lines[targetLineIdx].stops.splice(deleteTargetIdx, 1);
   subwayDatas.subwayStations.forEach((station) => {
     if (station.name === deleteTarget) {
       station.line.splice(subwayDatas.subwayStations.indexOf(subwayDatas.targetLine), 1);
@@ -75,16 +75,16 @@ function renderAndUpdateEvent(subwayDatas) {
 }
 
 function updateEventToBtns() {
-  let sectionBtn = document.getElementById("section-add-button");
-  sectionBtn && document.getElementById("section-add-button").addEventListener("click", onAddSectionHandler);
+  let sectionBtn = document.getElementById(SECTION_ADD_BUTTON);
+  sectionBtn && document.getElementById(SECTION_ADD_BUTTON).addEventListener("click", onAddSectionHandler);
 
-  let lineBtns = document.getElementsByClassName(".section-line-menu-button");
+  let lineBtns = document.getElementsByClassName(SECTION_LINE_MENU_BUTTON);
   for (let i = 0; i < lineBtns.length; i++) {
     let eachBtn = lineBtns[i];
     eachBtn.addEventListener("click", onLineSelectHandler);
   }
 
-  let deleteBtns = document.getElementsByClassName(".section-delete-button");
+  let deleteBtns = document.getElementsByClassName(SECTION_DELETE_BUTTON);
   for (let i = 0; i < deleteBtns.length; i++) {
     deleteBtns[i].addEventListener("click", onSectionDeleteHandler);
   }

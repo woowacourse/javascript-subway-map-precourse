@@ -1,9 +1,7 @@
-//역 검증 (중복, 공백, 2자 미만)
 function stationNameAlert(inputValue) {
   return uniqueStationNameAlert(inputValue) || spaceAlert(inputValue) || underTwoCharacterAlert(inputValue);
 }
 
-//중복된 역 이름 검증
 function uniqueStationNameAlert(inputValue) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
@@ -17,7 +15,6 @@ function uniqueStationNameAlert(inputValue) {
   return alertMsg;
 }
 
-//공백 입력 검증
 function spaceAlert(inputValue) {
   let alertMsg = "";
 
@@ -28,7 +25,6 @@ function spaceAlert(inputValue) {
   return alertMsg;
 }
 
-//2자 미만 검증
 function underTwoCharacterAlert(inputValue) {
   let alertMsg = "";
 
@@ -39,12 +35,10 @@ function underTwoCharacterAlert(inputValue) {
   return alertMsg;
 }
 
-//노선에 등록된 역 삭제 전 검증
 function stationDeleteAlert(deleteTarget) {
   return inlineAlert(deleteTarget);
 }
 
-//노선에 포함된 역이 2개 이하일 때 삭제 시 alert
 function inlineAlert(deleteTarget) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
@@ -58,12 +52,10 @@ function inlineAlert(deleteTarget) {
   return alertMsg;
 }
 
-//라인 검증 (중복)
 function lineNameAlert(inputValue) {
   return ununiqueLineNameAlert(inputValue) || spaceAlert(inputValue);
 }
 
-//중복된 라인 이름 검증
 function ununiqueLineNameAlert(inputValue) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
@@ -77,12 +69,10 @@ function ununiqueLineNameAlert(inputValue) {
   return alertMsg;
 }
 
-//상행종점, 하행종점역 검증
 function startAndEndStationAlert(startAndEndStations) {
   return unUniqueLineAlert(startAndEndStations) || sameStartAndEndStationAlert(startAndEndStations);
 }
 
-//상행 종점역과 하행 종점역이 중복되는 호선이 이미 존재하는 경우
 function unUniqueLineAlert(startAndEndStations) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
@@ -96,7 +86,6 @@ function unUniqueLineAlert(startAndEndStations) {
   return alertMsg;
 }
 
-// 상행 종점역과 하행 종점역이 동일한 역인 경우 alert
 function sameStartAndEndStationAlert(startAndEndStations) {
   let alertMsg = "";
 
@@ -107,7 +96,6 @@ function sameStartAndEndStationAlert(startAndEndStations) {
   return alertMsg;
 }
 
-//노선에 포함된 역이 2개 이하일 때 노선에서 제거 시 alert
 function sectionDeleteAlert() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
@@ -139,7 +127,6 @@ function orderAlert(order) {
 function sectionAlert(stationName) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
-
   let targetLineIdx = subwayDatas.lines.findIndex((line) => line.name === subwayDatas.targetLine);
 
   if (subwayDatas.lines[targetLineIdx].stops.indexOf(stationName) !== -1) {

@@ -1,30 +1,32 @@
 import render from "../render.js";
 import app from "../../components/app.js";
-import { Line } from "../../objects/objests.js";
+import { Line } from "../../objects/objects.js";
 import { validateInput, validateStartAndEndStations } from "../validation/validation.js";
+import { LINE_NAME_INPUT, LINE_ADD_BUTTON, LINE_DELETE_BUTTON, LINE_START_STATION_SELECTOR, LINE_END_STATION_SELECTOR } from "../../constants/tag.js";
 
 function onLineHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
+
   render(app("line", subwayDatas));
   subwayDatas && updateEvent();
 }
 
 function updateEvent() {
-  document.getElementById("line-add-button").addEventListener("click", onAddLineHandler);
+  document.getElementById(LINE_ADD_BUTTON).addEventListener("click", onAddLineHandler);
 
-  let deleteBtns = document.getElementsByClassName("line-delete-button");
+  let deleteBtns = document.getElementsByClassName(LINE_DELETE_BUTTON);
   for (let i = 0; i < deleteBtns.length; i++) {
     deleteBtns[i].addEventListener("click", onDeleteLineHandler);
   }
 }
 
 function onAddLineHandler() {
-  let lineName = validateInput(document.getElementById("line-name-input").value, "line-name-input");
+  let lineName = validateInput(document.getElementById(LINE_NAME_INPUT).value, LINE_NAME_INPUT);
 
   if (lineName !== "") {
-    let startAndEndStations = [document.getElementById("line-start-station-selector").value, document.getElementById("line-end-station-selector").value];
+    let startAndEndStations = [document.getElementById(LINE_START_STATION_SELECTOR).value, document.getElementById(LINE_END_STATION_SELECTOR).value];
     let validatedStartAndEndStations = validateStartAndEndStations(startAndEndStations);
-    addLine(lineName, validatedStartAndEndStations);
+    validatedStartAndEndStations && addLine(lineName, validatedStartAndEndStations);
   }
 }
 

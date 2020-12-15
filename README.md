@@ -43,13 +43,63 @@
   - html tag 검토 v
   - input value 검토, 구간 type=number 삭제 후 숫자만 입력 가능하도록 검증 추가 v
   - return값이 없는 map 메소드를 forEach로 수정 v
-  - 상수화
-  - css 검토
+  - 상수화 v
+  - css 검토 v
+
+## ⛓ 문서 구조
+
+```plaintext
+├── src
+│   │
+│   ├── components  // 사용자단에 보여질 페이지를 관리하는 곳
+│   │   │
+│   │   ├── pages
+│   │   │     ├── linePages.js  // 노선 관리 페이지
+│   │   │     ├── mapPrintPages.js  // 노선도 출력 페이지
+│   │   │     ├── sectionPages.js  // 구간 관리 페이지
+│   │   │     └── stationPages.js  // 역 관리 페이지
+│   │   │
+│   │   └── app.js  // 각 페이지를 렌더링할 때 라우팅을 담당하는 곳
+│   │
+│   ├── constatns
+│   │   │
+│   │   └── tag.js  // html tag 상수를 모아놓은 곳
+│   │
+│   ├── managers  // 각 관리 페이지를 관리하는 곳
+│   │   │
+│   │   ├── handlers
+│   │   │     ├── lineHanlderPages.js  // 노선 관련 이벤트 관리
+│   │   │     ├── mapPrintHandlerPages.js  // 노선도 출력 관련 이벤트 관리
+│   │   │     ├── sectionHandlerPages.js  // 구간 관련 이벤트 관리
+│   │   │     └── stationHandlerPages.js  // 역 관련 이벤트 관리
+│   │   │
+│   │   └── validation  // 유효성을 검증하는 곳
+│   │   │     ├── alert.js  // 유효성 검증을 위한 alert message를 생성하는 곳
+│   │   │     └── validation.js  // 유효성을 검증을 하고 필요한 데이터를 반환하는 곳
+│   │   │
+│   │   └── init.js  // 초기화를 담당하는 곳
+│   │   │
+│   │   └── render.js  // 렌더링을 담당하는 곳
+│   │
+│   ├── objects
+│   │   │
+│   │   └── objects.js  // 생성한 객체를 모아둔 곳
+│   │
+│   ├── index.js  // 시작점
+│   │
+│   └── main.js  // 초기 작업들을 담당하는 곳
+│
+└── index.html
+```
 
 ## 🤦🏻‍♀️ 고민한 지점
 
 - 버튼에 각 관리페이지를 연결할 때, 리액트에서는 컴포넌트를 쉽게 렌더링할 수 있었는데 vanilla javascript로 연결하려고하니 어려웠다.
 - 사용자 동작에 따라 새로운 엘리먼트를 추가하거나 삭제할 때, 남은 엘리먼트를 다시 render하고, 이벤트 리스너를 다시 추가하는 등 업데이트된 상태를 구현하는 부분이 까다로웠고, 이 방법이 과연 효율적인 방법이 맞는지 의구심이 들었다.
+- station, line 등의 이름이 여러 함수, 변수명에 포함되어 의미 전달이 명확하면서도 가독성이 좋은 함수명, 변수명을 짓는 것이 어려웠다.
+- 예외상황을 어디까지 체크해야하는지 판단하는 것이 어려웠다.
+
+---
 
 ## 🚀 기능 요구사항
 

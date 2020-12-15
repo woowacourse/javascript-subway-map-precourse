@@ -7,4 +7,5 @@ function Station(name) {
   this.name = name;
   this.line = [];
 }
+
 export { Line, Station };

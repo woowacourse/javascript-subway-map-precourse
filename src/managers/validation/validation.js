@@ -1,9 +1,10 @@
 import { stationNameAlert, stationDeleteAlert, lineNameAlert, startAndEndStationAlert, sectionDeleteAlert, orderAlert, sectionAlert } from "./alert.js";
+import { STATION_NAME_INPUT } from "../../constants/tag.js";
 
 function validateInput(input, inputTagID) {
   let alertMsg = "";
 
-  inputTagID === "station-add-input" ? (alertMsg = stationNameAlert(input)) : (alertMsg = lineNameAlert(input));
+  inputTagID === STATION_NAME_INPUT ? (alertMsg = stationNameAlert(input)) : (alertMsg = lineNameAlert(input));
 
   if (alertMsg) {
     alert(alertMsg);
@@ -28,7 +29,6 @@ function validateStationDelete(deleteTarget) {
 
 function validateSectionDelete() {
   let alertMsg = sectionDeleteAlert();
-  //노선에 포함된 역이 2개 이하일 때 노선에서 제거 시 alert
 
   if (alertMsg !== "") {
     alert(alertMsg);
