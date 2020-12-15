@@ -36,6 +36,9 @@ export const loadSectionStationData = () => {
 };
 
 export const deleteStationFromLine = (e) => {
+  if (!Subway.confirmMessage(e.target.innerHTML)) {
+    return;
+  }
   const station = e.target.dataset.station;
   const lineName = document.querySelector('#title').dataset.line;
   if (!checkDeleteAvailable(lineName)) {

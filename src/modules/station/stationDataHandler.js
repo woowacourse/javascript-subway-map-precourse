@@ -16,6 +16,9 @@ export const getStation = () => {
 };
 
 export const deleteStation = (e) => {
+  if (!Subway.confirmMessage(e.target.innerHTML)) {
+    return;
+  }
   const station = e.target.dataset.station;
   if (!checkDeleteAvailable(station)) {
     alert('노선에 등록된 역은 삭제할 수 없습니다🚨');

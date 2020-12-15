@@ -1,5 +1,6 @@
 import { setStationDataToOption } from './lineElemGenerator.js';
 
+import Subway from '../subwayManager.js';
 import { getStation } from '../station/stationDataHandler.js';
 import { printLines } from '../util/output.js';
 
@@ -27,6 +28,9 @@ export const getSelectedLineData = (lineName) => {
 };
 
 export const deleteLine = (e) => {
+  if (!Subway.confirmMessage(e.target.innerHTML)) {
+    return;
+  }
   const lineName = e.target.dataset.line;
   const names = getLineName();
   const idx = names.indexOf(lineName);

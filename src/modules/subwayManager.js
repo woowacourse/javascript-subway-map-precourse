@@ -64,6 +64,10 @@ export default class SubwayManager {
     });
   }
 
+  static confirmMessage(msg) {
+    return confirm(`정말로 ${msg}하시겠습니까?`);
+  }
+
   static clearInput(elem) {
     elem.value = '';
     elem.focus();
