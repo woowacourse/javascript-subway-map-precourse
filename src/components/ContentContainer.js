@@ -11,6 +11,7 @@ export class ContentContainer {
       setLines: this.setLines,
       getLines: this.getLines,
     };
+    this.initiateData();
     this.initiateDOM();
   }
 
@@ -21,6 +22,11 @@ export class ContentContainer {
       new MapPrint(this.props),
       new SectionManager(this.props),
     ];
+  };
+
+  initiateData = () => {
+    localStorage.setItem("stations", JSON.stringify(this.getStations() || []));
+    localStorage.setItem("lines", JSON.stringify(this.getLines() || []));
   };
 
   onUpdate = () => {
