@@ -1,23 +1,30 @@
 import {LINE} from '../constants.js';
+import {handleAddLine, handleDeleteLine} from '../handlers/line-handler.js';
 
 export default class LineListener {
   constructor(subwayLine) {
     this.subwayLine = subwayLine;
-    this.setElement();
-    this.addEventListener();
+
+    this.addListenerToRegister();
+    this.addListenerToResult();
   }
 
-  setElement() {
-    this.lineAddButton = document.getElementById(LINE.BUTTON.ADD.ID);
+  addListenerToRegister() {
+    const register = document.getElementById(LINE.DIV.REGISTER.ID);
+
+    register.addEventListener('click', (event) => {
+      if (event.target.id === LINE.BUTTON.ADD.ID) {
+        handleAddLine(this.subwayLine);
+      }
+    });
   }
 
-  addEventListener() {
-    this.lineAddButton
-        .addEventListener('click', this.subwayLine.addLine);
+  addListenerToResult() {
+    const result = document.getElementById(LINE.DIV.RESULT.ID);
 
-    document.addEventListener('click', (event)=>{
+    result.addEventListener('click', (event) => {
       if (event.target.className === LINE.BUTTON.DELETE.CLASS) {
-        this.subwayLine.deleteLine(event.target);
+        handleDeleteLine(this.subwayLine, event.target);
       }
     });
   }

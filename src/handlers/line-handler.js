@@ -1,20 +1,50 @@
-import LineListener
-  from '../listeners/line-listener.js';
+import {LINE, STORAGE} from '../constants.js';
+import LineListener from '../listeners/line-listener.js';
 import SubwayLine from '../main/subway-line.js';
-import {renderSubWayLine} from '../views/subway-line-view.js';
+import {saveList} from '../main/subway-local-storage.js';
+import {
+  renderSubWayLine, renderAddLine, renderDeleteLine,
+} from '../views/subway-line-view.js';
 
 class LineHandler {
-  handleLine() {
+  handleInitLine() {
     const subwayLine = new SubwayLine();
 
     renderSubWayLine(subwayLine.stationList, subwayLine.lineList);
-
     new LineListener(subwayLine);
+  }
+
+  handleAddLine(subwayLine) {
+    const lineName = document.getElementById(LINE.INPUT.ID).value.trim();
+    const startSelectBox = document.getElementById(LINE.SELECT.START.ID);
+    const endSelectBox = document.getElementById(LINE.SELECT.END.ID);
+    const start = startSelectBox.options[startSelectBox.selectedIndex];
+    const end = endSelectBox.options[endSelectBox.selectedIndex];
+
+    subwayLine.addLine(lineName, start, end, (err, lineList) => {
+      if (err) return alert(err);
+
+      saveList(STORAGE.LINE.KEY, lineList);
+      renderAddLine(lineList, lineName);
+    });
+  }
+
+  handleDeleteLine(subwayLine, target) {
+    const lineName = target.dataset.lineName;
+
+    if (!confirm(LINE.ALERT.DELETE)) return;
+
+    subwayLine.deleteLine(lineName, (lineList) => {
+      saveList(STORAGE.LINE.KEY, lineList);
+      renderDeleteLine(lineName);
+    });
   }
 }
 
 const lineHandler = new LineHandler();
 
 export const {
-  handleLine,
+  handleInitLine,
+  handleAddLine,
+  handleDeleteLine,
 } = lineHandler;
