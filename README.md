@@ -117,6 +117,13 @@
 
 <br/>
 
+### 로컬스토리지 동기화
+
+- 닫기, 새로고침 전 로컬스토리지에 인터페이스 정보, 노선도 정보 저장하기 (save interface & subway Map data to local storage before exit or reload)
+- 접속 시 인터페이스 정보, 노선도 정보를 로컬스토리지로부터 받아 동기화 시키기 (synchronize interface & subway Map data from local storage when user access)
+
+<br/>
+
 <img width="500" src="/images/section2.png">
 
 <br/><br/>
