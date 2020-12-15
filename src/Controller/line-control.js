@@ -26,7 +26,7 @@ import {stationInstance, lineInstance} from '../index.js';
 import {isLineInputValid} from './valid.js';
 import {KEY, TEXT} from './constant.js';
 
-export function onAddLine() {
+export const onAddLine = () => {
   const lineValue = getLineValue();
   if (isLineInputValid(lineValue, lineInstance.lines)) {
     setLocalStorage(KEY.LINE, lineValue);
@@ -37,7 +37,7 @@ export function onAddLine() {
     addMapPrint([lineValue]);
   }
   $lineNameInput.value = '';
-}
+};
 
 export function onRemoveLine(e) {
   const removeConfirm = confirm(TEXT.CONFIRM_DELETE);

@@ -31,7 +31,7 @@ export function onLoadSection(e) {
   $sectionAddButton.dataset.lineName = e.target.dataset.lineName;
 }
 
-export function onAddSection(e) {
+export const onAddSection = (e) => {
   const sectionValue = getSectionValue(e.target.dataset.lineName);
   const selectedSection = getSelectedSection(sectionValue.lineName);
   if (isSectionValid(sectionValue, selectedSection.station)) {
@@ -41,7 +41,7 @@ export function onAddSection(e) {
     showSectionScreen(e.target.dataset.lineName);
   }
   $sectionOrderInput.value = '';
-}
+};
 
 export function onRemoveSection(e) {
   const removeConfirm = confirm(TEXT.CONFIRM_DELETE);

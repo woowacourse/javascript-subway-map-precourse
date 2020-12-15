@@ -1,17 +1,6 @@
-import {onChangeScreen} from '../index.js';
-import {onAddStation, onRemoveStation} from '../Controller/station-control.js';
-import {onAddLine, onRemoveLine} from '../Controller/line-control.js';
-import {
-  onAddSection,
-  onRemoveSection,
-  onLoadSection,
-} from '../Controller/section-control.js';
-import {
-  $screenAllButton,
-  $stationAddButton,
-  $lineAddButton,
-  $sectionAddButton,
-} from './element.js';
+import {onRemoveStation} from '../Controller/station-control.js';
+import {onRemoveLine} from '../Controller/line-control.js';
+import {onRemoveSection, onLoadSection} from '../Controller/section-control.js';
 
 export const setStationDeleteButton = (station, $button) => {
   $button.dataset.stationName = station;
@@ -32,13 +21,3 @@ export const setSectionLoadButton = (line, $button) => {
   $button.dataset.lineName = line;
   $button.addEventListener('click', onLoadSection);
 };
-
-$screenAllButton.forEach((button) =>
-  button.addEventListener('click', onChangeScreen),
-);
-
-$stationAddButton.addEventListener('click', onAddStation);
-
-$lineAddButton.addEventListener('click', onAddLine);
-
-$sectionAddButton.addEventListener('click', onAddSection);

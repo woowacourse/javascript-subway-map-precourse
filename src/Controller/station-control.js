@@ -24,7 +24,7 @@ export const loadStation = () => {
   stationInstance.stations.forEach((station) => addStationScreen(station));
 };
 
-export function onAddStation() {
+export const onAddStation = () => {
   if (isStationInputVaild($stationNameInput.value, stationInstance.stations)) {
     setLocalStorage(KEY.STATION, $stationNameInput.value);
     stationInstance.addStation($stationNameInput.value);
@@ -34,7 +34,7 @@ export function onAddStation() {
     addSelectorOption($sectionSelector, $stationNameInput.value);
   }
   $stationNameInput.value = '';
-}
+};
 
 export function onRemoveStation(e) {
   const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
