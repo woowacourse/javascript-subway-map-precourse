@@ -1,0 +1,22 @@
+table,
+th,
+td {
+  border: 1px solid #444444;
+}
+
+#menu-nav {
+  margin-bottom: 20px;
+}
+
+#line-name-form input {
+  margin-bottom: 20px;
+}
+
+#line-name-form button {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#section-line-menu-nav button {
+  margin-right: 5px;
+}
