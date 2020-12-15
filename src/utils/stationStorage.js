@@ -1,7 +1,7 @@
 import { STATION_STORAGE_NAME } from './constant.js';
 
 export default function stationStorage() {
-  const getStation = () => {
+  const getStations = () => {
     if (!localStorage.getItem(STATION_STORAGE_NAME)) {
       return [];
     }
@@ -13,8 +13,18 @@ export default function stationStorage() {
     localStorage.setItem(STATION_STORAGE_NAME, JSON.stringify(station));
   };
 
+  const getStationIdByName = (stationName) => {
+    return getStations().filter((station) => station.name === stationName)[0].id;
+  };
+
+  const getStationIdById = (stationId) => {
+    return getStations().filter((station) => station.id === stationId)[0];
+  };
+
   return {
-    getStation,
+    getStations,
     setStation,
+    getStationIdByName,
+    getStationIdById,
   };
 }
