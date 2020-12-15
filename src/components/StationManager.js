@@ -14,11 +14,20 @@ export default function StationManager({ $target, isShow }) {
     defaultValue: [],
   });
 
-  this.stationNameInput = new StationNameInput({ $target: this.$container });
-  this.stationList = new StationList({
-    $target: this.$container,
-    stations: this.stations,
-  });
+  this.isExistStationName = (stationName) => {
+    return this.stations.includes(stationName);
+  };
+
+  this.components = [
+    new StationNameInput({
+      $target: this.$container,
+      isExistStationName: this.isExistStationName,
+    }),
+    new StationList({
+      $target: this.$container,
+      stations: this.stations,
+    }),
+  ];
 
   this.render = () => {
     this.$container.style.display = this.isShow ? "block" : "none";
