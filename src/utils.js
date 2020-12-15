@@ -8,3 +8,18 @@ export const isValidStationName = (stationList, stationName) => {
     !hasDuplicatedName(stationList, stationName) && isLengthMoreOne(stationName)
   );
 };
+
+const hasDuplicatedLine = (lineList, lineInfo) => {
+  for (const line of lineList) {
+    if (line[0] === lineInfo[0]) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const isSameStation = lineInfo => lineInfo[1] === lineInfo[2];
+
+export const isValidLineInfo = (lineList, lineInfo) => {
+  return !hasDuplicatedLine(lineList, lineInfo) && !isSameStation(lineInfo);
+};

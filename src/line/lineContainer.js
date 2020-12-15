@@ -1,8 +1,15 @@
+import { isValidLineInfo } from "../utils";
+import { INVALID_LINE_INFO } from "./lineConstant";
+
 export default function lineContainer() {
   let lineList = [];
 
   const checkLineName = lineName => {
-    console.log(lineName);
+    const lineInfo = [lineName, startLine, endLine];
+
+    isValidLineInfo(lineList, lineInfo)
+      ? lineList.push(lineInfo)
+      : alert(INVALID_LINE_INFO);
   };
 
   const setSelectorOption = selector => {
@@ -29,7 +36,12 @@ export default function lineContainer() {
     setSelectorOption(lineEndSelector);
     lineNameContainer.style.display = "block";
     lineNameButton.addEventListener("click", () => {
-      checkLineName(lineNameInput.value);
+      checkLineName(
+        lineNameInput.value,
+        lineStartSelector.options[lineStartSelector.selectedIndex].value,
+        lineEndSelector.options[lineEndSelector.selectedIndex].value,
+      );
+      lineNameInput.value = "";
     });
   };
 
