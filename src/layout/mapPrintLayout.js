@@ -2,49 +2,99 @@
  * 지하철 노선도 출력과 관련된 레이아웃을 관리하는 모듈
  */
 
-const mapPrintManagerButton = document.createElement('button');
-const mapPrintSection = document.createElement('section');
-// TODO: 내부에서만 쓰는 엘리먼트들을 전역변수에서 뺄 수 없을까?
+import PageLayout from './pageLayout.js';
 
-const mapPrintResultContainer = document.createElement('div');
-const mapPrintContainer = document.createElement('div');
+export default class MapPrintLayout extends PageLayout {
+  constructor(controller) {
+    super(controller);
+    this.elements = this.createElements(); // elemenet와 Child 저장
+    this.liTemplate = this.createLiTemplate();
+    this.resultMapTemplate = this.createResultMapTemplate();
+    this.rendered = this.$render(this.elements.section);
+  }
 
-// TODO: 나중에 replace가 많이 쓰이면 common으로 뺄 것
-const showPageInsteadOf = function (section) {
-  section.replaceWith(mapPrintSection);
-};
+  // override
+  createElements() {
+    const elements = super.$createCommonElements();
+    this.$appendChildElement(
+      elements.section,
+      'resultContainer',
+      this.$createResultContainer(),
+    );
 
-// TODO: html data 속성으로 page 동적으로 바꾸기
-const handlemapPrintManagerButton = function () {
-  const section = document.querySelector('#section-container > section');
-  showPageInsteadOf(section);
-  console.log('mapPrint showed');
-};
+    return elements;
+  }
 
-const initElements = function () {
-  mapPrintManagerButton.id = 'map-print-manager-button';
-  mapPrintManagerButton.innerHTML = '4. 지하철 노선도 출력';
-  mapPrintManagerButton.addEventListener('click', handlemapPrintManagerButton);
-  mapPrintContainer.className = 'map';
-};
+  createManagerButton() {
+    return this.createElement({
+      tag: 'button',
+      id: 'map-print-manager-button',
+      innerHTML: '4. 지하철 노선도 출력',
+      eventListener: { click: [() => this.handleManagerButton()] },
+    });
+  }
 
-const appendNodesToDOM = function () {
-  mapPrintSection.append(mapPrintResultContainer);
-  mapPrintResultContainer.append(mapPrintContainer); //노선 개수만큼 append
-  mapPrintContainer.insertAdjacentHTML('afterbegin', '<h2>n호선</h2>');
-  mapPrintContainer.insertAdjacentHTML('beforeend', '<ul><li>인천</li></ul>');
-};
+  $createResultContainer() {
+    const element = this.createElement({ tag: 'article' });
+    return this.$createElementNode(element);
+  }
 
-const buildMapPrintSection = function () {
-  initElements();
-  appendNodesToDOM();
-  console.log('MapPrint section build');
-};
+  createResultTitle(text) {
+    return this.createElement({
+      tag: 'h2',
+      innerHTML: text,
+    });
+  }
 
-buildMapPrintSection();
+  createResultMap(lineName) {
+    const clone = this.resultMapTemplate.content.cloneNode(true);
+    const div = clone.querySelector('div');
+    const title = clone.querySelector('h2');
+    const ul = clone.querySelector('ul');
+    const liList = this.loadLiData(lineName);
+    ul.append(...liList);
+    title.innerHTML = lineName;
+    div.append(title, ul);
+    return div;
+  }
 
-// eslint-disable-next-line import/prefer-default-export
-export const mapPrintElements = {
-  managerButton: mapPrintManagerButton,
-  section: mapPrintSection,
-};
+  // override
+  refreshResultData() {
+    const lineListAll = this.controller.getLineListAll();
+    this.rendered.querySelector('article').innerHTML = '';
+    const mapList = lineListAll.map(lineList =>
+      this.createResultMap(lineList[0].line),
+    );
+    this.rendered.querySelector('article').append(...mapList);
+  }
+
+  createResultMapTemplate() {
+    return this.createElement({
+      tag: 'template',
+      id: 'station-map',
+      innerHTML: '<div class="map"><h2></h2><ul></ul></div>',
+    });
+  }
+
+  // override
+  createLiTemplate() {
+    return this.createElement({
+      tag: 'template',
+      id: 'station-li',
+      innerHTML: '<li></li>',
+    });
+  }
+
+  createLi(stationName) {
+    return this.createElement({
+      tag: 'li',
+      innerHTML: stationName,
+    });
+  }
+
+  loadLiData(lineName) {
+    const lineList = this.controller.getLineList(lineName); // 1차원
+    const liList = lineList.map(station => this.createLi(station.name));
+    return liList;
+  }
+}

@@ -49,7 +49,6 @@ export default class StationModel {
     localStorage.setItem('stationList', JSON.stringify(stationList));
   }
 
-  // TODO: getList도 통일 가능할듯
   getList() {
     const storageStationList = localStorage.getItem('stationList');
     let stationList = [];

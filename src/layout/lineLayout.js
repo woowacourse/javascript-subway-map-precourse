@@ -38,10 +38,6 @@ export default class LineLayout extends PageLayout {
     });
   }
 
-  createSection() {
-    return this.createElement({ tag: 'section' });
-  }
-
   createInput() {
     return this.createElement({
       tag: 'input',

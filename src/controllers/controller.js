@@ -3,6 +3,7 @@ import StationModel from '../model/stationModel.js';
 import LineLayout from '../layout/lineLayout.js';
 import SectionLayout from '../layout/sectionLayout.js';
 import LineModel from '../model/lineModel.js';
+import MapPrintLayout from '../layout/mapPrintLayout.js';
 
 export default class Controller {
   constructor() {
@@ -11,9 +12,8 @@ export default class Controller {
       station: new StationLayout(this),
       line: new LineLayout(this),
       section: new SectionLayout(this),
+      mapPrint: new MapPrintLayout(this),
     };
-    console.log('new controller: ');
-    console.log(this.viewList);
     this.currentView = '';
   }
 
@@ -22,14 +22,7 @@ export default class Controller {
    * @param {PageLayout} view
    */
   getInputFromUser(view) {
-    if (
-      view instanceof StationLayout ||
-      view instanceof LineLayout ||
-      view instanceof SectionLayout
-    ) {
-      return view.rendered.querySelector('input').value;
-    }
-    return view.elements.inputContainer.querySelector('input').value;
+    return view.rendered.querySelector('input').value;
   }
 
   setCurrentView(view) {
@@ -38,17 +31,7 @@ export default class Controller {
 
   replaceCurrentView(view) {
     const currentSection = document.querySelector('section');
-    // FIXME: station 고치는중이라서 임시로 넣어둠
-    if (
-      view instanceof StationLayout ||
-      view instanceof LineLayout ||
-      view instanceof SectionLayout
-    ) {
-      console.log(view.elements.section.$el);
-      currentSection.replaceWith(view.elements.section.$el);
-    } else {
-      currentSection.replaceWith(view.elements.section);
-    }
+    currentSection.replaceWith(view.elements.section.$el);
 
     return view;
   }

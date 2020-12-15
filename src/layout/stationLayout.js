@@ -11,8 +11,6 @@ export default class StationLayout extends PageLayout {
     this.elements = this.createElements(); // elemenet와 Child 저장
     this.rowTemplate = this.createRowTemplate();
     this.rendered = this.$render(this.elements.section);
-    console.log(this.elements);
-    console.log(this.rendered);
   }
 
   // element 구조를 설정
@@ -38,12 +36,6 @@ export default class StationLayout extends PageLayout {
       id: 'station-manager-button',
       innerHTML: '1. 역 관리',
       eventListener: { click: [() => this.handleManagerButton()] },
-    });
-  }
-
-  createSection() {
-    return this.createElement({
-      tag: 'section',
     });
   }
 
@@ -124,14 +116,14 @@ export default class StationLayout extends PageLayout {
   // override
   refreshResultData() {
     this.rendered.querySelector('tbody').replaceWith(this.loadTableData());
-    console.log('refresh!');
   }
 
   loadTableData() {
-    const stationList = this.controller.modelList.station.getList();
+    const stationList = this.controller.getStationListAll();
     const tableRows = stationList.map(station => this.createRow(station.name));
     const tbody = this.createElement({ tag: 'tbody' });
     tbody.append(...tableRows);
+
     return tbody;
   }
 
@@ -150,13 +142,11 @@ export default class StationLayout extends PageLayout {
     const tr = target.parentElement.parentElement;
     this.controller.deleteStationData(tr.dataset.stationName);
     this.refreshResultData();
-    console.log(`${tr.dataset.stationName} deleted`);
   }
 
   // override
   handleAddButton() {
     const input = this.controller.getInputFromUser(this);
-    console.log(input);
     this.controller.insertStationData(input); // TODO: model 클래스만들어서 상속 -> 이 메소드 부모로빼기
     this.refreshResultData();
     this.clearInput();

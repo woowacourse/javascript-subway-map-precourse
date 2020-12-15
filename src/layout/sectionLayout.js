@@ -39,10 +39,6 @@ export default class SectionLayout extends PageLayout {
     });
   }
 
-  createSection() {
-    return this.createElement({ tag: 'section' });
-  }
-
   createMenuButtonTitle(text) {
     return this.createElement({ tag: 'h2', innerHTML: text });
   }

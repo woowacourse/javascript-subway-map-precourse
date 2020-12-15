@@ -2,40 +2,22 @@ import CommonUtils from '../common/utils.js';
 
 export default class PageLayout {
   constructor(controller) {
-    // this.elements = {
-    //   managerButton: '',
-    //   section: '',
-    //   inputContainer: '',
-    //   resultContainer: '',
-    // };
     this.controller = controller;
-    this.template = this.createTemplate();
     this.elements = this.createElements();
-    this.buildLayout();
-    this.displaySavedData();
   }
 
   handleManagerButton() {
     this.controller.setCurrentView(this);
     this.refreshResultData();
-    console.log(`${this.constructor.name} showed!`);
   }
 
-  handleAddButton(view) {
-    console.log(`${this.constructor.name} add button clicked`);
-  }
+  handleAddButton(view) {}
 
-  displaySavedData() {
-    console.log(`${this.constructor.name} displayed saved data`);
-  }
+  displaySavedData() {}
 
-  createElements() {
-    console.log(`${this.constructor.name} created`);
-  }
+  createElements() {}
 
-  buildLayout() {
-    console.log(`${this.constructor.name} build!`);
-  }
+  buildLayout() {}
 
   refreshResultData() {}
 
@@ -81,27 +63,18 @@ export default class PageLayout {
     parent.$children[name] = child;
   }
 
-  createRowTemplate() {
-    // TODO: resultTemplate
-  }
+  createRowTemplate() {}
 
-  createTemplate() {
-    // TODO: template 구성
-    const template = document.createElement('template');
-    template.innerHTML = `
-      <button></button>
-      <section></section>
-    `;
-    console.log('template created!');
-  }
-
-  // TODO: 가상 DOM (elements) 관련 => Static으로 뺄수있음 => 모듈 따로 만들기
   $createCommonElements() {
     const elements = {
       managerButton: { $el: this.createManagerButton(), $children: {} },
       section: { $el: this.createSection(), $children: {} },
     };
     return elements;
+  }
+
+  createSection() {
+    return this.createElement({ tag: 'section' });
   }
 
   $createElementNode(element, children = {}) {
@@ -122,7 +95,6 @@ export default class PageLayout {
     return element;
   }
 
-  // TODO: createOption은 부모로 빼기
   createOption(stationName) {
     const clone = this.optionTemplate.content.cloneNode(true);
     const option = clone.querySelector('option');

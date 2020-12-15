@@ -19,7 +19,6 @@ const appendNodesToDOM = function () {
 const buildDefaultPage = function () {
   initElements();
   appendNodesToDOM();
-  console.log('page build');
 };
 
 buildDefaultPage();
