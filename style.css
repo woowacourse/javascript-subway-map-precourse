@@ -1,0 +1,75 @@
+ul,
+ol {
+  padding: 0;
+}
+
+nav li {
+  list-style: none;
+  display: inline;
+  margin-right: 10px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+button[type="submit"] {
+  margin-top: 15px;
+}
+
+table {
+  border-spacing: 0;
+  border: 2px solid black;
+}
+
+th {
+  padding: 6px;
+  border-bottom: 2px solid black;
+}
+
+td {
+  padding: 6px;
+  border-bottom: 1px solid black;
+}
+
+tr:last-child > td {
+  border-bottom: none;
+}
+
+.sr-only {
+  position: fixed;
+  top: -100px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.line-selector li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.section-input form > * {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.map ul {
+  list-style: none;
+}
+
+.map ol {
+  list-style: disc;
+}
+
+.map ol {
+  margin-left: 50px;
+}
