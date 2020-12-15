@@ -1,4 +1,8 @@
-import { appendChildren, getAdvancedEle } from "../common/visualization";
+import {
+  appendChildren,
+  createTd,
+  getAdvancedEle,
+} from "../common/visualization";
 
 const SectionManager = function () {
   this.createSectionAddSelect = () =>
@@ -29,6 +33,17 @@ const SectionManager = function () {
       },
       "노선에서 제거"
     );
+
+  this.createSectionTrs = (sections) =>
+    sections.map((section, index) => {
+      const indexTd = createTd(index.toString());
+      const sectionTd = createTd(section);
+      const deleteButtonTd = createTd();
+      const deleteButton = this.createDeleteButton(section);
+      appendChildren(deleteButtonTd, deleteButton);
+      const tr = this.createTr(indexTd, sectionTd, deleteButtonTd);
+      return tr;
+    });
 
   this.createLineSelectionButtons = (lineNames) =>
     lineNames.map((lineName, index) =>
