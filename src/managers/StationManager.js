@@ -16,6 +16,7 @@ export default class StationManager {
   addStation = () => {
     const stationNameElem = document.getElementById("station-name-input");
     if (addStationValidate(stationNameElem.value)) {
+      console.log("success");
       addLocalStorageByKey("stations", new Station(stationNameElem.value));
       this.rendStationMangeDom();
     } else {
@@ -38,11 +39,18 @@ export default class StationManager {
   setStationDeleteEvent() {
     document.querySelectorAll(".station-delete-button").forEach((item) => {
       item.addEventListener("click", (event) => {
-        event.preventDefault();
         if (confirm(DELETE_CONFIRM_MESSAGE))
           this.confirmStationDelete(event.target);
       });
     });
+  }
+
+  initEvent() {
+    document
+      .getElementById("station-add-button")
+      .addEventListener("click", () => {
+        this.addStation();
+      });
   }
 
   rendStationMangeDom() {
@@ -55,16 +63,7 @@ export default class StationManager {
     this.initEvent();
   }
 
-  initEvent() {
-    document
-      .getElementById("station-add-button")
-      .addEventListener("click", () => {
-        this.addStation();
-      });
-  }
-
   render() {
     this.rendStationMangeDom();
-    this.initEvent();
   }
 }

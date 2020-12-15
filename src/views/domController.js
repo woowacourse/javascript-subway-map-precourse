@@ -1,27 +1,14 @@
 import {
-  stationMangeContainer,
-  lineMangeContainer,
   selectLineContainer,
   sectionManageContainer,
   mapContainer,
 } from "./dom.js";
-import Station from "../components/Station.js";
-import Line from "../components/Line.js";
-import { addLocalStorageByKey, deleteDataByName } from "../utils/util.js";
 import { addSection, deleteSection } from "../utils/sectionUtil.js";
 import {
-  addStationValidate,
-  deleteStationValidate,
-  addLineValidate,
   addSectionValidate,
   deleteSectionValidate,
 } from "../utils/validator.js";
-import {
-  STATION,
-  LINE,
-  SECTION,
-  DELETE_CONFIRM_MESSAGE,
-} from "../constants.js";
+import { SECTION, DELETE_CONFIRM_MESSAGE } from "../constants.js";
 
 export const clearMangeContainer = () => {
   const container = document.getElementById("subway-manager-container");

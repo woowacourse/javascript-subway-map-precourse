@@ -13,8 +13,8 @@ export const hasDuplicateName = (key, value, findKey) => {
 export const addLocalStorageByKey = (key, object) => {
   const tmpStorage = JSON.parse(localStorage.getItem(key)) || [];
   tmpStorage.push(object);
-  console.log(tmpStorage, key);
   localStorage.setItem(key, JSON.stringify(tmpStorage));
+  console.log(tmpStorage, key, "addLocalStorageByKey");
 };
 
 export const deleteDataByName = (key, value, prop) => {
