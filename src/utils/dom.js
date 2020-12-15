@@ -37,6 +37,7 @@ export const renderStationTable = () => {
       removeStation(station);
       renderStationTable();
     };
+    tableRow.dataset.station = station;
     tableSetData.append(stationDeleteButton);
     tableRow.append(stationTableData, tableSetData);
     stationTableBody.append(tableRow);
@@ -71,6 +72,7 @@ export const renderLineTable = () => {
       removeLine(key);
       renderLineTable();
     };
+    tableRow.dataset.line = key;
     setEl.append(lineDeleteButton);
     tableRow.append(nameEl, startEl, endEl, setEl);
     lineTableBody.append(tableRow);
@@ -97,6 +99,7 @@ export const renderSectionSelector = () => {
   for (const key in lines) {
     const lineSelectorButton = document.createElement("button");
     lineSelectorButton.setAttribute("class", "section-line-menu-button");
+    lineSelectorButton.dataset.line = key;
     lineSelectorButton.innerText = key;
     lineSelectorButton.onclick = () => renderModifySectionContainer(key);
     sectionSelectorContainer.appendChild(lineSelectorButton);
@@ -165,6 +168,7 @@ export const renderSectionTable = (lineName) => {
     nameEl.innerText = station;
     deleteButton.innerText = DELETE_AT_LINE;
     deleteButton.onclick = () => removeSection(lineName, station);
+    tableRow.dataset.section = `${lineName}-${i}`;
     setEl.append(deleteButton);
     tableRow.append(orderEl, nameEl, setEl);
     sectionTableBody.append(tableRow);
@@ -174,8 +178,8 @@ export const renderSectionTable = (lineName) => {
 export const combineMap = (acc, [line, section]) => {
   return (
     acc +
-    `<h2>${line}</h2><ul>${section.reduce(
-      (a, c) => a + `<li>${c}</li>`,
+    `<h2 data-line=${line}>${line}</h2><ul>${section.reduce(
+      (a, c) => a + `<li data-station=${line}-${c}>${c}</li>`,
       ""
     )}</ul>`
   );
