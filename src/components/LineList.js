@@ -1,26 +1,35 @@
 import { ELEMENT_INFO } from "../util/constants.js";
 
-export default function LineList({ $target, lines }) {
+export default function LineList({ $target, lines, onDeleteLine }) {
   this.$container = document.createElement("section");
   $target.append(this.$container);
 
   this.lines = lines;
+  this.onDeleteLine = onDeleteLine;
 
   const { lineDeleteButton } = ELEMENT_INFO;
+
+  this.bindOnDelete = () => {
+    this.$container.addEventListener("click", (e) => {
+      if (e.target.className === lineDeleteButton.className) {
+        this.onDeleteLine(e.target.dataset.lineIndex);
+      }
+    });
+  };
 
   this.setState = ({ nextLines }) => {
     this.lines = nextLines;
     this.render();
   };
 
-  this.createTableRowHTMLString = (line) => {
+  this.createTableRowHTMLString = (line, index) => {
     return `
       <tr>
         <td>${line.name}</td>
         <td>${line.stations[0]}</td>
         <td>${line.stations[line.stations.length - 1]}</td>
         <td>
-          <button data-line-name="${line.name}" class="${lineDeleteButton.className}">${lineDeleteButton.text}</button>
+          <button data-line-index="${index}" class="${lineDeleteButton.className}">${lineDeleteButton.text}</button>
         </td>
       </tr>
     `;
@@ -39,11 +48,12 @@ export default function LineList({ $target, lines }) {
           </tr>
         </thead>
         </tbody>
-          ${this.lines.map((line) => this.createTableRowHTMLString(line)).join("")}
+          ${this.lines.map((line, index) => this.createTableRowHTMLString(line, index)).join("")}
         </tbody>
       </table>
     `;
   };
 
   this.render();
+  this.bindOnDelete();
 }

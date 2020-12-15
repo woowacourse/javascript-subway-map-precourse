@@ -47,12 +47,20 @@ export default function App($app) {
     this.setState({ nextLines });
   };
 
+  this.onDeleteLine = (lineIndex) => {
+    const nextLines = [...this.lines];
+    nextLines.splice(lineIndex, 1);
+
+    this.setState({ nextLines });
+  };
+
   this.lineManager = new LineManager({
     $target: this.$main,
     isShow: true,
     stations: this.stations,
     lines: this.lines,
     onAddLine: this.onAddLine,
+    onDeleteLine: this.onDeleteLine,
   });
 
   this.setNextStations = (nextStations) => {
