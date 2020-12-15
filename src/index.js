@@ -61,3 +61,16 @@ function addStationToTable() {
     createStationHTML(stationName);  
     addStationToArray(stationName);
 }
+
+function createStationHTML(stationName) {
+    let stationTable = document.getElementById('#print-station-list');
+    let stationRow = stationTable.insertRow(stationTable.rows.length);
+    let cell1 = stationRow.insertCell(0);
+    cell1.innerHTML = stationName;
+
+    let deleteButton = addStationDeleteBtnOnTable(stationRow);
+    deleteStationFromTable(deleteButton);
+    addOptionsToSelectBox(stationName);
+    document.getElementById('#station-name-input').value='';
+    addOptionsToSectionSelectBox(stationName);
+}
