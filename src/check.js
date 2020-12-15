@@ -9,8 +9,8 @@ const isValidLength = function(inputValue) {
   return (inputValueLength >= validLength);
 }
 
-const isDuplicated = function(lineName) {
-  const lines = JSON.parse(localStorage.getItem("line"));
+const isDuplicated = function(key, lineName) {
+  const lines = JSON.parse(localStorage.getItem(key));
   let i;
   for (i = 0; i < lines.length; i++) {
     if (lines[i].name === lineName) {

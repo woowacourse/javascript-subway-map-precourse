@@ -113,7 +113,7 @@ const getLineName = function() {
   lineNameInput.addEventListener("change", () => {
     const lineName = document.querySelector("#line-name-input").value;
     const alertText = "노선 목록에 없는 단어를 입력해 주세요.";
-    if (!isSpecialCharacter(lineName) && !isDuplicated(lineName)) {
+    if (!isSpecialCharacter(lineName) && !isDuplicated("line", lineName)) {
       getStartStationInput(lineName);
     } else {
       alert(alertText);

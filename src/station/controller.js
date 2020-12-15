@@ -44,7 +44,7 @@ const getStationName = function() {
   stationAddButton.addEventListener("click", () => {
     const stationName = document.querySelector("#station-name-input").value;
     const alertText = "지하철 역 목록에 없는 2글자 이상의 단어를 입력해 주세요.";
-    if (!isSpecialCharacter(stationName) && !isDuplicated(stationName) && isValidLength(stationName)) {
+    if (!isSpecialCharacter(stationName) && !isDuplicated("station", stationName) && isValidLength(stationName)) {
       addStation(stationName);
     } else {
       alert(alertText);
