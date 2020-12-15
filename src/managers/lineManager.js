@@ -4,9 +4,9 @@ import {
   createSubmitBtn,
   createSelectbox,
   createTable,
-} from './utils.js';
-import { getLocalStorage, setLocalStorage } from './storage.js';
-import { lineText as T } from './constants.js';
+} from '../utils/utils.js';
+import { getLocalStorage, setLocalStorage } from '../utils/storage.js';
+import { lineText as T } from '../utils/constants.js';
 
 const app = document.getElementById('app');
 const STORAGE_KEY_STATION = 'stations';
@@ -136,7 +136,7 @@ const createDeleteBtn = line => {
 
 const deleteLine = line => {
   if (confirm(T.ALERT_CONFIRM_DELETE)) {
-    const lineTable = document.getElementById(T.tableId);
+    const lineTable = document.getElementById(T.TABLE_ID);
     const currLines = getLocalStorage(STORAGE_KEY_LINE);
     delete currLines[line];
     setLocalStorage(STORAGE_KEY_LINE, currLines);

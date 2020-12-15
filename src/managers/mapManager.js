@@ -1,6 +1,6 @@
-import { clearPage } from './utils.js';
-import { getLocalStorage } from './storage.js';
-import { mapText as T } from './constants.js';
+import { clearPage } from '../utils/utils.js';
+import { getLocalStorage } from '../utils/storage.js';
+import { mapText as T } from '../utils/constants.js';
 
 const app = document.getElementById('app');
 const STORAGE_KEY_LINE = 'lines';

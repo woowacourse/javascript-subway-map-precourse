@@ -1,6 +1,6 @@
-import { clearPage, createSubmitBtn, createSelectbox, createTable } from './utils.js';
-import { getLocalStorage, setLocalStorage } from './storage.js';
-import { sectionText as T } from './constants.js';
+import { clearPage, createSubmitBtn, createSelectbox, createTable } from '../utils/utils.js';
+import { getLocalStorage, setLocalStorage } from '../utils/storage.js';
+import { sectionText as T } from '../utils/constants.js';
 
 const app = document.getElementById('app');
 const STORAGE_KEY_STATION = 'stations';

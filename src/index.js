@@ -1,7 +1,7 @@
-import { initStationManager } from './stationManager.js';
-import { initLineManager } from './lineManager.js';
-import { initSectionManager } from './sectionManager.js';
-import { initMapManager } from './mapManager.js';
+import { initStationManager } from './managers/stationManager.js';
+import { initLineManager } from './managers/lineManager.js';
+import { initSectionManager } from './managers/sectionManager.js';
+import { initMapManager } from './managers/mapManager.js';
 
 export default function SubwayMap() {
   const stationMngBtn = document.getElementById('station-manager-button');
