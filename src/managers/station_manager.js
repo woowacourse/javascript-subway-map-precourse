@@ -89,3 +89,8 @@ const StationManager = function () {
       .getElementById("station-add-button")
       .addEventListener("click", this.stationAddButtonClickFunction);
 };
+
+export const {
+  setStationAddButtonClickListener,
+  setStationDeleteButtonClickListener,
+} = new StationManager();

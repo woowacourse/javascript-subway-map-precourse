@@ -41,4 +41,5 @@ export const {
   appendNewTr,
   clearInputValue,
   removeTr,
+  renderStation,
 } = new StationContainer();
