@@ -4,6 +4,8 @@ import { stationText as T } from './constants.js';
 
 const app = document.getElementById('app');
 const STORAGE_KEY_STATION = 'stations';
+const DATA_KEY_STATION = 'station';
+const STORAGE_KEY_LINE = 'lines';
 
 export const initStationManager = () => {
   clearPage();
@@ -19,34 +21,34 @@ const createPage = () => {
 
 const handleSubmit = submitBtn => {
   const inputArea = document.getElementById(T.inputContainer);
-  inputArea.appendChild(submitBtn);
+  inputArea.append(submitBtn);
   const inputText = document.getElementById(T.inputId);
 
   inputText.addEventListener('keypress', e => {
-    let name = inputText.value;
     if (e.key === 'Enter') {
-      addStation(name, inputText);
+      addStation(inputText.value);
+      inputText.value = '';
     }
   });
 
   submitBtn.addEventListener('click', () => {
-    let name = inputText.value;
-    addStation(name, inputText);
+    addStation(inputText.value);
+    inputText.value = '';
   });
 };
 
-const addStation = (name, nameInput) => {
+const addStation = name => {
   if (!validateName(name)) return;
-  nameInput.value = '';
+
   const currStations = getLocalStorage(STORAGE_KEY_STATION);
   const updatedStations = currStations ? [...currStations, name] : [name];
   setLocalStorage(STORAGE_KEY_STATION, updatedStations);
-  addTable(name);
+  addToTable(name);
 };
 
 const validateName = name => {
-  const currStations = getLocalStorage(STORAGE_KEY_STATION);
-  if (currStations && currStations.includes(name)) {
+  const stations = getLocalStorage(STORAGE_KEY_STATION);
+  if (stations && stations.includes(name)) {
     alert(T.alertDuplicateName);
     return false;
   } else if (name.length < 2) {
@@ -59,7 +61,6 @@ const validateName = name => {
 const createResultArea = () => {
   const tableName = document.createElement('h2');
   tableName.innerHTML = T.resultTitle;
-  app.appendChild(tableName);
 
   const stationTableHeaders = [T.tableHeader1, T.tableHeader2];
   const stationTable = createTable(T.tableId, stationTableHeaders);
@@ -69,44 +70,40 @@ const createResultArea = () => {
     addTableData(stationTable, stations);
   }
 
-  app.appendChild(stationTable);
+  app.append(tableName, stationTable);
 };
 
 const addTableData = (table, stations) => {
   stations.map(station => {
-    const tableRow = document.createElement('tr');
-    tableRow.dataset['station'] = station;
-    const nameData = document.createElement('td');
-    nameData.innerHTML = station;
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', T.deleteBtnClass);
-    deleteBtn.innerHTML = T.deleteBtnText;
-    deleteBtn.addEventListener('click', () => deleteStation(station));
-
-    tableRow.appendChild(nameData);
-    tableRow.appendChild(deleteBtn);
-
-    table.appendChild(tableRow);
+    const tableRow = addTableRow(station);
+    table.append(tableRow);
   });
 };
 
-const addTable = name => {
-  const stationTable = document.getElementById(T.tableId);
-  const newRow = document.createElement('tr');
-  newRow.dataset['station'] = name;
-  const newData = document.createElement('td');
-  newData.innerHTML = name;
+const addTableRow = station => {
+  const tableRow = document.createElement('tr');
+  tableRow.dataset[DATA_KEY_STATION] = station;
+  const nameData = document.createElement('td');
+  nameData.innerHTML = station;
+  const deleteBtn = createDeleteBtn(station);
 
+  tableRow.append(nameData, deleteBtn);
+  return tableRow;
+};
+
+const addToTable = name => {
+  const stationTable = document.getElementById(T.tableId);
+  const newRow = addTableRow(name);
+  stationTable.append(newRow);
+};
+
+const createDeleteBtn = station => {
   const deleteBtn = document.createElement('button');
   deleteBtn.setAttribute('class', T.deleteBtnClass);
   deleteBtn.innerHTML = T.deleteBtnText;
-  deleteBtn.addEventListener('click', () => deleteStation(name));
+  deleteBtn.addEventListener('click', () => deleteStation(station));
 
-  newRow.appendChild(newData);
-  newRow.appendChild(deleteBtn);
-
-  stationTable.appendChild(newRow);
+  return deleteBtn;
 };
 
 const deleteStation = name => {
@@ -115,7 +112,7 @@ const deleteStation = name => {
     const currStations = getLocalStorage(STORAGE_KEY_STATION);
     const updatedStations = currStations.filter(station => station !== name);
     setLocalStorage(STORAGE_KEY_STATION, updatedStations);
-    const rowToBeDeleted = stationTable.querySelector(`[data-station=${name}]`);
+    const rowToBeDeleted = stationTable.querySelector(`[data-${DATA_KEY_STATION}=${name}]`);
     stationTable.removeChild(rowToBeDeleted);
   }
 };

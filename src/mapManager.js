@@ -1,5 +1,6 @@
 import { clearPage } from './utils.js';
 import { getLocalStorage } from './storage.js';
+import { mapText as T } from './constants.js';
 
 const app = document.getElementById('app');
 const STORAGE_KEY_LINE = 'lines';
@@ -11,25 +12,28 @@ export const initMapManager = () => {
 
 const createResultArea = () => {
   const resultArea = document.createElement('div');
-  resultArea.setAttribute('class', 'map');
+  resultArea.setAttribute('class', T.resultAreaClass);
 
-  const currLines = getLocalStorage(STORAGE_KEY_LINE);
-  if (currLines) {
-    Object.entries(currLines).map(([line, stations]) => {
-      const lineTitle = document.createElement('h3');
-      lineTitle.innerHTML = line;
-      const stationList = document.createElement('ul');
+  const lines = getLocalStorage(STORAGE_KEY_LINE);
+  if (lines) {
+    printResult(resultArea, lines);
+  }
+};
 
-      stations.map(station => {
-        const stationItem = document.createElement('li');
-        stationItem.innerHTML = station;
-        stationList.appendChild(stationItem);
-      });
+const printResult = (resultArea, data) => {
+  Object.entries(data).map(([line, stations]) => {
+    const lineTitle = document.createElement('h3');
+    lineTitle.innerHTML = line;
+    const stationList = document.createElement('ul');
 
-      resultArea.appendChild(lineTitle);
-      resultArea.appendChild(stationList);
+    stations.map(station => {
+      const stationItem = document.createElement('li');
+      stationItem.innerHTML = station;
+      stationList.append(stationItem);
     });
 
-    app.appendChild(resultArea);
-  }
+    resultArea.append(lineTitle, stationList);
+  });
+
+  app.append(resultArea);
 };

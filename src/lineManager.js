@@ -11,6 +11,7 @@ import { lineText as T } from './constants.js';
 const app = document.getElementById('app');
 const STORAGE_KEY_STATION = 'stations';
 const STORAGE_KEY_LINE = 'lines';
+const DATA_KEY_LINE = 'line';
 
 export const initLineManager = () => {
   clearPage();
@@ -19,75 +20,61 @@ export const initLineManager = () => {
 
 const createPage = () => {
   createTextInput(T.inputLabel, T.inputId, T.placeholder);
-  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
   createSelectArea();
+  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
   handleSubmit(submitBtn);
   createResultArea();
 };
 
 const createSelectArea = () => {
-  const lineSelectArea = document.createElement('div');
-  const currStations = getLocalStorage(STORAGE_KEY_STATION);
+  const selectArea = document.createElement('div');
+  const stations = getLocalStorage(STORAGE_KEY_STATION);
 
-  const upwardSelect = document.createElement('select');
-  createSelectbox(upwardSelect, T.startSelectorId, currStations);
+  const upwardSelect = createSelectbox(T.startSelectorId, stations);
   const upwardLabel = document.createElement('b');
   upwardLabel.innerHTML = T.startSelectorText;
 
-  const downwardSelect = document.createElement('select');
-  createSelectbox(downwardSelect, T.endSelectorId, currStations);
+  const downwardSelect = createSelectbox(T.endSelectorId, stations);
   const downwardLabel = document.createElement('b');
   downwardLabel.innerHTML = T.endSelectorText;
 
-  [upwardLabel, upwardSelect, document.createElement('br'), downwardLabel, downwardSelect].map(
-    elem => {
-      lineSelectArea.appendChild(elem);
-    },
-  );
+  selectArea.append(upwardLabel, upwardSelect, document.createElement('br'));
+  selectArea.append(downwardLabel, downwardSelect);
 
-  app.appendChild(lineSelectArea);
+  app.append(selectArea);
 };
 
 const handleSubmit = submitBtn => {
-  app.appendChild(document.createElement('br'));
-  app.appendChild(submitBtn);
+  app.append(document.createElement('br'), submitBtn);
 
   const inputText = document.getElementById(T.inputId);
   const upwardSelect = document.getElementById(T.startSelectorId);
   const downwardSelect = document.getElementById(T.endSelectorId);
 
-  let startStation = upwardSelect.options[upwardSelect.selectedIndex].value;
-  let endStation = downwardSelect.options[downwardSelect.selectedIndex].value;
-  upwardSelect.addEventListener('change', () => {
-    startStation = upwardSelect.value;
-  });
-  downwardSelect.addEventListener('change', () => {
-    endStation = downwardSelect.value;
-  });
+  let startStation = upwardSelect.value;
+  let endStation = downwardSelect.value;
+  upwardSelect.addEventListener('change', () => (startStation = upwardSelect.value));
+  downwardSelect.addEventListener('change', () => (endStation = downwardSelect.value));
 
   submitBtn.addEventListener('click', () => {
-    let lineName = inputText.value;
-    addLine(lineName, inputText, startStation, endStation);
+    addLine(inputText.value, startStation, endStation);
+    inputText.value = '';
   });
 };
 
-const addLine = (lineName, lineInput, start, end) => {
-  if (!validateName(lineName)) return;
-
-  lineInput.value = '';
+const addLine = (line, start, end) => {
+  if (!validateName(line)) return;
 
   const currLines = getLocalStorage(STORAGE_KEY_LINE);
   const updatedLines = currLines ? currLines : {};
-  updatedLines[lineName] = [start, end];
-  // localStorage.setItem('lines', JSON.stringify(updatedLines));
+  updatedLines[line] = [start, end];
   setLocalStorage(STORAGE_KEY_LINE, updatedLines);
-
-  addTable(lineName, start, end);
+  addToTable(line, start, end);
 };
 
 const validateName = lineName => {
-  const currLines = getLocalStorage(STORAGE_KEY_LINE);
-  if (currLines && Object.keys(currLines).includes(lineName)) {
+  const lines = getLocalStorage(STORAGE_KEY_LINE);
+  if (lines && Object.keys(lines).includes(lineName)) {
     alert(T.alertDuplicateName);
     return false;
   }
@@ -97,75 +84,63 @@ const validateName = lineName => {
 const createResultArea = () => {
   const tableName = document.createElement('h2');
   tableName.innerHTML = T.resultTitle;
-  app.appendChild(tableName);
+  app.append(tableName);
 
   const lineTableHeaders = [T.tableHeader1, T.tableHeader2, T.tableHeader3, T.tableHeader4];
   const lineTable = createTable(T.tableId, lineTableHeaders);
-
   const lines = getLocalStorage(STORAGE_KEY_LINE);
   if (lines) {
     addTableData(lineTable, lines);
   }
 
-  app.appendChild(lineTable);
+  app.append(lineTable);
 };
 
 const addTableData = (table, lines) => {
   Object.entries(lines).map(([line, stations]) => {
-    const tableRow = document.createElement('tr');
-    tableRow.dataset['line'] = `_${line}`;
-
-    const nameData = document.createElement('td');
-    nameData.innerHTML = line;
-    const upwardEndData = document.createElement('td');
-    upwardEndData.innerHTML = stations[0];
-    const downwardEndData = document.createElement('td');
-    downwardEndData.innerHTML = stations[stations.length - 1];
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', T.deleteBtnClass);
-    deleteBtn.innerHTML = T.deleteBtnText;
-    deleteBtn.addEventListener('click', () => deleteLine(line));
-
-    [nameData, upwardEndData, downwardEndData, deleteBtn].map(data => {
-      tableRow.appendChild(data);
-    });
-
-    table.appendChild(tableRow);
+    const tableRow = addTableRow(line, stations[0], stations[stations.length - 1]);
+    table.append(tableRow);
   });
 };
 
-const addTable = (lineName, start, end) => {
-  const lineTable = document.getElementById(T.tableId);
-  const newRow = document.createElement('tr');
-  newRow.dataset['line'] = `_${lineName}`;
+const addTableRow = (line, upwardEnd, downwardEnd) => {
+  const tableRow = document.createElement('tr');
+  tableRow.dataset[DATA_KEY_LINE] = `_${line}`;
 
-  const newData = document.createElement('td');
-  newData.innerHTML = lineName;
+  const nameData = document.createElement('td');
+  nameData.innerHTML = line;
   const upwardEndData = document.createElement('td');
-  upwardEndData.innerHTML = start;
+  upwardEndData.innerHTML = upwardEnd;
   const downwardEndData = document.createElement('td');
-  downwardEndData.innerHTML = end;
+  downwardEndData.innerHTML = downwardEnd;
+  const deleteBtn = createDeleteBtn(line);
+
+  tableRow.append(nameData, upwardEndData, downwardEndData, deleteBtn);
+  return tableRow;
+};
+
+const addToTable = (line, start, end) => {
+  const lineTable = document.getElementById(T.tableId);
+  const newRow = addTableRow(line, start, end);
+  lineTable.append(newRow);
+};
+
+const createDeleteBtn = line => {
   const deleteBtn = document.createElement('button');
   deleteBtn.setAttribute('class', T.deleteBtnClass);
   deleteBtn.innerHTML = T.deleteBtnText;
-  deleteBtn.addEventListener('click', () => deleteLine(lineName));
+  deleteBtn.addEventListener('click', () => deleteLine(line));
 
-  newRow.appendChild(newData);
-  newRow.appendChild(upwardEndData);
-  newRow.appendChild(downwardEndData);
-  newRow.appendChild(deleteBtn);
-
-  lineTable.appendChild(newRow);
+  return deleteBtn;
 };
 
-const deleteLine = lineName => {
+const deleteLine = line => {
   if (confirm(T.alertConfirmDelete)) {
     const lineTable = document.getElementById(T.tableId);
     const currLines = getLocalStorage(STORAGE_KEY_LINE);
-    delete currLines[lineName];
+    delete currLines[line];
     setLocalStorage(STORAGE_KEY_LINE, currLines);
-    const rowToBeDeleted = lineTable.querySelector(`[data-line=_${lineName}]`);
+    const rowToBeDeleted = lineTable.querySelector(`[data-${DATA_KEY_LINE}=_${line}]`);
     lineTable.removeChild(rowToBeDeleted);
   }
 };

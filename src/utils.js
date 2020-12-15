@@ -18,11 +18,8 @@ export const createTextInput = (labelName, inputId, placeHolder) => {
   inputText.setAttribute('id', inputId);
   inputText.setAttribute('placeholder', placeHolder);
 
-  inputArea.appendChild(inputLabel);
-  inputArea.appendChild(document.createElement('br'));
-  inputArea.appendChild(inputText);
-
-  app.appendChild(inputArea);
+  inputArea.append(inputLabel, document.createElement('br'), inputText);
+  app.append(inputArea);
 };
 
 export const createSubmitBtn = (btnId, btnText) => {
@@ -33,14 +30,18 @@ export const createSubmitBtn = (btnId, btnText) => {
   return submitBtn;
 };
 
-export const createSelectbox = (select, selectorId, options) => {
+export const createSelectbox = (selectorId, options) => {
+  const select = document.createElement('select');
   select.setAttribute('id', selectorId);
+
   options.map(val => {
     const option = document.createElement('option');
     option.value = val;
     option.text = val;
     select.options.add(option);
   });
+
+  return select;
 };
 
 export const createTable = (tableId, tableHeaders) => {
@@ -51,7 +52,7 @@ export const createTable = (tableId, tableHeaders) => {
   tableHeaders.map(tableHeader => {
     const header = document.createElement('th');
     header.innerHTML = tableHeader;
-    table.appendChild(header);
+    table.append(header);
   });
 
   return table;

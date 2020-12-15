@@ -59,3 +59,7 @@ export const sectionText = {
   alertStationsUnderTwo: '노선에 포함된 역이 2개 이하일 때는 역을 삭제할 수 없습니다.',
   alertConfirmDelete: '정말 삭제하시겠습니까?',
 };
+
+export const mapText = {
+  resultAreaClass: 'map',
+};

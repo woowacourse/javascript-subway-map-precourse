@@ -15,26 +15,26 @@ const printGuideText = () => {
   const sectionHeader = document.createElement('div');
   const sectionTitle = document.createElement('h3');
   sectionTitle.innerText = T.guideText;
-  sectionHeader.appendChild(sectionTitle);
+  sectionHeader.append(sectionTitle);
   createMenuButtons(sectionHeader);
 
-  app.appendChild(sectionHeader);
+  app.append(sectionHeader);
 };
 
 const createMenuButtons = sectionHeader => {
-  const currLines = getLocalStorage(STORAGE_KEY_LINE);
-  if (currLines) {
-    Object.keys(currLines).map(line => {
-      const lineBtn = document.createElement('button');
-      lineBtn.setAttribute('class', T.menuButtonsClass);
-      lineBtn.innerHTML = line;
-      lineBtn.style.margin = '2px';
-      lineBtn.addEventListener('click', () => {
+  const lines = getLocalStorage(STORAGE_KEY_LINE);
+  if (lines) {
+    Object.keys(lines).map(line => {
+      const menuBtn = document.createElement('button');
+      menuBtn.setAttribute('class', T.menuButtonsClass);
+      menuBtn.innerHTML = line;
+      menuBtn.style.margin = '2px';
+      menuBtn.addEventListener('click', () => {
         clearInputs();
-        manageLineSection(line);
+        createPage(line);
         createResultArea(line);
       });
-      sectionHeader.appendChild(lineBtn);
+      sectionHeader.append(menuBtn);
     });
   }
 };
@@ -51,7 +51,7 @@ const clearInputs = () => {
   }
 };
 
-const manageLineSection = line => {
+const createPage = line => {
   const sectionInputArea = document.createElement('div');
   sectionInputArea.setAttribute('id', T.inputId);
 
@@ -60,10 +60,9 @@ const manageLineSection = line => {
   const registerTitle = document.createElement('b');
   registerTitle.innerHTML = T.registerText;
 
-  sectionInputArea.appendChild(manageTitle);
-  sectionInputArea.appendChild(registerTitle);
+  sectionInputArea.append(manageTitle, registerTitle);
+  app.append(sectionInputArea);
 
-  app.appendChild(sectionInputArea);
   createSelectArea(line);
 };
 
@@ -71,28 +70,26 @@ const createSelectArea = line => {
   const selectArea = document.createElement('div');
   selectArea.setAttribute('id', T.selectAreaId);
 
-  const currStations = getLocalStorage(STORAGE_KEY_STATION);
-  const stationSelect = document.createElement('select');
-  createSelectbox(stationSelect, T.selectorId, currStations);
+  const stations = getLocalStorage(STORAGE_KEY_STATION);
+  const stationSelect = createSelectbox(T.selectorId, stations);
 
-  let selectedStation = stationSelect.options[stationSelect.selectedIndex].value;
-  stationSelect.addEventListener('change', () => {
-    selectedStation = stationSelect.value;
-  });
+  let selectedStation = stationSelect.value;
+  stationSelect.addEventListener('change', () => (selectedStation = stationSelect.value));
+  const orderInput = createNumberInput();
+  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
 
+  submitBtn.addEventListener('click', () => addToSection(line, selectedStation, orderInput));
+  selectArea.append(stationSelect, orderInput, submitBtn);
+  app.append(selectArea);
+};
+
+const createNumberInput = () => {
   const orderInput = document.createElement('input');
   orderInput.type = 'number';
   orderInput.setAttribute('id', T.orderInputId);
   orderInput.setAttribute('placholder', T.placeholder);
 
-  const submitBtn = createSubmitBtn(T.submitId, T.submitText);
-  submitBtn.addEventListener('click', () => addToSection(line, selectedStation, orderInput));
-
-  [stationSelect, orderInput, submitBtn].map(elem => {
-    selectArea.appendChild(elem);
-  });
-
-  app.appendChild(selectArea);
+  return orderInput;
 };
 
 const addToSection = (line, station, orderInput) => {
@@ -101,7 +98,6 @@ const addToSection = (line, station, orderInput) => {
 
   const currLines = getLocalStorage(STORAGE_KEY_LINE);
   const currStations = currLines[line];
-  console.log(currStations);
 
   currStations.splice(order, 0, station);
   const updatedLines = currLines;
@@ -121,15 +117,15 @@ const createResultArea = line => {
   const sectionTableHeaders = [T.tableHeader1, T.tableHeader2, T.tableHeader3];
   const sectionTable = createTable(T.tableId, sectionTableHeaders);
   sectionTable.style.marginTop = '20px';
-  app.appendChild(sectionTable);
+  app.append(sectionTable);
 
-  const currLines = getLocalStorage(STORAGE_KEY_LINE);
-  if (currLines) {
-    const currStations = currLines[line];
-    addTableData(sectionTable, line, currStations);
+  const lines = getLocalStorage(STORAGE_KEY_LINE);
+  if (lines) {
+    const stations = lines[line];
+    addTableData(sectionTable, line, stations);
   }
 
-  app.appendChild(sectionTable);
+  app.append(sectionTable);
 };
 
 const addTableData = (table, line, stations) => {
@@ -142,39 +138,42 @@ const addTableData = (table, line, stations) => {
     indexData.innerHTML = idx;
     const nameData = document.createElement('td');
     nameData.innerHTML = station;
-    const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', T.deleteBtnClass);
-    deleteBtn.innerHTML = T.deleteBtnText;
-    deleteBtn.addEventListener('click', () => deleteStation(station, line));
+    const deleteBtn = createDeleteBtn(station, line);
 
-    tableRow.appendChild(indexData);
-    tableRow.appendChild(nameData);
-    tableRow.appendChild(deleteBtn);
-
-    table.appendChild(tableRow);
+    tableRow.append(indexData, nameData, deleteBtn);
+    table.append(tableRow);
   });
 };
 
-const deleteStation = (station, line) => {
-  const sectionTable = document.getElementById(T.tableId);
-  const currLines = getLocalStorage(STORAGE_KEY_LINE);
-  const currStations = currLines[line];
+const createDeleteBtn = (station, line) => {
+  const deleteBtn = document.createElement('button');
+  deleteBtn.setAttribute('class', T.deleteBtnClass);
+  deleteBtn.innerHTML = T.deleteBtnText;
+  deleteBtn.addEventListener('click', () => deleteStation(station, line));
 
-  if (currStations.length <= 2) {
-    alert(T.alertStationsUnderTwo);
-    return;
-  }
+  return deleteBtn;
+};
+
+const deleteStation = (station, line) => {
+  const currLines = getLocalStorage(STORAGE_KEY_LINE);
+  const currStations = getLocalStorage(STORAGE_KEY_LINE)[line];
+
+  if (!isAbleToDelete(currStations)) return;
 
   if (confirm(T.alertConfirmDelete)) {
     currStations.splice(currStations.indexOf(station), 1);
     const updatedLines = currLines;
     updatedLines[line] = currStations;
     setLocalStorage(STORAGE_KEY_LINE, updatedLines);
-
-    const rowToBeDeleted = sectionTable.querySelector(`[data-station=${station}]`);
-    sectionTable.removeChild(rowToBeDeleted);
-
     removeCurrResult();
     createResultArea(line);
   }
+};
+
+const isAbleToDelete = stations => {
+  if (stations.length <= 2) {
+    alert(T.alertStationsUnderTwo);
+    return false;
+  }
+  return true;
 };
