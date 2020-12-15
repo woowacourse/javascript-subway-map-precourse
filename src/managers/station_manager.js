@@ -80,4 +80,9 @@ const StationManager = function () {
     clearInputValue(input);
     this.setStationDeleteButtonClickListener();
   };
+
+  this.setStationAddButtonClickListener = () =>
+    document
+      .getElementById("station-add-button")
+      .addEventListener("click", this.stationAddButtonClickFunction);
 };
