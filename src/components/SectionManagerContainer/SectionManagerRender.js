@@ -4,7 +4,6 @@ import { DOM_SECTION } from "../../utils/constants.js";
 export default class SectionManagerRender extends Component {
   constructor(stateId) {
     super(stateId);
-    console.log("--SectionManagerRender--");
     this.lineIndex = 0;
     this.initDOM();
     this.render();
@@ -17,7 +16,6 @@ export default class SectionManagerRender extends Component {
 
   render() {
     this.sectionLineMenu.innerHTML = this.sectionLineMenuNavRender();
-
     this._app.append(this.sectionLineMenu, this.enrollSection);
     this.sectionLineMenuButtonRender();
   }
@@ -46,10 +44,6 @@ export default class SectionManagerRender extends Component {
       this.sectionLineMenuNav.appendChild(menuBtn);
     });
   }
-
-  // _onSubmitAddSection(e) {
-  //   e.preventDefault();
-  // }
 
   sectionLineManagerRender(lineName) {
     return `
@@ -91,7 +85,6 @@ export default class SectionManagerRender extends Component {
   }
 
   sectionLineManagerListRender(linesInfo, index) {
-    console.log(linesInfo);
     const tbody = document.getElementById(DOM_SECTION.SECTION_LIST_TBODY_ID);
     this.lineIndex = index;
 
@@ -117,6 +110,4 @@ export default class SectionManagerRender extends Component {
       deleteBtn.addEventListener("click", (e) => this._onClickDeleteSection(e));
     });
   }
-
-  // _onClickDeleteSection(e) {}
 }

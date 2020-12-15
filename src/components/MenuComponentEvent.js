@@ -5,7 +5,6 @@ import selectMenuComponent from "../utils/selectMenuComponent.js";
 export default class MenuComponentEvent extends MenuComponentRender {
   constructor() {
     super();
-    console.log("--MenuComponentEvent--");
     this.initState(INITIAL_STATE_ID);
     this.eventDOM();
   }
@@ -25,7 +24,6 @@ export default class MenuComponentEvent extends MenuComponentRender {
     const targetId = target.id;
 
     if (!this.isButton(target.localName)) return;
-    console.log(targetId);
     this.initState(targetId);
   }
 

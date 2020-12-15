@@ -4,7 +4,6 @@ import { DOM_LINE } from "../../utils/constants.js";
 export default class LineManagerRender extends Component {
   constructor(stateId) {
     super(stateId);
-    console.log("--LineManagerRender--");
     this.initDOM();
     this.render();
   }
@@ -17,7 +16,6 @@ export default class LineManagerRender extends Component {
   render() {
     this.lineInputElement.innerHTML = this.lineInputRender();
     this.lineListElement.innerHTML = this.lineListRender();
-
     this._app.append(this.lineInputElement, this.lineListElement);
     this.lineListTrRender(this.lines);
   }
@@ -89,6 +87,7 @@ export default class LineManagerRender extends Component {
       <td>${lineInfo.line[0]}</td>
       <td>${lineInfo.line[lineInfo.line.length - 1]}</td>
       `;
+
       deleteBtn.innerText = "삭제";
       deleteBtn.setAttribute("class", DOM_LINE.LINE_DELETE_BUTTON_CLASS);
       deleteTd.appendChild(deleteBtn);
@@ -98,6 +97,4 @@ export default class LineManagerRender extends Component {
       deleteBtn.addEventListener("click", (e) => this._onClickDeleteLineTr(e));
     });
   }
-
-  // _onClickDeleteLineTr(e) {}
 }

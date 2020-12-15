@@ -4,7 +4,6 @@ import { DOM_SECTION, ERROR_MESSAGE } from "../../utils/constants.js";
 export default class SectionManagerEvent extends SectionManagerRender {
   constructor(stateId) {
     super(stateId);
-    console.log("--SectionManagerEvent--");
   }
 
   _onClickMenuLine(e) {
@@ -14,8 +13,6 @@ export default class SectionManagerEvent extends SectionManagerRender {
     );
 
     this.lineIndex = selectedMenuDataset.index;
-
-    console.log(selectedMenuDataset);
     this.sectionLineManagerListRender(
       this.lines[this.lineIndex].line,
       this.lineIndex
@@ -27,13 +24,10 @@ export default class SectionManagerEvent extends SectionManagerRender {
   }
 
   _onSubmitAddSection(e) {
-    // super._onSubmitAddSection(e);
     e.preventDefault();
     const target = e.target;
     const newSectionStation = this.stations[target[0].options.selectedIndex];
     const addPosition = target[1].value;
-
-    console.log(this.lines[this.lineIndex].line.length);
 
     target[1].value = "";
     target[0].options.selectedIndex = "0";
@@ -61,18 +55,9 @@ export default class SectionManagerEvent extends SectionManagerRender {
     );
   }
 
-  // isVaildOrderNumber(order, lineIndex) {}
-
-  // isContinuousStationAdd(order, lines, newStation) {}
-
   _onClickDeleteSection(e) {
-    // super._onClickDeleteSection(e);
-    console.log(e.target.parentNode.parentNode);
     const target = e.target.parentNode.parentNode;
     const order = target.dataset.order;
-    const linesIndex = target.dataset.linesIndex;
-    console.log(target.dataset);
-    console.log(order, linesIndex);
 
     if (!window.confirm(ERROR_MESSAGE.DELETE_MSG_CONFIRM)) {
       return;
@@ -91,6 +76,4 @@ export default class SectionManagerEvent extends SectionManagerRender {
       this.lineIndex
     );
   }
-
-  // isMinSectionCount(count) {}
 }

@@ -6,7 +6,7 @@ import { INITIAL_STATE_ID, DOM_MENU } from "../utils/constants.js";
 
 export default (stateId = INITIAL_STATE_ID) => {
   let nextState = {};
-  console.log(stateId);
+
   switch (stateId) {
     case DOM_MENU.STATION_MANAGER_BUTTON_ID:
       nextState = new StationManager(stateId);

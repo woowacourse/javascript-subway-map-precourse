@@ -4,7 +4,6 @@ import { DOM_STATION } from "../../utils/constants.js";
 export default class StationManagerRender extends Component {
   constructor(stateId) {
     super(stateId);
-    console.log("--StationManagerRender--");
     this.initDOM();
     this.render();
   }
@@ -56,6 +55,7 @@ export default class StationManagerRender extends Component {
       tr.innerHTML = `
       <td>${station}</td>
       `;
+
       deleteBtn.innerText = "삭제";
       deleteBtn.setAttribute("class", DOM_STATION.STATION_DELETE_BUTTON_CLASS);
       deleteTd.appendChild(deleteBtn);
@@ -65,6 +65,4 @@ export default class StationManagerRender extends Component {
       deleteBtn.addEventListener("click", (e) => this._onClickDeleteTr(e));
     });
   }
-
-  // _onClickDeleteTr(e) {}
 }

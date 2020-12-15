@@ -5,11 +5,9 @@ import { ERROR_MESSAGE } from "../../utils/constants.js";
 export default class StationManager extends StationManagerEvent {
   constructor(stateId) {
     super(stateId);
-    console.log("--StationManager--");
   }
 
   isValidStationName(station) {
-    // super.isValidStationName(station);
     if (
       isValidValue(station) &&
       this.is2Digits(station) &&
@@ -17,6 +15,7 @@ export default class StationManager extends StationManagerEvent {
     ) {
       return true;
     }
+
     return false;
   }
 
@@ -33,22 +32,18 @@ export default class StationManager extends StationManagerEvent {
   }
 
   localStorageItemAdd(item) {
-    // super.localStorageItemAdd(item);
     this.stations.push(item);
     this.saveLocalStorageValue(this.localStorageKey, this.stations);
   }
 
   deleteTrData(stationName) {
-    // super.deleteTrData(stationName);
     this.stations = this.stations.filter((station) => station !== stationName);
     this.saveLocalStorageValue(this.localStorageKey, this.stations);
   }
 
   isUsedLine(stationName) {
-    // super.isUsedLine(stationName);
     for (const lineInfo of this.lines) {
       if (lineInfo.line.includes(stationName)) {
-        console.log(stationName);
         return true;
       }
     }

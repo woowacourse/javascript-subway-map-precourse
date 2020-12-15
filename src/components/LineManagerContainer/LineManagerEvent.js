@@ -4,7 +4,6 @@ import { DOM_LINE, ERROR_MESSAGE } from "../../utils/constants.js";
 export default class LineManagerEvent extends LineManagerRender {
   constructor(stateId) {
     super(stateId);
-    console.log("--LineManagerEvent--");
     this.eventDOM();
   }
 
@@ -30,19 +29,12 @@ export default class LineManagerEvent extends LineManagerRender {
 
     if (!this.isValidLineInfo(lineInfo)) return;
 
-    console.log(lineInfo);
-
     this.lines.push(lineInfo);
     this.lineListTrRender([lineInfo]);
     this.saveLocalStorageValue(this.localStorageKey, this.lines);
   }
 
-  // isValidLineInfo(lineInfo) {}
-
   _onClickDeleteLineTr(e) {
-    // super._onClickDeleteLineTr(e);
-    console.dir(e.target);
-
     if (!window.confirm(ERROR_MESSAGE.DELETE_MSG_CONFIRM)) {
       return;
     }

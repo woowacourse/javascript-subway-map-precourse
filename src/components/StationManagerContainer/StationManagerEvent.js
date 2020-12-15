@@ -4,7 +4,6 @@ import { DOM_STATION, ERROR_MESSAGE } from "../../utils/constants.js";
 export default class StationManagerEvent extends StationManagerRender {
   constructor(stateId) {
     super(stateId);
-    console.log("--StationManagerEvent--");
     this.eventDOM();
   }
 
@@ -27,13 +26,7 @@ export default class StationManagerEvent extends StationManagerRender {
     this.stationListTrRender([stationName]);
   }
 
-  // isValidStationName() {}
-
-  // localStorageItemAdd(item) {}
-
   _onClickDeleteTr(e) {
-    // super._onClickDeleteTr(e);
-
     if (!window.confirm(ERROR_MESSAGE.DELETE_MSG_CONFIRM)) {
       return;
     }
@@ -49,8 +42,4 @@ export default class StationManagerEvent extends StationManagerRender {
     this.deleteTrData(stationName);
     targetTr.remove();
   }
-
-  // deleteTrData(stationName) {}
-
-  // isUsedLine(stationName) {}
 }

@@ -2,7 +2,6 @@ import { DOM_MENU, DOM_ID } from "../utils/constants.js";
 
 export default class MenuComponentRender {
   constructor() {
-    console.log("--MenuComponentRender--");
     this._app = document.getElementById(DOM_ID.ID);
     this.initDOM();
     this.render();

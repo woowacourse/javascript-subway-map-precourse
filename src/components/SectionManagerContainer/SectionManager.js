@@ -4,12 +4,9 @@ import { ERROR_MESSAGE } from "../../utils/constants.js";
 export default class SectionManager extends SectionManagerEvent {
   constructor(stateId) {
     super(stateId);
-    console.log("--SectionManager--");
   }
 
   isVaildOrderNumber(order, lineIndex) {
-    // super.isVaildOrderNumber(order, lineIndex);
-
     if (
       this.isMaxOrder(order, lineIndex) &&
       this.isMinOrder(order) &&
@@ -51,7 +48,6 @@ export default class SectionManager extends SectionManagerEvent {
   }
 
   isMinSectionCount(count) {
-    // super.isMinSectionCount(count);
     if (count > 2) {
       return false;
     }
@@ -61,7 +57,6 @@ export default class SectionManager extends SectionManagerEvent {
   }
 
   isContinuousStationAdd(order, lines, newStation) {
-    // super.isContinuousStationAdd(order, lines, newStation);
     if (order === 0 && newStation === lines[order]) {
       return true;
     }

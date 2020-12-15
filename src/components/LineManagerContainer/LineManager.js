@@ -5,11 +5,9 @@ import { ERROR_MESSAGE } from "../../utils/constants.js";
 export default class LineManager extends LineManagerEvent {
   constructor(stateId) {
     super(stateId);
-    console.log("--LineManager--");
   }
 
   isValidLineInfo(lineInfo) {
-    // super.isValidLineInfo(lineInfo);
     if (
       this.isDuplicateLineName(lineInfo.lineName) &&
       isValidValue(lineInfo.lineName) &&
@@ -18,6 +16,7 @@ export default class LineManager extends LineManagerEvent {
     ) {
       return true;
     }
+
     return false;
   }
 
