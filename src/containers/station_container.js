@@ -6,4 +6,8 @@ const StationContainer = () => {
     const tbody = document.querySelector("tbody");
     tbody.appendChild(tr);
   };
+
+  this.clearInputValue = (input) => {
+    input.value = "";
+  };
 };
