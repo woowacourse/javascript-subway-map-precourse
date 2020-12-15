@@ -17,11 +17,11 @@ export const stationList = stations => {
         <th>설정</th>
       </tr>
       ${stations
-        .map(({ name }, idx) => {
+        .map(({ name }) => {
           return `<tr>
             <td>${name}</td>
             <td>
-              <button class="station-delete-button" data-item=${idx}>삭제</button>
+              <button class="station-delete-button" data-item=${name}>삭제</button>
             </td>
           </tr>`;
         })

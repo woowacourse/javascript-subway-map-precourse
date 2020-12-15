@@ -38,7 +38,7 @@ export const sectionTable = sections => {
         <td>${idx}</td>
         <td>${name}</td>
         <td>
-          <button class="section-delete-button" data-item=${idx}>노선에서 제거</button>
+          <button class="section-delete-button" data-item=${name}>노선에서 제거</button>
         </td>
       </tr>`;
       })

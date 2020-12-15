@@ -33,7 +33,8 @@ export default function SubwayMapManagement() {
     this.setStations([...this.stations, new Station(name)]);
   };
 
-  this.deleteStation = idx => {
+  this.deleteStation = name => {
+    const idx = this.stations.map(({ name }) => name).indexOf(name);
     this.setStations([
       ...this.stations.slice(0, idx),
       ...this.stations.slice(idx + 1),
@@ -48,7 +49,8 @@ export default function SubwayMapManagement() {
     this.setLines([...this.lines, new Line(name, stations)]);
   };
 
-  this.deleteline = idx => {
+  this.deleteline = name => {
+    const idx = this.lines.map(({ name }) => name).indexOf(name);
     this.setLines([...this.lines.slice(0, idx), ...this.lines.slice(idx + 1)]);
   };
 
@@ -62,7 +64,10 @@ export default function SubwayMapManagement() {
     this.selectedMenu.renderTable();
   };
 
-  this.deleteSection = (lineIndex, orderIndex) => {
+  this.deleteSection = (lineIndex, name) => {
+    const orderIndex = this.lines[lineIndex].stations
+      .map(({ name }) => name)
+      .indexOf(name);
     this.lines[lineIndex].deleteStation(orderIndex);
     save('lines', this.lines);
     this.selectedMenu.renderTable();

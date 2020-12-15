@@ -23,7 +23,7 @@ export default function StationManagerContainer({
     }
 
     if (className === 'station-delete-button') {
-      this.deleteStation(Number(item));
+      this.deleteStation(item);
     }
   };
 
@@ -37,11 +37,10 @@ export default function StationManagerContainer({
     }
   };
 
-  this.deleteStation = index => {
+  this.deleteStation = name => {
     const lines = getLines();
-    const stations = getStations();
-    if (confirm(CONFIRM_MESSAGE) && isAddedStation(lines, stations[index])) {
-      deleteStation(index);
+    if (confirm(CONFIRM_MESSAGE) && isAddedStation(lines, name)) {
+      deleteStation(name);
     }
   };
 

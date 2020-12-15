@@ -33,13 +33,13 @@ export const lineList = lines => {
         <th>설정</th>
       </tr>
       ${lines
-        .map(({ name, getStart, getEnd }, idx) => {
+        .map(({ name, getStart, getEnd }) => {
           return `<tr>
             <td>${name}</td>
             <td>${getStart().name}</td>
             <td>${getEnd().name}</td>
             <td>
-              <button class="line-delete-button" data-item=${idx}>삭제</button>
+              <button class="line-delete-button" data-item=${name}>삭제</button>
             </td>
           </tr>`;
         })

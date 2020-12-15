@@ -40,9 +40,9 @@ export default function LineManagerContainer({
     }
   };
 
-  this.deleteLine = index => {
+  this.deleteLine = name => {
     if (confirm(CONFIRM_MESSAGE)) {
-      deleteLine(Number(index));
+      deleteLine(name);
     }
   };
 

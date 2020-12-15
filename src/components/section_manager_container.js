@@ -36,7 +36,7 @@ export default function SectionManagerContainer({
     }
 
     if (className === 'section-delete-button') {
-      this.deleteSection(Number(item));
+      this.deleteSection(item);
     }
   };
 
@@ -55,12 +55,12 @@ export default function SectionManagerContainer({
     }
   };
 
-  this.deleteSection = index => {
+  this.deleteSection = name => {
     const lines = getLines();
     const targetLine = lines[this.selectedLineNumber];
     const stations = targetLine.stations;
     if (confirm(CONFIRM_MESSAGE) && isValidDeleteSection(stations)) {
-      deleteSection(this.selectedLineNumber, index);
+      deleteSection(this.selectedLineNumber, name);
     }
   };
 

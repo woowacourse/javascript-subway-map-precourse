@@ -24,12 +24,12 @@ export const isValidStationName = (stations, name) => {
   return true;
 };
 
-export const isAddedStation = (lines, station) => {
+export const isAddedStation = (lines, name) => {
   const stationsNameInLines = lines
     .map(line => line.stations)
     .map(stations => stations.map(station => station.name));
   for (const stationsNameInLine of stationsNameInLines) {
-    if (stationsNameInLine.includes(station.name)) {
+    if (stationsNameInLine.includes(name)) {
       alert(REGISTERED_STATION);
       return false;
     }
