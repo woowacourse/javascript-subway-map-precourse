@@ -16,9 +16,10 @@ const initHTML = function () {
   managerContainer.append(
     // controller.viewList.station.elements.managerButton,
     // controller.viewList.line.elements.managerButton,
+    // controller.viewList.section.elements.managerButton,
     controller.viewList.station.elements.managerButton.$el,
     controller.viewList.line.elements.managerButton.$el,
-    controller.viewList.section.elements.managerButton,
+    controller.viewList.section.elements.managerButton.$el,
     mapPrintElements.managerButton,
   );
 };

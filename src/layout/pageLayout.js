@@ -121,4 +121,25 @@ export default class PageLayout {
 
     return element;
   }
+
+  // TODO: createOption은 부모로 빼기
+  createOption(stationName) {
+    const clone = this.optionTemplate.content.cloneNode(true);
+    const option = clone.querySelector('option');
+    option.textContent = stationName;
+
+    return clone;
+  }
+
+  createOptionTemplate() {
+    return this.createElement({
+      tag: 'template',
+      id: 'select-option',
+      innerHTML: '<option></option>',
+    });
+  }
+
+  getSelectedOption(selectElement) {
+    return selectElement.options[selectElement.selectedIndex];
+  }
 }

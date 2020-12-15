@@ -22,7 +22,11 @@ export default class Controller {
    * @param {PageLayout} view
    */
   getInputFromUser(view) {
-    if (view instanceof StationLayout || view instanceof LineLayout) {
+    if (
+      view instanceof StationLayout ||
+      view instanceof LineLayout ||
+      view instanceof SectionLayout
+    ) {
       return view.rendered.querySelector('input').value;
     }
     return view.elements.inputContainer.querySelector('input').value;
@@ -35,7 +39,11 @@ export default class Controller {
   replaceCurrentView(view) {
     const currentSection = document.querySelector('section');
     // FIXME: station 고치는중이라서 임시로 넣어둠
-    if (view instanceof StationLayout || view instanceof LineLayout) {
+    if (
+      view instanceof StationLayout ||
+      view instanceof LineLayout ||
+      view instanceof SectionLayout
+    ) {
       console.log(view.elements.section.$el);
       currentSection.replaceWith(view.elements.section.$el);
     } else {
@@ -64,10 +72,29 @@ export default class Controller {
   }
 
   getLineListAll() {
-    return this.modelList.line.getList();
+    return this.modelList.line.getLineListAll();
   }
 
   getLineList(lineName) {
-    return this.modelList.line.getList().find(row => row[0].line === lineName);
+    return this.modelList.line.getLineList(lineName);
+    // return this.modelList.line.getLineListAll().find(row => row[0].line === lineName);
+  }
+
+  deleteSectionData(index, lineName, stationName) {
+    const node = this.modelList.line.deleteSectionData(index, lineName);
+    this.modelList.station.updateData(node);
+  }
+
+  insertSectionData(index, lineName, stationName) {
+    const node = this.modelList.line.insertSectionData(
+      index,
+      lineName,
+      stationName,
+    );
+    this.modelList.station.updateData([node]);
+  }
+
+  getStationListAll() {
+    return this.modelList.station.getList();
   }
 }

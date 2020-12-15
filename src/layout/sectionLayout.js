@@ -5,93 +5,58 @@
 import PageLayout from './pageLayout.js';
 
 export default class SectionLayout extends PageLayout {
-  createManagerButton() {
-    const sectionManagerButton = document.createElement('button');
-    sectionManagerButton.id = 'section-manager-button';
-    sectionManagerButton.innerHTML = '3. 구간 관리';
-    sectionManagerButton.addEventListener('click', () =>
-      this.handleManagerButton(),
+  constructor(controller) {
+    super(controller);
+    this.elements = this.createElements(); // elemenet와 Child 저장
+    this.rowTemplate = this.createRowTemplate();
+    this.optionTemplate = this.createOptionTemplate();
+    this.rendered = this.$render(this.elements.section);
+  }
+
+  // override
+  createElements() {
+    const elements = super.$createCommonElements();
+    this.$appendChildElement(
+      elements.section,
+      'lineMenuButtonContainer',
+      this.$createLineMenuButtonContainer(),
+    );
+    this.$appendChildElement(
+      elements.section,
+      'resultContainer',
+      this.$createResultContainer(),
     );
 
-    return sectionManagerButton;
+    return elements;
+  }
+
+  createManagerButton() {
+    return this.createElement({
+      tag: 'button',
+      id: 'section-manager-button',
+      innerHTML: '3. 구간 관리',
+      eventListener: { click: [() => this.handleManagerButton()] },
+    });
   }
 
   createSection() {
-    const section = document.createElement('section');
-    // section.id = 'section-section'; // TODO: id 필요없으면 지워버리자
-
-    return section;
+    return this.createElement({ tag: 'section' });
   }
 
   createMenuButtonTitle(text) {
-    const title = document.createElement('h2');
-    title.innerHTML = text;
-
-    return title;
+    return this.createElement({ tag: 'h2', innerHTML: text });
   }
 
   createStationSelector(line) {
-    const sectionStationSelector = document.createElement('select');
-    sectionStationSelector.id = 'section-station-selector';
-    if (!line) return sectionStationSelector;
-
-    const lineList = this.controller.getLineList(line);
-    console.log(`lineList:`);
-    console.log(lineList);
-    for (const node of lineList) {
-      sectionStationSelector.insertAdjacentHTML(
-        'beforeend',
-        `<option>${node.name}</option>`,
-      );
-    }
-
-    return sectionStationSelector;
-  }
-
-  createSectionOrderTitle() {
-    const title = document.createElement('h3');
-    title.innerHTML = '구간 등록';
-
-    return title;
-  }
-
-  createSectionOrderInput() {
-    const sectionOrderInput = document.createElement('input');
-    sectionOrderInput.id = 'section-order-input';
-    sectionOrderInput.placeholder = '순서';
-
-    return sectionOrderInput;
-  }
-
-  createSectionAddButton() {
-    const sectionAddButton = document.createElement('button');
-    sectionAddButton.id = 'section-add-button';
-    sectionAddButton.innerHTML = '등록';
-
-    return sectionAddButton;
-  }
-
-  createSectionOrderContainer() {
-    const sectionOrderContainer = document.createElement('div');
-    sectionOrderContainer.append(
-      this.createSectionOrderTitle(),
-      this.createStationSelector(),
-      this.createSectionOrderInput(),
-      this.createSectionAddButton(),
-    );
-
-    return sectionOrderContainer;
+    return this.createElement({
+      tag: 'select',
+      id: 'section-station-selector',
+    });
   }
 
   handleSectionLineMenuButton(target) {
-    // TODO: section 바꾸는 함수 일반화시켜서 사용
-    const { section, resultContainer } = this.elements;
-    resultContainer.querySelector('h2').innerHTML = `${target.innerText}`;
-    resultContainer
-      .querySelector('select')
-      .replaceWith(this.createStationSelector(target.innerText));
-
-    section.append(resultContainer);
+    this.refreshResultDataContainer(target.innerText);
+    this.rendered.querySelector('#result-container').classList.remove('hide');
   }
 
   createSectionLineMenuButton(text) {
@@ -106,61 +71,205 @@ export default class SectionLayout extends PageLayout {
     return button;
   }
 
-  createInputContainer() {
-    const sectionLineMenuButtonContainer = document.createElement('div');
-    sectionLineMenuButtonContainer.append(
+  createLineButton(text) {
+    return this.createElement({
+      tag: 'button',
+      innerHTML: text,
+      classList: ['section-line-menu-button'],
+      eventListener: {
+        click: [e => this.handleSectionLineMenuButton(e.target)],
+      },
+    });
+  }
+
+  $createLineMenuButtonContainer() {
+    const container = this.createElement({ tag: 'article' });
+    const title = this.$createElementNode(
       this.createMenuButtonTitle('구간을 수정할 노선을 선택해주세요'),
     );
+    const div = this.$createElementNode(this.createElement({ tag: 'div' }));
 
-    const lineList = this.controller.getLineListAll(); // 2차원배열
-    for (const row of lineList) {
-      sectionLineMenuButtonContainer.append(
-        this.createSectionLineMenuButton(row[0].line),
-      );
-    }
+    return this.$createElementNode(container, { title, div });
+  }
 
-    return sectionLineMenuButtonContainer;
+  $createInputContainer() {
+    const element = this.createElement({ tag: 'article' });
+    const title = this.$createElementNode(this.createInputTitle());
+    const selector = this.$createElementNode(this.createStationSelector());
+    const input = this.$createElementNode(this.createInput());
+    const button = this.$createElementNode(this.createInputAddButton());
+
+    return this.$createElementNode(element, {
+      title,
+      selector,
+      input,
+      button,
+    });
+  }
+
+  createInput() {
+    return this.createElement({
+      tag: 'input',
+      id: 'section-order-input',
+      placeholder: '순서',
+    });
+  }
+
+  createInputTitle() {
+    return this.createElement({
+      tag: 'h3',
+      innerHTML: '구간 등록',
+    });
+  }
+
+  createInputAddButton() {
+    return this.createElement({
+      tag: 'button',
+      id: 'section-add-button',
+      innerHTML: '등록',
+      eventListener: { click: [() => this.handleAddButton()] },
+    });
+  }
+
+  // override
+  handleAddButton() {
+    const order = this.controller.getInputFromUser(this);
+    const { lineName } = this.rendered.querySelectorAll('tr')[1].dataset;
+    const stationName = this.getSelectedOption(
+      this.rendered.querySelector('select'),
+    ).value;
+
+    this.controller.insertSectionData(order, lineName, stationName);
+    this.refreshResultDataContainer(lineName);
+    // this.clearInput(); // TODO: 넣기
   }
 
   createResultTable() {
-    const sectionLineResultTable = document.createElement('table');
-    sectionLineResultTable.innerHTML =
-      '<thead><tr><th>순서</th><th>이름</th><th>설정</th></tr></thead>';
-
-    return sectionLineResultTable;
+    return this.createElement({
+      tag: 'table',
+      innerHTML:
+        '<thead><tr><th>순서</th><th>이름</th><th>설정</th></tr></thead><tbody></tbody>',
+    });
   }
 
-  createResultTitle() {
-    const resultTitle = document.createElement('h2');
-    resultTitle.innerHTML = 'n호선 관리'; // TODO: 동적으로 바꾸기
-
-    return resultTitle;
+  createResultTitle(target = 'n호선') {
+    return this.createElement({
+      tag: 'h2',
+      innerHTML: `${target} 관리`,
+    });
   }
 
-  createResultContainer() {
-    const sectionResultContainer = document.createElement('div');
-    sectionResultContainer.append(
-      this.createResultTitle(),
-      this.createSectionOrderContainer(),
-      this.createResultTable(),
+  $createResultContainer() {
+    const container = this.createElement({
+      tag: 'article',
+      id: 'result-container',
+      classList: ['hide'],
+    });
+    const title = this.$createElementNode(this.createResultTitle());
+    const inputContainer = this.$createInputContainer();
+    const table = this.$createElementNode(this.createResultTable());
+
+    return this.$createElementNode(container, {
+      title,
+      inputContainer,
+      table,
+    });
+  }
+
+  // override
+  refreshResultData() {
+    this.rendered
+      .querySelector('article > div')
+      .replaceWith(this.loadLineMenuButtonData());
+  }
+
+  loadSelectorData(position) {
+    const stationList = this.controller.getStationListAll();
+    const options = stationList.map(node => this.createOption(node.name));
+    const selector = this.createStationSelector(position);
+    selector.append(...options);
+
+    return selector;
+  }
+
+  refreshResultDataContainer(text) {
+    this.rendered // selector 업데이트
+      .querySelector('#section-station-selector')
+      .replaceWith(this.loadSelectorData(text));
+    this.rendered // title 변환
+      .querySelector('#result-container > h2')
+      .replaceWith(this.createResultTitle(text));
+    this.rendered.querySelector('tbody').replaceWith(this.loadTableData(text));
+  }
+
+  createLineMenuButtonTemplate() {
+    return this.createElement({
+      tag: 'template',
+      id: 'line-menu-button',
+      innerHTML: '<button></button>',
+    });
+  }
+
+  loadTableData(lineName) {
+    const lineList = this.controller.getLineList(lineName); // 1차원 배열
+    const tableRows = lineList.map((station, index) =>
+      this.createRow(index, station.line, station.name),
     );
+    const tbody = this.createElement({ tag: 'tbody' });
+    tbody.append(...tableRows);
 
-    return sectionResultContainer;
+    return tbody;
   }
 
-  // override
-  createElements() {
-    const managerButton = this.createManagerButton();
-    const section = this.createSection();
-    const inputContainer = this.createInputContainer();
-    const resultContainer = this.createResultContainer();
-
-    return { managerButton, section, inputContainer, resultContainer };
+  createRowTemplate() {
+    return this.createElement({
+      tag: 'template',
+      id: 'line-row',
+      innerHTML: '<tr><td></td><td></td><td></td></tr>',
+    });
   }
 
-  // override
-  buildLayout() {
-    const { section, inputContainer, resultContainer } = this.elements;
-    section.append(inputContainer);
+  createRow(index, lineName, stationName) {
+    const clone = this.rowTemplate.content.cloneNode(true);
+    const td = clone.querySelectorAll('td');
+    const tr = clone.querySelector('tr');
+    tr.dataset.index = index;
+    tr.dataset.lineName = lineName;
+    tr.dataset.stationName = stationName;
+    td[0].textContent = index;
+    td[1].textContent = stationName;
+    td[2].append(this.createDeleteButton());
+
+    return clone;
+  }
+
+  createDeleteButton() {
+    return this.createElement({
+      tag: 'button',
+      innerHTML: '노선에서 제거',
+      classList: ['section-delete-button'],
+      eventListener: { click: [e => this.handleDeleteButton(e.target)] },
+    });
+  }
+
+  handleDeleteButton(target) {
+    const tr = target.parentElement.parentElement;
+    this.controller.deleteSectionData(
+      tr.dataset.index,
+      tr.dataset.lineName,
+      tr.dataset.stationName,
+    );
+    this.refreshResultDataContainer(tr.dataset.lineName);
+  }
+
+  loadLineMenuButtonData() {
+    const lineList = this.controller.getLineListAll(); // 2차원배열
+    const container = this.createElement({ tag: 'div' });
+    const buttonList = lineList.map(list =>
+      this.createLineButton(list[0].line),
+    );
+    container.append(...buttonList);
+
+    return container;
   }
 }

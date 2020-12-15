@@ -166,24 +166,8 @@ export default class LineLayout extends PageLayout {
     return selector;
   }
 
-  createOption(stationName) {
-    const clone = this.optionTemplate.content.cloneNode(true);
-    const option = clone.querySelector('option');
-    option.textContent = stationName;
-
-    return clone;
-  }
-
-  createOptionTemplate() {
-    return this.createElement({
-      tag: 'template',
-      id: 'select-option',
-      innerHTML: '<option></option>',
-    });
-  }
-
   loadTableData() {
-    const lineList = this.controller.modelList.line.getList();
+    const lineList = this.controller.getLineListAll();
     const tableRows = lineList.map(line => this.createRow(line));
     const tbody = this.createElement({ tag: 'tbody' });
     tbody.append(...tableRows);
@@ -221,10 +205,6 @@ export default class LineLayout extends PageLayout {
     const tr = target.parentElement.parentElement;
     this.controller.deleteLineData(tr.dataset.lineName);
     this.refreshResultData();
-  }
-
-  getSelectedOption(selectElement) {
-    return selectElement.options[selectElement.selectedIndex];
   }
 
   // override
