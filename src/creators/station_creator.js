@@ -53,4 +53,9 @@ const StationCreator = function () {
   };
 };
 
-export const { createTr } = new StationCreator();
+export const {
+  createTr,
+  createAddDiv,
+  createTableTitle,
+  createTbody,
+} = new StationCreator();
