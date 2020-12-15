@@ -6,10 +6,6 @@ class StationStore extends Observer {
     this.stations = stations;
   }
 
-  getStations() {
-    return this.stations;
-  }
-
   addStation(name) {
     const stations = [...this.stations, name];
     this.setStations(stations);
