@@ -79,4 +79,5 @@ export const {
   appendChildren,
   createTd,
   getTableHavingTableHead,
+  convertDataArrayToElementArray,
 } = new Visualization();
