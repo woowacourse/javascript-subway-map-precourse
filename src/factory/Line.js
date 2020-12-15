@@ -6,10 +6,10 @@ export default class Line {
     this.name = props.name;
     this.startStation = props.startStation;
     this.endStation = props.endStation;
-    this.section = this.getSection();
+    this.section = this.setSection();
   }
 
-  getSection = () => this.props.section || [this.startStation, this.endStation];
+  setSection = () => this.props.section || [this.startStation, this.endStation];
 
   addStationToSection({ stationName, index }) {
     this.section.splice(index, 0, stationName);

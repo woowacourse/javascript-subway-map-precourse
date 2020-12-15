@@ -34,6 +34,7 @@ export default class SectionDetailManager extends Component {
     const targetLine = this.data.currentLineData;
     if (!this.isValid(targetLine)) return;
     targetLine.addStationToSection(this.getValues());
+    this.clearInput();
     this.syncData(this.data);
   };
 
@@ -53,12 +54,12 @@ export default class SectionDetailManager extends Component {
 
   isValid(targetLine) {
     const { stationName, index } = this.getValues();
-    if (isOverlap(stationName, targetLine.section)) {
-      alert(SECTION_DETAIL_WORDS.ALERT_MESSAGE_SECTION_INCLUDES_STATION);
-      return false;
-    }
     if (isEmpty(index)) {
       alert(SECTION_DETAIL_WORDS.ALERT_MESSAGE_NO_INDEX);
+      return false;
+    }
+    if (isOverlap(stationName, targetLine.section)) {
+      alert(SECTION_DETAIL_WORDS.ALERT_MESSAGE_SECTION_INCLUDES_STATION);
       return false;
     }
     return true;

@@ -49,15 +49,20 @@ export default class SubwayManager extends Component {
     const { nodeName } = event.target;
     const { id } = event.target;
     if (nodeName !== 'BUTTON') return;
-    [
+    this.getManager(id);
+  };
+
+  getManager(id) {
+    const managerList = [
       this.stationManager,
       this.lineManager,
       this.sectionManager,
       this.mapPrintManager,
-    ].forEach((manager) => {
+    ];
+    managerList.forEach((manager) => {
       manager.managerId === id ? manager.show() : manager.hide();
     });
-  };
+  }
 
   syncData = (data) => {
     storage.setItem(STORAGE_KEY, data);

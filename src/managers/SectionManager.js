@@ -1,6 +1,7 @@
 import Component from '../factory/Component.js';
 import SectionDetailManager from './SectionDetailManager.js';
 import { SECTION_SELECTOR } from '../share/selector.js';
+import { isEmpty } from '../share/utils.js';
 
 export default class SectionManager extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export default class SectionManager extends Component {
   }
 
   hideDetailManager() {
-    if (this.data.lineList.length === 0) {
+    if (isEmpty(this.data.lineList)) {
       this.sectionDetailManager.hide();
     }
   }
