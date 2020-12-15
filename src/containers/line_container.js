@@ -15,6 +15,12 @@ const LineContainer = function () {
     endStationSelector.value = defaultValue;
   };
 
+  this.removeTr = (targetButton) => {
+    const tr = targetButton.parentElement.parentElement;
+    const tbody = document.querySelector("tbody");
+    tbody.removeChild(tr);
+  };
+
   this.renderInitialLine = (parent) => {
     const LineAddDIV = createLineAddDIV();
     const tableTitle = createLineTableTitle();
