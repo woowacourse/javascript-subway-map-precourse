@@ -4,7 +4,7 @@ import { renderMapPrint } from "./containers/map_print_container";
 import { renderStation } from "./containers/station_container";
 import {
   setLineDeleteButtonClickListener,
-  setLineAddClickListener,
+  setLineAddButtonClickListener,
 } from "./managers/line_manager";
 import {
   setStationAddButtonClickListener,
@@ -22,7 +22,7 @@ const Handler = function () {
     clearResultDIV();
     renderInitialLine(resultDIV);
     setLineDeleteButtonClickListener();
-    setLineAddClickListener();
+    setLineAddButtonClickListener();
   };
   this.onSectionButtonClick = () => {};
   this.onPrintButtonClick = () => {

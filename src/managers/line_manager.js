@@ -58,7 +58,7 @@ const LineManager = function () {
     else alert(validity.errorMessage);
   };
 
-  this.setLineAddClickListener = () => {
+  this.setLineAddButtonClickListener = () => {
     const button = document.getElementById("line-add-button");
     button.addEventListener("click", this.lineAddClickFunction);
   };
@@ -83,5 +83,5 @@ const LineManager = function () {
 
 export const {
   setLineDeleteButtonClickListener,
-  setLineAddClickListener,
+  setLineAddButtonClickListener,
 } = new LineManager();
