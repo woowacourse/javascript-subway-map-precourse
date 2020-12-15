@@ -6,7 +6,63 @@
   </head>
   <body>
     <div id="app">
-      <h1>🚇 지하철 노선도 관리 </h1>
+      <h1>🚇 지하철 노선도 관리</h1>
+      <div class="menu-button">
+        <button id="station-manager-button">1. 역 관리</button>
+        <button id="line-manager-button">2. 노선 관리</button>
+        <button id="section-manager-button">3. 구간 관리</button>
+        <button id="map-print-manager-button">4. 지하철 노선도 출력</button>
+      </div>
+      <br />
+      <div class="manager-container">
+        <div class="station-manager-page" hidden>
+          <div>
+            역 이름
+            <div class="station-input-container">
+              <input
+                id="station-name-input"
+                placeholder="역 이름을 입력해주세요."
+              />
+              <button id="station-add-button">역 추가</button>
+            </div>
+          </div>
+          <h3>🚉 지하철 역 목록</h3>
+          <div class="station-table-container"></div>
+        </div>
+        <div class="line-manager-page" hidden>
+          <div class="line-manager-page">
+            <div>
+              노선 이름
+              <div class="station-input-container">
+                <input
+                  id="line-name-input"
+                  placeholder="노선 이름을 입력해주세요."
+                />
+                <br />
+                <br />
+                <div class="line-start-select-container">
+                  상행 종점
+                  <select id="line-start-station-selector"></select>
+                </div>
+                <div class="line-end-select-container">
+                  하행 종점
+                  <select name="하행" id="line-end-station-selector"></select>
+                </div>
+              </div>
+            </div>
+            <br />
+            <button id="line-add-button">노선 추가</button>
+          </div>
+          <h3>🚉 지하철 노선 목록</h3>
+          <div class="line-table-container"></div>
+        </div>
+        <div class="section-manager-page" hidden>
+          <h3>구간을 수정할 노선을 선택해주세요.</h3>
+          <div class="line-select-container"></div>
+          <div class="section-input-container"></div>
+        </div>
+        <div class="map-print-page" hidden></div>
+      </div>
     </div>
     <script type="module" src="src/index.js"></script>
   </body>
