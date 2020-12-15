@@ -8,6 +8,61 @@
     <div id="app">
       <h1>🚇 지하철 노선도 관리 </h1>
     </div>
+    <button id="#station-manager-button">1. 역 관리</button>
+    <button id="#line-manager-button">2. 노선 관리</button>
+    <button id="#section-manager-button">3. 구간 관리</button>
+    <button id="#map-print-manager-button">4. 지하철 노선도 출력</button><br /><br />
+    <div id="station-manager" style="display:none">
+      <strong>역 이름</strong><br />
+      <input type="text" id="#station-name-input" onclick=this.value="" placeholder="역 이름을 입력해주세요."></input>&nbsp;
+      <button id="#station-add-button">역 추가</button>
+      <h2>🚉 지하철 역 목록</h2>
+      <div>
+        <table border="1" id="#print-station-list">
+          <thead>
+            <th>역 이름</th>
+            <th>설정</th>
+          </thead>
+          <tbody id="station-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- line manager -->
+    <div id="line-manager" style="display:none">
+      <strong>노선 이름</strong><br />
+      <input id="#line-name-input" placeholder="노선 이름을 입력해주세요."></input><br /><br />
+      <strong>상행 종점</strong><select id="#line-start-station-selector"></select><br />
+      <strong>하행 종점</strong><select id="#line-end-station-selector"></select><br /><br />
+      <button id="#line-add-button">노선 추가</button><br />
+      <h2>🚉 지하철 노선 목록</h2>
+      <table border="1" id="#print-line-list">
+        <thead>
+          <th>노선 이름</th>
+          <th>상행 종점역</th>
+          <th>하행 종점역</th>
+          <th>설정</th>
+        </thead>
+        <tbody id="line-tbody"></tbody>
+      </table>
+    </div>
+    <!-- section manager -->
+    <div id="section-manager" style="display:none">
+      <div>
+        <h3>구간을 수정할 노선을 선택해주세요.</h3> 
+        <div id="line-buttons"></div>
+      </div>
+      <div id="add-delete-section" style="display:none"><br />
+        <div id="nline-manage" style="font-size:20px; font-weight:bold;"></div>
+        <h4>구간 등록</h4>
+        <select id="#section-station-selector"></select>
+        <input type="number" id="#section-order-input"></input><button id="#section-add-button">등록</button><br /><br />
+  
+        <input type='hidden' id='selected-line-input' />
+        <div id="section-lists-container"></div>
+      </div>
+    </div>
+    <!-- print subway map -->
+    <div class="map" style="display:none"></div>
     <script type="module" src="src/index.js"></script>
   </body>
 </html>
