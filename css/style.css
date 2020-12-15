@@ -1,0 +1,35 @@
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+.manager-button-container {
+  margin: 20px 0;
+}
+
+input,
+button {
+  box-sizing: border-box;
+  height: 24px;
+}
+
+.section-line-menu-button {
+  margin-right: 10px;
+}
+
+#line-name-input {
+  margin-bottom: 20px;
+}
+
+#line-add-button {
+  margin-top: 20px;
+}
+
+select {
+  height: 21px;
+}
+
+.setcion-add-container {
+  margin-bottom: 40px;
+}
