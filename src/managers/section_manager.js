@@ -3,14 +3,14 @@ import {
   getSelectedLineSections,
   isBiggerThanTwo,
   setStateAndLocalStorage,
-} from "../common/function";
+} from "../common/function.js";
 import {
   changeTableBody,
   clearSectionInputs,
   rerenderOnlyChange,
   appendSpreadElements,
-} from "../containers/section_container";
-import { setState, state } from "../state";
+} from "../containers/section_container.js";
+import { setState, state } from "../state.js";
 
 const SectionManager = function () {
   this.isExist = (sectionName, sections) =>

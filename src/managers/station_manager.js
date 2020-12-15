@@ -3,12 +3,12 @@ import {
   getFormattedStations,
   setStateAndLocalStorage,
   isLineNameLengthBiggerThanOneWithoutSpace,
-} from "../common/function";
+} from "../common/function.js";
 import {
   appendNewTr,
   clearInputValue,
   removeTr,
-} from "../containers/station_container";
+} from "../containers/station_container.js";
 
 const StationManager = function () {
   this.isContainedInLengthTwoSections = (stationName) => {

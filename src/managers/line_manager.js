@@ -2,12 +2,12 @@ import {
   getFormattedLines,
   isLineNameLengthBiggerThanOneWithoutSpace,
   setStateAndLocalStorage,
-} from "../common/function";
+} from "../common/function.js";
 import {
   removeTr,
   appendNewLine,
   setDefaultValue,
-} from "../containers/line_container";
+} from "../containers/line_container.js";
 
 const LineManager = function () {
   this.getSelectors = () => [

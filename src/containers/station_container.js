@@ -4,11 +4,12 @@ import {
   createTr,
   createTbody,
 } from "../creators/station_creator.js";
+import { getFormattedStations } from "../common/function.js";
+
 import {
-  getFormattedStations,
+  appendRecursiveChild,
   getTableHavingTableHead,
-} from "../common/function.js";
-import { appendRecursiveChild } from "../common/visualization.js";
+} from "../common/visualization.js";
 
 const StationContainer = function () {
   this.appendNewTr = (station) => {

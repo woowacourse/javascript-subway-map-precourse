@@ -2,25 +2,25 @@ import {
   clearResultDIV,
   isEmptyPage,
   isAlreadyRenderedPage,
-} from "./common/function";
-import { renderInitialLine } from "./containers/line_container";
-import { renderMapPrint } from "./containers/map_print_container";
-import { renderSection } from "./containers/section_container";
-import { renderStation } from "./containers/station_container";
+} from "./common/function.js";
+import { renderInitialLine } from "./containers/line_container.js";
+import { renderMapPrint } from "./containers/map_print_container.js";
+import { renderSection } from "./containers/section_container.js";
+import { renderStation } from "./containers/station_container.js";
 import {
   setLineDeleteButtonClickListener,
   setLineAddButtonClickListener,
-} from "./managers/line_manager";
-import { setLineSelectionButtonClickListener } from "./managers/section_manager";
+} from "./managers/line_manager.js";
+import { setLineSelectionButtonClickListener } from "./managers/section_manager.js";
 import {
   setStationAddButtonClickListener,
   setStationDeleteButtonClickListener,
-} from "./managers/station_manager";
-import { resultDIV, setState } from "./state";
+} from "./managers/station_manager.js";
+import { resultDIV, setState } from "./state.js";
 
 const Handler = function () {
   this.onStationButtonClick = () => {
-    if (isEmptyPage() || isAlreadyRenderedPage("1")) return;
+    if (isAlreadyRenderedPage("1")) return;
     clearResultDIV();
     renderStation(resultDIV);
     setStationAddButtonClickListener();
@@ -29,7 +29,7 @@ const Handler = function () {
   };
 
   this.onLineButtonClick = () => {
-    if (isEmptyPage() || isAlreadyRenderedPage("2")) return;
+    if (isAlreadyRenderedPage("2")) return;
     clearResultDIV();
     renderInitialLine(resultDIV);
     setLineDeleteButtonClickListener();
@@ -38,7 +38,7 @@ const Handler = function () {
   };
 
   this.onSectionButtonClick = () => {
-    if (isEmptyPage() || isAlreadyRenderedPage("3")) return;
+    if (isAlreadyRenderedPage("3")) return;
     clearResultDIV();
     renderSection(resultDIV);
     setLineSelectionButtonClickListener();
@@ -46,7 +46,7 @@ const Handler = function () {
   };
 
   this.onPrintButtonClick = () => {
-    if (isEmptyPage() || isAlreadyRenderedPage("4")) return;
+    if (isAlreadyRenderedPage("4")) return;
     clearResultDIV();
     renderMapPrint(resultDIV);
     setState("currentPage", "4");

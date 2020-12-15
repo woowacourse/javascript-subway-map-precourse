@@ -2,7 +2,7 @@ import {
   appendChildren,
   appendRecursiveChild,
   getAdvancedEle,
-} from "../common/visualization";
+} from "../common/visualization.js";
 
 const StationCreator = function () {
   this.createAddWrapper = () =>

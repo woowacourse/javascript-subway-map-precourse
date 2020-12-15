@@ -1,6 +1,6 @@
-import { getFormattedLines } from "../common/function";
-import { appendChildren } from "../common/visualization";
-import { createOneLineElements } from "../creators/map_print_creator";
+import { getFormattedLines } from "../common/function.js";
+import { appendChildren } from "../common/visualization.js";
+import { createOneLineElements } from "../creators/map_print_creator.js";
 
 const MapPrintContainer = function () {
   this.appendALineElement = (lines, parent) => {
