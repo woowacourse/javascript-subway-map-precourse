@@ -30,7 +30,8 @@ export default class TableUtils {
     this.IS_VALID = 1;
     this.IS_NOT_VALID = 0;
 
-    this.STATION_DELETE_ERROR_MESSAGE = '노선에 등록되어 있는 역은 삭제할 수 없습니다.'
+    this.STATION_DELETE_ERROR_MESSAGE = '노선에 등록되어 있는 역은 삭제할 수 없습니다.';
+    this.SECTION_DELETE_ERROR_MESSAGE = '더 이상 이 노선에서 역을 제거할 수 없습니다. 노선에 등록된 역이 두개 이하일 때는 역을 제거할 수 없습니다.'
 
     this.STATION_TABLE_NAME = 'stationArticleTable';
     this.LINE_TABLE_NAME = 'lineArticleTable';
@@ -105,7 +106,7 @@ export default class TableUtils {
     const stationList = this._privateCommonUtils.getLocalStorageStation();
 
     for (const index in lineList[line]) {
-      const rowArray = [index, lineList[line][index], this.SECTION_DELETE_BUTTON_TEXT];
+      const rowArray = [index, lineList[line][index], this.SECTION_DELETE_BUTTON_TEXT, line];
       this.addRow(rowArray, toIdName);
 
       // const station = lineList[line][index];
@@ -162,18 +163,23 @@ export default class TableUtils {
   addCellsAndButton(tableType, row, rowArray) {
     this._tableType[tableType].forEach((v, i) => {
       const typeUpper = this.getType(tableType).toUpperCase();
-      const cell = row.insertCell(i);
 
-      this.addCellBorder(cell);
+      if (i !== 3) {
+        const cell = row.insertCell(i);
 
-      console.log(tableType, typeUpper);
-      if (rowArray[i] === this[`${typeUpper}_DELETE_BUTTON_TEXT`]) {
-        this.addDeleteButton(cell, rowArray, typeUpper);
-      }
-      else {
-        this.addCellText(cell, rowArray[i]);
+        this.addCellBorder(cell);
+        this.checkButtonOrText(rowArray, i, typeUpper, cell);
       }
     })
+  }
+
+  checkButtonOrText(rowArray, i, typeUpper, cell) {
+    if (rowArray[i] === this[`${typeUpper}_DELETE_BUTTON_TEXT`]) {
+      this.addDeleteButton(cell, rowArray, typeUpper);
+    }
+    else {
+      this.addCellText(cell, rowArray[i]);
+    }
   }
 
   addDeleteButton(cell, rowArray, typeUpper) {
@@ -207,22 +213,32 @@ export default class TableUtils {
     else if (type === 'line') {
       this.addEventToLineDeleteButton(deleteButton);
     }
+    else if (type === 'section') {
+      this.addEventToSectionDeleteButton(deleteButton);
+    }
   }
 
   addEventToStationDeleteButton(button) {
     button.addEventListener('click', () => {
-      if (this.ifOkay() * this.checkDeleteValidity(button) === this.IS_VALID) {
-        this.deleteRowAndData(button);
-      }
-      else {
-        this._privateCommonUtils.alertError(this.STATION_DELETE_ERROR_MESSAGE);
+      if (this.ifOkay() === this.IS_VALID) {
+        this.checkStationDeleteValidity(button);
       }
     });
   }
 
   addEventToLineDeleteButton(button) {
     button.addEventListener('click', () => {
-      this.deleteRowAndData(button);
+      if (this.ifOkay() === this.IS_VALID) {
+        this.deleteRowAndData(button);
+      }
+    })
+  }
+
+  addEventToSectionDeleteButton(button) {
+    button.addEventListener('click', () => {
+      if (this.ifOkay() === this.IS_VALID) {
+        this.checkSectionDeleteValidity(button);
+      }
     })
   }
 
@@ -235,9 +251,21 @@ export default class TableUtils {
     }
   }
 
-  checkDeleteValidity(button) {
-    if (this.checkTableId(button) === this.STATION_TABLE_NAME) {
-      return this.checkIfRegisteredToLine(button);
+  checkStationDeleteValidity(button) {
+    if (this.checkIfRegisteredToLine(button) === this.IS_VALID) {
+      this.deleteRowAndData(button);
+    }
+    else {
+      this._privateCommonUtils.alertError(this.STATION_DELETE_ERROR_MESSAGE);
+    }
+  }
+
+  checkSectionDeleteValidity(button) {
+    if (this.checkIfContainsOverTwoStations(button) === this.IS_VALID) {
+      this.deleteRowAndData(button);
+    }
+    else {
+      this._privateCommonUtils.alertError(this.SECTION_DELETE_ERROR_MESSAGE);
     }
   }
 
@@ -250,6 +278,18 @@ export default class TableUtils {
       return this.IS_NOT_VALID;
     }
 
+    return this.IS_VALID;
+  }
+
+  checkIfContainsOverTwoStations(button) {
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
+    const dataset = this.getDataAttribute(button);
+    const line = dataset.split(',')[3];
+
+    if (lineList[line].length <= 2) {
+      return this.IS_NOT_VALID;
+    }
+    
     return this.IS_VALID;
   }
 
