@@ -1,14 +1,15 @@
-import { NAV_TEXTS } from "../util/constants.js";
+import { ELEMENT_INFO } from "../util/constants.js";
 
 export default function Navigator({ $target }) {
   this.$target = $target;
-  this.NAV_TEXTS = NAV_TEXTS;
+
+  const { navigator: navInfo } = ELEMENT_INFO;
 
   this.render = () => {
     const HTMLString = `
       <nav>
         <ol>
-          ${NAV_TEXTS.map((text, index) => `<li><button>${index + 1}. ${text}</button></li>`).join("")}
+          ${navInfo.map((nav, index) => `<li><button id="${nav.id}">${index + 1}. ${nav.text}</button></li>`).join("")}
         </ol>
       </nav>
     `;
