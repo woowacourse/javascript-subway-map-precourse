@@ -212,3 +212,13 @@ function makeTableOfLine(newLine) {
     makeSubwayMap();
     container.appendChild(sectionTable);
 }
+
+function addLineToSectionTable(sectionTable, sectionName, sectionOrder) {
+    let sectionRow = sectionTable.insertRow(sectionOrder + 1);
+    let sectionCell1 = sectionRow.insertCell(0);
+    let sectionCell2 = sectionRow.insertCell(1);
+    let sectionCell3= sectionRow.insertCell(2);
+    sectionCell1.innerHTML = sectionOrder;
+    sectionCell2.innerHTML = sectionName;
+    addSectionDeleteBtn(sectionTable, sectionCell3);
+}
