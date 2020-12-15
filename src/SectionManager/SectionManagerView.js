@@ -1,3 +1,5 @@
+import SectionErrorMsg from './SectionErrorMsg.js';
+
 export default class SectionManagerView {
   static view() {
     document.getElementById('sub-view-container').innerHTML = `
@@ -47,8 +49,8 @@ export default class SectionManagerView {
   </table>`;
   }
 
-  static alertInputError() {
-    alert('invalid Error');
+  static alertInputError(errorNum) {
+    alert(SectionErrorMsg.error(errorNum));
   }
 
   static confirmDelete() {

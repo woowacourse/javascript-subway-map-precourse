@@ -22,14 +22,15 @@ export default class SectionManagerController {
   static addButtonClicked(line) {
     const index = document.getElementById('section-order-input').value;
     const station = document.getElementById('section-station-selector').value;
-    if (!SectionManagerModel.isValidNumber(line, index)
-        || SectionManagerModel.isInLines(line, station)) {
-      SectionManagerView.alertInputError();
-      SectionManagerView.sectionInputView(line);
-    } else {
+    const isValid = SectionManagerModel.isValidInput(line, index, station);
+    if (isValid === 1) {
       SectionManagerModel.add(line, station, index);
       SectionManagerView.sectionInputView(line);
       SectionManagerView.sectionTableView(line);
+    }
+    if (isValid !== 1) {
+      SectionManagerView.alertInputError(isValid);
+      SectionManagerView.sectionInputView(line);
     }
   }
 
@@ -37,13 +38,17 @@ export default class SectionManagerController {
     const buttons = document.getElementsByClassName('section-delete-button');
     const buttonsArray = Array.from(buttons);
     const station = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
-    if (SectionManagerModel.checkNumOfStations(line, station)
-        && SectionManagerView.confirmDelete()) {
-      SectionManagerModel.delete(line, station);
-      SectionManagerView.sectionTableView(line);
-    } else {
-      alert('삭제할 수 없습니다.');
+    const isValid = SectionManagerModel.checkNumOfStations(line, station);
+    if (isValid === false) {
+      SectionManagerView.alertInputError(-2);
+      return;
     }
+    if (!SectionManagerView.confirmDelete()) {
+      SectionManagerView.alertInputError(-3);
+      return;
+    }
+    SectionManagerModel.delete(line, station);
+    SectionManagerView.sectionTableView(line);
   }
 
   static sectionLineMenuClicked(button) {

@@ -1,4 +1,14 @@
 export default class SectionManagerModel {
+  static isValidInput(line, index, station) {
+    if (!SectionManagerModel.isValidNumber(line, index)) {
+      return 0;
+    }
+    if (SectionManagerModel.isInLines(line, station)) {
+      return -1;
+    }
+    return 1;
+  }
+
   static isValidNumber(line, number) {
     return (number !== '') && this.isValidRange(line, number) && this.isNumber(number);
   }
