@@ -14,6 +14,9 @@ const Function = function () {
   this.getFormattedStations = () => JSON.parse(state.stations);
   this.getFormattedLines = () => JSON.parse(state.lines);
 
+  this.getSelectedLineSections = () =>
+    this.getFormattedLines()[state.selectedLineIndex].sections;
+
   this.clearResultDIV = () => (resultDIV.innerHTML = "");
 
   this.isBiggerThanTwo = (target) => target > 2;
