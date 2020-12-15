@@ -25,7 +25,7 @@ export const StationValidation = {
 
   hasMinimumLength(name) {
     return (
-      name.length >= Constant.MINIMUM_NAME_LENGTH &&
+      name.length >= Constant.MINIMUM_LENGTH &&
       !Constant.REGEX_CATCHING_WHITESPACE.test(name)
     );
   },
@@ -37,7 +37,7 @@ export const StationValidation = {
 
 export const LineValidation = {
   isValidLine(name, start, end) {
-    return this.hasValidName(name) && this.hasValidStartEndStation(start, end);
+    return this.hasValidName(name) && this.hasValidStartEndStations(start, end);
   },
 
   hasValidName(name) {
@@ -56,7 +56,7 @@ export const LineValidation = {
     return true;
   },
 
-  hasValidStartEndStation(start, end) {
+  hasValidStartEndStations(start, end) {
     if (start === end) {
       alert(ErrorMessage.SAME_START_END_STATION);
 
@@ -127,5 +127,12 @@ export const SectionValidation = {
     )[0].stations;
 
     return !stationArray.includes(station);
+  },
+
+  hasMinimumStations(selectedLine) {
+    return (
+      Line.lines.filter(({ name }) => name === selectedLine)[0].stations
+        .length > Constant.MINIMUM_LENGTH
+    );
   },
 };

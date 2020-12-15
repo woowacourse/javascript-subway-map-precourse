@@ -1,7 +1,7 @@
 import { Line } from "../model/line.js";
 import { Section } from "../model/section.js";
 import { Station } from "../model/station.js";
-import { Constant } from "../util/constant.js";
+import { ConfirmMessage, Constant, ErrorMessage } from "../util/constant.js";
 import { Storage } from "../util/storage.js";
 import { SectionValidation } from "../util/validation.js";
 import { Element, ElementControl } from "../view/element.js";
@@ -22,19 +22,24 @@ export const SectionManager = {
 
   setEventListener() {
     Element.sectionLineMenu.addEventListener(Constant.CLICK, (e) => {
-      this.onCLickLineButton(e);
+      this.onClickLineButton(e);
     });
 
     Element.sectionAddButton.addEventListener(Constant.CLICK, () => {
       this.onClickAddButton();
     });
+
+    Element.sectionContainer
+      .querySelector(Constant.TBODY)
+      .addEventListener(Constant.CLICK, (e) => {
+        this.onClickDeleteButton(e);
+      });
   },
 
-  onCLickLineButton(e) {
+  onClickLineButton(e) {
     if (e.target.tagName !== Constant.BUTTON) {
       return false;
     }
-
     this.selectedLine = e.target.dataset.name;
     SectionView.renderSectionManager(this.selectedLine);
   },
@@ -48,5 +53,23 @@ export const SectionManager = {
       SectionView.renderSectionManager(this.selectedLine);
     }
     ElementControl.clearInput(Element.sectionOrderInupt);
+  },
+
+  onClickDeleteButton(e) {
+    const idx = e.target.dataset.idx;
+
+    if (e.target.tagName !== Constant.BUTTON) {
+      return false;
+    }
+
+    if (confirm(ConfirmMessage.CHECK_DELETION_FROM_LINE)) {
+      if (!SectionValidation.hasMinimumStations(this.selectedLine)) {
+        alert(ErrorMessage.MINIMUM_STATIONS);
+
+        return;
+      }
+      Section.delete(idx, this.selectedLine);
+      SectionView.renderSectionManager(this.selectedLine);
+    }
   },
 };

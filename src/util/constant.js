@@ -32,8 +32,8 @@ export const Constant = {
   // 지하철 노선 관리
   MAP_PRINT_CONTAINER_CLASS: ".map-print-container",
 
-  //
-  MINIMUM_NAME_LENGTH: 2,
+  // validation
+  MINIMUM_LENGTH: 2,
   REGEX_CATCHING_WHITESPACE: /^\s*$/,
   REGEX_CATCHING_INTEGER: /^[0-9 ()+-]+$/,
 
@@ -61,8 +61,11 @@ export const ErrorMessage = {
   // 구간 관리
   NOT_INTEGER_ORDER: "1 이상 정수의 순서를 입력해 주세요.",
   MINIMUM_ORDER: "1 이상의 순서를 입력해 주세요.",
+  MINIMUM_STATIONS:
+    "노선에 포함된 역이 두개 이하일 때는 역을 제거할 수 없습니다.",
 };
 
 export const ConfirmMessage = {
   CHECK_DELETION: "정말로 삭제하시겠습니까?",
+  CHECK_DELETION_FROM_LINE: "정말로 노선에서 삭제하시겠습니까?",
 };

@@ -17,4 +17,12 @@ export const Section = {
     // })
     // Line.lines = Line.lines.filter(({ name }) => name !== line);
   },
+
+  delete(idx, line) {
+    const stationArray = Line.lines.filter(({ name }) => name === line)[0]
+      .stations;
+
+    stationArray.splice(idx, 1);
+    Storage.save(Line.key, Line.lines);
+  },
 };

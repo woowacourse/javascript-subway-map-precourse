@@ -61,7 +61,7 @@ export const SectionView = {
           <td style="text-align: center">${i}</td>
           <td>${stationArray[i]}</td>
           <td>
-            <button class="section-delete-button" data-name="${stationArray[i]}">
+            <button class="section-delete-button" data-name="${stationArray[i]}" data-idx=${i}>
               노선에서 제거
             </button>
           </td>
