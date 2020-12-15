@@ -104,6 +104,7 @@ export default class Menu {
     }
     else if (articleName === this.SECTION_ARTICLE) {
       this.refreshSectionLineButtons();
+      this.refreshStationsSelector();
     }
     else if (articleName === this.MAP_PRINT_ARTICLE) {
       this.refreshMapPrint(articleName);
@@ -135,6 +136,14 @@ export default class Menu {
 
     manageSection.createLineButtons();
     manageSection.hideManageLineSection();
+  }
+
+  refreshStationsSelector() {
+    const select = document.getElementById('section-station-selector');
+
+    select.innerHTML = '';
+
+    this._privateSelectUtils.addStationsToSelect(select, this._privateCommonUtils, this._privateDomUtils);
   }
 
   removeButtons() {
