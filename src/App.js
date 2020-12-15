@@ -133,11 +133,18 @@ export default class App {
     });
   }
 
+  clearElement(element) {
+    element.value = '';
+  }
+
   onClickAddStation() {
-    const station = document.getElementById(STATION_INPUT_ID).value;
+    const stationInput = document.getElementById(STATION_INPUT_ID);
+    const station = stationInput.value;
+
     this.subway.addStation({ station });
     this.stationManager.setSubway(this.subway);
     this.saveSubway();
+    this.clearElement(stationInput);
   }
 
   onClickDeleteStation(station) {
@@ -155,12 +162,15 @@ export default class App {
   }
 
   onClickAddLine() {
-    const lineName = document.getElementById(LINE_INPUT_ID).value;
+    const lineInput = document.getElementById(LINE_INPUT_ID);
     const start = this.getSelectorValue(LINE_START_SELECTOR_ID);
     const end = this.getSelectorValue(LINE_END_SELECTOR_ID);
+    const lineName = lineInput.value;
+
     this.subway.addLine({ lineName, start, end });
     this.lineManager.setSubway(this.subway);
     this.saveSubway();
+    this.clearElement(lineInput);
   }
 
   onClickDeleteLine({ lineName }) {
@@ -175,10 +185,13 @@ export default class App {
   onClickAddSection() {
     const { lineName } = this.sectionManager.currentLine;
     const station = this.getSelectorValue(SECTION_STATION_SELECTOR_ID);
-    const order = document.getElementById(SECTION_ORDER_INPUT_ID).value;
+    const orderInput = document.getElementById(SECTION_ORDER_INPUT_ID);
+    const order = orderInput.value;
+
     this.subway.addSection({ lineName, order, station });
     this.sectionManager.setSubway(this.subway);
     this.saveSubway();
+    this.clearElement(orderInput);
   }
 
   onClickDeleteSection(station) {

@@ -32,7 +32,11 @@ export default class StationManager {
 
     container.innerHTML = `  
       <p>역 이름</p>
-      <input type="text" id="${STATION_INPUT_ID}" />
+      <input
+        type="text"
+        placeholder="역 이름을 입력해주세요"
+        id="${STATION_INPUT_ID}"
+      />
       <button id="${STATION_ADD_BUTTON_ID}">역 추가</button>
     `;
 
