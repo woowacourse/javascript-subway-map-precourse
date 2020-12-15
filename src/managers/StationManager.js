@@ -1,8 +1,8 @@
 import Component from '../factory/Component.js';
 import { STATION_SELECTOR } from '../share/selector.js';
 import {
-  checkOverlap,
-  checkValueLength,
+  isOverlap,
+  isValidLength,
   deleteWhiteSpace,
 } from '../share/utils.js';
 import { stationTableTemplate } from '../share/template.js';
@@ -17,9 +17,6 @@ export default class StationManager extends Component {
     this.userInput = this.container.querySelector(
       `#${STATION_SELECTOR.NAME_INPUT_ID}`,
     );
-    this.addButton = this.container.querySelector(
-      `#${STATION_SELECTOR.ADD_BUTTON_ID}`,
-    );
     this.form = this.container.querySelector(`#${STATION_SELECTOR.FORM_ID}`);
     this.table = this.container.querySelector(
       `#${STATION_SELECTOR.TABLE_BODY}`,
@@ -32,7 +29,7 @@ export default class StationManager extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const stationName = deleteWhiteSpace(this.userInput.value);
-    if (!this.checkValidity(stationName)) return;
+    if (!this.isValid(stationName)) return;
     this.addToTable(stationName, DATA_KEY.STATION_LIST);
     this.clearInput();
   };
@@ -43,19 +40,19 @@ export default class StationManager extends Component {
     const { name: stationName } = event.target.parentNode.parentNode.dataset;
     if (className !== STATION_SELECTOR.DELETE_BUTTON_CLASS) return;
     if (!confirm(STATION_WORDS.CONFIRM_MESSAGE)) return;
-    if (!checkOverlap(stationName, this.getAllStationNamesInLines())) {
+    if (isOverlap(stationName, this.getAllStationNamesInLines())) {
       alert(STATION_WORDS.ALERT_MESSAGE_SECTION_INCLUDES_STATION);
       return;
     }
     this.deleteFromTable(index, DATA_KEY.STATION_LIST);
   };
 
-  checkValidity(value) {
-    if (!checkOverlap(value, this.data.stationList)) {
+  isValid(value) {
+    if (isOverlap(value, this.data.stationList)) {
       alert(STATION_WORDS.ALERT_MESSAGE_ALREADY_INCLUDE);
       return false;
     }
-    if (!checkValueLength(value, MIN_STATION_NAME_LENGTH)) {
+    if (!isValidLength(value, MIN_STATION_NAME_LENGTH)) {
       alert(STATION_WORDS.ALERT_MESSAGE_STATION_MINLENGTH);
       return false;
     }

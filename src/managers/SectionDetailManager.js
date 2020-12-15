@@ -4,7 +4,7 @@ import {
   optionTemplate,
   sectionDetailTableTemplate,
 } from '../share/template.js';
-import { checkOverlap, isEmpty } from '../share/utils.js';
+import { isOverlap, isEmpty } from '../share/utils.js';
 import { SECTION_DETAIL_WORDS } from '../share/words.js';
 
 export default class SectionDetailManager extends Component {
@@ -21,9 +21,6 @@ export default class SectionDetailManager extends Component {
     this.userInput = this.container.querySelector(
       `#${SECTION_SELECTOR.ORDER_INPUT_ID}`,
     );
-    this.addButton = this.container.querySelector(
-      `#${SECTION_SELECTOR.ADD_BUTTON_ID}`,
-    );
     this.table = this.container.querySelector(
       `#${SECTION_SELECTOR.TABLE_BODY}`,
     );
@@ -35,7 +32,7 @@ export default class SectionDetailManager extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const targetLine = this.data.currentLineData;
-    if (!this.checkValidity(targetLine)) return;
+    if (!this.isValid(targetLine)) return;
     targetLine.addStationToSection(this.getValues());
     this.syncData(this.data);
   };
@@ -54,9 +51,9 @@ export default class SectionDetailManager extends Component {
     this.syncData(this.data);
   };
 
-  checkValidity(targetLine) {
+  isValid(targetLine) {
     const { stationName, index } = this.getValues();
-    if (!checkOverlap(stationName, targetLine.section)) {
+    if (isOverlap(stationName, targetLine.section)) {
       alert(SECTION_DETAIL_WORDS.ALERT_MESSAGE_SECTION_INCLUDES_STATION);
       return false;
     }

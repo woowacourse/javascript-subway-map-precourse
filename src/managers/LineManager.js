@@ -2,8 +2,8 @@ import Component from '../factory/Component.js';
 import Line from '../factory/Line.js';
 import { LINE_SELECTOR } from '../share/selector.js';
 import {
-  checkOverlap,
-  checkSameStation,
+  isOverlap,
+  isSameStation,
   deleteWhiteSpace,
   isEmpty,
 } from '../share/utils.js';
@@ -24,9 +24,6 @@ export default class LineManager extends Component {
     this.endStationSelector = this.container.querySelector(
       `#${LINE_SELECTOR.END_STATION_SELECTOR}`,
     );
-    this.addButton = this.container.querySelector(
-      `#${LINE_SELECTOR.ADD_BUTTON_ID}`,
-    );
     this.table = this.container.querySelector(`#${LINE_SELECTOR.TABLE_BODY}`);
 
     this.form.addEventListener('submit', this.onSubmit);
@@ -37,7 +34,7 @@ export default class LineManager extends Component {
     event.preventDefault();
     const constructorObj = this.getValues();
     const newLine = new Line(constructorObj);
-    if (!this.checkValidity(newLine)) return;
+    if (!this.isValid(newLine)) return;
     this.addToTable(newLine, DATA_KEY.LINE_LIST);
     this.clearInput();
   };
@@ -50,16 +47,16 @@ export default class LineManager extends Component {
     this.deleteFromTable(index, DATA_KEY.LINE_LIST);
   };
 
-  checkValidity({ name, startStation, endStation }) {
+  isValid({ name, startStation, endStation }) {
     if (isEmpty(name)) {
       alert(LINE_WORDS.ALERT_MESSAGE_NO_WHITESPACE);
       return false;
     }
-    if (!checkOverlap(name, this.getAllLineNames())) {
+    if (isOverlap(name, this.getAllLineNames())) {
       alert(LINE_WORDS.ALERT_MESSAGE_SAME_NAME);
       return false;
     }
-    if (!checkSameStation(startStation, endStation)) {
+    if (isSameStation(startStation, endStation)) {
       alert(LINE_WORDS.ALERT_MESSAGE_SAME_STATION);
       return false;
     }
