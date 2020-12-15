@@ -1,6 +1,17 @@
+import { isValidStationName } from "../utils";
+
 export default function stationContainer() {
+  let stationList = [];
+
   const checkStationName = stationName => {
-    console.log(stationName);
+    isValidStationName(stationList, stationName)
+      ? addStation(stationName)
+      : alert("지하철 역이 중복되지 않게 2글자 이상으로 입력해주세요.");
+  };
+
+  const addStation = stationName => {
+    stationList.push(stationName);
+    console.log(stationList);
   };
 
   const init = () => {
