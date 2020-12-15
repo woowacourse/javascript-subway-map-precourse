@@ -5,7 +5,8 @@ import updateTable from "../common/updateTable.js";
 
 export default (sectionData) => {
   const { lineName } = sectionData;
-  const updatedLineList = lineSelector().map((lineData) => {
+  const originalLineList = lineSelector();
+  const updatedLineList = originalLineList.map((lineData) => {
     if (lineData.lineName === lineName) {
       lineData.addSectionInfo(sectionData);
     }

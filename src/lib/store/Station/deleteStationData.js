@@ -12,7 +12,8 @@ const updateLineListInfo = (updatedLineNameList, deletedStation) => {
 };
 
 export default (deletedStation, index, updatedLineNameList) => {
-  const updatedStationList = stationSelector()
+  const originalStationList = stationSelector();
+  const updatedStationList = originalStationList
     .slice(0, index)
     .concat(stationSelector().slice(index + 1, stationSelector().length));
   stationReducer(updatedStationList);
