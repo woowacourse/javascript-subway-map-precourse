@@ -1,8 +1,28 @@
 
 window.arrStations = new Array();
 window.arrLine = new Array();
+GetStationsArray();
+GetLinesArray();
 
+const eachStation = document.getElementById('#station-name-input').value;
+const addStationBtn = document.getElementById('#station-add-button');
+addStationBtn.addEventListener('click', addStationToTable);
 
+const addStationToSectionButton = document.getElementById('#section-add-button');
+addStationToSectionButton.addEventListener('click', addStationToSection);
+
+const addLineBtn = document.getElementById('#line-add-button');
+addLineBtn.addEventListener('click', addLineToTable);
+
+let manageStations = document.getElementById('#station-manager-button');
+let manageLines = document.getElementById('#line-manager-button');
+let manageSections = document.getElementById('#section-manager-button');
+let printSubwaymap = document.getElementById('#map-print-manager-button');
+
+manageStations.addEventListener('click', showManageStations);
+manageLines.addEventListener('click', showManageLines);
+manageSections.addEventListener('click', showManageSections);
+printSubwaymap.addEventListener('click', showSubwaymap);
 
 function GetStationsArray() {
     if(localStorage.getItem("stations") != null) {
