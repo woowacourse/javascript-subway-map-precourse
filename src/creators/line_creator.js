@@ -1,4 +1,4 @@
-import { getFormattedStations } from "../common/function.js";
+import { getFormattedLines, getFormattedStations } from "../common/function.js";
 import {
   getAdvancedEle,
   createStationOptions,
@@ -83,5 +83,13 @@ const LineCreator = function () {
       deleteButtonTd
     );
     return tr;
+  };
+
+  this.createTbody = () => {
+    const tbody = document.createElement("tbody");
+    const lines = getFormattedLines();
+    const trs = lines.map((line) => this.createLineTr(line));
+    appendChildren(tbody, ...trs);
+    return tbody;
   };
 };

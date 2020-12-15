@@ -25,4 +25,4 @@ const Function = function () {
   this.isBiggerThanTwo = (target) => target > 2;
 };
 
-export const { getFormattedStations } = new Function();
+export const { getFormattedStations, getFormattedLines } = new Function();
