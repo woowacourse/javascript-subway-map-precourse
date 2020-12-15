@@ -169,3 +169,13 @@ function deleteLineFromTable(deleteLineButton, newLine) {
         makeSubwayMap();
     });
 }
+
+function makeLineBtnFromArray(newLine) {
+    let lineBtn = document.createElement('button');
+    let lineBtnText = document.createTextNode(newLine.name);
+    lineBtn.appendChild(lineBtnText);
+    lineBtn.className = '.section-line-menu-button';
+    document.getElementById('line-buttons').appendChild(lineBtn);
+
+    lineBtn.addEventListener('click', function() {showAddDeleteSection(newLine)});
+}
