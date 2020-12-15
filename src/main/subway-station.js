@@ -37,7 +37,7 @@ export default class SubwayStation {
 
   hasValidName(station) {
     if (this.stationList.includes(station)) return false;
-    if (station.length < 2 ) return false;
+    if (station.length < STATION.NAME.MIN_LENGTH ) return false;
 
     return true;
   }
@@ -55,7 +55,7 @@ export default class SubwayStation {
   }
 
   alertMessage(station) {
-    if (station.length < 2) {
+    if (station.length < STATION.NAME.MIN_LENGTH) {
       return STATION.ALERT.LENGTH;
     }
 

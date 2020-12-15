@@ -15,6 +15,7 @@ const CONSTANTS = {
   },
   'MAIN': {'ID': 'main'},
   'STATION': {
+    'NAME': {'MIN_LENGTH': 2},
     'ALERT': {
       'DUPLICATION': '역 이름이 중복되지 않게 입력해주세요',
       'LENGTH': '역 이름은 2글자 이상으로 입력해주세요',
@@ -54,6 +55,7 @@ const CONSTANTS = {
     },
   },
   'SECTION': {
+    'MIN_LENGTH': 2,
     'ALERT': {
       'NOT_LAST': '종점 사이의 숫자를 입력해주세요',
       'DELETE': '구간을 정말로 삭제하시겠습니까?',
