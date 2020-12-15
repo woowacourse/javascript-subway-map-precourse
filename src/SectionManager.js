@@ -123,8 +123,8 @@ export default class SectionManager {
     const { section } = this.currentLine;
     const callbackRender = (name, index) => `
       <tr>
-        <td>${index}</td>
-        <td>${name}</td>
+        <td data-index=${index}>${index}</td>
+        <td data-station=${name}>${name}</td>
         <td>
           <button class="${SECTION_DELETE_BUTTON_CLASS}">
             노선에서 제거

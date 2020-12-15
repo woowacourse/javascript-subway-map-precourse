@@ -67,7 +67,7 @@ export default class StationManager {
     const stations = this.subway.getStationName();
     const callbackRender = (station) => `
       <tr>
-        <td>${station}</td>
+        <td data-station=${station}>${station}</td>
         <td>
           <button class="${STATION_DELETE_BUTTON_CLASS}">
             ${DELETE_TEXT}

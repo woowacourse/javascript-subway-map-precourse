@@ -133,17 +133,21 @@ export default class LineManager {
 
   render() {
     const lines = this.subway.getLines();
-    const callbackRender = ({ lineName, section }) => `
-      <tr>
-        <td>${lineName}</td>
-        <td>${section[0]}</td>
-        <td>${section[section.length - 1]}</td>
-        <td>
-          <button class="${LINE_DELETE_BUTTON_CLASS}">
-            ${DELETE_TEXT}
-          </button>
-        </td>
-      </tr>`;
+    const callbackRender = ({ lineName, section }) => {
+      const start = section[0];
+      const end = section[section.length - 1];
+      return `
+        <tr>
+          <td data-lineName=${lineName}>${lineName}</td>
+          <td data-start=${start}>${start}</td>
+          <td data-end=${end}>${end}</td>
+          <td>
+            <button class="${LINE_DELETE_BUTTON_CLASS}">
+              ${DELETE_TEXT}
+            </button>
+          </td>
+        </tr>`;
+    };
 
     this.lineTable.renderTable({
       data: lines,

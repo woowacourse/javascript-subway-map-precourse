@@ -71,7 +71,7 @@ export default class App {
     ul.className = 'navigation';
     ul.innerHTML = `
       ${controls.map(({ id, label }) => `
-        <li>
+        <li data-label="${label}">
           <button id=${id}>${label}</button>
         </li>
       `).join('')}
