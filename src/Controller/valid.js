@@ -108,7 +108,7 @@ const isNumber = (number) => {
 
 const isMoreThanMaxNumber = (userSection, section) => {
   if (section.length < userSection.number) {
-    return alert(`${section.length}${ERROR_MESSAGE.LENGTH_LIMIT}`);
+    return alert(`❌ ${section.length}${ERROR_MESSAGE.LENGTH_LIMIT}`);
   }
 
   return true;
