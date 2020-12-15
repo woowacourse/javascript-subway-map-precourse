@@ -37,4 +37,14 @@ export const loadDataToLocalStorage = () => {
   data.sectionOrderInputNumberValue = loadedData.sectionOrderInputNumberValue;
 };
 
+export const syncDataToAllElements = () => {
+  stationNameInputElement.value = data.stationNameInputValue;
+  lineNameInputElement.value = data.lineNameInputValue;
+  lineStartStationSelectorElement.value = data.lineStartStationSelectorValue;
+  lineEndStationSelectorElement.value = data.lineEndStationSelectorValue;
+  sectionOrderInputElement.value = data.sectionOrderInputNumberValue;
+  sectionLineNameElement.value = data.sectionLineNameValue;
+  sectionStationSelectorElement.value = data.sectionStationSelectorValue;
+};
+
 export default {};
