@@ -16,7 +16,7 @@ export default function stationManagerPage($element) {
   const $userLineSubmitBtn = $element.querySelector('#line-add-button');
   const $lineTableBody = $element.querySelector('.line-table-tbody');
 
-  const stations = stationStorage().getStation();
+  const stations = stationStorage().getStations();
   let lines = lineStorage().getLine();
 
   $startStation.innerHTML = ALL_STATION_OPTION_LIST(stations);
@@ -40,22 +40,45 @@ export default function stationManagerPage($element) {
   };
 
   const getStation = (stationName) => {
-    return stations.filter((station) => station.name === stationName);
+    return stations.filter((station) => station.name === stationName)[0];
+  };
+
+  const getStationById = (stationIds) => {
+    return stations.filter((station) => station.id === stationIds)[0];
+  };
+
+  const addLineInStation = (lineId, stationName) => {
+    getStation(stationName).line.push(lineId);
+    stationStorage().setStation(stations);
   };
 
   const createLine = (newLineName, startStationName, endStationName) => {
-    const startStation = getStation(startStationName)[0];
-    const endStation = getStation(endStationName)[0];
-
+    const startStationId = stationStorage().getStationIdByName(startStationName);
+    const endStationId = stationStorage().getStationIdByName(endStationName);
     const newLine = new Line(getNewId(), newLineName);
-    newLine.setLine(startStation, 0);
-    newLine.setLine(endStation, 1);
+    newLine.setLine(startStationId, 0);
+    newLine.setLine(endStationId, 1);
+
+    addLineInStation(newLine.id, startStationName);
+    addLineInStation(newLine.id, endStationName);
     addLine(newLine);
   };
 
-  const deleteLine = (stationTag) => {
-    console.log(stationTag);
-    lines = lines.filter((line) => line.id !== parseInt(stationTag.id));
+  const removeLineInStation = (currentLineId) => {
+    const stationIdsInLine = lines.filter((line) => line.id === parseInt(currentLineId))[0]
+      .stationIds;
+
+    const stationsInLine = stationIdsInLine.map(getStationById);
+    for (let i = 0; i < stationsInLine.length; i++) {
+      const deleteIndex = stationsInLine[i].line.indexOf(parseInt(currentLineId));
+      stationsInLine[i].line.splice(deleteIndex, 1);
+    }
+    stationStorage().setStation(stations);
+  };
+
+  const removeLine = (currentLineId) => {
+    removeLineInStation(currentLineId);
+    lines = lines.filter((line) => line.id !== parseInt(currentLineId));
     lineStorage().setLine(lines);
     renderLines();
   };
@@ -65,7 +88,7 @@ export default function stationManagerPage($element) {
       return;
     }
     if (confirm('정말로 삭제하시겠습니까?')) {
-      deleteLine(e.target.closest('tr'));
+      removeLine(e.target.closest('tr').id);
     }
   };
 

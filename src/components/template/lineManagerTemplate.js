@@ -1,3 +1,5 @@
+import stationStorage from '../../utils/stationStorage.js';
+
 const LINE_MANAGER_PAGE_TEMPLATE = `<section class="line-registration">
     <p><strong>노선 이름</strong></p>
     <input type="text" id="line-name-input" placeholder="노선 이름을 입력해주세요">
@@ -36,13 +38,18 @@ const ALL_STATION_OPTION_LIST = (stations) => {
     .join('');
 };
 
-const LINE_TABLE_TEMPLATE = (lines) => {
-  const lineLength = lines.stations.length;
+const LINE_TABLE_TEMPLATE = (line) => {
+  const lastStationId = line.stationIds[line.stationIds.length - 1];
+  const firstStationId = line.stationIds[0];
 
-  return `<tr id=${lines.id}>
-    <td data-name=${lines.name}>${lines.name}</td>
-    <td data-name=${lines.stations[0].name}>${lines.stations[0].name}</td>
-    <td data-name=${lines.stations[lineLength - 1].name}>${lines.stations[lineLength - 1].name}</td>
+  return `<tr id=${line.id}>
+    <td data-name=${line.name}>${line.name}</td>
+    <td data-name=${stationStorage().getStationIdById(firstStationId).name}>${
+    stationStorage().getStationIdById(firstStationId).name
+  }</td>
+    <td data-name=${stationStorage().getStationIdById(lastStationId).name}>${
+    stationStorage().getStationIdById(lastStationId).name
+  }</td>
     <td><button class="line-delete-button">삭제</button></td>
     </tr>`;
 };

@@ -13,12 +13,12 @@ export default function lineStorage() {
     localStorage.setItem(LINE_STORAGE_NAME, JSON.stringify(line));
   };
 
-  const getStartPoints = () => {
-    return getLine().map((line) => line.stations[0]);
+  const getStartPointsId = () => {
+    return getLine().map((line) => line.stationIds[0]);
   };
 
-  const getEndPoints = () => {
-    return getLine().map((line) => line.stations[line.stations.length - 1]);
+  const getEndPointsId = () => {
+    return getLine().map((line) => line.stationIds[line.stationIds.length - 1]);
   };
 
   const getOneLine = (lineId) => {
@@ -28,8 +28,8 @@ export default function lineStorage() {
   return {
     getLine,
     setLine,
-    getStartPoints,
-    getEndPoints,
+    getStartPointsId,
+    getEndPointsId,
     getOneLine,
   };
 }
