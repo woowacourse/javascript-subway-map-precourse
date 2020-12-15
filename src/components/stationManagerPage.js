@@ -15,7 +15,7 @@ export default function stationManagerPage($element) {
   const $userStationSubmit = $element.querySelector('#station-add-button');
   const $stationTablebody = $element.querySelector('.station_manager_tbody');
 
-  let stations = stationStorage().getStation();
+  let stations = stationStorage().getStations();
 
   const showStations = () => {
     $stationTablebody.innerHTML = stations.map(STATION_TABLE_TEMPLATE).join('');
