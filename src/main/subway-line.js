@@ -1,6 +1,6 @@
 import {LINE, STORAGE} from '../constants.js';
 import {getList} from './subway-local-storage.js';
-import {lineModel} from './subway-model.js';
+import {lineModel} from '../model/subway-model.js';
 
 export default class SubwayLine {
   constructor() {
