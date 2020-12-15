@@ -69,9 +69,11 @@ export default class StationManager extends Component {
   template() {
     return this.data.stationList
       .map((station, index) => stationTableTemplate(
-        station,
-        index,
-        STATION_SELECTOR.DELETE_BUTTON_CLASS,
+        {
+          stationName: station,
+          index,
+          buttonClass: STATION_SELECTOR.DELETE_BUTTON_CLASS,
+        },
       ))
       .join('');
   }

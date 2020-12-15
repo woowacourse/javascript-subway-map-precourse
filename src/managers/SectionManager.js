@@ -1,6 +1,6 @@
 import Component from '../factory/Component.js';
-import { SECTION_SELECTOR } from '../share/selector.js';
 import SectionDetailManager from './SectionDetailManager.js';
+import { SECTION_SELECTOR } from '../share/selector.js';
 
 export default class SectionManager extends Component {
   constructor(props) {
@@ -11,13 +11,10 @@ export default class SectionManager extends Component {
     );
     this.sectionDetailManager = new SectionDetailManager({
       containerId: SECTION_SELECTOR.DETAIL_CONTAINER_ID,
-      syncData: this.props.syncData,
+      syncData: this.syncData,
     });
 
-    this.sectionLineMenu.addEventListener(
-      'click',
-      this.changeSectionDetailManger,
-    );
+    this.sectionLineMenu.addEventListener('click', this.changeSectionDetailManger);
 
     this.sectionDetailManager.hide();
   }
@@ -25,9 +22,12 @@ export default class SectionManager extends Component {
   changeSectionDetailManger = (event) => {
     if (event.target.nodeName !== 'BUTTON') return;
     const { name: selectedLineName } = event.target.dataset;
-    this.sectionDetailManager.setData({
-      currentLineData: this.getSelectedLine(selectedLineName),
-    });
+    const newData = {
+      ...this.data,
+      currentLineData:
+      this.getSelectedLine(selectedLineName),
+    };
+    this.syncData(newData);
     this.sectionDetailManager.show();
   };
 

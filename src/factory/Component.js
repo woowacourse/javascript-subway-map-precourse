@@ -3,6 +3,7 @@ export default class Component {
     this.data = {};
     this.props = props;
     this.managerId = props.managerId;
+    this.syncData = props.syncData;
     this.container = document.querySelector(`#${props.containerId}`);
   }
 
@@ -21,13 +22,13 @@ export default class Component {
   addToTable(value, keyName) {
     const newData = { ...this.data };
     newData[keyName].push(value);
-    this.props.syncData(newData);
+    this.syncData(newData);
   }
 
   deleteFromTable(index, keyName) {
     const newData = { ...this.data };
     newData[keyName].splice(index, 1);
-    this.props.syncData(newData);
+    this.syncData(newData);
   }
 
   updateTable(template) {

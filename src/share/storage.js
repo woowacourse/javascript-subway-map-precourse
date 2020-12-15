@@ -1,5 +1,7 @@
 import Line from '../factory/Line.js';
 
+export const STORAGE_KEY = 'data';
+
 const defaultState = {
   stationList: [],
   lineList: [],

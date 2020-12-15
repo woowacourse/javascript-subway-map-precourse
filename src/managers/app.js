@@ -1,8 +1,8 @@
 import Component from '../factory/Component.js';
-import LineManager from './LineManager.js';
-import MapPrintManager from './MapPrintManager.js';
-import SectionManager from './SectionManager.js';
 import StationManager from './StationManager.js';
+import LineManager from './LineManager.js';
+import SectionManager from './SectionManager.js';
+import MapPrintManager from './MapPrintManager.js';
 import {
   MENU,
   STATION_SELECTOR,
@@ -10,9 +10,8 @@ import {
   SECTION_SELECTOR,
   MAP_SELECTOR,
 } from '../share/selector.js';
-import storage from '../share/storage.js';
+import storage, { STORAGE_KEY } from '../share/storage.js';
 
-const STORAGE_KEY = 'data';
 export default class SubwayManager extends Component {
   constructor() {
     super();

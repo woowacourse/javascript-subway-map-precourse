@@ -37,7 +37,7 @@ export default class SectionDetailManager extends Component {
     const targetLine = this.data.currentLineData;
     if (!this.checkValidity(targetLine)) return;
     targetLine.addStationToSection(this.getValues());
-    this.props.syncData(this.data);
+    this.syncData(this.data);
   };
 
   onTableClick = (event) => {
@@ -51,7 +51,7 @@ export default class SectionDetailManager extends Component {
       return;
     }
     targetLine.deleteStationFromSection({ index });
-    this.props.syncData(this.data);
+    this.syncData(this.data);
   };
 
   checkValidity(targetLine) {
