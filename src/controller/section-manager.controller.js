@@ -60,7 +60,7 @@ export default class SectionManager {
       const targetLine = targetButton.dataset.line;
       const sectionStation = this.getSectionStationInput();
       const sectionOrder = this.getSectionOrderInput();
-      this.view.resetSectionOrderInputField();
+      this.view.resetSectionInput();
 
       this.validateSectionOrder(targetLine, sectionOrder);
       this.validateSectionExist(targetLine, sectionStation);

@@ -70,4 +70,14 @@ export default class SectionManagerView extends SectionManagerTemplate {
     const sectionOrderInputField = this.accessSectionOrderInputField();
     sectionOrderInputField.value = "";
   }
+
+  resetSectionStationSelector() {
+    const sectionStationSelector = this.accessSectionStationSelector();
+    sectionStationSelector.selectedIndex = 0;
+  }
+
+  resetSectionInput() {
+    this.resetSectionOrderInputField();
+    this.resetSectionStationSelector();
+  }
 }

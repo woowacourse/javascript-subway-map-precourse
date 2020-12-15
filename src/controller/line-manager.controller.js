@@ -54,7 +54,7 @@ export default class LineManager {
       const lineName = this.getLineNameInput();
       const startStation = this.getLineStartStationInput();
       const endStation = this.getLineEndStationInput();
-      this.view.resetLineNameInputField();
+      this.view.resetLineInput();
       this.validateLineName(lineName);
       this.validateStartEndStation(startStation, endStation);
 

@@ -60,4 +60,16 @@ export default class LineManagerView extends LineManagerTemplate {
     const lineNameInputField = this.accessLineNameInputField();
     lineNameInputField.value = "";
   }
+
+  resetLineStationSelectorSelctor() {
+    const startStationSelector = this.accessLineStartStationSelector();
+    const endStationSelector = this.accessLineEndStationSelector();
+    startStationSelector.selectedIndex = 0;
+    endStationSelector.selectedIndex = 0;
+  }
+
+  resetLineInput() {
+    this.resetLineNameInputField();
+    this.resetLineStationSelectorSelctor();
+  }
 }
