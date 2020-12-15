@@ -51,10 +51,11 @@ export default class StationManagerModel {
   }
 
   static isOnlyNumber(station) {
-    return Number.isNaN(station);
+    return /[^0-9]/.test(station); // 숫자를 제외한 문자열이 있는 경우 true
   }
 
   static delete(station) {
+    const stations = JSON.parse(localStorage.getItem('Stations'));
     const lines = JSON.parse(localStorage.getItem('Lines'));
     const linesOfStation = stations[station].lines;
     linesOfStation.forEach((line) => {
