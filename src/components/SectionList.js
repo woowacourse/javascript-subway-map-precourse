@@ -8,6 +8,18 @@ export default function SectionList({ $target, stationsInSelectedLine }) {
 
   const { sectionDeleteButton } = ELEMENT_INFO;
 
+  this.bindOnDelete = () => {
+    this.$container.addEventListener("click", (e) => {
+      if (e.target.className === sectionDeleteButton.className) {
+        console.log(this.isPossibleToDelete());
+      }
+    });
+  };
+
+  this.isPossibleToDelete = () => {
+    return this.stationsInSelectedLine.length > 2 ? true : false;
+  };
+
   this.setState = (nextStationsInSelectedLine) => {
     this.stationsInSelectedLine = nextStationsInSelectedLine;
 
@@ -45,4 +57,5 @@ export default function SectionList({ $target, stationsInSelectedLine }) {
   };
 
   this.render();
+  this.bindOnDelete();
 }
