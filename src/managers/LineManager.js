@@ -5,6 +5,7 @@ import {
   checkOverlap,
   checkSameStation,
   deleteWhiteSpace,
+  isEmpty,
 } from '../share/utils.js';
 import { lineTableTemplate, optionTemplate } from '../share/template.js';
 import { DATA_KEY, LINE_WORDS } from '../share/words.js';
@@ -50,7 +51,7 @@ export default class LineManager extends Component {
   };
 
   checkValidity({ name, startStation, endStation }) {
-    if (!name.length) {
+    if (isEmpty(name)) {
       alert(LINE_WORDS.ALERT_MESSAGE_NO_WHITESPACE);
       return false;
     }

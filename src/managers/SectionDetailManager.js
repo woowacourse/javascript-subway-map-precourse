@@ -4,7 +4,7 @@ import {
   optionTemplate,
   sectionDetailTableTemplate,
 } from '../share/template.js';
-import { checkOverlap } from '../share/utils.js';
+import { checkOverlap, isEmpty } from '../share/utils.js';
 import { SECTION_DETAIL_WORDS } from '../share/words.js';
 
 export default class SectionDetailManager extends Component {
@@ -55,9 +55,13 @@ export default class SectionDetailManager extends Component {
   };
 
   checkValidity(targetLine) {
-    const { stationName } = this.getValues();
+    const { stationName, index } = this.getValues();
     if (!checkOverlap(stationName, targetLine.section)) {
       alert(SECTION_DETAIL_WORDS.ALERT_MESSAGE_SECTION_INCLUDES_STATION);
+      return false;
+    }
+    if (isEmpty(index)) {
+      alert(SECTION_DETAIL_WORDS.ALERT_MESSAGE_NO_INDEX);
       return false;
     }
     return true;

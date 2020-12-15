@@ -24,4 +24,5 @@ export const SECTION_DETAIL_WORDS = {
   CONFIRM_MESSAGE: '정말로 삭제하시겠습니까?',
   ALERT_MESSAGE_SECTION_INCLUDES_STATION: '이미 노선에 포함되어있습니다',
   ALERT_MESSAGE_SECTION_MINLENGTH: '노선은 최소 2개역을 포함해야 합니다.',
+  ALERT_MESSAGE_NO_INDEX: '순서를 입력해주세요',
 };
