@@ -25,6 +25,21 @@ export default class SectionDetailManager extends Component {
     this.table = this.container.querySelector(
       `#${SECTION_SELECTOR.TABLE_BODY}`,
     );
+
+    this.form.addEventListener('submit', this.onSubmit);
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    const targetLine = this.data.currentLineData;
+    targetLine.updateSection(this.getValues());
+    this.props.syncData(this.data);
+  };
+
+  getValues() {
+    const { value: stationName } = this.stationSelector;
+    const { value: index } = this.orderInput;
+    return { stationName, index };
   }
 
   updateOptions() {

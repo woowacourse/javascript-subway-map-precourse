@@ -5,4 +5,8 @@ export default class Line {
     this.endStation = props.endStation;
     this.section = [this.startStation, this.endStation];
   }
+
+  updateSection({ stationName, index }) {
+    this.section.splice(index, 0, stationName);
+  }
 }
