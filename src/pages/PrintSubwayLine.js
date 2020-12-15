@@ -8,7 +8,7 @@ export default class PrintSubwayLine extends Component {
   render() {
     const { lines } = this.store;
     return `
-      <div>
+      <div class="map">
         ${lines
           .map(
             (line) => `
