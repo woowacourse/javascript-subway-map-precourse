@@ -5,13 +5,7 @@ import {
   renderStationTable,
   renderLineTable,
 } from "./utils/dom.js";
-import {
-  INPUT_ALREADY_EXIST_NAME_MESSAGE,
-  INPUT_LESS_THAN_2_MESSAGE,
-  INPUT_ALREADY_EXIST_LINE_NAME_MESSAGE,
-  CANT_SAME_START_AND_END_MESSAGE,
-  ALREAY_EXIST_SAME_END_POINTS,
-} from "./constants/index.js";
+import * as message from "./constants/message.js";
 import { existLineName, existLineSameEndPoints } from "./utils/line.js";
 import Header from "./Header.js";
 import Line from "./Line.js";
@@ -28,12 +22,12 @@ export default class SubwayMapManager {
       const stationInputValue = document.getElementById("station-name-input")
         .value;
       if (stationInputValue.length < 2) {
-        alert(INPUT_LESS_THAN_2_MESSAGE);
+        alert(message.MORE_THAN_2_STATION_NAME);
         return;
       }
       const isExistStationName = existStationName(stationInputValue);
       if (isExistStationName) {
-        alert(INPUT_ALREADY_EXIST_NAME_MESSAGE);
+        alert(message.ALREADY_EXIST_STATION_NAME);
         return;
       }
       pushNewStation(stationInputValue);
@@ -49,15 +43,15 @@ export default class SubwayMapManager {
       const endValue = document.getElementById("line-end-station-selector")
         .value;
       if (existLineName(lineNameValue)) {
-        alert(INPUT_ALREADY_EXIST_LINE_NAME_MESSAGE);
+        alert(message.ALREADY_EXIST_LINE_NAME);
         return;
       }
       if (startValue === endValue) {
-        alert(CANT_SAME_START_AND_END_MESSAGE);
+        alert(message.CANT_SAME_START_AND_END);
         return;
       }
       if (existLineSameEndPoints([startValue, endValue])) {
-        alert(ALREAY_EXIST_SAME_END_POINTS);
+        alert(message.ALREAY_EXIST_SAME_END_POINTS);
         return;
       }
       new Line(lineNameValue, [startValue, endValue]).add();

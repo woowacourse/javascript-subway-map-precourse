@@ -1,5 +1,5 @@
 import { getStateFromStorage, setStateToStorage } from "./utils/storage.js";
-import { LOCAL_STORAGE_LINES_KEY } from "./constants/index.js";
+import * as storageKey from "./constants/storageKey.js";
 
 export default class Line {
   constructor(name, section) {
@@ -8,8 +8,8 @@ export default class Line {
   }
 
   add() {
-    const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
-    setStateToStorage(LOCAL_STORAGE_LINES_KEY, {
+    const lines = getStateFromStorage(storageKey.LINES);
+    setStateToStorage(storageKey.LINES, {
       ...lines,
       [this.name]: this.section,
     });

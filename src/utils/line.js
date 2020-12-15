@@ -1,11 +1,8 @@
-import {
-  LOCAL_STORAGE_STATIONS_KEY,
-  LOCAL_STORAGE_LINES_KEY,
-} from "../constants/index.js";
+import * as storageKey from "../constants/storageKey.js";
 import { getStateFromStorage } from "./storage.js";
 
 export const getStationOptions = () => {
-  const stations = getStateFromStorage(LOCAL_STORAGE_STATIONS_KEY);
+  const stations = getStateFromStorage(storageKey.STATIONS);
   if (!stations) {
     return null;
   }
@@ -13,7 +10,7 @@ export const getStationOptions = () => {
 };
 
 export const existLineName = (name) => {
-  const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
+  const lines = getStateFromStorage(storageKey.LINES);
   if (!lines) {
     return false;
   }
@@ -21,7 +18,7 @@ export const existLineName = (name) => {
 };
 
 export const existLineSameEndPoints = ([start, end]) => {
-  const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
+  const lines = getStateFromStorage(storageKey.LINES);
   if (!lines) {
     return false;
   }
@@ -35,10 +32,10 @@ export const existLineSameEndPoints = ([start, end]) => {
 };
 
 export const removeLine = (lineName) => {
-  const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
+  const lines = getStateFromStorage(storageKey.LINES);
   if (!lines) {
     return;
   }
   delete lines[lineName];
-  setStateToStorage(LOCAL_STORAGE_LINES_KEY, lines);
+  setStateToStorage(storageKey.LINES, lines);
 };

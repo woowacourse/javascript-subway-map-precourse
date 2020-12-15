@@ -1,14 +1,12 @@
-import {
-  DELETE_TEXT,
-  LOCAL_STORAGE_LINES_KEY,
-  LOCAL_STORAGE_STATIONS_KEY,
-  SECTION_CONTENT_SKELETON,
-  ALREADY_EXIST_STATION_IN_LINE,
-  LESS_THAN_2_LINE_SECTION,
-} from "../constants/index.js";
+import * as storageKey from "../constants/storageKey.js";
+import * as skeleton from "../constants/skeleton.js";
+import * as message from "../constants/message.js";
 import { getStationOptions, removeLine } from "./line.js";
 import { removeStation } from "./station.js";
 import { getStateFromStorage, setStateToStorage } from "./storage.js";
+
+const DELETE = "삭제";
+const DELETE_AT_LINE = "노선에서 제거";
 
 export const addClickEventFromId = (id, event) => {
   const element = document.getElementById(id);
@@ -17,11 +15,11 @@ export const addClickEventFromId = (id, event) => {
 
 export const resetStationTable = () => {
   const stationTableBody = document.getElementById("station-table-body");
-  stationTableBody.innerHTML = `<tr><th>역 이름</th><th>설정</th></tr>`;
+  stationTableBody.innerHTML = skeleton.STATION_TABLE_BODY;
 };
 
 export const renderStationTable = () => {
-  const stations = getStateFromStorage(LOCAL_STORAGE_STATIONS_KEY);
+  const stations = getStateFromStorage(storageKey.STATIONS);
   resetStationTable();
   if (!stations) {
     return;
@@ -34,7 +32,7 @@ export const renderStationTable = () => {
     const stationDeleteButton = document.createElement("button");
     stationTableData.innerText = station;
     stationDeleteButton.setAttribute("class", "station-delete-button");
-    stationDeleteButton.innerText = DELETE_TEXT;
+    stationDeleteButton.innerText = DELETE;
     stationDeleteButton.onclick = () => {
       removeStation(station);
       renderStationTable();
@@ -47,11 +45,11 @@ export const renderStationTable = () => {
 
 export const resetLineTable = () => {
   const lineTableBody = document.getElementById("line-table-body");
-  lineTableBody.innerHTML = `<tr><th>노선 이름</th><th>상행 종점역</th><th>하행 종점역</th><th>설정</th></tr>`;
+  lineTableBody.innerHTML = skeleton.LINE_TABLE_BODY;
 };
 
 export const renderLineTable = () => {
-  const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
+  const lines = getStateFromStorage(storageKey.LINES);
   resetLineTable();
   if (!lines) {
     return;
@@ -85,14 +83,14 @@ export const putOptionsFromId = (id) => {
 };
 
 export const renderSectionSelector = () => {
-  const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
+  const lines = getStateFromStorage(storageKey.LINES);
   if (!lines) {
     return;
   }
   const sectionManagerContent = document.getElementById(
     "section-manager-content"
   );
-  sectionManagerContent.innerHTML = SECTION_CONTENT_SKELETON;
+  sectionManagerContent.innerHTML = skeleton.SECTION_CONTENT;
   const sectionSelectorContainer = document.getElementById(
     "section-selector-container"
   );
@@ -106,16 +104,19 @@ export const renderSectionSelector = () => {
 };
 
 export const addSection = (lineName) => {
-  const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
+  const lines = getStateFromStorage(storageKey.LINES);
   const section = lines[lineName];
   const station = document.getElementById("section-station-selector").value;
   let order = document.getElementById("section-order-input").value;
   if (section.indexOf(station) > -1) {
-    alert(ALREADY_EXIST_STATION_IN_LINE);
+    alert(message.ALREADY_EXIST_STATION_IN_LINE);
     return;
   }
   section.splice(order, 0, station);
-  setStateToStorage(LOCAL_STORAGE_LINES_KEY, { ...lines, [lineName]: section });
+  setStateToStorage(storageKey.LINES, {
+    ...lines,
+    [lineName]: section,
+  });
   renderSectionTable(lineName);
 };
 
@@ -134,16 +135,16 @@ export const renderModifySectionContainer = (lineName) => {
 
 export const resetSectionTable = () => {
   const sectionTableBody = document.getElementById("section-table-body");
-  sectionTableBody.innerHTML = `<tr><th>순서</th><th>이름</th><th>설정</th></tr>`;
+  sectionTableBody.innerHTML = skeleton.SECTION_TABLE_BODY;
 };
 
 export const removeSection = (lineName, station) => {
-  const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
+  const lines = getStateFromStorage(storageKey.LINES);
   if (lines[lineName].length < 3) {
-    alert(LESS_THAN_2_LINE_SECTION);
+    alert(message.LESS_THAN_2_LINE_SECTION);
     return;
   }
-  setStateToStorage(LOCAL_STORAGE_LINES_KEY, {
+  setStateToStorage(storageKey.LINES, {
     ...lines,
     [lineName]: lines[lineName].filter((el) => el !== station),
   });
@@ -151,9 +152,7 @@ export const removeSection = (lineName, station) => {
 };
 
 export const renderSectionTable = (lineName) => {
-  const selectedSection = getStateFromStorage(LOCAL_STORAGE_LINES_KEY)[
-    lineName
-  ];
+  const selectedSection = getStateFromStorage(storageKey.LINES)[lineName];
   resetSectionTable();
   const sectionTableBody = document.getElementById("section-table-body");
   selectedSection.forEach((station, i) => {
@@ -164,7 +163,7 @@ export const renderSectionTable = (lineName) => {
     const deleteButton = document.createElement("button");
     orderEl.innerText = i;
     nameEl.innerText = station;
-    deleteButton.innerText = "노선에서 제거";
+    deleteButton.innerText = DELETE_AT_LINE;
     deleteButton.onclick = () => removeSection(lineName, station);
     setEl.append(deleteButton);
     tableRow.append(orderEl, nameEl, setEl);
