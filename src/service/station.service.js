@@ -2,8 +2,9 @@ class Station {
   constructor() {
     this.storage = window.localStorage;
 
-    this.DELETE_ITEM_COUNT = 1;
     this.ENTITY_NAME = "stations";
+    this.MIN_NAME_LENGTH = 2;
+    this.DELETE_ITEM_COUNT = 1;
   }
 
   getAllStations() {

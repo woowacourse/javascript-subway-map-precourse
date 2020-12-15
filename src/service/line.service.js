@@ -2,8 +2,9 @@ export class Line {
   constructor() {
     this.storage = window.localStorage;
 
-    this.DELETED_ITEM_COUNT = 1;
     this.ENTITY_NAME = "lines";
+    this.MIN_NAME_LENGTH = 3;
+    this.DELETED_ITEM_COUNT = 1;
   }
 
   getAllLines() {

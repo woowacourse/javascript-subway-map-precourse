@@ -12,7 +12,7 @@ export default class LineManager {
     this.line = line;
     this.view = view;
 
-    this.MIN_LINE_NAME_LENGTH = 3;
+    this.minLineNameLength = line.MIN_NAME_LENGTH;
   }
 
   getLineNameInput() {
@@ -31,7 +31,7 @@ export default class LineManager {
   }
 
   validateLineName(lineName) {
-    const isValidLength = lineName.length >= this.MIN_LINE_NAME_LENGTH;
+    const isValidLength = lineName.length >= this.minLineNameLength;
     const isExistName = this.line.findLineByName(lineName).length;
 
     if (!isValidLength) {
@@ -55,7 +55,6 @@ export default class LineManager {
       const startStation = this.getLineStartStationInput();
       const endStation = this.getLineEndStationInput();
       this.view.resetLineNameInputField();
-
       this.validateLineName(lineName);
       this.validateStartEndStation(startStation, endStation);
 

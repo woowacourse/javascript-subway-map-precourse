@@ -13,7 +13,7 @@ export default class StationManager {
     this.section = section;
     this.view = view;
 
-    this.MIN_STATION_NAME_LENGTH = 2;
+    this.minStationNameLength = station.MIN_NAME_LENGTH;
   }
 
   getStationNameInput() {
@@ -22,7 +22,7 @@ export default class StationManager {
   }
 
   validateStationNameLength(stationName) {
-    const isValidLength = stationName.length >= this.MIN_STATION_NAME_LENGTH;
+    const isValidLength = stationName.length >= this.minStationNameLength;
 
     if (!isValidLength) {
       throw new Error(INVALID_LENGTH_STATION_NAME);
