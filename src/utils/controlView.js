@@ -1,4 +1,5 @@
 import {
+  MAP_DIV,
   STATION_DIV,
   SELECTION_ADD_DIV_CHILD_COUNT,
   SELECTION_DIV,
@@ -136,6 +137,27 @@ export function printSectionAddDiv(parent, buttonName) {
   sectionAddButton.call(this, buttonName); //이벤트 등록 함수
   console.log(buttonName);
   printTable.call(this, SELECTION_DIV, buttonName);
+}
+
+export function printLineList() {
+  const mapNodes = document.querySelectorAll(".map");
+  console.log(mapNodes);
+  for (let i = 0; i < mapNodes.length; i++) {
+    console.log(mapNodes[i]);
+    this.line[i].stations.forEach((v) => {
+      mapNodes[i].innerHTML += `<li> ${v.station} </li>`;
+    });
+  }
+}
+export function printMapList() {
+  const mapDiv = document.getElementById("app").children[MAP_DIV];
+  mapDiv.innerHTML = "";
+  this.line.forEach((v) => {
+    mapDiv.innerHTML += `<div class=map>
+    <h3>${v.name} </h3> 
+    </div> `;
+  });
+  printLineList.call(this);
 }
 
 export function clearSelect(lineSelect) {

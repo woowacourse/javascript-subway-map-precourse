@@ -1,4 +1,5 @@
 export const LINE_DIV = 4;
+export const MAP_DIV = 6;
 export const STATION_DIV = 3;
 export const SELECTION_DIV = 5;
 export const STATION_NAME_LIMIT = 2;

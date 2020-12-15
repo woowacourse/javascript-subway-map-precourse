@@ -67,6 +67,7 @@ export function sectionAddButtonEventHandler(buttonName) {
     isValidOrder.call(this, lineIndex, sectionOrderInput.value)
   ) {
     addStationtoLine.call(this, lineIndex, sectionOrderInput.value);
+    setDataToStorage(this);
     printTable.call(this, SELECTION_DIV, buttonName);
     sectionOrderInput.value = "";
   } else {
