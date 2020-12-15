@@ -47,28 +47,9 @@ export default class SectionManagerRender extends Component {
     });
   }
 
-  _onClickMenuLine(e) {
-    const selectedMenuDataset = e.target.dataset;
-    this.enrollSection.innerHTML = this.sectionLineManagerRender(
-      selectedMenuDataset.lineName
-    );
-
-    this.lineIndex = selectedMenuDataset.index;
-
-    console.log(selectedMenuDataset);
-    this.sectionLineManagerListRender(
-      this.lines[this.lineIndex].line,
-      this.lineIndex
-    );
-
-    document
-      .getElementById(DOM_SECTION.SECTION_ADD_FORM_ID)
-      .addEventListener("submit", (e) => this._onSubmitAddSection(e));
-  }
-
-  _onSubmitAddSection(e) {
-    e.preventDefault();
-  }
+  // _onSubmitAddSection(e) {
+  //   e.preventDefault();
+  // }
 
   sectionLineManagerRender(lineName) {
     return `
@@ -137,5 +118,5 @@ export default class SectionManagerRender extends Component {
     });
   }
 
-  _onClickDeleteSection(e) {}
+  // _onClickDeleteSection(e) {}
 }

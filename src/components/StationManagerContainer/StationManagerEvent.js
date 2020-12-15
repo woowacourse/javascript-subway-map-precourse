@@ -27,12 +27,12 @@ export default class StationManagerEvent extends StationManagerRender {
     this.stationListTrRender([stationName]);
   }
 
-  isValidStationName() {}
+  // isValidStationName() {}
 
-  localStorageItemAdd(item) {}
+  // localStorageItemAdd(item) {}
 
   _onClickDeleteTr(e) {
-    super._onClickDeleteTr(e);
+    // super._onClickDeleteTr(e);
 
     if (!window.confirm(ERROR_MESSAGE.DELETE_MSG_CONFIRM)) {
       return;
@@ -50,7 +50,7 @@ export default class StationManagerEvent extends StationManagerRender {
     targetTr.remove();
   }
 
-  deleteTrData(stationName) {}
+  // deleteTrData(stationName) {}
 
-  isUsedLine(stationName) {}
+  // isUsedLine(stationName) {}
 }

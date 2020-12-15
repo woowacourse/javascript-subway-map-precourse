@@ -9,7 +9,7 @@ export default class StationManager extends StationManagerEvent {
   }
 
   isValidStationName(station) {
-    super.isValidStationName(station);
+    // super.isValidStationName(station);
     if (
       isValidValue(station) &&
       this.is2Digits(station) &&
@@ -33,19 +33,19 @@ export default class StationManager extends StationManagerEvent {
   }
 
   localStorageItemAdd(item) {
-    super.localStorageItemAdd(item);
+    // super.localStorageItemAdd(item);
     this.stations.push(item);
     this.saveLocalStorageValue(this.localStorageKey, this.stations);
   }
 
   deleteTrData(stationName) {
-    super.deleteTrData(stationName);
+    // super.deleteTrData(stationName);
     this.stations = this.stations.filter((station) => station !== stationName);
     this.saveLocalStorageValue(this.localStorageKey, this.stations);
   }
 
   isUsedLine(stationName) {
-    super.isUsedLine(stationName);
+    // super.isUsedLine(stationName);
     for (const lineInfo of this.lines) {
       if (lineInfo.line.includes(stationName)) {
         console.log(stationName);

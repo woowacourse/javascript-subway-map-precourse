@@ -66,5 +66,5 @@ export default class StationManagerRender extends Component {
     });
   }
 
-  _onClickDeleteTr(e) {}
+  // _onClickDeleteTr(e) {}
 }

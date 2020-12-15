@@ -37,10 +37,10 @@ export default class LineManagerEvent extends LineManagerRender {
     this.saveLocalStorageValue(this.localStorageKey, this.lines);
   }
 
-  isValidLineInfo(lineInfo) {}
+  // isValidLineInfo(lineInfo) {}
 
   _onClickDeleteLineTr(e) {
-    super._onClickDeleteLineTr(e);
+    // super._onClickDeleteLineTr(e);
     console.dir(e.target);
 
     if (!window.confirm(ERROR_MESSAGE.DELETE_MSG_CONFIRM)) {

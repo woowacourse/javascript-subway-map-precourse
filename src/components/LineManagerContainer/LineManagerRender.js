@@ -99,5 +99,5 @@ export default class LineManagerRender extends Component {
     });
   }
 
-  _onClickDeleteLineTr(e) {}
+  // _onClickDeleteLineTr(e) {}
 }

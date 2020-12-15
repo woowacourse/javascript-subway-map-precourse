@@ -9,7 +9,7 @@ export default class LineManager extends LineManagerEvent {
   }
 
   isValidLineInfo(lineInfo) {
-    super.isValidLineInfo(lineInfo);
+    // super.isValidLineInfo(lineInfo);
     if (
       this.isDuplicateLineName(lineInfo.lineName) &&
       isValidValue(lineInfo.lineName) &&

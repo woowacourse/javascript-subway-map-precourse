@@ -7,8 +7,28 @@ export default class SectionManagerEvent extends SectionManagerRender {
     console.log("--SectionManagerEvent--");
   }
 
+  _onClickMenuLine(e) {
+    const selectedMenuDataset = e.target.dataset;
+    this.enrollSection.innerHTML = this.sectionLineManagerRender(
+      selectedMenuDataset.lineName
+    );
+
+    this.lineIndex = selectedMenuDataset.index;
+
+    console.log(selectedMenuDataset);
+    this.sectionLineManagerListRender(
+      this.lines[this.lineIndex].line,
+      this.lineIndex
+    );
+
+    document
+      .getElementById(DOM_SECTION.SECTION_ADD_FORM_ID)
+      .addEventListener("submit", (e) => this._onSubmitAddSection(e));
+  }
+
   _onSubmitAddSection(e) {
-    super._onSubmitAddSection(e);
+    // super._onSubmitAddSection(e);
+    e.preventDefault();
     const target = e.target;
     const newSectionStation = this.stations[target[0].options.selectedIndex];
     const addPosition = target[1].value;
@@ -41,12 +61,12 @@ export default class SectionManagerEvent extends SectionManagerRender {
     );
   }
 
-  isVaildOrderNumber(order, lineIndex) {}
+  // isVaildOrderNumber(order, lineIndex) {}
 
-  isContinuousStationAdd(order, lines, newStation) {}
+  // isContinuousStationAdd(order, lines, newStation) {}
 
   _onClickDeleteSection(e) {
-    super._onClickDeleteSection(e);
+    // super._onClickDeleteSection(e);
     console.log(e.target.parentNode.parentNode);
     const target = e.target.parentNode.parentNode;
     const order = target.dataset.order;
@@ -72,5 +92,5 @@ export default class SectionManagerEvent extends SectionManagerRender {
     );
   }
 
-  isMinSectionCount(count) {}
+  // isMinSectionCount(count) {}
 }

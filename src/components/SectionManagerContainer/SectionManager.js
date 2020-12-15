@@ -8,7 +8,7 @@ export default class SectionManager extends SectionManagerEvent {
   }
 
   isVaildOrderNumber(order, lineIndex) {
-    super.isVaildOrderNumber(order, lineIndex);
+    // super.isVaildOrderNumber(order, lineIndex);
 
     if (
       this.isMaxOrder(order, lineIndex) &&
@@ -51,7 +51,7 @@ export default class SectionManager extends SectionManagerEvent {
   }
 
   isMinSectionCount(count) {
-    super.isMinSectionCount(count);
+    // super.isMinSectionCount(count);
     if (count > 2) {
       return false;
     }
@@ -61,7 +61,7 @@ export default class SectionManager extends SectionManagerEvent {
   }
 
   isContinuousStationAdd(order, lines, newStation) {
-    super.isContinuousStationAdd(order, lines, newStation);
+    // super.isContinuousStationAdd(order, lines, newStation);
     if (order === 0 && newStation === lines[order]) {
       return true;
     }
