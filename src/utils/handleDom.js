@@ -67,5 +67,5 @@ const addCell = (tr, value) => {
 };
 
 const addDeleteButton = (value, buttonName, field) => {
-  return `<button class="delete-button" data-${field}="${value}">${buttonName}</button>`;
+  return `<button class="${field}-delete-button" data-${field}="${value}">${buttonName}</button>`;
 };

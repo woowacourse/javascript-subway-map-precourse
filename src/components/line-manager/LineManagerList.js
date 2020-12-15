@@ -40,6 +40,7 @@ export class LineManagerList {
 
   handleDeleteLine = (e) => {
     let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
+
     if (confirmDelete) {
       this.deleteLine(e.target.dataset.line);
       this.render();
