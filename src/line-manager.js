@@ -73,7 +73,7 @@ export default class LineManager {
 
     setTableContent() {
         const lineList = getItemList(words.LINES);
-        if(lineList !== null) {
+        if(lineList.length > 0) {
             lineList.forEach(line => {
                 const lineSectionList = getItemList(line);
                 this.addTableRow(line, lineSectionList[0], lineSectionList[lineSectionList.length - 1]);

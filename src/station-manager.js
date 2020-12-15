@@ -79,7 +79,7 @@ export default class StationManager{
 
     setTableContent() {
         const stationList = getItemList(words.STATIONS);
-        if(stationList !== null) {
+        if(stationList.length > 0) {
             stationList.forEach(station => {
                 this.addTableRow(station);
             });

@@ -12,17 +12,14 @@ export function isDuplicateItem(itemList, value) {
 }
 
 export function getItemList(key) {
-    return JSON.parse(localStorage.getItem(key));
+    const itemList = JSON.parse(localStorage.getItem(key));
+    return itemList === null ? [] : itemList;
 }
 
 export function addItem(key, value, index) {
     let itemList = getItemList(key);
-    let isComplete = false;
-    // 수정 - 더 효율적으로 수정하기
-    if(itemList === null){
-        itemList = [];
-    }
-    if(!isDuplicateItem(itemList, value)){
+    let isComplete = !isDuplicateItem(itemList, value);
+    if(isComplete){
         index = index === -1 ? itemList.length : index;
         itemList.splice(index, 0, value);
         localStorage.setItem(key, JSON.stringify(itemList));

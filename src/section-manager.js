@@ -43,7 +43,7 @@ export default class SectionManager {
     setTableContent() {
         const sectionList = getItemList(this.lineName);
         this.sectionTableTbody.innerHTML = "";
-        if(sectionList !== null) {
+        if(sectionList.length > 0) {
             sectionList.forEach(section => {
                 this.addTableRow(section);
             });
@@ -122,7 +122,7 @@ export default class SectionManager {
    
     setSectionLineMenuButton() {
         const lineList = getItemList(words.LINES);
-        if(lineList !== null) {
+        if(lineList.length > 0) {
             lineList.forEach(line => {
                 addElement("button", line, "class", words.SECTION_LINE_MENU_BUTTON, null);
             });

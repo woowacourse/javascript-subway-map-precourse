@@ -19,11 +19,9 @@ export default class MapPrintManager {
 
     printMap() {
         const lineList = getItemList(words.LINES);
-        if(lineList !== null) {
-            lineList.forEach(line => {
-                addElement("h3", line, null, null, this.map);
-                this.setMapContent(line);
-            });
-        }
+        lineList.forEach(line => {
+            addElement("h3", line, null, null, this.map);
+            this.setMapContent(line);
+        });
     }
 }
