@@ -8,3 +8,30 @@ export const lineMenuPresenter = lineData => {
   }
   lineMenuContainer.innerHTML = lineMenu;
 };
+
+export const sectionManagePresenter = (lineData, stationData) => {
+  const sectionManageContainer = document.querySelector(
+    "#section-manage-container",
+  );
+  let sectionManageTemplate = `
+    <h3>${lineData[0]} 관리</h3>
+    <h4>구간 등록</h4>
+    `;
+  sectionManageTemplate += stationSelector(stationData);
+  sectionManageTemplate += `
+    <input id="section-manage-input" placeholder="순서" type="number"/>
+    <button id="section-manage-button">등록</button>
+  `;
+  sectionManageContainer.innerHTML = sectionManageTemplate;
+};
+
+const stationSelector = stationData => {
+  let selectTemplate = `<select id="section-manage-selector">`;
+  if (stationData) {
+    for (const station of stationData) {
+      selectTemplate += `<option>${station}</option>`;
+    }
+  }
+  selectTemplate += `</select>`;
+  return selectTemplate;
+};
