@@ -11,3 +11,5 @@ const StationContainer = () => {
     input.value = "";
   };
 };
+
+export const { appendNewTr, clearInputValue } = new StationContainer();

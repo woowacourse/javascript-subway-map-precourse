@@ -4,6 +4,7 @@ import {
   setStateAndLocalStorage,
   isLineNameLengthBiggerThanOneWithoutSpace,
 } from "../common/function";
+import { appendNewTr, clearInputValue } from "../containers/station_container";
 import { removeTr } from "../creators/station_creator";
 
 const StationManager = function () {
@@ -64,5 +65,19 @@ const StationManager = function () {
     if (this.isOverwritten(inputValue))
       return { value: false, errorMessage: OVERWRITTEN };
     return { value: true };
+  };
+
+  this.stationAddButtonClickFunction = () => {
+    const input = document.getElementById("station-name-input");
+    const validity = this.checkStationValidity(input.value);
+    if (!validity.value) {
+      alert(validity.errorMessage);
+      return;
+    }
+    const nextStations = getFormattedStations().concat(input.value);
+    setStateAndLocalStorage("stations", nextStations);
+    appendNewTr(input.value);
+    clearInputValue(input);
+    this.setStationDeleteButtonClickListener();
   };
 };
