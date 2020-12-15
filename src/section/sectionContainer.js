@@ -25,9 +25,43 @@ export default function sectionContainer() {
       setLocalData(lineData);
       lineListTemplate(line);
       sectionHandler(line);
+      removeSectionHandler(line);
     } else {
       alert(INVALID_SECTION_NAME);
     }
+  };
+
+  const removeSectionHandler = line => {
+    const sectionRemoveButton = document.querySelectorAll(
+      "#section-remove-button",
+    );
+    if (sectionRemoveButton !== null) {
+      for (const removeButton of sectionRemoveButton) {
+        removeButton.addEventListener("click", event => {
+          removeSection(event, line);
+        });
+      }
+    }
+  };
+
+  const removeSection = (event, line) => {
+    const sectionManageContainer = document.querySelector(
+      "#section-manage-container",
+    );
+    const lineListTable = document.querySelector("#line-list-table");
+    const lineDataIndex = lineData.indexOf(line);
+    const targetSection = event.target.parentNode.parentNode;
+    const targetName = targetSection.dataset.linename;
+    const targetIndex = line.indexOf(targetName);
+
+    line.splice(targetIndex, 1);
+    lineData[lineDataIndex] = line;
+    sectionManageContainer.removeChild(lineListTable);
+
+    setLocalData(lineData);
+    lineListTemplate(line);
+    sectionHandler(line);
+    removeSectionHandler(line);
   };
 
   const getLocalData = () => {
@@ -70,6 +104,7 @@ export default function sectionContainer() {
         sectionManagePresenter(line, stationData);
         lineListTemplate(line);
         sectionHandler(line);
+        removeSectionHandler(line);
       }
     }
   };
@@ -81,6 +116,7 @@ export default function sectionContainer() {
     getLocalData();
     lineMenuPresenter(lineData);
     MenuButtonHandler();
+    removeSectionHandler();
     sectionContainer.style.display = "block";
   };
 

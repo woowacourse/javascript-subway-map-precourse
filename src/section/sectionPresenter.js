@@ -61,6 +61,7 @@ export const lineListPresenter = template => {
     "#section-manage-container",
   );
   const lineListTable = document.createElement("table");
+  lineListTable.setAttribute("id", "line-list-table");
   lineListTable.innerHTML = template;
   sectionManageContainer.appendChild(lineListTable);
 };
