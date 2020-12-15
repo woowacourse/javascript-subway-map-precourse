@@ -1,5 +1,5 @@
 import Line from "./model.js";
-import { printLineList, addOption, addPrintLineList } from "./view.js"
+import { printLineList, addOption, addPrintLineList } from "./view.js";
 import { isSpecialCharacter, isDuplicated, removeData } from "../check.js";
 
 const addRegisterCount = function(stationName) {
@@ -8,8 +8,8 @@ const addRegisterCount = function(stationName) {
   let i;
   for (i = 0; i < stations.length; i++) {
     if (stations[i].name === stationName) {
-      stations[i].registered += 1
-      localStorage.setItem(key, JSON.stringify(stations))
+      stations[i].registered += 1;
+      localStorage.setItem(key, JSON.stringify(stations));
     }
   }
 }
@@ -20,20 +20,20 @@ const deleteRegisterCount = function(stationName) {
   let i;
   for (i = 0; i < stations.length; i++) {
     if (stations[i].name === stationName) {
-      stations[i].registered -= 1
-      localStorage.setItem(key, JSON.stringify(stations))
+      stations[i].registered -= 1;
+      localStorage.setItem(key, JSON.stringify(stations));
     }
   }
 }
 
 const registerStation = function(check, registerList) {
-  const loop = 2
+  const loop = 2;
   let i;
   for (i = 0; i < loop; i++) {
     if (check == "add") {
        addRegisterCount(registerList[i]);
     } else {
-      deleteRegisterCount(registerList[i])
+      deleteRegisterCount(registerList[i]);
     }
   }
 }
@@ -43,7 +43,7 @@ const getLineStations = function(lineName) {
   let i;
   for (i = 0; i < objects.length; i++) {
     if (objects[i].name === lineName) {
-      return objects[i].line
+      return objects[i].line;
     }
   }
 }
@@ -53,7 +53,7 @@ const deleteLine = function(lineName, dataName) {
   const stationList = getLineStations(lineName);
   deleteTarget.remove();
   removeData("line", lineName);
-  registerStation("delete", stationList)
+  registerStation("delete", stationList);
 }
 
 const confirmDeleteLine = function() {
@@ -84,7 +84,7 @@ const addLine = function(lineName, startStationInput, endStationInput) {
   lineAddButton.addEventListener("click", () => {
     let value = JSON.parse(localStorage.getItem("line"));
     if (localStorage.getItem("line")) {
-      value.push(new Line(lineName, startStationInput, endStationInput))
+      value.push(new Line(lineName, startStationInput, endStationInput));
       localStorage.setItem("line", JSON.stringify(value));
     } else {
       localStorage.setItem("line", JSON.stringify([new Line(lineName, startStationInput, endStationInput)]));
@@ -143,4 +143,4 @@ const init = function() {
 
 init();
 
-export { confirmDeleteLine }
+export { confirmDeleteLine };

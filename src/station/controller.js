@@ -1,5 +1,5 @@
-import Station from './model.js'
-import { printStationList, addPrintStationList } from './view.js'
+import Station from './model.js';
+import { printStationList, addPrintStationList } from './view.js';
 import { isSpecialCharacter, isDuplicated, isValidLength, isRegisteredStation, removeData } from '../check.js';
 
 const deleteStation = function(dataName) {
@@ -31,7 +31,7 @@ const addStation = function(stationName) {
   const key = "station";
   let value = JSON.parse(localStorage.getItem(key));
   if (localStorage.getItem(key)) {
-    value.push(new Station(stationName))
+    value.push(new Station(stationName));
     localStorage.setItem(key, JSON.stringify(value));
   } else {
     localStorage.setItem(key, JSON.stringify([new Station(stationName)]));
@@ -62,4 +62,4 @@ const init = function() {
 
 init();
 
-export {confirmDelete}
+export {confirmDelete};

@@ -1,12 +1,12 @@
-import { addOption, addSelectButton, showContents, printLineList } from './view.js'
-import { isInLine, isValidNumber, isValidArrayLength, removeStation } from '../check.js'
+import { addOption, addSelectButton, showContents, printLineList } from './view.js';
+import { isInLine, isValidNumber, isValidArrayLength, removeStation } from '../check.js';
 
 const getLineStations = function(lineName) {
   let objects = JSON.parse(localStorage.getItem("line"));
   let i;
   for (i = 0; i < objects.length; i++) {
     if (objects[i].name === lineName) {
-      return objects[i].line
+      return objects[i].line;
     }
   }
 }
@@ -16,10 +16,10 @@ const deleteStation = function(stationName, lineName) {
     const deleteTarget = document.querySelector(`#${stationName}`);
     const stationList = getLineStations(lineName);
     deleteTarget.remove();
-    removeStation("line", stationName, lineName, stationList)
+    removeStation("line", stationName, lineName, stationList);
   } else {
-    const alertText = "노선에 포함된 역이 두 개 이하일 경우에는 삭제가 불가합니다."
-    alert(alertText)
+    const alertText = "노선에 포함된 역이 두 개 이하일 경우에는 삭제가 불가합니다.";
+    alert(alertText);
   }
 }
 
@@ -39,12 +39,12 @@ const confirmDeleteStation = function() {
 }
 
 const storeLocalStorage = function(lineName, lineStations) {
-  let localStorageLine = JSON.parse(localStorage.getItem("line"))
+  let localStorageLine = JSON.parse(localStorage.getItem("line"));
   let i;
   for (i = 0; i < localStorageLine.length; i++) {
     if (localStorageLine[i].name === lineName) {
-      localStorageLine[i].line = lineStations
-      localStorage.setItem("line", JSON.stringify(localStorageLine))
+      localStorageLine[i].line = lineStations;
+      localStorage.setItem("line", JSON.stringify(localStorageLine));
       printLineList(lineName);
     }
   }
@@ -53,15 +53,15 @@ const storeLocalStorage = function(lineName, lineStations) {
 
 const addNewStation = function(lineName, orderInputValue, selectInputValue) {
   let lineStations = getLineStations(lineName);
-  lineStations.splice(orderInputValue, 0, selectInputValue)
-  storeLocalStorage(lineName, lineStations)
+  lineStations.splice(orderInputValue, 0, selectInputValue);
+  storeLocalStorage(lineName, lineStations);
 }
 
 const getAllInput = function(lineName, orderInputValue, selectInputValue) {
-  const sectionAddButton = document.querySelector("#section-add-button")
+  const sectionAddButton = document.querySelector("#section-add-button");
   sectionAddButton.addEventListener("click", () => {
-    addNewStation(lineName, orderInputValue, selectInputValue)
-  }, {once: true})
+    addNewStation(lineName, orderInputValue, selectInputValue);
+  }, {once: true});
 }
 
 const getLineLength = function(lineName) {
@@ -69,33 +69,33 @@ const getLineLength = function(lineName) {
   let i;
   for (i = 0; i < objects.length; i++) {
     if (objects[i].name === lineName) {
-      return objects[i].line.length
+      return objects[i].line.length;
     }
   }    
 }
 
 const getOrderInput = function(lineName, selectInputValue) {
-  const orderInput = document.querySelector("#section-order-input")
+  const orderInput = document.querySelector("#section-order-input");
   orderInput.addEventListener("change", () => {
     const orderInputValue = orderInput.value;
     const lineLength = getLineLength(lineName);
-    const alertText = "가능한 순서를 입력해 주세요."
+    const alertText = "가능한 순서를 입력해 주세요.";
     if (isValidNumber(orderInputValue, lineLength)) {
-      getAllInput(lineName, orderInputValue, selectInputValue)
+      getAllInput(lineName, orderInputValue, selectInputValue);
     } else {
-      alert(alertText)
+      alert(alertText);
     }
   }, {once: true});
 }
 
 const getSelectInput = function(lineName) {
   const selectInput = document.querySelector("#section-station-selector");
-  const lineStations = getLineStations(lineName)
+  const lineStations = getLineStations(lineName);
   selectInput.addEventListener("mouseleave", () => {
     const selectInputValue = selectInput.value;
-    const alertText = "노선에 등록되지 않은 역을 선택해 주세요."
+    const alertText = "노선에 등록되지 않은 역을 선택해 주세요.";
     if (!isInLine(selectInputValue, lineStations)) {
-      getOrderInput(lineName, selectInputValue)
+      getOrderInput(lineName, selectInputValue);
     } else {
       alert(alertText);
     }
@@ -129,4 +129,4 @@ const init = function() {
 }
 init();
 
-export { getLineStations, confirmDeleteStation, addShowEvent }
+export { getLineStations, confirmDeleteStation, addShowEvent };

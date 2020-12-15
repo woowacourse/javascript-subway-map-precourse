@@ -1,4 +1,4 @@
-import { confirmDeleteLine } from './controller.js'
+import { confirmDeleteLine } from './controller.js';
 
 const addPrintLineList = function(lineName, startStationInput, endStationInput) {
   const lineList = document.querySelector("#line-list");
@@ -24,10 +24,10 @@ const printLineList = function() {
   let i;
   
   for (i = 0; i < parsedLine.length; i++) {
-    const parsedLineLength = parsedLine[i].line.length
+    const parsedLineLength = parsedLine[i].line.length;
     lineList.innerHTML += `<tr id="line-${parsedLine[i].name}"><td>${parsedLine[i].name}</td><td>${parsedLine[i].line[0]}</td><td>${parsedLine[i].line[parsedLineLength - 1]}</td><td><button data-name="${parsedLine[i].name}" data-line-name="line-${parsedLine[i].name}" class="line-delete-button">삭제</button></td></tr>`;
   }
   confirmDeleteLine();
 }
 
-export { addPrintLineList, addOption, printLineList }
+export { addPrintLineList, addOption, printLineList };

@@ -3,4 +3,4 @@ const printMapData = function(lineName, lineArray, parsedLineLength) {
   map.innerHTML += `<h3>${lineName}</h3><ul><li>${lineArray[0]}</li><li>${lineArray[parsedLineLength - 1]}</li></ul>`
 }
 
-export { printMapData }
+export { printMapData };

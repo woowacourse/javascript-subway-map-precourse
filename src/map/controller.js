@@ -1,4 +1,4 @@
-import { printMapData } from './view.js'
+import { printMapData } from './view.js';
 
 const getMapData = function() {
   const key = "line";
@@ -6,10 +6,10 @@ const getMapData = function() {
   let i;
   
   for (i = 0; i < parsedMapData.length; i++) {
-    const lineName = parsedMapData[i].name
-    const lineArray = parsedMapData[i].line
-    const parsedLineLength = parsedMapData[i].line.length
-    printMapData(lineName, lineArray, parsedLineLength)
+    const lineName = parsedMapData[i].name;
+    const lineArray = parsedMapData[i].line;
+    const parsedLineLength = parsedMapData[i].line.length;
+    printMapData(lineName, lineArray, parsedLineLength);
   }
 }
 

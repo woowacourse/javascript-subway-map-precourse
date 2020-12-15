@@ -1,6 +1,6 @@
 export default class Station {
   constructor(name) {
-    this.name = name
-    this.registered = 0
+    this.name = name;
+    this.registered = 0;
   }
 }
