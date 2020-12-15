@@ -1,13 +1,12 @@
-import Station from "./Station.js";
 import { DELETE_BUTTON } from "../constant/constant.js";
 import { DELETE_CONFIRM } from "../constant/message.js";
 
 export default class StationManager {
-  constructor() {
+  constructor(station) {
     this._nameInput = document.querySelector("#station-name-input");
     this._addButton = document.querySelector("#station-add-button");
     this._tableBody = document.querySelector("#station-name-list tbody");
-    this._station = new Station();
+    this._station = station;
 
     this._render();
   }
@@ -71,5 +70,10 @@ export default class StationManager {
   _render = () => {
     this._printStationList();
     this._addButton.addEventListener("click", this._handleAddButton);
+  };
+
+  updateView = () => {
+    this._station.updateStationList();
+    this._printStationList();
   };
 }

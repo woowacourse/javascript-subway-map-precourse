@@ -1,4 +1,3 @@
-import Station from "./Station.js";
 import { LINE_LIST, MIN_SECTION_LENGTH } from "../constant/constant.js";
 import {
   INVAILD_LINE_NAME_LENGTH_ALERT,
@@ -10,9 +9,9 @@ import {
 } from "../constant/message.js";
 
 export default class Line {
-  constructor() {
+  constructor(station) {
     this._lineList = this._getSavedLineList();
-    this._station = new Station();
+    this._station = station;
   }
 
   _isSavedLine = name => {
@@ -145,5 +144,9 @@ export default class Line {
     this._lineList = newLineList;
     this._setLineList(newLineList);
     this._station.deleteLineFromStation(lineName, stationName);
+  };
+
+  updateLineList = () => {
+    this._lineList = this._getSavedLineList();
   };
 }

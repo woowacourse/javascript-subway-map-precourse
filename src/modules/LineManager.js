@@ -1,10 +1,8 @@
-import Station from "./Station.js";
-import Line from "./Line.js";
 import { DELETE_BUTTON } from "../constant/constant.js";
 import { DELETE_CONFIRM } from "../constant/message.js";
 
 export default class LineManager {
-  constructor() {
+  constructor(station, line) {
     this._nameInput = document.querySelector("#line-name-input");
     this._addButton = document.querySelector("#line-add-button");
     this._startStationSelector = document.querySelector(
@@ -14,8 +12,8 @@ export default class LineManager {
       "#line-end-station-selector"
     );
     this._tableBody = document.querySelector("#station-line-list tbody");
-    this._station = new Station();
-    this._line = new Line();
+    this._station = station;
+    this._line = line;
 
     this._render();
   }
@@ -91,5 +89,13 @@ export default class LineManager {
     this._station.setStationOptions(this._startStationSelector);
     this._station.setStationOptions(this._endStationSelector);
     this._addButton.addEventListener("click", this._handleAddButton);
+  };
+
+  updateView = () => {
+    this._station.updateStationList();
+    this._line.updateLineList();
+    this._printLineList();
+    this._station.setStationOptions(this._startStationSelector);
+    this._station.setStationOptions(this._endStationSelector);
   };
 }

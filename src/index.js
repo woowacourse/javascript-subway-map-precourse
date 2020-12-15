@@ -1,3 +1,5 @@
+import Station from "./modules/Station.js";
+import Line from "./modules/Line.js";
 import StationManager from "./modules/StationManager.js";
 import LineManager from "./modules/LineManager.js";
 import SectionManager from "./modules/SectionManager.js";
@@ -40,11 +42,27 @@ function handleManagerButton(e) {
   hideContainer(addSectionContainer);
 }
 
+function updateManager(manager) {
+  manager.updateView();
+}
+
+const station = new Station();
+const line = new Line(station);
+const stationManager = new StationManager(station);
+const lineManager = new LineManager(station, line);
+const sectionManager = new SectionManager(station, line);
+const mapPrintManager = new MapPrintManager(line);
+
 managerButtons.forEach(managerButton =>
   managerButton.addEventListener("click", handleManagerButton)
 );
-
-stationManagerButton.addEventListener("click", () => new StationManager());
-lineManagerButton.addEventListener("click", () => new LineManager());
-sectionManagerButton.addEventListener("click", () => new SectionManager());
-mapPrintManagerButton.addEventListener("click", () => new MapPrintManager());
+stationManagerButton.addEventListener("click", () =>
+  updateManager(stationManager)
+);
+lineManagerButton.addEventListener("click", () => updateManager(lineManager));
+sectionManagerButton.addEventListener("click", () =>
+  updateManager(sectionManager)
+);
+mapPrintManagerButton.addEventListener("click", () =>
+  updateManager(mapPrintManager)
+);

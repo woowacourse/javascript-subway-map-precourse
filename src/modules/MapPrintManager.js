@@ -1,9 +1,7 @@
-import Line from "./Line.js";
-
 export default class MapPrintManager {
-  constructor() {
+  constructor(line) {
     this._mapPrintContainer = document.querySelector("#map-print-container");
-    this._line = new Line();
+    this._line = line;
 
     this._render();
   }
@@ -41,6 +39,11 @@ export default class MapPrintManager {
   };
 
   _render = () => {
+    this._printLineList();
+  };
+
+  updateView = () => {
+    this._line.updateLineList();
     this._printLineList();
   };
 }

@@ -1,10 +1,8 @@
-import Station from "./Station.js";
-import Line from "./Line.js";
 import { DELETE_FROM_LINE_BUTTON } from "../constant/constant.js";
 import { DELETE_FROM_LINE_CONFIRM } from "../constant/message.js";
 
 export default class SectionManager {
-  constructor() {
+  constructor(station, line) {
     this._lineMenuList = document.querySelector("#line-menu-button-group");
     this._stationSelector = document.querySelector("#section-station-selector");
     this._addSectionContainer = document.querySelector(
@@ -14,8 +12,8 @@ export default class SectionManager {
     this._addButton = document.querySelector("#section-add-button");
     this._tableBody = document.querySelector("#line-section-list tbody");
     this._selectedLineName = "";
-    this._station = new Station();
-    this._line = new Line();
+    this._station = station;
+    this._line = line;
 
     this._render();
   }
@@ -120,5 +118,12 @@ export default class SectionManager {
     this._printLineMenuList();
     this._station.setStationOptions(this._stationSelector);
     this._addButton.addEventListener("click", this._handleSectionAddButton);
+  };
+
+  updateView = () => {
+    this._station.updateStationList();
+    this._line.updateLineList();
+    this._station.setStationOptions(this._stationSelector);
+    this._printLineMenuList();
   };
 }

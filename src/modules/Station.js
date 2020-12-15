@@ -117,4 +117,8 @@ export default class Station {
     this._stationList = newStationList;
     this._setStationList(newStationList);
   };
+
+  updateStationList = () => {
+    this._stationList = this._getSavedStationList();
+  };
 }
