@@ -58,7 +58,11 @@ export default function SectionInput({ $target, stations, selectedLineName, stat
   };
 
   this.createSelectOptionHTMLString = () => {
-    return this.stations.map((station) => `<option value="${station}">${station}</option>`).join("");
+    return this.stations
+      .map((station) =>
+        this.stationsInSelectedLine.includes(station) ? "" : `<option value="${station}">${station}</option>`
+      )
+      .join("");
   };
 
   this.render = () => {
