@@ -1,4 +1,5 @@
 import { isValidStationName } from "../utils";
+import { stationListTemplate } from "./stationPresenter";
 import { INVALID_STATION_NAME } from "./stationConstant";
 
 export default function stationContainer() {
@@ -13,6 +14,7 @@ export default function stationContainer() {
   const addStation = stationName => {
     stationList.push(stationName);
     setLocalData(stationList);
+    stationListTemplate(stationList);
   };
 
   const setLocalData = stationList => {
@@ -38,6 +40,7 @@ export default function stationContainer() {
     const stationNameInput = document.querySelector("#station-name-input");
 
     getLocalData();
+    stationListTemplate(stationList);
     stationContainer.style.display = "block";
     submitButton.addEventListener("click", () => {
       checkStationName(stationNameInput.value);
