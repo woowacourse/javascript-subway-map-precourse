@@ -47,7 +47,7 @@ export const onAddLine = () => {
   $lineNameInput.value = '';
 };
 
-export function onRemoveLine(e) {
+export const onRemoveLine = (e) => {
   const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
   if (removeConfirm) {
     removeLocalStorage(KEY.LINE, e.target.dataset.lineName);
@@ -58,7 +58,7 @@ export function onRemoveLine(e) {
     removeMapPrint(e.target.dataset.lineName);
     hideSectionEditContainer();
   }
-}
+};
 
 export const loadLine = () => {
   const lines = getLocalStorage(KEY.LINE);
