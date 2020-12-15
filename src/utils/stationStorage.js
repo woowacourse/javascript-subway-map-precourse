@@ -17,7 +17,7 @@ export default function stationStorage() {
     return getStations().filter((station) => station.name === stationName)[0].id;
   };
 
-  const getStationIdById = (stationId) => {
+  const getStationById = (stationId) => {
     return getStations().filter((station) => station.id === stationId)[0];
   };
 
@@ -25,6 +25,6 @@ export default function stationStorage() {
     getStations,
     setStation,
     getStationIdByName,
-    getStationIdById,
+    getStationById,
   };
 }

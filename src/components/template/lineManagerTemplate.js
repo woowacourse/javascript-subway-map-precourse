@@ -44,11 +44,11 @@ const LINE_TABLE_TEMPLATE = (line) => {
 
   return `<tr id=${line.id}>
     <td data-name=${line.name}>${line.name}</td>
-    <td data-name=${stationStorage().getStationIdById(firstStationId).name}>${
-    stationStorage().getStationIdById(firstStationId).name
+    <td data-name=${stationStorage().getStationById(firstStationId).name}>${
+    stationStorage().getStationById(firstStationId).name
   }</td>
-    <td data-name=${stationStorage().getStationIdById(lastStationId).name}>${
-    stationStorage().getStationIdById(lastStationId).name
+    <td data-name=${stationStorage().getStationById(lastStationId).name}>${
+    stationStorage().getStationById(lastStationId).name
   }</td>
     <td><button class="line-delete-button">삭제</button></td>
     </tr>`;
