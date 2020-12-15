@@ -79,7 +79,6 @@ export const onAddLine = () => {
 
 export const onDeleteLine = (event) => {
   const targetElement = event.target;
-  console.log(targetElement);
   if (targetElement.className !== 'line-delete-button') {
     return;
   }

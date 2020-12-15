@@ -67,25 +67,22 @@
     </div>
     <div id="section-manager" class="content">
       <h2>구간을 수정할 노선을 선택해주세요</h2>
-      <div class="section-line-menu-button-list">
-        <button class="section-line-menu-button">1호선</button>
-        <button class="section-line-menu-button">2호선</button>
-        <button class="section-line-menu-button">3호선</button>
+      <div id="section-line-menu-button-list">
       </div>
-      <div class="station-register">
+      <div id="station-register">
         <h2><span id="section-line-name">1호선</span> 관리</h2>
         <h3>구간 등록</h3>
         <select id="section-station-selector"></select>
-        <input id="section-order-input" type="text" placeholder="등록" />
+        <input id="section-order-input" type="text" placeholder="순서" />
         <button id="section-add-button">등록</button>
       </div>
-      <table class="registerd-station-item-table">
+      <table id="registered-station-item-table">
         <thead>
           <th>순서</th>
           <th>이름</th>
           <th>설정</th>
         </thead>
-        <tbody>
+        <tbody id="registered-station-items">
           <tr>
             <td>0</td>
             <td>인천</td>

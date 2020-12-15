@@ -1,3 +1,11 @@
 .content {
   display: none;
 }
+
+#station-register {
+  display: none;
+}
+
+#registered-station-item-table {
+  display: none;
+}

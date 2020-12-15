@@ -7,6 +7,11 @@ export default class SubwayLine {
     return startStationName === endStationName;
   }
 
+  static checkIsIndexNumberCorrect(index) {
+    console.log(typeof index, Number.isNaN(index));
+    return typeof index === 'number' && Number.isNaN(index) === false;
+  }
+
   constructor({ startStationName, endStationName }) {
     this.#allStationsInLine.push(startStationName);
     this.#allStationsInLine.push(endStationName);
@@ -22,23 +27,23 @@ export default class SubwayLine {
     }
   }
 
-  insertStationToLineByNameAndIndex(stationName, positionIndex) {
+  insertStationToLineByNameAndIndex({ stationName, index }) {
     if (stationName in this.#allStationsInLine === false) {
-      this.#allStationsInLine.splice(positionIndex, 0, stationName);
+      this.#allStationsInLine.splice(index, 0, stationName);
     }
   }
 
-  pullOutStationFromLineByName(stationName) {
-    this.#allStationsInLine.forEach((registeredStationName, index) => {
-      if (registeredStationName === stationName) {
-        this.#allStationsInLine.splice(index, 1);
-      }
-    });
+  pullOutStationFromLineByIndex(stationIndex) {
+    this.#allStationsInLine.splice(stationIndex, 1);
   }
 
-  isAllStationsInLineLessThanLimit() {
+  checkIsStationNameExistInLine(stationName) {
+    return this.#allStationsInLine.includes(stationName);
+  }
+
+  checkIsAllStationsInLineLengthSameAsLimit() {
     return (
-      this.#allStationsInLine.length <
+      this.#allStationsInLine.length <=
       SUBWAY_STATION_IN_LINE_DELETE_LENGTH_LIMIT
     );
   }
