@@ -1,6 +1,6 @@
 # 🚇 지하철 노선도 미션
 
-## 구현할 기능 목록
+## 🎁 구현할 기능 목록
 
 ### 메뉴 버튼 관련 기능
 
@@ -67,8 +67,6 @@
 - [x] data속성을 활용하여 html 태그에 역, 노선, 구간의 유일한 데이터 값들을 관리한다.
 - [x] localStorage를 이용하여, 새로고침하더라도 가장 최근에 작업한 정보들을 불러올 수 있도록 한다.
 
----
-
 ## 🔨 프로젝트 구조
 
 ```sh
@@ -124,13 +122,17 @@ src/components
 --Manager : 데이터 유효성 판단, 컨트롤러
 ```
 
----
-
 ## 🧑‍💻 프로젝트 구현
 
+<img  src="/images/subway_map_mission.png">
+
 ---
 
-# 프리코스 3주차 미션
+# 🏊‍♀️ 프리코스 3주차 미션
+
+<details>
+<summary>지하철 노선도 미션 펼쳐보기</summary>
+<div markdown="1">
 
 ## 🚀 기능 요구사항
 
@@ -258,3 +260,6 @@ src/components
 - **기능을 구현하기 전에 javascript-subway-precourse/docs/README.md 파일에 구현할 기능 목록**을 정리해 추가한다.
 - **git의 commit 단위는 앞 단계에서 README.md 파일에 정리한 기능 목록 단위로 추가**한다.
 - [프리코스 과제 제출](https://github.com/woowacourse/woowacourse-docs/tree/master/precourse) 문서 절차를 따라 미션을 제출한다.
+
+</div>
+</details>
