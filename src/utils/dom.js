@@ -66,7 +66,7 @@ export const renderLineTable = () => {
     startEl.innerText = lines[key][0];
     endEl.innerText = lines[key].slice(-1)[0];
     lineDeleteButton.setAttribute("class", "line-delete-button");
-    lineDeleteButton.innerText = DELETE_TEXT;
+    lineDeleteButton.innerText = DELETE;
     lineDeleteButton.onclick = () => {
       removeLine(key);
       renderLineTable();
