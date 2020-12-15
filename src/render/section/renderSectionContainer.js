@@ -1,5 +1,4 @@
 import addSectionEvent from '../../controller/section/addSectionEvent.js';
-import removeSectionEvent from '../../controller/section/removeSectionEvent.js';
 import renderSelector from '../common/renderSelector.js';
 
 function sectionListTemplate(lineList) {
@@ -66,5 +65,4 @@ export default function renderSectionContainer() {
     initSectionContainer(lines.split(','));
   }
   addSectionEvent();
-  removeSectionEvent();
 }
