@@ -1,4 +1,5 @@
 import {
+  $stationTbody,
   $stationNameInput,
   $upStreamSelector,
   $downStreamSelector,
@@ -21,7 +22,10 @@ import {KEY, TEXT} from './constant.js';
 export const loadStation = () => {
   const stations = getLocalStorage(KEY.STATION);
   stationInstance.loadStation(stations);
-  stationInstance.stations.forEach((station) => addStationScreen(station));
+  stationInstance.stations.forEach((stationName) => {
+    addStationScreen(stationName);
+    setButtonDeleteEvent(stationName);
+  });
 };
 
 export const onAddStation = () => {
@@ -32,6 +36,7 @@ export const onAddStation = () => {
     addSelectorOption($upStreamSelector, $stationNameInput.value);
     addSelectorOption($downStreamSelector, $stationNameInput.value);
     addSelectorOption($sectionSelector, $stationNameInput.value);
+    setButtonDeleteEvent($stationNameInput.value);
   }
   $stationNameInput.value = '';
 };
@@ -50,3 +55,10 @@ export function onRemoveStation(e) {
     removeSelectorOption($sectionSelector, e.target.dataset.stationName);
   }
 }
+
+const setButtonDeleteEvent = (stationName) => {
+  const $button = $stationTbody.querySelector(
+    `[data-station-name=${stationName}]`,
+  );
+  $button.addEventListener('click', onRemoveStation);
+};

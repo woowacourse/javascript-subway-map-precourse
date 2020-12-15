@@ -1,10 +1,4 @@
 import {
-  setStationDeleteButton,
-  setLineDeleteButton,
-  setSectionDeleteButton,
-  setSectionLoadButton,
-} from './input.js';
-import {
   $stationTbody,
   $lineTbody,
   $sectionEditButtonContainer,
@@ -29,7 +23,7 @@ export const addStationScreen = (stationName) => {
     <td>${stationName}</td>
     <td><button class=${STATION_DELETE}>${DELETE}</button></td>
   `;
-  setStationDeleteButton(stationName, $stationTr.querySelector('button'));
+  $stationTr.querySelector('button').dataset.stationName = stationName;
   $stationTbody.appendChild($stationTr);
 };
 
@@ -47,7 +41,7 @@ export const addLineScreen = (line) => {
     <td>${line.station[line.station.length - 1]}</td>
     <td><button class=${LINE_DELETE}>${DELETE}</button></td>
   `;
-  setLineDeleteButton(line.lineName, $lineTr.querySelector('button'));
+  $lineTr.querySelector('button').dataset.lineName = line.lineName;
   $lineTbody.appendChild($lineTr);
 };
 
@@ -64,15 +58,17 @@ export const addSectionScreen = (line) => {
       <td>${line.station[i]}</td>
       <td><button class=${SECTION_DELETE}>${DELETE_FROM_LINE}</button></td>
     `;
-    setSectionTr($sectionTr, line.lineName);
     const sectionData = {lineName: line.lineName, station: line.station[i]};
-    setSectionDeleteButton(sectionData, $sectionTr.querySelector('button'));
+    setSectionData($sectionTr, sectionData);
     $sectionTbody.appendChild($sectionTr);
   }
 };
 
-const setSectionTr = ($sectionTr, lineName) => {
-  $sectionTr.dataset.lineName = lineName;
+const setSectionData = ($sectionTr, sectionData) => {
+  $sectionTr.querySelector('button').dataset.sectionLine = JSON.stringify(
+    sectionData,
+  );
+  $sectionTr.dataset.lineName = sectionData.lineName;
   $sectionTr.style.display = 'none';
 };
 
@@ -80,7 +76,7 @@ export const addSectionButton = (lineName) => {
   const $sectionButton = document.createElement('button');
   $sectionButton.className = SECTION_LINE_MENU;
   $sectionButton.textContent = lineName;
-  setSectionLoadButton(lineName, $sectionButton);
+  $sectionButton.dataset.lineName = lineName;
   $sectionEditButtonContainer.appendChild($sectionButton);
 };
 
