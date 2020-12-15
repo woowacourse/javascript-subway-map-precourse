@@ -42,6 +42,10 @@ export default class SubwayMapManager {
         .value;
       const endValue = document.getElementById("line-end-station-selector")
         .value;
+      if (!lineNameValue) {
+        alert(message.MUST_INPUT_LINE_NAME);
+        return;
+      }
       if (existLineName(lineNameValue)) {
         alert(message.ALREADY_EXIST_LINE_NAME);
         return;

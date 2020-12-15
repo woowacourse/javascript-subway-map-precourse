@@ -8,3 +8,4 @@ export const ALREAY_EXIST_SAME_END_POINTS =
 export const ALREADY_EXIST_STATION_IN_LINE = "역이 이미 노선에 존재합니다.";
 export const LESS_THAN_2_LINE_SECTION =
   "구간이 2개 이하일 때는 삭제할 수 없습니다.";
+export const MUST_INPUT_LINE_NAME = "노선 이름을 입력해 주세요.";
