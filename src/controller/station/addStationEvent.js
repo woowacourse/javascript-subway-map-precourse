@@ -12,8 +12,7 @@ function addStation(inputStationName, stations) {
   );
 }
 
-function checkValidStationName() {
-  const inputStationName = document.querySelector('#station-name-input').value;
+function checkValidStationName(inputStationName) {
   const stations = JSON.parse(localStorage.getItem('stations'));
 
   if (inputStationName.length < MINIMUN_STATION_LENGTH) {
@@ -28,11 +27,22 @@ function checkValidStationName() {
   return addStation(inputStationName, stations);
 }
 
+function getStationName() {
+  const stationName = document
+    .querySelector('#station-name-input')
+    .value.trim();
+
+  if (stationName.includes(' ')) {
+    return alert('역 이름에는 공백이 포함될 수 없습니다.');
+  }
+  return checkValidStationName(stationName);
+}
+
 export default function addStationEvent() {
   const $stationAddButton = document.querySelector('#station-add-button');
 
   $stationAddButton.addEventListener('click', () => {
-    checkValidStationName();
+    getStationName();
     render();
   });
 }
