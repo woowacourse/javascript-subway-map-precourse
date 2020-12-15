@@ -24,7 +24,7 @@ export const loadStation = () => {
   stationInstance.loadStation(stations);
   stationInstance.stations.forEach((stationName) => {
     addStationScreen(stationName);
-    setButtonDeleteEvent(stationName);
+    setStationButtonDeleteEvent(stationName);
   });
 };
 
@@ -36,7 +36,7 @@ export const onAddStation = () => {
     addSelectorOption($upStreamSelector, $stationNameInput.value);
     addSelectorOption($downStreamSelector, $stationNameInput.value);
     addSelectorOption($sectionSelector, $stationNameInput.value);
-    setButtonDeleteEvent($stationNameInput.value);
+    setStationButtonDeleteEvent($stationNameInput.value);
   }
   $stationNameInput.value = '';
 };
@@ -56,7 +56,7 @@ export function onRemoveStation(e) {
   }
 }
 
-const setButtonDeleteEvent = (stationName) => {
+const setStationButtonDeleteEvent = (stationName) => {
   const $button = $stationTbody.querySelector(
     `[data-station-name=${stationName}]`,
   );
