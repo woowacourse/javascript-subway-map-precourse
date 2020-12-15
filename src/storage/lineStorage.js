@@ -1,4 +1,4 @@
-import { LINE_STORAGE_NAME } from './constant.js';
+import { LINE_STORAGE_NAME } from '../utils/constant.js';
 
 export default function lineStorage() {
   const getLine = () => {

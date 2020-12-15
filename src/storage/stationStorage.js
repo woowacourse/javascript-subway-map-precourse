@@ -1,4 +1,4 @@
-import { STATION_STORAGE_NAME } from './constant.js';
+import { STATION_STORAGE_NAME } from '../utils/constant.js';
 
 export default function stationStorage() {
   const getStations = () => {
