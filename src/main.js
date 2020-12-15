@@ -1,5 +1,5 @@
-import { initHTML, addEventToMainBtns } from "./manager/uiManager.js";
-import render from "./manager/render.js";
+import { initHTML, addEventToMainBtns } from "./managers/init.js";
+import render from "./managers/render.js";
 import app from "./components/app.js";
 
 export default function main() {

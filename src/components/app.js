@@ -1,4 +1,4 @@
-import { stationManagerPage } from "./pages/stationPage.js";
+import stationManagerPage from "./pages/stationPage.js";
 import lineManagerPage from "./pages/linePage.js";
 import sectionManagerPage from "./pages/sectionPage.js";
 import mapPrintManagerPage from "./pages/mapPrintPage.js";

@@ -1,12 +1,15 @@
 import render from "../render.js";
 import app from "../../components/app.js";
 import { validateInput, validateStationDelete } from "../validation/validation.js";
+import { Station } from "../../objects/objests.js";
 
+function renderAndUpdateEvent(subwayDatas) {
+  render(app("station", subwayDatas));
+  updateEvent();
+}
 function onStationHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-  render(app("station", subwayDatas));
-  subwayDatas && updateEvent();
-  document.getElementById("station-add-button").addEventListener("click", onAddStationHandler);
+  renderAndUpdateEvent(subwayDatas);
 }
 
 function onAddStationHandler() {
@@ -14,15 +17,10 @@ function onAddStationHandler() {
   let stationName = validateInput(document.getElementById("station-add-input").value, "station-add-input");
 
   if (stationName !== "") {
-    let subwayStations = {
-      name: name,
-      line: [],
-    };
-    subwayStations.name = stationName;
+    let subwayStations = new Station(stationName);
     subwayDatas.subwayStations.push(subwayStations);
     localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
-    render(app("station", subwayDatas));
-    subwayDatas && updateEvent();
+    renderAndUpdateEvent(subwayDatas);
   }
 }
 
@@ -37,18 +35,14 @@ function updateEvent() {
 
 function onDeleteStationHandler() {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
-
   let deleteTarget = validateStationDelete(event.target.parentNode.parentNode.childNodes[1].outerText);
 
-  deleteTarget &&
-    subwayDatas.subwayStations.forEach((station, idx) => {
-      if (station.name === deleteTarget) {
-        subwayDatas.subwayStations.splice(idx, 1);
-        localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
-        render(app("station", subwayDatas));
-        updateEvent();
-      }
-    });
+  if (deleteTarget !== "") {
+    let deleteTargetIdx = subwayDatas.subwayStations.findIndex((station) => station.name === deleteTarget);
+    subwayDatas.subwayStations.splice(deleteTargetIdx, 1);
+    localStorage.setItem("subwayDatas", JSON.stringify(subwayDatas));
+    renderAndUpdateEvent(subwayDatas);
+  }
 }
 
 export { onStationHandler };

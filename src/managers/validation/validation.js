@@ -36,10 +36,6 @@ function validateSectionDelete() {
     return "";
   }
 
-  return confirmSectionDelete();
-}
-
-function confirmSectionDelete() {
   return confirm("정말로 노선에서 제거하겠습니까?");
 }
 

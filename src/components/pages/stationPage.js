@@ -33,4 +33,4 @@ function stationManagerPage(subwayDatas) {
   return stationManager;
 }
 
-export { stationManagerPage };
+export default stationManagerPage;
