@@ -61,7 +61,6 @@ export default function SubwayMapManagement() {
   this.addSection = (lineIndex, station, orderIndex) => {
     this.lines[lineIndex].addStation(station, orderIndex);
     save('lines', this.lines);
-    this.selectedMenu.renderTable();
   };
 
   this.deleteSection = (lineIndex, name) => {
@@ -70,7 +69,6 @@ export default function SubwayMapManagement() {
       .indexOf(name);
     this.lines[lineIndex].deleteStation(orderIndex);
     save('lines', this.lines);
-    this.selectedMenu.renderTable();
   };
 
   new ManagerButtonContainer({ selectMenu: this.selectMenu });

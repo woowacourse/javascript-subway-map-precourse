@@ -19,18 +19,19 @@ export default function SectionManagerContainer({
 }) {
   this.mainContainer = document.querySelector('.main-container');
 
-  this.handleClickMainContainer = ({
-    target: {
-      className,
-      dataset: { item },
-      id,
-    },
-  }) => {
-    if (className === 'section-line-menu-button') {
-      this.selectedLineNumber = Number(item);
-      this.renderTable(this.selectedLineNumber);
-    }
+  this.handleClickMainContainer = ({ target: { className, dataset, id } }) => {
+    this.selectLineEvent({ className, dataset });
+    this.sectionEvent({ id, className, dataset });
+  };
 
+  this.selectLineEvent = ({ className, dataset: { item } }) => {
+    if (className === 'section-line-menu-button') {
+      this.selectedLine = item;
+      this.renderTable();
+    }
+  };
+
+  this.sectionEvent = ({ id, className, dataset: { item } }) => {
     if (id === 'section-add-button') {
       this.addSection();
     }
@@ -42,8 +43,7 @@ export default function SectionManagerContainer({
 
   this.addSection = () => {
     const lines = getLines();
-    const targetLine = lines[this.selectedLineNumber];
-    const stations = targetLine.stations;
+    const { stations } = lines.find(line => line.name === this.selectedLine);
     const stationName = document.getElementById('section-station-selector')
       .value;
     const order = Number(document.getElementById('section-order-input').value);
@@ -51,16 +51,21 @@ export default function SectionManagerContainer({
       isValidSectionOrder(stations, order) &&
       isValidSection(stations, stationName)
     ) {
-      addSection(this.selectedLineNumber, new Station(stationName), order);
+      const lineIndex = lines.findIndex(
+        line => line.name === this.selectedLine
+      );
+      addSection(lineIndex, new Station(stationName), order);
+      this.renderTable(lineIndex);
     }
   };
 
   this.deleteSection = name => {
     const lines = getLines();
-    const targetLine = lines[this.selectedLineNumber];
-    const stations = targetLine.stations;
+    const { stations } = lines.find(line => line.name === this.selectedLine);
+    const lineIndex = lines.findIndex(line => line.name === this.selectedLine);
     if (confirm(CONFIRM_MESSAGE) && isValidDeleteSection(stations)) {
-      deleteSection(this.selectedLineNumber, name);
+      deleteSection(lineIndex, name);
+      this.renderTable();
     }
   };
 
@@ -72,7 +77,7 @@ export default function SectionManagerContainer({
   this.renderTable = () => {
     const lines = getLines();
     const stations = getStations();
-    const targetLine = lines[this.selectedLineNumber];
+    const targetLine = lines.find(line => line.name === this.selectedLine);
     this.mainContainer.innerHTML =
       sectionMenuContainer(lines) +
       sectionAddContainer(targetLine.name, stations) +

@@ -16,16 +16,20 @@ export const stationList = stations => {
         <th>역 이름</th>
         <th>설정</th>
       </tr>
-      ${stations
-        .map(({ name }) => {
-          return `<tr>
-            <td>${name}</td>
-            <td>
-              <button class="station-delete-button" data-item=${name}>삭제</button>
-            </td>
-          </tr>`;
-        })
-        .join('')}
+      ${stationTableRows(stations)}
     </table>
   </div>`;
+};
+
+const stationTableRows = stations => {
+  return stations
+    .map(({ name }) => {
+      return `<tr>
+        <td>${name}</td>
+        <td>
+          <button class="station-delete-button" data-item=${name}>삭제</button>
+        </td>
+      </tr>`;
+    })
+    .join('');
 };
