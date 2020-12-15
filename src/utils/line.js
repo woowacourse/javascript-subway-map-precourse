@@ -2,6 +2,7 @@ import {
   getNewId,
   getDataFromLocalStorage,
   getDataFromSelect,
+  setDataToStorage,
 } from "./data.js";
 import {
   cleanPreView,
@@ -21,6 +22,7 @@ export function removeLineHandler(e) {
     const tr = e.target.parentNode.parentNode;
     const clearLine = this.line.filter((v) => v.id !== tr.dataset.id);
     this.line = clearLine;
+    setDataToStorage(this);
     printTable.call(this, LINE_DIV);
   }
 }
@@ -60,13 +62,13 @@ export const isValidSelect = () => {
 
 export function lineAddHandler(e) {
   const lineNameInput = document.getElementById("line-name-input");
-  let destination = isValidSelect();
   if (
     this.isValidName(lineNameInput.value, "line", LINE_NAME_LIMIT) &&
-    destination
+    isValidSelect()
   ) {
     createLine.call(this, lineNameInput.value, destination);
     printTable.call(this, LINE_DIV);
+    setDataToStorage(this);
     lineNameInput.value = "";
   } else {
     alert(ERR_MESSAGE_LINE);
@@ -80,6 +82,7 @@ export function lineEventHandler(e) {
   controlDisplay(document.getElementById("app").children[LINE_DIV]);
   setDataSelect.call(this, "line-start-station-selector");
   setDataSelect.call(this, "line-end-station-selector");
+  printTable.call(this, LINE_DIV);
 }
 
 export function lineInit() {

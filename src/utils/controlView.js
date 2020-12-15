@@ -1,6 +1,13 @@
-import { STATION_DIV, SELECTION_ADD_DIV_CHILD_COUNT } from "../constant.js";
+import {
+  STATION_DIV,
+  SELECTION_ADD_DIV_CHILD_COUNT,
+  SELECTION_DIV,
+} from "../constant.js";
+
 import { getButtonFunction, getDivName } from "./data.js";
+
 import { lineControlEventHandler, sectionAddButton } from "./section.js";
+
 export const cleanView = () => {
   const { children } = document.getElementById("app");
   for (let i = STATION_DIV; i < children.length; i += 1) {
@@ -41,6 +48,7 @@ export function sectionLineButton(buttonNodes) {
 }
 
 export function makeTableStation(table) {
+  console.log(this);
   table.innerHTML += `<thead>
     <th> 역 이름 </th> <th> 설정 </th>
   </thead>`;
@@ -68,7 +76,23 @@ export function makeTableLine(table) {
   tableButton.call(this, document.querySelectorAll(".line-delete-button"));
 }
 
-export function printTable(NAME_DIV) {
+export function makeTableSection(table, buttonName) {
+  table.innerHTML += `<thead>
+    <th> 순서 </th> <th> 이름 </th> <th> 설정 </th>
+  </thead>`;
+  let lineIndex = this.line.findIndex((v) => v.name === buttonName);
+
+  this.line[lineIndex].stations.map((v, index) => {
+    const row = `<tr data-id=${v.id}>
+    <td>${index}</td> <td>${v.station}</td>
+    <td> <button class="section-delete-button"> 삭제 </button></td>
+  </tr>`;
+    table.innerHTML += row;
+  });
+  // tableButton.call(this, document.querySelectorAll(".section-delete-button"));
+}
+
+export function printTable(NAME_DIV, buttonName) {
   let table;
   const parent = document.getElementById("app").children[NAME_DIV];
   if (!parent.getElementsByTagName("table").length) {
@@ -77,7 +101,7 @@ export function printTable(NAME_DIV) {
   }
   table = parent.getElementsByTagName("table")[0];
   table.innerHTML = "";
-  getDivName.call(this, NAME_DIV, table); //NAME_DIV에 따라 함수 호출 구분
+  getDivName.call(this, NAME_DIV, table, buttonName); //NAME_DIV에 따라 함수 호출 구분
 }
 
 export function printSectionLineButton(parent) {
@@ -105,11 +129,13 @@ export function printSectionAddDiv(parent, buttonName) {
   }
   div = parent.children[1];
   div.innerHTML = `<h3>${buttonName} 관리 </h3> <h4> 구간 등록 </h4> 
-  <select id="section-station-selector"/> <input id="section-order-input" placeholder="순서" /> 
+  <select id="section-station-selector"/> <input id="section-order-input" type="number"placeholder="순서" /> 
   <button id="section-add-button"> 등록 </button>
    `;
   setDataSelect.call(this, "section-station-selector");
-  sectionAddButton.call(this); //이벤트 등록 함수
+  sectionAddButton.call(this, buttonName); //이벤트 등록 함수
+  console.log(buttonName);
+  printTable.call(this, SELECTION_DIV, buttonName);
 }
 
 export function clearSelect(lineSelect) {
