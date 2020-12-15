@@ -3,13 +3,6 @@ import TableUtils from './table_utils.js';
 import CommonUtils from './common_utils.js';
 
 export default class ManageStation {
-  constructor() {
-    this.setPrivateVariable();
-    this._stationList = {};
-    this.setConst();
-    this.initPage();
-  }
-
   setPrivateVariable() {
     this._privateDomUtils = new DomUtils();
     this._privateCommonUtils = new CommonUtils();
@@ -44,12 +37,24 @@ export default class ManageStation {
   }
 
   initPage() {
+    this.setPrivateVariable();
+    this._stationList = {};
+    this.setConst();
+
+    this.createInputSection();
+    this.createTableSection();
+  }
+
+  createInputSection() {
     this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
     this._privateCommonUtils.createTitle(this.STATION_INPUT_TITLE_TAG, this.STATION_INPUT_TITLE_TEXT, this.ARTICLE_NAME);
     this.createStationInput();
     this._stationAddButton = this._privateDomUtils.createButton(this.ADD_BUTTON_ID, this.ADD_BUTTON_TEXT);
     this._privateDomUtils.appendToIdName(this.ARTICLE_NAME, this._stationAddButton);
     this.addEventToButton(this.ADD_TYPE, this.MENU_TYPE);
+  }
+
+  createTableSection() {
     this._privateCommonUtils.createTitle(this.STATION_LIST_TITLE_TAG, this.STATION_LIST_TITLE_TEXT, this.ARTICLE_NAME);
     this._privateTableUtils.initTable(this.ARTICLE_NAME);
   }

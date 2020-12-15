@@ -4,13 +4,11 @@ import TableUtils from "./table_utils.js";
 import SelectUtils from "./select_utils.js";
 
 export default class ManageLine {
-  constructor() {
-    this.setConst();
+  setPrivateVariables() {
     this._privateCommonUtils = new CommonUtils();
     this._privateDomUtils = new DomUtils();
     this._privateTableUtils = new TableUtils();
     this._privateSelectUtils = new SelectUtils();
-    this.initPage();
   }
 
   setConst() {
@@ -41,11 +39,11 @@ export default class ManageLine {
   }
 
   initPage() {
+    this.setConst();
+    this.setPrivateVariables();
     this.initLists();
-    this.createInputSection();
-    this._privateSelectUtils.createSelectSection(this.ARTICLE_NAME);
-    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
-    this.createLineAddButton();
+
+    this.createLineAddSection();
     this.createTableSection();
   }
 
@@ -60,8 +58,15 @@ export default class ManageLine {
   }
 
   /*
-   * this.createInputSection()
+   * this.createLineAddSection()
    */
+
+   createLineAddSection() {
+    this.createInputSection();
+    this._privateSelectUtils.createSelectSection(this.ARTICLE_NAME);
+    this._privateCommonUtils.insertEmptyline(this.ARTICLE_NAME);
+    this.createLineAddButton();
+   }
 
   createInputSection() {
     this._privateCommonUtils.createTitle('div', this.LINE_INPUT_TITLE_TEXT, this.ARTICLE_NAME);

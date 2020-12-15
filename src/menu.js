@@ -8,18 +8,15 @@ import ManageMapPrint from './manage_map_print.js';
 import ManageSection from './manage_section.js';
 
 export default class Menu {
-  constructor() {
+  setPrivateVariables() {
     this._privateDomUtils = new DomUtils();
     this._privateStringUtils = new StringUtils();
     this._privateTableUtils = new TableUtils();
     this._privateCommonUtils = new CommonUtils();
     this._privateSelectUtils = new SelectUtils();
-    this.setIdNAme();
-    this.managerButton();
-    this.createMenu();
   }
 
-  setIdNAme() {
+  setIdName() {
     this.APP = 'app';
     this.ARTICLE_AREA = 'articleArea';
     this.DO_NOT_APPEND = false;
@@ -42,6 +39,10 @@ export default class Menu {
   }
 
   createMenu() {
+    this.setIdName();
+    this.managerButton();
+    this.setPrivateVariables();
+
     this.createArticleArea();
     for (const idName in this._managerButton) {
       const varName = this.createMenuButton(idName);

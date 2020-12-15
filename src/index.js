@@ -6,11 +6,15 @@ import ManageSection from './manage_section.js';
 export default class SubwayMap {
   constructor() {
     document.body.style.fontFamily = 'Arial';
-    new Menu();
-    new ManageStation();
-    new ManageLine();
+    
+    const menu = new Menu();
+    const manageStation = new ManageStation();
+    const manageLine = new ManageLine();
     const manageSection = new ManageSection();
 
+    menu.createMenu();
+    manageLine.initPage();
+    manageStation.initPage();
     manageSection.initPage();
   }
 }
