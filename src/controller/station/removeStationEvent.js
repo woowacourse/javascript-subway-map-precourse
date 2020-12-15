@@ -1,3 +1,4 @@
+import renderSelector from '../../render/common/renderSelector.js';
 import renderStationList from '../../render/station/renderStationList.js';
 
 function removeStation(stationName) {
@@ -12,6 +13,7 @@ function removeStation(stationName) {
   }
 
   renderStationList();
+  renderSelector();
 }
 
 function checkIncludeLine(stationName) {
