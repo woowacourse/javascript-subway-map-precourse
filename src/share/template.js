@@ -1,0 +1,37 @@
+export const stationTableTemplate = ({ stationName, index, buttonClass }) => `
+  <tr data-name="${stationName}" data-index="${index}">
+    <td>${stationName}</td>
+    <td><button class="${buttonClass}" data-index="${index}">삭제</button></td>
+  </tr>
+`;
+
+export const lineTableTemplate = ({
+  name, startStation, endStation, index, buttonClass,
+}) => `
+  <tr data-name="${name}" data-startStation="${startStation}" data-endStation="${endStation}" data-index="${index}">
+    <td>${name}</td>
+    <td>${startStation}</td>
+    <td>${endStation}</td>
+    <td><button class="${buttonClass}" data-index="${index}">삭제</button></td>
+  </tr>
+  `;
+
+export const sectionDetailTableTemplate = ({ index, name, buttonClass }) => `
+  <tr data-name="${name}" data-index="${index}">
+    <td>${index}</td>
+    <td>${name}</td>
+    <td><button class="${buttonClass}" data-index="${index}">노선에서 삭제</button></td>
+  </tr>
+  `;
+
+export const mapTemplate = (lineList) => lineList
+  .map((line) => `
+  <ul>
+    <li><h2>🚉 ${line.name}</h2></li>
+    <ul>
+      ${line.section.map((stationName) => `<li class="dot">${stationName}</li>`).join('')}
+    </ul>
+  </ul>`)
+  .join('');
+
+export const optionTemplate = (station) => `<option value="${station}">${station}</option>`;

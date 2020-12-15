@@ -1,0 +1,28 @@
+label {
+  margin-top: 2rem;
+  display: block;
+}
+table,
+th,
+tr,
+td {
+  border: 1px solid black;
+}
+
+input{
+  width: 10rem;
+}
+
+li{
+  list-style :none
+}
+
+.dot{
+  list-style: disc;
+}
+
+.section-line-menu-button{
+  min-width: 3rem;
+  min-height: 1.5rem;
+  margin-right: 0.3rem;
+}
