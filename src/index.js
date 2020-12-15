@@ -74,3 +74,15 @@ function createStationHTML(stationName) {
     document.getElementById('#station-name-input').value='';
     addOptionsToSectionSelectBox(stationName);
 }
+
+function addStationDeleteBtnOnTable(stationRow) {
+    let cell2 = stationRow.insertCell(1);
+    let stationDeleteBtn = document.createElement('button');
+    let stationDeleteBtnText = document.createTextNode('삭제');
+    stationDeleteBtn.className = '.station-delete-button';
+    stationDeleteBtn.appendChild(stationDeleteBtnText);
+    document.body.appendChild(stationDeleteBtn);
+    cell2.appendChild(stationDeleteBtn);
+
+    return stationDeleteBtn;
+}
