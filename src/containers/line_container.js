@@ -1,3 +1,4 @@
+import { getFormattedStations } from "../common/function.js";
 import { appendChildren } from "../common/visualization.js";
 import {
   createLineAddDIV,
@@ -6,6 +7,14 @@ import {
 } from "../creators/line_creator.js";
 
 const LineContainer = function () {
+  this.setDefaultValue = (input, startStationSelector, endStationSelector) => {
+    input.value = "";
+    const stations = getFormattedStations();
+    const defaultValue = stations[0];
+    startStationSelector.value = defaultValue;
+    endStationSelector.value = defaultValue;
+  };
+
   this.renderInitialLine = (parent) => {
     const LineAddDIV = createLineAddDIV();
     const tableTitle = createLineTableTitle();
