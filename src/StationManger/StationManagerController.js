@@ -8,7 +8,8 @@ export default class StationManagerController {
       const eventClassName = event.target.className;
       if (eventId === 'station-add-button') {
         this.addButtonClicked();
-      } else if (eventClassName === 'station-delete-button') {
+      }
+      if (eventClassName === 'station-delete-button') {
         const button = event.path[0];
         this.deleteButtonClicked(button);
       }
@@ -17,10 +18,9 @@ export default class StationManagerController {
 
   static addButtonClicked() {
     const station = document.getElementById('station-name-input').value;
-    const isValid = StationManagerModel.isValidName(station);
-    console.log(isValid);
+    const isValid = StationManagerModel.isValidInput(station);
     if (isValid !== 1) {
-      StationManagerView.alertNameError(isValid);
+      StationManagerView.alertError(isValid);
       StationManagerView.stationInputView();
       return;
     }
@@ -35,11 +35,11 @@ export default class StationManagerController {
     const station = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
     const isValid = StationManagerModel.checkAfterDelete(station);
     if (isValid !== 1) {
-      StationManagerView.alertNameError(isValid);
+      StationManagerView.alertError(isValid);
       return;
     }
     if (!StationManagerView.confirmDelete()) {
-      StationManagerView.alertNameError(-8);
+      StationManagerView.alertError(-8);
       return;
     }
     StationManagerModel.delete(station);

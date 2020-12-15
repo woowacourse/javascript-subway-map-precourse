@@ -3,8 +3,8 @@ export default class LineErrorMsg {
     const errorMsg = [
       this.lengthError(),
       this.spaceError(),
-      this.characterError(),
-      this.languageError(),
+      this.koranCharacterError(),
+      this.notKoreanError(),
       this.specialCharError(),
       this.duplicateError(),
       this.onlyNumberError(),
@@ -26,11 +26,11 @@ export default class LineErrorMsg {
     return '노선 이름 사이에는 공백이 들어갈 수 없습니다.\n';
   }
 
-  static characterError() {
+  static koranCharacterError() {
     return '완전한 한글 단어로 입력해 주세요.\nex. ㅏ역 (x) 다역 (o)\n';
   }
 
-  static languageError() {
+  static notKoreanError() {
     return '노선 이름은 한글로만 작성할 수 있습니다.\n';
   }
 

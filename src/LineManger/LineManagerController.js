@@ -22,7 +22,7 @@ export default class LineManagerController {
     const lineEnd = document.getElementById('line-end-station-selector').value;
     const isValid = LineManagerModel.isValidInput(line, lineStart, lineEnd);
     if (isValid !== 1) {
-      LineManagerView.alertNameError(isValid);
+      LineManagerView.alertError(isValid);
       LineManagerView.lineInputView();
       return;
     }
@@ -36,7 +36,7 @@ export default class LineManagerController {
     const buttonsArray = Array.from(buttons);
     const line = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
     if (!LineManagerView.confirmDelete()) {
-      LineManagerView.alertNameError(-8);
+      LineManagerView.alertError(-8);
       return;
     }
     LineManagerModel.delete(line);

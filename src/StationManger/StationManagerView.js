@@ -39,7 +39,7 @@ export default class StationManagerView {
     </table>`;
   }
 
-  static alertNameError(errorNum) {
+  static alertError(errorNum) {
     alert(StationErrorMsg.error(errorNum));
   }
 
