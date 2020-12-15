@@ -26,13 +26,13 @@ export class LineManagerList {
     this.lines = this.getLines();
 
     this.lines.forEach((line) => {
-      let lastIndex = line.stations.length - NUMBER.TO_MAKE_LAST_INDEX;
+      let lastIndex = line.stations.length - 1;
 
       addRowInListTable(
         this.lineTable,
         line.lineName,
         line.stations[lastIndex],
-        line.stations[NUMBER.START_INDEX],
+        line.stations[NUMBER.FIRST_INDEX],
         FIELD.LINE
       );
     });
