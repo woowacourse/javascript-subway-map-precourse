@@ -2,6 +2,7 @@ import {
   hasValidOrder,
   hasValidOption,
 } from "../../utility/input-check-utility.js";
+import { DELETE_CONFIRM_MESSAGE } from "../../utility/share-constant-utility.js";
 import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.js";
 import { contentsUI } from "./contents-ui.js";
 
@@ -18,7 +19,7 @@ export default class SectionManagerUI extends contentsUI {
 
   _updateLineButtons() {
     const buttonDiv = document.getElementById(SECTION_LINE_MENU_DIV_ID);
-    const lines = this._subwayINFOManager.getAllLines();
+    const lines = this._lineINFOManager.getAllLines();
     let buttonDivInnerHTML = "";
     lines.forEach(({ name }) => {
       buttonDivInnerHTML += this._makeNewSelectLineButtonHTML(name);
@@ -63,7 +64,7 @@ class SectionRegisterUI extends contentsUI {
   }
   updateLineStationsTable() {
     const table = document.getElementById(SECTION_REGISTER_TABLE_ID);
-    const myLine = this._subwayINFOManager.getAllLinesByCondition((line) => {
+    const myLine = this._lineINFOManager.getAllLinesByCondition((line) => {
       return line.name === this._lineName;
     })[0];
     let tableInnerHTML = TABLE_HEADER_TEMPLATE;
@@ -74,7 +75,6 @@ class SectionRegisterUI extends contentsUI {
     this._addEventToAllDeleteButtons();
   }
 
-  //private
   _addEventToAllDeleteButtons() {
     this._addClickEventToAllButtonByClassName(
       SECTION_DELETE_BUTTON_CLASS,
@@ -92,7 +92,7 @@ class SectionRegisterUI extends contentsUI {
       return;
     }
     const targetStationName = event.target.dataset.name;
-    this._subwayINFOManager.deleteSection(targetStationName, this._lineName);
+    this._lineINFOManager.deleteSection(targetStationName, this._lineName);
     this.updateAllContents();
   }
   _callbackOfSectionAddButton() {
@@ -103,7 +103,7 @@ class SectionRegisterUI extends contentsUI {
     if (!this._hasValidSectionAddInput(orderToRegister, stationName)) {
       return;
     }
-    this._subwayINFOManager.registerStationToLine(
+    this._lineINFOManager.registerStationToLine(
       this._lineName,
       orderToRegister,
       stationName
@@ -117,11 +117,12 @@ class SectionRegisterUI extends contentsUI {
   }
   _setComboboxOption() {
     const seletor = document.getElementById(SECTION_STATION_SELECTOR_ID);
-    const optionNames = this._subwayINFOManager.getStationNamesByCondition(
-      (station) => {
-        return !station.linesOfStation.has(this._lineName);
-      }
-    );
+    const optionNames = this._stationINFOManager.getAllStationNames();
+    const currentLine = this._lineINFOManager.getOneLineByName(this._lineName);
+    currentLine.stationsOfLine.forEach((stationName) => {
+      const index = optionNames.findIndex((name) => name === stationName);
+      optionNames.splice(index, 1);
+    });
     let seletorInnerHTML = SELECTOR_DEFAULT_TEMPLATE;
     optionNames.forEach((optionName) => {
       seletorInnerHTML += this._makeNewOptionHTML(optionName);
@@ -157,8 +158,6 @@ const SECTION_ADD_BUTTON_ID = "section-add-button";
 const SECTION_DELETE_BUTTON_CLASS = "section-delete-button";
 const SECTION_LINE_MENU_DIV_ID = "section-line-menu-div";
 const SECTION_LINE_MENU_BUTTON_CLASS = "section-line-menu-button";
-
-const DELETE_CONFIRM_MESSAGE = "정말로 노선에서 제거하시겠습니까?";
 
 const INITIAL_TEMPLATE = `
 <h2>구간을 수정할 노선을 선택해주세요.</h2>

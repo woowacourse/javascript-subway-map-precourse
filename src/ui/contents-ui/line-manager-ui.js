@@ -1,4 +1,7 @@
-import { SELECTOR_DEFAULT_TEMPLATE } from "../../utility/share-constant-utility.js";
+import {
+  DELETE_CONFIRM_MESSAGE,
+  SELECTOR_DEFAULT_TEMPLATE,
+} from "../../utility/share-constant-utility.js";
 import {
   hasValidLine,
   hasValidOption,
@@ -18,10 +21,10 @@ export default class LineManagerUI extends contentsUI {
     this.updateLinesTable();
   }
   updateLinesTable() {
-    const liness = this._subwayINFOManager.getAllLines();
+    const lines = this._lineINFOManager.getAllLines();
     const tableContainer = document.getElementById(TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
-    liness.forEach((lineINFOs) => {
+    lines.forEach((lineINFOs) => {
       innerHTMLOfTable += this._makeNewTableRowHTML(lineINFOs);
     });
     tableContainer.innerHTML = innerHTMLOfTable;
@@ -51,7 +54,7 @@ export default class LineManagerUI extends contentsUI {
     if (!this._hasValidLineInput(lineName, startStation, endStation)) {
       return;
     }
-    this._subwayINFOManager.addNewLine({
+    this._lineINFOManager.addNewLine({
       lineName: lineName,
       startStationName: startStation,
       endStationName: endStation,
@@ -62,7 +65,7 @@ export default class LineManagerUI extends contentsUI {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
     }
-    this._subwayINFOManager.deleteLine(event.target.dataset.name);
+    this._lineINFOManager.deleteLine(event.target.dataset.name);
     this.updateLinesTable();
   }
   _hasValidLineInput(lineName, startStationName, endStationName) {
@@ -71,7 +74,7 @@ export default class LineManagerUI extends contentsUI {
       startStationName,
       endStationName
     );
-    const isNotOverlapName = this._subwayINFOManager.hasNotOverlapNameAmongLines(
+    const isNotOverlapName = this._lineINFOManager.hasNotOverlapNameAmongLines(
       lineName
     );
     const isValidOption = hasValidOption([startStationName, endStationName]);
@@ -90,7 +93,7 @@ export default class LineManagerUI extends contentsUI {
     `;
   }
   _makeSelectorInnerHTML() {
-    const stationNames = this._subwayINFOManager.getAllStationsNames();
+    const stationNames = this._stationINFOManager.getAllStationNames();
     let selectorInnerHTML = SELECTOR_DEFAULT_TEMPLATE;
     stationNames.forEach((name) => {
       selectorInnerHTML += this._makeNewSelectorOptionHTML(name);
@@ -109,8 +112,6 @@ const END_STATION_SELECTOR_ID = "line-end-station-selector";
 const LINE_ADD_BUTTON_ID = "line-add-button";
 const TABLE_ID = "line-table";
 const LINE_DELETE_BUTTON_CLASS = "line-delete-button";
-
-const DELETE_CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?";
 
 const INITIAL_TEMPLATE = `
 <span>노선 이름</span><br>

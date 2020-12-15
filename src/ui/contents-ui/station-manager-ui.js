@@ -1,4 +1,5 @@
 import { hasValidStationName } from "../../utility/input-check-utility.js";
+import { DELETE_CONFIRM_MESSAGE } from "../../utility/share-constant-utility.js";
 import { contentsUI } from "./contents-ui.js";
 
 export default class StationManagerUI extends contentsUI {
@@ -12,7 +13,7 @@ export default class StationManagerUI extends contentsUI {
     this.updateStationsTable();
   }
   updateStationsTable() {
-    const stationsNames = this._subwayINFOManager.getAllStationsNames();
+    const stationsNames = this._stationINFOManager.getAllStationNames();
     const tableContainer = document.getElementById(STATION_NAME_TABLE_ID);
     let innerHTMLOfTable = TABLE_HEADER_TEMPLATE;
     for (let name of stationsNames) {
@@ -39,7 +40,7 @@ export default class StationManagerUI extends contentsUI {
     if (!this._hasValidStationInput(name)) {
       return;
     }
-    this._subwayINFOManager.addNewStation({
+    this._stationINFOManager.addNewStation({
       name: name,
     });
     this.updateStationsTable();
@@ -48,12 +49,13 @@ export default class StationManagerUI extends contentsUI {
     if (!confirm(DELETE_CONFIRM_MESSAGE)) {
       return;
     }
-    this._subwayINFOManager.deleteStation(event.target.dataset.name);
+    const lines = this._lineINFOManager.getAllLines();
+    this._stationINFOManager.deleteStation(event.target.dataset.name, lines);
     this.updateStationsTable();
   }
   _hasValidStationInput(name) {
     const isValidStationName = hasValidStationName(name);
-    const isNotOverlapName = this._subwayINFOManager.hasNotOverlapNameAmongStations(
+    const isNotOverlapName = this._stationINFOManager.hasNotOverlapNameAmongStations(
       name
     );
     return isValidStationName && isNotOverlapName;
@@ -73,8 +75,6 @@ const STATION_NAME_INPUT_ID = "station-name-input";
 const STATION_ADD_BUTTON_ID = "station-add-button";
 const STATION_NAME_TABLE_ID = "station-name-table";
 const STATION_DELETE_BUTTON_CLASS = "station-delete-button";
-
-const DELETE_CONFIRM_MESSAGE = "정말로 삭제하시겠습니까?";
 
 const INITIAL_TEMPLATE = `
 <span>역 이름</span><br>

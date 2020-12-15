@@ -2,6 +2,8 @@ export class contentsUI {
   constructor(contentsID, subwayINFOManager) {
     this._contentsID = contentsID;
     this._subwayINFOManager = subwayINFOManager;
+    this._stationINFOManager = this._subwayINFOManager.getStationINFOManager();
+    this._lineINFOManager = this._subwayINFOManager.getLineINFOManager();
   }
   setContentsHTML(initialTemplate) {
     document.getElementById(this._contentsID).innerHTML = initialTemplate;

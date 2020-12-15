@@ -6,7 +6,7 @@ export default class MapPrintManagerUI extends contentsUI {
     this.setContentsHTML("");
   }
   setContentsHTML(initialTemplate) {
-    const lines = this._subwayINFOManager.getAllLines();
+    const lines = this._lineINFOManager.getAllLines();
     lines.forEach((line) => {
       initialTemplate += this._makeLineINFOHTML(line);
     });

@@ -68,6 +68,12 @@ export function hasSatisfiedMaxLengthCondition({
   }
   return boolToReturn;
 }
+export function hasNotOverlapName(targetToFindOverlap, inputName) {
+  const overlapIndex = targetToFindOverlap.findIndex(
+    ({ name }) => name === inputName
+  );
+  return overlapIndex === -1;
+}
 
 function hasTypeOfNumber({ operand, errorMessage }) {
   let retBool = true;
