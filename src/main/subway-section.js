@@ -25,6 +25,18 @@ export default class SubwaySection {
     return cb(null, this.lineList, this.lineName);
   }
 
+  deleteSection = (targetId, cb) => {
+    const line = this.lineList[this.lineName];
+
+    if (line.length === 2) return cb(SECTION.ALERT.NOT_DELETE);
+
+    line.splice(targetId, 1);
+
+    this.lineList[this.lineName] = line;
+
+    return cb(null, this.lineList, this.lineName);
+  }
+
   isValidOrder(order) {
     return this.hasValidOrder(order);
   }

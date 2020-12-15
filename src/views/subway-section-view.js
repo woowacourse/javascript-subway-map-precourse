@@ -73,6 +73,14 @@ class SubwaySectionView {
     this.rearrangeList(tbody);
   }
 
+  renderDeleteSection = (targetId) => {
+    const tbody = this.result.getElementsByTagName('tbody')[0];
+
+    tbody.removeChild(tbody.children[targetId]);
+
+    this.rearrangeList(tbody);
+  }
+
   rearrangeList(tbody) {
     const button
     = this.result.getElementsByClassName(SECTION.BUTTON.DELETE.CLASS);
@@ -89,4 +97,5 @@ export const {
   renderSectionRegister,
   renderSectionResult,
   renderAddSection,
+  renderDeleteSection,
 } = new SubwaySectionView();

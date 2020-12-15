@@ -1,6 +1,6 @@
 import {SECTION} from '../constants.js';
 import {
-  handleRegisterAndResultSection, handleAddSection,
+  handleRegisterAndResultSection, handleAddSection, handleDeleteSection,
 } from '../handlers/section-handler.js';
 
 export default class SectionListener {
@@ -28,6 +28,16 @@ export default class SectionListener {
     registerDiv.addEventListener('click', (event) => {
       if (event.target.id === SECTION.BUTTON.ADD.ID) {
         return handleAddSection(this.subwaySection);
+      }
+    });
+  }
+
+  addListenerToSectionResult() {
+    const resultDiv = document.getElementById(SECTION.DIV.RESULT.ID);
+
+    resultDiv.addEventListener('click', (event) => {
+      if (event.target.className === SECTION.BUTTON.DELETE.CLASS) {
+        return handleDeleteSection(this.subwaySection, event.target);
       }
     });
   }

@@ -4,7 +4,7 @@ import SubwaySection from '../main/subway-section.js';
 import {saveList} from '../main/subway-local-storage.js';
 import {
   renderLineChoices, renderSectionRegister,
-  renderSectionResult, renderAddSection,
+  renderSectionResult, renderAddSection, renderDeleteSection,
 } from '../views/subway-section-view.js';
 
 class SectionHandler {
@@ -34,6 +34,19 @@ class SectionHandler {
       renderAddSection(lineList[lineName][order].name, order);
     });
   }
+
+  handleDeleteSection(subwaySection, target) {
+    const targetId = parseInt(target.dataset.sectionId);
+
+    if (!confirm(SECTION.ALERT.DELETE)) return;
+
+    subwaySection.deleteSection(targetId, (err, lineList) => {
+      if (err) return alert(err);
+
+      saveList(STORAGE.LINE.KEY, lineList);
+      renderDeleteSection(targetId);
+    });
+  }
 }
 
 const sectionHandler = new SectionHandler();
@@ -42,4 +55,5 @@ export const {
   handleInitSection,
   handleRegisterAndResultSection,
   handleAddSection,
+  handleDeleteSection,
 } = sectionHandler;
