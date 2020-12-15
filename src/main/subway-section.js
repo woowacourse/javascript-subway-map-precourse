@@ -27,7 +27,7 @@ export default class SubwaySection {
   deleteSection = (targetId, cb) => {
     const line = this.lineList[this.lineName];
 
-    if (line.length === 2) return cb(SECTION.ALERT.NOT_DELETE);
+    if (line.length === SECTION.MIN_LENGTH) return cb(SECTION.ALERT.NOT_DELETE);
 
     line.splice(targetId, 1);
 
