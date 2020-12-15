@@ -12,7 +12,22 @@ export default function stationContainer() {
 
   const addStation = stationName => {
     stationList.push(stationName);
-    console.log(stationList);
+    setLocalData(stationList);
+  };
+
+  const setLocalData = stationList => {
+    window.localStorage.setItem("stationList", JSON.stringify(stationList));
+  };
+
+  const getLocalData = () => {
+    let localData = window.localStorage.getItem("stationList");
+
+    if (!localData) {
+      localData = [];
+      window.localStorage.setItem("stationList", JSON.stringify(localData));
+    } else {
+      stationList = JSON.parse(localData);
+    }
   };
 
   const init = () => {
@@ -22,6 +37,7 @@ export default function stationContainer() {
     const submitButton = document.querySelector("#station-name-button");
     const stationNameInput = document.querySelector("#station-name-input");
 
+    getLocalData();
     stationContainer.style.display = "block";
     submitButton.addEventListener("click", () => {
       checkStationName(stationNameInput.value);
