@@ -31,6 +31,7 @@ export function addItem(key, value, index) {
         itemList = [];
     }
     if(!isDuplicateItem(itemList, value)){
+        index = index === -1 ? itemList.length : index;
         itemList.splice(index, 0, value);
         localStorage.setItem(key, JSON.stringify(itemList));
         isComplete = true;
