@@ -33,11 +33,11 @@ function makeNewStation(stationArray, stationNameInputValue) {
 }
 
 export default function stationManageContainer(state) {
-  const addStationBtn = document.getElementById(STATION_TAGS.ADD_BUTTON_ID);
+  const addStationButton = document.getElementById(STATION_TAGS.ADD_BUTTON_ID);
   const stationNameInput = document.getElementById(STATION_TAGS.STATION_NAME_INPUT_ID);
 
   loadStations(state);
-  addStationBtn.addEventListener("click", () => {
+  addStationButton.addEventListener("click", () => {
     const stationNameInputValue = stationNameInput.value.trim();
 
     if (inputNameValidator(VALIDATION_TYPE, stationNameInputValue)) {

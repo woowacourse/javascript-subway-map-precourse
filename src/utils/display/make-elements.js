@@ -61,24 +61,24 @@ function makeTdDeleteButton(station, tr) {
   return td;
 }
 
-function makeOneRowWithDeleteBtn(object, [...args]) {
+function makeOneRowWithDeleteButton(object, [...args]) {
   const tr = document.createElement("tr");
-  const deleteBtn = makeTdDeleteButton(object, tr);
+  const deleteButton = makeTdDeleteButton(object, tr);
 
   for (const arg of [...args]) {
     tr.appendChild(makeNewTdWithElement(arg));
     tr.id = object.id;
   }
-  tr.appendChild(deleteBtn);
+  tr.appendChild(deleteButton);
 
   return tr;
 }
 
 export function showNewRow(parentID, rowToShow, [...args]) {
-  const oneRowWithDeleteBtn = makeOneRowWithDeleteBtn(rowToShow, [...args]);
+  const oneRowWithDeleteButton = makeOneRowWithDeleteButton(rowToShow, [...args]);
   const locationOfRow = document.getElementById(parentID);
 
-  return locationOfRow.appendChild(oneRowWithDeleteBtn);
+  return locationOfRow.appendChild(oneRowWithDeleteButton);
 }
 
 export function makeSelectOptions(selectBox, optionToMakeArray) {

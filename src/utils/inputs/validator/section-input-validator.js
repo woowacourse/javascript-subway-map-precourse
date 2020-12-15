@@ -15,7 +15,7 @@ export function isDuplicatedStationInSection(selectedStation, stationsInLine) {
   return isDuplicated;
 }
 
-export function checkStationInputZero(inputValue) {
+export function checkZero(inputValue) {
   let deleteZeroInValue = inputValue.trim().replace(checkFirstDigitZero, "");
 
   if (deleteZeroInValue === "") {
