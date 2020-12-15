@@ -25,4 +25,16 @@ export const saveDataToLocalStorage = () => {
   setItemWithKey(data, 'data');
 };
 
+export const loadDataToLocalStorage = () => {
+  const loadedData = getItemByKey('data');
+  data.stationNameInputValue = loadedData.stationNameInputValue;
+  data.lineNameInputValue = loadedData.lineNameInputValue;
+  data.upTerminatingStationNameValue = loadedData.upTerminatingStationNameValue;
+  data.downTerminatingStationNameValue =
+    loadedData.downTerminatingStationNameValue;
+  data.sectionLineValue = loadedData.sectionLineValue;
+  data.sectionStationSelectorValue = loadedData.sectionStationSelectorValue;
+  data.sectionOrderInputNumberValue = loadedData.sectionOrderInputNumberValue;
+};
+
 export default {};
