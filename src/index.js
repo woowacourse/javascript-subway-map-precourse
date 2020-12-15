@@ -290,3 +290,16 @@ function addStationToSection() {
     addStationToSectionArray(line, station, index);
     createStationInSectionHTML(line);    
 }
+
+function createStationInSectionHTML(line) {
+    let sectionTable = document.getElementById('#print-section-list-' + line.name);
+    for(let i = sectionTable.rows.length - 1; i > 0; i--){
+        sectionTable.deleteRow(i);
+    }
+
+    for (let i = 0; i < line.section.stations.length; i++) {
+        addLineToSectionTable(sectionTable, line.section.stations[i], i);
+    }
+
+    makeSubwayMap();
+}
