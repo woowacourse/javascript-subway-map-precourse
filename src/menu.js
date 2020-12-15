@@ -24,6 +24,7 @@ export default class Menu {
     this.ARTICLE_AREA = 'articleArea';
     this.DO_NOT_APPEND = false;
 
+    this.STATION_ARTICLE = 'stationArticle';
     this.LINE_ARTICLE = 'lineArticle';
     this.SECTION_ARTICLE = 'sectionArticle';
     this.MAP_PRINT_ARTICLE = 'mapArticle';
@@ -94,7 +95,10 @@ export default class Menu {
   }
 
   refreshArticle(articleName) {
-    if (articleName === this.LINE_ARTICLE) {
+    if (articleName === this.STATION_ARTICLE) {
+      this.refreshStationArticle(articleName);
+    }
+    else if (articleName === this.LINE_ARTICLE) {
       this.refreshLineSelect();
       this._privateTableUtils.refreshTableData(articleName);
     }
@@ -104,6 +108,11 @@ export default class Menu {
     else if (articleName === this.MAP_PRINT_ARTICLE) {
       this.refreshMapPrint(articleName);
     }
+  }
+
+  refreshStationArticle(articleName) {
+    this._privateTableUtils.emptyTableData(articleName);
+    this._privateTableUtils.initStationTableData(articleName);
   }
 
   refreshLineSelect() {
