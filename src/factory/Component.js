@@ -11,7 +11,7 @@ export default class Component {
       ...this.data,
       ...nextData,
     };
-    this.render();
+    this.render?.();
   }
 
   clearInput() {
@@ -41,6 +41,4 @@ export default class Component {
   hide() {
     this.container.style.display = 'none';
   }
-
-  render() {}
 }

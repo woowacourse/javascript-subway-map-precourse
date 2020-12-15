@@ -9,8 +9,7 @@ const defaultState = {
   },
 };
 
-const jsonToClassConverter = (dataList, Creator) =>
-  dataList.map((data) => new Creator(data));
+const jsonToClassConverter = (dataList, Creator) => dataList.map((data) => new Creator(data));
 
 const setItem = (key, data) => localStorage.setItem(key, JSON.stringify(data));
 

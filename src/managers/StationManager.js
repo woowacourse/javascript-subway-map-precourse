@@ -50,10 +50,6 @@ export default class StationManager extends Component {
     this.deleteFromTable(index, DATA_KEY.STATION_LIST);
   };
 
-  getAllStationNamesInLines() {
-    return [...new Set(this.data.lineList.map((line) => line.section).flat())];
-  }
-
   checkValidity(value) {
     if (!checkOverlap(value, this.data.stationList)) {
       alert(STATION_WORDS.ALERT_MESSAGE_ALREADY_INCLUDE);
@@ -64,6 +60,10 @@ export default class StationManager extends Component {
       return false;
     }
     return true;
+  }
+
+  getAllStationNamesInLines() {
+    return [...new Set(this.data.lineList.map((line) => line.section).flat())];
   }
 
   template() {

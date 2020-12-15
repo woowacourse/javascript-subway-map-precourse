@@ -32,15 +32,6 @@ export default class LineManager extends Component {
     this.table.addEventListener('click', this.onTableClick);
   }
 
-  updateStationList() {
-    this.startStationSelector.innerHTML = this.data.stationList
-      .map((station) => optionTemplate(station))
-      .join('');
-    this.endStationSelector.innerHTML = this.data.stationList
-      .map((station) => optionTemplate(station))
-      .join('');
-  }
-
   onSubmit = (event) => {
     event.preventDefault();
     const constructorObj = this.getValues();
@@ -82,6 +73,15 @@ export default class LineManager extends Component {
     const { value: endStation } = this.endStationSelector;
     return { name, startStation, endStation };
   };
+
+  updateStationList() {
+    this.startStationSelector.innerHTML = this.data.stationList
+      .map((station) => optionTemplate(station))
+      .join('');
+    this.endStationSelector.innerHTML = this.data.stationList
+      .map((station) => optionTemplate(station))
+      .join('');
+  }
 
   template() {
     return this.data.lineList

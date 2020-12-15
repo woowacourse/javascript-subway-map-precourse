@@ -1,5 +1,3 @@
-import { checkOverlap } from '../share/utils.js';
-
 const MIN_SECTION_LENGTH = 2;
 
 export default class Line {
