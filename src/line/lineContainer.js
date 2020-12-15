@@ -1,5 +1,6 @@
 import { isValidLineInfo } from "../utils";
 import { INVALID_LINE_INFO } from "./lineConstant";
+import { lineListTemplate } from "./linePresenter";
 
 export default function lineContainer() {
   let lineList = [];
@@ -15,6 +16,7 @@ export default function lineContainer() {
   const addLine = lineInfo => {
     lineList.push(lineInfo);
     setLocalData(lineList);
+    lineListTemplate(lineList);
   };
 
   const setLocalData = lineList => {
@@ -50,6 +52,7 @@ export default function lineContainer() {
     const lineNameButton = document.querySelector("#line-name-button");
 
     getLocalData();
+    lineListTemplate(lineList);
     setSelectorOption(lineStartSelector);
     setSelectorOption(lineEndSelector);
     lineNameContainer.style.display = "block";
