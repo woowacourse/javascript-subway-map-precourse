@@ -10,4 +10,3 @@ export const Errors = {
 };
 
 export const MAX_NAME_LENGTH = 2;
-export const MIN_NAME_LENGTH = 0;

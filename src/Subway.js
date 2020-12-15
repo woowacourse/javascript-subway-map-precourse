@@ -1,7 +1,6 @@
 import {
   Errors,
   MAX_NAME_LENGTH,
-  MIN_NAME_LENGTH,
 } from './constants/ErrorConstants.js';
 
 export default class Subway {
@@ -31,6 +30,10 @@ export default class Subway {
   isLessThenTwoStation = ({ lineName }) => {
     const section = this.lines.get(lineName);
     return section.length <= MAX_NAME_LENGTH;
+  }
+
+  isSectionRange = ({ section, order }) => {
+    return order < 0 || order > section.length;
   }
 
   addStation = ({ station }) => {
@@ -73,7 +76,7 @@ export default class Subway {
     if (section.includes(station)) {
       return alert(Errors['STATION_DUPLICATE_ERROR']);
     }
-    if (order <= MIN_NAME_LENGTH || order >= section.length) {
+    if (this.isSectionRange({ section, order })) {
       return alert(Errors['SECTION_RANGE_ERROR']);
     }
     section.splice(order, 0, station);
