@@ -86,3 +86,18 @@ function addStationDeleteBtnOnTable(stationRow) {
 
     return stationDeleteBtn;
 }
+
+function addOptionsToSelectBox(stationName) {
+    //first station
+    let selectStationStart = document.getElementById("#line-start-station-selector");
+    let elStart = document.createElement("option");
+    elStart.textContent = stationName;
+    elStart.value = stationName;
+    selectStationStart.appendChild(elStart);
+    //last station
+    let selectStationEnd = document.getElementById("#line-end-station-selector");
+    let elEnd = document.createElement("option");
+    elEnd.textContent = stationName;
+    elEnd.value = stationName;
+    selectStationEnd.appendChild(elEnd);
+}
