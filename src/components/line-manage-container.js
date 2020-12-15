@@ -1,11 +1,11 @@
 import SubwayLine from "../domain/subway-line.js";
-import { makeSelectOptions } from "../utils/display/make-elements.js";
-import { showNewRow } from "../components/station-manage-container.js";
-import { saveToLocalStorage } from "../index.js";
-import clearInput from "../utils/inputs/clear-input.js";
-import { LINE_ARRAY_KEY } from "../global/constant.js";
-import { getStationByName } from "../utils/global-utils.js";
 import inputLineValidator from "../utils/inputs/validator/line-name-validator.js";
+import clearInput from "../utils/inputs/clear-input.js";
+import { saveToLocalStorage } from "../index.js";
+import { showNewRow, makeSelectOptions } from "../utils/display/make-elements.js";
+import { getStationByName } from "../utils/global-utils.js";
+import { LINE_ALERT_MESSAGES } from "../global/messages.js";
+import { LINE_ARRAY_KEY, LINE_TAGS } from "../global/constant.js";
 
 const SUBWAY_LINE_TBODY_ID = "lines";
 
@@ -14,51 +14,58 @@ function loadLines(state) {
     showNewRow(SUBWAY_LINE_TBODY_ID, line, [
       line.lineName,
       line.stations[0].stationName,
-      line.stations[1].stationName,
+      line.stations[line.stations.length - 1].stationName
     ]);
   }
 }
 
-export default function lineManageContainer(state) {
-  const addLineInput = document.getElementById("line-name-input");
-  const selectUpLine = document.getElementById("line-start-station-selector");
-  const selectDownLine = document.getElementById("line-end-station-selector");
-  const addLineSubmit = document.getElementById("line-add-button");
+function validateLineName(subwayLines, lineName, upLine, downLine, addLineInput) {
+  if (inputLineValidator(lineName)) {
+    saveLine(subwayLines, lineName, upLine, downLine);
+    saveToLocalStorage(LINE_ARRAY_KEY, JSON.stringify(subwayLines));
+    clearInput(addLineInput);
+  } else {
+    clearInput(addLineInput);
+  }
+}
 
-  makeSelectOptions(selectUpLine, state.stationArray);
-  makeSelectOptions(selectDownLine, state.stationArray);
+function saveLine(subwayLines, lineName, upLine, downLine) {
+  let lineId = 0;
+  if (subwayLines.length !== 0) {
+    lineId = subwayLines[subwayLines.length - 1].id + 1;
+  }
+
+  const line = new SubwayLine(
+    lineName,
+    getStationByName(upLine.value),
+    getStationByName(downLine.value),
+    lineId
+  );
+
+  showNewRow(SUBWAY_LINE_TBODY_ID, line, [
+    line.lineName,
+    line.stations[0].stationName,
+    line.stations[line.stations.length - 1].stationName
+  ]);
+
+  subwayLines.push(line);
+}
+
+export default function lineManageContainer(state) {
+  const addLineInput = document.getElementById(LINE_TAGS.LINE_NAME_INPUT_ID);
+  const addLineSubmit = document.getElementById(LINE_TAGS.ADD_LINE_ID);
+  const upLine = document.getElementById(LINE_TAGS.SELECT_UP_LINE_ID);
+  const downLine = document.getElementById(LINE_TAGS.SELECT_DOWN_LINE_ID);
+  makeSelectOptions(upLine, state.stationArray);
+  makeSelectOptions(downLine, state.stationArray);
   loadLines(state);
 
   addLineSubmit.addEventListener("click", () => {
-    const lineNameInputValue = addLineInput.value.trim();
-
-    if (inputLineValidator(lineNameInputValue)) {
-      let lineId = 0;
-
-      if (state.subwayLines.length === 0) {
-        lineId = 0;
-      } else {
-        lineId = state.subwayLines[state.subwayLines.length - 1].id + 1;
-      }
-
-      const line = new SubwayLine(
-        lineNameInputValue,
-        getStationByName(selectUpLine.value),
-        getStationByName(selectDownLine.value),
-        lineId
-      );
-
-      showNewRow(SUBWAY_LINE_TBODY_ID, line, [
-        line.lineName,
-        line.stations[0].stationName,
-        line.stations[1].stationName,
-      ]);
-
-      state.subwayLines.push(line);
-      saveToLocalStorage(LINE_ARRAY_KEY, JSON.stringify(state.subwayLines));
-      clearInput(addLineInput);
+    if (upLine.value !== downLine.value) {
+      const lineNameInputValue = addLineInput.value.trim();
+      validateLineName(state.subwayLines, lineNameInputValue, upLine, downLine, addLineInput);
     } else {
-      clearInput(addLineInput);
+      alert(LINE_ALERT_MESSAGES.ERROR_UPLINE_DOWNLINE_SAME);
     }
   });
 }

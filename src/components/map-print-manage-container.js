@@ -29,7 +29,7 @@ export default function mapPrintManageContainer() {
   if (state.subwayLines.length) {
     printAllLineAndStations(div, state.subwayLines);
   } else {
-    const title = `<h2>노선에 등록되지 않은 역</h2>`;
+    const title = `<h2>노선이 없습니다.<br />노선에 아래의 역들을 등록해 주세요.</h2>`;
     const titleElement = new DOMParser().parseFromString(title, "text/html").firstElementChild;
     div.append(titleElement);
     printStation(div, state.stationArray);

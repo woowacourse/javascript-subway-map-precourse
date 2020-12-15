@@ -4,7 +4,7 @@ import { state } from "../../../index.js";
 const checkSpecialCharacter = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+₩\<\>@\#$%&\\\=\(\'\"]/;
 const checkInvalidKorean = /[|ㄱ-ㅎ|ㅏ-ㅣ]/;
 const checkMultipleSpaces = /\s{2,}/;
-const STATION_INPUT_MINIMUM_LENGTH = 2;
+const STATION_INPUT_MINIMUM_LENGTH = 1;
 
 export function isDuplicatedLineName(lineName) {
   let isDuplicated = false;
@@ -20,9 +20,11 @@ export function isDuplicatedLineName(lineName) {
 
 export default function inputLineValidator(lineNameInputValue) {
   let isValid = false;
-  console.log("?");
+
   if (isDuplicatedLineName(lineNameInputValue)) {
     alert(LINE_ALERT_MESSAGES.ERROR_LINE_INPUT_DUPLICATED);
+  } else if (lineNameInputValue.length < STATION_INPUT_MINIMUM_LENGTH) {
+    alert(LINE_ALERT_MESSAGES.ERROR_LINE_INPUT_LENGTH_UNDER);
   } else if (checkSpecialCharacter.test(lineNameInputValue)) {
     alert(LINE_ALERT_MESSAGES.ERROR_LINE_INPUT_SPECIAL_CHARACTER);
   } else if (checkInvalidKorean.test(lineNameInputValue)) {

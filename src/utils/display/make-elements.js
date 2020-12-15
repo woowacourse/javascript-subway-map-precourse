@@ -1,66 +1,90 @@
 import { state, saveToLocalStorage } from "../../index.js";
-import { LINE_ARRAY_KEY, STATION_ARRAY_KEY } from "../../global/constant.js";
-import { CONFIRM_MESSAGES } from "../../global/messages.js";
+import { STATION_ARRAY_KEY } from "../../global/constant.js";
+import { CONFIRM_MESSAGES, LINE_ALERT_MESSAGES } from "../../global/messages.js";
 
-export function makeTdElement(elementToMake) {
-  const tdContent = document.createElement("td");
+function confirmDelete(array, station, tr) {
+  const confirmDelete = confirm(CONFIRM_MESSAGES.CONFIRM_DELETE);
 
-  tdContent.append(elementToMake);
-
-  return tdContent;
-}
-
-export function makeTdDeleteBtn(objectToMake, tr) {
-  const tdDeleteBtn = document.createElement("td");
-  const deleteBtn = document.createElement("button");
-
-  deleteBtn.innerHTML = "삭제";
-  deleteBtn.addEventListener("click", () => {
-    const confirmDelete = confirm(CONFIRM_MESSAGES.CONFIRM_DELETE);
-
-    if (confirmDelete) {
-      deleteObject(objectToMake, tr);
-    }
-  });
-  tdDeleteBtn.appendChild(deleteBtn);
-
-  return tdDeleteBtn;
-}
-
-function deleteObject(object, tr) {
-  if (object.type === "STATION") {
-    const deleteStation = state.stationArray.filter(station => {
-      return station.id !== object.id;
-    });
-    tr.remove();
-    state.stationArray = deleteStation;
-    saveToLocalStorage(STATION_ARRAY_KEY, JSON.stringify(state.stationArray));
-  } else if (object.type === "LINE") {
-    const deleteLine = state.subwayLines.filter(line => {
-      return line.id !== object.id;
-    });
-    tr.remove();
-    state.subwayLines = deleteLine;
-    saveToLocalStorage(LINE_ARRAY_KEY, JSON.stringify(state.subwayLines));
+  if (confirmDelete) {
+    deleteObject(array, station, tr);
   }
 }
 
-export default function makeOneRowWithDeleteBtn(objectToMake, [...args]) {
+function deleteObject(object, stationToDelete, tr) {
+  const deleteStation = object.filter(station => station.id !== stationToDelete.id);
+  tr.remove();
+  if (stationToDelete.type === "LINE") {
+    state.subwayLines = deleteStation;
+  } else if (stationToDelete.type === "STATION") {
+    state.stationArray = deleteStation;
+  }
+  saveToLocalStorage(STATION_ARRAY_KEY, JSON.stringify(deleteStation));
+}
+
+function isContainedInLine(station) {
+  const isContained = state.subwayLines.filter(line => {
+    let contain = false;
+    line.stations.filter(stations => {
+      if (stations.stationName === station.stationName) {
+        contain = true;
+      }
+    });
+    return contain;
+  });
+
+  return isContained.length;
+}
+
+function alertContainedStationInLine(station, tr) {
+  if (isContainedInLine(station) === 0) {
+    confirmDelete(state.stationArray, station, tr);
+  } else {
+    return alert(LINE_ALERT_MESSAGES.ERROR_CANNOT_DELETE_STATION_IN_LINE);
+  }
+}
+
+function makeTdDeleteButton(station, tr) {
+  const td = document.createElement("td");
+  const deleteButtonHtml = `<button>삭제</button>`;
+  const deleteButton = new DOMParser().parseFromString(deleteButtonHtml, "text/html").childNodes[0]
+    .lastElementChild.firstElementChild;
+
+  deleteButton.addEventListener("click", () => {
+    if (station.type === "LINE") {
+      confirmDelete(state.subwayLines, station, tr);
+    } else if (station.type === "STATION") {
+      alertContainedStationInLine(station, tr);
+    }
+  });
+  td.appendChild(deleteButton);
+
+  return td;
+}
+
+function makeOneRowWithDeleteBtn(object, [...args]) {
   const tr = document.createElement("tr");
-  const deleteBtn = makeTdDeleteBtn(objectToMake, tr);
+  const deleteBtn = makeTdDeleteButton(object, tr);
 
   for (const arg of [...args]) {
-    tr.appendChild(makeTdElement(arg));
-    tr.id = objectToMake.id;
+    tr.appendChild(makeNewTdWithElement(arg));
+    tr.id = object.id;
   }
   tr.appendChild(deleteBtn);
 
   return tr;
 }
 
+export function showNewRow(parentID, rowToShow, [...args]) {
+  const oneRowWithDeleteBtn = makeOneRowWithDeleteBtn(rowToShow, [...args]);
+  const locationOfRow = document.getElementById(parentID);
+
+  return locationOfRow.appendChild(oneRowWithDeleteBtn);
+}
+
 export function makeSelectOptions(selectBox, optionToMakeArray) {
   for (const optionValue of optionToMakeArray) {
     const option = document.createElement("option");
+
     option.value = optionValue.stationName;
     option.text = optionValue.stationName;
     selectBox.appendChild(option);
