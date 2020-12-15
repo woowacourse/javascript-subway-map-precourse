@@ -55,15 +55,18 @@ export default class SectionManager {
     }
   }
 
+  validateSectionInput(lineName, order, stationName) {
+    this.validateSectionOrder(lineName, order);
+    this.validateSectionExist(lineName, stationName);
+  }
+
   addSection(targetButton) {
     try {
       const targetLine = targetButton.dataset.line;
       const sectionStation = this.getSectionStationInput();
       const sectionOrder = this.getSectionOrderInput();
       this.view.resetSectionInput();
-
-      this.validateSectionOrder(targetLine, sectionOrder);
-      this.validateSectionExist(targetLine, sectionStation);
+      this.validateSectionInput(targetLine, sectionOrder, sectionStation);
 
       this.section.addSection(targetLine, sectionStation, sectionOrder);
       this.view.renderSectionTable(targetLine);
@@ -95,15 +98,15 @@ export default class SectionManager {
 
   onClickButton(event) {
     const target = event.target;
-    if (target.className === "section-line-menu-button") {
+    if (target.className === this.view.SECTION_LINE_MENU_BUTTON_CLASSNAME) {
       this.selectSectionLine(target);
     }
 
-    if (target.id === "section-add-button") {
+    if (target.id === this.view.SECTION_ADD_BUTTON_ID) {
       this.addSection(target);
     }
 
-    if (target.className === "section-delete-button") {
+    if (target.className === this.view.SECTION_DELETE_BUTTON_CLASSNAME) {
       const { line, station } = target.parentNode.parentNode.dataset;
       this.deleteSection(line, station);
     }

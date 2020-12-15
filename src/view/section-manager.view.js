@@ -11,6 +11,7 @@ export default class SectionManagerView extends SectionManagerTemplate {
     this.line = line;
     this.station = station;
     this.section = section;
+    this.FIRST_ITEM_INDEX = 0;
   }
 
   accessSectionStationSelector() {
@@ -73,7 +74,7 @@ export default class SectionManagerView extends SectionManagerTemplate {
 
   resetSectionStationSelector() {
     const sectionStationSelector = this.accessSectionStationSelector();
-    sectionStationSelector.selectedIndex = 0;
+    sectionStationSelector.selectedIndex = this.FIRST_ITEM_INDEX;
   }
 
   resetSectionInput() {

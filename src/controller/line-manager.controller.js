@@ -49,14 +49,18 @@ export default class LineManager {
     }
   }
 
+  validateLineInput(lineName, startStation, endStation) {
+    this.validateLineName(lineName);
+    this.validateStartEndStation(startStation, endStation);
+  }
+
   addLine() {
     try {
       const lineName = this.getLineNameInput();
       const startStation = this.getLineStartStationInput();
       const endStation = this.getLineEndStationInput();
       this.view.resetLineInput();
-      this.validateLineName(lineName);
-      this.validateStartEndStation(startStation, endStation);
+      this.validateLineInput(lineName, startStation, endStation);
 
       this.line.createLine(lineName, startStation, endStation);
       this.view.renderLineTable();
@@ -77,11 +81,11 @@ export default class LineManager {
   onClickButton(event) {
     const target = event.target;
 
-    if (target.id === "line-add-button") {
+    if (target.id === this.view.LINE_ADD_BUTTON_ID) {
       this.addLine();
     }
 
-    if (target.className === "line-delete-button") {
+    if (target.className === this.view.LINE_DELETE_BUTTON_CLASSNAME) {
       const line = target.parentNode.parentNode.dataset.line;
       this.deleteLine(line);
     }

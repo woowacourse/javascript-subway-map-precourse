@@ -77,11 +77,11 @@ export default class StationManager {
   onClickButton(event) {
     const target = event.target;
 
-    if (target.id === "station-add-button") {
+    if (target.id === this.view.STATION_ADD_BUTTON_ID) {
       this.addStation();
     }
 
-    if (target.className === "station-delete-button") {
+    if (target.className === this.view.STATION_DELETE_BUTTON_CLASSNAME) {
       const stationName = target.parentNode.parentNode.dataset.station;
       this.deleteStation(stationName);
     }

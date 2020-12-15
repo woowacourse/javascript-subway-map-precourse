@@ -8,6 +8,7 @@ export default class LineManagerView extends LineManagerTemplate {
 
     this.station = station;
     this.section = section;
+    this.FIRST_ITEM_INDEX = 0;
   }
 
   accessLineNameInputField() {
@@ -40,7 +41,7 @@ export default class LineManagerView extends LineManagerTemplate {
       const sections = this.section.getSectionsByLineName(lineName);
       lineRowHTML += this.createLineTableRowHTML(
         lineName,
-        sections[0],
+        sections[this.FIRST_ITEM_INDEX],
         sections[sections.length - 1]
       );
 
@@ -64,8 +65,8 @@ export default class LineManagerView extends LineManagerTemplate {
   resetLineStationSelectorSelctor() {
     const startStationSelector = this.accessLineStartStationSelector();
     const endStationSelector = this.accessLineEndStationSelector();
-    startStationSelector.selectedIndex = 0;
-    endStationSelector.selectedIndex = 0;
+    startStationSelector.selectedIndex = this.FIRST_ITEM_INDEX;
+    endStationSelector.selectedIndex = this.FIRST_ITEM_INDEX;
   }
 
   resetLineInput() {
