@@ -68,4 +68,20 @@ const LineCreator = function () {
     deleteButtonTd.appendChild(deleteButton);
     return deleteButtonTd;
   };
+
+  this.createLineTr = (line) => {
+    const tr = document.createElement("tr");
+    const lineNameTd = createTd(line.name);
+    const startStationTd = createTd(line.sections[0]);
+    const endStationTd = createTd(line.sections[line.sections.length - 1]);
+    const deleteButtonTd = this.createLineDeleteButtonTd(line.name);
+    appendChildren(
+      tr,
+      lineNameTd,
+      startStationTd,
+      endStationTd,
+      deleteButtonTd
+    );
+    return tr;
+  };
 };
