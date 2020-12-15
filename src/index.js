@@ -9,7 +9,6 @@ export default class SubwayManager {
     if (!(localStorage.getItem('Stations') && localStorage.getItem('Lines'))) {
       this.setLocalStrageDefault();
     }
-    this.setLocalStrageDefault();
     MenuView.menuButtonListView();
     MenuController.buttonEventController();
     SectionManagerController.buttonEventController();
