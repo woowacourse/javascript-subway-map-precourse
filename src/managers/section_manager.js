@@ -4,7 +4,10 @@ import {
   isBiggerThanTwo,
   setStateAndLocalStorage,
 } from "../common/function";
-import { changeTableBody } from "../containers/section_container";
+import {
+  changeTableBody,
+  clearSectionInputs,
+} from "../containers/section_container";
 import { state } from "../state";
 
 const SectionManager = function () {
@@ -53,5 +56,16 @@ const SectionManager = function () {
     if (!this.isOrderCorrect(parseInt(order, 10), sections.length))
       return { value: false, errorMessage: "Section order isn't correct." };
     return { value: true };
+  };
+
+  this.handleAddProcess = (sectionInput, orderInput) => {
+    const formattedLines = getFormattedLines();
+    formattedLines[state.selectedLineIndex].sections.splice(
+      orderInput.value,
+      0,
+      sectionInput.value
+    );
+    this.updateDataAndRerender(formattedLines);
+    clearSectionInputs(sectionInput, orderInput);
   };
 };
