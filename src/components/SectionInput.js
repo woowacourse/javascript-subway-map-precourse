@@ -18,16 +18,12 @@ export default function SectionInput({ $target, stations, selectedLineName, stat
         const selectedStation = document.querySelector(`#${sectionStationSelector.id}`).value;
         let sectionOrder = document.querySelector(`#${sectionOrderInput.id}`).value - 0;
 
-        if (this.isValideInput(sectionOrder, selectedStation)) {
+        if (this.isNatureNumber(sectionOrder)) {
           sectionOrder = this.checkOverStationsLength(sectionOrder);
           // TODO: 구간 추가하기
         }
       }
     });
-  };
-
-  this.isValideInput = (sectionOrder, selectedStation) => {
-    return this.isNatureNumber(sectionOrder);
   };
 
   this.isNatureNumber = (sectionOrder) => {
