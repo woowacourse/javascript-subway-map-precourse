@@ -125,7 +125,9 @@ function orderAlert(order) {
   let alertMsg = "";
   let targetLineIdx = subwayDatas.lines.findIndex((line) => line.name === subwayDatas.targetLine);
 
-  if (0 > order) {
+  if (isNaN(Number(order))) {
+    alertMsg = "숫자만 입력 가능합니다.";
+  } else if (0 > order) {
     alertMsg = "양수만 입력 가능합니다.";
   } else if (order <= 0 || subwayDatas.lines[targetLineIdx].stops.length <= order) {
     alertMsg = "역과 역 사이에만 구간 등록이 가능합니다.";

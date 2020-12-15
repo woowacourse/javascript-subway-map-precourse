@@ -43,7 +43,7 @@ function sectionManagerPage(subwayDatas) {
     <select id="section-station-selector">
     ${options}
     </select>
-    <input id = "section-order-input" type = "number" min=0></input>
+    <input id = "section-order-input" value = "순서"></input>
     <button id = "section-add-button">등록</button>
     <br />
     <br />

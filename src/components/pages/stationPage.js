@@ -14,7 +14,7 @@ function stationManagerPage(subwayDatas) {
 
   let stationManager = `
   <h4>역 이름<h4>
-  <input id = "station-add-input"></input>
+  <input id = "station-add-input" value = "역 이름을 입력해주세요."></input>
   <button id = "station-add-button">역 추가</button>
   <h3>🚉지하철 역 목록</h3>
   

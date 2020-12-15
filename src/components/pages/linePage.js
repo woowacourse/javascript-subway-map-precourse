@@ -15,7 +15,7 @@ function lineManagerPage(subwayDatas) {
 
   let lineManager = `
   <h4>노선 이름<h4>
-  <input id = "line-name-input"></input>
+  <input id = "line-name-input" value = "노선 이름을 입력해주세요."></input>
   <br />
   <br />
   <label>상행 종점</label>
