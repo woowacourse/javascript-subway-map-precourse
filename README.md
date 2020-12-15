@@ -1,22 +1,41 @@
 # 🚇 지하철 노선도 미션
 
+## 구현할 기능 목록
+
+- 상단 버튼이 눌리면, 출력되던 결과물이 새로 나올 결과물과 같은 내용인지 확인하여 다르면 이전 결과물을 제거하고, 같은 경우 아무 렌더링도 일어나지 않도록 한다.
+- 데이터에 변화가 생기면 즉각적으로 local storage값과 렌더링 결과를 업데이트한다.
+- 데이터를 추가하면 데이터는 항상 끝 부분에 추가되도록 한다.
+- 테이블의 최상단 행을 제외한 다른 행의 버튼에 data로 각 행을 구별할 수 있는 값을 설정해 준다.
+- 역 추가 버튼이 눌렸을 때, 역 이름이 중복되는지, 두 글자 이상인지 확인한다.
+- 노선 추가 버튼이 눌렸을 때, input의 값이 기존의 노선 이름들과 중복되는지, 두 글자 이상인지 확인한다.
+- 확인한 input 값이 문제가 있으면 적절한 경고창을 띄운다.
+- 상행 종점과 하행 종점 select의 기본 값이 전체 역 중 가장 처음 등록된 역으로 설정되도록 한다.
+- 구간 등록 부분에서 추가 될 구간의 순서가 0 이상, 선택 된 노선의 구간들의 최대 순서 +1 이하가 되도록 한다.
+- 구간 등록 부분에서 select의 기본 값이 가장 처음 등록된 역으로 설정되도록 한다.
+- 노선에 역이 2개일 때는 노선에서 역을 지우지 못하도록 한다.
+- 새로운 역이나 노선이 추가된 뒤에는 input이나 select의 값들이 초기 값으로 바뀌도록 한다.
+- 모든 문자열을 상수 처리한다.
+
 ## 🚀 기능 요구사항
 
 ### 지하철 역 관련 기능
+
 - 지하철 역을 등록하고 삭제할 수 있다. (단, 노선에 등록된 역은 삭제할 수 없다)
 - 중복된 지하철 역 이름이 등록될 수 없다.
 - 지하철 역은 2글자 이상이어야 한다.
 - 지하철 역의 목록을 조회할 수 있다.
 
 ### 지하철 노선 관련 기능
+
 - 지하철 노선을 등록하고 삭제할 수 있다.
 - 중복된 지하철 노선 이름이 등록될 수 없다.
 - 노선 등록 시 상행 종점역과 하행 종점역을 입력받는다.
 - 지하철 노선의 목록을 조회할 수 있다.
 
 ### 지하철 구간 추가 기능
+
 - 지하철 노선에 구간을 추가하는 기능은 노선에 역을 추가하는 기능이라고도 할 수 있다.
-  - 역과 역사이를 구간이라 하고 이 구간들의 모음이 노선이다.  
+  - 역과 역사이를 구간이라 하고 이 구간들의 모음이 노선이다.
 - 하나의 역은 여러개의 노선에 추가될 수 있다.
 - 역과 역 사이에 새로운 역이 추가 될 수 있다.
 - 노선에서 갈래길은 생길 수 없다.
@@ -24,6 +43,7 @@
 <img width="500" src="/images/section1.png">
 
 ### 지하철 구간 삭제 기능
+
 - 노선에 등록된 역을 제거할 수 있다.
 - 종점을 제거할 경우 다음 역이 종점이 된다.
 - 노선에 포함된 역이 두개 이하일 때는 역을 제거할 수 없다.
@@ -31,6 +51,7 @@
 <img width="500" src="/images/section2.png">
 
 ### 지하철 노선에 등록된 역 조회 기능
+
 - 노선의 상행 종점부터 하행 종점까지 연결된 순서대로 역 목록을 조회할 수 있다.
 
 <br/>
@@ -38,32 +59,38 @@
 ## 💻 프로그램 실행 결과
 
 ### 역관리
+
 <img width="100%" src="/images/station_manager.gif">
 
 ### 노선관리
+
 <img width="100%" src="/images/line_manager.gif">
 
 ### 구간관리
+
 <img width="100%" src="/images/section_manager.gif">
 
 ### 노선도 출력
-<img width="100%" src="/images/map_print_manager.gif">
 
+<img width="100%" src="/images/map_print_manager.gif">
 
 ## ✅ 프로그래밍 요구사항
 
 ### 메뉴 버튼
+
 - 역 관리 button 태그는 `#station-manager-button` id값을 가진다.
 - 노선 관리 button 태그는 `#line-manager-button` id값을 가진다.
 - 구간 관리 button 태그는 `#section-manager-button` id값을 가진다.
 - 지하철 노선도 출력 관리 button 태그는 `#map-print-manager-button` id값을 가진다.
 
 ### 지하철 역 관련 기능
+
 - 지하철 역을 입력하는 input 태그는 `#station-name-input` id값을 가진다.
 - 지하철 역을 추가하는 button 태그는 `#station-add-button` id값을 가진다.
 - 지하철 역을 삭제하는 button 태그는 `.station-delete-button` class값을 가진다.
 
 ### 지하철 노선 관련 기능
+
 - 지하철 노선의 이름을 입력하는 input 태그는 `#line-name-input` id값을 가진다.
 - 지하철 노선의 상행 종점을 선택하는 select 태그는 `#line-start-station-selector` id값을 가진다.
 - 지하철 노선의 하행 종점을 선택하는 select 태그는 `#line-end-station-selector` id값을 가진다.
@@ -71,6 +98,7 @@
 - 지하철 노선을 삭제하는 button 태그는 `.line-delete-button` class값을 가진다.
 
 ### 지하철 구간 추가 기능
+
 - 지하철 노선을 선택하는 button 태그는 `.section-line-menu-button` class값을 가진다.
 - 지하철 구간을 설정할 역 select 태그는 `#section-station-selector` id값을 가진다.
 - 지하철 구간의 순서를 입력하는 input 태그는 `#section-order-input` id값을 가진다.
@@ -78,6 +106,7 @@
 - 지하철 구간을 제거하는 button 태그는 `.section-delete-button` class값을 가진다.
 
 ### 지하철 노선도 출력 기능
+
 - 지하철 노선도 출력 버튼을 누르면 `<div class="map"></div>` 태그를 만들고 해당 태그 내부에 노선도를 출력한다.
 
 ### 기존 요구사항
@@ -101,7 +130,8 @@
   - [https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Template_literals](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Template_literals)
 
 ### 추가된 요구사항
-- [data](https://developer.mozilla.org/ko/docs/Learn/HTML/Howto/%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%86%8D%EC%84%B1_%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)속성을 활용하여 html 태그에 역, 노선, 구간의 유일한 데이터 값들을 관리한다. 
+
+- [data](https://developer.mozilla.org/ko/docs/Learn/HTML/Howto/%EB%8D%B0%EC%9D%B4%ED%84%B0_%EC%86%8D%EC%84%B1_%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)속성을 활용하여 html 태그에 역, 노선, 구간의 유일한 데이터 값들을 관리한다.
 - [localStorage](https://developer.mozilla.org/ko/docs/Web/API/Window/localStorage)를 이용하여, 새로고침하더라도 가장 최근에 작업한 정보들을 불러올 수 있도록 한다.
 
 <br/>

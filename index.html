@@ -6,8 +6,41 @@
   </head>
   <body>
     <div id="app">
-      <h1>🚇 지하철 노선도 관리 </h1>
+      <h1>🚇 지하철 노선도 관리</h1>
+      <div>
+        <button id="station-manager-button">1. 역 관리</button>
+        <button id="line-manager-button">2. 노선 관리</button>
+        <button id="section-manager-button">3. 구간 관리</button>
+        <button id="map-print-manager-button">4. 지하철 노선도 출력</button>
+      </div>
+      <div id="result"></div>
     </div>
     <script type="module" src="src/index.js"></script>
+    <style>
+      table,
+      tr,
+      td,
+      th {
+        border: 1px solid black;
+      }
+      .input-title {
+        margin-top: 1rem;
+      }
+      #station-name-input {
+        margin-right: 5px;
+      }
+      #line-name-input {
+        margin-bottom: 1rem;
+      }
+      #line-add-button {
+        margin-top: 1rem;
+      }
+      .section-line-menu-button {
+        margin-right: 5px;
+      }
+      #section-order-input {
+        margin-bottom: 3rem;
+      }
+    </style>
   </body>
 </html>
