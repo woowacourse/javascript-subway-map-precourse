@@ -7,10 +7,11 @@ export default class SubwayMap {
   constructor() {
     document.body.style.fontFamily = 'Arial';
     new Menu();
-
     new ManageStation();
     new ManageLine();
-    new ManageSection();
+    const manageSection = new ManageSection();
+
+    manageSection.initPage();
   }
 }
 

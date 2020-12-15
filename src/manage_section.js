@@ -4,13 +4,6 @@ import CommonUtils from './common_utils.js';
 import SelectUtils from './select_utils.js';
 
 export default class ManageSection {
-  constructor() {
-    this.setPrivateVariables();
-    this.setConst();
-    this.getLocalStorage();
-    this.initPage();
-  }
-
   setPrivateVariables() {
     this._privateTableUtils = new TableUtils();
     this._privateDomUtils = new DomUtils();
@@ -29,13 +22,17 @@ export default class ManageSection {
 
     this.SELECT_LINE_TITLE_TAG = 'h3';
     this.SELECT_LINE_TITLE = '구간을 수정할 노선을 선택해주세요';
+
     this.MANAGE_LINE_TITLE_TAG = 'h3';
     this.MANAGE_LINE_TITLE = ' 관리';
+
     this.ADD_SECTION_TITLE_TAG = 'h4';
     this.ADD_SECTION_TITLE = '구간 등록';
+
     this.SECTION_ORDER_INPUT_PLACEHOLDER = '순서';
     this.SECTION_DELETE_TEXT = '노선에서 제거';
 
+    this.LINE_BUTTONS_CLASS = 'line-button';
     this.SELECT_LINE_BUTTON_CLASS = 'section-line-menu-button';
     this.DELETE_BUTTON_CLASS = 'section-delete-button';
 
@@ -56,6 +53,10 @@ export default class ManageSection {
   }
 
   initPage() {
+    this.setPrivateVariables();
+    this.setConst();
+    this.getLocalStorage();
+
     this.createSelectLineSection();
     this.createManageLineSection();
     this.createManageLineSectionTable();
@@ -72,10 +73,16 @@ export default class ManageSection {
   }
   
   createLineButtons() {
-    for (const line in this._lineList) {
+    this.setPrivateVariables();
+    this.setConst();
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
+
+    for (const line in lineList) {
       const button = this._privateDomUtils.createButton(`${line}Button`, line);
+
       this._privateDomUtils.appendToIdName(this.SELECT_LINE_SECTION, button);
       button.style.margin = "2px";
+      this._privateDomUtils.setAttribute('class', button, this.LINE_BUTTONS_CLASS);
       this.addEventToSelectButton(button, line);
     }
   }
@@ -88,8 +95,12 @@ export default class ManageSection {
   }
 
   showManageLineSection() {
-    this._manageLineSection.style.display = 'block';
+    const manageLineSection = document.getElementById(this.MANAGE_LINE_SECTION);
+
+    manageLineSection.style.display = 'block';
   }
+
+
 
   changeManageLineSection(line) {
     this.changeManageLineSectionTitle(line);
@@ -114,9 +125,13 @@ export default class ManageSection {
     this._privateCommonUtils.createDiv(this.ARTICLE_NAME, this.MANAGE_LINE_SECTION);
     this._privateCommonUtils.createTitle(this.MANAGE_LINE_TITLE_TAG, this.MANAGE_LINE_TITLE, this.MANAGE_LINE_SECTION);
     this.createSectionAddArea();
+    this.hideManageLineSection();
+  }
 
-    this._manageLineSection = document.getElementById(this.MANAGE_LINE_SECTION);
-    this._manageLineSection.style.display = 'none';
+  hideManageLineSection() {
+    const manageLineSection = document.getElementById(this.MANAGE_LINE_SECTION);
+    
+    manageLineSection.style.display = 'none';
   }
 
   createSectionAddArea() {

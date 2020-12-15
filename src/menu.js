@@ -5,6 +5,7 @@ import CommonUtils from './common_utils.js';
 import ManageLine from './manage_line.js';
 import SelectUtils from './select_utils.js';
 import ManageMapPrint from './manage_map_print.js';
+import ManageSection from './manage_section.js';
 
 export default class Menu {
   constructor() {
@@ -26,6 +27,8 @@ export default class Menu {
     this.LINE_ARTICLE = 'lineArticle';
     this.SECTION_ARTICLE = 'sectionArticle';
     this.MAP_PRINT_ARTICLE = 'mapArticle';
+
+    this.LINE_BUTTON_CLASS = 'line-button'
   }
 
   managerButton() {
@@ -95,6 +98,9 @@ export default class Menu {
       this.refreshLineSelect();
       this._privateTableUtils.refreshTableData(articleName);
     }
+    else if (articleName === this.SECTION_ARTICLE) {
+      this.refreshSectionLineButtons();
+    }
     else if (articleName === this.MAP_PRINT_ARTICLE) {
       this.refreshMapPrint(articleName);
     }
@@ -111,6 +117,24 @@ export default class Menu {
     this._privateSelectUtils.addStationsToSelect(startSelect, this._privateCommonUtils, this._privateDomUtils);
     this._privateSelectUtils.addStationsToSelect(endSelect, this._privateCommonUtils, this._privateDomUtils);
     
+  }
+
+  refreshSectionLineButtons() {
+    this.removeButtons();
+    
+    const manageSection = new ManageSection();
+
+    manageSection.createLineButtons();
+    manageSection.hideManageLineSection();
+  }
+
+  removeButtons() {
+    const buttonArray = document.querySelectorAll(`.${this.LINE_BUTTON_CLASS}`);
+    const len = buttonArray.length
+
+    for (let i = 0; i < len; i++) {
+      document.querySelector(`.${this.LINE_BUTTON_CLASS}`).remove();
+    }
   }
 
   refreshMapPrint(articleName) {
