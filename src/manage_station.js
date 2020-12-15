@@ -1,9 +1,11 @@
 import DomUtils from './dom_utils.js';
 import TableUtils from './table_utils.js';
 import CommonUtils from './common_utils.js';
+import StringUtils from './string_utils.js';
 
 export default class ManageStation {
   setPrivateVariable() {
+    this._privateStringUtils = new StringUtils();
     this._privateDomUtils = new DomUtils();
     this._privateCommonUtils = new CommonUtils();
     this._privateTableUtils = new TableUtils();
@@ -89,10 +91,13 @@ export default class ManageStation {
   }
 
   addStation() {
+    this._inputValue = this._privateStringUtils.removeSpace(this._stationInput.value);
+    console.log(this._inputValue);
+
     if (this.checkStationValidity() === this.IS_VALID) {
-      const rowArray = [this._stationInput.value, this.DELETE_BUTTON_TEXT];
+      const rowArray = [this._inputValue, this.DELETE_BUTTON_TEXT];
       
-      this.addToStationList(this._stationInput.value);
+      this.addToStationList(this._inputValue);
       this._privateCommonUtils.saveToLocalStorage('stationList', this._stationList);
       this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
       this._stationInput.value = '';
@@ -107,7 +112,7 @@ export default class ManageStation {
     }
 
     if (this.overlap() === this.IS_NOT_VALID) {
-      this._privateCommonUtils.alertError(`"${this._stationInput.value}"은/는 ` + this.OVERLAP_ERROR_MESSAGE)
+      this._privateCommonUtils.alertError(`"${this._inputValue}"은/는 ` + this.OVERLAP_ERROR_MESSAGE)
 
       return this.IS_NOT_VALID;
     }
@@ -116,7 +121,7 @@ export default class ManageStation {
   }
 
   minLength() {
-    if (this._stationInput.value.length <= 1) {
+    if (this._inputValue.length <= 1) {
       return this.IS_NOT_VALID;
     }
 
@@ -124,7 +129,9 @@ export default class ManageStation {
   }
 
   overlap() {
-    if (this._stationInput.value in this._stationList) {
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
+
+    if (this._inputValue in stationList) {
       return this.IS_NOT_VALID;
     }
 

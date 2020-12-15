@@ -2,6 +2,7 @@ import TableUtils from './table_utils.js';
 import DomUtils from './dom_utils.js';
 import CommonUtils from './common_utils.js';
 import SelectUtils from './select_utils.js';
+import StringUtils from './string_utils.js';
 
 export default class ManageSection {
   setPrivateVariables() {
@@ -9,6 +10,7 @@ export default class ManageSection {
     this._privateDomUtils = new DomUtils();
     this._privateCommonUtils = new CommonUtils();
     this._privateSelectUtils = new SelectUtils();
+    this._privateStringUtils = new StringUtils();
   }
 
   setConst() {
@@ -42,7 +44,7 @@ export default class ManageSection {
     this.ADD_BUTTON_TEXT = '등록';
 
     this.IS_EMPTY_ERROR_MESSAGE = '순서를 입력해주세요.';
-    this.IS_NEGATIVE_ERROR_MESSAGE = '수가 아닌 정수 순서를 입력해주세요.';
+    this.IS_NEGATIVE_ERROR_MESSAGE = '음수가 아닌 정수 순서를 입력해주세요.';
     this.IS_NOT_CONSECUTIVE_ERROR_MESSAGE = '기존 순서들과 연속되는 순서를 입력해주세요.';
     this.IS_ALREADY_REGISTERED_ERROR_MESSAGE = '이미 등록되어있는 역입니다.';
   }
@@ -288,16 +290,6 @@ export default class ManageSection {
   getSelectedStation() {
     return document.getElementById('section-station-selector').value;
   }
-
-  // addSection() {
-  //   const lineList = this._privateCommonUtils.getLocalStorageLine();
-  //   const line = this.getCurrentLineFromTitle();
-  //   const station = this.getSelectedStation();
-  //   const rowArray = [this._orderInput.value, station, this.SECTION_DELETE_TEXT, line];
-
-  //   this._privateTableUtils.addRowAtIndex(rowArray, line, this.MANAGE_LINE_SECTION);
-    
-  // }
 
   /*
    * createManageLineSectionTable

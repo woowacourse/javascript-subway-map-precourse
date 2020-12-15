@@ -1,4 +1,8 @@
 export default class StringUtils {
+  removeSpace(inputValue) {
+    return inputValue.split(' ').join('');
+  }
+
   getVarName(tagName) {
     let tagParts = this.splitTagName(tagName);
     let varNameParts = this.intoCamelCase(tagParts);

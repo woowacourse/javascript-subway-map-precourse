@@ -2,6 +2,7 @@ import CommonUtils from "./common_utils.js";
 import DomUtils from "./dom_utils.js";
 import TableUtils from "./table_utils.js";
 import SelectUtils from "./select_utils.js";
+import StringUtils from "./string_utils.js";
 
 export default class ManageLine {
   setPrivateVariables() {
@@ -9,6 +10,7 @@ export default class ManageLine {
     this._privateDomUtils = new DomUtils();
     this._privateTableUtils = new TableUtils();
     this._privateSelectUtils = new SelectUtils();
+    this._privateStringUtils = new StringUtils();
   }
 
   setConst() {
@@ -46,10 +48,6 @@ export default class ManageLine {
     this.createLineAddSection();
     this.createTableSection();
   }
-
-  /*
-   * this.initLists()
-   */
 
   initLists() {
     this._lineList = this._privateCommonUtils.getLocalStorageLine();
@@ -114,7 +112,9 @@ export default class ManageLine {
   }
 
   createNewLine() {
-    if (this.checkLineValidity(this._lineInput.value) === this.IS_VALID) {
+    this._lineInputValue = this._privateStringUtils.removeSpace(this._lineInput.value);
+    
+    if (this.checkLineValidity() === this.IS_VALID) {
       this.updateAddToLocalStorage();
       this.addLine();
       this.renewLineUserInteractions();
@@ -144,7 +144,7 @@ export default class ManageLine {
   }
 
   isEmpty() {
-    if (this._lineInput.value.length === 0) {
+    if (this._lineInputValue.length === 0) {
       return this.IS_NOT_VALID;
     }
 
@@ -153,7 +153,7 @@ export default class ManageLine {
 
   overlap() {
     const lineList = this._privateCommonUtils.getLocalStorageLine();
-    if  (this._lineInput.value in lineList) {
+    if  (this._lineInputValue in lineList) {
       return this.IS_NOT_VALID;
     }
 
@@ -177,16 +177,16 @@ export default class ManageLine {
   updateAddToLocalStorage() {
     const lineList = this._privateCommonUtils.getLocalStorageLine();
     const stationList = this._privateCommonUtils.getLocalStorageStation();
-    lineList[this._lineInput.value] = [this._startSelect.value, this._endSelect.value];
-    stationList[this._startSelect.value].push(this._lineInput.value);
-    stationList[this._endSelect.value].push(this._lineInput.value);
+    lineList[this._lineInputValue] = [this._startSelect.value, this._endSelect.value];
+    stationList[this._startSelect.value].push(this._lineInputValue);
+    stationList[this._endSelect.value].push(this._lineInputValue);
 
     this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
     this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
   }
 
   addLine() {
-    const rowArray = [this._lineInput.value, this._startSelect.value, this._endSelect.value, this.DELETE_BUTTON_TEXT];
+    const rowArray = [this._lineInputValue, this._startSelect.value, this._endSelect.value, this.DELETE_BUTTON_TEXT];
 
     this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
   }
