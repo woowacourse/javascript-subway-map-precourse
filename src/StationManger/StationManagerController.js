@@ -35,7 +35,7 @@ export default class StationManagerController {
     const station = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
     const isValid = StationManagerModel.checkAfterDelete(station);
     if (isValid !== 1) {
-      StationManagerView.alertNameError(isValid);
+      StationManagerView.alertError(isValid);
       return;
     }
     if (!StationManagerView.confirmDelete()) {
