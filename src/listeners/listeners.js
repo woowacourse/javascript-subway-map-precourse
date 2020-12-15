@@ -14,6 +14,7 @@ import {
 import {
   lineManagerButtonElement,
   sectionManagerButtonElement,
+  mapPrintManagerButtonElement,
 } from '../elements/contentConvertButtons.js';
 
 import { onAddStation, onDeleteStation } from '../handlers/stationManager.js';
@@ -28,6 +29,7 @@ import {
   onInsertStation,
   onPullOutStation,
 } from '../handlers/sectionManager.js';
+import { onPrintMap } from '../handlers/mapPrint.js';
 
 const addAllEventListeners = () => {
   stationAddButtonElement.addEventListener('click', onAddStation);
@@ -45,6 +47,7 @@ const addAllEventListeners = () => {
   );
   sectionAddButtonElement.addEventListener('click', onInsertStation);
   registeredStationItemsElement.addEventListener('click', onPullOutStation);
+  mapPrintManagerButtonElement.addEventListener('click', onPrintMap);
 };
 
 export default { addAllEventListeners };
