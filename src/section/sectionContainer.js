@@ -1,4 +1,8 @@
-import { lineMenuPresenter, sectionManagePresenter } from "./sectionPresenter";
+import {
+  lineMenuPresenter,
+  sectionManagePresenter,
+  lineListTemplate,
+} from "./sectionPresenter";
 
 export default function sectionContainer() {
   let lineData = [];
@@ -25,6 +29,7 @@ export default function sectionContainer() {
     for (const line of lineData) {
       if (line[0] === targetLine) {
         sectionManagePresenter(line, stationData);
+        lineListTemplate(line);
       }
     }
   };

@@ -35,3 +35,32 @@ const stationSelector = stationData => {
   selectTemplate += `</select>`;
   return selectTemplate;
 };
+
+export const lineListTemplate = line => {
+  let template = `
+      <tr>
+        <th>순서</th>
+        <th>이름</th>
+        <th>설정</th>
+      </tr>
+  `;
+  for (let i = 1; i < line.length; i++) {
+    template += `
+        <tr data-lineName="${line[i]}">
+          <td><center>${i - 1}</center></td>
+          <td>${line[i]}</td>
+          <td><button id="section-remove-button">노선에서 제거</button></td>
+        </tr>
+      `;
+  }
+  lineListPresenter(template);
+};
+
+export const lineListPresenter = template => {
+  const sectionManageContainer = document.querySelector(
+    "#section-manage-container",
+  );
+  const lineListTable = document.createElement("table");
+  lineListTable.innerHTML = template;
+  sectionManageContainer.appendChild(lineListTable);
+};
