@@ -1,22 +1,19 @@
+import { NAME_MINT_LENGTH } from '../constant.js';
+
 const isNameLengthLongerThanTwo = (stationName) => {
-  if (stationName.length < 2) {
-    return alert('이름은 두글자 이상입니다');
-  }
-  return true;
+  return stationName.length < NAME_MINT_LENGTH ? alert('이름은 두글자 이상입니다') : true;
 };
 
 const isEqualName = (stations, stationName) => {
-  if (stations && stations.map((value) => value.name).includes(stationName)) {
-    return alert('중복된 이름입니다.');
-  }
-  return true;
+  return stations && stations.map((value) => value.name).includes(stationName)
+    ? alert('중복된 이름입니다.')
+    : true;
 };
 
 const isIncludedLine = (stationTag) => {
-  if (stationTag.dataset.lines.length !== 0) {
-    return alert('노선에 포함되어 있는 라인은 삭제할 수 없습니다');
-  }
-  return true;
+  return stationTag.dataset.lines.length !== 0
+    ? alert('노선에 포함되어 있는 라인은 삭제할 수 없습니다')
+    : true;
 };
 
 function stationNameValidator(stations, stationName) {
