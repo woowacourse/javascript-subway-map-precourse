@@ -58,7 +58,7 @@ const newBtnAddListener = event => {
     deleteLine(event.target.dataset.lineName, subwayMap);
   }
   if (event.target.classList.contains('section-line-menu-button')) {
-    showSectionManager(event.target.dataset.stationName, subwayMap);
+    showSectionManager(event.target.dataset.lineName, subwayMap);
   }
 };
 document.body.addEventListener('click', newBtnAddListener);

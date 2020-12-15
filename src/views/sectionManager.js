@@ -19,12 +19,27 @@ export const showModifyLineBtn = subwayMap => {
   buttonsDiv.innerHTML = emptyDiv.outerHTML;
 };
 
-export const showSectionManager = () => {
+export const showSectionManager = (lineName, subwayMap) => {
   const sectionManagerDiv = document.querySelector('.section-manager');
   sectionManagerDiv.classList.add('active');
+  showSectionStationSelector(subwayMap);
 };
 
 export const hideSectionManager = () => {
   const sectionManagerDiv = document.querySelector('.section-manager');
   sectionManagerDiv.classList.remove('active');
+};
+
+const showSectionStationSelector = subwayMap => {
+  const sectionStationSelector = document.querySelector('#section-station-selector');
+  let stationsHTML = '';
+  subwayMap.stationList.forEach(name => {
+    const stationOption = makeElement({
+      tag: 'option',
+      value: name,
+      innerHTML: name,
+    });
+    stationsHTML += stationOption.outerHTML;
+  });
+  sectionStationSelector.innerHTML = stationsHTML;
 };

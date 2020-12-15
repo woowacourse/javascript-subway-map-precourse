@@ -1,6 +1,6 @@
 import { makeElement, appendElements } from './utils.js';
 
-export const showStationSelector = subwayMap => {
+export const showLineStationSelector = subwayMap => {
   const lineStartSelector = document.querySelector('#line-start-station-selector');
   const lineEndSelector = document.querySelector('#line-end-station-selector');
   let stationsHTML = '';
