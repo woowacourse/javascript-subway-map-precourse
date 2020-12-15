@@ -23,7 +23,7 @@ export default class SubwayMap {
     }
   }
 
-  checkIsDuplicatedStationName(stationName) {
+  checkIsStationNameExist(stationName) {
     return stationName in this.#allStations;
   }
 
@@ -39,7 +39,7 @@ export default class SubwayMap {
     }
   }
 
-  checkIsDuplicatedLineName(lineName) {
+  checkIsLineNameExist(lineName) {
     return lineName in this.#allLines;
   }
 

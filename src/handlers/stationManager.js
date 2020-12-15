@@ -3,16 +3,17 @@ import {
   resultStationItemsElement,
 } from '../elements/stationManager.js';
 import SubwayStation from '../classes/subwayStation.js';
-import { stationMap } from '../store/store.js';
+import { subwayMap } from '../store/store.js';
 import {
   SAME_STATION_NAME_EXIST_MESSAGE,
   SHORT_STATION_NAME_ALERT_MESSAGE,
+  STATION_REGISTERED_IN_LINE_MESSAGE,
 } from '../constants/configuration.js';
 import { getStationItemsTemplate } from '../templates/stationManager.js';
 
-const getAlertMessage = (stationName) => {
+const getAddStationAlertMessage = (stationName) => {
   let alertMessage = '';
-  if (stationMap.checkIsDuplicatedStationName(stationName)) {
+  if (subwayMap.checkIsStationNameExist(stationName)) {
     alertMessage += `${SAME_STATION_NAME_EXIST_MESSAGE}\n`;
   }
   if (SubwayStation.checkIsStationNameShort(stationName)) {
@@ -22,18 +23,45 @@ const getAlertMessage = (stationName) => {
   return alertMessage;
 };
 
-const showResult = (stationNames) => {
-  resultStationItemsElement.innerHTML = getStationItemsTemplate(stationNames);
+const getDeleteStationAlertMessage = (stationName) => {
+  let alertMessage = '';
+  const station = subwayMap.allStations[stationName];
+  if (SubwayStation.checkIsStationBelongToLine(station)) {
+    alertMessage += STATION_REGISTERED_IN_LINE_MESSAGE;
+  }
+
+  return alertMessage;
+};
+
+const showResult = () => {
+  const registerdStationNames = Object.keys(subwayMap.allStations);
+  resultStationItemsElement.innerHTML = getStationItemsTemplate(
+    registerdStationNames
+  );
 };
 
 export const onAddStation = () => {
   const stationName = stationNameInputElement.value;
-  const alertMessage = getAlertMessage(stationName);
+  const alertMessage = getAddStationAlertMessage(stationName);
   if (alertMessage === '') {
     const station = new SubwayStation();
-    stationMap.addStation(station, stationName);
-    const registerdStationNames = Object.keys(stationMap.allStations);
-    showResult(registerdStationNames);
+    subwayMap.addStation(station, stationName);
+    showResult();
+  } else {
+    alert(alertMessage);
+  }
+};
+
+export const onDeleteStation = (event) => {
+  const targetElement = event.target;
+  if (targetElement.className !== 'station-delete-button') {
+    return;
+  }
+  const deleteTargetName = targetElement.dataset.deleteTarget;
+  const alertMessage = getDeleteStationAlertMessage(deleteTargetName);
+  if (alertMessage === '') {
+    subwayMap.deleteStationByName(deleteTargetName);
+    showResult();
   } else {
     alert(alertMessage);
   }
