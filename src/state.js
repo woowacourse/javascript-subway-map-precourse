@@ -16,4 +16,4 @@ const State = function () {
   this.INDEX_OF_DATA = "indexOfData";
 };
 
-export const { VALUE_IN_ARRAY, INDEX_OF_DATA, setState } = new State();
+export const { VALUE_IN_ARRAY, INDEX_OF_DATA, setState, state } = new State();

@@ -1,9 +1,11 @@
 import {
   getFormattedLines,
+  getSelectedLineSections,
   isBiggerThanTwo,
   setStateAndLocalStorage,
 } from "../common/function";
 import { changeTableBody } from "../containers/section_container";
+import { state } from "../state";
 
 const SectionManager = function () {
   this.isExist = (sectionName, sections) =>
@@ -37,5 +39,19 @@ const SectionManager = function () {
     setStateAndLocalStorage("lines", updatedLines);
     changeTableBody();
     this.setDeleteButtonClickEvent();
+  };
+
+  this.checkSectionValidity = (section, order) => {
+    const sections = getSelectedLineSections();
+    if (order === "")
+      return {
+        value: false,
+        errorMessage: "Put something into input and try again.",
+      };
+    if (this.isExist(section, sections))
+      return { value: false, errorMessage: "This section is already added." };
+    if (!this.isOrderCorrect(parseInt(order, 10), sections.length))
+      return { value: false, errorMessage: "Section order isn't correct." };
+    return { value: true };
   };
 };
