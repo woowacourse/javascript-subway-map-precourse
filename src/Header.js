@@ -4,7 +4,10 @@ import {
   renderStationTable,
   putOptionsFromId,
   renderSectionSelector,
+  combineMap,
 } from "./utils/dom.js";
+import { getStateFromStorage } from "./utils/storage.js";
+import * as storageKey from "./constants/storageKey.js";
 
 const menuIds = [
   "station-manager-button",
@@ -63,9 +66,13 @@ export default class Header {
   }
 
   renderMapContent() {
+    const lines = getStateFromStorage(storageKey.LINES);
+    if (!lines) {
+      return;
+    }
     const newEl = document.createElement("div");
     newEl.setAttribute("class", "map");
-    newEl.innerHTML = "노선 출력 내용";
+    newEl.innerHTML = Object.entries(lines).reduce(combineMap, "");
     const contentEl = document.getElementById("content");
     contentEl.appendChild(newEl);
   }

@@ -170,3 +170,13 @@ export const renderSectionTable = (lineName) => {
     sectionTableBody.append(tableRow);
   });
 };
+
+export const combineMap = (acc, [line, section]) => {
+  return (
+    acc +
+    `<h2>${line}</h2><ul>${section.reduce(
+      (a, c) => a + `<li>${c}</li>`,
+      ""
+    )}</ul>`
+  );
+};
