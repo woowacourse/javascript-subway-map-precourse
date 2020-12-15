@@ -61,6 +61,9 @@ export default class SubwayManager extends Component {
     ];
     managerList.forEach((manager) => {
       manager.managerId === id ? manager.show() : manager.hide();
+      manager.managerId === MENU.SECTION_MANAGER_BUTTON_ID
+        ? this.sectionManager.sectionDetailManager.hide()
+        : '';
     });
   }
 
