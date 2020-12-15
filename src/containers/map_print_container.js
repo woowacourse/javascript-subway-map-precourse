@@ -1,3 +1,4 @@
+import { getFormattedLines } from "../common/function";
 import { appendChildren } from "../common/visualization";
 import { createOneLineElements } from "../creators/map_print_creator";
 
@@ -8,5 +9,10 @@ const MapPrintContainer = function () {
       appendChildren(lineUl, ...lineList);
       appendChildren(parent, lineTitle, lineUl);
     });
+  };
+
+  this.renderMapPrint = (parent) => {
+    const lines = getFormattedLines();
+    this.appendALineElement(lines, parent);
   };
 };
