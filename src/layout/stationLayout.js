@@ -3,161 +3,167 @@
  */
 
 import PageLayout from './pageLayout.js';
+import CommonUtils from '../common/utils.js';
 
 export default class StationLayout extends PageLayout {
-  createManagerButton() {
-    const stationManagerButton = document.createElement('button');
-    stationManagerButton.id = 'station-manager-button';
-    stationManagerButton.innerHTML = '1. 역 관리';
-    // TODO: 이거 공통클래스로 뺄수있지않나?
-    stationManagerButton.addEventListener('click', () =>
-      this.handleManagerButton(),
+  constructor(controller) {
+    super(controller);
+    this.elements = this.createElements(); // elemenet와 Child 저장
+    this.rowTemplate = this.createRowTemplate();
+    this.rendered = this.$render(this.elements.section);
+    console.log(this.elements);
+    console.log(this.rendered);
+  }
+
+  // element 구조를 설정
+  createElements() {
+    const elements = super.$createCommonElements();
+    this.$appendChildElement(
+      elements.section,
+      'inputContainer',
+      this.$createInputContainer(),
+    );
+    this.$appendChildElement(
+      elements.section,
+      'resultContainer',
+      this.$createResultContainer(),
     );
 
-    return stationManagerButton;
+    return elements;
+  }
+
+  createManagerButton() {
+    return this.createElement({
+      tag: 'button',
+      id: 'station-manager-button',
+      innerHTML: '1. 역 관리',
+      eventListener: { click: [() => this.handleManagerButton()] },
+    });
   }
 
   createSection() {
-    const stationSection = document.createElement('section');
-    stationSection.id = 'station-section';
-
-    return stationSection;
+    return this.createElement({
+      tag: 'section',
+    });
   }
 
   createInput() {
-    const stationNameInput = document.createElement('input');
-    stationNameInput.id = 'station-name-input';
-    stationNameInput.placeholder = '역 이름을 입력해주세요.';
-
-    return stationNameInput;
+    return this.createElement({
+      tag: 'input',
+      id: 'station-name-input',
+      placeholder: '역 이름을 입력해주세요',
+    });
   }
 
   createInputTitle() {
-    const stationNameTitle = document.createElement('h3');
-    stationNameTitle.innerHTML = '역 이름';
-
-    return stationNameTitle;
+    return this.createElement({
+      tag: 'h3',
+      innerHTML: '역 이름',
+    });
   }
 
   createInputAddButton() {
-    const stationAddButton = document.createElement('button');
-    stationAddButton.id = 'station-add-button';
-    stationAddButton.innerHTML = '역 추가';
-    stationAddButton.addEventListener('click', () => this.handleAddButton());
-
-    return stationAddButton;
-  }
-
-  createInputContainer() {
-    const stationNameContainer = document.createElement('article');
-
-    stationNameContainer.append(
-      this.createInputTitle(),
-      this.createInput(),
-      this.createInputAddButton(),
-    );
-
-    return stationNameContainer;
-  }
-
-  createResultContainer() {
-    const stationResultContainer = document.createElement('article');
-    const stationResultTitle = this.createResultTitle();
-    const stationResultTable = this.createResultTable();
-
-    stationResultContainer.append(stationResultTitle, stationResultTable);
-
-    return stationResultContainer;
+    return this.createElement({
+      tag: 'button',
+      id: 'station-add-button',
+      innerHTML: '역 추가',
+      eventListener: { click: [() => this.handleAddButton()] },
+    });
   }
 
   createResultTitle() {
-    const stationResultTitle = document.createElement('h2');
-    stationResultTitle.innerHTML = '🚉 지하철 역 목록';
-
-    return stationResultTitle;
+    return this.createElement({
+      tag: 'h2',
+      innerHTML: '🚉 지하철 역 목록',
+    });
   }
 
   createResultTable() {
-    const stationResultTable = document.createElement('table');
-    stationResultTable.innerHTML =
-      '<thead><tr><th>역이름</th><th>설정</th></tr></thead>';
-
-    return stationResultTable;
+    return this.createElement({
+      tag: 'table',
+      innerHTML:
+        '<thead><tr><th>역이름</th><th>설정</th></tr></thead><tbody></tbody>',
+    });
   }
 
   createDeleteButton() {
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = '삭제';
-    deleteButton.className = 'station-delete-button';
-    deleteButton.addEventListener('click', e =>
-      this.handleDeleteButton(e.target),
-    );
-
-    return deleteButton;
+    return this.createElement({
+      tag: 'button',
+      innerHTML: '삭제',
+      classList: ['station-delete-button'],
+      eventListener: { click: [e => this.handleDeleteButton(e.target)] },
+    });
   }
 
-  deleteRow(index) {
-    // TODO: do something
-    const table = this.elements.resultContainer.querySelector('table');
-    table.deleteRow(index);
+  $createInputContainer() {
+    const element = this.createElement({ tag: 'article' });
+    const title = this.$createElementNode(this.createInputTitle());
+    const input = this.$createElementNode(this.createInput());
+    const button = this.$createElementNode(this.createInputAddButton());
+
+    return this.$createElementNode(element, { title, input, button });
   }
 
+  $createResultContainer() {
+    const element = this.createElement({ tag: 'article' });
+    const title = this.$createElementNode(this.createResultTitle());
+    const table = this.$createElementNode(this.createResultTable());
+
+    return this.$createElementNode(element, { title, table });
+  }
+
+  // override
+  createRowTemplate() {
+    return this.createElement({
+      tag: 'template',
+      id: 'station-row',
+      innerHTML: '<tr><td></td><td></td></tr>',
+    });
+  }
+
+  // override
+  refreshResultData() {
+    this.rendered.querySelector('tbody').replaceWith(this.loadTableData());
+    console.log('refresh!');
+  }
+
+  loadTableData() {
+    const stationList = this.controller.modelList.station.getList();
+    const tableRows = stationList.map(station => this.createRow(station.name));
+    const tbody = this.createElement({ tag: 'tbody' });
+    tbody.append(...tableRows);
+    return tbody;
+  }
+
+  createRow(stationName) {
+    const clone = this.rowTemplate.content.cloneNode(true);
+    const td = clone.querySelectorAll('td');
+    clone.querySelector('tr').dataset.stationName = stationName;
+    td[0].textContent = stationName;
+    td[1].append(this.createDeleteButton());
+
+    return clone;
+  }
+
+  // TODO: 부모로 빼기
   handleDeleteButton(target) {
-    // TODO: 삭제버튼을 눌렀을때
     const tr = target.parentElement.parentElement;
-    console.log(tr.dataset.stationName);
-    this.deleteRow(tr.rowIndex);
     this.controller.deleteStationData(tr.dataset.stationName);
-    console.log('delete button clicked');
-  }
-
-  insertRow(stationName) {
-    // TODO: 자식구조도 object로 돌릴수있겠는데?
-    // TODO: controller 로 옮기기
-    // TODO: VDOM 쓰면 한번에 append하지않는방향으로..
-    const row = this.elements.resultContainer
-      .querySelector('table')
-      .insertRow();
-    row.dataset.stationName = stationName;
-    row.insertCell(0).innerHTML = stationName;
-    row.insertCell(1).append(this.createDeleteButton());
+    this.refreshResultData();
+    console.log(`${tr.dataset.stationName} deleted`);
   }
 
   // override
   handleAddButton() {
     const input = this.controller.getInputFromUser(this);
     console.log(input);
-    this.insertRow(input);
-    this.controller.insertStationData(input);
+    this.controller.insertStationData(input); // TODO: model 클래스만들어서 상속 -> 이 메소드 부모로빼기
+    this.refreshResultData();
     this.clearInput();
   }
 
+  // TODO: 부모로 빼기
   clearInput() {
-    this.elements.inputContainer.querySelector('input').value = '';
-  }
-
-  // override
-  createElements() {
-    const managerButton = this.createManagerButton();
-    const section = this.createSection();
-    const inputContainer = this.createInputContainer();
-    const resultContainer = this.createResultContainer();
-
-    return { managerButton, section, inputContainer, resultContainer };
-  }
-
-  // override
-  displaySavedData() {
-    // TODO: storageData 비동기?
-    const stationList = this.controller.modelList.station.getList();
-    for (const station of stationList) {
-      this.insertRow(station.name);
-    }
-  }
-
-  // override
-  buildLayout() {
-    const { section, inputContainer, resultContainer } = this.elements;
-    section.append(inputContainer, resultContainer);
+    this.rendered.querySelector('input').value = '';
   }
 }

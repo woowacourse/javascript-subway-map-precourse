@@ -22,6 +22,9 @@ export default class Controller {
    * @param {PageLayout} view
    */
   getInputFromUser(view) {
+    if (view instanceof StationLayout) {
+      return view.rendered.querySelector('input').value;
+    }
     return view.elements.inputContainer.querySelector('input').value;
   }
 
@@ -31,7 +34,13 @@ export default class Controller {
 
   replaceCurrentView(view) {
     const currentSection = document.querySelector('section');
-    currentSection.replaceWith(view.elements.section);
+    // FIXME: station 고치는중이라서 임시로 넣어둠
+    if (view instanceof StationLayout) {
+      console.log(view.elements.section.$el);
+      currentSection.replaceWith(view.elements.section.$el);
+    } else {
+      currentSection.replaceWith(view.elements.section);
+    }
 
     return view;
   }

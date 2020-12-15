@@ -17,4 +17,6 @@ export default class CommonUtils {
     }
     return false;
   }
+
+  static DO_NOTHING() {} // DO NOTHING
 }
