@@ -50,4 +50,7 @@ const LineCreator = function () {
     appendChildren(addDiv, startStationDIV, endStationDIV, lineAddButton);
     return addDiv;
   };
+
+  this.createLineTableTitle = () =>
+    getAdvancedEle("h2", null, "🚉 지하철 노선 목록");
 };
