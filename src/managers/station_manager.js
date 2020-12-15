@@ -3,6 +3,7 @@ import {
   getFormattedStations,
   setStateAndLocalStorage,
 } from "../common/function";
+import { removeTr } from "../creators/station_creator";
 
 const StationManager = function () {
   this.isContainedInLengthTwoSections = (stationName) => {
@@ -30,5 +31,16 @@ const StationManager = function () {
     const nextLines = this.getFilteredLines(stationName);
     setStateAndLocalStorage("stations", nextStations);
     setStateAndLocalStorage("lines", nextLines);
+  };
+
+  this.deleteButtonClickFunction = ({ target: targetButton }) => {
+    const { stationName } = targetButton.dataset;
+    if (this.isContainedInLengthTwoSections(stationName)) {
+      alert("That station is contained in the line which has two sections.");
+      return;
+    }
+    if (!confirm("정말로 삭제하시겠습니까?")) return;
+    this.removeStationFromStateAndStorage(stationName);
+    removeTr(targetButton);
   };
 };

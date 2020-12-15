@@ -58,3 +58,5 @@ const StationCreator = function () {
     tbody.removeChild(tr);
   };
 };
+
+export const { removeTr } = new StationCreator();
