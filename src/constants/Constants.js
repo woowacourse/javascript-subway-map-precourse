@@ -12,5 +12,5 @@ export const Errors = {
 export const MAX_NAME_LENGTH = 2;
 export const MIN_NAME_LENGTH = 0;
 
-export const LINE_PLACEHOLDER = '노선 이름을 입력해주세요';
 export const DELETE_TEXT = '삭제';
+export const DELETE_CONFIRM = '정말로 삭제하시겠습니까?';

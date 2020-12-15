@@ -42,29 +42,6 @@ export default class StationManager {
     this.render();
   }
 
-  createTable(target) {
-    const table = document.createElement('table');
-    this.table = table;
-    target.appendChild(table);
-
-    const thead = document.createElement('thead');
-    this.thead = thead;
-    table.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
-    this.tbody = tbody;
-    table.appendChild(tbody);
-  }
-
-  createTableHeader() {
-    this.thead.innerHTML = `
-      <tr>
-        <th>역 이름</th>
-        <th>설정</th>
-      </tr>
-    `;
-  }
-
   setSubway(subway) {
     this._subway = subway;
     this.render();
@@ -75,13 +52,17 @@ export default class StationManager {
     const callbackRender = (station) => `
       <tr>
         <td>${station}</td>
-        <td><button class="station-delete-button">${DELETE_TEXT}</button></td>
+        <td>
+          <button class="station-delete-button">
+            ${DELETE_TEXT}
+          </button>
+        </td>
       </tr>`;
 
     this._stationTable.renderTable({
       data: stations,
       callbackRender,
-      onClickDelete: this.onClickDeleteStation.bind(this),
+      onClickDelete: this.onClickDeleteStation,
       className: '.station-delete-button',
     });
   }

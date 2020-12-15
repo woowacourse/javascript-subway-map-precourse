@@ -1,7 +1,6 @@
 import Table from './Table.js';
 
 import {
-  LINE_PLACEHOLDER,
   DELETE_TEXT,
 } from './constants/Constants.js';
 
@@ -24,7 +23,6 @@ export default class LineManager {
     if (classNames !== '') {
       _container.className = classNames;
     }
-
     return _container;
   }
 
@@ -32,12 +30,11 @@ export default class LineManager {
     const _container = this.createContainerElement(
       target, 'line-station line-input',
     );
-
     _container.innerHTML = `  
       <p>노선 이름</p>
       <input
         type="text"
-        placeholder=${LINE_PLACEHOLDER}
+        placeholder="노선 이름을 입력해주세요."
         id="line-name-input"
       />
     `;
@@ -127,13 +124,17 @@ export default class LineManager {
         <td>${lineName}</td>
         <td>${section[0]}</td>
         <td>${section[section.length - 1]}</td>
-        <td><button class="line-delete-button">${DELETE_TEXT}</button></td>
+        <td>
+          <button class="line-delete-button">
+            ${DELETE_TEXT}
+          </button>
+        </td>
       </tr>`;
 
     this._lineTable.renderTable({
       data: lines,
       callbackRender,
-      onClickDelete: this.onClickDeleteLine.bind(this),
+      onClickDelete: this.onClickDeleteLine,
       className: '.line-delete-button',
     });
   }

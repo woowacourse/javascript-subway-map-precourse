@@ -2,17 +2,13 @@ export default class Table {
   constructor({ target }) {
     this._target = target;
 
-    const table = document.createElement('table');
-    this.table = table;
-    target.appendChild(table);
+    this.table = document.createElement('table');
+    this.thead = document.createElement('thead');
+    this.tbody = document.createElement('tbody');
 
-    const thead = document.createElement('thead');
-    this.thead = thead;
-    table.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
-    this.tbody = tbody;
-    table.appendChild(tbody);
+    target.appendChild(this.table);
+    this.table.appendChild(this.thead);
+    this.table.appendChild(this.tbody);
   }
 
   createTableHeader(headers) {

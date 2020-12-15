@@ -104,13 +104,17 @@ export default class SectionManager {
       <tr>
         <td>${index}</td>
         <td>${name}</td>
-        <td><button class="section-delete-button">노선에서 제거</button></td>
+        <td>
+          <button class="section-delete-button">
+            노선에서 제거
+          </button>
+        </td>
       </tr>
     `;
     this._sectionTable.renderTable({
       data: section,
       callbackRender,
-      onClickDelete: this.onClickDeleteSection.bind(this),
+      onClickDelete: this.onClickDeleteSection,
       className: '.section-delete-button',
     });
   }

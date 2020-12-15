@@ -7,6 +7,10 @@ import Subway from './Subway.js';
 
 import { saveItem, loadItem } from './utils/storage.js';
 
+import {
+  DELETE_CONFIRM,
+} from './constants/Constants.js';
+
 export default class App {
   _initialState = {
     stations: new Set([]),
@@ -121,7 +125,7 @@ export default class App {
   }
 
   onClickDeleteStation(station) {
-    const isOk = window.confirm('정말로 삭제하시겠습니까?');
+    const isOk = window.confirm(DELETE_CONFIRM);
     if (isOk) {
       this._subway.deleteStation({ station });
       this._stationManager.setSubway(this._subway);
@@ -144,7 +148,7 @@ export default class App {
   }
 
   onClickDeleteLine({ lineName }) {
-    const isOk = window.confirm('정말로 삭제하시겠습니까?');
+    const isOk = window.confirm(DELETE_CONFIRM);
     if (isOk) {
       this._subway.deleteLine({ lineName });
       this._lineManager.setSubway(this._subway);
@@ -163,7 +167,7 @@ export default class App {
 
   onClickDeleteSection(station) {
     const { lineName } = this._sectionManager._currentLine;
-    const isOk = window.confirm('정말로 삭제하시겠습니까?');
+    const isOk = window.confirm(DELETE_CONFIRM);
     if (isOk) {
       this._subway.deleteSection({ lineName, station });
       this._sectionManager.setSubway(this._subway);
