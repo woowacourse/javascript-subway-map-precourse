@@ -3,14 +3,16 @@ import LineListener from '../listeners/line-listener.js';
 import SubwayLine from '../main/subway-line.js';
 import {saveList} from '../main/subway-local-storage.js';
 import {
-  renderSubWayLine, renderAddLine, renderDeleteLine,
+  renderLineRegister, renderLineResult, renderAddLine, renderDeleteLine,
 } from '../views/subway-line-view.js';
 
 class LineHandler {
   handleInitLine() {
     const subwayLine = new SubwayLine();
 
-    renderSubWayLine(subwayLine.stationList, subwayLine.lineList);
+    renderLineRegister(subwayLine.stationList);
+    renderLineResult(subwayLine.lineList);
+
     new LineListener(subwayLine);
   }
 

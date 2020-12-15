@@ -8,21 +8,23 @@ class SubwayLineView {
     this.main = document.getElementById(MAIN.ID);
   }
 
-  renderSubWayLine = (stationList, lineList) => {
+  renderLineRegister = (stationList) => {
     this.main.innerHTML = initTemplate();
     this.result = document.getElementById(LINE.DIV.RESULT.ID);
 
-    if (stationList.length > 0) {
-      const register = document.getElementById(LINE.DIV.REGISTER.ID);
+    if (stationList.length === 0) return;
 
-      register.innerHTML = registerTemplate();
-      this.renderSelectList(stationList);
-    }
+    const register = document.getElementById(LINE.DIV.REGISTER.ID);
 
-    if (Object.keys(lineList).length > 0) {
-      this.result.innerHTML = resultTemplate();
-      this.renderLineList(lineList);
-    }
+    register.innerHTML = registerTemplate();
+    this.renderSelectList(stationList);
+  }
+
+  renderLineResult = (lineList) => {
+    if (Object.keys(lineList).length === 0) return;
+
+    this.result.innerHTML = resultTemplate();
+    this.renderLineList(lineList);
   }
 
   renderSelectList = (stationList) => {
@@ -66,7 +68,8 @@ class SubwayLineView {
 }
 
 export const {
-  renderSubWayLine,
+  renderLineRegister,
+  renderLineResult,
   renderAddLine,
   renderDeleteLine,
 } = new SubwayLineView();

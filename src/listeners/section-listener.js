@@ -17,7 +17,7 @@ export default class SectionListener {
 
     choiceDiv.addEventListener('click', (event) => {
       if (event.target.className === SECTION.BUTTON.LINE.CLASS) {
-        return handleRegisterAndResultSection(this.subwaySection, event.target);
+        handleRegisterAndResultSection(this.subwaySection, event.target);
       }
     });
   }
@@ -27,7 +27,7 @@ export default class SectionListener {
 
     registerDiv.addEventListener('click', (event) => {
       if (event.target.id === SECTION.BUTTON.ADD.ID) {
-        return handleAddSection(this.subwaySection);
+        handleAddSection(this.subwaySection);
       }
     });
   }
@@ -37,7 +37,7 @@ export default class SectionListener {
 
     resultDiv.addEventListener('click', (event) => {
       if (event.target.className === SECTION.BUTTON.DELETE.CLASS) {
-        return handleDeleteSection(this.subwaySection, event.target);
+        handleDeleteSection(this.subwaySection, event.target);
       }
     });
   }

@@ -11,13 +11,14 @@ class SubwaySectionView {
   renderLineChoices = (lineList) => {
     this.main.innerHTML = choiceTemplate();
     this.result = document.getElementById(SECTION.DIV.RESULT.ID);
+
     const lineDiv = document.getElementById(SECTION.DIV.CHOICE.ID);
 
     if (Object.keys(lineList).length === 0) {
-      lineDiv.innerHTML = '노선을 먼저 등록해주세요';
-    } else {
-      this.renderLineButtons(lineList, lineDiv);
+      return lineDiv.innerHTML = '노선을 먼저 등록해주세요';
     }
+
+    this.renderLineButtons(lineList, lineDiv);
   }
 
   renderLineButtons = (lineList, lineDiv) => {

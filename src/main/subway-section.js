@@ -39,12 +39,10 @@ export default class SubwaySection {
   }
 
   hasValidOrder(order) {
-    if (isNaN(order)
-      || order <= 0
-      || order.length === 0
-      || order >= this.lineList[this.lineName].length) {
-      return false;
-    };
+    if (isNaN(order)) return false;
+    if (order <= 0) return false;
+    if (order.length === 0) return false;
+    if (order >= this.lineList[this.lineName].length) return false;
 
     return true;
   }

@@ -9,13 +9,13 @@ class Frame {
         <button id=${MENU.BUTTON.SECTION.ID}>3. 구간 관리</button>
         <button id=${MENU.BUTTON.MAP.ID}>4. 지하철 노선도 출력</button>
       </div><br>
-
       <div id=${MAIN.ID}></div>
     `;
   }
 
   globalStyle() {
     const style = document.createElement('style');
+
     style.innerText = 'table, td, tr, th { border:1px solid}';
 
     document.head.appendChild(style);
