@@ -15,7 +15,7 @@ export default class DeleteStationValidation extends Section {
     this.lineDataSet = lineName
       ? lineSelector().filter((lineData) => lineData.lineName === lineName)[0]
           .stations
-      : [];
+      : []; // 이 부분.. line이 안 받았을 때 따로 만들기
     this.isLessThanMinLength = lineName
       ? this.lineDataSet.length <= MIN_LENGTH_OF_LINE
       : false;
@@ -29,7 +29,7 @@ export default class DeleteStationValidation extends Section {
         return stations.includes(this.deletedStationName);
       })
       .map(({ lineName }) => lineName);
-  }
+  } // 여기서 길이가 2이상이면 ?
 
   getDeleteValidationResult() {
     const lineNamesListWillBeUpdated = this.isSectionManagement
@@ -37,6 +37,7 @@ export default class DeleteStationValidation extends Section {
       : this._getLinesContainThisStation();
     console.log(this.isSectionManagement);
     console.log(lineNamesListWillBeUpdated);
+    console.log(this.lineDataSet);
     if (this.isLessThanMinLength && lineNamesListWillBeUpdated.length > 0)
       return actionResult(false, DELETE_STATION_ERROR);
     return actionResult(true, null, lineNamesListWillBeUpdated);

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "우테코 프리코스 3주차 미션",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "live-server"

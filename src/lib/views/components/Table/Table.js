@@ -45,7 +45,6 @@ export default class Table {
     return $tableHead;
   }
 
-  // 역 삭제 시 여기서 로직 잘못됨...
   _getDeleteButton({ stationName, lineName }) {
     const $buttonContainer = document.createElement("td");
     const $deleteButton = new Button(
