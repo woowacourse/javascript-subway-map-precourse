@@ -38,6 +38,24 @@ export default class Line {
     return order >= 0 && order <= line.list.length;
   };
 
+  _createNewLineList = (stationName, lineName, order = null) => {
+    const newLineList = this._lineList.map(({ name, list }) => {
+      if (name === lineName && order) {
+        list.splice(order, 0, stationName);
+        this._station.saveLineToStation(lineName, stationName);
+      }
+
+      if (name === lineName && !order) {
+        const index = list.indexOf(stationName);
+        list.splice(index, 1);
+      }
+
+      return { name, list };
+    });
+
+    return newLineList;
+  };
+
   _setLineList = lineList => {
     localStorage.setItem(LINE_LIST, JSON.stringify(lineList));
     this._updateLineList();
@@ -118,15 +136,7 @@ export default class Line {
       return;
     }
 
-    const newLineList = this._lineList.map(({ name, list }) => {
-      if (name === lineName) {
-        list.splice(order, 0, stationName);
-        this._station.saveLineToStation(lineName, stationName);
-      }
-
-      return { name, list };
-    });
-    this._setLineList(newLineList);
+    this._setLineList(this._createNewLineList(stationName, lineName, order));
   };
 
   deleteStationFromLine = (stationName, lineName) => {
@@ -136,15 +146,7 @@ export default class Line {
       return;
     }
 
-    const newLineList = this._lineList.map(({ name, list }) => {
-      if (name === lineName) {
-        const index = list.indexOf(stationName);
-        list.splice(index, 1);
-      }
-
-      return { name, list };
-    });
-    this._setLineList(newLineList);
+    this._setLineList(this._createNewLineList(stationName, lineName));
     this._station.deleteLineFromStation(lineName, stationName);
   };
 }
