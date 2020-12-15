@@ -1,4 +1,5 @@
-import { ELEMENT_INFO } from "../util/constants.js";
+import { isTextOverMinLength } from "../util/validation.js";
+import { ELEMENT_INFO, LINE_NAME_MIN_LENGTH, ERROR_MESSAGE } from "../util/constants.js";
 
 export default function LineInput({ $target, stations }) {
   this.$container = document.createElement("form");
@@ -7,6 +8,38 @@ export default function LineInput({ $target, stations }) {
   this.stations = stations;
 
   const { lineNameInput, lineStartStationSelector, lineEndStationSelector, lineAddButton } = ELEMENT_INFO;
+
+  this.bindOnSubmit = () => {
+    this.$container.addEventListener("submit", (e) => {
+      const $lineNameInput = document.querySelector(`#${lineNameInput.id}`);
+
+      console.log(this.isValidLineName($lineNameInput));
+
+      e.preventDefault();
+    });
+  };
+
+  this.isValidLineName = ($lineNameInput) => {
+    let result = true;
+
+    result = this.isLineNameOverMinLength($lineNameInput.value);
+
+    if (!result) {
+      $lineNameInput.value = "";
+    }
+
+    return result;
+  };
+
+  this.isLineNameOverMinLength = (lineName) => {
+    const result = isTextOverMinLength(lineName, LINE_NAME_MIN_LENGTH);
+
+    if (!result) {
+      alert(ERROR_MESSAGE.shortLineName);
+    }
+
+    return result;
+  };
 
   this.createSelectOptionHTMLString = () => {
     return this.stations
@@ -31,4 +64,5 @@ export default function LineInput({ $target, stations }) {
   };
 
   this.render();
+  this.bindOnSubmit();
 }

@@ -52,12 +52,14 @@ export const ELEMENT_INFO = {
 };
 
 export const STATION_NAME_MIN_LENGTH = 2;
+export const LINE_NAME_MIN_LENGTH = 1;
 
 export const ERROR_MESSAGE = {
   getItem: "⚠ 데이터를 가져올 수 없습니다.",
   setItem: "⚠ 데이터를 저장하지 못했습니다.",
   shortStationName: `⚠ ${STATION_NAME_MIN_LENGTH}자 이상의 역 이름을 입력해주세요.`,
   duplicatedStationName: "⚠ 이미 존재하는 역 이름입니다.",
+  shortLineName: `⚠ ${LINE_NAME_MIN_LENGTH}자 이상의 노선 이름을 입력해주세요.`,
 };
 
 export const STORAGE_KEY = {
