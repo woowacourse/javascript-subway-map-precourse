@@ -22,7 +22,7 @@ export default class ManageSection {
     this.ARTICLE_NAME = 'sectionArticle';
     this.SELECT_LINE_SECTION = 'selectLineSection';
     this.MANAGE_LINE_SECTION = 'manageLineSection';
-    this.LINE_TABLE_SECTION = 'lineTableSection';
+    this.LINE_TABLE_SECTION = 'sectionManageArea';
 
     this.SELECT_LINE_TITLE_TAG = 'h3';
     this.SELECT_LINE_TITLE = '구간을 수정할 노선을 선택해주세요';

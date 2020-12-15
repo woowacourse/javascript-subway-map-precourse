@@ -17,7 +17,7 @@ export default class TableUtils {
     this._tableType = {
       stationArticle: ['역 이름', '설정'],
       lineArticle: ['노선 이름', '상행 종점역', '하행 종점역', '설정'],
-      lineTableSection: ['순서', '이름', '설정'],
+      sectionManageArea: ['순서', '이름', '설정'],
     }
   }
 
@@ -25,6 +25,7 @@ export default class TableUtils {
     this.STATION_DELETE_BUTTON_TEXT = '삭제';
     this.LINE_DELETE_BUTTON_TEXT = '삭제';
     this.SECTION_DELETE_BUTTON_TEXT = '노선에서 제거';
+
     this.ID_ATTRIBUTE = 'id';
     this.IS_VALID = 1;
     this.IS_NOT_VALID = 0;
@@ -33,7 +34,7 @@ export default class TableUtils {
 
     this.STATION_TABLE_NAME = 'stationArticleTable';
     this.LINE_TABLE_NAME = 'lineArticleTable';
-    this.SECTION_TABLE_NAME = 'lineTableSectionTable';
+    this.SECTION_TABLE_NAME = 'sectionManageAreaTable';
   }
 
   initTable(toIdName) {
@@ -79,8 +80,8 @@ export default class TableUtils {
     if (toIdName === 'lineArticle') {
       this.initLineTableData(toIdName);
     }
-    else if (toIdName === 'lineTableSection') {
-      this.initSectionTable(line);
+    else if (toIdName === 'sectionManageArea') {
+      this.initSectionTable(toIdName, line);
     }
   }
 
@@ -94,26 +95,28 @@ export default class TableUtils {
   }
 
   deleteRows(table, rowCount) {
-    for (let i = rowCount - 1; i > 1; i--) {
+    for (let i = rowCount - 1; i > 0; i--) {
       table.deleteRow(i);
     }
   }
 
-  initSectionTable(line) {
+  initSectionTable(toIdName, line) {
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
 
-  }
+    for (const index in lineList[line]) {
+      const rowArray = [index, lineList[line][index], this.SECTION_DELETE_BUTTON_TEXT];
+      this.addRow(rowArray, toIdName);
 
-  // refreshStationTable(articleName) {
-  //   const stationList = this._privateCommonUtils.getLocalStorageStation();
+      // const station = lineList[line][index];
+      // const lineIndex = stationList[station].indexOf(line);
+      // console.log(station,stationList[station], line);
+      // console.log(lineIndex, index);
+      // stationList[station].splice(lineIndex, 1);
+    }
 
-  //   for (const station in stationList) {
-  //     const rowArray = this.createRowArray(station, this.DELETE_BUTTON_TEXT);
-  //     this.addRow(rowArray, articleName);
-  //   }
-  // }
-
-  refreshLineSelect() {
-
+    // this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
+    // this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
   }
 
   addTableStyle(table) {
@@ -163,6 +166,7 @@ export default class TableUtils {
 
       this.addCellBorder(cell);
 
+      console.log(tableType, typeUpper);
       if (rowArray[i] === this[`${typeUpper}_DELETE_BUTTON_TEXT`]) {
         this.addDeleteButton(cell, rowArray, typeUpper);
       }
