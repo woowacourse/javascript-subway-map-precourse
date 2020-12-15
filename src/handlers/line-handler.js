@@ -18,8 +18,8 @@ class LineHandler {
     const lineName = document.getElementById(LINE.INPUT.ID).value.trim();
     const startSelectBox = document.getElementById(LINE.SELECT.START.ID);
     const endSelectBox = document.getElementById(LINE.SELECT.END.ID);
-    const start = startSelectBox.options[startSelectBox.selectedIndex];
-    const end = endSelectBox.options[endSelectBox.selectedIndex];
+    const start = startSelectBox.options[startSelectBox.selectedIndex].text;
+    const end = endSelectBox.options[endSelectBox.selectedIndex].text;
 
     subwayLine.addLine(lineName, start, end, (err, lineList) => {
       if (err) return alert(err);

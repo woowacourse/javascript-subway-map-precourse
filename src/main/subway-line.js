@@ -9,12 +9,12 @@ export default class SubwayLine {
   }
 
   addLine = (lineName, start, end, cb) => {
-    if (!this.isValidLine(lineName)) {
-      return cb(this.alertMessage(lineName));
+    if (!this.isValidLine(lineName, start, end)) {
+      return cb(this.alertMessage(lineName, start, end));
     }
 
     this.lineList = Object.assign(
-        {}, this.lineList, lineModel(lineName, start.text, end.text),
+        {}, this.lineList, lineModel(lineName, start, end),
     );
 
     return cb(null, this.lineList);
@@ -28,11 +28,12 @@ export default class SubwayLine {
     return cb(this.lineList);
   }
 
-  isValidLine(lineName) {
-    return this.hasValidName(lineName);
+  isValidLine(lineName, start, end) {
+    return this.hasValidName(lineName, start, end);
   }
 
-  hasValidName(lineName) {
+  hasValidName(lineName, start, end) {
+    if (start === end) return false;
     if (this.lineList[lineName]) return false;
     if (lineName.length === 0) return false;
     if (this.stationList.length === 0) return false;
@@ -40,9 +41,9 @@ export default class SubwayLine {
     return true;
   }
 
-  alertMessage(lineName) {
+  alertMessage(lineName, start, end) {
+    if (start === end) return LINE.ALERT.SAME_STATION;
     if (lineName.length === 0) return LINE.ALERT.EMPTY;
-
     if (this.lineList[lineName]) return LINE.ALERT.DUPLICATION;
 
     return LINE.ALERT.EMPTY_STATION;

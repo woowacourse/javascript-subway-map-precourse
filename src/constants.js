@@ -37,6 +37,7 @@ const CONSTANTS = {
       'EMPTY_STATION': '역을 먼저 등록해주세요',
       'DUPLICATION': '노선 이름이 중복되지 않게 입력해주세요',
       'DELETE': '노선을 정말로 삭제하시겠습니까?',
+      'SAME_STATION': '서로 다른 종점을 선택해주세요',
     },
     'DIV': {
       'REGISTER': {'ID': 'line-register'},
