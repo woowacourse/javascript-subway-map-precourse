@@ -1,9 +1,11 @@
 import Station from "../domain/station.js";
-import inputStationValidator from "../utils/inputs/validator/station-name-validator.js";
+import inputNameValidator from "../utils/inputs/validator/name-validator.js";
 import clearInput from "../utils/inputs/clear-input.js";
 import { saveToLocalStorage } from "../index.js";
 import { showNewRow } from "../utils/display/make-elements.js";
 import { STATION_ARRAY_KEY, STATION_TAGS } from "../global/constant.js";
+
+const VALIDATION_TYPE = "STATION";
 
 function loadStations(state) {
   for (const station of state.stationArray) {
@@ -38,7 +40,7 @@ export default function stationManageContainer(state) {
   addStationBtn.addEventListener("click", () => {
     const stationNameInputValue = stationNameInput.value.trim();
 
-    if (inputStationValidator(stationNameInputValue)) {
+    if (inputNameValidator(VALIDATION_TYPE, stationNameInputValue)) {
       makeNewStation(state.stationArray, stationNameInputValue);
       clearInput(stationNameInput);
     } else {

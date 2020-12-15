@@ -1,5 +1,5 @@
 import SubwayLine from "../domain/subway-line.js";
-import inputLineValidator from "../utils/inputs/validator/line-name-validator.js";
+import inputNameValidator from "../utils/inputs/validator/name-validator.js";
 import clearInput from "../utils/inputs/clear-input.js";
 import { saveToLocalStorage } from "../index.js";
 import { showNewRow, makeSelectOptions } from "../utils/display/make-elements.js";
@@ -8,6 +8,7 @@ import { LINE_ALERT_MESSAGES } from "../global/messages.js";
 import { LINE_ARRAY_KEY, LINE_TAGS } from "../global/constant.js";
 
 const SUBWAY_LINE_TBODY_ID = "lines";
+const VALIDATION_TYPE = "LINE";
 
 function loadLines(state) {
   for (const line of state.subwayLines) {
@@ -20,7 +21,7 @@ function loadLines(state) {
 }
 
 function validateLineName(subwayLines, lineName, upLine, downLine, addLineInput) {
-  if (inputLineValidator(lineName)) {
+  if (inputNameValidator(VALIDATION_TYPE, lineName)) {
     saveLine(subwayLines, lineName, upLine, downLine);
     saveToLocalStorage(LINE_ARRAY_KEY, JSON.stringify(subwayLines));
     clearInput(addLineInput);
