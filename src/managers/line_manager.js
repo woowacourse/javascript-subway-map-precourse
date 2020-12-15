@@ -40,4 +40,11 @@ const LineManager = function () {
     setStateAndLocalStorage("lines", lines);
     removeTr(target);
   };
+
+  this.setDeleteButtonClickListener = () => {
+    const buttons = document.getElementsByClassName("line-delete-button");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", this.deleteButtonClickFunction);
+    }
+  };
 };
