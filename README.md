@@ -37,3 +37,7 @@
 ### 지하철 노선도 출력
 
 - 저장되어있는 지하철 노선도를 호선별로 화면에 출력한다
+
+## 📝 참고 사이트
+
+- [[HTML 바로 알기] Semantic Web을 위한 Semantic Elements - bono](https://blueshw.github.io/2020/05/09/know-html-semantic-elements/)
