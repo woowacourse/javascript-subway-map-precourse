@@ -9,6 +9,9 @@ export default class Menu {
     this.$buttons = this.$el.querySelector(".menu-buttons");
     this.$pages = this.$el.querySelectorAll(".menu-page");
     this.$views = views;
+    if (this.$buttons.dataset.defaultIndex) {
+      this.show(this.$buttons.dataset.defaultIndex);
+    }
     this.$buttons.addEventListener("click", (e) => this.setButtonClick(e));
   }
   setButtonClick(event) {
