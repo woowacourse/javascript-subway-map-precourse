@@ -80,4 +80,5 @@ export const {
   createTd,
   getTableHavingTableHead,
   convertDataArrayToElementArray,
+  appendRecursiveChild,
 } = new Visualization();

@@ -1,4 +1,4 @@
-import { getAdvancedEle } from "../common/visualization";
+import { appendRecursiveChild, getAdvancedEle } from "../common/visualization";
 
 const StationCreator = function () {
   this.createAddWrapper = () =>
@@ -24,5 +24,18 @@ const StationCreator = function () {
     const button = this.createAddButton();
     appendChildren(div, titleDiv, input, button);
     return div;
+  };
+
+  this.createTr = (stationName) => {
+    const tr = document.createElement("tr");
+    const stationTd = getAdvancedEle("td", null, stationName);
+    const buttonTd = document.createElement("td");
+    const button = getAdvancedEle(
+      "button",
+      { class: "station-delete-button", "data-station-name": stationName },
+      "삭제"
+    );
+    appendRecursiveChild(tr, stationTd, [buttonTd, button]);
+    return tr;
   };
 };
