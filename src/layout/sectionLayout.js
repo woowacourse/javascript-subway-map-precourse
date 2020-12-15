@@ -115,6 +115,8 @@ export default class SectionLayout extends PageLayout {
   createInput() {
     return this.createElement({
       tag: 'input',
+      type: 'number',
+      min: '0',
       id: 'section-order-input',
       placeholder: SECTION_INPUT_PLACEHOLDER,
     });
@@ -144,9 +146,12 @@ export default class SectionLayout extends PageLayout {
       this.rendered.querySelector('select'),
     ).value;
 
-    this.controller.insertSectionData(order, lineName, stationName);
+    try {
+      this.controller.insertSectionData(order, lineName, stationName);
+    } catch (err) {
+      err.alertUser();
+    }
     this.refreshResultDataContainer(lineName);
-    // this.clearInput(); // TODO: 넣기
   }
 
   createResultTable() {
@@ -259,11 +264,15 @@ export default class SectionLayout extends PageLayout {
 
   handleDeleteButton(target) {
     const tr = target.parentElement.parentElement;
-    this.controller.deleteSectionData(
-      tr.dataset.index,
-      tr.dataset.lineName,
-      tr.dataset.stationName,
-    );
+    try {
+      this.controller.deleteSectionData(
+        tr.dataset.index,
+        tr.dataset.lineName,
+        tr.dataset.stationName,
+      );
+    } catch (err) {
+      err.alertUser();
+    }
     this.refreshResultDataContainer(tr.dataset.lineName);
   }
 

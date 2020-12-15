@@ -1,3 +1,10 @@
+import {
+  ERR_DUPLICATE_SECTION,
+  ERR_LESS_THEN_MIN_LENGTH,
+  ERR_SECTION_INDEX,
+  MIN_STATION_LENGTH,
+} from '../common/constants.js';
+import CustomError from '../common/customError.js';
 import StationNode from './stationNode.js';
 
 /**
@@ -32,6 +39,8 @@ export default class LineModel {
     const lineIndex = lineList.findIndex(
       lineNodes => lineNodes[0].line === lineName,
     );
+    if (lineList[lineIndex].length < MIN_STATION_LENGTH)
+      throw new CustomError(ERR_LESS_THEN_MIN_LENGTH);
     const node = lineList[lineIndex].splice(index, 1); // splice의 결과는 이차원배열
     localStorage.setItem('lineList', JSON.stringify(lineList));
 
@@ -43,6 +52,11 @@ export default class LineModel {
     const lineIndex = lineList.findIndex(
       lineNodes => lineNodes[0].line === lineName,
     );
+    if (index < 0) throw new CustomError(ERR_SECTION_INDEX);
+    const exist = lineList[lineIndex].find(
+      station => station.name === stationName,
+    );
+    if (exist) throw new CustomError(ERR_DUPLICATE_SECTION);
     const node = new StationNode({ name: stationName, line: lineName });
     lineList[lineIndex].splice(index, 0, node);
     localStorage.setItem('lineList', JSON.stringify(lineList));

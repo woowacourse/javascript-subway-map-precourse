@@ -12,6 +12,7 @@ import {
   COMMON_TABLE_TD_SETTING,
   LINE_TABLE_TD_START,
 } from '../common/constants.js';
+import CustomError from '../common/customError.js';
 import PageLayout from './pageLayout.js';
 /**
  * 지하철 노선 관련 뷰 클래스
@@ -225,8 +226,11 @@ export default class LineLayout extends PageLayout {
     const end = this.getSelectedOption(
       this.rendered.querySelector(`select[name='end']`),
     );
-    this.controller.insertLineData(line, start.value, end.value);
+    try {
+      this.controller.insertLineData(line, start.value, end.value);
+    } catch (error) {
+      error.alertUser();
+    }
     this.refreshResultData();
-    // this.clearInput(); // TODO: 넣기
   }
 }

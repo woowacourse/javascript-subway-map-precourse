@@ -1,4 +1,12 @@
+import CustomError from '../common/customError.js';
 import StationNode from './stationNode.js';
+import CommonUtils from '../common/utils.js';
+import {
+  ERR_DUPLICATE_NAME,
+  ERR_ENROLLED_STATION,
+  ERR_STATION_NAME_LENGTH,
+  MIN_STATION_NAME_LENGTH,
+} from '../common/constants.js';
 
 /**
  * localStorage와 통신하는 DAO
@@ -34,8 +42,11 @@ export default class StationModel {
 
   insertData(stationName) {
     const stationList = this.getList();
+    const exist = stationList.find(station => station.name === stationName);
+    if (exist) throw new CustomError(ERR_DUPLICATE_NAME);
+    if (stationName.length < MIN_STATION_NAME_LENGTH)
+      throw new CustomError(ERR_STATION_NAME_LENGTH);
     stationList.push(this.createNode(stationName));
-    // stationList.push(stationName);
     localStorage.setItem('stationList', JSON.stringify(stationList));
   }
 
@@ -44,8 +55,10 @@ export default class StationModel {
     const index = stationList.findIndex(
       station => station.name === stationName,
     );
-
-    stationList.splice(index, 1);
+    const node = stationList.splice(index, 1)[0];
+    if (!CommonUtils.isEmpty(node.line)) {
+      throw new CustomError(ERR_ENROLLED_STATION);
+    }
     localStorage.setItem('stationList', JSON.stringify(stationList));
   }
 

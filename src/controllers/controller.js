@@ -4,6 +4,14 @@ import LineLayout from '../layout/lineLayout.js';
 import SectionLayout from '../layout/sectionLayout.js';
 import LineModel from '../model/lineModel.js';
 import MapPrintLayout from '../layout/mapPrintLayout.js';
+import CustomError from '../common/customError.js';
+import CustomUtils from '../common/utils.js';
+import {
+  ERR_DUPLICATE_STATION,
+  ERR_LESS_THEN_MIN_LENGTH,
+  MIN_STATION_NAME_LENGTH,
+  ERR_DUPLICATE_NAME,
+} from '../common/constants.js';
 
 export default class Controller {
   constructor() {
@@ -45,6 +53,13 @@ export default class Controller {
   }
 
   insertLineData(line, start, end) {
+    const duplicated = this.getLineList(line);
+    if (start === end) {
+      throw new CustomError(ERR_DUPLICATE_STATION);
+    }
+    if (!CustomUtils.isEmpty(duplicated)){
+      throw new CustomError(ERR_DUPLICATE_NAME);
+    }
     const nodes = this.modelList.line.insertData(line, start, end);
     this.modelList.station.updateData(nodes);
   }

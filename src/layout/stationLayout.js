@@ -4,6 +4,7 @@
 
 import PageLayout from './pageLayout.js';
 import CommonUtils from '../common/utils.js';
+import CustomError from '../common/customError.js';
 import {
   STATION_MANAGER_BUTTON,
   STATION_INPUT_PLACEHOLDER,
@@ -147,14 +148,22 @@ export default class StationLayout extends PageLayout {
 
   handleDeleteButton(target) {
     const tr = target.parentElement.parentElement;
-    this.controller.deleteStationData(tr.dataset.stationName);
+    try {
+      this.controller.deleteStationData(tr.dataset.stationName);
+    } catch (err) {
+      err.alertUser();
+    }
     this.refreshResultData();
   }
 
   // override
   handleAddButton() {
     const input = this.controller.getInputFromUser(this);
-    this.controller.insertStationData(input); // TODO: model 클래스만들어서 상속 -> 이 메소드 부모로빼기
+    try {
+      this.controller.insertStationData(input); // TODO: model 클래스만들어서 상속 -> 이 메소드 부모로빼기
+    } catch (err) {
+      err.alertUser();
+    }
     this.refreshResultData();
     this.clearInput();
   }

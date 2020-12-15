@@ -31,8 +31,12 @@ export const STATION_TABLE_TD_NAME = '역이름';
 export const MIN_STATION_NAME_LENGTH = 2;
 export const MIN_STATION_LENGTH = 2;
 
-export const ERR_DUPLICATE_MESSAGE = '중복된 이름이 있습니다';
+export const ERR_DUPLICATE_NAME = '중복된 이름이 있습니다';
 export const ERR_DUPLICATE_STATION = '시작역과 종착역은 달라야 합니다';
 export const ERR_ENROLLED_STATION = '노선에 등록된 역은 삭제할 수 없습니다';
 export const ERR_LESS_THEN_MIN_LENGTH =
   '역이 두개 이하일때는 제거할 수 없습니다';
+export const ERR_STATION_NAME_LENGTH =
+  '역 이름의 길이는 최소 2글자 이상이어야 합니다.';
+export const ERR_SECTION_INDEX = '역 삽입 위치는 0 이상이어야합니다.';
+export const ERR_DUPLICATE_SECTION = '이미 해당 노선에 역이 존재합니다';
