@@ -62,11 +62,10 @@ const Visualization = function () {
       return this.getAdvancedEle(elementType, iterableAttributeObj, data);
     });
 
-  this.createStationOptions = (stations) => {
-    return convertDataArrayToElementArray(
+  this.createStationOptions = (stations) =>
+    convertDataArrayToElementArray(
       "option",
       { value: VALUE_IN_ARRAY },
       stations
     );
-  };
 };
