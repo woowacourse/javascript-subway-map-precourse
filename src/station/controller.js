@@ -62,4 +62,4 @@ const init = function() {
 
 init();
 
-export {confirmDelete};
+export { confirmDelete };

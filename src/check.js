@@ -9,8 +9,14 @@ const isValidLength = function(inputValue) {
   return (inputValueLength >= validLength);
 }
 
-const isDuplicated = function(inputValue) {
-  return (localStorage.getItem(inputValue));
+const isDuplicated = function(lineName) {
+  const lines = JSON.parse(localStorage.getItem("line"));
+  let i;
+  for (i = 0; i < lines.length; i++) {
+    if (lines[i].name === lineName) {
+      return true;
+    }
+  }
 }
 
 const isRegisteredStation = function(stationName) {

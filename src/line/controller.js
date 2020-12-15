@@ -71,14 +71,6 @@ const confirmDeleteLine = function() {
   }
 }
 
-const addPrintStationList = function(stationName) {
-  const stationNameInput = document.querySelector("#station-name-input");
-  let stationList = document.querySelector("#station-list");
-  stationNameInput.value = '';
-  stationList.innerHTML += `<tr id="${stationName}"><td>${stationName}</td><td><button data-name="${stationName}" class="station-delete-button">삭제</button></td></tr>`;
-  confirmDelete();
-}
-
 const addLine = function(lineName, startStationInput, endStationInput) {
   const lineAddButton = document.querySelector("#line-add-button");
   lineAddButton.addEventListener("click", () => {
@@ -126,6 +118,7 @@ const getLineName = function() {
     } else {
       alert(alertText);
     }
+    lineNameInput.value = '';
   })
 }
 
