@@ -12,6 +12,19 @@ export default class SubwaySection {
     this.lineName = lineName;
   }
 
+  addSection = (station, order, cb) => {
+    if (!this.isValidOrder(order)) {
+      return cb(SECTION.ALERT.NOT_LAST);
+    }
+
+    const line = this.lineList[this.lineName];
+
+    line.splice(order, 0, {name: station});
+    this.lineList[this.lineName] = line;
+
+    return cb(null, this.lineList, this.lineName);
+  }
+
   isValidOrder(order) {
     return this.hasValidOrder(order);
   }
