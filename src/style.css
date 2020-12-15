@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+}
+
+.subway-map-button-nav {
+  display: flex;
+  column-gap: 10px;
+}
+
+/* 지하철 역 관리: StationManager.js */
+.station-name-nav__station-name-label {
+  display: block;
+}
+
+.station-name-nav__station-name-input-container {
+  display: flex;
+}
+                                                                                                                                                
+.station-name-nav__station-name-input {
+  width: 200px;
+  height: 30px;
+  font-size: 1rem;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.station-name-list {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  max-width: 200px;
+  row-gap: 10px;
+  column-gap: 5px;
+}
+
+.station-name-list__header {
+  border-bottom: 3px double black;
+}
+
+/* 지하철 노선 관리: LineManager.js */
+.line-info-select-container {
+  display:grid;
+  grid-template-areas: 
+    " line-name-label           .                           "
+    " line-name-input           line-name-input             "
+    " line-start-station-label  line-start-station-selector "
+    " line-end-station-label    line-end-station-selector   "
+    " line-add-button           line-add-button             ";
+  max-width: 300px;
+  row-gap: 8px;
+}
+
+.line-info-select-container__line-name-label {
+  grid-area: line-name-label;
+}
+
+.line-info-select-container__line-name-input {
+  grid-area: line-name-input;
+  height: 30px;
+  padding: 5px;
+}
+
+.line-info-select-container__line-start-station-label {
+  grid-area: line-start-station-label;
+}
+
+.line-info-select-container__line-start-station-selector {
+  grid-area: line-start-station-selector;
+}
+
+.line-info-select-container__line-end-station-label {
+  grid-area: line-end-station-label;
+}
+
+.line-info-select-container__line-end-station-selector {
+  grid-area: line-end-station-selector;
+}
+
+.line-info-select-container__line-add-button {
+  grid-area: line-add-button;
+}
+
+.line-name-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  max-width: 400px;
+  row-gap: 10px;
+  column-gap: 5px;
+}
+
+/* 지하철 구간 관리: SectionManager.js */
+.section-line-menu {
+  display: flex;
+  column-gap: 10px;
+}
+
+.section-station-label {
+  display: block;
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.section-input-container {
+  display: flex;
+  column-gap: 5px;
+}
+
+.section-station-list {
+  display: grid;
+  grid-template-columns: 1fr 3fr auto;
+  max-width: 300px;
+  row-gap: 10px;
+  column-gap: 5px;
+  margin-top: 20px;
+}
+
+/* Modifier */
+.--h3lish {
+  font-size: 1.17em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.--medium-button {
+  height: 30px;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.--center {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.--strong {
+  font-weight: bold;
+}
+
+.--header {
+  border-bottom: 3px double black;
+}
+
+.--grid-only-child {
+  grid-column: 1/-1;
+}
