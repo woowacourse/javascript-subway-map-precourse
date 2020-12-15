@@ -222,3 +222,34 @@ function addLineToSectionTable(sectionTable, sectionName, sectionOrder) {
     sectionCell2.innerHTML = sectionName;
     addSectionDeleteBtn(sectionTable, sectionCell3);
 }
+
+function addSectionDeleteBtn(sectionTable, sectionCell3) {
+    let sectionDeleteBtn = document.createElement('button');
+    let sectionDeleteBtnText = document.createTextNode('노선에서 제거');
+    sectionDeleteBtn.className = '.section-delete-button';
+    sectionDeleteBtn.appendChild(sectionDeleteBtnText);
+    document.body.appendChild(sectionDeleteBtn);
+    sectionCell3.appendChild(sectionDeleteBtn);
+    
+    sectionDeleteBtn.addEventListener('click', function() {
+        if(confirm('정말로 노선에서 제거하시겠습니까?')) {         
+            let index = this.parentElement.parentElement.rowIndex - 1;
+            let lineName = document.getElementById('selected-line-input').value; 
+            let lineIndex = arrLine.findIndex(l => l.name == lineName); 
+            let line = arrLine[lineIndex];
+
+            removeStationFromSectionArray(line, index);
+
+            for(let i = sectionTable.rows.length - 1; i > 0; i--){
+                sectionTable.deleteRow(i);
+            }
+
+            for (let i = 0; i < line.section.stations.length; i++) {
+                addLineToSectionTable(sectionTable, line.section.stations[i], i);
+            }
+            makeSubwayMap();
+        } else {
+           
+        }
+    });
+}
