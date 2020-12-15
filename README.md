@@ -31,11 +31,14 @@ $ live-server
 └─ src/
    │  index.js
    ├─ view/
-   │      station-manager.view.js
+   │      template/
+   │        station-manager-template.js
+   │        line-manager-template.js
+   │        section-manager-template.js
+   │      station-manager.viewjs
    │      line-manager.view.js
    │      section-manager.view.js
    │      map-print-manager.view.js
-   │      template.view.js
    ├─ service/
    │      station.service.js
    │      line.service.js
@@ -55,6 +58,7 @@ $ live-server
 - service/ : 데이터 트랜잭션, 앱의 주요 로직
 - controller/: 사용자 입력값을 검증, 가공하여 서비스로직에 전달하고 값을 받아 뷰에 전달
 - view/ : 사용자에게 보이는 뷰 생성, controller에서 처리된 데이터를 받거나 서비스에 직접 접근
+  emplate/ : HTML 속성, HTML string 관리
 - common/ : 공동 모듈, 보조 연산 기능들
 
 ## 구현 기능 목록
