@@ -8,6 +8,7 @@ const elementMap = {
   sectionAddButton: "section-add-button",
   sectionDeleteButton: "section-delete-button",
 };
+
 export default class SectionManager extends Component {
   constructor() {
     super();
@@ -20,24 +21,26 @@ export default class SectionManager extends Component {
     };
 
     this.handleAddButtonClick = (order, station) => {
-      const { selectedLine } = this.state;
-
       if (order.length === 0) {
         alert(ERROR.RE_TYPING_ORDER);
         return;
       }
+
+      const { selectedLine } = this.state;
       this.store.lines[selectedLine].stations.splice(order, 0, station);
       this.setStore(cloneDeep(this.store));
     };
 
     this.handleDeleteButtonClick = (index) => {
-      const stations = this.store.lines[this.state.selectedLine].stations;
-      if (isLessThanTwoStation(stations)) {
-        stations.splice(index, 1);
-        this.setStore(cloneDeep(this.store));
-      } else {
+      const isLessThanTwoStation = stations.length < 2;
+      if (isLessThanTwoStation) {
         alert(ERROR.NOT_DELETE);
+        return;
       }
+
+      const stations = this.store.lines[this.state.selectedLine].stations;
+      stations.splice(index, 1);
+      this.setStore(cloneDeep(this.store));
     };
   }
 
@@ -150,10 +153,6 @@ export default class SectionManager extends Component {
    ${isNull(selectedLine) ? "" : Section()}
   `;
   }
-}
-
-function isLessThanTwoStation(stations) {
-  return stations.length > 2;
 }
 
 function isNull(value) {
