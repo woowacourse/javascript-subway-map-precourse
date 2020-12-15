@@ -30,6 +30,19 @@ const SectionManager = function () {
       "노선에서 제거"
     );
 
+  this.createLineSelectionButtons = (lineNames) =>
+    lineNames.map((lineName, index) =>
+      getAdvancedEle(
+        "button",
+        {
+          class: "section-line-menu-button",
+          "data-line-index": index,
+          "data-line-name": lineName,
+        },
+        lineName
+      )
+    );
+
   this.createInitialTitle = () =>
     getAdvancedEle("h2", null, "구간을 수정할 노선을 선택해주세요.");
 };
