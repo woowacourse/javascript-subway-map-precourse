@@ -4,6 +4,48 @@
 
 자바스크립트만을 이용해 구현한 미니 지하철 노선 관리 시스템입니다. 역과 노선을 추가(Create), 조회(Read), 삭제(Delete)할 수 있고, 원하는 노선에 역을 추가(Update)/노선에서 역을 제거(Delete)할 수 있습니다. 지하철 노선도 출력 버튼을 누르면 노선 별로 등록된 역을 조회할 수도 조회할 수 있습니다. 단, 우리가 생각하는 일반적인 역이나 노선 이름의 규칙에서 벗어난 입력은 할 수 없습니다!🚨
 
+## 프로젝트 디렉토리 구조
+
+```sh
+├─javascript-subway-map-precourse
+│  │
+│  ├─docs 
+│  │    README.md
+│  │
+│  │ index.html
+│  │
+│  ├─src
+│  │  │  index.js
+│  │  │
+│  │  └─modules
+│  │      │     
+│  │      │  subwayManager.js
+│  │      │     
+│  │      ├─line
+│  │      │     line.js
+│  │      │     lineDataHandler.js
+│  │      │     lineElemGenerator.js
+│  │      │     lineValidator.js
+│  │      │
+│  │      ├─section
+│  │      │     sectionDataHandler.js
+│  │      │     sectionElemGenerator.js
+│  │      │     sectionValidator.js
+│  │      │     
+│  │      ├─station
+│  │      │     station.js
+│  │      │     stationDataHandler.js
+│  │      │     stationValidator.js 
+│  │      │
+│  │      └─util
+│  │            constants.js
+│  │            events.js
+│  │            output.js
+│  │      
+│  └─images
+│          
+```
+
 ## 👩🏻‍💻 구현할 기능 목록
 
 ### 통합적 기능
@@ -84,7 +126,7 @@
 
 <br/>
 
-## 구현시 고민하고, 이를 통해 배웠던 부분
+## 🧐 구현시 고민하고, 이를 통해 배웠던 부분
 
 - 좋은 모듈화란 어떤 것인지에 대해 많이 찾아보기도 했고, 고민도 많이 했습니다. 모듈을 분리 후 이를 통합하기 위한 core를 늘리는 것은 스파게티 코드를 만드는 지름길이라 생각했기 때문에 되도록이면 모듈간 공유하는 core를 줄이기 위해 노력했던 한 주였습니다. 역할과 책임을 기준으로 모듈을 분류하는 것이 기본이겠지만, 특별히 상호작용이 많지 않은(한 쪽의 출력이 한 쪽의 입력으로 사용되는 등) 요소들을 논리적으로 응집시키는 것은 모듈화의 목적을 생각했을 때 맞지 않다고 생각하여 같은 입력을 사용하는 구성 요소 혹은 동일한 출력을 만들어내는 구성요소를 모듈로 묶으려 노력했습니다.
 
@@ -95,6 +137,7 @@
 - 비슷한 로직이 여러 모듈에서 사용되는데, 사용하는 element의 id나 이에 따라 조금씩 달라지는 부분들이 있는 메서드들이 많았습니다. 공통되는 요소를 최대한 줄이고 싶었지만, 너무 줄이다보면 향후 모듈간 분리가 쉽지 않을 것 같은데 이런 점을 어떻게 처리해야하는지가 고민이 많이 되었습니다.
 
 - Bubbling과 Capturing의 개념을 공부하고 이를 적용해보았습니다.
+
 
 ## 💻 프로그램 실행 결과
 
