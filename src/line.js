@@ -79,8 +79,8 @@ class Line {
       .value;
     const downStation = document.getElementById("line-end-station-selector")
       .value;
-
     document.getElementById("line-name-input").value = "";
+
     return { lineName, upStation, downStation };
   };
 

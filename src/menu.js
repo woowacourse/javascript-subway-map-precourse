@@ -7,7 +7,6 @@ class Menu {
   displayMenu = e => {
     const container = document.getElementsByClassName("content");
     const columnIndex = parseInt(e.target.dataset.column);
-
     for (let i = 0; i < container.length; i++) {
       if (i + 1 === columnIndex) {
         container[i].style.display = "block";
@@ -22,7 +21,6 @@ class Menu {
     const lineMenuBtn = document.getElementById("line-manager-button");
     const sectionMenuBtn = document.getElementById("section-manager-button");
     const showMenuBtn = document.getElementById("map-print-manager-button");
-
     stationMenuBtn.addEventListener("click", () => Station.refreshStation());
     lineMenuBtn.addEventListener("click", () => Line.refreshLine());
     sectionMenuBtn.addEventListener("click", () => Section.refreshSection());
