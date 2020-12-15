@@ -1,13 +1,13 @@
 export const lineNameInputElement = document.getElementById('#line-name-input');
 export const lineStartStationSelectorElement = document.getElementById(
-  '#line-start-station-selector'
+  'line-start-station-selector'
 );
 export const lineEndStationSelectorElement = document.getElementById(
-  '#line-end-station-selector'
+  'line-end-station-selector'
 );
 export const lineAddButtonElement = document.getElementById('#line-add-button');
 export const lineDeleteButtons = document.querySelectorAll(
-  '..line-delete-button'
+  '.line-delete-button'
 );
 
 export default {

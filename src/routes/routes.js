@@ -13,11 +13,11 @@ export const setRouterWithElements = (
   defaultContentElement
 ) => {
   window.onhashchange = () => {
-    const contentName = window.location.hash;
+    const contentName = window.location.hash.substr(1);
     convertContent(contentElements, contentName);
   };
   window.onload = () => {
-    const contentName = window.location.hash;
+    const contentName = window.location.hash.substr(1);
     if (contentName) {
       convertContent(contentElements, contentName);
     } else {
