@@ -18,6 +18,7 @@ export default function SectionManagerContainer({
   deleteSection,
 }) {
   this.mainContainer = document.querySelector('.main-container');
+  this.selectedLine = '';
 
   this.handleClickMainContainer = ({ target: { className, dataset, id } }) => {
     this.selectLineEvent({ className, dataset });

@@ -11,6 +11,8 @@ import { save, load } from './utils/index.js';
 export default function SubwayMapManagement() {
   this.stations = load('stations') || [];
   this.lines = load('lines') || [];
+  this.menu = [];
+  this.selectedMenu = {};
 
   this.setStations = stations => {
     this.stations = stations;
