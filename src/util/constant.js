@@ -37,12 +37,10 @@ export const Constant = {
   REGEX_CATCHING_WHITESPACE: /^\s*$/,
   REGEX_CATCHING_INTEGER: /^[0-9 ()+-]+$/,
 
-  // etc
+  // tag 관련
   CLICK: "click",
   NONE: "none",
   BLOCK: "block",
-
-  // tag
   TBODY: "tbody",
   BUTTON: "BUTTON",
 };
@@ -53,6 +51,7 @@ export const ErrorMessage = {
 
   // 역 관리
   MINIMUM_NAME_LENGTH: "공백이 아닌 2글자 이상의 역 이름을 입력해 주세요.",
+  STATION_RELATED_LINE: "노선에 포함된 역은 제거할 수 없습니다.",
 
   // 노선 관리
   NAME_WHITE_SPACE: "공백이 아닌 노선 이름을 입력해 주세요.",
@@ -61,8 +60,7 @@ export const ErrorMessage = {
   // 구간 관리
   NOT_INTEGER_ORDER: "1 이상 정수의 순서를 입력해 주세요.",
   MINIMUM_ORDER: "1 이상의 순서를 입력해 주세요.",
-  MINIMUM_STATIONS:
-    "노선에 포함된 역이 두개 이하일 때는 역을 제거할 수 없습니다.",
+  MINIMUM_STATIONS: "노선에 포함된 역이 두개 이하일 때는 역을 제거할 수 없습니다.",
 };
 
 export const ConfirmMessage = {

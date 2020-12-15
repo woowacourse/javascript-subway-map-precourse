@@ -5,8 +5,8 @@ import { LineManager } from "../controller/line-manager.js";
 import { LineView } from "./line-view.js";
 import { SectionManager } from "../controller/section-manager.js";
 import { SectionView } from "./section-view.js";
-import { MapView } from "./map-view.js";
-import { MapManager } from "../controller/map-manager.js";
+import { MapPrintView } from "./map-print-view.js";
+import { MapPrintManager } from "../controller/map-print-manager.js";
 
 export const Element = {
   // 초기 화면 버튼
@@ -94,7 +94,7 @@ export const ElementControl = {
     this.hideAllContainers();
     Element.mapPrintContainer.style.display = Constant.BLOCK;
 
-    MapManager.isVisited ? MapView.render() : MapManager.init();
+    MapPrintManager.isVisited ? MapPrintView.render() : MapPrintManager.init();
   },
 
   clearInput(element) {

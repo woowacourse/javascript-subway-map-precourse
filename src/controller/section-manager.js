@@ -6,7 +6,6 @@ import { Storage } from "../util/storage.js";
 import { SectionValidation } from "../util/validation.js";
 import { Element, ElementControl } from "../view/element.js";
 import { SectionView } from "../view/section-view.js";
-import { StationView } from "../view/station-view.js";
 
 export const SectionManager = {
   isVisited: false,
@@ -14,8 +13,10 @@ export const SectionManager = {
 
   init() {
     this.isVisited = true;
-    Station.stations = Storage.load(Station.key);
-    Line.lines = Storage.load(Line.key);
+    Station.stations = Storage.load(Station.key)
+      ? Storage.load(Station.key)
+      : [];
+    Line.lines = Storage.load(Line.key) ? Storage.load(Line.key) : [];
     SectionView.render();
     this.setEventListener();
   },
@@ -50,8 +51,8 @@ export const SectionManager = {
 
     if (SectionValidation.isValidSection(station, order, this.selectedLine)) {
       Section.add(station, order, this.selectedLine);
-      SectionView.renderSectionManager(this.selectedLine);
     }
+    SectionView.renderSectionManager(this.selectedLine);
     ElementControl.clearInput(Element.sectionOrderInupt);
   },
 
@@ -59,7 +60,7 @@ export const SectionManager = {
     const idx = e.target.dataset.idx;
 
     if (e.target.tagName !== Constant.BUTTON) {
-      return false;
+      return;
     }
 
     if (confirm(ConfirmMessage.CHECK_DELETION_FROM_LINE)) {

@@ -1,7 +1,7 @@
-import { Line } from "../model/line.js"
+import { Line } from "../model/line.js";
 import { Element } from "./element.js";
 
-export const MapView = {
+export const MapPrintView = {
   render() {
     let content = '<div class="map">';
 
@@ -10,11 +10,11 @@ export const MapView = {
 
       stations.forEach((station) => {
         content += `<li>${station}</li>`;
-      })
-      content += '</ul>';
-    })
-    content += '</div>';
+      });
+      content += "</ul>";
+    });
+    content += "</div>";
 
     Element.mapPrintContainer.innerHTML = content;
-  }
-}
+  },
+};

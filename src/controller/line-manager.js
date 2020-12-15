@@ -11,8 +11,10 @@ export const LineManager = {
 
   init() {
     this.isVisited = true;
-    Station.stations = Storage.load(Station.key);
-    Line.lines = Storage.load(Line.key);
+    Station.stations = Storage.load(Station.key)
+      ? Storage.load(Station.key)
+      : [];
+    Line.lines = Storage.load(Line.key) ? Storage.load(Line.key) : [];
     LineView.render();
     this.setEventListener();
   },
@@ -43,6 +45,10 @@ export const LineManager = {
 
   onClickDeleteButton(e) {
     const name = e.target.dataset.name;
+
+    if (e.target.tagName !== Constant.BUTTON) {
+      return;
+    }
 
     if (confirm(ConfirmMessage.CHECK_DELETION)) {
       Line.delete(name);

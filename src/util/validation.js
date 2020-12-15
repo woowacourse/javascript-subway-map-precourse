@@ -33,6 +33,18 @@ export const StationValidation = {
   isNotDuplicated(name) {
     return !Station.stations.includes(name);
   },
+
+  isValidStatonDeletion(station) {
+    let isValid = true;
+
+    Line.lines.forEach(({ stations }) => {
+      if (stations.includes(station)) {
+        isValid = false;
+      }
+    });
+
+    return isValid;
+  },
 };
 
 export const LineValidation = {
@@ -106,6 +118,14 @@ export const SectionValidation = {
       return;
     }
 
+    if (!this.hasValidNumberRange(order, stationArray)) {
+      return;
+    }
+
+    return true;
+  },
+
+  hasValidNumberRange(order, stationArray) {
     if (order < 1) {
       alert(ErrorMessage.MINIMUM_ORDER);
 
