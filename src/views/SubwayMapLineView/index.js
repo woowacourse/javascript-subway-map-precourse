@@ -23,6 +23,7 @@ export default class SubwayMapLineView {
   renderLineManager() {
     this.renderLineInputContainer();
     this.renderLineTableContainer();
+
     this.eventDelegator.bindEvent(this.managerContainer.querySelector('#line-add-button'));
     this.eventDelegator.bindEvent(this.managerContainer.querySelector('#line-table-container'));
   }
@@ -88,9 +89,10 @@ export default class SubwayMapLineView {
   renderLineTableContainer() {
     addTemplateToDomInnerHTML(
       this.managerContainer,
-      `<h2>${message.LIST_OF_LINES}</h2>
+      `
       <div id="line-table-container"></div>`,
     );
+
     this.renderLineTable(Object.entries(this.subwayMapViewModel.getLines()));
   }
 
@@ -103,6 +105,7 @@ export default class SubwayMapLineView {
 
   combineTheadTbody(lineThead, lineTbody) {
     return `
+      <h2>${message.LIST_OF_LINES}</h2>
       <table id="line-name-table">
         ${lineThead}
         ${lineTbody}
@@ -131,6 +134,7 @@ export default class SubwayMapLineView {
 
   getLineTbodyTr(line) {
     const [lineId, lineInstance] = line;
+
     return `
     <tr>
       <td>${lineId}</td>

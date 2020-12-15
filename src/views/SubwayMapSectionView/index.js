@@ -37,9 +37,9 @@ export default class SubwayMapSectionView {
     addTemplateToDomInnerHTML(
       this.managerContainer,
       `<div id="section-line-menu-button-container">
-      <h3>${message.SECTION_INFORMATION}</h3>
-      ${lineButtons}
-    </div>`,
+        <h3>${message.SECTION_INFORMATION}</h3>
+        ${lineButtons}
+      </div>`,
     );
   }
 

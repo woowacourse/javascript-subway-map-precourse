@@ -134,7 +134,6 @@ export default class SubwayMapViewModel {
 
   isInLines(stationId) {
     const found = Object.entries(this.subwayMapModel.getLines()).find(line => {
-      console.log(line);
       let lineInstance = line[1];
       return lineInstance._sections.some(section => {
         return stationId === section._stationId;
