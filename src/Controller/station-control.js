@@ -41,7 +41,7 @@ export const onAddStation = () => {
   $stationNameInput.value = '';
 };
 
-export function onRemoveStation(e) {
+export const onRemoveStation = (e) => {
   const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
   if (
     removeConfirm &&
@@ -54,4 +54,4 @@ export function onRemoveStation(e) {
     removeSelectorOption($downStreamSelector, e.target.dataset.stationName);
     removeSelectorOption($sectionSelector, e.target.dataset.stationName);
   }
-}
+};

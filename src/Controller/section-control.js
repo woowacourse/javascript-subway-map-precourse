@@ -29,12 +29,12 @@ import {
 } from './set-button-event.js';
 import {KEY, TEXT} from '../constant.js';
 
-export function onLoadSection(e) {
+export const onLoadSection = (e) => {
   hideSectionLine();
   addLineTitle(e.target.dataset.lineName);
   showSectionScreen(e.target.dataset.lineName);
   $sectionAddButton.dataset.lineName = e.target.dataset.lineName;
-}
+};
 
 export const onAddSection = (e) => {
   const sectionValue = getSectionValue(e.target.dataset.lineName);
@@ -48,7 +48,7 @@ export const onAddSection = (e) => {
   $sectionOrderInput.value = '';
 };
 
-export function onRemoveSection(e) {
+export const onRemoveSection = (e) => {
   const removeConfirm = confirm(TEXT.CONFIRM_DELETE);
   const parsedData = JSON.parse(e.target.dataset.sectionLine);
   const removedData = getRemovedData(parsedData);
@@ -59,7 +59,7 @@ export function onRemoveSection(e) {
     updateSectionTable();
     showSectionScreen(parsedData.lineName);
   }
-}
+};
 
 export const loadSectionTable = () => {
   lineInstance.loadLine();
