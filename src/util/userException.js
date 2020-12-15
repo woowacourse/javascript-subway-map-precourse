@@ -12,6 +12,10 @@ export const isDuplicatedStation = (startStation, endStation) => {
   return startStation === endStation;
 };
 
+export const isValidStation = (lineStartStation, lineEndStation) => {
+  return lineStartStation === '' || lineEndStation === '';
+};
+
 export const isValidLineNameLength = (lineName) => {
   return lineName < NUMBER.VALID_LINE_NAME_LENGTH;
 };

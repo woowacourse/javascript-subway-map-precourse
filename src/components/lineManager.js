@@ -7,6 +7,7 @@ import {
   isDuplicatedName,
   isValidLineNameLength,
   isDuplicatedStation,
+  isValidStation,
 } from '../util/userException.js';
 
 export default class LineManager {
@@ -93,6 +94,8 @@ export default class LineManager {
 
     if (isDuplicatedName(lines, lineName)) {
       alert(ALERT.DUPLICATED_NAME);
+    } else if (isValidStation(lineStartStation, lineEndStation)) {
+      alert(ALERT.VALID_STATION);
     } else if (isDuplicatedStation(lineStartStation, lineEndStation)) {
       alert(ALERT.DUPLICATED_STATION);
     } else if (isValidLineNameLength(lineName)) {

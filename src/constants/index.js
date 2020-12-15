@@ -50,6 +50,7 @@ export const ALERT = {
   VALID_LINE_NAME_LENGTH: '1글자 이상으로 적어주세요.',
   DELETE_ERROR: '삭제가 불가능합니다.',
   VALID_SECTION_NUMBER: '잘못된 순서입니다.',
+  VALID_STATION: '역관리에서 역을 입력해주세요.',
 };
 
 export const NUMBER = {
