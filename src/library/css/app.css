@@ -1,0 +1,108 @@
+/* tag */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+button {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+input {
+  font-size: medium;
+}
+
+table,
+th,
+td {
+  border: 1px solid #333;
+}
+
+select {
+  width: 80px;
+  font-size: medium;
+  padding: 2px;
+}
+
+/* role button section */
+.role-button-section > button {
+  margin-right: 5px;
+}
+
+/* role section */
+.role {
+  margin-top: 30px;
+}
+
+.input-title {
+  margin: 0;
+}
+
+/* station manager */
+#station-name-header {
+  width: 150px;
+}
+
+#station-update-header {
+  width: 50px;
+}
+
+.station-delete-button {
+  width: 100%;
+}
+
+/* line manager */
+#selector-container {
+  margin: 15px 0;
+}
+
+#line-name-header {
+  width: 100px;
+}
+
+#line-start-header,
+#line-end-header {
+  width: 140px;
+}
+
+#line-update-header {
+  width: 50px;
+}
+
+.line-delete-button {
+  width: 100%;
+}
+
+.line-row > td {
+  text-align: center;
+}
+
+/* section manager */
+
+#line-menu-button-section {
+  width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section-line-menu-button {
+  width: 30%;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+#section-table-container {
+  margin-top: 50px;
+}
+
+#section-name-header {
+  width: 150px;
+}
+
+.section-row > td:nth-child(1) {
+  text-align: center;
+}
+
+/* behavior */
+.hide {
+  display: none;
+}
