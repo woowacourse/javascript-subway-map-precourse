@@ -1,8 +1,8 @@
-import { getSelectedLineSections } from "../common/function";
-import { appendChildren } from "../common/visualization";
-import { createSectionTrs } from "../creators/section_creator";
+import { getSelectedLineSections } from "../common/function.js";
+import { appendChildren } from "../common/visualization.js";
+import { createSectionTrs } from "../creators/section_creator.js";
 
-const SectionContainer = () => {
+const SectionContainer = function () {
   this.changeTableBody = () => {
     const tbody = document.getElementById("section-tbody");
     tbody.innerHTML = "";
@@ -11,3 +11,5 @@ const SectionContainer = () => {
     appendChildren(tbody, ...innerContents);
   };
 };
+
+export const { changeTableBody } = new SectionContainer();

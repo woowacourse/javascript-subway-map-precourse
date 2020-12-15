@@ -32,4 +32,5 @@ export const {
   setStateAndLocalStorage,
   clearResultDIV,
   getSelectedLineSections,
+  isBiggerThanTwo,
 } = new Function();
