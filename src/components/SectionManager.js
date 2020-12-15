@@ -2,7 +2,7 @@ import LineSelector from "./LineSelector.js";
 import SectionInput from "./SectionInput.js";
 import SectionList from "./SectionList.js";
 
-export default function SectionManager({ $target, isShow, stations, lines, onAddSection }) {
+export default function SectionManager({ $target, isShow, stations, lines, updateSection }) {
   this.$container = document.createElement("div");
   this.$container.className = "section-manager";
   $target.append(this.$container);
@@ -26,7 +26,7 @@ export default function SectionManager({ $target, isShow, stations, lines, onAdd
     const nextStations = [...this.lines[this.selectedLineIndex].stations];
     nextStations.splice(sectionOrder, 0, selectedStation);
 
-    onAddSection(this.selectedLineIndex, nextStations);
+    updateSection(this.selectedLineIndex, nextStations);
   };
 
   this.sectionInput = new SectionInput({
@@ -36,9 +36,18 @@ export default function SectionManager({ $target, isShow, stations, lines, onAdd
     stationsInSelectedLine: [],
     onAddSection: this.onAddSection,
   });
+
+  this.onDeleteSection = (selectedStationIndex) => {
+    const nextStations = [...this.lines[this.selectedLineIndex].stations];
+    nextStations.splice(selectedStationIndex, 1);
+
+    updateSection(this.selectedLineIndex, nextStations);
+  };
+
   this.sectionList = new SectionList({
     $target: this.$container,
     stationsInSelectedLine: [],
+    onDeleteSection: this.onDeleteSection,
   });
 
   this.getSelectedLineName = () => {

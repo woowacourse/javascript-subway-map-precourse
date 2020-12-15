@@ -1,23 +1,30 @@
-import { ELEMENT_INFO } from "../util/constants.js";
+import { ELEMENT_INFO, ERROR_MESSAGE } from "../util/constants.js";
 
-export default function SectionList({ $target, stationsInSelectedLine }) {
+export default function SectionList({ $target, stationsInSelectedLine, onDeleteSection }) {
   this.$container = document.createElement("section");
   $target.append(this.$container);
 
   this.stationsInSelectedLine = stationsInSelectedLine;
+  this.onDeleteSection = onDeleteSection;
 
   const { sectionDeleteButton } = ELEMENT_INFO;
 
   this.bindOnDelete = () => {
     this.$container.addEventListener("click", (e) => {
-      if (e.target.className === sectionDeleteButton.className) {
-        console.log(this.isPossibleToDelete());
+      if (e.target.className === sectionDeleteButton.className && this.isPossibleToDelete()) {
+        this.onDeleteSection(e.target.dataset.stationIndex);
       }
     });
   };
 
   this.isPossibleToDelete = () => {
-    return this.stationsInSelectedLine.length > 2 ? true : false;
+    const result = this.stationsInSelectedLine.length > 2 ? true : false;
+
+    if (!result) {
+      alert(ERROR_MESSAGE.notPossibleToDeleteSection);
+    }
+
+    return result;
   };
 
   this.setState = (nextStationsInSelectedLine) => {

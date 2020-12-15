@@ -64,7 +64,7 @@ export default function App($app) {
     onDeleteLine: this.onDeleteLine,
   });
 
-  this.onAddSection = (lineIndex, nextStations) => {
+  this.updateSection = (lineIndex, nextStations) => {
     const nextLines = [...this.lines];
     nextLines.splice(lineIndex, 1, { ...nextLines[lineIndex], stations: nextStations });
 
@@ -76,7 +76,7 @@ export default function App($app) {
     isShow: true,
     stations: this.stations,
     lines: this.lines,
-    onAddSection: this.onAddSection,
+    updateSection: this.updateSection,
   });
 
   this.setNextStations = (nextStations) => {
