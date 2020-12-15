@@ -6,7 +6,7 @@ import SectionManagerController from './SectionManager/SectionManagerController.
 
 export default class SubwayManager {
   constructor() {
-    if (!(localStorage.getItem('Stations') && localStorage.getItem('Lines'))) {
+    if (this.checkLocalStorage()) {
       this.setLocalStrageDefault();
     }
     MenuView.menuButtonListView();
@@ -14,6 +14,12 @@ export default class SubwayManager {
     SectionManagerController.buttonEventController();
     LineManagerController.buttonEventController();
     StationManagerController.buttonEventController();
+  }
+
+  checkLocalStorage() {
+    const stations = localStorage.getItem('Stations');
+    const lines = localStorage.getItem('Lines');
+    return !(stations && lines) || (stations === '{}') || (lines === '{}');
   }
 
   setLocalStrageDefault() {
