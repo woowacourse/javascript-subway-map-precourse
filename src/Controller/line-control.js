@@ -23,6 +23,11 @@ import {
   removeLocalStorage,
 } from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
+import {
+  setLineButtonDeleteEvent,
+  setSectionButtonLoadEvent,
+  setSectionButtonDeleteEvent,
+} from './set-button-event.js';
 import {isLineInputValid} from './valid.js';
 import {KEY, TEXT} from './constant.js';
 
@@ -35,6 +40,9 @@ export const onAddLine = () => {
     addSectionButton(lineValue.lineName);
     addSectionScreen(lineValue);
     addMapPrint([lineValue]);
+    setSectionButtonDeleteEvent(lineValue);
+    setLineButtonDeleteEvent(lineValue.lineName);
+    setSectionButtonLoadEvent(lineValue.lineName);
   }
   $lineNameInput.value = '';
 };
@@ -61,6 +69,7 @@ export const loadLine = () => {
   });
   lineInstance.lines.forEach((line) => {
     addLineScreen(line);
+    setLineButtonDeleteEvent(line.lineName);
   });
 };
 

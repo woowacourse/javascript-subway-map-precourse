@@ -1,5 +1,4 @@
 import {
-  $stationTbody,
   $stationNameInput,
   $upStreamSelector,
   $downStreamSelector,
@@ -17,6 +16,7 @@ import {
 } from './local-storage.js';
 import {isNotLineHaved, isStationInputVaild} from './valid.js';
 import {stationInstance, lineInstance} from '../index.js';
+import {setStationButtonDeleteEvent} from './set-button-event.js';
 import {KEY, TEXT} from './constant.js';
 
 export const loadStation = () => {
@@ -55,10 +55,3 @@ export function onRemoveStation(e) {
     removeSelectorOption($sectionSelector, e.target.dataset.stationName);
   }
 }
-
-const setStationButtonDeleteEvent = (stationName) => {
-  const $button = $stationTbody.querySelector(
-    `[data-station-name=${stationName}]`,
-  );
-  $button.addEventListener('click', onRemoveStation);
-};

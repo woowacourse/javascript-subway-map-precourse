@@ -22,6 +22,11 @@ import {
   removeSectionOnLocalStorage,
 } from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
+import {
+  setLineButtonDeleteEvent,
+  setSectionButtonDeleteEvent,
+  setSectionButtonLoadEvent,
+} from './set-button-event.js';
 import {KEY, TEXT} from './constant.js';
 
 export function onLoadSection(e) {
@@ -61,15 +66,17 @@ export const loadSectionTable = () => {
   stationInstance.stations.forEach((station) =>
     addSelectorOption($sectionSelector, station),
   );
-  lineInstance.lines.forEach((section) => {
-    addSectionScreen(section);
+  lineInstance.lines.forEach((line) => {
+    addSectionScreen(line);
+    setSectionButtonLoadEvent(line.lineName);
+    setSectionButtonDeleteEvent(line);
   });
 };
 
 export const loadSectionButton = () => {
   lineInstance.loadLine();
-  lineInstance.lines.forEach((section) => {
-    addSectionButton(section.lineName);
+  lineInstance.lines.forEach((line) => {
+    addSectionButton(line.lineName);
   });
 };
 
@@ -77,9 +84,11 @@ export const updateSectionTable = () => {
   removeTableScreen($sectionEditContainer);
   removeTableScreen($lineContainer);
   removeAllMapPrint();
-  lineInstance.lines.forEach((section) => {
-    addLineScreen(section);
-    addSectionScreen(section);
+  lineInstance.lines.forEach((line) => {
+    addLineScreen(line);
+    addSectionScreen(line);
+    setLineButtonDeleteEvent(line.lineName);
+    setSectionButtonDeleteEvent(line);
   });
   addMapPrint(lineInstance.lines);
 };
@@ -101,7 +110,7 @@ const getSectionValue = (lineName) => {
 
 const getSelectedSection = (lineName) => {
   const sectionIndex = lineInstance.lines.findIndex(
-    (section) => section.lineName === lineName,
+    (line) => line.lineName === lineName,
   );
 
   return lineInstance.lines[sectionIndex];
