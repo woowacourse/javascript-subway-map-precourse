@@ -7,7 +7,6 @@ export default class PrintSubwayLine extends Component {
 
   render() {
     const { lines } = this.store;
-    console.log(lines);
     return `
       <div>
         ${lines
