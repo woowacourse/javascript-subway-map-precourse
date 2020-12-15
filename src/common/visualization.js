@@ -77,4 +77,5 @@ export const {
   getAdvancedEle,
   createStationOptions,
   appendChildren,
+  createTd,
 } = new Visualization();

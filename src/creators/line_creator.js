@@ -3,6 +3,7 @@ import {
   getAdvancedEle,
   createStationOptions,
   appendChildren,
+  createTd,
 } from "../common/visualization.js";
 
 const LineCreator = function () {
@@ -53,4 +54,18 @@ const LineCreator = function () {
 
   this.createLineTableTitle = () =>
     getAdvancedEle("h2", null, "🚉 지하철 노선 목록");
+
+  this.createLineDeleteButton = (lineName) =>
+    getAdvancedEle(
+      "button",
+      { class: "line-delete-button", "data-line-name": lineName },
+      "삭제"
+    );
+
+  this.createLineDeleteButtonTd = (lineName) => {
+    const deleteButtonTd = createTd();
+    const deleteButton = this.createLineDeleteButton(lineName);
+    deleteButtonTd.appendChild(deleteButton);
+    return deleteButtonTd;
+  };
 };
