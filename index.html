@@ -6,8 +6,69 @@
   </head>
   <body>
     <div id="app">
-      <h1>🚇 지하철 노선도 관리 </h1>
+      <header>
+        <h1>🚇 지하철 노선도 관리</h1>
+        <button id="station-manager-button">1.역 관리</button>
+        <button id="line-manager-button">2.노선 관리</button>
+        <button id="section-manager-button">3.구간 관리</button>
+        <button id="map-print-manager-button">4.지하철 노선도 출력</button>
+      </header>
+      <div id="content">
+        <div class="hide" id="station-manager-content">
+          <div>역 이름</div>
+          <input type="text" id="station-name-input" />
+          <button id="station-add-button">역 추가</button>
+          <h2>🚉 지하철 역 목록</h2>
+          <table id="station-table">
+            <tbody id="station-table-body"></tbody>
+          </table>
+        </div>
+        <div class="hide" id="line-manager-content">
+          <div>노선 이름</div>
+          <input
+            type="text"
+            placeholder="노선 이름을 입력해주세요"
+            id="line-name-input"
+          />
+          <div id="end-point-container">
+            상행 종점
+            <select id="line-start-station-selector"></select>
+            <br />
+            하행 종점
+            <select id="line-end-station-selector"></select>
+          </div>
+          <button id="line-add-button">노선 추가</button>
+          <h2>🚉 지하철 노선 목록</h2>
+          <table>
+            <tbody id="line-table-body"></tbody>
+          </table>
+        </div>
+        <div class="hide" id="section-manager-content"></div>
+      </div>
     </div>
+    <style>
+      .hide {
+        display: none;
+      }
+      #content {
+        margin-top: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+      #line-name-input,
+      #end-point-container {
+        margin-bottom: 20px;
+      }
+      #section-table {
+        margin-top: 20px;
+      }
+      .section-line-menu-button {
+        margin-right: 8px;
+      }
+    </style>
     <script type="module" src="src/index.js"></script>
   </body>
 </html>
