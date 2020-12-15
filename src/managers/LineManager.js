@@ -5,6 +5,7 @@ import {
   checkOverlap,
   checkSameStation,
   customConfirm,
+  deleteWhiteSpace,
 } from '../share/utils.js';
 import { lineTableTemplate, optionTemplate } from '../share/template.js';
 
@@ -83,7 +84,7 @@ export default class LineManager extends Component {
   getAllLineNames = () => this.data.lineList.map((line) => line.name);
 
   getValues = () => {
-    const { value: name } = this.userInput;
+    const name = deleteWhiteSpace(this.userInput.value);
     const { value: startStation } = this.startStationSelector;
     const { value: endStation } = this.endStationSelector;
     return { name, startStation, endStation };

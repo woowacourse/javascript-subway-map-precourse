@@ -6,3 +6,5 @@ export const checkSameStation = (prevStation, nextStation) =>
   prevStation !== nextStation;
 
 export const customConfirm = (message) => confirm(message);
+
+export const deleteWhiteSpace = (words) => words.replaceAll(' ', '');

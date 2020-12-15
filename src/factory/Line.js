@@ -1,4 +1,4 @@
-import { checkOverlap, checkValueLength } from '../share/utils.js';
+import { checkOverlap } from '../share/utils.js';
 
 const MIN_SECTION_LENGTH = 2;
 const ALERT_MESSAGE_SECTION_INCLUDES_STATION = '이미 노선에 포함되어있습니다';

@@ -4,13 +4,18 @@ import {
   checkOverlap,
   checkValueLength,
   customConfirm,
+  deleteWhiteSpace,
 } from '../share/utils.js';
 import { stationTableTemplate } from '../share/template.js';
 
 const MIN_STATION_NAME_LENGTH = 2;
 const CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
-const ALERT_MESSAGE = '노선에 포함되어있어 삭제가 불가능합니다.';
 
+const ALERT_MESSAGE_SECTION_INCLUDES_STATION =
+  '노선에 포함되어있어 삭제가 불가능합니다.';
+const ALERT_MESSAGE_STATION_MINLENGTH =
+  '역은 공백을 제외하고 2자 이상이여야 합니다.';
+const ALERT_MESSAGE_ALREADY_INCLUDE = '이미 등록된 역입니다.';
 export default class StationManager extends Component {
   constructor(props) {
     super(props);
@@ -32,8 +37,8 @@ export default class StationManager extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    const { value } = this.userInput;
-    this.addStationToList(value);
+    const stationName = deleteWhiteSpace(this.userInput.value);
+    this.addStationToList(stationName);
     this.clearInput();
   };
 
@@ -44,7 +49,7 @@ export default class StationManager extends Component {
     if (className !== STATION_SELECTOR.DELETE_BUTTON_CLASS) return;
     if (!customConfirm(CONFIRM_MESSAGE)) return;
     if (!checkOverlap(stationName, this.getAllStationNamesInLines())) {
-      alert(ALERT_MESSAGE);
+      alert(ALERT_MESSAGE_SECTION_INCLUDES_STATION);
       return;
     }
     this.deleteStationFromList(index);
@@ -74,10 +79,15 @@ export default class StationManager extends Component {
   }
 
   checkValidity(value) {
-    return (
-      checkOverlap(value, this.data.stationList) &&
-      checkValueLength(value, MIN_STATION_NAME_LENGTH)
-    );
+    if (!checkOverlap(value, this.data.stationList)) {
+      alert(ALERT_MESSAGE_ALREADY_INCLUDE);
+      return false;
+    }
+    if (!checkValueLength(value, MIN_STATION_NAME_LENGTH)) {
+      alert(ALERT_MESSAGE_STATION_MINLENGTH);
+      return false;
+    }
+    return true;
   }
 
   clearInput() {
