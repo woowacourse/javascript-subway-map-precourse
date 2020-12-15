@@ -179,3 +179,11 @@ function makeLineBtnFromArray(newLine) {
 
     lineBtn.addEventListener('click', function() {showAddDeleteSection(newLine)});
 }
+
+function addOptionsToSectionSelectBox(stationName) {
+    let selectSection = document.getElementById('#section-station-selector');
+    let elSection = document.createElement('option');
+    elSection.textContent = stationName;
+    elSection.value = stationName;
+    selectSection.appendChild(elSection);
+}
