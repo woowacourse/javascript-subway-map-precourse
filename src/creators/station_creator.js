@@ -59,4 +59,4 @@ const StationCreator = function () {
   };
 };
 
-export const { removeTr } = new StationCreator();
+export const { removeTr, createTr } = new StationCreator();
