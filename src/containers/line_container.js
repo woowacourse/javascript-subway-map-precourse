@@ -4,9 +4,21 @@ import {
   createLineAddDIV,
   createLineTableTitle,
   createLineTable,
+  createLineTr,
 } from "../creators/line_creator.js";
+import { setDeleteButtonClickListener } from "../managers/line_manager.js";
 
 const LineContainer = function () {
+  this.appendNewLine = (input, startStation, endStation) => {
+    const tbody = document.querySelector("tbody");
+    const tr = createLineTr({
+      name: input.value,
+      sections: [startStation.value, endStation.value],
+    });
+    tbody.appendChild(tr);
+    setDeleteButtonClickListener();
+  };
+
   this.setDefaultValue = (input, startStationSelector, endStationSelector) => {
     input.value = "";
     const stations = getFormattedStations();

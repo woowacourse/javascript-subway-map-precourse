@@ -48,3 +48,5 @@ const LineManager = function () {
     }
   };
 };
+
+export const { setDeleteButtonClickListener } = new LineManager();

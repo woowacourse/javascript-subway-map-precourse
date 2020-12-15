@@ -111,4 +111,5 @@ export const {
   createLineAddDIV,
   createLineTableTitle,
   createLineTable,
+  createLineTr,
 } = new LineCreator();
