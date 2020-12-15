@@ -16,3 +16,5 @@ const MapPrintContainer = function () {
     this.appendALineElement(lines, parent);
   };
 };
+
+export const { renderMapPrint } = new MapPrintContainer();

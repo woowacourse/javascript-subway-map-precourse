@@ -1,5 +1,6 @@
 import { clearResultDIV } from "./common/function";
 import { renderInitialLine } from "./containers/line_container";
+import { renderMapPrint } from "./containers/map_print_container";
 import {
   setLineDeleteButtonClickListener,
   setLineAddClickListener,
@@ -14,7 +15,10 @@ const Handler = function () {
     setLineAddClickListener();
   };
   this.onSectionButtonClick = () => {};
-  this.onPrintButtonClick = () => {};
+  this.onPrintButtonClick = () => {
+    clearResultDIV();
+    renderMapPrint(resultDIV);
+  };
 };
 
 export const {
