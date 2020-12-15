@@ -2,19 +2,14 @@ import { SUBWAY_STATION_IN_LINE_DELETE_LENGTH_LIMIT } from '../constants/configu
 
 export default class SubwayLine {
   #allStationsInLine = [];
-  #upTerminatingStationName;
-  #downTerminatingStationName;
 
-  static checkIsTerminatingStationsSame(
-    upTerminatingStationName,
-    downTerminatingStationName
-  ) {
-    return downTerminatingStationName === upTerminatingStationName;
+  static checkIsStartAndEndStationNamesSame(startStationName, endStationName) {
+    return startStationName === endStationName;
   }
 
-  constructor({ upTerminatingStationName, downTerminatingStationName }) {
-    this.#allStationsInLine.push(upTerminatingStationName);
-    this.#allStationsInLine.push(downTerminatingStationName);
+  constructor({ startStationName, endStationName }) {
+    this.#allStationsInLine.push(startStationName);
+    this.#allStationsInLine.push(endStationName);
   }
 
   get allStationsInLine() {
