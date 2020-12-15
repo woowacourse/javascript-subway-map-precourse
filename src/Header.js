@@ -2,7 +2,8 @@ import {
   addClickEventFromId,
   renderLineTable,
   renderStationTable,
-  putOptions,
+  putOptionsFromId,
+  renderSectionSelector,
 } from "./utils/dom.js";
 
 const menuIds = [
@@ -45,12 +46,17 @@ export default class Header {
     }
     const isLine = Boolean(id.match("line"));
     if (isLine) {
-      putOptions();
+      putOptionsFromId("line-start-station-selector");
+      putOptionsFromId("line-end-station-selector");
       renderLineTable();
     }
     const isStation = Boolean(id.match("station"));
     if (isStation) {
       renderStationTable();
+    }
+    const isSection = Boolean(id.match("section"));
+    if (isSection) {
+      renderSectionSelector();
     }
     const content = document.getElementById(id.replace("button", "content"));
     content.style.display = "block";

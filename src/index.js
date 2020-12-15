@@ -5,14 +5,12 @@ import {
   renderStationTable,
   renderLineTable,
 } from "./utils/dom.js";
-import { setStateToStorage } from "./utils/storage.js";
 import {
   INPUT_ALREADY_EXIST_NAME_MESSAGE,
   INPUT_LESS_THAN_2_MESSAGE,
   INPUT_ALREADY_EXIST_LINE_NAME_MESSAGE,
   CANT_SAME_START_AND_END_MESSAGE,
   ALREAY_EXIST_SAME_END_POINTS,
-  LOCAL_STORAGE_LINES_KEY,
 } from "./constants/index.js";
 import { existLineName, existLineSameEndPoints } from "./utils/line.js";
 import Header from "./Header.js";

@@ -2,6 +2,7 @@ import {
   DELETE_TEXT,
   LOCAL_STORAGE_LINES_KEY,
   LOCAL_STORAGE_STATIONS_KEY,
+  SECTION_CONTENT_SKELETON,
 } from "../constants/index.js";
 import { getStationOptions, removeLine } from "./line.js";
 import { removeStation } from "./station.js";
@@ -76,13 +77,66 @@ export const renderLineTable = () => {
   });
 };
 
-export const putOptions = () => {
-  const startStationSeletor = document.getElementById(
-    "line-start-station-selector"
+export const putOptionsFromId = (id) => {
+  const element = document.getElementById(id);
+  element.innerHTML = getStationOptions();
+};
+
+export const renderSectionSelector = () => {
+  const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
+  if (!lines) {
+    return;
+  }
+  const sectionManagerContent = document.getElementById(
+    "section-manager-content"
   );
-  const endStationSelector = document.getElementById(
-    "line-end-station-selector"
+  sectionManagerContent.innerHTML = SECTION_CONTENT_SKELETON;
+  const sectionSelectorContainer = document.getElementById(
+    "section-selector-container"
   );
-  startStationSeletor.innerHTML = getStationOptions();
-  endStationSelector.innerHTML = getStationOptions();
+  lines.forEach((line) => {
+    const lineSelectorButton = document.createElement("button");
+    lineSelectorButton.setAttribute("class", "section-line-menu-button");
+    lineSelectorButton.innerText = line.name;
+    lineSelectorButton.onclick = () => renderModifySectionContainer(line.name);
+    sectionSelectorContainer.appendChild(lineSelectorButton);
+  });
+};
+
+export const renderModifySectionContainer = (lineName) => {
+  const sectionModifyContainer = document.getElementById(
+    "section-modify-container"
+  );
+  const sectionManageTitle = document.getElementById("section-manage-title");
+  sectionModifyContainer.style.display = "block";
+  sectionManageTitle.innerText = `${lineName} 관리`;
+  putOptionsFromId("section-station-selector");
+  renderSectionTable(lineName);
+};
+
+export const resetSectionTable = () => {
+  const sectionTableBody = document.getElementById("section-table-body");
+  sectionTableBody.innerHTML = `<tr><th>순서</th><th>이름</th><th>설정</th></tr>`;
+};
+
+export const renderSectionTable = (lineName) => {
+  const selectedLine = getStateFromStorage(LOCAL_STORAGE_LINES_KEY).find(
+    (el) => el.name === lineName
+  );
+  resetSectionTable();
+  const sectionTableBody = document.getElementById("section-table-body");
+  selectedLine.section.forEach((station, i) => {
+    const tableRow = document.createElement("tr");
+    const orderEl = document.createElement("td");
+    const nameEl = document.createElement("td");
+    const setEl = document.createElement("td");
+    const deleteButton = document.createElement("button");
+    orderEl.innerText = i;
+    nameEl.innerText = station;
+    deleteButton.innerText = "노선에서 제거";
+    deleteButton.onclick = () => {};
+    setEl.append(deleteButton);
+    tableRow.append(orderEl, nameEl, setEl);
+    sectionTableBody.append(tableRow);
+  });
 };

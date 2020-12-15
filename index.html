@@ -43,18 +43,7 @@
             <tbody id="line-table-body"></tbody>
           </table>
         </div>
-        <div class="" id="section-manager-content">
-          <h2>구간을 수정할 노선을 선택해주세요.</h2>
-          <div id="section-selector-container"></div>
-          <h3 id="section-manage-title"></h3>
-          <h4>구간 등록</h4>
-          <select id="section-station-selector"></select>
-          <input type="number" id="section-order-input" />
-          <button id="section-add-button">등록</button>
-          <table>
-            <tbody id="section-table-body"></tbody>
-          </table>
-        </div>
+        <div class="hide" id="section-manager-content"></div>
       </div>
     </div>
     <style>
@@ -72,6 +61,12 @@
       #line-name-input,
       #end-point-container {
         margin-bottom: 20px;
+      }
+      #section-table {
+        margin-top: 20px;
+      }
+      .section-line-menu-button {
+        margin-right: 8px;
       }
     </style>
     <script type="module" src="src/index.js"></script>
