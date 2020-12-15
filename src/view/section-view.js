@@ -6,6 +6,7 @@ import { Element, ElementControl } from "./element.js";
 export const SectionView = {
   render() {
     this.renderSectionLineMenuButton();
+
     ElementControl.hideSectionManager();
   },
 
@@ -23,9 +24,7 @@ export const SectionView = {
     Element.sectionLineMenu.innerHTML = content;
   },
 
-  renderSectionManager(e) {
-    const line = e.target.dataset.name;
-
+  renderSectionManager(line) {
     this.renderSectionManagerTitle(line);
     this.renderSectionStationSelector();
     this.renderSectionContainerTable(line);

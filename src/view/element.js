@@ -44,6 +44,8 @@ export const Element = {
   sectionStationSelector: document.querySelector(
     Constant.SECTION_STATION_SELECTOR_ID
   ),
+  sectionAddButton: document.querySelector(Constant.SECTION_ADD_BUTTON_ID),
+  sectionOrderInupt: document.querySelector(Constant.SECTION_ORDER_INPUT_ID),
 
   // 지하철 노선도 관리
   mapPrintContainer: document.querySelector(Constant.MAP_PRINT_CONTAINER_CLASS),

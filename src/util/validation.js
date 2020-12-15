@@ -76,3 +76,56 @@ export const LineValidation = {
     return !stationNameArray.includes(name);
   },
 };
+
+export const SectionValidation = {
+  isValidSection(station, order, selectedLine) {
+    return (
+      this.hasValidName(station, selectedLine) &&
+      this.hasValidOrder(order, selectedLine)
+    );
+  },
+
+  hasValidName(station, selectedLine) {
+    if (!this.isNotDuplicated(station, selectedLine)) {
+      alert(ErrorMessage.DUPLICATED_NAME);
+
+      return;
+    }
+
+    return true;
+  },
+
+  hasValidOrder(order, selectedLine) {
+    const stationArray = Line.lines.filter(
+      ({ name }) => name === selectedLine
+    )[0].stations;
+
+    if (!Constant.REGEX_CATCHING_INTEGER.test(order)) {
+      alert(ErrorMessage.NOT_INTEGER_ORDER);
+
+      return;
+    }
+
+    if (order < 1) {
+      alert(ErrorMessage.MINIMUM_ORDER);
+
+      return;
+    }
+
+    if (order > stationArray.length - 1) {
+      alert(`${stationArray.length - 1} 이하의 순서를 입력해 주세요.`);
+
+      return;
+    }
+
+    return true;
+  },
+
+  isNotDuplicated(station, selectedLine) {
+    const stationArray = Line.lines.filter(
+      ({ name }) => name === selectedLine
+    )[0].stations;
+
+    return !stationArray.includes(station);
+  },
+};

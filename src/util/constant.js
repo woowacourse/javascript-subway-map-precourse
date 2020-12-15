@@ -26,6 +26,8 @@ export const Constant = {
   SECTION_MANAGER_CLASS: ".section-manager",
   SECTION_MANAGER_TITLE_CLASS: ".section-manager-title",
   SECTION_STATION_SELECTOR_ID: "#section-station-selector",
+  SECTION_ADD_BUTTON_ID: "#section-add-button",
+  SECTION_ORDER_INPUT_ID: "#section-order-input",
 
   // 지하철 노선 관리
   MAP_PRINT_CONTAINER_CLASS: ".map-print-container",
@@ -33,6 +35,7 @@ export const Constant = {
   //
   MINIMUM_NAME_LENGTH: 2,
   REGEX_CATCHING_WHITESPACE: /^\s*$/,
+  REGEX_CATCHING_INTEGER: /^[0-9 ()+-]+$/,
 
   // etc
   CLICK: "click",
@@ -54,6 +57,10 @@ export const ErrorMessage = {
   // 노선 관리
   NAME_WHITE_SPACE: "공백이 아닌 노선 이름을 입력해 주세요.",
   SAME_START_END_STATION: "서로 다른 종점을 선택해 주세요.",
+
+  // 구간 관리
+  NOT_INTEGER_ORDER: "1 이상 정수의 순서를 입력해 주세요.",
+  MINIMUM_ORDER: "1 이상의 순서를 입력해 주세요.",
 };
 
 export const ConfirmMessage = {
