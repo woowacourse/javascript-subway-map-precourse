@@ -15,9 +15,10 @@ const jsonToClassConverter = (dataList, Creator) =>
 const setItem = (key, data) => localStorage.setItem(key, JSON.stringify(data));
 
 const getItem = (key) => {
-  const data = JSON.parse(localStorage.getItem(key));
+  const tempData = JSON.parse(localStorage.getItem(key));
+  const data = tempData || defaultState;
   data.lineList = jsonToClassConverter(data.lineList, Line);
-  return data || defaultState;
+  return data;
 };
 
 const storage = {

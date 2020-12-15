@@ -14,7 +14,6 @@ const ALERT_MESSAGE = '노선에 포함되어있어 삭제가 불가능합니다
 export default class StationManager extends Component {
   constructor(props) {
     super(props);
-    this.data.stationList = [];
 
     this.userInput = this.container.querySelector(
       `#${STATION_SELECTOR.NAME_INPUT_ID}`,

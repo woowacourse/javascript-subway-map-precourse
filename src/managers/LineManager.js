@@ -13,8 +13,6 @@ export default class LineManager extends Component {
   constructor(props) {
     super(props);
 
-    this.data.lineList = [];
-
     this.form = this.container.querySelector(`#${LINE_SELECTOR.FORM_ID}`);
     this.userInput = this.container.querySelector(
       `#${LINE_SELECTOR.NAME_INPUT_ID}`,
