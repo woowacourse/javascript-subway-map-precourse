@@ -16,10 +16,15 @@ export default class LineValidator extends Validator {
     if (this.isOverlapped(input.value, LINE)) {
       this.alertLineOverlap(input);
 
-      return;
+      return false;
+    }
+    if (!this.isValidLine(input)) {
+      this.alertLineInvalid(input);
+
+      return false;
     }
 
-    return this.isValidLine(input);
+    return true;
   }
 
   alertLineOverlap(input) {
@@ -33,7 +38,6 @@ export default class LineValidator extends Validator {
         return true;
       }
     }
-    this.alertLineInvalid(input);
 
     return false;
   }
@@ -57,11 +61,7 @@ export default class LineValidator extends Validator {
   }
 
   isSameLines(lineStart, lineEnd) {
-    if (lineStart.value === lineEnd.value) {
-      return true;
-    }
-
-    return false;
+    return lineStart.value === lineEnd.value;
   }
 
   isValidOptions(lineInfos, lineStart, lineEnd) {

@@ -19,6 +19,7 @@ import {
   LINE_ROW,
   LINE_CONFIRM,
   SECTION_LINE_MENU_BUTTON,
+  LINE_ADD_BUTTON,
 } from '../library/constant/constant.js';
 import SectionManager from './section_manager.js';
 import MapPrintManager from './map_print_manager.js';
@@ -31,11 +32,7 @@ export default class LineManager extends Role {
   initialize() {
     roleInterface.clearNode(LINE_TABLE);
     this.renderLines();
-    roleInterface.clickButtons(
-      LINE_DELETE_BUTTON,
-      this.onClickDeleteButton,
-      this
-    );
+    this.clickDeleteButton();
   }
 
   renderLines() {
@@ -64,6 +61,10 @@ export default class LineManager extends Role {
     row.childNodes[2].append(lineEnd);
     row.childNodes[3].append(button);
     table.append(row);
+  }
+
+  clickAddButton() {
+    roleInterface.clickButton(LINE_ADD_BUTTON, this.onClickAddButton, this);
   }
 
   onClickAddButton() {
@@ -103,6 +104,14 @@ export default class LineManager extends Role {
       sectionManager
     );
     mapPrintManager.printMap();
+  }
+
+  clickDeleteButton() {
+    roleInterface.clickButtons(
+      LINE_DELETE_BUTTON,
+      this.onClickDeleteButton,
+      this
+    );
   }
 
   onClickDeleteButton(event) {

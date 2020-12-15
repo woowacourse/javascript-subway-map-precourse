@@ -7,6 +7,8 @@ import {
   LINES_LS,
   LINE_MENU_BUTTON_SECTION,
   MANAGE_K,
+  SECTION_ADD_BUTTON,
+  SECTION_CONFIRM,
   SECTION_DELETE_BUTTON,
   SECTION_DELETE_K,
   SECTION_HEADER,
@@ -73,11 +75,7 @@ export default class SectionManager extends Role {
 
   initializeSectionLine(sectionLine) {
     this.renderSectionLine(sectionLine);
-    roleInterface.clickButtons(
-      SECTION_DELETE_BUTTON,
-      this.onClickDeleteButton,
-      this
-    );
+    this.clickDeleteButton();
   }
 
   renderSectionLine(target) {
@@ -118,6 +116,10 @@ export default class SectionManager extends Role {
     }
   }
 
+  clickAddButton() {
+    roleInterface.clickButton(SECTION_ADD_BUTTON, this.onClickAddButton, this);
+  }
+
   onClickAddButton() {
     const input = nodeSelector.selectId(SECTION_ORDER_INPUT);
     const selector = nodeSelector.selectId(SECTION_STAION_SELECTOR);
@@ -155,6 +157,14 @@ export default class SectionManager extends Role {
     mapPrintManager.printMap();
   }
 
+  clickDeleteButton() {
+    roleInterface.clickButtons(
+      SECTION_DELETE_BUTTON,
+      this.onClickDeleteButton,
+      this
+    );
+  }
+
   onClickDeleteButton(event) {
     const target = event.target.dataset.section;
     const lineTitle = nodeSelector.selectId(SECTION_LINE_TITLE);
@@ -163,9 +173,11 @@ export default class SectionManager extends Role {
     if (!sectionValidator.canDelete(line)) {
       return;
     }
-    this.deleteSection(target, line);
-    this.initializeSectionLine(line);
-    this.updateData();
+    if (confirm(SECTION_CONFIRM)) {
+      this.deleteSection(target, line);
+      this.initializeSectionLine(line);
+      this.updateData();
+    }
   }
 
   deleteSection(target, line) {

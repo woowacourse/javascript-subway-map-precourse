@@ -32,7 +32,11 @@ export default class Role {
     return ROLE_NAMES.indexOf(this._roleName);
   }
 
-  displayRole() {
+  clickRoleButton() {
+    roleInterface.clickButton(this.buttonId, this.onClickRoleButton, this);
+  }
+
+  onClickRoleButton() {
     roleInterface.displayContents(ROLE, HIDE);
     roleInterface.displayContent(SECTION_LINE, HIDE);
     roleInterface.displayContent(this.roleId, ACTIVE);

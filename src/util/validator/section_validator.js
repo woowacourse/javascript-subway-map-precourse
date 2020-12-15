@@ -1,5 +1,6 @@
 import { roleInterface } from '../../component/role_interface.js';
 import {
+  MIN_STATION_LENGTH,
   SECTION_ALERT_COUNT,
   SECTION_ALERT_ORDER,
   SECTION_ALERT_OVERLAP,
@@ -62,12 +63,13 @@ class SectionValidator extends Validator {
   canDelete(line) {
     const stations = this.getSectionLine(line);
 
-    if (stations.length > 2) {
-      return true;
-    }
-    this.alertSectionCount();
+    if (stations.length <= MIN_STATION_LENGTH) {
+      this.alertSectionCount();
 
-    return false;
+      return false;
+    }
+
+    return true;
   }
 
   alertSectionCount() {

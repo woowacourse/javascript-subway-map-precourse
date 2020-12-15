@@ -15,6 +15,7 @@ import {
   STATION_ROW,
   STATIONS_LS,
   STATION_CONFIRM,
+  STATION_ADD_BUTTON,
 } from '../library/constant/constant.js';
 
 export default class StationManager extends Role {
@@ -25,11 +26,7 @@ export default class StationManager extends Role {
   initialize() {
     roleInterface.clearNode(STATION_TABLE);
     this.renderStations();
-    roleInterface.clickButtons(
-      STATION_DELETE_BUTTON,
-      this.onClickDeleteButton,
-      this
-    );
+    this.clickDeleteButton();
     roleInterface.renderSelectors();
   }
 
@@ -47,6 +44,10 @@ export default class StationManager extends Role {
     row.childNodes[0].append(station);
     row.childNodes[1].append(button);
     table.append(row);
+  }
+
+  clickAddButton() {
+    roleInterface.clickButton(STATION_ADD_BUTTON, this.onClickAddButton, this);
   }
 
   onClickAddButton() {
@@ -70,6 +71,14 @@ export default class StationManager extends Role {
     this._stations.push(station);
     this._stations.sort();
     localStorage.setItem(STATIONS_LS, JSON.stringify(this._stations));
+  }
+
+  clickDeleteButton() {
+    roleInterface.clickButtons(
+      STATION_DELETE_BUTTON,
+      this.onClickDeleteButton,
+      this
+    );
   }
 
   onClickDeleteButton(event) {

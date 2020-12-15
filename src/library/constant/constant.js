@@ -13,17 +13,17 @@ export const LINES_LS = 'lines';
 
 // role
 export const ROLE = 'role';
-export const ROLE_SECTION = 'role-section';
 export const ROLE_BUTTON = 'role-button';
 export const ROLE_BUTTON_SECTION = 'role-button-section';
+export const ROLE_SECTION = 'role-section';
 
 // station manager
 export const STATION = 'station';
 export const STATION_MANAGER = 'station-manager';
 export const STATION_MANAGER_BUTTON = 'station-manager-button';
+export const STATION_NAME_INPUT = 'station-name-input';
 export const STATION_ADD_BUTTON = 'station-add-button';
 export const STATION_DELETE_BUTTON = 'station-delete-button';
-export const STATION_NAME_INPUT = 'station-name-input';
 export const STATION_TABLE = 'station-table';
 export const STATION_HEADER = 'station-header';
 export const STATION_ROW = 'station-row';
@@ -38,9 +38,9 @@ export const STATION_CONFIRM = '정말로 삭제하시나요?';
 export const LINE = 'line';
 export const LINE_MANAGER = 'line-manager';
 export const LINE_MANAGER_BUTTON = 'line-manager-button';
+export const LINE_NAME_INPUT = 'line-name-input';
 export const LINE_ADD_BUTTON = 'line-add-button';
 export const LINE_DELETE_BUTTON = 'line-delete-button';
-export const LINE_NAME_INPUT = 'line-name-input';
 export const LINE_START_STATION_SELECTOR = 'line-start-station-selector';
 export const LINE_END_STATION_SELECTOR = 'line-end-station-selector';
 export const LINE_HEADER = 'line-header';
@@ -56,14 +56,14 @@ export const LINE_CONFIRM = '정말로 해당 호선을 삭제하시나요?';
 // section manager
 export const SECTION_MANAGER = 'section-manager';
 export const SECTION_MANAGER_BUTTON = 'section-manager-button';
-export const SECTION_LINE = 'section-line';
+export const LINE_MENU_BUTTON_SECTION = 'line-menu-button-section';
 export const SECTION_LINE_MENU_BUTTON = 'section-line-menu-button';
+export const SECTION_LINE = 'section-line';
 export const SECTION_LINE_TITLE = 'section-line-title';
 export const SECTION_ADD_BUTTON = 'section-add-button';
 export const SECTION_DELETE_BUTTON = 'section-delete-button';
 export const SECTION_ORDER_INPUT = 'section-order-input';
 export const SECTION_STAION_SELECTOR = 'section-station-selector';
-export const LINE_MENU_BUTTON_SECTION = 'line-menu-button-section';
 export const SECTION_TABLE = 'section-table';
 export const SECTION_HEADER = 'section-header';
 export const SECTION_ROW = 'section-row';
@@ -73,6 +73,8 @@ export const SECTION_ALERT_OVERLAP =
   '역은 각 노선마다 한 번만 추가가 가능해요. 😅';
 export const SECTION_ALERT_COUNT =
   '종점만 남은 노선에서는 삭제가 불가능해요. 😅';
+export const SECTION_CONFIRM = '정말로 해당 구간을 삭제하시나요?';
+export const MIN_STATION_LENGTH = 2;
 
 // map print manager
 export const MAP = 'map';
