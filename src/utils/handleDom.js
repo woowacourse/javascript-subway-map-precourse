@@ -47,17 +47,6 @@ export const addRowInSectionTable = (table, order, station, field) => {
   table.appendChild(tr);
 };
 
-const addCell = (tr, value) => {
-  const td = document.createElement("td");
-
-  td.innerHTML = value;
-  tr.appendChild(td);
-};
-
-const addDeleteButton = (value, buttonName, field) => {
-  return `<button class="delete-button" data-${field}="${value}">${buttonName}</button>`;
-};
-
 export const addOptionTag = (selector, station) => {
   const option = document.createElement("option");
 
@@ -68,4 +57,15 @@ export const addOptionTag = (selector, station) => {
 
 export const initSelector = (selector) => {
   selector.innerHTML = "";
+};
+
+const addCell = (tr, value) => {
+  const td = document.createElement("td");
+
+  td.innerHTML = value;
+  tr.appendChild(td);
+};
+
+const addDeleteButton = (value, buttonName, field) => {
+  return `<button class="delete-button" data-${field}="${value}">${buttonName}</button>`;
 };

@@ -28,7 +28,7 @@ export class SectionManager {
   renderHeader = (props) => {
     this.sectionHeader = new SectionManagerHeaderButtons({
       ...props,
-      updateSectionManagerByLine: this.updateSectionManagerByLine,
+      renderSectionBodyByLine: this.renderSectionBodyByLine,
     });
   };
 
@@ -45,19 +45,23 @@ export class SectionManager {
 
   render = (props) => {
     display(props.isShow, this.manager);
+
     if (!props.isShow) {
       displayHide(this.sectionManagerContaionerByLines);
       displayHide(this.sectionManagerListContainer);
     }
+
     this.sectionHeader.render(props);
     this.sectionManagerInput.renderStations();
     this.sectionManagerList.render({ lineName: this.lineName });
   };
 
-  updateSectionManagerByLine = (lineName) => {
+  renderSectionBodyByLine = (lineName) => {
     this.lineName = lineName;
+
     displayShow(this.sectionManagerContaionerByLines);
     displayShow(this.sectionManagerListContainer);
+
     this.sectionManagerInput.render({ lineName: lineName });
     this.sectionManagerList.render({ lineName: lineName });
   };
@@ -72,6 +76,7 @@ export class SectionManager {
         line.stations = newStations;
       }
     });
+
     this.setLines(lines);
   };
 

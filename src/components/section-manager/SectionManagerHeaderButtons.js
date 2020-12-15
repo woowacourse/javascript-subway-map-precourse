@@ -1,7 +1,7 @@
 import { getLineNameButton } from "../../utils/templates.js";
 export class SectionManagerHeaderButtons {
   constructor(props) {
-    this.updateSectionManagerByLine = props.updateSectionManagerByLine;
+    this.renderSectionBodyByLine = props.renderSectionBodyByLine;
     this.getLines = props.getLines;
     this.initializeDOM();
     this.initializeEvents();
@@ -29,7 +29,7 @@ export class SectionManagerHeaderButtons {
 
   handleLineSection = (e) => {
     if (e.target.classList.contains("section-line-menu-button")) {
-      this.updateSectionManagerByLine(e.target.dataset.name);
+      this.renderSectionBodyByLine(e.target.dataset.name);
     }
   };
 }

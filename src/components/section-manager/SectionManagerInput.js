@@ -1,5 +1,7 @@
 import { addOptionTag, initSelector } from "../../utils/handleDom.js";
+import { getLineNameHeader } from "../../utils/templates.js";
 import { isValidSectionInfo } from "../../utils/validation.js";
+
 export class SectionManagerInput {
   constructor({ getStations, addStationInLine, getLines }) {
     this.getStations = getStations;
@@ -27,13 +29,14 @@ export class SectionManagerInput {
 
   render = ({ lineName }) => {
     this.lineName = lineName;
-    this.header.innerHTML = `${lineName} 관리`;
+    this.header.innerHTML = getLineNameHeader(lineName);
 
     this.renderStations();
   };
 
   renderStations = () => {
     this.stations = this.getStations();
+
     initSelector(this.sectionStationSelector);
     this.stations.forEach((station) => {
       addOptionTag(this.sectionStationSelector, station);

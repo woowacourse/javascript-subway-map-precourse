@@ -21,14 +21,18 @@ export const printLine = (line) => {
   return lineHTML;
 };
 
+export const getLineNameButton = (lineName) => {
+  return `<button class="section-line-menu-button" data-name="${lineName}">${lineName}</button>\n`;
+};
+
+export const getLineNameHeader = (lineName) => {
+  return `${lineName} 관리`;
+};
+
 const printStations = (stations) => {
   let stationsHTML = ``;
   stations.map((station) => {
     stationsHTML += `<li>${station}</li>`;
   });
   return stationsHTML;
-};
-
-export const getLineNameButton = (lineName) => {
-  return `<button class="section-line-menu-button" data-name="${lineName}">${lineName}</button>\n`;
 };

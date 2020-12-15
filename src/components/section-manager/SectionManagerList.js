@@ -14,6 +14,7 @@ export class SectionManagerList {
   initializeDOM = () => {
     this.sectionTable = document.querySelector("#section-table");
   };
+
   initializeEvents = () => {
     this.sectionTable.addEventListener("click", this.handleDeleteStation);
   };
@@ -39,6 +40,7 @@ export class SectionManagerList {
 
   handleDeleteStation = (e) => {
     let confirmDelete = confirm(MESSAGE.DELETE_DOUBLE_CHECK);
+
     if (confirmDelete) {
       if (canDeleteMore(this.stations)) {
         let order = e.target.dataset.section;
