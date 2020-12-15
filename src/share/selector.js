@@ -40,7 +40,7 @@ export const SECTION_SELECTOR = Object.freeze({
   STATION_SELECTOR_ID: 'section-station-selector',
   ORDER_INPUT_ID: 'section-order-input',
   ADD_BUTTON_ID: 'section-add-button',
-  DELETE_BUTTON: 'section-delete-button',
+  DELETE_BUTTON_CLASS: 'section-delete-button',
   RESULT_CONTAINER_ID: 'section-result',
   TABLE: 'section-table',
   TABLE_BODY: 'section-table-body',

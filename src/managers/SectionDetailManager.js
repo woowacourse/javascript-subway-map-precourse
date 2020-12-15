@@ -4,6 +4,9 @@ import {
   optionTemplate,
   sectionDetailTableTemplate,
 } from '../share/template.js';
+import { customConfirm } from '../share/utils.js';
+
+const CONFIRM_MESSAGE = '정말로 삭제하시겠습니까?';
 
 export default class SectionDetailManager extends Component {
   constructor(props) {
@@ -27,12 +30,23 @@ export default class SectionDetailManager extends Component {
     );
 
     this.form.addEventListener('submit', this.onSubmit);
+    this.table.addEventListener('click', this.onTableClick);
   }
 
   onSubmit = (event) => {
     event.preventDefault();
     const targetLine = this.data.currentLineData;
-    targetLine.updateSection(this.getValues());
+    targetLine.addStationToSection(this.getValues());
+    this.props.syncData(this.data);
+  };
+
+  onTableClick = (event) => {
+    const { className } = event.target;
+    const { index } = event.target.dataset;
+    const targetLine = this.data.currentLineData;
+    if (className !== SECTION_SELECTOR.DELETE_BUTTON_CLASS) return;
+    if (!customConfirm(CONFIRM_MESSAGE)) return;
+    targetLine.deleteStationFromSection({ index });
     this.props.syncData(this.data);
   };
 
@@ -68,7 +82,7 @@ export default class SectionDetailManager extends Component {
         sectionDetailTableTemplate({
           name: station,
           index,
-          buttonClass: SECTION_SELECTOR.DELETE_BUTTON,
+          buttonClass: SECTION_SELECTOR.DELETE_BUTTON_CLASS,
         }),
       )
       .join('');
