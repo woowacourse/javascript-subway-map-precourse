@@ -8,5 +8,15 @@ export default class Line {
 
   updateSection({ stationName, index }) {
     this.section.splice(index, 0, stationName);
+    this.updateStartStation();
+    this.updateEndStation();
+  }
+
+  updateStartStation() {
+    [this.startStation] = this.section;
+  }
+
+  updateEndStation() {
+    this.endStation = this.section[this.section.length - 1];
   }
 }
