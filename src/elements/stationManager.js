@@ -4,12 +4,13 @@ export const stationNameInputElement = document.getElementById(
 export const stationAddButtonElement = document.getElementById(
   'station-add-button'
 );
-export const stationDeleteButtons = document.querySelectorAll(
+export const stationDeleteButtonsElement = document.querySelectorAll(
   '.station-delete-button'
 );
+export const resultStationItemsElement = document.getElementById('result-station-items');
 
 export default {
   stationNameInputElement,
   stationAddButtonElement,
-  stationDeleteButtons,
+  stationDeleteButtonsElement,
 };
