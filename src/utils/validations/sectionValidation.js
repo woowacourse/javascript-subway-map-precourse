@@ -1,7 +1,7 @@
+import { isDuplicatedValue, isPossibleIndex } from "./index.js";
+import { alertMessage } from "../domUtil.js";
 import { NUM } from "../constants/number.js";
 import { MESSAGE } from "../constants/message.js";
-import { alertMessage } from "../domUtil.js";
-import { isDuplicatedValue, isPossibleIndex } from "./index.js";
 
 export const isValidSectionNumber = ($input, nameList, name, index) => {
   if (isNaN(index)) {
