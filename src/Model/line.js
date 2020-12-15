@@ -13,8 +13,10 @@ export default class Line {
     return this.lines.push(line);
   }
 
-  removeLine(line) {
-    const removedLineIndex = this.lines.findIndex((v) => v.lineName === line);
+  removeLine(lineName) {
+    const removedLineIndex = this.lines.findIndex(
+      (v) => v.lineName === lineName,
+    );
 
     return this.lines.splice(removedLineIndex, 1);
   }
