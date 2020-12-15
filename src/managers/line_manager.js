@@ -46,6 +46,18 @@ const LineManager = function () {
     this.setDeleteButtonClickListener();
   };
 
+  this.lineAddClickFunction = () => {
+    const input = document.getElementById("line-name-input");
+    const [startSection, endSection] = this.getSelectors();
+    const validity = this.checkLineValidity(
+      input.value,
+      startSection,
+      endSection
+    );
+    if (validity.value) this.handleAddProcess(input, startSection, endSection);
+    else alert(validity.errorMessage);
+  };
+
   this.deleteButtonClickFunction = ({ target }) => {
     const { lineName } = target.dataset;
     const lines = getFormattedLines();
