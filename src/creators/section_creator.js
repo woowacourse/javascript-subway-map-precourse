@@ -83,6 +83,14 @@ const SectionCreator = function () {
     return table;
   };
 
+  this.createSpreadElements = (lineName) => {
+    const managemenetTitle = this.createManagementTitleText(lineName);
+    const addTitle = this.createSectionAddTitle();
+    const addDiv = this.createSectionAddDIV();
+    const sectionTable = this.createSectionTable();
+    return { managemenetTitle, addTitle, addDiv, sectionTable };
+  };
+
   this.createLineSelectionButtons = (lineNames) =>
     lineNames.map((lineName, index) =>
       getAdvancedEle(
