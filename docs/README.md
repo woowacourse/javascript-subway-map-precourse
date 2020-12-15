@@ -1,8 +1,9 @@
 # 🚇 지하철 노선도 미션
 
 <br/>
-## 데모 플레이
 
+## 데모 플레이
+[플레이하기!](http://peaceful-fight.surge.sh/)
 ## 과제 수행 후기
 
 [블로그](https://elrion018.tistory.com/54)
