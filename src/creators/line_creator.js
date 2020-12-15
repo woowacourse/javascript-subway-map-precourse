@@ -106,3 +106,9 @@ const LineCreator = function () {
     return table;
   };
 };
+
+export const {
+  createLineAddDIV,
+  createLineTableTitle,
+  createLineTable,
+} = new LineCreator();
