@@ -37,7 +37,6 @@ class StationInput {
 
     clearInput(this.$input);
     this.stationStore.addStation(name);
-    localStorage.setItem(`STATION`, JSON.stringify(this.stationStore.stations));
   }
 
   render = () => {

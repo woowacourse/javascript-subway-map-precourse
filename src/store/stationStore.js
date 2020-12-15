@@ -1,3 +1,4 @@
+import { saveStorage } from "../utils/storage.js";
 import Observer from "./observer.js";
 
 class StationStore extends Observer {
@@ -19,6 +20,7 @@ class StationStore extends Observer {
   setStations(stations) {
     this.stations = stations;
     this.notify();
+    saveStorage(`STATION`, this.stations);
   }
 }
 

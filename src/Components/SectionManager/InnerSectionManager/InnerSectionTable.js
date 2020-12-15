@@ -62,7 +62,6 @@ class InnerSectionTable {
     }
 
     this.lineStore.removeSection(this.lineName, index);
-    localStorage.setItem(`LINE`, JSON.stringify(this.lineStore.lines));
   }
 
   render = () => {

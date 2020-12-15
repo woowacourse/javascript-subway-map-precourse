@@ -58,7 +58,6 @@ class StationTable {
     }
 
     this.stationStore.removeStation(name);
-    localStorage.setItem(`STATION`, JSON.stringify(this.stationStore.stations));
   }
 
   render = () => {

@@ -5,6 +5,7 @@ import StationManager from "./StationManager/index.js";
 import LineManager from "./LineManager/index.js";
 import SectionManager from "./SectionManager/index.js";
 import MapPrintManager from "./MapPrintManager/index.js";
+import { loadStorage } from "../utils/storage.js";
 
 class App {
   constructor($target) {
@@ -15,8 +16,8 @@ class App {
   }
 
   initStates() {
-    const stations = JSON.parse(localStorage.getItem(`STATION`));
-    const lines = JSON.parse(localStorage.getItem(`LINE`));
+    const stations = loadStorage(`STATION2`);
+    const lines = loadStorage(`LINE2`);
 
     this.stationStore = new StationStore(stations || []);
     this.lineStore = new LineStore(lines || []);

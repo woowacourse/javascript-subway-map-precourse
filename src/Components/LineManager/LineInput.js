@@ -75,7 +75,6 @@ class LineInput {
 
     clearInput(this.$input);
     this.lineStore.addLine(name, startStation, endStation);
-    localStorage.setItem(`LINE`, JSON.stringify(this.lineStore.lines));
   }
 
   render = () => {
