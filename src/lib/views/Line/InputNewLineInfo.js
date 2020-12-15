@@ -12,8 +12,13 @@ import {
   ADD_LINE_BUTTON,
 } from "../../common/IdAndClassNames.js";
 
+import { LINE_TAB_INDEX } from "../../common/constants.js";
+import { stationLineHelperTexts } from "../common/helperTexts.js";
+
 import submitLineName from "../../action/Line/submitLineName.js";
 import submitNewLine from "../../action/Line/submitNewLine.js";
+
+const helperText = stationLineHelperTexts(LINE_TAB_INDEX);
 
 export default class InputNewLineInfo {
   constructor() {
@@ -21,7 +26,7 @@ export default class InputNewLineInfo {
     this.element.id = LINE_INFO_INPUT_CONTAINER_ID;
     this.lineNameInput = new Input(
       LINE_NAME_INPUT,
-      "노선 이름을 입력해주세요.",
+      helperText["inputPlaceHolder"],
       () => submitLineName(this.lineNameInput.getValue()),
     );
     this.selectStartStation = new Select(SELECT_START_STATION);
@@ -29,7 +34,9 @@ export default class InputNewLineInfo {
   }
 
   _getSelectStartStation() {
-    const $selectStartStationHelper = new Typography("상행 종점 ");
+    const $selectStartStationHelper = new Typography(
+      helperText["startStation"],
+    );
     this.selectStartStation.appendOptions();
     $selectStartStationHelper.element.appendChild(
       this.selectStartStation.element,
@@ -38,7 +45,7 @@ export default class InputNewLineInfo {
   }
 
   _getSelectEndStation() {
-    const $selectEndStationHelper = new Typography("하행 종점 ");
+    const $selectEndStationHelper = new Typography(helperText["endStation"]);
     this.selectEndStation.appendOptions();
     $selectEndStationHelper.element.appendChild(this.selectEndStation.element);
     return $selectEndStationHelper.element;
@@ -47,7 +54,7 @@ export default class InputNewLineInfo {
   _getNewLineSubmitInfoButton() {
     const $submitNewLineInfoButton = new Button(
       ADD_LINE_BUTTON,
-      "노선 추가",
+      helperText["addButtonText"],
       () =>
         submitNewLine(
           new Line({
@@ -61,7 +68,7 @@ export default class InputNewLineInfo {
   }
 
   render() {
-    const $lineNameHelperText = new Typography("노선 이름");
+    const $lineNameHelperText = new Typography(helperText["inputHelper"]);
     [
       $lineNameHelperText.element,
       this.lineNameInput.element,

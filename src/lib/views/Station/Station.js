@@ -4,6 +4,7 @@ import Input from "../components/Input.js";
 import Div from "../components/Div.js";
 import Table from "../components/Table/Table.js";
 import submitStationName from "../../action/Station/submitStationName.js";
+import { stationLineHelperTexts } from "../common/helperTexts.js";
 import { STATION_TAB_INDEX } from "../../common/constants.js";
 
 import {
@@ -13,6 +14,8 @@ import {
   ADD_STATION_INPUT,
 } from "../../common/IdAndClassNames.js";
 
+const helperText = stationLineHelperTexts(STATION_TAB_INDEX);
+
 export default class Station {
   constructor() {
     this.element = document.createElement("div");
@@ -21,15 +24,15 @@ export default class Station {
   }
 
   _getStationInputContainerChildNodes() {
-    const $inputHelperText = new Typography("역 이름", "p");
+    const $inputHelperText = new Typography(helperText["inputHelper"], "p");
     const $stationNameInput = new Input(
       STATION_NAME_INPUT,
-      "역 이름을 입력해주세요.",
+      helperText["inputPlaceHolder"],
       () => submitStationName($stationNameInput.getValue()),
     );
     const $stationNameInputButton = new Button(
       ADD_STATION_INPUT,
-      "역 추가",
+      helperText["addButtonText"],
       () => submitStationName($stationNameInput.getValue()),
     );
     return [$inputHelperText, $stationNameInput, $stationNameInputButton];

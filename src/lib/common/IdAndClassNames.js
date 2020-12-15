@@ -15,13 +15,6 @@ export const menuButtonsId = [
   "#map-print-manager-button",
 ];
 
-export const tabs = [
-  { title: "역", querySelector: STATION_DIV },
-  { title: "노선", querySelector: LINE_DIV },
-  { title: "구간", querySelector: SECTION_DIV },
-  { title: "출력", querySelector: MAP_DIV },
-];
-
 export const STATION_NAME_INPUT_CONTAINER_ID = "#station-name-input-container";
 export const STATION_NAME_INPUT = "#station-name-input";
 export const ADD_STATION_INPUT = "#station-add-button";

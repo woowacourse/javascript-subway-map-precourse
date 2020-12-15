@@ -9,6 +9,7 @@ import {
   SELECT_LINE_BUTTON,
   SECTION_MANAGER_CONTAINER,
 } from "../../common/IdAndClassNames.js";
+import { sectionHelperText } from "../common/helperTexts.js";
 import NotExistErrorMessage from "../common/NotExistErrorMessage.js";
 
 export default class Section {
@@ -43,10 +44,7 @@ export default class Section {
   }
 
   _getSelectLineHelperText() {
-    const $selectHelperText = new Typography(
-      "구간을 수정할 노선을 선택해주세요.",
-      "h3",
-    );
+    const $selectHelperText = new Typography(sectionHelperText["title"], "h3");
     return $selectHelperText.element;
   }
 

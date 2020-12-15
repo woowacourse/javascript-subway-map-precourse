@@ -5,6 +5,7 @@ import Button from "../components/Button.js";
 import Div from "../components/Div.js";
 import Section from "../../models/section.js";
 import submitSectionData from "../../action/Section/submitSectionData.js";
+import { sectionHelperText } from "../common/helperTexts.js";
 import {
   SECTION_INFO_INPUT_CONTAINER_ID,
   SECTION_STATION_SELECTOR,
@@ -19,10 +20,12 @@ export default class InputNewSectionInfo {
     this.sectionStationSelector = new Select(SECTION_STATION_SELECTOR);
     this.lineName = lineName;
     this.sectionStationSelector.appendOptions();
-    this.orderInput = new Input(SECTION_ORDER_INPUT, "순서", () =>
-      submitSectionData(this._getNewSectionData()),
+    this.orderInput = new Input(
+      SECTION_ORDER_INPUT,
+      sectionHelperText["inputPlaceHolder"],
+      () => submitSectionData(this._getNewSectionData()),
     );
-    this.addSectionTitle = new Typography("구간 등록");
+    this.addSectionTitle = new Typography(sectionHelperText["inputHelper"]);
   }
 
   _getNewSectionData() {
@@ -34,8 +37,10 @@ export default class InputNewSectionInfo {
   }
 
   _getAddSectionButton() {
-    const $addSectionButton = new Button(ADD_SECTION_BUTTON, "등록", () =>
-      submitSectionData(this._getNewSectionData()),
+    const $addSectionButton = new Button(
+      ADD_SECTION_BUTTON,
+      sectionHelperText["buttonText"],
+      () => submitSectionData(this._getNewSectionData()),
     );
 
     return $addSectionButton;

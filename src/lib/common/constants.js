@@ -7,3 +7,4 @@ export const appTitle = "지하철 노선도 관리";
 export const STATION_TAB_INDEX = 0;
 export const LINE_TAB_INDEX = 1;
 export const SECTION_TAB_INDEX = 2;
+export const MAP_TAB_INDEX = 3;

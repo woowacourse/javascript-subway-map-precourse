@@ -1,11 +1,12 @@
 import Typography from "../components/Typography.js";
 import { MAP_DIV } from "../../common/IdAndClassNames.js";
+import { MAP_TAB_INDEX } from "../../common/constants.js";
 import { lineSelector } from "../../store/selectors.js";
 import NotExistErrorMessage from "../common/NotExistErrorMessage.js";
 
 export default class Map {
   constructor() {
-    this.tabIndex = 3;
+    this.tabIndex = MAP_TAB_INDEX;
     this.element = document.createElement("div");
     this.element.id = MAP_DIV.substring(1);
   }

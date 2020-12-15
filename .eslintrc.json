@@ -24,6 +24,7 @@
     "class-methods-use-this": "off",
     "no-restricted-globals": "off",
     "import/no-cycle": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "dot-notation": "off"
   }
 }
