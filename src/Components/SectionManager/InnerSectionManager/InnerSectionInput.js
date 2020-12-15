@@ -1,5 +1,5 @@
 import { createSectionOptionsHTML } from "../../../utils/templates/sectionManagerTemplate.js";
-import { clearInput } from "../../../../src_old/utils/domUtil.js";
+import { clearInput } from "../../../../src/utils/domUtil.js";
 import { isValidSectionNumber } from "../../../utils/validations/sectionValidation.js";
 import { ID } from "../../../utils/constants/dom.js";
 
