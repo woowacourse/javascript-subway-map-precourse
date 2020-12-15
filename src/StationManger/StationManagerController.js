@@ -1,6 +1,5 @@
 import StationManagerView from './StationManagerView.js';
 import StationManagerModel from './StationManagerModel.js';
-import StationErrorMsg from './StationErrorMsg.js';
 
 export default class StationManagerController {
   static buttonEventController() {
