@@ -17,7 +17,7 @@ const SectionManager = function () {
   this.isOrderCorrect = (order, sectionLength) =>
     order >= 0 && order <= sectionLength;
 
-  this.onDeleteButtonClick = ({ target: { dataset } }) => {
+  this.onSectionDeleteButtonClick = ({ target: { dataset } }) => {
     const { sectionName } = dataset;
     const lines = getFormattedLines();
     if (!isBiggerThanTwo(lines[state.selectedLineIndex].sections.length)) {
@@ -31,17 +31,17 @@ const SectionManager = function () {
     this.updateDataAndRerender(lines);
   };
 
-  this.setDeleteButtonClickEvent = () => {
+  this.setSectionDeleteButtonClickEvent = () => {
     const buttons = document.getElementsByClassName("section-delete-button");
     for (let i = 0; i < buttons.length; i++) {
-      buttons[i].addEventListener("click", this.onDeleteButtonClick);
+      buttons[i].addEventListener("click", this.onSectionDeleteButtonClick);
     }
   };
 
   this.updateDataAndRerender = (updatedLines) => {
     setStateAndLocalStorage("lines", updatedLines);
     changeTableBody();
-    this.setDeleteButtonClickEvent();
+    this.setSectionDeleteButtonClickEvent();
   };
 
   this.checkSectionValidity = (section, order) => {
@@ -69,7 +69,7 @@ const SectionManager = function () {
     clearSectionInputs(sectionInput, orderInput);
   };
 
-  this.onAddButtonClick = () => {
+  this.sectionAddClickFunction = () => {
     const sectionName = document.getElementById("section-selector");
     const orderInput = document.getElementById("section-order-input");
     const validity = this.checkSectionValidity(
@@ -83,5 +83,5 @@ const SectionManager = function () {
   this.setSectionAddButtonClickEvent = () =>
     document
       .getElementById("section-add-button")
-      .addEventListener("click", this.onAddButtonClick);
+      .addEventListener("click", this.sectionAddClickFunction);
 };
