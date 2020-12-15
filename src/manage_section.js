@@ -44,9 +44,10 @@ export default class ManageSection {
     this.ADD_BUTTON = 'section-add-button';
     this.ADD_BUTTON_TEXT = '등록';
 
-    this.IS_EMPTY_ERROR_MESSAGE = '순서 입력값이 비었습니다.';
+    this.IS_EMPTY_ERROR_MESSAGE = '순서를 입력해주세요.';
     this.IS_NEGATIVE_ERROR_MESSAGE = '수가 아닌 정수 순서를 입력해주세요.';
     this.IS_NOT_CONSECUTIVE_ERROR_MESSAGE = '기존 순서들과 연속되는 순서를 입력해주세요.';
+    this.IS_ALREADY_REGISTERED_ERROR_MESSAGE = '이미 등록되어있는 역입니다.';
   }
 
   getLocalStorage() {
@@ -162,17 +163,27 @@ export default class ManageSection {
 
   createNewSection() {
     if (this.checkSectionValidity() === this.IS_VALID) {
-      this.updateAddToLocalStorage();
       const line = this.getCurrentLineFromTitle();
+
+      this.updateAddToLocalStorage();
       this._privateTableUtils.refreshTableData(this.LINE_TABLE_SECTION, line);
-      // this.addSection();
+      this.renewSectionUserInteractions();
     }
     else {
       this.alertCorrespondingError();
     }
   }
 
+  renewSectionUserInteractions() {
+    this._privateCommonUtils.renewSelect('section-station-selector');
+    this._privateCommonUtils.emptyInput(this._orderInput);
+  }
+
   checkSectionValidity() {
+    if (this.isAlreadyRegistered() === this.IS_NOT_VALID) {
+        return this.IS_NOT_VALID
+    }
+
     if (this.isEmpty() === this.IS_NOT_VALID) {
       return this.IS_NOT_VALID;
     }
@@ -182,6 +193,18 @@ export default class ManageSection {
     }
 
     if (this.isNotConsecutive() === this.IS_NOT_VALID) {
+      return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  isAlreadyRegistered() {
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
+    const line = this.getCurrentLineFromTitle();
+    const station = this.getSelectedStation();
+
+    if (lineList[line].includes(station)) {
       return this.IS_NOT_VALID;
     }
 
@@ -224,6 +247,9 @@ export default class ManageSection {
     }
     else if (this.isNotConsecutive() === this.IS_NOT_VALID) {
       this._privateCommonUtils.alertError(this.IS_NOT_CONSECUTIVE_ERROR_MESSAGE);
+    }
+    else if (this.isAlreadyRegistered() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.IS_ALREADY_REGISTERED_ERROR_MESSAGE);
     }
   }
 

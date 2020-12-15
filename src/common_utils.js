@@ -69,4 +69,14 @@ export default class CommonUtils {
   saveToLocalStorage(datasetName, data) {
     localStorage.setItem(datasetName, JSON.stringify(data));
   }
+
+  renewSelect(idName) {
+    const select =  document.getElementById(idName);
+
+    select.value = select.firstChild.value;
+  }
+
+  emptyInput(input) {
+    input.value = '';
+  }
 }

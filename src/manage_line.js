@@ -112,7 +112,7 @@ export default class ManageLine {
     if (this.checkLineValidity(this._lineInput.value) === this.IS_VALID) {
       this.updateAddToLocalStorage();
       this.addLine();
-      this.emptyInput();
+      this.renewLineUserInteractions();
     }
   }
 
@@ -186,8 +186,10 @@ export default class ManageLine {
     this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
   }
 
-  emptyInput() {
-    this._lineInput.value = '';
+  renewLineUserInteractions() {
+    this._privateCommonUtils.emptyInput(this._lineInput);
+    this._privateCommonUtils.renewSelect('line-start-station-selector');
+    this._privateCommonUtils.renewSelect('line-end-station-selector');
   }
 
   /*
