@@ -12,7 +12,7 @@ import {
   $sectionEditContainer,
   $mapContainer,
 } from './element.js';
-import {TEXT, ADD_BUTTON_CLASS} from '../Controller/utils.js';
+import {TEXT, ADD_BUTTON_CLASS} from '../Controller/constant.js';
 
 const {
   STATION_DELETE,

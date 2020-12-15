@@ -16,7 +16,7 @@ import {
 } from './local-storage.js';
 import {isNotLineHaved, isStationInputVaild} from './valid.js';
 import {stationInstance, lineInstance} from '../index.js';
-import {KEY, TEXT} from './utils.js';
+import {KEY, TEXT} from './constant.js';
 
 export const loadStation = () => {
   const stations = getLocalStorage(KEY.STATION);

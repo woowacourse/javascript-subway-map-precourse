@@ -22,7 +22,7 @@ import {
   removeSectionOnLocalStorage,
 } from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
-import {KEY, TEXT} from './utils.js';
+import {KEY, TEXT} from './constant.js';
 
 export function onLoadSection(e) {
   hideSectionLine();

@@ -5,7 +5,7 @@ import {
   $mapContainer,
   $sectionEditContainer,
 } from './element.js';
-import {BUTTON_MANAGEMENT_ID} from '../Controller/utils.js';
+import {BUTTON_MANAGEMENT_ID} from '../Controller/constant.js';
 
 export const showScreen = (e) => {
   const {STATION, LINE, SECTION, MAP} = BUTTON_MANAGEMENT_ID;

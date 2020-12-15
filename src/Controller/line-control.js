@@ -24,7 +24,7 @@ import {
 } from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
 import {isLineInputValid} from './valid.js';
-import {KEY, TEXT} from './utils.js';
+import {KEY, TEXT} from './constant.js';
 
 export function onAddLine() {
   const lineValue = getLineValue();
