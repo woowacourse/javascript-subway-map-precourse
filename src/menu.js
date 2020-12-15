@@ -100,12 +100,10 @@ export default class Menu {
       this.refreshStationArticle(articleName);
     }
     else if (articleName === this.LINE_ARTICLE) {
-      this.refreshLineSelect();
-      this._privateTableUtils.refreshTableData(articleName);
+      this.refreshLineArticle(articleName);
     }
     else if (articleName === this.SECTION_ARTICLE) {
-      this.refreshSectionLineButtons();
-      this.refreshStationsSelector();
+      this.refreshSectionArticle();
     }
     else if (articleName === this.MAP_PRINT_ARTICLE) {
       this.refreshMapPrint(articleName);
@@ -113,21 +111,37 @@ export default class Menu {
   }
 
   refreshStationArticle(articleName) {
+    this.findInputAndEmpty('station-name-input');
     this._privateTableUtils.emptyTableData(articleName);
     this._privateTableUtils.initStationTableData(articleName);
+  }
+
+  refreshLineArticle(articleName) {
+    this.findInputAndEmpty('line-name-input')
+    this.refreshLineSelect();
+    this._privateTableUtils.refreshTableData(articleName);
   }
 
   refreshLineSelect() {
     const startSelect = document.getElementById('line-start-station-selector');
     const endSelect = document.getElementById('line-end-station-selector');
     
-
     startSelect.innerHTML = '';
     endSelect.innerHTML = '';
 
     this._privateSelectUtils.addStationsToSelect(startSelect, this._privateCommonUtils, this._privateDomUtils);
-    this._privateSelectUtils.addStationsToSelect(endSelect, this._privateCommonUtils, this._privateDomUtils);
-    
+    this._privateSelectUtils.addStationsToSelect(endSelect, this._privateCommonUtils, this._privateDomUtils);  
+  }
+
+  refreshSectionArticle() {
+    this.findInputAndEmpty('section-order-input');
+    this.refreshSectionLineButtons();
+    this.refreshStationsSelector();
+  }
+
+  findInputAndEmpty(idName) {
+    const input = document.getElementById(idName)
+    this._privateCommonUtils.emptyInput(input);
   }
 
   refreshSectionLineButtons() {
