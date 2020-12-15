@@ -1,7 +1,9 @@
 import {
   getFormattedLines,
   isLineNameLengthBiggerThanOneWithoutSpace,
+  setStateAndLocalStorage,
 } from "../common/function";
+import { removeTr } from "../containers/line_container";
 
 const LineManager = function () {
   this.getSelectors = () => [
@@ -27,5 +29,15 @@ const LineManager = function () {
     if (this.isOverwritten(lineName))
       return { value: false, errorMessage: OVERWRITEEN };
     return { value: true };
+  };
+
+  this.deleteButtonClickFunction = ({ target }) => {
+    const { lineName } = target.dataset;
+    const lines = getFormattedLines();
+    const lineIndex = lines.findIndex((line) => line.name === lineName);
+    if (!confirm("Are you sure?")) return;
+    lines.splice(lineIndex, 1);
+    setStateAndLocalStorage("lines", lines);
+    removeTr(target);
   };
 };

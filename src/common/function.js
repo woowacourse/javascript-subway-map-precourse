@@ -29,4 +29,5 @@ export const {
   getFormattedStations,
   getFormattedLines,
   isLineNameLengthBiggerThanOneWithoutSpace,
+  setStateAndLocalStorage,
 } = new Function();

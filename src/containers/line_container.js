@@ -28,3 +28,5 @@ const LineContainer = function () {
     appendChildren(parent, LineAddDIV, tableTitle, table);
   };
 };
+
+export const { removeTr } = new LineContainer();
