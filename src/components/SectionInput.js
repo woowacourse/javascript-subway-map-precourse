@@ -1,23 +1,25 @@
 import { isNatureNumber } from "../util/validation.js";
 import { ELEMENT_INFO, ERROR_MESSAGE } from "../util/constants.js";
 
-export default function SectionInput({ $target, stations, selectedLineName }) {
+export default function SectionInput({ $target, stations, selectedLineName, stationsInSelectedLine }) {
   this.$container = document.createElement("section");
   this.$container.className = "section-input";
   $target.append(this.$container);
 
   this.stations = stations;
   this.selectedLineName = selectedLineName;
+  this.stationsInSelectedLine = stationsInSelectedLine;
 
   const { sectionStationSelector, sectionOrderInput, sectionAddButton } = ELEMENT_INFO;
 
   this.bindOnSubmit = () => {
     this.$container.addEventListener("click", (e) => {
       if (e.target.id === sectionAddButton.id) {
-        const sectionOrder = document.querySelector(`#${sectionOrderInput.id}`).value - 0;
         const selectedStation = document.querySelector(`#${sectionStationSelector.id}`).value;
+        let sectionOrder = document.querySelector(`#${sectionOrderInput.id}`).value - 0;
 
         if (this.isValideInput(sectionOrder, selectedStation)) {
+          sectionOrder = this.checkOverStationsLength(sectionOrder);
           // TODO: 구간 추가하기
         }
       }
@@ -38,8 +40,19 @@ export default function SectionInput({ $target, stations, selectedLineName }) {
     return result;
   };
 
-  this.setState = (nextSelectedLineName) => {
+  this.checkOverStationsLength = (sectionOrder) => {
+    if (sectionOrder > this.stationsInSelectedLine.length) {
+      alert(ERROR_MESSAGE.overStationsLength);
+
+      return this.stationsInSelectedLine.length;
+    }
+
+    return sectionOrder;
+  };
+
+  this.setState = (nextSelectedLineName, nextStationsInSelectedLine) => {
     this.selectedLineName = nextSelectedLineName;
+    this.stationsInSelectedLine = nextStationsInSelectedLine;
 
     this.render();
   };

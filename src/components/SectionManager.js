@@ -25,6 +25,7 @@ export default function SectionManager({ $target, isShow, stations, lines }) {
     $target: this.$container,
     stations: this.stations,
     selectedLineName: "",
+    stationsInSelectedLine: [],
   });
   this.sectionList = new SectionList({
     $target: this.$container,
@@ -47,7 +48,7 @@ export default function SectionManager({ $target, isShow, stations, lines }) {
 
     if (nextSelectedLineIndex) {
       this.selectedLineIndex = nextSelectedLineIndex;
-      this.sectionInput.setState(this.getSelectedLineName());
+      this.sectionInput.setState(this.getSelectedLineName(), this.getStationsInSelectedLine());
       this.sectionList.setState(this.getStationsInSelectedLine());
     }
   };

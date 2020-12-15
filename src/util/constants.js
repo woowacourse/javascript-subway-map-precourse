@@ -81,6 +81,7 @@ export const ERROR_MESSAGE = {
   duplicatedLineName: "⚠ 이미 존재하는 노선 이름입니다.",
   sameStartAndEndStation: "⚠ 상행 종점역과 하행 종점역은 같을 수 없습니다.",
   notNatureNumberSectionOrder: "⚠ 구간 순서는 소수나 음수가 될 수 없습니다. 자연수를 입력해주세요.",
+  overStationsLength: "⚠ 입력된 숫자가 기존 구간의 개수를 넘습니다. 이 노선의 마지막 순서로 구간을 등록합니다.",
 };
 
 export const STORAGE_KEY = {
