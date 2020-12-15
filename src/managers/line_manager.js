@@ -4,6 +4,11 @@ import {
 } from "../common/function";
 
 const LineManager = function () {
+  this.getSelectors = () => [
+    document.getElementById("line-start-station-selector"),
+    document.getElementById("line-end-station-selector"),
+  ];
+
   this.isOverwritten = (inputValue) =>
     getFormattedLines().reduce(
       (result, line) => result || line.name === inputValue,
@@ -23,9 +28,4 @@ const LineManager = function () {
       return { value: false, errorMessage: OVERWRITEEN };
     return { value: true };
   };
-
-  this.getSelectors = () => [
-    document.getElementById("line-start-station-selector"),
-    document.getElementById("line-end-station-selector"),
-  ];
 };
