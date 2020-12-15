@@ -187,3 +187,28 @@ function addOptionsToSectionSelectBox(stationName) {
     elSection.value = stationName;
     selectSection.appendChild(elSection);
 }
+
+function makeTableOfLine(newLine) {
+    let container = document.getElementById('section-lists-container');
+    let sectionTable = document.createElement('table');
+
+    let headerRow = sectionTable.insertRow(0);
+    let headerCell1 = headerRow.insertCell(0);
+    let headerCell2 = headerRow.insertCell(1);
+    let headerCell3= headerRow.insertCell(2);
+    headerCell1.innerHTML = '순서';
+    headerCell2.innerHTML = '이름';
+    headerCell3.innerHTML = '설정';
+
+    sectionTable.id = '#print-section-list-' + newLine.name;
+    sectionTable.border = 1;
+    sectionTable.classList.add('section-table');
+    sectionTable.style.width = 'fit-content';
+
+    let lengthOfStations = newLine.section.stations.length;
+    for (let i = 0; i < lengthOfStations; i += 1) {
+        addLineToSectionTable(sectionTable, newLine.section.stations[i], i);
+    }
+    makeSubwayMap();
+    container.appendChild(sectionTable);
+}
