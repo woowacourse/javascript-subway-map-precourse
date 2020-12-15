@@ -104,9 +104,8 @@
 
 ### 구간관리 인터페이스 기능
 
-- 구간 추가 기능을 위한 유효성 검사에 따른 안내메시지 출력 (validation check before 'insert subway station in subway line' with alert message)
+- 구간 추가 기능을 위한 유효성 검사에 따른 안내메시지 출력 (validation check before 'insert & pull out subway station in subway line' with alert message)
   - 구간을 추가할 수 없는 이유를 알려주어 재입력을 유도
-- 구간 삭제 기능을 위한 유효성 검사에 따른 안내메시지 출력 (validation check before 'pull out subway station from subway line' with alert message)
   - 역을 삭제할 수 없는 이유를 알려주면서 노선 자체를 제거할 방법을 안내
 - 구간 추가 & 삭제 결과 보여주기 (show result of insert & pull out subway station)
 

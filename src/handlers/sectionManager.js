@@ -4,6 +4,7 @@ import {
   sectionLineNameElement,
   stationRegisterWrapperElement,
   registeredStationItemTableElement,
+  registeredStationItemsElement,
   sectionOrderInputElement,
 } from '../elements/sectionManager.js';
 import { subwayMap } from '../store/store.js';
@@ -12,6 +13,7 @@ import {
   LESS_THAN_DELETE_LENGTH_LIMIT_MESSAGE,
   INDEX_IS_NOT_NUMBER_MESSAGE,
 } from '../constants/configuration.js';
+import { getTableRowsTemplate } from '../templates/table.js';
 import { getSelectorOptionsTemplate } from '../templates/selector.js';
 import { getSectionLineMenuButtonsTemplate } from '../templates/button.js';
 import SubwayLine from '../classes/subwayLine.js';
@@ -37,13 +39,28 @@ const getPullOutStationAlertMessage = (line) => {
   return alertMessage;
 };
 
+const showResultTable = (allStationsInLine) => {
+  const stationInLineRows = [];
+  allStationsInLine.forEach((stationName, index) => {
+    stationInLineRows.push([index, stationName]);
+  });
+  registeredStationItemsElement.innerHTML = getTableRowsTemplate({
+    rows: stationInLineRows,
+    deleteTargetCellIndex: 0,
+    deleteButtonClass: 'section-delete-button',
+    deleteButtonText: '노선에서 제거',
+  });
+};
+
 export const onClickSectionLineButton = (event) => {
   const targetElement = event.target;
   if (targetElement.className === 'section-line-menu-button') {
     const lineName = targetElement.innerText;
+    const line = subwayMap.allLines[lineName];
     sectionLineNameElement.innerText = lineName;
     stationRegisterWrapperElement.setAttribute('style', 'display: block;');
     registeredStationItemTableElement.setAttribute('style', 'display: block;');
+    showResultTable(line.allStationsInLine);
   }
 };
 
@@ -70,6 +87,7 @@ export const onInsertStation = () => {
   });
   if (alertMessage === '') {
     line.insertStationToLineByNameAndIndex({ stationName, index });
+    showResultTable(line.allStationsInLine);
   } else {
     alert(alertMessage);
   }
@@ -86,6 +104,7 @@ export const onPullOutStation = (event) => {
   const alertMessage = getPullOutStationAlertMessage(line);
   if (alertMessage === '') {
     line.pullOutStationFromLineByIndex(targetIndex);
+    showResultTable(line.allStationsInLine);
   } else {
     alert(alertMessage);
   }
