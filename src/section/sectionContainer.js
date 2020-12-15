@@ -4,7 +4,7 @@ import {
   lineListTemplate,
 } from "./sectionPresenter";
 import { hasDuplicatedName } from "../utils";
-import { INVALID_SECTION_NAME } from "./sectionConstant";
+import { INVALID_SECTION_NAME, CANNOT_REMOVE } from "./sectionConstant";
 
 export default function sectionContainer() {
   let lineData = [];
@@ -54,14 +54,18 @@ export default function sectionContainer() {
     const targetName = targetSection.dataset.linename;
     const targetIndex = line.indexOf(targetName);
 
-    line.splice(targetIndex, 1);
-    lineData[lineDataIndex] = line;
-    sectionManageContainer.removeChild(lineListTable);
+    if (line.length > 3) {
+      line.splice(targetIndex, 1);
+      lineData[lineDataIndex] = line;
+      sectionManageContainer.removeChild(lineListTable);
 
-    setLocalData(lineData);
-    lineListTemplate(line);
-    sectionHandler(line);
-    removeSectionHandler(line);
+      setLocalData(lineData);
+      lineListTemplate(line);
+      sectionHandler(line);
+      removeSectionHandler(line);
+    } else {
+      alert(CANNOT_REMOVE);
+    }
   };
 
   const getLocalData = () => {
