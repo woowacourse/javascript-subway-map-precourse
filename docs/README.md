@@ -76,6 +76,7 @@
   - [x] 지하철 구간을 설정할 역 select 태그(`#section-station-selector`)
     - [x] 이미 지하철 노선에 등록되어 있는 지하철 역은 제외한다.
   - [x] 지하철 구간의 순서를 입력하는 input 태그(`#section-order-input`)
+    - [x] Enter키를 입력하면 지하철 구간이 등록된다.(`등록`버튼을 누른 것과 같은 기능이다)
   - [x] 지하철 구간을 등록하는 button 태그 (`#section-add-button`)
   - [x] 지하철 구간을 제거하는 button 태그 (`.section-delete-button`)
 

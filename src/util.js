@@ -34,8 +34,8 @@ export const createInputTextHTMLElement = ({ id, onKeydown, placeholder, ...rest
   return createInputHTMLElement({ id, onKeydown, placeholder, type: "text", ...rest });
 };
 
-export const createInputNumberHTMLElement = ({ id, onKeydown, placeholder }) => {
-  return createInputHTMLElement({ id, onKeydown, placeholder, type: "number" });
+export const createInputNumberHTMLElement = ({onKeydown, ...rest }) => {
+  return createInputHTMLElement({ type: "number", onKeydown, rest });
 };
 
 export const createLabelHTMLElement = ({ name, htmlFor, classList}) => {

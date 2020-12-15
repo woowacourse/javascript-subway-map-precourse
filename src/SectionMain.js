@@ -40,6 +40,7 @@ export default class SectionMain extends Component {
     this.addClickEventListener();
 
     this.render();
+    clearInputValue(this.$sectionOrderInput);
   }
 
   declareConstants() {
@@ -94,7 +95,12 @@ export default class SectionMain extends Component {
   createSectionOrderInput() {
     const $input = createInputNumberHTMLElement({
       id: "section-order-input",
-      placeholder: "순서"
+      placeholder: "순서", 
+      onKeydown: e => {
+        if (e.key === "Enter") {
+          this.handleSectionAdd();
+        }
+      }
     });
 
     $input.step = 1;
