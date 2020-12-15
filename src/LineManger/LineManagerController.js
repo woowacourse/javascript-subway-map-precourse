@@ -1,6 +1,5 @@
 import LineManagerView from './LineManagerView.js';
 import LineManagerModel from './LineManagerModel.js';
-import StationManagerView from '../StationManger/StationManagerView.js';
 
 export default class LineManagerController {
   static buttonEventController() {
@@ -9,7 +8,8 @@ export default class LineManagerController {
       const eventClassName = event.target.className;
       if (eventId === 'line-add-button') {
         this.addButtonClicked();
-      } else if (eventClassName === 'line-delete-button') {
+      }
+      if (eventClassName === 'line-delete-button') {
         const button = event.path[0];
         this.deleteButtonClicked(button);
       }
@@ -35,9 +35,11 @@ export default class LineManagerController {
     const buttons = document.getElementsByClassName('line-delete-button');
     const buttonsArray = Array.from(buttons);
     const line = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
-    if (LineManagerModel.isInLines(line) && StationManagerView.confirmDelete()) {
-      LineManagerModel.delete(line);
-      LineManagerView.lineTableView();
+    if (!LineManagerView.confirmDelete()) {
+      LineManagerView.alertNameError(-7);
+      return;
     }
+    LineManagerModel.delete(line);
+    LineManagerView.lineTableView();
   }
 }
