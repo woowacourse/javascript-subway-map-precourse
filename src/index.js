@@ -303,3 +303,45 @@ function createStationInSectionHTML(line) {
 
     makeSubwayMap();
 }
+
+function showManageStations() {
+    document.getElementById('station-manager').style.display = 'block';
+    document.getElementById('line-manager').style.display = 'none';
+    document.getElementById('section-manager').style.display = 'none';
+    document.getElementsByClassName('map')[0].style.display = 'none';
+}
+
+function showManageLines() {
+    document.getElementById('line-manager').style.display = 'block';
+    document.getElementById('station-manager').style.display = 'none';
+    document.getElementById('section-manager').style.display = 'none';
+    document.getElementsByClassName('map')[0].style.display = 'none';
+}
+
+function showManageSections() {
+    document.getElementById('section-manager').style.display = 'block';
+    document.getElementById('station-manager').style.display = 'none';
+    document.getElementById('line-manager').style.display = 'none';
+    document.getElementsByClassName('map')[0].style.display = 'none';
+}
+
+function showSubwaymap() {
+    document.getElementsByClassName('map')[0].style.display = 'block';
+    document.getElementById('station-manager').style.display = 'none';
+    document.getElementById('line-manager').style.display = 'none';
+    document.getElementById('section-manager').style.display = 'none';
+}
+
+function showAddDeleteSection(newLine) {
+    document.getElementById('add-delete-section').style.display = 'block';
+    document.getElementById('nline-manage').innerHTML = `${newLine.name} 관리`;
+
+    let lineSectionTables = document.getElementsByClassName('section-table');
+
+    for(let i = 0; i < lineSectionTables.length; i++) {
+        lineSectionTables[i].style.display = 'none';
+    }
+
+    document.getElementById('#print-section-list-' + newLine.name).style.display = 'block';
+    document.getElementById('selected-line-input').value = newLine.name;
+}
