@@ -1,4 +1,5 @@
 import Storage from "./storage.js";
+import { MIN_LINE_NAME_LENGTH } from "./constant.js";
 import {
   createCustomElement,
   createTable,
@@ -67,7 +68,7 @@ class Line {
       lineName &&
       upStation &&
       downStation &&
-      lineName.length > 0 &&
+      lineName.length > MIN_LINE_NAME_LENGTH &&
       !this.lines.hasOwnProperty(lineName)
     );
   };

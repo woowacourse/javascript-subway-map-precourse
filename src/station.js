@@ -1,4 +1,5 @@
 import Storage from "./storage.js";
+import { MIN_STATION_NAME_LENGTH } from "./constant.js";
 import {
   createCustomElement,
   createTable,
@@ -46,7 +47,9 @@ class Station {
 
   checkVaildName = name => {
     // 주어진 역이름이 2글자이상이고 중복 아니면 true
-    return name.length >= 2 && !this.stations.includes(name);
+    return (
+      name.length >= MIN_STATION_NAME_LENGTH && !this.stations.includes(name)
+    );
   };
 
   getNameInput = () => {
@@ -63,7 +66,6 @@ class Station {
       Storage.saveItems("station", this.stations);
       this.showStation();
     } else {
-      console.log(name);
       alert("잘못된 역 이름입니다");
     }
   };

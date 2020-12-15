@@ -17,7 +17,6 @@ class Storage {
   createStationSelect = container => {
     container.innerHTML = "";
     const stations = this.loadItems("station");
-    console.log(stations);
     for (let i = 0; i < stations.length; i++) {
       container.appendChild(
         createCustomElement({ tag: "option", innerHTML: stations[i] })
