@@ -3,7 +3,7 @@ import StationList from "./StationList.js";
 
 export default function StationManager({ $target, stations, isShow, onAddStation, onDeleteStation }) {
   this.$container = document.createElement("div");
-  this.$container.className = "station-management";
+  this.$container.className = "station-manager";
   $target.append(this.$container);
 
   this.isShow = isShow;
