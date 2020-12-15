@@ -1,4 +1,4 @@
-import stationStorage from '../../utils/stationStorage.js';
+import stationStorage from '../../storage/stationStorage.js';
 
 const LINE_MANAGER_PAGE_TEMPLATE = `<section class="line-registration">
     <p><strong>노선 이름</strong></p>
