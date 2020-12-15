@@ -8,7 +8,8 @@ import {
 } from "../common/visualization.js";
 
 const LineCreator = function () {
-  this.createLineNameTitle = () => getAdvancedEle("div", null, "노선 이름");
+  this.createLineNameTitle = () =>
+    getAdvancedEle("div", { class: "input-title" }, "노선 이름");
 
   this.createLineNameInput = () =>
     getAdvancedEle("input", {

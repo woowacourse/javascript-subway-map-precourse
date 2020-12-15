@@ -8,7 +8,8 @@ const StationCreator = function () {
   this.createAddWrapper = () =>
     getAdvancedEle("div", { id: "station-add-wrapper" });
 
-  this.createAddTitle = () => getAdvancedEle("div", null, "역 이름");
+  this.createAddTitle = () =>
+    getAdvancedEle("div", { class: "input-title" }, "역 이름");
 
   this.createAddInput = () =>
     getAdvancedEle("input", {
