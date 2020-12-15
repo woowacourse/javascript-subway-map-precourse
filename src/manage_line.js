@@ -112,6 +112,7 @@ export default class ManageLine {
     if (this.checkLineValidity(this._lineInput.value) === this.IS_VALID) {
       this.updateAddToLocalStorage();
       this.addLine();
+      this.emptyInput();
     }
   }
 
@@ -169,12 +170,14 @@ export default class ManageLine {
   }
 
   updateAddToLocalStorage() {
-    this._lineList[this._lineInput.value] = [this._startSelect.value, this._endSelect.value];
-    this._stationList[this._startSelect.value].push(this._lineInput.value);
-    this._stationList[this._endSelect.value].push(this._lineInput.value);
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
+    const stationList = this._privateCommonUtils.getLocalStorageStation();
+    lineList[this._lineInput.value] = [this._startSelect.value, this._endSelect.value];
+    stationList[this._startSelect.value].push(this._lineInput.value);
+    stationList[this._endSelect.value].push(this._lineInput.value);
 
-    this._privateCommonUtils.saveToLocalStorage('lineList', this._lineList);
-    this._privateCommonUtils.saveToLocalStorage('stationList', this._stationList);
+    this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
+    this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
   }
 
   addLine() {
@@ -182,7 +185,11 @@ export default class ManageLine {
 
     this._privateTableUtils.addRow(rowArray, this.ARTICLE_NAME);
   }
-  
+
+  emptyInput() {
+    this._lineInput.value = '';
+  }
+
   /*
    * this.createTableSection()
    */

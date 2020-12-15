@@ -164,7 +164,7 @@ export default class TableUtils {
     this._tableType[tableType].forEach((v, i) => {
       const typeUpper = this.getType(tableType).toUpperCase();
 
-      if (i !== 3) {
+      if (i !== 3 || rowArray[i] === this.LINE_DELETE_BUTTON_TEXT) {
         const cell = row.insertCell(i);
 
         this.addCellBorder(cell);

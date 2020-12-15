@@ -162,7 +162,7 @@ export default class ManageSection {
 
   createNewSection() {
     if (this.checkSectionValidity() === this.IS_VALID) {
-      // this.updateAddToLocalStorage();
+      this.updateAddToLocalStorage();
       // this.addSection();
     }
     else {
@@ -228,17 +228,30 @@ export default class ManageSection {
   updateAddToLocalStorage() {
     const lineList = this._privateCommonUtils.getLocalStorageLine();
     const stationList = this._privateCommonUtils.getLocalStorageStation();
+    const line = this.getCurrentLineFromTitle();
+    const station = this.getSelectedStation();
 
-    lineList[this._lineInput.value] = [this._startSelect.value, this._endSelect.value];
-    stationList[this._startSelect.value].push(this._lineInput.value);
-    stationList[this._endSelect.value].push(this._lineInput.value);
+    lineList[line].splice(this._orderInput.value, 0, station);
+    stationList[station].push(line);
 
     this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
     this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
   }
 
-  addSection() {
+  getCurrentLineFromTitle() {
+    const title = document.querySelector("#manageLineSection h3");
 
+    return title.innerHTML.split(' ')[0];
+  }
+
+  getSelectedStation() {
+    return document.getElementById('section-station-selector').value;
+  }
+
+  addSection() {
+    const lineList = this._privateCommonUtils.getLocalStorageLine();
+
+    const rowArray = [this._orderInput]
   }
 
   /*
