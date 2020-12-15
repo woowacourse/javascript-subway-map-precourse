@@ -1,11 +1,5 @@
-import {
-    addElement, 
-    addInputElement,
-    addTableElement, 
-    addClickEventListener, 
-    pageInit,
-    addClickEventInButtons
-} from "./common/elements.js";
+import {setPage, addTableRow} from "./View/station-manager-view.js";
+import {addClickEventListener, addClickEventInButtons} from "./common/elements.js";
 import {
     isEmpty,
     isDuplicateItem,
@@ -19,25 +13,16 @@ import words from "./common/words.js";
 
 export default class StationManager{
     constructor() {
-       this.setPage();
-       this.stationTableTbody = document.getElementById(words.STATION_TABLE_TBODY);
-       this.setTableContent();
-       addClickEventListener(document.getElementById(words.STATION_ADD_BUTTON), () => {this.addStation()});
-    }
-
-    setPage() {
-        pageInit();
-        addElement("h4", words.STATION_NAME, null, null, null);
-        addInputElement(words.STATION_NAME_INPUT, words.STATION_INPUT_ALERT, null);
-        addElement("button", words.STATION_ADD, "id", words.STATION_ADD_BUTTON, null);
-        addElement("h2", words.STATION_LIST, null, null, null);
-        addTableElement([words.STATION_NAME, words.SETTING], words.STATION_TABLE_TBODY, null);
+        setPage();
+        this.setTableContent();
+        addClickEventListener(document.getElementById(words.STATION_ADD_BUTTON), () => {this.addStation()});
     }
     
     deleteStation(stationName, deleteRow) {
-        this.stationTableTbody.removeChild(deleteRow);
+        const stationTableTbody = document.getElementById(words.STATION_TABLE_TBODY);
+        stationTableTbody.removeChild(deleteRow);
         deleteItem(words.STATIONS, stationName);
-        if(this.stationTableTbody.childElementCount === 0) {
+        if(stationTableTbody.childElementCount === 0) {
             deleteKey(words.STATIONS);
         }
     }
@@ -72,27 +57,18 @@ export default class StationManager{
         }
     }
 
-    addTableRow(station) {
-        const row = this.stationTableTbody.insertRow();
-        row.setAttribute("data-station-name", station);
-        const cell1 = row.insertCell(0);
-        const cell2 = row.insertCell(1);
-        cell1.innerHTML = station;
-        addElement("button", words.DELETE, "class", words.STATION_DELETE_BUTTON, cell2);
-    } 
-
     setTableContent() {
         const stationList = getItemList(words.STATIONS);
         if(stationList.length > 0) {
             stationList.forEach(station => {
-                this.addTableRow(station);
+                addTableRow(station);
             });
             addClickEventInButtons(words.STATION_DELETE_BUTTON, this.confirmDeleteStation.bind(this), false);
         }
     }
 
     addStationInTable(station) {
-        this.addTableRow(station);
+        addTableRow(station);
         addClickEventInButtons(words.STATION_DELETE_BUTTON, this.confirmDeleteStation.bind(this), true);
     }
 

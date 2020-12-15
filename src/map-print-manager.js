@@ -1,11 +1,11 @@
-import {addElement, pageInit} from "./common/elements.js";
+import {setPage} from "./View/map-print-manager-view.js";
+import {addElement} from "./common/elements.js";
 import {getItemList} from "./common/items.js";
 import words from "./common/words.js";
 
 export default class MapPrintManager {
     constructor() {
-        pageInit();
-        addElement("div", null, "class", words.MAP, null);
+        setPage();
         this.map = document.querySelector(`.${words.MAP}`);
         this.printMap();
     }
