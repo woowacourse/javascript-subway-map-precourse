@@ -93,7 +93,7 @@ export default class Menu {
   refreshArticle(articleName) {
     if (articleName === this.LINE_ARTICLE) {
       this.refreshLineSelect();
-      // this._privateTableUtils.refreshLineTable();
+      this._privateTableUtils.refreshTableData(articleName);
     }
     else if (articleName === this.MAP_PRINT_ARTICLE) {
       this.refreshMapPrint(articleName);

@@ -51,7 +51,7 @@ export default class TableUtils {
       this.initStationTableData(toIdName);
     }
     else if (toIdName === 'lineArticle') {
-      this.initArticleTableData(toIdName);
+      this.initLineTableData(toIdName);
     }
   }
 
@@ -64,7 +64,7 @@ export default class TableUtils {
     }
   }
 
-  initArticleTableData(articleName) {
+  initLineTableData(articleName) {
     const lineList = this._privateCommonUtils.getLocalStorageLine();
 
     for (const line in lineList) {
@@ -77,7 +77,7 @@ export default class TableUtils {
   refreshTableData(toIdName, line) {
     this.emptyTableData(toIdName);
     if (toIdName === 'lineArticle') {
-      this.initStationTableData(toIdName);
+      this.initLineTableData(toIdName);
     }
     else if (toIdName === 'lineTableSection') {
       this.initSectionTable(line);
@@ -94,13 +94,13 @@ export default class TableUtils {
   }
 
   deleteRows(table, rowCount) {
-    for (let i = 1; i < rowCount; i++) {
+    for (let i = rowCount - 1; i > 1; i--) {
       table.deleteRow(i);
     }
   }
 
   initSectionTable(line) {
-    
+
   }
 
   // refreshStationTable(articleName) {
