@@ -1,5 +1,5 @@
-import stationStorage from '../../utils/stationStorage.js';
-import lineStorage from '../../utils/lineStorage.js';
+import stationStorage from '../../storage/stationStorage.js';
+import lineStorage from '../../storage/lineStorage.js';
 
 const STATION_LIST_TEMPLATE = (stationId) => {
   const station = stationStorage().getStationById(stationId);
@@ -7,7 +7,7 @@ const STATION_LIST_TEMPLATE = (stationId) => {
 };
 
 const MAP_MANAGER_PAGE_TEMPLATE = () => {
-  const lines = lineStorage().getLine();
+  const lines = lineStorage().getLines();
   return `<div class="map">
   ${lines
     .map(
