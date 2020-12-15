@@ -2,6 +2,15 @@
  * 지하철 노선 관련 모듈
  */
 
+import {
+  SECTION_MANAGER_BUTTON,
+  SECTION_MENU_BUTTON_TITLE,
+  SECTION_INPUT_PLACEHOLDER,
+  SECTION_INPUT_ADD_BUTTON,
+  SECTION_RESULT_TITLE_APPEND,
+  SECTION_INPUT_TITLE,
+  SECTION_DELETE_BUTTON,
+} from '../common/constants.js';
 import PageLayout from './pageLayout.js';
 
 export default class SectionLayout extends PageLayout {
@@ -34,7 +43,7 @@ export default class SectionLayout extends PageLayout {
     return this.createElement({
       tag: 'button',
       id: 'section-manager-button',
-      innerHTML: '3. 구간 관리',
+      innerHTML: SECTION_MANAGER_BUTTON,
       eventListener: { click: [() => this.handleManagerButton()] },
     });
   }
@@ -81,7 +90,7 @@ export default class SectionLayout extends PageLayout {
   $createLineMenuButtonContainer() {
     const container = this.createElement({ tag: 'article' });
     const title = this.$createElementNode(
-      this.createMenuButtonTitle('구간을 수정할 노선을 선택해주세요'),
+      this.createMenuButtonTitle(SECTION_MENU_BUTTON_TITLE),
     );
     const div = this.$createElementNode(this.createElement({ tag: 'div' }));
 
@@ -107,14 +116,14 @@ export default class SectionLayout extends PageLayout {
     return this.createElement({
       tag: 'input',
       id: 'section-order-input',
-      placeholder: '순서',
+      placeholder: SECTION_INPUT_PLACEHOLDER,
     });
   }
 
   createInputTitle() {
     return this.createElement({
       tag: 'h3',
-      innerHTML: '구간 등록',
+      innerHTML: SECTION_INPUT_TITLE,
     });
   }
 
@@ -122,7 +131,7 @@ export default class SectionLayout extends PageLayout {
     return this.createElement({
       tag: 'button',
       id: 'section-add-button',
-      innerHTML: '등록',
+      innerHTML: SECTION_INPUT_ADD_BUTTON,
       eventListener: { click: [() => this.handleAddButton()] },
     });
   }
@@ -148,10 +157,10 @@ export default class SectionLayout extends PageLayout {
     });
   }
 
-  createResultTitle(target = 'n호선') {
+  createResultTitle(target = '') {
     return this.createElement({
       tag: 'h2',
-      innerHTML: `${target} 관리`,
+      innerHTML: `${target} ${SECTION_RESULT_TITLE_APPEND}`,
     });
   }
 
@@ -242,7 +251,7 @@ export default class SectionLayout extends PageLayout {
   createDeleteButton() {
     return this.createElement({
       tag: 'button',
-      innerHTML: '노선에서 제거',
+      innerHTML: SECTION_DELETE_BUTTON,
       classList: ['section-delete-button'],
       eventListener: { click: [e => this.handleDeleteButton(e.target)] },
     });

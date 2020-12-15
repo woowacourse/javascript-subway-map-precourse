@@ -4,7 +4,16 @@
 
 import PageLayout from './pageLayout.js';
 import CommonUtils from '../common/utils.js';
-
+import {
+  STATION_MANAGER_BUTTON,
+  STATION_INPUT_PLACEHOLDER,
+  STATION_INPUT_TITLE,
+  STATION_INPUT_ADD_BUTTON,
+  STATION_RESULT_TITLE,
+  STATION_TABLE_TD_NAME,
+  COMMON_DELETE,
+  COMMON_TABLE_TD_SETTING,
+} from '../common/constants.js';
 export default class StationLayout extends PageLayout {
   constructor(controller) {
     super(controller);
@@ -34,7 +43,7 @@ export default class StationLayout extends PageLayout {
     return this.createElement({
       tag: 'button',
       id: 'station-manager-button',
-      innerHTML: '1. 역 관리',
+      innerHTML: STATION_MANAGER_BUTTON,
       eventListener: { click: [() => this.handleManagerButton()] },
     });
   }
@@ -43,14 +52,14 @@ export default class StationLayout extends PageLayout {
     return this.createElement({
       tag: 'input',
       id: 'station-name-input',
-      placeholder: '역 이름을 입력해주세요',
+      placeholder: STATION_INPUT_PLACEHOLDER,
     });
   }
 
   createInputTitle() {
     return this.createElement({
       tag: 'h3',
-      innerHTML: '역 이름',
+      innerHTML: STATION_INPUT_TITLE,
     });
   }
 
@@ -58,7 +67,7 @@ export default class StationLayout extends PageLayout {
     return this.createElement({
       tag: 'button',
       id: 'station-add-button',
-      innerHTML: '역 추가',
+      innerHTML: STATION_INPUT_ADD_BUTTON,
       eventListener: { click: [() => this.handleAddButton()] },
     });
   }
@@ -66,22 +75,21 @@ export default class StationLayout extends PageLayout {
   createResultTitle() {
     return this.createElement({
       tag: 'h2',
-      innerHTML: '🚉 지하철 역 목록',
+      innerHTML: STATION_RESULT_TITLE,
     });
   }
 
   createResultTable() {
     return this.createElement({
       tag: 'table',
-      innerHTML:
-        '<thead><tr><th>역이름</th><th>설정</th></tr></thead><tbody></tbody>',
+      innerHTML: `<thead><tr><th>${STATION_TABLE_TD_NAME}</th><th>${COMMON_TABLE_TD_SETTING}</th></tr></thead><tbody></tbody>`,
     });
   }
 
   createDeleteButton() {
     return this.createElement({
       tag: 'button',
-      innerHTML: '삭제',
+      innerHTML: COMMON_DELETE,
       classList: ['station-delete-button'],
       eventListener: { click: [e => this.handleDeleteButton(e.target)] },
     });
@@ -137,7 +145,6 @@ export default class StationLayout extends PageLayout {
     return clone;
   }
 
-  // TODO: 부모로 빼기
   handleDeleteButton(target) {
     const tr = target.parentElement.parentElement;
     this.controller.deleteStationData(tr.dataset.stationName);

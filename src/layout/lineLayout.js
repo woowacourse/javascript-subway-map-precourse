@@ -1,3 +1,17 @@
+import {
+  COMMON_DELETE,
+  LINE_ADD_BUTTON,
+  LINE_END,
+  LINE_INPUT_PLACEHOLDER,
+  LINE_INPUT_TITLE,
+  LINE_MANAGER_BUTTON,
+  LINE_RESULT_TITLE,
+  LINE_START,
+  LINE_TABLE_TD_END,
+  LINE_TABLE_TD_NAME,
+  COMMON_TABLE_TD_SETTING,
+  LINE_TABLE_TD_START,
+} from '../common/constants.js';
 import PageLayout from './pageLayout.js';
 /**
  * 지하철 노선 관련 뷰 클래스
@@ -33,7 +47,7 @@ export default class LineLayout extends PageLayout {
     return this.createElement({
       tag: 'button',
       id: 'line-manager-button',
-      innerHTML: '2. 노선 관리',
+      innerHTML: LINE_MANAGER_BUTTON,
       eventListener: { click: [() => this.handleManagerButton()] },
     });
   }
@@ -42,14 +56,14 @@ export default class LineLayout extends PageLayout {
     return this.createElement({
       tag: 'input',
       id: 'line-name-input',
-      placeholder: '노선 이름을 입력해주세요',
+      placeholder: LINE_INPUT_PLACEHOLDER,
     });
   }
 
   createInputTitle() {
     return this.createElement({
       tag: 'h3',
-      innerHTML: '노선 이름',
+      innerHTML: LINE_INPUT_TITLE,
     });
   }
 
@@ -57,7 +71,7 @@ export default class LineLayout extends PageLayout {
     return this.createElement({
       tag: 'button',
       id: 'line-add-button',
-      innerHTML: '노선 추가',
+      innerHTML: LINE_ADD_BUTTON,
       eventListener: { click: [() => this.handleAddButton()] },
     });
   }
@@ -80,22 +94,21 @@ export default class LineLayout extends PageLayout {
   createResultTitle() {
     return this.createElement({
       tag: 'h2',
-      innerHTML: '🚉 지하철 노선 목록',
+      innerHTML: LINE_RESULT_TITLE,
     });
   }
 
   createResultTable() {
     return this.createElement({
       tag: 'table',
-      innerHTML:
-        '<thead><tr><th>노선 이름</th><th>상행 종점역</th><th>하행 종점역</th><th>설정</th></tr></thead><tbody></tbody>',
+      innerHTML: `<thead><tr><th>${LINE_TABLE_TD_NAME}</th><th>${LINE_TABLE_TD_START}</th><th>${LINE_TABLE_TD_END}</th><th>${COMMON_TABLE_TD_SETTING}</th></tr></thead><tbody></tbody>`,
     });
   }
 
   createDeleteButton() {
     return this.createElement({
       tag: 'button',
-      innerHTML: '삭제',
+      innerHTML: COMMON_DELETE,
       classList: ['line-delete-button'],
       eventListener: { click: [e => this.handleDeleteButton(e.target)] },
     });
@@ -115,8 +128,8 @@ export default class LineLayout extends PageLayout {
     const element = this.createElement({ tag: 'article' });
     const title = this.$createElementNode(this.createInputTitle());
     const input = this.$createElementNode(this.createInput());
-    const startSelector = this.$createSlectorContainer('상행 종점', 'start');
-    const endSelector = this.$createSlectorContainer('하행 종점', 'end');
+    const startSelector = this.$createSlectorContainer(LINE_START, 'start');
+    const endSelector = this.$createSlectorContainer(LINE_END, 'end');
     const button = this.$createElementNode(this.createInputAddButton());
 
     return this.$createElementNode(element, {

@@ -2,6 +2,7 @@
  * 지하철 노선도 출력과 관련된 레이아웃을 관리하는 모듈
  */
 
+import { MAP_MANAGER_BUTTON } from '../common/constants.js';
 import PageLayout from './pageLayout.js';
 
 export default class MapPrintLayout extends PageLayout {
@@ -29,7 +30,7 @@ export default class MapPrintLayout extends PageLayout {
     return this.createElement({
       tag: 'button',
       id: 'map-print-manager-button',
-      innerHTML: '4. 지하철 노선도 출력',
+      innerHTML: MAP_MANAGER_BUTTON,
       eventListener: { click: [() => this.handleManagerButton()] },
     });
   }
