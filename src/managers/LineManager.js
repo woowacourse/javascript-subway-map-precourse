@@ -13,8 +13,7 @@ export default class LineManager {
   confirmLineDelete(targetElem) {
     try {
       deleteDataByName("lines", targetElem.dataset.index, "lineName");
-      const removeElem = targetElem.parentNode.parentNode;
-      removeElem.parentNode.removeChild(removeElem);
+      this.rendLineMangeDom();
     } catch (e) {}
   }
 
@@ -22,7 +21,8 @@ export default class LineManager {
     document.querySelectorAll(".line-delete-button").forEach((item) => {
       item.addEventListener("click", (event) => {
         event.preventDefault();
-        if (confirm(DELETE_CONFIRM_MESSAGE)) confirmLineDelete(event.target);
+        if (confirm(DELETE_CONFIRM_MESSAGE))
+          this.confirmLineDelete(event.target);
       });
     });
   }
@@ -36,7 +36,7 @@ export default class LineManager {
     const newLine = new Line(lineNameElem.value, startStation, endStation);
     if (addLineValidate(lineNameElem.value, startStation, endStation)) {
       addLocalStorageByKey("lines", newLine);
-      rendLineMangeDom();
+      this.rendLineMangeDom();
     } else {
       alert(LINE.INPUT_ERROR_MESSAGE);
     }
@@ -49,17 +49,18 @@ export default class LineManager {
     const div = document.createElement("div");
     div.innerHTML = lineMangeContainer();
     container.appendChild(div);
-    setLineDeleteEvent();
+    this.setLineDeleteEvent();
+    this.initEvent();
   };
 
   initEvent() {
     document.getElementById("line-add-button").addEventListener("click", () => {
-      addLine();
+      this.addLine();
     });
   }
 
   render() {
-    rendLineMangeDom();
+    this.rendLineMangeDom();
     this.initEvent();
   }
 }
