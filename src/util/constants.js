@@ -29,7 +29,28 @@ export const ELEMENT_INFO = {
     text: "삭제",
     className: "station-delete-button",
   },
+  lineNameInput: {
+    text: "노선 이름",
+    id: "line-name-input",
+  },
+  lineStartStationSelector: {
+    text: "상행 종점",
+    id: "line-start-station-selector",
+  },
+  lineEndStationSelector: {
+    text: "하행 종점",
+    id: "line-end-station-selector",
+  },
+  lineAddButton: {
+    text: "노선 추가",
+    id: "line-add-button",
+  },
+  lineDeleteButton: {
+    text: "삭제",
+    className: "line-delete-button",
+  },
 };
+
 export const STATION_NAME_MIN_LENGTH = 2;
 
 export const ERROR_MESSAGE = {

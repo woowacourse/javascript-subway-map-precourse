@@ -9,6 +9,18 @@ nav li {
   margin-right: 10px;
 }
 
+label {
+  display: block;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+button[type="submit"] {
+  margin-top: 15px;
+}
+
 table {
   border-spacing: 0;
   border: 2px solid black;

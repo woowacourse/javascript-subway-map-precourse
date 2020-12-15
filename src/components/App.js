@@ -3,6 +3,7 @@ import Navigator from "./Navigator.js";
 import StationManager from "./StationManager.js";
 import localStorageManager from "../util/localStorage.js";
 import { STORAGE_KEY } from "../util/constants.js";
+import LineManager from "./LineManager.js";
 
 export default function App($app) {
   this.$app = $app;
@@ -14,6 +15,10 @@ export default function App($app) {
 
   this.stations = localStorageManager.getItem({
     key: STORAGE_KEY.station,
+    defaultValue: [],
+  });
+  this.lines = localStorageManager.getItem({
+    key: STORAGE_KEY.line,
     defaultValue: [],
   });
 
@@ -32,9 +37,16 @@ export default function App($app) {
   this.stationManager = new StationManager({
     $target: this.$main,
     stations: this.stations,
-    isShow: true,
+    isShow: false,
     onAddStation: this.onAddStation,
     onDeleteStation: this.onDeleteStation,
+  });
+
+  this.lineManager = new LineManager({
+    $target: this.$main,
+    isShow: true,
+    stations: this.stations,
+    lines: this.lines,
   });
 
   this.setState = ({ nextStations }) => {
