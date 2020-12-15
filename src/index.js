@@ -1,2 +1,4 @@
 import Menu from "./components/Menu.js";
-new Menu();
+import station from "./components/station.js";
+const views = [station];
+new Menu(views);
