@@ -29,4 +29,7 @@ const SectionManager = function () {
       },
       "노선에서 제거"
     );
+
+  this.createInitialTitle = () =>
+    getAdvancedEle("h2", null, "구간을 수정할 노선을 선택해주세요.");
 };
