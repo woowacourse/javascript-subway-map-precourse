@@ -77,6 +77,7 @@ export const ERROR_MESSAGE = {
   setItem: "⚠ 데이터를 저장하지 못했습니다.",
   shortStationName: `⚠ ${STATION_NAME_MIN_LENGTH}자 이상의 역 이름을 입력해주세요.`,
   duplicatedStationName: "⚠ 이미 존재하는 역 이름입니다.",
+  notPossibleToDeleteStation: "⚠ 노선에 등록된 역은 삭제할 수 없습니다.",
   shortLineName: `⚠ ${LINE_NAME_MIN_LENGTH}자 이상의 노선 이름을 입력해주세요.`,
   duplicatedLineName: "⚠ 이미 존재하는 노선 이름입니다.",
   sameStartAndEndStation: "⚠ 상행 종점역과 하행 종점역은 같을 수 없습니다.",

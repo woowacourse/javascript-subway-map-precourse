@@ -4,7 +4,7 @@ import StationManager from "./StationManager.js";
 import LineManager from "./LineManager.js";
 import SectionManager from "./SectionManager.js";
 import localStorageManager from "../util/localStorage.js";
-import { ELEMENT_INFO, STORAGE_KEY } from "../util/constants.js";
+import { ELEMENT_INFO, ERROR_MESSAGE, STORAGE_KEY } from "../util/constants.js";
 import SubwayMap from "./SubwayMap.js";
 
 export default function App($app) {
@@ -52,10 +52,24 @@ export default function App($app) {
   };
 
   this.onDeleteStation = (stationIndex) => {
-    const nextStations = [...this.stations];
-    nextStations.splice(stationIndex, 1);
+    if (!this.isContaineLines(this.stations[stationIndex])) {
+      const nextStations = [...this.stations];
+      nextStations.splice(stationIndex, 1);
+      this.setState({ nextStations });
+    }
+  };
 
-    this.setState({ nextStations });
+  this.isContaineLines = (stationName) => {
+    const result = this.lines.find((line) => {
+      return line.stations.find((station) => station === stationName) ? true : false;
+    });
+
+    if (result) {
+      alert(ERROR_MESSAGE.notPossibleToDeleteStation);
+      return true;
+    }
+
+    return false;
   };
 
   this.stationManager = new StationManager({
