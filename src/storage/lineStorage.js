@@ -1,7 +1,7 @@
 import { LINE_STORAGE_NAME } from '../utils/constant.js';
 
 export default function lineStorage() {
-  const getLine = () => {
+  const getLines = () => {
     if (!localStorage.getItem(LINE_STORAGE_NAME)) {
       return [];
     }
@@ -14,19 +14,19 @@ export default function lineStorage() {
   };
 
   const getStartPointsId = () => {
-    return getLine().map((line) => line.stationIds[0]);
+    return getLines().map((line) => line.stationIds[0]);
   };
 
   const getEndPointsId = () => {
-    return getLine().map((line) => line.stationIds[line.stationIds.length - 1]);
+    return getLines().map((line) => line.stationIds[line.stationIds.length - 1]);
   };
 
   const getOneLine = (lineId) => {
-    return getLine().filter((line) => line.id === parseInt(lineId))[0];
+    return getLines().filter((line) => line.id === parseInt(lineId))[0];
   };
 
   return {
-    getLine,
+    getLines,
     setLine,
     getStartPointsId,
     getEndPointsId,
