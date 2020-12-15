@@ -27,14 +27,17 @@ export const saveDataToLocalStorage = () => {
 
 export const loadDataToLocalStorage = () => {
   const loadedData = getItemByKey('data');
-  data.stationNameInputValue = loadedData.stationNameInputValue;
-  data.lineNameInputValue = loadedData.lineNameInputValue;
-  data.upTerminatingStationNameValue = loadedData.upTerminatingStationNameValue;
-  data.downTerminatingStationNameValue =
-    loadedData.downTerminatingStationNameValue;
-  data.sectionLineValue = loadedData.sectionLineValue;
-  data.sectionStationSelectorValue = loadedData.sectionStationSelectorValue;
-  data.sectionOrderInputNumberValue = loadedData.sectionOrderInputNumberValue;
+  if (loadedData) {
+    data.stationNameInputValue = loadedData.stationNameInputValue;
+    data.lineNameInputValue = loadedData.lineNameInputValue;
+    data.upTerminatingStationNameValue =
+      loadedData.upTerminatingStationNameValue;
+    data.downTerminatingStationNameValue =
+      loadedData.downTerminatingStationNameValue;
+    data.sectionLineValue = loadedData.sectionLineValue;
+    data.sectionStationSelectorValue = loadedData.sectionStationSelectorValue;
+    data.sectionOrderInputNumberValue = loadedData.sectionOrderInputNumberValue;
+  }
 };
 
 export const syncDataToAllElements = () => {

@@ -1,10 +1,10 @@
 export const setItemWithKey = (item, key) => {
   const stringifiedItem = JSON.stringify(item);
-  localStorage.set(key, stringifiedItem);
+  localStorage.setItem(key, stringifiedItem);
 };
 
 export const getItemByKey = (key) => {
-  const stringifiedItem = localStorage.get(key);
+  const stringifiedItem = localStorage.getItem(key);
   return JSON.parse(stringifiedItem);
 };
 
