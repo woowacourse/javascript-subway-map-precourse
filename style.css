@@ -9,6 +9,25 @@ nav li {
   margin-right: 10px;
 }
 
+table {
+  border-spacing: 0;
+  border: 2px solid black;
+}
+
+th {
+  padding: 6px;
+  border-bottom: 2px solid black;
+}
+
+td {
+  padding: 6px;
+  border-bottom: 1px solid black;
+}
+
+tr:last-child > td {
+  border-bottom: none;
+}
+
 .sr-only {
   position: fixed;
   top: -100px;

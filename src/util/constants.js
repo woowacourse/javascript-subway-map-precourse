@@ -25,4 +25,8 @@ export const ELEMENT_INFO = {
     text: "역 추가",
     id: "station-add-button",
   },
+  stationDeleteButton: {
+    text: "삭제",
+    className: "station-delete-button",
+  },
 };
