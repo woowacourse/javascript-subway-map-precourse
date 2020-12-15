@@ -47,7 +47,7 @@ export default {
     if (!confirm(CONFIRM_DELETE_STATION)) {
       return;
     }
-    Station.delete(dataset.name);
+    Station.delete(dataset.station);
     this.render();
   },
   render() {
