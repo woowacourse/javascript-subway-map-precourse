@@ -1,145 +1,226 @@
 import PageLayout from './pageLayout.js';
 /**
- * 지하철 노선 관련 클래스
+ * 지하철 노선 관련 뷰 클래스
  */
 
 export default class LineLayout extends PageLayout {
-  // override
-  createElements() {
-    const managerButton = this.createManagerButton();
-    const section = this.createSection();
-    const inputContainer = this.createInputContainer();
-    const resultContainer = this.createResultContainer();
-
-    return { managerButton, section, inputContainer, resultContainer };
+  constructor(controller) {
+    super(controller);
+    this.elements = this.createElements(); // elemenet와 Child 저장
+    this.rowTemplate = this.createRowTemplate();
+    this.optionTemplate = this.createOptionTemplate();
+    this.rendered = this.$render(this.elements.section);
   }
 
   // override
-  buildLayout() {
-    const { section, inputContainer, resultContainer } = this.elements;
-    section.append(inputContainer, resultContainer);
+  createElements() {
+    const elements = super.$createCommonElements();
+    this.$appendChildElement(
+      elements.section,
+      'inputContainer',
+      this.$createInputContainer(),
+    );
+    this.$appendChildElement(
+      elements.section,
+      'resultContainer',
+      this.$createResultContainer(),
+    );
+
+    return elements;
   }
 
   createManagerButton() {
-    const lineManagerButton = document.createElement('button');
-    lineManagerButton.id = 'line-manager-button';
-    lineManagerButton.innerHTML = '2. 노선 관리';
-    lineManagerButton.addEventListener('click', () =>
-      this.handleManagerButton(),
-    );
-
-    return lineManagerButton;
+    return this.createElement({
+      tag: 'button',
+      id: 'line-manager-button',
+      innerHTML: '2. 노선 관리',
+      eventListener: { click: [() => this.handleManagerButton()] },
+    });
   }
 
   createSection() {
-    const lineSection = document.createElement('section');
-    lineSection.id = 'line-section';
-
-    return lineSection;
-  }
-
-  createResultContainer() {
-    const lineResultContainer = document.createElement('article');
-    lineResultContainer.append(
-      this.createResultTitle(),
-      this.createResultTable(),
-    );
-
-    return lineResultContainer;
-  }
-
-  createResultTitle() {
-    const title = document.createElement('h2');
-    title.innerHTML = '🚉 지하철 노선 목록';
-
-    return title;
-  }
-
-  createResultTable() {
-    const lineResultTable = document.createElement('table');
-    lineResultTable.innerHTML =
-      '<thead><tr><th>노선 이름</th><th>상행 종점역</th><th>하행 종점역</th></tr></thead>';
-
-    return lineResultTable;
-  }
-
-  createInputTitle() {
-    const lineNameTitle = document.createElement('h3');
-    lineNameTitle.innerHTML = '노선 이름';
-
-    return lineNameTitle;
+    return this.createElement({ tag: 'section' });
   }
 
   createInput() {
-    const lineNameInput = document.createElement('input');
-    lineNameInput.id = 'line-name-input';
-    lineNameInput.placeholder = '노선 이름을 입력해주세요';
-
-    return lineNameInput;
+    return this.createElement({
+      tag: 'input',
+      id: 'line-name-input',
+      placeholder: '노선 이름을 입력해주세요',
+    });
   }
 
-  createStationSubtitle(text) {
-    const subtitle = document.createElement('h3'); // TODO: label로 바꾸기
-    subtitle.innerHTML = text;
+  createInputTitle() {
+    return this.createElement({
+      tag: 'h3',
+      innerHTML: '노선 이름',
+    });
+  }
 
-    return subtitle;
+  createInputAddButton() {
+    return this.createElement({
+      tag: 'button',
+      id: 'line-add-button',
+      innerHTML: '노선 추가',
+      eventListener: { click: [() => this.handleAddButton()] },
+    });
+  }
+
+  createSelectorTitle(text) {
+    return this.createElement({
+      tag: 'h3',
+      innerHTML: text,
+    });
   }
 
   createStationSelector(position) {
-    const stationSelector = document.createElement('select');
-    stationSelector.id = `line-${position}-station-selector`;
-    stationSelector.name = position;
-
-    return stationSelector;
+    return this.createElement({
+      tag: 'select',
+      id: `line-${position}-station-selector`,
+      name: position,
+    });
   }
 
-  createAddButton() {
-    const lineAddButton = document.createElement('button');
-    lineAddButton.id = 'line-add-button';
-    lineAddButton.innerHTML = '노선 추가';
-    lineAddButton.addEventListener('click', () => this.handleAddButton());
+  createResultTitle() {
+    return this.createElement({
+      tag: 'h2',
+      innerHTML: '🚉 지하철 노선 목록',
+    });
+  }
 
-    return lineAddButton;
+  createResultTable() {
+    return this.createElement({
+      tag: 'table',
+      innerHTML:
+        '<thead><tr><th>노선 이름</th><th>상행 종점역</th><th>하행 종점역</th><th>설정</th></tr></thead><tbody></tbody>',
+    });
   }
 
   createDeleteButton() {
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = '삭제';
-    deleteButton.className = 'line-delete-button';
-    deleteButton.addEventListener('click', e =>
-      this.handleDeleteButton(e.target),
-    );
-
-    return deleteButton;
+    return this.createElement({
+      tag: 'button',
+      innerHTML: '삭제',
+      classList: ['line-delete-button'],
+      eventListener: { click: [e => this.handleDeleteButton(e.target)] },
+    });
   }
 
-  // TODO: add, deleteRow 그냥 updateTable로 바꾸기
-  deleteRow(index) {
-    const table = this.elements.resultContainer.querySelector('table');
-    table.deleteRow(index);
+  $createSlectorContainer(text, position) {
+    const container = this.createElement({ tag: 'div' });
+    const title = this.$createElementNode(this.createSelectorTitle(text));
+    const selector = this.$createElementNode(
+      this.createStationSelector(position),
+    );
+
+    return this.$createElementNode(container, { title, selector });
+  }
+
+  $createInputContainer() {
+    const element = this.createElement({ tag: 'article' });
+    const title = this.$createElementNode(this.createInputTitle());
+    const input = this.$createElementNode(this.createInput());
+    const startSelector = this.$createSlectorContainer('상행 종점', 'start');
+    const endSelector = this.$createSlectorContainer('하행 종점', 'end');
+    const button = this.$createElementNode(this.createInputAddButton());
+
+    return this.$createElementNode(element, {
+      title,
+      input,
+      startSelector,
+      endSelector,
+      button,
+    });
+  }
+
+  $createResultContainer() {
+    const element = this.createElement({ tag: 'article' });
+    const title = this.$createElementNode(this.createResultTitle());
+    const table = this.$createElementNode(this.createResultTable());
+
+    return this.$createElementNode(element, { title, table });
+  }
+
+  // override
+  createRowTemplate() {
+    return this.createElement({
+      tag: 'template',
+      id: 'line-row',
+      innerHTML: '<tr><td></td><td></td><td></td><td></td></tr>',
+    });
+  }
+
+  // override
+  refreshResultData() {
+    const [start, end] = this.rendered.querySelectorAll('select');
+    start.replaceWith(this.loadSelectorData('start'));
+    end.replaceWith(this.loadSelectorData('end'));
+    this.rendered.querySelector('tbody').replaceWith(this.loadTableData());
+  }
+
+  loadSelectorData(position) {
+    const stationList = this.controller.modelList.station.getList();
+    const options = stationList.map(station => this.createOption(station.name));
+    const selector = this.createStationSelector(position);
+    selector.append(...options);
+
+    return selector;
+  }
+
+  createOption(stationName) {
+    const clone = this.optionTemplate.content.cloneNode(true);
+    const option = clone.querySelector('option');
+    option.textContent = stationName;
+
+    return clone;
+  }
+
+  createOptionTemplate() {
+    return this.createElement({
+      tag: 'template',
+      id: 'select-option',
+      innerHTML: '<option></option>',
+    });
+  }
+
+  loadTableData() {
+    const lineList = this.controller.modelList.line.getList();
+    const tableRows = lineList.map(line => this.createRow(line));
+    const tbody = this.createElement({ tag: 'tbody' });
+    tbody.append(...tableRows);
+
+    return tbody;
+  }
+
+  getLineAndLastStations(lineArray) {
+    return [
+      lineArray[0].line,
+      lineArray[0].name,
+      lineArray[lineArray.length - 1].name,
+    ];
+  }
+
+  createRow(lineArray) {
+    const [lineName, lineStart, lineEnd] = this.getLineAndLastStations(
+      lineArray,
+    );
+    const clone = this.rowTemplate.content.cloneNode(true);
+    const td = clone.querySelectorAll('td');
+    const tr = clone.querySelector('tr');
+    tr.dataset.lineName = lineName;
+    tr.dataset.lineStart = lineStart;
+    tr.dataset.lineEnd = lineEnd;
+    td[0].textContent = lineName;
+    td[1].textContent = lineStart;
+    td[2].textContent = lineEnd;
+    td[3].append(this.createDeleteButton());
+
+    return clone;
   }
 
   handleDeleteButton(target) {
     const tr = target.parentElement.parentElement;
-    console.log(
-      `${tr.dataset.lineName}, ${tr.dataset.lineStart}, ${tr.dataset.lineEnd}`,
-    );
-    this.deleteRow(tr.rowIndex);
     this.controller.deleteLineData(tr.dataset.lineName);
-    console.log('delete button clicked');
-  }
-
-  insertRow(lineName, start, end) {
-    const row = this.elements.resultContainer
-      .querySelector('table')
-      .insertRow();
-    row.dataset.lineName = lineName;
-    row.dataset.lineStart = start;
-    row.dataset.lineEnd = end;
-    row.insertCell(0).innerHTML = lineName;
-    row.insertCell(1).innerHTML = start;
-    row.insertCell(2).innerHTML = end;
-    row.insertCell(3).append(this.createDeleteButton());
+    this.refreshResultData();
   }
 
   getSelectedOption(selectElement) {
@@ -149,54 +230,14 @@ export default class LineLayout extends PageLayout {
   // override
   handleAddButton() {
     const line = this.controller.getInputFromUser(this);
-    const { inputContainer } = this.elements;
-    console.log(`line line: ${line}, inputContainer: ${inputContainer}`);
     const start = this.getSelectedOption(
-      inputContainer.querySelector(`select[name='start']`),
+      this.rendered.querySelector(`select[name='start']`),
     );
     const end = this.getSelectedOption(
-      inputContainer.querySelector(`select[name='end']`),
+      this.rendered.querySelector(`select[name='end']`),
     );
-
-    // TODO: querySelector말고 다른 방법은 없나?
-    // const selectors = this.elements.inputContainer.querySelectorAll('select');
-    this.insertRow(line, start.value, end.value);
     this.controller.insertLineData(line, start.value, end.value);
-  }
-
-  // override
-  displaySavedData() {
-    const start = this.elements.inputContainer.querySelector(
-      `select[name='start']`,
-    );
-    const end = this.elements.inputContainer.querySelector(
-      `select[name='end']`,
-    );
-    const stationList = this.controller.modelList.station.getList();
-    // FIXME: 새로 역을 추가 후 탭을 이동하면 추가한 역이 나오지 않음
-    // FIXME: displaySavedData를 create시말고 tab show할때로 옮기기
-
-    // TODO: 예외로 등록 ) 이미 노선이 등록된 경우 옵션에 추가하지 않음
-    for (const station of stationList) {
-      start.insertAdjacentHTML('beforeend', `<option>${station.name}</option>`);
-      end.insertAdjacentHTML('beforeend', `<option>${station.name}</option>`);
-    }
-
-    // TODO: 데이터 테이블에 추가하기 -> 데이터 테이블 업데이트 함수 만들어서 그냥 불러오기
-  }
-
-  createInputContainer() {
-    const lineNameContainer = document.createElement('article');
-    lineNameContainer.append(
-      this.createInputTitle(),
-      this.createInput(),
-      this.createStationSubtitle('상행 종점'),
-      this.createStationSelector('start'),
-      this.createStationSubtitle('하행 종점'),
-      this.createStationSelector('end'),
-      this.createAddButton(),
-    );
-
-    return lineNameContainer;
+    this.refreshResultData();
+    // this.clearInput(); // TODO: 넣기
   }
 }

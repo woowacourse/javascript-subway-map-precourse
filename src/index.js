@@ -15,8 +15,9 @@ const initHTML = function () {
   app.append(managerContainer, sectionContainer);
   managerContainer.append(
     // controller.viewList.station.elements.managerButton,
+    // controller.viewList.line.elements.managerButton,
     controller.viewList.station.elements.managerButton.$el,
-    controller.viewList.line.elements.managerButton,
+    controller.viewList.line.elements.managerButton.$el,
     controller.viewList.section.elements.managerButton,
     mapPrintElements.managerButton,
   );
