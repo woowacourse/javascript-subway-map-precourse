@@ -1,3 +1,5 @@
+import { lineMenuPresenter } from "./sectionPresenter";
+
 export default function sectionContainer() {
   let lineData = [];
   let stationData = [];
@@ -12,6 +14,7 @@ export default function sectionContainer() {
       "#section-manager-container",
     );
     getLocalData();
+    lineMenuPresenter(lineData);
     sectionContainer.style.display = "block";
   };
 
