@@ -31,12 +31,18 @@ import {
 } from '../handlers/sectionManager.js';
 import { onPrintMap } from '../handlers/mapPrint.js';
 
-const addAllEventListeners = () => {
+export const addStationManagerEventListeners = () => {
   stationAddButtonElement.addEventListener('click', onAddStation);
   resultStationItemsElement.addEventListener('click', onDeleteStation);
+};
+
+export const addLineMangerEventListeners = () => {
   lineAddButtonElement.addEventListener('click', onAddLine);
   lineManagerButtonElement.addEventListener('click', onConverToLineContent);
   resultLineItemsElement.addEventListener('click', onDeleteLine);
+};
+
+export const addSectionManagerEventListeners = () => {
   sectionManagerButtonElement.addEventListener(
     'click',
     onConverToSectionContent
@@ -47,7 +53,15 @@ const addAllEventListeners = () => {
   );
   sectionAddButtonElement.addEventListener('click', onInsertStation);
   registeredStationItemsElement.addEventListener('click', onPullOutStation);
+};
+
+export const addMapPrintEventListeners = () => {
   mapPrintManagerButtonElement.addEventListener('click', onPrintMap);
 };
 
-export default { addAllEventListeners };
+export default {
+  addStationManagerEventListeners,
+  addLineMangerEventListeners,
+  addSectionManagerEventListeners,
+  addMapPrintEventListeners,
+};
