@@ -6,7 +6,7 @@ import {
   createLineTable,
   createLineTr,
 } from "../creators/line_creator.js";
-import { setDeleteButtonClickListener } from "../managers/line_manager.js";
+import { setLineDeleteButtonClickListener } from "../managers/line_manager.js";
 
 const LineContainer = function () {
   this.appendNewLine = (input, startStation, endStation) => {
@@ -16,7 +16,7 @@ const LineContainer = function () {
       sections: [startStation.value, endStation.value],
     });
     tbody.appendChild(tr);
-    setDeleteButtonClickListener();
+    setLineDeleteButtonClickListener();
   };
 
   this.setDefaultValue = (input, startStationSelector, endStationSelector) => {

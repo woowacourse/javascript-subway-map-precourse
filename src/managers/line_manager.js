@@ -43,7 +43,7 @@ const LineManager = function () {
     setStateAndLocalStorage("lines", newLines);
     appendNewLine(lineNameInput, startSection.value, endSection.value);
     setDefaultValue(lineNameInput, startSection, endSection);
-    this.setDeleteButtonClickListener();
+    this.setLineDeleteButtonClickListener();
   };
 
   this.lineAddClickFunction = () => {
@@ -73,7 +73,7 @@ const LineManager = function () {
     removeTr(target);
   };
 
-  this.setDeleteButtonClickListener = () => {
+  this.setLineDeleteButtonClickListener = () => {
     const buttons = document.getElementsByClassName("line-delete-button");
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", this.deleteButtonClickFunction);
@@ -81,4 +81,4 @@ const LineManager = function () {
   };
 };
 
-export const { setDeleteButtonClickListener } = new LineManager();
+export const { setLineDeleteButtonClickListener } = new LineManager();
