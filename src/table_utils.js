@@ -1,5 +1,6 @@
 import DomUtils from './dom_utils.js';
 import CommonUtils from './common_utils.js';
+import ManageSection from './manage_section.js';
 
 export default class TableUtils {
   constructor() {
@@ -108,16 +109,7 @@ export default class TableUtils {
     for (const index in lineList[line]) {
       const rowArray = [index, lineList[line][index], this.SECTION_DELETE_BUTTON_TEXT, line];
       this.addRow(rowArray, toIdName);
-
-      // const station = lineList[line][index];
-      // const lineIndex = stationList[station].indexOf(line);
-      // console.log(station,stationList[station], line);
-      // console.log(lineIndex, index);
-      // stationList[station].splice(lineIndex, 1);
     }
-
-    // this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
-    // this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
   }
 
   addTableStyle(table) {
@@ -272,6 +264,7 @@ export default class TableUtils {
   checkSectionDeleteValidity(button) {
     if (this.checkIfContainsOverTwoStations(button) === this.IS_VALID) {
       this.deleteRowAndData(button);
+      this.refreshSectionTable(button);
     }
     else {
       this._privateCommonUtils.alertError(this.SECTION_DELETE_ERROR_MESSAGE);
@@ -304,15 +297,29 @@ export default class TableUtils {
 
   deleteRowAndData(button) {
     const dataset = this.getDataAttribute(button);
-    const datasetArray = dataset.split(',');
+    const datasetArray = this.getDataSetArray(button);
     const row = document.querySelector(`[data-tracking="${dataset}"]`);
 
     this.updateDeleteToLocalStorage(button, datasetArray);
     this.deleteTableRow(row);
   }
 
+  getDataSetArray(button) {
+    const dataset = this.getDataAttribute(button);
+    const datasetArray = dataset.split(',');
+
+    return datasetArray;
+  }
+
   getDataAttribute(button) {
     return button.dataset.tracking;
+  }
+
+  refreshSectionTable(button) {
+    const datasetArray = this.getDataSetArray(button);
+    const line = datasetArray[3];
+    
+    this.refreshTableData('sectionManageArea', line);
   }
 
   updateDeleteToLocalStorage(button, datasetArray) {
@@ -324,6 +331,9 @@ export default class TableUtils {
     }
     else if (this.checkTableId(button) === this.LINE_TABLE_NAME) {
       this.updateLineDelete(stationList, lineList, datasetArray);
+    }
+    else if (this.checkTableId(button) === this.SECTION_TABLE_NAME) {
+      this.updateSectionDelete(stationList, lineList, datasetArray);
     }
   }
 
@@ -341,6 +351,20 @@ export default class TableUtils {
     this.removeFromObject(lineList, line);
     this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
     this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
+  }
+
+  updateSectionDelete(stationList, lineList, datasetArray) {
+    const index = datasetArray[0];
+    const line = datasetArray[3];
+    const station = lineList[line][index];
+    const lineIndex = stationList[station].indexOf(line);
+    const stationIndex = lineList[line].indexOf(station);
+
+    stationList[station].splice(lineIndex, 1);
+    lineList[line].splice(stationIndex, 1);
+
+    this._privateCommonUtils.saveToLocalStorage('lineList', lineList);
+    this._privateCommonUtils.saveToLocalStorage('stationList', stationList);
   }
 
   checkTableId(button) {

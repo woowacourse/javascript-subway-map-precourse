@@ -83,11 +83,11 @@ export default class ManageSection {
       this._privateDomUtils.appendToIdName(this.SELECT_LINE_SECTION, button);
       button.style.margin = "2px";
       this._privateDomUtils.setAttribute('class', button, this.LINE_BUTTONS_CLASS);
-      this.addEventToSelectButton(button, line);
+      this.addEventToLineSelectButton(button, line);
     }
   }
 
-  addEventToSelectButton(button, line) {
+  addEventToLineSelectButton(button, line) {
     button.addEventListener('click', () => {
       this.showManageLineSection();
       this.changeManageLineSection(line);
@@ -99,8 +99,6 @@ export default class ManageSection {
 
     manageLineSection.style.display = 'block';
   }
-
-
 
   changeManageLineSection(line) {
     this.changeManageLineSectionTitle(line);
