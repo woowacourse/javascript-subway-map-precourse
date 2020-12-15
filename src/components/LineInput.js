@@ -12,50 +12,58 @@ export default function LineInput({ $target, stations, isExistLineName }) {
   this.bindOnSubmit = () => {
     this.$container.addEventListener("submit", (e) => {
       const $lineNameInput = document.querySelector(`#${lineNameInput.id}`);
+      const startStationName = document.querySelector(`#${lineStartStationSelector.id}`).value;
+      const endStationName = document.querySelector(`#${lineEndStationSelector.id}`).value;
 
-      console.log(this.isValidLineName($lineNameInput));
+      if (this.isValidInput({ $lineNameInput, startStationName, endStationName })) {
+      }
 
       e.preventDefault();
     });
   };
 
-  this.isValidLineName = ($lineNameInput) => {
-    let result = true;
+  this.isValidInput = ({ $lineNameInput, startStationName, endStationName }) => {
+    return (
+      this.isLineNameOverMinLength($lineNameInput) &&
+      !this.isExistLineName($lineNameInput) &&
+      !this.isSameStation(startStationName, endStationName)
+    );
+  };
 
-    result = this.isLineNameOverMinLength($lineNameInput.value);
-    result = this.isExistLineName($lineNameInput.value);
+  this.isLineNameOverMinLength = ($lineNameInput) => {
+    const result = isTextOverMinLength($lineNameInput.value, LINE_NAME_MIN_LENGTH);
 
     if (!result) {
+      alert(ERROR_MESSAGE.shortLineName);
       $lineNameInput.value = "";
     }
 
     return result;
   };
 
-  this.isLineNameOverMinLength = (lineName) => {
-    const result = isTextOverMinLength(lineName, LINE_NAME_MIN_LENGTH);
+  this.isExistLineName = ($lineNameInput) => {
+    const result = isExistLineName($lineNameInput.value);
 
-    if (!result) {
-      alert(ERROR_MESSAGE.shortLineName);
+    if (result) {
+      alert(ERROR_MESSAGE.duplicatedLineName);
+      $lineNameInput.value = "";
     }
 
     return result;
   };
 
-  this.isExistLineName = (lineName) => {
-    const result = isExistLineName(lineName);
+  this.isSameStation = (startStationName, endStationName) => {
+    if (startStationName === endStationName) {
+      alert(ERROR_MESSAGE.sameStartAndEndStation);
 
-    if (!result) {
-      alert(ERROR_MESSAGE.duplicatedLineName);
+      return true;
     }
 
-    return result;
+    return false;
   };
 
   this.createSelectOptionHTMLString = () => {
-    return this.stations
-      .map((station, index) => `<option data-index="${index}" value="${station}">${station}</option>`)
-      .join("");
+    return this.stations.map((station) => `<option value="${station}">${station}</option>`).join("");
   };
 
   this.render = () => {
