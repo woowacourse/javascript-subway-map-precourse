@@ -7,9 +7,9 @@ const Visualization = function () {
     }
   };
 
-  this.appendChildrenToParent = (parentNode, ...ChildElements) => {
+  this.appendChildren = (parentElement, ...ChildElements) => {
     for (let i = 0; i < ChildElements.length; i++) {
-      parentNode.appendChild(ChildElements[i]);
+      parentElement.appendChild(ChildElements[i]);
     }
   };
 
@@ -17,7 +17,7 @@ const Visualization = function () {
     const result = document.createElement(typeOfTag);
     if (AnInsertedText) {
       const innerText = document.createTextNode(AnInsertedText);
-      this.appendChildrenToParent(result, innerText);
+      this.appendChildren(result, innerText);
     }
     if (attributes) this.setAttributes(result, attributes);
     return result;
@@ -28,7 +28,7 @@ const Visualization = function () {
       if (Array.isArray(children[i]))
         children[i] = this.appendRecursiveChild(...children[i]);
     }
-    this.appendChildrenToParent(parent, ...children);
+    this.appendChildren(parent, ...children);
     return parent;
   };
 
@@ -37,16 +37,16 @@ const Visualization = function () {
     const tr = document.createElement("tr");
     texts.forEach((text) => {
       const th = getAdvancedEle("th", null, text);
-      this.appendChildrenToParent(tr, th);
+      this.appendChildren(tr, th);
     });
-    this.appendChildrenToParent(thead, tr);
+    this.appendChildren(thead, tr);
     return thead;
   };
 
   this.getTableHavingTableHead = (...texts) => {
     const table = document.createElement("table");
     const thead = this.getTableHeadByTexts(...texts);
-    this.appendChildrenToParent(table, thead);
+    this.appendChildren(table, thead);
     return table;
   };
 
