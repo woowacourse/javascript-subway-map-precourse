@@ -1,6 +1,6 @@
 import { isValidLineInfo } from "../utils";
 import { INVALID_LINE_INFO } from "./lineConstant";
-import { lineListTemplate } from "./linePresenter";
+import { lineListTemplate, clearOption } from "./linePresenter";
 
 export default function lineContainer() {
   let lineList = [];
@@ -59,10 +59,17 @@ export default function lineContainer() {
   };
 
   const setSelectorOption = selector => {
+    const lineStartSelector = document.querySelector(
+      "#line-start-name-selector",
+    );
     const stationData = JSON.parse(window.localStorage.getItem("stationList"));
+    if (selector === lineStartSelector) {
+      clearOption();
+    }
     if (stationData) {
       for (const station of stationData) {
         const selectorOption = document.createElement("option");
+        selectorOption.setAttribute("id", "station-option");
         selectorOption.textContent = station;
         selector.appendChild(selectorOption);
       }

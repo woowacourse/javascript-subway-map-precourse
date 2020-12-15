@@ -24,3 +24,10 @@ export const lineListPresenter = template => {
   const lineNameTable = document.querySelector("#line-name-table");
   lineNameTable.innerHTML = template;
 };
+
+export const clearOption = () => {
+  const lineOptions = document.querySelectorAll("#station-option");
+  for (const option of lineOptions) {
+    option.remove();
+  }
+};
