@@ -36,6 +36,59 @@ export default class Subway {
     return order < 0 || order > section.length;
   }
 
+  isOnlyKorean = (name) => {
+    return /^[ㄱ-ㅎ|가-힣|0-9|\*]+$/.test(name);
+  }
+
+  isEmptyName = (name) => {
+    return /\s+/.test(name);
+  }
+
+  isPossibleAddLine = ({ lineName, start, end }) => {
+    if (this.isEmptyName(lineName)) {
+      return alert(Errors['EMPTY_ERROR']);
+    }
+    if (!this.isOnlyKorean(lineName)) {
+      return alert(Errors['ONLY_KOREAN_AND_NUMBER_ERROR']);
+    }
+    if (start === end) {
+      return alert(Errors['SAME_STATION_ERROR']);
+    }
+    if (this.isDuplicateLine({ lineName })) {
+      return alert(Errors['LINE_DUPLICATE_ERROR']);
+    }
+    if (this.isExistLastStopStation({ start, end })) {
+      return alert(Errors['SAME_LAST_STOP_LINE_ERROR']);
+    }
+    return true;
+  }
+
+  isPossibleAddStation = ({ station }) => {
+    if (this.isEmptyName(station)) {
+      return alert(Errors['EMPTY_ERROR']);
+    }
+    if (!this.isOnlyKorean(station)) {
+      return alert(Errors['ONLY_KOREAN_AND_NUMBER_ERROR']);
+    }
+    if (this.isDuplicateStation({ station })) {
+      return alert(Errors['STATION_DUPLICATE_ERROR']);
+    }
+    if (station.length < MAX_NAME_LENGTH) {
+      return alert(Errors['NAME_LESS_THEN_TWO_ERROR']);
+    }
+    return true;
+  }
+
+  isPossibleAddSection = ({ section, order, station }) => {
+    if (section.includes(station)) {
+      return alert(Errors['STATION_DUPLICATE_ERROR']);
+    }
+    if (this.isSectionRange({ section, order })) {
+      return alert(Errors['SECTION_RANGE_ERROR']);
+    }
+    return true;
+  }
+
   isExistLastStopStation = ({ start, end }) => {
     const lines = this.getLines();
     function findSameLastStop({ section }) {
@@ -47,13 +100,9 @@ export default class Subway {
   }
 
   addStation = ({ station }) => {
-    if (this.isDuplicateStation({ station })) {
-      return alert(Errors['STATION_DUPLICATE_ERROR']);
+    if (this.isPossibleAddStation({ station })) {
+      this.stations.add(station);
     }
-    if (station.length < MAX_NAME_LENGTH) {
-      return alert(Errors['NAME_LESS_THEN_TWO_ERROR']);
-    }
-    this.stations.add(station);
   }
 
   deleteStation = ({ station }) => {
@@ -64,20 +113,10 @@ export default class Subway {
   }
 
   addLine = ({ lineName, start, end }) => {
-    if (lineName === '') {
-      return alert(Errors['EMPTY_LINE_ERROR']);
+    if (this.isPossibleAddLine({ lineName, start, end })) {
+      const section = [start, end];
+      this.lines.set(lineName, section);
     }
-    if (start === end) {
-      return alert(Errors['SAME_STATION_ERROR']);
-    }
-    if (this.isDuplicateLine({ lineName })) {
-      return alert(Errors['LINE_DUPLICATE_ERROR']);
-    }
-    if (this.isExistLastStopStation({ start, end })) {
-      return alert(Errors['SAME_LAST_STOP_LINE_ERROR']);
-    }
-    const section = [start, end];
-    this.lines.set(lineName, section);
   }
 
   deleteLine = ({ lineName }) => {
@@ -86,13 +125,9 @@ export default class Subway {
 
   addSection = ({ lineName, order, station }) => {
     const section = this.lines.get(lineName);
-    if (section.includes(station)) {
-      return alert(Errors['STATION_DUPLICATE_ERROR']);
+    if (this.isPossibleAddSection({ section, order, station })) {
+      section.splice(order, 0, station);
     }
-    if (this.isSectionRange({ section, order })) {
-      return alert(Errors['SECTION_RANGE_ERROR']);
-    }
-    section.splice(order, 0, station);
   }
 
   deleteSection = ({ lineName, station }) => {
