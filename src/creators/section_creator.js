@@ -2,7 +2,7 @@ import {
   appendChildren,
   createTd,
   getAdvancedEle,
-} from "../common/visualization";
+} from "../common/visualization.js";
 
 const SectionCreator = function () {
   this.createSectionAddSelect = () =>
@@ -44,6 +44,13 @@ const SectionCreator = function () {
       const tr = this.createTr(indexTd, sectionTd, deleteButtonTd);
       return tr;
     });
+
+  this.createManagementTitleText = (selectedLineName) =>
+    getAdvancedEle(
+      "h2",
+      { id: "line-management-title" },
+      `${selectedLineName} 관리`
+    );
 
   this.createLineSelectionButtons = (lineNames) =>
     lineNames.map((lineName, index) =>
