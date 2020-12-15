@@ -1,8 +1,9 @@
-import Frame from '../components/frame.js';
+import {frameTemplate, globalStyle} from '../components/frame.js';
 
 export default class FrameView {
   constructor(app) {
-    app.innerHTML += Frame.template();
+    globalStyle();
+    app.innerHTML += frameTemplate();
   }
 }
 
