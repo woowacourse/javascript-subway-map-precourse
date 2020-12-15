@@ -58,6 +58,11 @@ const LineManager = function () {
     else alert(validity.errorMessage);
   };
 
+  this.setLineAddClickListener = () => {
+    const button = document.getElementById("line-add-button");
+    button.addEventListener("click", this.lineAddClickFunction);
+  };
+
   this.deleteButtonClickFunction = ({ target }) => {
     const { lineName } = target.dataset;
     const lines = getFormattedLines();
