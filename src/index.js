@@ -1,5 +1,6 @@
 import { deleteStation } from './controllers/stationManager.js';
 import { deleteLine } from './controllers/lineManager.js';
+import { deleteSection } from './controllers/sectionManager.js';
 import { saveData, loadData } from './controllers/storage.js';
 import { tabController } from './controllers/tab.js';
 import Line from './models/Line.js';
@@ -36,6 +37,14 @@ export default function SubwayMap() {
     this.saveLine();
   };
 
+  this.delSection = (lineName, stationName) => {
+    const lineIndex = this.lineList.findIndex(element => element.name === lineName);
+    const { list } = this.lineList[lineIndex];
+    const stationIndex = list.findIndex(name => name === stationName);
+    list.splice(stationIndex, 1);
+    this.saveLine();
+  };
+
   this.reload = () => {
     this.stationList = loadData('stations');
     this.lineList = loadData('lines');
@@ -64,6 +73,10 @@ const newBtnAddListener = event => {
   }
   if (event.target.classList.contains('section-line-menu-button')) {
     showSectionManager(event.target.dataset.lineName, subwayMap);
+  }
+  if (event.target.classList.contains('section-delete-button')) {
+    const [line, station] = event.target.dataset.lineStation.split(',');
+    deleteSection(line, station, subwayMap);
   }
 };
 document.body.addEventListener('click', newBtnAddListener);

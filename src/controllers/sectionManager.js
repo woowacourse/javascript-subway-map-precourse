@@ -45,3 +45,10 @@ const addNewSection = (station, order, selectedLineName, subwayMap) => {
   }
   clearFocus(sectionOrderInput);
 };
+
+export const deleteSection = (lineName, stationName, subwayMap) => {
+  if (confirm('정말로 삭제하시겠습니까?')) {
+    subwayMap.delSection(lineName, stationName);
+    showAddedSection(lineName, subwayMap);
+  }
+};
