@@ -1,12 +1,12 @@
 import {
   SECTION_MANAGER_PAGE_MENU_TEMPLATE,
   SECTION_LINE_MENU_BTN,
-} from './template/sectionManagerTemplate.js';
-import lineStorage from '../utils/lineStorage.js';
-import oneSectionManager from './oneSectionManager.js';
+} from '../../template/sectionManagerTemplate.js';
+import lineStorage from '../../../storage/lineStorage.js';
+import singleSectionManager from './singleSectionManager.js';
 
 export default function sectionManagerPage($element) {
-  const lines = lineStorage().getLine();
+  const lines = lineStorage().getLines();
 
   $element.innerHTML = SECTION_MANAGER_PAGE_MENU_TEMPLATE;
   const $listMenuBtn = $element.querySelector('.line-buttons');
@@ -19,7 +19,7 @@ export default function sectionManagerPage($element) {
       return;
     }
     const currentLine = lineStorage().getOneLine(e.target.dataset.lineid);
-    oneSectionManager($sectionSelectorContainer, $sectionTable, currentLine);
+    singleSectionManager($sectionSelectorContainer, $sectionTable, currentLine);
   };
 
   $listMenuBtn.addEventListener('click', onMenuFilterHandler);

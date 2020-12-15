@@ -2,19 +2,19 @@ import {
   sectionIndexValidator,
   sectionStationNameValidator,
   sectionDeleteValidator,
-} from '../utils/validator/sectionValidator.js';
+} from '../../../utils/validator/sectionValidator.js';
 import {
   SECTION_MANAGER_PAGE_SELECTOR_TEMPLATE,
   SECTION_MANAGER_PAGE_TABLE_TEMPLATE,
   SECTION_TABLE_TEMPLATE,
-} from './template/sectionManagerTemplate.js';
-import { ALL_STATION_OPTION_LIST } from './template/lineManagerTemplate.js';
-import stationStorage from '../utils/stationStorage.js';
-import lineStorage from '../utils/lineStorage.js';
+} from '../../template/sectionManagerTemplate.js';
+import { ALL_STATION_OPTION_LIST } from '../../template/lineManagerTemplate.js';
+import stationStorage from '../../../storage/stationStorage.js';
+import lineStorage from '../../../storage/lineStorage.js';
 
-export default function oneSectionManager($container, $table, line) {
+export default function singleSectionManager($container, $table, line) {
   const stations = stationStorage().getStations();
-  const lines = lineStorage().getLine();
+  const lines = lineStorage().getLines();
 
   $container.innerHTML = SECTION_MANAGER_PAGE_SELECTOR_TEMPLATE;
   const $lineTitle = $container.querySelector('#line-title');
@@ -39,28 +39,6 @@ export default function oneSectionManager($container, $table, line) {
     return stations.filter((station) => station.id === stationIds)[0];
   };
 
-  const updateLineState = (stationId, stationIndex) => {
-    line.stationIds.splice(stationIndex, 0, stationId);
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i].id === line.id) {
-        lines[i] = line;
-      }
-    }
-    lineStorage().setLine(lines);
-    return line;
-  };
-
-  const updateStationState = (stationId) => {
-    getStationById(stationId).line.push(line.id);
-    stationStorage().setStation(stations);
-  };
-
-  const updateSection = (stationName, stationIndex) => {
-    const stationId = stationStorage().getStationIdByName(stationName);
-    updateStationState(stationId);
-    renderSection(updateLineState(stationId, stationIndex));
-  };
-
   const removeStationInLine = (stationId) => {
     const deleteIndex = line.stationIds.findIndex((id) => id === stationId);
     line.stationIds.splice(deleteIndex, 1);
@@ -82,7 +60,6 @@ export default function oneSectionManager($container, $table, line) {
 
   const removeStationInSection = (stationId, lineId) => {
     removeLineInStation(stationId, lineId);
-    console.log(lines);
     renderSection(removeStationInLine(stationId));
   };
 
@@ -96,6 +73,28 @@ export default function oneSectionManager($container, $table, line) {
     if (sectionDeleteValidator(lineId) && confirm('정말로 노선에서 삭제하시겠습니까?')) {
       removeStationInSection(stationId, lineId);
     }
+  };
+
+  const updateLineState = (stationId, stationIndex) => {
+    line.stationIds.splice(stationIndex, 0, stationId);
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].id === line.id) {
+        lines[i] = line;
+      }
+    }
+    lineStorage().setLine(lines);
+    return line;
+  };
+
+  const updateStationState = (stationId) => {
+    getStationById(stationId).line.push(line.id);
+    stationStorage().setStation(stations);
+  };
+
+  const updateSection = (stationName, stationIndex) => {
+    const stationId = stationStorage().getStationIdByName(stationName);
+    updateStationState(stationId);
+    renderSection(updateLineState(stationId, stationIndex));
   };
 
   const onSectionSubmitHandler = () => {

@@ -1,9 +1,5 @@
-import lineStorage from '../lineStorage.js';
-
-const isNotRegistered = (id, stations, stationName) => {
-  const stationLines = stations.filter((station) => station.name === stationName)[0].line;
-  return stationLines.includes(id) ? alert('이미 등록된 역입니다') : true;
-};
+import lineStorage from '../../storage/lineStorage.js';
+import { SECTION_MIN_LENGTH } from '../constant.js';
 
 const isNumber = (sectionIndex) => {
   return Number.isNaN(sectionIndex) ? alert('정확한 숫자를 입력해주세요') : true;
@@ -19,10 +15,15 @@ const isCorrectIndex = (sectionLength, sectionIndex) => {
 
 const isLengthLongerThanTwo = (lineId) => {
   const stationLength = lineStorage().getOneLine(lineId).stationIds.length;
-  if (stationLength < 3) {
-    return alert('노선은 최소 2개의 역으로 이루어져 있습니다.');
-  }
-  return true;
+  return stationLength <= SECTION_MIN_LENGTH
+    ? alert('노선은 최소 2개의 역으로 이루어져 있습니다.')
+    : true;
+};
+
+const isNotRegistered = (id, stations, stationName) => {
+  return stations.filter((station) => station.name === stationName)[0].line.includes(id)
+    ? alert('이미 등록된 역입니다')
+    : true;
 };
 
 function sectionStationNameValidator({ id }, stations, stationName) {
