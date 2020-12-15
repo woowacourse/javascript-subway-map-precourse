@@ -12,4 +12,9 @@ const StationManager = function () {
     });
     return result;
   };
+  this.getFilteredLines = (station) =>
+    getFormattedLines().map((line) => {
+      line.sections = line.sections.filter((sections) => sections !== station);
+      return line;
+    });
 };
