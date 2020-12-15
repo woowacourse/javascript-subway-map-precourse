@@ -41,3 +41,4 @@
 ## 📝 참고 사이트
 
 - [[HTML 바로 알기] Semantic Web을 위한 Semantic Elements - bono](https://blueshw.github.io/2020/05/09/know-html-semantic-elements/)
+- [비구조화 할당(구조분해) 문법 - velopert](https://learnjs.vlpt.us/useful/06-destructuring.html)
