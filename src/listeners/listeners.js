@@ -31,6 +31,7 @@ import {
 } from '../handlers/sectionManager.js';
 import { onPrintMap } from '../handlers/mapPrint.js';
 import { convertContent } from '../routes/routes.js';
+import { loadDataToLocalStorage, syncDataToAllElements } from '../data/data.js';
 
 export const addStationManagerEventListeners = () => {
   stationAddButtonElement.addEventListener('click', onAddStation);
@@ -60,7 +61,10 @@ export const addMapPrintEventListeners = () => {
   mapPrintManagerButtonElement.addEventListener('click', onPrintMap);
 };
 
-export const addSyncDataBeforeUnloadEventListener = () => {};
+export const addSyncDataBeforeUnloadEventListener = () => {
+  syncDataToAllElements();
+
+};
 
 export const addSyncDataBeforeOnloadEventListener = (
   contentElements,
@@ -74,6 +78,8 @@ export const addSyncDataBeforeOnloadEventListener = (
       convertContent(contentElements, defaultContentElement.id);
     }
   };
+  loadDataToLocalStorage();
+  syncDataToAllElements();
 };
 
 export default {
