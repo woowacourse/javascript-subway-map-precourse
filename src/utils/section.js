@@ -22,8 +22,7 @@ import { addLinetoStation } from "./line.js";
 export function removeSectionHandler(e) {
   if (confirm(DELETE_MESSAGE)) {
     const tr = e.target.parentNode.parentNode;
-    const sectionId = tr.dataset.sectionid;
-    let index = this.line.findIndex((v) => v.id === sectionId);
+    let index = this.line.findIndex((v) => v.id === tr.dataset.sectionid);
     if (this.line[index].stations.length >= SELECTION_DELETE_COUNT_LIMIT) {
       const clearSection = this.line[index].stations.filter(
         (v) => v.id !== tr.dataset.id

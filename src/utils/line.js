@@ -17,16 +17,6 @@ import {
   DELETE_MESSAGE,
 } from "../constant.js";
 
-export function removeLineHandler(e) {
-  if (confirm(DELETE_MESSAGE)) {
-    const tr = e.target.parentNode.parentNode;
-    const clearLine = this.line.filter((v) => v.id !== tr.dataset.id);
-    this.line = clearLine;
-    setDataToStorage(this);
-    printTable.call(this, LINE_DIV);
-  }
-}
-
 export function addLinetoStation(lineId, stationId) {
   //노선에 포함 될때,line 프로퍼티 추가
   let stationIndex = this.station.findIndex((v) => v.id == stationId);
@@ -34,6 +24,32 @@ export function addLinetoStation(lineId, stationId) {
     this.station[stationIndex].line = [];
   }
   this.station[stationIndex].line.push({ id: lineId });
+}
+
+export function deleteLine(index, lineId) {
+  this.station[index].line = this.station[index].line.filter(
+    (v) => v.id !== lineId
+  );
+}
+
+export function deleteLinetoStation(lineId) {
+  //노선에 포함 될때,line 프로퍼티 추가
+  this.station.map((v, index) => {
+    if (v?.line) {
+      deleteLine.call(this, index, lineId);
+    }
+  });
+}
+
+export function removeLineHandler(e) {
+  if (confirm(DELETE_MESSAGE)) {
+    const tr = e.target.parentNode.parentNode;
+    const clearLine = this.line.filter((v) => v.id !== tr.dataset.id);
+    this.line = clearLine;
+    deleteLinetoStation.call(this, tr.dataset.id);
+    setDataToStorage(this);
+    printTable.call(this, LINE_DIV);
+  }
 }
 
 export function createLine(lineNameInput, destination) {
