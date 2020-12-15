@@ -36,6 +36,16 @@ export default class Subway {
     return order < 0 || order > section.length;
   }
 
+  isExistLastStopStation = ({ start, end }) => {
+    const lines = this.getLines();
+    function findSameLastStop({ section }) {
+      const startStation = section[0];
+      const endStation = section[section.length - 1];
+      return start === startStation && end == endStation;
+    }
+    return lines.some(findSameLastStop);
+  }
+
   addStation = ({ station }) => {
     if (this.isDuplicateStation({ station })) {
       return alert(Errors['STATION_DUPLICATE_ERROR']);
@@ -62,6 +72,9 @@ export default class Subway {
     }
     if (this.isDuplicateLine({ lineName })) {
       return alert(Errors['LINE_DUPLICATE_ERROR']);
+    }
+    if (this.isExistLastStopStation({ start, end })) {
+      return alert(Errors['SAME_LAST_STOP_LINE_ERROR']);
     }
     const section = [start, end];
     this.lines.set(lineName, section);
