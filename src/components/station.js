@@ -1,4 +1,4 @@
-import { errorMessage } from "../utils/const.js";
+import { errorMessage, confirmMessage } from "../utils/const.js";
 
 export default {
   isAddedEvent: false,
@@ -14,7 +14,9 @@ export default {
   },
   addEvents() {
     const $btnAdd = document.querySelector("#station-add-button");
+    const $tbody = document.querySelector("tbody");
     $btnAdd.addEventListener("click", () => this.clickAdd());
+    $tbody.addEventListener("click", (e) => this.clickDelete(e));
   },
   clickAdd() {
     const { ERROR_NONEXISTENT_STATION, ERROR_SHORT_STATION, ERROR_ALREADY_HAVE_STATION } = errorMessage;
@@ -37,21 +39,32 @@ export default {
     this.render();
     $input.value = "";
   },
+  clickDelete(e) {
+    const { CONFIRM_DELETE_STATION } = confirmMessage;
+    const { id, dataset } = e.target;
+    if (id !== "delete-btn") {
+      return;
+    }
+    if (!confirm(CONFIRM_DELETE_STATION)) {
+      return;
+    }
+    const stationIndex = this.station.indexOf(dataset.name);
+    this.station.splice(stationIndex, 1);
+    this.render();
+  },
   render() {
-    console.log(this.station);
     const innerHTML = this.station.reduce((prevHTML, station) => {
       return (
         prevHTML +
         `<tr>
         <td>${station}</td>
         <td>
-          <button data-station="${station}">삭제</button>
+          <button data-station="${station}" id="delete-btn">삭제</button>
         </td>
       </tr>`
       );
     }, "");
     const $tbody = document.querySelector("tbody");
-    console.log($tbody);
     $tbody.innerHTML = innerHTML;
   },
 };
