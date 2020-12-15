@@ -16,7 +16,11 @@ import {
   removeMapPrint,
 } from '../View/remove-screen.js';
 import {hideSectionEditContainer} from '../View/hide-screen.js';
-import {setLocalStorage, removeLocalStorage} from './local-storage.js';
+import {
+  setLocalStorage,
+  getLocalStorage,
+  removeLocalStorage,
+} from './local-storage.js';
 import {stationInstance, lineInstance} from '../index.js';
 import {isLineInputValid} from './valid.js';
 import {KEY, TEXT} from './utils.js';
@@ -47,7 +51,8 @@ export function onRemoveLine(e) {
 }
 
 export const loadLine = () => {
-  lineInstance.loadLine();
+  const lines = getLocalStorage(KEY.LINE);
+  lineInstance.loadLine(lines);
   stationInstance.stations.forEach((station) => {
     addSelectorOption($upStreamSelector, station);
     addSelectorOption($downStreamSelector, station);
