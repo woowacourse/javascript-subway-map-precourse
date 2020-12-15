@@ -17,7 +17,7 @@ export const existLineName = (name) => {
   if (!lines) {
     return false;
   }
-  return lines.find((el) => el.name === name);
+  return Object.keys(lines).indexOf(name) > -1;
 };
 
 export const existLineSameEndPoints = ([start, end]) => {
@@ -25,11 +25,13 @@ export const existLineSameEndPoints = ([start, end]) => {
   if (!lines) {
     return false;
   }
-  return Boolean(
-    lines.find(
-      (el) => el.section[0] === start && el.section.slice(-1)[0] === end
-    )
-  );
+  for (const key in lines) {
+    const section = lines[key];
+    if (section[0] === start && section.slice(-1)[0] === end) {
+      return true;
+    }
+  }
+  return false;
 };
 
 export const removeLine = (lineName) => {
@@ -37,8 +39,6 @@ export const removeLine = (lineName) => {
   if (!lines) {
     return;
   }
-  setStateToStorage(
-    LOCAL_STORAGE_LINES_KEY,
-    lines.filter((el) => el.name !== lineName)
-  );
+  delete lines[lineName];
+  setStateToStorage(LOCAL_STORAGE_LINES_KEY, lines);
 };

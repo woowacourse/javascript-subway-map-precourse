@@ -9,10 +9,9 @@ export default class Line {
 
   add() {
     const lines = getStateFromStorage(LOCAL_STORAGE_LINES_KEY);
-    if (!lines) {
-      setStateToStorage(LOCAL_STORAGE_LINES_KEY, [this]);
-      return;
-    }
-    setStateToStorage(LOCAL_STORAGE_LINES_KEY, [...lines, this]);
+    setStateToStorage(LOCAL_STORAGE_LINES_KEY, {
+      ...lines,
+      [this.name]: this.section,
+    });
   }
 }
