@@ -1,0 +1,36 @@
+{
+  "name": "javascript-subway-map-precourse",
+  "version": "1.0.0",
+  "description": "## 🚀 기능 요구사항",
+  "main": "index.js",
+  "dependencies": {
+    "eslint-config-prettier": "^7.0.0",
+    "serve": "^11.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Huijiny/javascript-subway-map-precourse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Huijiny/javascript-subway-map-precourse/issues"
+  },
+  "homepage": "https://github.com/Huijiny/javascript-subway-map-precourse#readme",
+
+  "eslintConfig": {
+    "extends": [
+      "airbnb",
+      "prettier"
+    ],
+    "rules": {
+      "react/jsx-filename-extension": 0,
+      "react/jsx-one-expression-per-line": 0
+    }
+  }
+}

@@ -1,0 +1,40 @@
+table,th ,td{
+  border:1px solid;
+}
+
+#station-manager-container{
+  display: none;
+}
+
+#line-manager-container{
+  display: none;
+}
+
+#section-manager-container{
+  display: none;
+}
+
+#map-print-manager-container{
+  display: none;
+}
+
+#section-inputs-container-by-lines {
+  display: none;
+}
+
+#section-manager-list-container{
+  display: none;
+}
+
+#line-selector-container{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#subway-contents-container{
+  margin-top: 20px;
+}
+
+#section-table{
+  margin-top: 20px;
+}
