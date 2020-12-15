@@ -6,7 +6,6 @@ import updateTable from "../common/updateTable.js";
 export default (deleteValue, index) => {
   const originalLineList = lineSelector();
   const updatedLineList = originalLineList
-    .map((lineData) => lineData.lineName)
     .slice(0, index)
     .concat(lineSelector().slice(index + 1, lineSelector().length));
   lineReducer(updatedLineList);
