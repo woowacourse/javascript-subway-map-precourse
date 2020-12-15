@@ -13,3 +13,5 @@ const MapPrintCreator = function () {
     return { lineTitle, lineUl, lineList };
   };
 };
+
+export const { createOneLineElements } = new MapPrintCreator();
