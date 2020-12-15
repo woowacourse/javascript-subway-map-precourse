@@ -14,4 +14,6 @@ const StationCreator = function () {
 
   this.createAddButton = () =>
     getAdvancedEle("button", { id: "station-add-button" }, "역 추가");
+
+  this.createTableTitle = () => getAdvancedEle("h2", null, "🚉 지하철 역 목록");
 };
