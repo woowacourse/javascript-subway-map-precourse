@@ -1,3 +1,7 @@
+import {Line} from "./line.js";
+import {Section} from "./section.js";
+import {addStationToArray, addLineToArray, 
+        addStationToSectionArray, deleteLineFromArray, deleteStationFromArray, removeStationFromSectionArray} from "./localStorage.js"
 
 window.arrStations = new Array();
 window.arrLine = new Array();
