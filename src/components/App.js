@@ -64,11 +64,19 @@ export default function App($app) {
     onDeleteLine: this.onDeleteLine,
   });
 
+  this.onAddSection = (lineIndex, nextStations) => {
+    const nextLines = [...this.lines];
+    nextLines.splice(lineIndex, 1, { ...nextLines[lineIndex], stations: nextStations });
+
+    this.setState({ nextLines });
+  };
+
   this.sectionManager = new SectionManager({
     $target: this.$main,
     isShow: true,
     stations: this.stations,
     lines: this.lines,
+    onAddSection: this.onAddSection,
   });
 
   this.setNextStations = (nextStations) => {
@@ -98,6 +106,7 @@ export default function App($app) {
     if (nextLines) {
       this.setNextLines(nextLines);
       this.lineManager.setState({ nextLines: this.lines });
+      this.sectionManager.setState({ nextLines: this.lines });
     }
   };
 }

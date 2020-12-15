@@ -2,7 +2,7 @@ import LineSelector from "./LineSelector.js";
 import SectionInput from "./SectionInput.js";
 import SectionList from "./SectionList.js";
 
-export default function SectionManager({ $target, isShow, stations, lines }) {
+export default function SectionManager({ $target, isShow, stations, lines, onAddSection }) {
   this.$container = document.createElement("div");
   this.$container.className = "section-manager";
   $target.append(this.$container);
@@ -21,11 +21,20 @@ export default function SectionManager({ $target, isShow, stations, lines }) {
     lines: this.lines,
     onChangeLine: this.onChangeLine,
   });
+
+  this.onAddSection = (selectedStation, sectionOrder) => {
+    const nextStations = [...this.lines[this.selectedLineIndex].stations];
+    nextStations.splice(sectionOrder, 0, selectedStation);
+
+    onAddSection(this.selectedLineIndex, nextStations);
+  };
+
   this.sectionInput = new SectionInput({
     $target: this.$container,
     stations: this.stations,
     selectedLineName: "",
     stationsInSelectedLine: [],
+    onAddSection: this.onAddSection,
   });
   this.sectionList = new SectionList({
     $target: this.$container,
@@ -40,16 +49,30 @@ export default function SectionManager({ $target, isShow, stations, lines }) {
     return this.lines[this.selectedLineIndex].stations;
   };
 
-  this.setState = ({ nextIsShow, nextSelectedLineIndex }) => {
+  this.setNextLines = (nextLines) => {
+    this.lines = nextLines;
+    this.sectionInput.setState(this.getSelectedLineName(), this.getStationsInSelectedLine());
+    this.sectionList.setState(this.getStationsInSelectedLine());
+  };
+
+  this.setNextSelectedLineIndex = (nextSelectedLineIndex) => {
+    this.selectedLineIndex = nextSelectedLineIndex;
+    this.sectionInput.setState(this.getSelectedLineName(), this.getStationsInSelectedLine());
+    this.sectionList.setState(this.getStationsInSelectedLine());
+  };
+
+  this.setState = ({ nextIsShow, nextLines, nextSelectedLineIndex }) => {
     if (nextIsShow !== undefined) {
       this.isShow = nextIsShow;
       this.render();
     }
 
+    if (nextLines) {
+      this.setNextLines(nextLines);
+    }
+
     if (nextSelectedLineIndex) {
-      this.selectedLineIndex = nextSelectedLineIndex;
-      this.sectionInput.setState(this.getSelectedLineName(), this.getStationsInSelectedLine());
-      this.sectionList.setState(this.getStationsInSelectedLine());
+      this.setNextSelectedLineIndex(nextSelectedLineIndex);
     }
   };
 

@@ -1,7 +1,7 @@
 import { isNatureNumber } from "../util/validation.js";
 import { ELEMENT_INFO, ERROR_MESSAGE } from "../util/constants.js";
 
-export default function SectionInput({ $target, stations, selectedLineName, stationsInSelectedLine }) {
+export default function SectionInput({ $target, stations, selectedLineName, stationsInSelectedLine, onAddSection }) {
   this.$container = document.createElement("section");
   this.$container.className = "section-input";
   $target.append(this.$container);
@@ -20,7 +20,7 @@ export default function SectionInput({ $target, stations, selectedLineName, stat
 
         if (this.isNatureNumber(sectionOrder)) {
           sectionOrder = this.checkOverStationsLength(sectionOrder);
-          // TODO: 구간 추가하기
+          onAddSection(selectedStation, sectionOrder);
         }
       }
     });
