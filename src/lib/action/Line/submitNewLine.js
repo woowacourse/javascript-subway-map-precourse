@@ -1,4 +1,4 @@
-import AddNewLineInfoValidation from "../../controllers/line/addNewLineInfoValidation.js";
+import AddNewLineInfoValidation from "../../checkValidation/line/addNewLineInfoValidation.js";
 import { LINE_NAME_INPUT } from "../../common/IdAndClassNames.js";
 import saveNewLine from "../../store/Line/saveNewLine.js";
 

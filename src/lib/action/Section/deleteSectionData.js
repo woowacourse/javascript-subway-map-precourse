@@ -1,4 +1,4 @@
-import DeleteStationValidation from "../../controllers/section/deleteStationValidation.js";
+import DeleteStationValidation from "../../checkValidation/section/deleteStationValidation.js";
 import deleteStationFromLine from "../../store/Section/deleteSection.js";
 import { DELETE_MESSAGE_FROM_LINE } from "../../common/alertMessages.js";
 

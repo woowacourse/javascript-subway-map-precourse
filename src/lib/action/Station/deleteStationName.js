@@ -1,7 +1,7 @@
 import { DELETE_MESSAGE } from "../../common/alertMessages.js";
 import { stationSelector } from "../../store/selectors.js";
 import deleteStationData from "../../store/Station/deleteStationData.js";
-import DeleteStationValidation from "../../controllers/section/deleteStationValidation.js";
+import DeleteStationValidation from "../../checkValidation/section/deleteStationValidation.js";
 import notConfirmDeleteAlert from "../common/notConfirmDeleteAlert.js";
 
 export default ({ stationName }) => {
