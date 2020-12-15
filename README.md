@@ -4,6 +4,34 @@
 
 ## 🚀 전반적인 구조
 
+```sh
+├── index.js
+├── Components             # 컴포넌트 관련 디렉토리
+│   ├── App.js             # 모든 컴포넌트를 관리하는 최상위 컴포넌트
+│   ├── Menu.js            # 메뉴 버튼 컴포넌트
+│   ├── /StationManager    # 역 관리 메뉴 컴포넌트
+│   ├── /LineManager       # 노선 관리 메뉴 컴포넌트
+│   ├── /SectionManager    # 구간 관리 메뉴 컴포넌트
+│   └── /MapPrintManager   # 지하철 노선도 출력 메뉴 컴포넌트
+│
+├── /store                 # 상태 관리 관련 디렉토리
+│   ├── observer.js        # 모든 상태 관리 스토어의 공통 옵저버 추상 클래스
+│   ├── lineStore.js       # 노선 상태 관리 스토어
+│   └── stationStore.js    # 역 상태 관리 스토어
+│
+└── /utils                 # 각종 유틸들을 모아놓은 디렉토리
+    ├── domUtil.js         # DOM API를 활용한 유틸
+    ├── storage.js         # 로컬스토리지 활용 유틸
+    ├── /constants         # 각종 상수값 모아 놓은 유틸
+    ├── /templates         # HTML 템플릿을 모아 놓은 유틸
+    └── /validations       # 어플리케이션 동작과 관련한 각종 검증 유틸
+
+```
+
+![APP구조1](./images/structure_1.png)
+![APP구조2](./images/structure_2.png)
+![APP구조3](./images/structure_3.png)
+
 ## 🚀 기능 목록
 
 ### 0. 메뉴 인터페이스 및 공통 기능
