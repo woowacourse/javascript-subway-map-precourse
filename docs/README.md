@@ -131,7 +131,7 @@ git clone https://github.com/sunhpark42/javascript-subway-map-precourse.git; cd 
   - 역, 노선 내의 역 목록간의 연결성 유지를 위함.
 - [x] 역 - 노선 간 의존성 추가하기
   - [x] 역이 삭제될 경우 해당 역이 포함된 노선에서 역 삭제
-- [ ] 각 상황별 에러 메세지 추가
+- [x] 각 상황별 에러 메세지 추가
 
 ## ✔️ 커밋 규칙
 * feat : 새로운 기능 추가
