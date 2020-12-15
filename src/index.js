@@ -278,3 +278,15 @@ function getLineMap(line) {
 
     return tag;
 }
+
+function addStationToSection() {
+    let station = document.getElementById('#section-station-selector').value;
+    let index = parseInt(document.getElementById('#section-order-input').value);
+    let lineName = document.getElementById('selected-line-input').value;
+
+    let lineIndex = arrLine.findIndex(l => l.name == lineName);
+    let line = arrLine[lineIndex];
+
+    addStationToSectionArray(line, station, index);
+    createStationInSectionHTML(line);    
+}
