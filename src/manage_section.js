@@ -198,15 +198,12 @@ export default class ManageSection {
     if (this.isAlreadyRegistered() === this.IS_NOT_VALID) {
         return this.IS_NOT_VALID
     }
-
     if (this.isEmpty() === this.IS_NOT_VALID) {
       return this.IS_NOT_VALID;
     }
-
     if (this.isNegative() === this.IS_NOT_VALID) {
       return this.IS_NOT_VALID;
     }
-
     if (this.isNotConsecutive() === this.IS_NOT_VALID) {
       return this.IS_NOT_VALID;
     }

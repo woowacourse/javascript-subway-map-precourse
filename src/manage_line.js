@@ -113,30 +113,27 @@ export default class ManageLine {
 
   createNewLine() {
     this._lineInputValue = this._privateStringUtils.removeSpace(this._lineInput.value);
-    
+
     if (this.checkLineValidity() === this.IS_VALID) {
       this.updateAddToLocalStorage();
       this.addLine();
       this.renewLineUserInteractions();
     }
+    else {
+      this.alertCorrespondingError();
+    }
   }
 
   checkLineValidity() {
     if (this.isEmpty() === this.IS_NOT_VALID) {
-      this._privateCommonUtils.alertError(this.EMPTY_ERROR_MESSAGE);
-
       return this.IS_NOT_VALID;
     }
 
     if (this.overlap() === this.IS_NOT_VALID) {
-      this._privateCommonUtils.alertError(this.OVERLAP_ERROR_MESSAGE);
-
       return this.IS_NOT_VALID;
     }
 
     if (this.sameStartEnd() === this.IS_NOT_VALID) {
-      this._privateCommonUtils.alertError(this.SAME_START_END_ERROR_MESSAGE);
-
       return this.IS_NOT_VALID;
     }
 
@@ -164,6 +161,20 @@ export default class ManageLine {
     this.getSelect();
     if (this._startSelect.value === this._endSelect.value) {
       return this.IS_NOT_VALID;
+    }
+
+    return this.IS_VALID;
+  }
+
+  alertCorrespondingError() {
+    if (this.isEmpty() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.EMPTY_ERROR_MESSAGE);
+    }
+    else if (this.overlap() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.OVERLAP_ERROR_MESSAGE);
+    }
+    else if (this.sameStartEnd() === this.IS_NOT_VALID) {
+      this._privateCommonUtils.alertError(this.SAME_START_END_ERROR_MESSAGE);
     }
 
     return this.IS_VALID;
