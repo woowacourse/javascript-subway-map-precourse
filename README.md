@@ -84,27 +84,32 @@
 
 ### 역관리 인터페이스 기능
 
-- 역 추가 기능 호출 or 안내메세지 출력 (trigger 'add subway station' | alert with message)
+- 역 추가 기능을 위한 유효성 검사에 따른 안내메시지 출력 (validation check before 'add subway station' with alert message)
   - 잘못된 입력이 들어왔을 때, 역을 추가할 수 없는 이유를 알려주어 재입력을 유도
-- 역 삭제 기능 호출 or 안내메세지 출력 (trigger 'delete subway station' | alert with message)
+- 역 추가 결과 보여주기(show 'add subway station' result)
+- 역 삭제 기능을 위한 유효성 검사에 따른 안내메시지 출력 (validation check before 'delete subway station' with alert message)
   - 삭제할 수 없는 역을 삭제하려 할 때, 역을 삭제할 수 없는 이유를 알려주어 재입력을 유도
+- 역 삭제 결과 보여주기 (show 'delete subway station' result)
 
 <br/>
 
 ### 노선관리 인터페이스 기능
 
-- 노선 추가 기능 호출 or 안내메세지 출력 (trigger 'add subway line' | alert with message)
+- 노선 추가 기능을 위한 유효성 검사에 따른 안내메시지 출력 (validation check before 'add subway line' with alert message)
   - 잘못된 입력이 들어왔을 때, 노선을 추가할 수 없는 이유를 알려주어 재입력을 유도
-- 노선 삭제 기능 호출 (trigger 'delete subway line')
+- 노선 추가 결과 보여주기 (show 'add subway line' result)
+- 노선 삭제 결과 보여주기 (show 'delete subway line' result)
 
 <br/>
 
 ### 구간관리 인터페이스 기능
 
-- 구간 추가 기능 호출 or 안내메세지 출력 (trigger 'insert subway station in subway line' | alert with message)
+- 구간 추가 기능을 위한 유효성 검사에 따른 안내메시지 출력 (validation check before 'insert subway station in subway line' with alert message)
   - 구간을 추가할 수 없는 이유를 알려주어 재입력을 유도
-- 구간 삭제 기능 호출 or 안내메세지 출력 (trigger 'pull out subway station from subway line' | alert with message)
+- 구간 추가 결과 보여주기 (show 'insert subway station in subway line' result)
+- 구간 삭제 기능을 위한 유효성 검사에 따른 안내메시지 출력 (validation check before 'pull out subway station from subway line' with alert message)
   - 역을 삭제할 수 없는 이유를 알려주면서 노선 자체를 제거할 방법을 안내
+- 구간 삭제 결과 보여주기 (show 'pull out subway station from subway line' result)
 
 <br/>
 
