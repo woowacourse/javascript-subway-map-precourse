@@ -1,5 +1,5 @@
 import actionResult from "../actionResult.js";
-import { stationSelector } from "../../_store/selectors.js";
+import { stationSelector } from "../../store/selectors.js";
 
 import {
   NAME_LENGTH_ERROR,

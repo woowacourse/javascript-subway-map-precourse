@@ -1,6 +1,6 @@
 import AddNewLineInfoValidation from "../../controllers/line/addNewLineInfoValidation.js";
 import { LINE_NAME_INPUT } from "../../common/IdAndClassNames.js";
-import saveNewLine from "../../_store/Line/saveNewLine.js";
+import saveNewLine from "../../store/Line/saveNewLine.js";
 
 export default (newLineInfo) => {
   const $lineNameInput = document.querySelector(LINE_NAME_INPUT);

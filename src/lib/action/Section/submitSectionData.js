@@ -1,5 +1,5 @@
 import AddSectionValidation from "../../controllers/section/addSectionValidation.js";
-import saveNewSection from "../../_store/Section/saveNewSection.js";
+import saveNewSection from "../../store/Section/saveNewSection.js";
 import { SECTION_ORDER_INPUT } from "../../common/IdAndClassNames.js";
 
 export default (sectionData) => {

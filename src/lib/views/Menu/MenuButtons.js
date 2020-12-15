@@ -1,6 +1,6 @@
 import { menuButtonsId, tabs } from "../../common/IdAndClassNames.js";
 import { appTitle } from "../../common/constants.js";
-import viewTabContainer from "../../_action/Menu/viewTabContainer.js";
+import viewTabContainer from "../../action/Menu/viewTabContainer.js";
 import { isPrintMapTab } from "../common/utils.js";
 import Button from "../components/Button.js";
 

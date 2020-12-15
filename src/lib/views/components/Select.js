@@ -1,4 +1,4 @@
-import { stationSelector } from "../../_store/selectors.js";
+import { stationSelector } from "../../store/selectors.js";
 import { getComponentIdOrClassQuerySelectorName } from "../common/utils.js";
 
 export default class Select {

@@ -2,7 +2,7 @@ import InputNewSectionInfo from "./InputNewSectionInfo.js";
 import Typography from "../components/Typography.js";
 import Table from "../components/Table/Table.js";
 import { SECTION_TAB_INDEX } from "../../common/constants.js";
-import { lineSelector } from "../../_store/selectors.js";
+import { lineSelector } from "../../store/selectors.js";
 
 export default class ViewUpdateSectionManager extends InputNewSectionInfo {
   constructor(props) {

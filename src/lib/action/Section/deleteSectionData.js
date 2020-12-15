@@ -1,5 +1,5 @@
 import DeleteStationValidation from "../../controllers/section/deleteStationValidation.js";
-import deleteStationFromLine from "../../_store/Section/deleteSection.js";
+import deleteStationFromLine from "../../store/Section/deleteSection.js";
 import { DELETE_MESSAGE_FROM_LINE } from "../../common/alertMessages.js";
 
 export default (sectionData) => {

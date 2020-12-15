@@ -1,6 +1,6 @@
 import Typography from "../components/Typography.js";
 import { MAP_DIV } from "../../common/IdAndClassNames.js";
-import { lineSelector } from "../../_store/selectors.js";
+import { lineSelector } from "../../store/selectors.js";
 
 export default class Map {
   constructor() {

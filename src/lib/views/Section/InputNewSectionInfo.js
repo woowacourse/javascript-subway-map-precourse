@@ -4,7 +4,7 @@ import Input from "../components/Input.js";
 import Button from "../components/Button.js";
 import Div from "../components/Div.js";
 import Section from "../../models/section.js";
-import submitSectionData from "../../_action/Section/submitSectionData.js";
+import submitSectionData from "../../action/Section/submitSectionData.js";
 import {
   SECTION_INFO_INPUT_CONTAINER_ID,
   SECTION_STATION_SELECTOR,

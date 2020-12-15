@@ -3,7 +3,7 @@ import Button from "../components/Button.js";
 import Input from "../components/Input.js";
 import Div from "../components/Div.js";
 import Table from "../components/Table/Table.js";
-import submitStationName from "../../_action/Station/submitStationName.js";
+import submitStationName from "../../action/Station/submitStationName.js";
 import { STATION_TAB_INDEX } from "../../common/constants.js";
 
 import {

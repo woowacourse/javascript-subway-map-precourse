@@ -2,7 +2,7 @@ import Typography from "../components/Typography.js";
 import Button from "../components/Button.js";
 import Div from "../components/Div.js";
 import ViewUpdateSectionManager from "./ViewUpdateSectionManager.js";
-import { lineSelector } from "../../_store/selectors.js";
+import { lineSelector } from "../../store/selectors.js";
 import {
   SECTION_DIV,
   LINE_LIST_VIEW_BUTTON_GROUP_CONTAINER_ID,

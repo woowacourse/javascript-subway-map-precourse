@@ -1,6 +1,6 @@
 import { DELETE_MESSAGE } from "../../common/alertMessages.js";
-import { stationSelector } from "../../_store/selectors.js";
-import deleteStationData from "../../_store/Station/deleteStationData.js";
+import { stationSelector } from "../../store/selectors.js";
+import deleteStationData from "../../store/Station/deleteStationData.js";
 import DeleteStationValidation from "../../controllers/section/deleteStationValidation.js";
 import notConfirmDeleteAlert from "../common/notConfirmDeleteAlert.js";
 

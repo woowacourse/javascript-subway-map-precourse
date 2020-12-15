@@ -1,5 +1,5 @@
 import Section from "../../models/section.js";
-import { lineSelector } from "../../_store/selectors.js";
+import { lineSelector } from "../../store/selectors.js";
 import actionResult from "../actionResult.js";
 import { MIN_LENGTH_OF_LINE } from "../../common/constants.js";
 import { DELETE_STATION_ERROR } from "../../common/alertMessages.js";

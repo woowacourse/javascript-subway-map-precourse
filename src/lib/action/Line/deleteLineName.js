@@ -1,6 +1,6 @@
 import { DELETE_MESSAGE } from "../../common/alertMessages.js";
-import { lineSelector } from "../../_store/selectors.js";
-import deleteLineData from "../../_store/Line/deleteLineData.js";
+import { lineSelector } from "../../store/selectors.js";
+import deleteLineData from "../../store/Line/deleteLineData.js";
 
 export default ({ lineName }) => {
   if (!confirm(DELETE_MESSAGE)) return null;

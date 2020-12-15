@@ -2,7 +2,7 @@ import Div from "./views/components/Div.js";
 import { $appContainer } from "./views/common/utils.js";
 import { MENU_DIV, TAB_CONTAINER_DIV } from "./common/IdAndClassNames.js";
 import MenuButtons from "./views/Menu/MenuButtons.js";
-import setInitState from "./_store/setInitState.js";
+import setInitState from "./store/setInitState.js";
 import addStyle from "./views/common/addStyle.js";
 
 export default () => {

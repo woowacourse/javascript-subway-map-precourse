@@ -1,5 +1,5 @@
 import actionResult from "../actionResult.js";
-import { lineSelector } from "../../_store/selectors.js";
+import { lineSelector } from "../../store/selectors.js";
 import {
   LINE_NAME_EMPTY_ERROR,
   SAME_LINE_EXISTS_ERROR,

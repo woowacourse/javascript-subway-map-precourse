@@ -12,8 +12,8 @@ import {
   ADD_LINE_BUTTON,
 } from "../../common/IdAndClassNames.js";
 
-import submitLineName from "../../_action/Line/submitLineName.js";
-import submitNewLine from "../../_action/Line/submitNewLine.js";
+import submitLineName from "../../action/Line/submitLineName.js";
+import submitNewLine from "../../action/Line/submitNewLine.js";
 
 export default class InputNewLineInfo {
   constructor() {

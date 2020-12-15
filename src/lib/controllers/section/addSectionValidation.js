@@ -6,7 +6,7 @@ import {
   ALREADY_EXIST_ERROR,
   LARGE_ORDER_NUMBER_ERROR,
 } from "../../common/alertMessages.js";
-import { lineSelector } from "../../_store/selectors.js";
+import { lineSelector } from "../../store/selectors.js";
 import { isInvalidNumber, isEmptyInput } from "../common.js";
 
 export default class AddSectionValidation extends Section {

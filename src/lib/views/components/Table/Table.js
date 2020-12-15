@@ -1,6 +1,6 @@
 import Typography from "../Typography.js";
 import Button from "../Button.js";
-import { stationSelector, lineSelector } from "../../../_store/selectors.js";
+import { stationSelector, lineSelector } from "../../../store/selectors.js";
 import {
   tableTitleList,
   tableHeaderList,
@@ -12,9 +12,9 @@ import {
   LINE_TAB_INDEX,
   SECTION_TAB_INDEX,
 } from "../../../common/constants.js";
-import deleteStationName from "../../../_action/Station/deleteStationName.js";
-import deleteLineName from "../../../_action/Line/deleteLineName.js";
-import deleteSectionData from "../../../_action/Section/deleteSectionData.js";
+import deleteStationName from "../../../action/Station/deleteStationName.js";
+import deleteLineName from "../../../action/Line/deleteLineName.js";
+import deleteSectionData from "../../../action/Section/deleteSectionData.js";
 
 import { TABLE_CONTAINER_DIV, TABLE } from "../../../common/IdAndClassNames.js";
 
