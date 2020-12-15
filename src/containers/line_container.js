@@ -13,7 +13,7 @@ const LineContainer = function () {
     const tbody = document.querySelector("tbody");
     const tr = createLineTr({
       name: input.value,
-      sections: [startStation.value, endStation.value],
+      sections: [startStation, endStation],
     });
     tbody.appendChild(tr);
     setLineDeleteButtonClickListener();
