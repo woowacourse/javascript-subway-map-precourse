@@ -52,6 +52,9 @@ const SectionCreator = function () {
       `${selectedLineName} 관리`
     );
 
+  this.createSectionAddTitle = () =>
+    getAdvancedEle("h3", { id: "section-add-title" }, "구간 등록");
+
   this.createLineSelectionButtons = (lineNames) =>
     lineNames.map((lineName, index) =>
       getAdvancedEle(
