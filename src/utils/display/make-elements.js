@@ -1,6 +1,9 @@
 import { state, saveToLocalStorage } from "../../index.js";
-import { STATION_ARRAY_KEY } from "../../global/constant.js";
-import { CONFIRM_MESSAGES, LINE_ALERT_MESSAGES } from "../../global/messages.js";
+import { LINE_ARRAY_KEY, STATION_ARRAY_KEY } from "../../global/constant.js";
+import {
+  CONFIRM_MESSAGES,
+  LINE_ALERT_MESSAGES,
+} from "../../global/messages.js";
 
 function confirmDelete(array, station, tr) {
   const confirmDelete = confirm(CONFIRM_MESSAGES.CONFIRM_DELETE);
@@ -11,20 +14,23 @@ function confirmDelete(array, station, tr) {
 }
 
 function deleteObject(object, stationToDelete, tr) {
-  const deleteStation = object.filter(station => station.id !== stationToDelete.id);
+  const deleteStation = object.filter(
+    (station) => station.id !== stationToDelete.id
+  );
   tr.remove();
   if (stationToDelete.type === "LINE") {
     state.subwayLines = deleteStation;
+    saveToLocalStorage(LINE_ARRAY_KEY, JSON.stringify(deleteStation));
   } else if (stationToDelete.type === "STATION") {
     state.stationArray = deleteStation;
+    saveToLocalStorage(STATION_ARRAY_KEY, JSON.stringify(deleteStation));
   }
-  saveToLocalStorage(STATION_ARRAY_KEY, JSON.stringify(deleteStation));
 }
 
 function isContainedInLine(station) {
-  const isContained = state.subwayLines.filter(line => {
+  const isContained = state.subwayLines.filter((line) => {
     let contain = false;
-    line.stations.filter(stations => {
+    line.stations.filter((stations) => {
       if (stations.stationName === station.stationName) {
         contain = true;
       }
@@ -46,8 +52,10 @@ function alertContainedStationInLine(station, tr) {
 function makeTdDeleteButton(station, tr) {
   const td = document.createElement("td");
   const deleteButtonHtml = `<button>삭제</button>`;
-  const deleteButton = new DOMParser().parseFromString(deleteButtonHtml, "text/html").childNodes[0]
-    .lastElementChild.firstElementChild;
+  const deleteButton = new DOMParser().parseFromString(
+    deleteButtonHtml,
+    "text/html"
+  ).childNodes[0].lastElementChild.firstElementChild;
 
   deleteButton.addEventListener("click", () => {
     if (station.type === "LINE") {
@@ -75,7 +83,9 @@ function makeOneRowWithDeleteButton(object, [...args]) {
 }
 
 export function showNewRow(parentID, rowToShow, [...args]) {
-  const oneRowWithDeleteButton = makeOneRowWithDeleteButton(rowToShow, [...args]);
+  const oneRowWithDeleteButton = makeOneRowWithDeleteButton(rowToShow, [
+    ...args,
+  ]);
   const locationOfRow = document.getElementById(parentID);
 
   return locationOfRow.appendChild(oneRowWithDeleteButton);
