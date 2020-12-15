@@ -12,7 +12,7 @@ export const lineListTemplate = lineList => {
       <tr data-lineName="${line[0]}">
         <td>${line[0]}</td>
         <td>${line[1]}</td>
-        <td>${line[2]}</td>
+        <td>${line[line.length - 1]}</td>
         <td><button id="line-remove-button">삭제</button></td>
       </tr>
     `;
