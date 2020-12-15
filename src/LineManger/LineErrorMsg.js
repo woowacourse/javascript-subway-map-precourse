@@ -7,6 +7,7 @@ export default class LineErrorMsg {
       this.languageError(),
       this.specialCharError(),
       this.duplicateError(),
+      this.onlyNumberError(),
       this.sameStartEndError(),
       this.cancelDeleteError(),
     ];
@@ -39,6 +40,10 @@ export default class LineErrorMsg {
 
   static duplicateError() {
     return '이미 해당 이름의 노선이 존재합니다.\n';
+  }
+
+  static onlyNumberError() {
+    return '노선 이름은 숫자로만 이루어 질 수 없습니다.\n';
   }
 
   static sameStartEndError() {

@@ -8,6 +8,7 @@ export default class LineManagerModel {
       this.isEnglish(line),
       this.isSpecialChar(line),
       this.isDuplicated(line),
+      this.isOnlyNumber(line),
       this.isSame(lineStart, lineEnd),
     ];
     validationCheckFunction.forEach((func, index) => {
@@ -45,6 +46,10 @@ export default class LineManagerModel {
 
   static isSame(lineStart, lineEnd) {
     return lineStart === lineEnd;
+  }
+
+  static isOnlyNumber(line) {
+    return !(/[^0-9]/.test(line));
   }
 
   static add(line, lineStart, lineEnd) {

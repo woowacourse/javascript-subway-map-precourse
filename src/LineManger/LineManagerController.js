@@ -36,7 +36,7 @@ export default class LineManagerController {
     const buttonsArray = Array.from(buttons);
     const line = buttons[buttonsArray.indexOf(button)].dataset.deleteTarget;
     if (!LineManagerView.confirmDelete()) {
-      LineManagerView.alertNameError(-7);
+      LineManagerView.alertNameError(-8);
       return;
     }
     LineManagerModel.delete(line);
