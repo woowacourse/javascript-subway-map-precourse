@@ -158,3 +158,14 @@ function addLineDeleteBtnOnTable(lineRow) {
 
     return lineDeleteBtn;
 }
+
+function deleteLineFromTable(deleteLineButton, newLine) {
+    //connect delete function to the delete button
+    deleteLineButton.addEventListener('click', function() {
+        const index = arrLine.indexOf(newLine);
+        //arrLine.splice(index,1);
+        deleteLineFromArray(index);
+        this.parentElement.parentElement.remove();
+        makeSubwayMap();
+    });
+}
