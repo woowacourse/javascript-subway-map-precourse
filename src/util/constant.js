@@ -47,7 +47,7 @@ export const Constant = {
 
 export const ErrorMessage = {
   // 공통
-  DUPLICATED_NAME: "중복되지 않은 역 이름을 입력해 주세요.",
+  DUPLICATED_STATION_NAME: "중복되지 않은 역 이름을 입력해 주세요.",
 
   // 역 관리
   MINIMUM_NAME_LENGTH: "공백이 아닌 2글자 이상의 역 이름을 입력해 주세요.",
@@ -56,6 +56,8 @@ export const ErrorMessage = {
   // 노선 관리
   NAME_WHITE_SPACE: "공백이 아닌 노선 이름을 입력해 주세요.",
   SAME_START_END_STATION: "서로 다른 종점을 선택해 주세요.",
+  DUPLICATED_START_END_STATION: "기존 노선과 다른 상행, 하행 종점을 선택해 주세요.",
+  DUPLICATED_LINE_NAME: "중복되지 않은 노선 이름을 입력해 주세요.",
 
   // 구간 관리
   NOT_INTEGER_ORDER: "1 이상 정수의 순서를 입력해 주세요.",

@@ -15,7 +15,7 @@ export const StationValidation = {
     }
 
     if (!this.isNotDuplicated(name)) {
-      alert(ErrorMessage.DUPLICATED_NAME);
+      alert(ErrorMessage.DUPLICATED_STATION_NAME);
 
       return;
     }
@@ -60,7 +60,7 @@ export const LineValidation = {
     }
 
     if (!this.isNotDuplicated(name)) {
-      alert(ErrorMessage.DUPLICATED_NAME);
+      alert(ErrorMessage.DUPLICATED_LINE_NAME);
 
       return;
     }
@@ -69,8 +69,14 @@ export const LineValidation = {
   },
 
   hasValidStartEndStations(start, end) {
-    if (start === end) {
+    if (this.isSameStartEndStation(start, end)) {
       alert(ErrorMessage.SAME_START_END_STATION);
+
+      return;
+    }
+
+    if (this.isDuplicatedStartEndStation(start, end)) {
+      alert(ErrorMessage.DUPLICATED_START_END_STATION);
 
       return;
     }
@@ -87,6 +93,28 @@ export const LineValidation = {
 
     return !stationNameArray.includes(name);
   },
+
+  isSameStartEndStation(start, end) {
+    return start === end;
+  },
+
+  isDuplicatedStartEndStation(start, end) {
+    let isValid = false;
+
+    Line.lines.forEach(({ stations }) => {
+      if (stations[0] === start) {
+        isValid = true;
+      }
+      if (stations[stations.length - 1] === end) {
+        isValid = true;
+      }
+      if (stations[0] === end && stations[stations.length - 1] === start) {
+        isValid = true;
+      }
+    });
+
+    return isValid;
+  }
 };
 
 export const SectionValidation = {
@@ -99,7 +127,7 @@ export const SectionValidation = {
 
   hasValidName(station, selectedLine) {
     if (!this.isNotDuplicated(station, selectedLine)) {
-      alert(ErrorMessage.DUPLICATED_NAME);
+      alert(ErrorMessage.DUPLICATED_STATION_NAME);
 
       return;
     }

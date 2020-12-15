@@ -38,8 +38,8 @@ export const LineManager = {
 
     if (LineValidation.isValidLine(name, start, end)) {
       Line.add(new LineObject(name, start, end));
-      LineView.render();
     }
+    LineView.render();
     ElementControl.clearInput(Element.lineNameInput);
   },
 
