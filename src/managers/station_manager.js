@@ -50,4 +50,7 @@ const StationManager = function () {
       buttons[i].addEventListener("click", this.deleteButtonClickFunction);
     }
   };
+
+  this.isOverwritten = (inputValue) =>
+    getFormattedStations().indexOf(inputValue) !== -1;
 };
