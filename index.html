@@ -2,12 +2,84 @@
 <html lang="kr">
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./style.css" />
     <title>지하철 노선도 관리</title>
   </head>
   <body>
     <div id="app">
       <h1>🚇 지하철 노선도 관리 </h1>
+      <button id='station-manager-button' value='0'>1. 역 관리</button>
+      <button id='line-manager-button' value='1'>2. 노선 관리</button>
+      <button id='section-manager-button' value='2'>3. 구간 관리</button>
+      <button id='map-print-manager-button' value='3'>4. 지하철 노선도 출력</button>
     </div>
+    <div class="tab-screen" id='station-manager-screen'>
+      <p style='margin: 20px 0px 0px;'>역이름</p>
+      <input id="station-name-input" placeholder="역 이름을 입력해주세요."/>
+      <button id="station-add-button" style='margin: 0px 5px;'>역 추가</button>
+      <h3>🚉 지하철 역 목록</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>역 이름</th>
+            <th>설정</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="tab-screen" id='line-manager-screen'>
+      <p style='margin: 20px 0px 0px;'>노선이름</p>
+      <input id="line-name-input" placeholder="역 이름을 입력해주세요."/>
+      <div style="margin: 20px 0px 0px">
+        <span>상행 종점</span>
+        <select id="line-start-station-selector">
+        </select>
+      </div>
+      <div style="margin: 0px 0px 20px">
+        <span>하행 종점</span>
+        <select id="line-end-station-selector">
+        </select>
+      </div>
+      <button id="line-add-button" style='margin: 0px 5px;'>노선 추가</button>
+      <h3>🚉 노선 목록</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>노선 이름</th>
+            <th>상행 종점역</th>
+            <th>하행 종점역</th>
+            <th>설정</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-screen" id='section-manager-screen'>
+      <h3>구간을 수정할 노선을 선택해주세요.</h3>
+      <div id="buttons"></div>
+      <div class="section-manager">
+        <h3 id="title"></h3>
+        <div>
+          <h4>구간 등록</h4>
+        </div>
+        <div id='section-registration-div'>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>순서</th>
+              <th>이름</th>
+              <th>설정</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-screen map" id='map-print-manager-screen'></div>
     <script type="module" src="src/index.js"></script>
   </body>
 </html>

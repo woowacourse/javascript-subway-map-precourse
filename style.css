@@ -1,0 +1,21 @@
+.tab-screen {
+  display: none;
+}
+
+.section-manager {
+  display: none;
+}
+
+table {
+  border: 1px solid gray;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid gray;
+}
+
+.active {
+  display: block;
+}
