@@ -1,16 +1,11 @@
 import { line } from "../service/line.service.js";
 import station from "../service/station.service.js";
 import section from "../service/section.service.js";
-import {
-  createSectionLineButtonHTML,
-  sectionManagerViewHTML,
-  createSelectedSectionLineHTML,
-  createSectionRowHTML,
-  insertStationOptionHTML,
-} from "./template.view.js";
+import SectionManagerTemplate from "./template/section-manager-template.js";
 
-export default class SectionManagerView {
+export default class SectionManagerView extends SectionManagerTemplate {
   constructor(parentView) {
+    super();
     this.parentView = parentView;
 
     this.line = line;
@@ -18,51 +13,57 @@ export default class SectionManagerView {
     this.section = section;
   }
 
+  accessSectionStationSelector() {
+    return document.getElementById(this.SECTION_STATION_SELECTOR_ID);
+  }
+
+  accessSectionOrderInputField() {
+    return document.getElementById(this.SECTION_ORDER_INPUT_ID);
+  }
+
   renderSectionLineMenu() {
     const savedLines = this.line.getAllLines();
     const sectionLineMenuHTML = savedLines.reduce((menuHTML, lineName) => {
-      menuHTML += createSectionLineButtonHTML(lineName);
+      menuHTML += this.createSectionLineButtonHTML(lineName);
       return menuHTML;
     }, "");
 
-    document.getElementById("section-line-menu").innerHTML = sectionLineMenuHTML;
+    document.getElementById(this.SECTION_LINE_MENU_CONTAINER_ID).innerHTML = sectionLineMenuHTML;
   }
 
   renderSectionManagerView() {
-    document.getElementById("content").innerHTML = sectionManagerViewHTML;
+    this.parentView.innerHTML = this.createSectionManagerViewHTML();
     this.renderSectionLineMenu();
   }
 
   renderSelectedSectionLineView(selectedLine) {
-    const selectedLineSectionHTML = createSelectedSectionLineHTML(selectedLine);
-    document.getElementById("selected-section-line-container").innerHTML = selectedLineSectionHTML;
+    const selectedLineSectionHTML = this.createSelectedSectionLineHTML(selectedLine);
+
+    document.getElementById(
+      this.SECTION_LINE_CONTENT_CONTAINER_ID
+    ).innerHTML = selectedLineSectionHTML;
   }
 
   renderSectionTable(lineName) {
     const savedSections = this.section.getSectionsByLineName(lineName);
+
     const sectionTableHTML = savedSections.reduce((sectionRowHTML, stationName, index) => {
-      sectionRowHTML += createSectionRowHTML(lineName, stationName, index);
+      sectionRowHTML += this.createSectionRowHTML(lineName, stationName, index);
       return sectionRowHTML;
     }, "");
 
-    document.getElementById("section-table").querySelector("tbody").innerHTML = sectionTableHTML;
+    document
+      .getElementById(this.SECTION_TABLE_ID)
+      .querySelector("tbody").innerHTML = sectionTableHTML;
   }
 
   renderSectionStationSelector() {
     const allStations = this.station.getAllStations();
-    const sectionStationSelector = document.getElementById("section-station-selector");
+    const sectionStationSelector = this.accessSectionStationSelector();
 
     allStations.forEach((station) => {
-      insertStationOptionHTML(sectionStationSelector, station);
+      this.insertStationOptionHTML(sectionStationSelector, station);
     });
-  }
-
-  accessSectionStationSelector() {
-    return document.getElementById("section-station-selector");
-  }
-
-  accessSectionOrderInputField() {
-    return document.getElementById("section-order-input");
   }
 
   resetSectionOrderInputField() {

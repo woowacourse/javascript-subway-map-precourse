@@ -1,27 +1,35 @@
 import station from "../service/station.service.js";
 import section from "../service/section.service.js";
-import {
-  createLineTableRowHTML,
-  lineManagerViewHTML,
-  insertStationOptionHTML,
-} from "./template.view.js";
-
-export default class LineManagerView {
+import LineManagerTemplate from "./template/line-manager-template.js";
+export default class LineManagerView extends LineManagerTemplate {
   constructor(parentView) {
+    super();
     this.parentView = parentView;
 
     this.station = station;
     this.section = section;
   }
 
+  accessLineNameInputField() {
+    return document.getElementById(this.LINE_NAME_INPUT_ID);
+  }
+
+  accessLineStartStationSelector() {
+    return document.getElementById(this.LINE_START_STATION_SELECTOR_ID);
+  }
+
+  accessLineEndStationSelector() {
+    return document.getElementById(this.LINE_END_STATION_SELECTOR_ID);
+  }
+
   renderLineStationSelector() {
     const allStations = this.station.getAllStations();
-    const startStationSelectBox = document.getElementById("line-start-station-selector");
-    const endStationSelectBox = document.getElementById("line-end-station-selector");
+    const startStationSelectBox = this.accessLineStartStationSelector();
+    const endStationSelectBox = this.accessLineEndStationSelector();
 
     allStations.forEach((station) => {
-      insertStationOptionHTML(startStationSelectBox, station);
-      insertStationOptionHTML(endStationSelectBox, station);
+      this.insertStationOptionHTML(startStationSelectBox, station);
+      this.insertStationOptionHTML(endStationSelectBox, station);
     });
   }
 
@@ -30,30 +38,22 @@ export default class LineManagerView {
 
     const lineTableHTML = allLines.reduce((lineRowHTML, lineName) => {
       const sections = this.section.getSectionsByLineName(lineName);
-      lineRowHTML += createLineTableRowHTML(lineName, sections[0], sections[sections.length - 1]);
+      lineRowHTML += this.createLineTableRowHTML(
+        lineName,
+        sections[0],
+        sections[sections.length - 1]
+      );
 
       return lineRowHTML;
     }, "");
 
-    document.getElementById("line-table").querySelector("tbody").innerHTML = lineTableHTML;
+    document.getElementById(this.LINE_TABLE_ID).querySelector("tbody").innerHTML = lineTableHTML;
   }
 
   renderLineManagerView() {
-    this.parentView.innerHTML = lineManagerViewHTML;
+    this.parentView.innerHTML = this.createLineManagerViewHTML();
     this.renderLineStationSelector();
     this.renderLineTable();
-  }
-
-  accessLineNameInputField() {
-    return document.getElementById("line-name-input");
-  }
-
-  accessLineStartStationSelector() {
-    return document.getElementById("line-start-station-selector");
-  }
-
-  accessLineEndStationSelector() {
-    return document.getElementById("line-end-station-selector");
   }
 
   resetLineNameInputField() {

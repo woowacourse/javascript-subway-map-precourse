@@ -1,8 +1,8 @@
 import section from "../service/section.service.js";
-import { mapPrintManagerViewHTML } from "./template.view.js";
 
 export default class MapPrintManagerView {
   constructor(parentView) {
+    this.MAP_PRINT_CONTAINER_ID = "map";
     this.parentView = parentView;
 
     this.section = section;
@@ -35,10 +35,15 @@ export default class MapPrintManagerView {
     return lineMapHTML;
   }
 
+  createMapPrintManagerViewHTML() {
+    const mapPrintManagerViewHTML = `<div id=${this.MAP_PRINT_CONTAINER_ID}></div>`;
+    return mapPrintManagerViewHTML;
+  }
+
   renderLineMapView() {
-    this.parentView.innerHTML = mapPrintManagerViewHTML;
+    this.parentView.innerHTML = this.createMapPrintManagerViewHTML();
 
     const lineMapHTML = this.createLineMapHTML();
-    document.getElementById("map").innerHTML = lineMapHTML;
+    document.getElementById(this.MAP_PRINT_CONTAINER_ID).innerHTML = lineMapHTML;
   }
 }

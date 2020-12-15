@@ -1,8 +1,9 @@
 import station from "../service/station.service.js";
-import { stationManagerViewHTML, createStationTableRowHTML } from "./template.view.js";
+import StationManagerTemplate from "./template/station-manager-template.js";
 
-export default class StationManagerView {
+export default class StationManagerView extends StationManagerTemplate {
   constructor(parentView) {
+    super();
     this.parentView = parentView;
 
     this.station = station;
@@ -12,21 +13,22 @@ export default class StationManagerView {
     const allStations = this.station.getAllStations();
 
     const stationTableHTML = allStations.reduce((stationRowHTML, stationName) => {
-      stationRowHTML += createStationTableRowHTML(stationName);
+      stationRowHTML += this.createStationTableRowHTML(stationName);
       return stationRowHTML;
     }, "");
 
-    document.getElementById("station-table").querySelector("tbody").innerHTML = stationTableHTML;
+    document
+      .getElementById(this.STATION_TABLE_ID)
+      .querySelector("tbody").innerHTML = stationTableHTML;
   }
 
   renderStationManagerView() {
-    this.parentView.innerHTML = stationManagerViewHTML;
-
+    this.parentView.innerHTML = this.createStationManagerViewHTML();
     this.renderStationTable();
   }
 
   accessStationNameInputField() {
-    return document.getElementById(`station-name-input`);
+    return document.getElementById(this.STATION_NAME_INPUT_ID);
   }
 
   resetStationNameInputField() {
