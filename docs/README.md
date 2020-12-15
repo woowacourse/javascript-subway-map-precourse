@@ -72,4 +72,51 @@
 - [X] 지하철 노선도 출력 버튼 클릭시 현재 등록된 지하철 노선을 사용자에게 보여줘야 한다.
   - 노선이 등록되지 않은 경우 사용자에게 현재 등록된 노선이 없음을 알려준다.
 
-  
+## 🗂 디렉토리 구조
+
+```plaintext
+├── LICENSE
+├── README.md
+├── package.json
+├── package-lock.json
+├── .gitignore
+├── .prettierrc
+├── .eslintrc.json
+├── index.html 
+├── images
+│   ├── result.gif
+│   └── result.jpg
+├── docs
+│   └── README.md // 구현할 기능 목록, 디렉토리 구조를 적은 markdown 문서
+└── src
+    ├── index.js // 지하철 노선도 관리 기능을 호출하는 메인 모듈
+    ├── render // 화면을 보여주는 기능을 하는 모듈을 모아놓은 폴더
+    │   ├── render.js // 화면을 구성하는데 필요한 모듈들을 한번에 호출하는 모듈
+    │   ├── common 
+    │   │   └── selectMenuButtonEvent.js // 메뉴버튼을 보여주는 모듈
+    │   ├── station
+    │   │   └── renderStationList.js // 역 목록을 보여주는 모듈
+    │   ├── line
+    │   │   └── renderLineList.js // 노선 목록을 보여주는 모듈
+    │   ├── section
+    │   │   ├── renderLineSelect.js // 관리할 노선 선택 버튼을 보여주는 모듈
+    │   │   └── renderSectionContainer.js // 노선의 구간을 보여주는 모듈
+    │   └── subway-map
+    │       └── renderSubwayMap.js // 지하철 노선도를 보여주는 모듈
+    └── controller // 노선도 관리에 필요한 기능들을 제어하는 모듈을 모아놓은 폴더
+        ├── initEvent.js // 제어하는데 필요한 이벤트들을 등록해주는 모듈
+        ├── common 
+        │   └── selectMenuButtonEvent.js // 메뉴버튼 클릭을 통해 화면을 보여주는 모듈
+        ├── station
+        │   ├── addStationEvent.js // 역을 추가해주는 모듈
+        │   └── removeStationEvent.js // 역을 제거해주는 모듈
+        ├── line
+        │   ├── addLineEvent.js // 노선을 추가해주는 모듈
+        │   └── removeLineEvent.js // 노선을 제거해주는 모듈
+        └── section
+            ├── selectLineButtonEvent.js // 관리할 노선을 선택할 수 있게 해주는 모듈
+            ├── updateSectionList.js // 구간 추가, 삭제시에 구간 목록을 업데이트 해주는 모듈  
+            ├── addSectionEvent.js  // 구간을 추가해주는 모듈
+            └── removeSectionEvent.js // 구간을 삭제해주는 모듈
+    
+```
