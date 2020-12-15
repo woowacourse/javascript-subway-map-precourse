@@ -1,19 +1,19 @@
 export default class MapPrintManager {
   constructor({ target, subway }) {
-    this._target = target;
-    this._subway = subway;
+    this.target = target;
+    this.subway = subway;
 
-    const _wrapper = this.createContainerElement(target, 'map');
-    this.render(_wrapper);
+    const wrapper = this.createContainerElement(target, 'map');
+    this.render(wrapper);
   }
 
   createContainerElement(target, classNames = '') {
-    const _container = document.createElement('div');
-    target.appendChild(_container);
+    const container = document.createElement('div');
+    target.appendChild(container);
     if (classNames !== '') {
-      _container.className = classNames;
+      container.className = classNames;
     }
-    return _container;
+    return container;
   }
 
   renderSection(section) {
@@ -27,7 +27,7 @@ export default class MapPrintManager {
   }
 
   render(wrapper) {
-    const lines = this._subway.getLines();
+    const lines = this.subway.getLines();
     wrapper.innerHTML = `
       ${lines.map(({ lineName, section }) => `
         <h3>${lineName}</h3>

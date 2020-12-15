@@ -1,6 +1,6 @@
 export default class Table {
   constructor({ target }) {
-    this._target = target;
+    this.target = target;
 
     this.table = document.createElement('table');
     this.thead = document.createElement('thead');

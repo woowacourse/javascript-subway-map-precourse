@@ -4,8 +4,8 @@ import { DELETE_TEXT } from './constants/Constants.js';
 
 export default class StationManager {
   constructor({ target, subway, addStation, deleteStation }) {
-    this._target = target;
-    this._subway = subway;
+    this.target = target;
+    this.subway = subway;
     this.onClickAddStation = addStation;
     this.onClickDeleteStation = deleteStation;
 
@@ -15,40 +15,40 @@ export default class StationManager {
   }
 
   createStationInput(target) {
-    const _container = document.createElement('div');
-    target.appendChild(_container);
+    const container = document.createElement('div');
+    target.appendChild(container);
 
-    _container.innerHTML = `  
+    container.innerHTML = `  
       <p>역 이름</p>
       <input type="text" id="station-name-input" />
       <button id="station-add-button">역 추가</button>
     `;
 
-    const _addButton = document.querySelector('#station-add-button');
-    _addButton.addEventListener('click', this.onClickAddStation);
+    const addButton = document.querySelector('#station-add-button');
+    addButton.addEventListener('click', this.onClickAddStation);
   }
 
   createStationListHeader(target) {
-    const _h2 = document.createElement('h2');
-    _h2.innerHTML = `🚉 지하철 역 목록`;
+    const h2 = document.createElement('h2');
+    h2.innerHTML = `🚉 지하철 역 목록`;
 
-    target.appendChild(_h2);
+    target.appendChild(h2);
   }
 
   createStationTable(target) {
     const headers = ['역 이름', '설정'];
-    this._stationTable = new Table({ target });
-    this._stationTable.createTableHeader(headers);
+    this.stationTable = new Table({ target });
+    this.stationTable.createTableHeader(headers);
     this.render();
   }
 
   setSubway(subway) {
-    this._subway = subway;
+    this.subway = subway;
     this.render();
   }
 
   render() {
-    const stations = this._subway.getStationName();
+    const stations = this.subway.getStationName();
     const callbackRender = (station) => `
       <tr>
         <td>${station}</td>
@@ -59,7 +59,7 @@ export default class StationManager {
         </td>
       </tr>`;
 
-    this._stationTable.renderTable({
+    this.stationTable.renderTable({
       data: stations,
       callbackRender,
       onClickDelete: this.onClickDeleteStation,

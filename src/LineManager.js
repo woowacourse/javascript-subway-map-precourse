@@ -6,8 +6,8 @@ import {
 
 export default class LineManager {
   constructor({ target, subway, addLine, deleteLine }) {
-    this._target = target;
-    this._subway = subway;
+    this.target = target;
+    this.subway = subway;
     this.onClickAddLine = addLine;
     this.onClickDeleteLine = deleteLine;
 
@@ -18,19 +18,19 @@ export default class LineManager {
   }
 
   createContainerElement(target, classNames = '') {
-    const _container = document.createElement('div');
-    target.appendChild(_container);
+    const container = document.createElement('div');
+    target.appendChild(container);
     if (classNames !== '') {
-      _container.className = classNames;
+      container.className = classNames;
     }
-    return _container;
+    return container;
   }
 
   createLineInput(target) {
-    const _container = this.createContainerElement(
+    const container = this.createContainerElement(
       target, 'line-station line-input',
     );
-    _container.innerHTML = `  
+    container.innerHTML = `
       <p>노선 이름</p>
       <input
         type="text"
@@ -57,45 +57,45 @@ export default class LineManager {
   }
 
   createStartStationSelect(target) {
-    const _container = this.createContainerElement(target);
+    const container = this.createContainerElement(target);
 
-    _container.innerHTML = this.renderSelector({
+    container.innerHTML = this.renderSelector({
       label: '상행 종점',
       id: 'line-start-station-selector',
-      stations: this._subway.getStationName(),
+      stations: this.subway.getStationName(),
     });
   }
 
   createEndStationSelect(target) {
-    const _container = document.createElement('div');
-    target.appendChild(_container);
+    const container = document.createElement('div');
+    target.appendChild(container);
 
-    _container.innerHTML = this.renderSelector({
+    container.innerHTML = this.renderSelector({
       label: '하행 종점',
       id: 'line-end-station-selector',
-      stations: this._subway.getStationName(),
+      stations: this.subway.getStationName(),
     });
   }
 
   createAddLineButton(target) {
-    const _container = this.createContainerElement(target, 'line-station');
+    const container = this.createContainerElement(target, 'line-station');
 
-    _container.innerHTML = `
+    container.innerHTML = `
       <button id="line-add-button">노선 추가</button>
     `;
 
-    const _addButton = document.querySelector('#line-add-button');
-    _addButton.addEventListener('click', this.onClickAddLine);
+    const addButton = document.querySelector('#line-add-button');
+    addButton.addEventListener('click', this.onClickAddLine);
   }
 
   createSelector(target) {
-    const _container = this.createContainerElement(
+    const container = this.createContainerElement(
       target, 'line-station line-selector',
     );
 
-    this.createStartStationSelect(_container);
-    this.createEndStationSelect(_container);
-    this.createAddLineButton(_container);
+    this.createStartStationSelect(container);
+    this.createEndStationSelect(container);
+    this.createAddLineButton(container);
   }
 
   createLineListHeader(target) {
@@ -107,18 +107,18 @@ export default class LineManager {
 
   createLineTable(target) {
     const headers = ['노선 이름', '상행 종점역', '하행 종점역', '설정'];
-    this._lineTable = new Table({ target });
-    this._lineTable.createTableHeader(headers);
+    this.lineTable = new Table({ target });
+    this.lineTable.createTableHeader(headers);
     this.render();
   }
 
   setSubway(subway) {
-    this._subway = subway;
+    this.subway = subway;
     this.render();
   }
 
   render() {
-    const lines = this._subway.getLines();
+    const lines = this.subway.getLines();
     const callbackRender = ({ lineName, section }) => `
       <tr>
         <td>${lineName}</td>
@@ -131,7 +131,7 @@ export default class LineManager {
         </td>
       </tr>`;
 
-    this._lineTable.renderTable({
+    this.lineTable.renderTable({
       data: lines,
       callbackRender,
       onClickDelete: this.onClickDeleteLine,

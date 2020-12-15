@@ -6,17 +6,9 @@ import {
 
 export default class Subway {
   constructor({ state }) {
-    this._state = state;
-    this._stations = state.stations;
-    this._lines = state.lines;
-  }
-
-  get state() {
-    return this._state;
-  }
-
-  get stations() {
-    return this._stations;
+    this.state = state;
+    this.stations = state.stations;
+    this.lines = state.lines;
   }
 
   isIncludeSection = ({ station }) => {
@@ -28,7 +20,7 @@ export default class Subway {
   }
 
   isDuplicateStation = ({ station }) => {
-    return this._stations.has(station);
+    return this.stations.has(station);
   }
 
   isDuplicateLine = ({ lineName }) => {
@@ -37,7 +29,7 @@ export default class Subway {
   }
 
   isLessThenTwoStation = ({ lineName }) => {
-    const section = this._lines.get(lineName);
+    const section = this.lines.get(lineName);
     return section.length <= MAX_NAME_LENGTH;
   }
 
@@ -48,14 +40,14 @@ export default class Subway {
     if (station.length < MAX_NAME_LENGTH) {
       return alert(Errors['NAME_LESS_THEN_TWO_ERROR']);
     }
-    this._stations.add(station);
+    this.stations.add(station);
   }
 
   deleteStation = ({ station }) => {
     if (this.isIncludeSection({ station })) {
       return alert(Errors['INCLUDE_SECTION_ERROR']);
     }
-    this._stations.delete(station);
+    this.stations.delete(station);
   }
 
   addLine = ({ lineName, start, end }) => {
@@ -69,15 +61,15 @@ export default class Subway {
       return alert(Errors['LINE_DUPLICATE_ERROR']);
     }
     const section = [start, end];
-    this._lines.set(lineName, section);
+    this.lines.set(lineName, section);
   }
 
   deleteLine = ({ lineName }) => {
-    this._lines.delete(lineName);
+    this.lines.delete(lineName);
   }
 
   addSection = ({ lineName, order, station }) => {
-    const section = this._lines.get(lineName);
+    const section = this.lines.get(lineName);
     if (section.includes(station)) {
       return alert(Errors['STATION_DUPLICATE_ERROR']);
     }
@@ -91,27 +83,27 @@ export default class Subway {
     if (this.isLessThenTwoStation({ lineName })) {
       return alert(Errors['STATION_DELETE_ERROR']);
     }
-    const section = this._lines.get(lineName);
+    const section = this.lines.get(lineName);
     const index = section.indexOf(station);
     section.splice(index, 1);
   }
 
   getStationName = () => {
-    return [...this._stations];
+    return [...this.stations];
   }
 
   getLines = () => {
-    return [...this._lines.entries()].reduce((acc, line) => {
+    return [...this.lines.entries()].reduce((acc, line) => {
       const [lineName, section] = line;
       return [...acc, { lineName, section }];
     }, []);
   }
 
   getLineNames = () => {
-    return [...this._lines.keys()];
+    return [...this.lines.keys()];
   }
 
   getSection = () => {
-    return [...this._lines.values()];
+    return [...this.lines.values()];
   }
 }

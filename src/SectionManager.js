@@ -2,8 +2,8 @@ import Table from './Table.js';
 
 export default class SectionManager {
   constructor({ target, subway, addSection, deleteSection }) {
-    this._target = target;
-    this._subway = subway;
+    this.target = target;
+    this.subway = subway;
     this.onClickAddSection = addSection;
     this.onClickDeleteSection = deleteSection;
     this.createHeader(target);
@@ -14,13 +14,17 @@ export default class SectionManager {
     return this._currentLine;
   }
 
+  set currentLine(currentLine) {
+    this._currentLine = currentLine;
+  }
+
   createContainerElement(target, classNames = '') {
-    const _container = document.createElement('div');
-    target.appendChild(_container);
+    const container = document.createElement('div');
+    target.appendChild(container);
     if (classNames !== '') {
-      _container.className = classNames;
+      container.className = classNames;
     }
-    return _container;
+    return container;
   }
 
   createHeader(target) {
@@ -31,12 +35,12 @@ export default class SectionManager {
   }
 
   createSectionManagerContainer(target, line) {
-    this._currentLine = line;
+    this.currentLine = line;
     target.innerHTML = ``;
-    const _container = this.createContainerElement(target);
-    const stations = this._subway.getStationName();
+    const container = this.createContainerElement(target);
+    const stations = this.subway.getStationName();
 
-    _container.innerHTML = `
+    container.innerHTML = `
       <h3>${line.lineName} 관리</h3>
       <h4>구간 등록</h4>
       <div>
@@ -53,8 +57,8 @@ export default class SectionManager {
         <button id="section-add-button">등록</button>
       </div>
     `;
-    const _addButton = document.querySelector('#section-add-button');
-    _addButton.addEventListener('click', () => this.onClickAddSection());
+    const addButton = document.querySelector('#section-add-button');
+    addButton.addEventListener('click', () => this.onClickAddSection());
 
     this.createSectionTable(target);
   }
@@ -63,43 +67,45 @@ export default class SectionManager {
     const sectionLineMenuButtons = document.querySelectorAll(
       '.section-line-menu-button',
     );
-    this._wrapper = this.createContainerElement(target, 'section-manager');
+    this.wrapper = this.createContainerElement(target, 'section-manager');
 
     sectionLineMenuButtons.forEach((button, index) => {
       button.addEventListener(
         'click', () => this.createSectionManagerContainer(
-          this._wrapper, lines[index],
+          this.wrapper, lines[index],
         ),
       );
     });
   }
 
   createSectionButtons(target) {
-    const _container = this.createContainerElement(target, 'section-line-menu');
-    const _lines = this._subway.getLines();
+    const container = this.createContainerElement(target, 'section-line-menu');
+    const lines = this.subway.getLines();
 
-    _container.innerHTML = `
-      ${_lines.map(({ lineName }) => `
-        <button class="section-line-menu-button">${lineName}</button>
+    container.innerHTML = `
+      ${lines.map(({ lineName }) => `
+        <button class="section-line-menu-button">
+          ${lineName}
+        </button>
       `).join('')}
     `;
-    this.addSectionUpdateClickEvent(target, _lines);
+    this.addSectionUpdateClickEvent(target, lines);
   }
 
   createSectionTable(target) {
     const headers = ['순서', '이름', '설정'];
-    this._sectionTable = new Table({ target });
-    this._sectionTable.createTableHeader(headers);
+    this.sectionTable = new Table({ target });
+    this.sectionTable.createTableHeader(headers);
     this.render();
   }
 
   setSubway(subway) {
-    this._subway = subway;
+    this.subway = subway;
     this.render();
   }
 
   render() {
-    const { section } = this._currentLine;
+    const { section } = this.currentLine;
     const callbackRender = (name, index) => `
       <tr>
         <td>${index}</td>
@@ -111,7 +117,7 @@ export default class SectionManager {
         </td>
       </tr>
     `;
-    this._sectionTable.renderTable({
+    this.sectionTable.renderTable({
       data: section,
       callbackRender,
       onClickDelete: this.onClickDeleteSection,
