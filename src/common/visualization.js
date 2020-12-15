@@ -72,3 +72,5 @@ const Visualization = function () {
   this.createTd = (text) =>
     text ? this.getAdvancedEle("td", null, text) : document.createElement("td");
 };
+
+export const { getAdvancedEle } = new Visualization();
