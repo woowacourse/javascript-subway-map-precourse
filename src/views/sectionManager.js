@@ -25,6 +25,7 @@ export const showSectionManager = (lineName, subwayMap) => {
   sectionManagerDiv.classList.add('active');
   showSectionStationSelector(subwayMap);
   sectionTitle.innerHTML = `${lineName} 관리`;
+  showAddedSection(lineName, subwayMap);
 };
 
 export const hideSectionManager = () => {
@@ -44,4 +45,39 @@ const showSectionStationSelector = subwayMap => {
     stationsHTML += stationOption.outerHTML;
   });
   sectionStationSelector.innerHTML = stationsHTML;
+};
+
+const showAddedSection = (lineName, subwayMap) => {
+  const lineList = subwayMap.lineList;
+  const sectionTbody = document.querySelector('.section-manager table tbody');
+  const sectionIndex = lineList.findIndex(line => line.name === lineName);
+  const selectedSectionList = lineList[sectionIndex].list;
+  let addedSectionsHTML = '';
+  for (let i = 0; i < selectedSectionList.length; ++i) {
+    const sectionTr = makeElement({
+      tag: 'tr',
+    });
+    const orderTd = makeElement({
+      tag: 'td',
+      innerHTML: String(i),
+    });
+    const nameTd = makeElement({
+      tag: 'td',
+      innerHTML: selectedSectionList[i],
+    });
+    const btnTd = makeElement({
+      tag: 'td',
+    });
+    const deleteBtn = makeElement({
+      tag: 'button',
+      elementClass: 'station-delete-button',
+      innerHTML: '노선에서 제거',
+      dataName: 'station-name',
+      dataValue: selectedSectionList[i],
+    });
+    appendElements([deleteBtn], btnTd);
+    appendElements([orderTd, nameTd, btnTd], sectionTr);
+    addedSectionsHTML += sectionTr.outerHTML;
+  }
+  sectionTbody.innerHTML = addedSectionsHTML;
 };
