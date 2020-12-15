@@ -19,5 +19,8 @@ const Function = function () {
 
   this.clearResultDIV = () => (resultDIV.innerHTML = "");
 
+  this.isLineNameLengthBiggerThanOneWithoutSpace = (lineName) =>
+    lineName.split("").filter((char) => char !== " ").length > 1;
+
   this.isBiggerThanTwo = (target) => target > 2;
 };
