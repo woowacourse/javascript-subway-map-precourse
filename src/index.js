@@ -101,3 +101,19 @@ function addOptionsToSelectBox(stationName) {
     elEnd.value = stationName;
     selectStationEnd.appendChild(elEnd);
 }
+
+function deleteStationFromTable(deleteButton) {
+    //connect delete function to the delete button
+    deleteButton.addEventListener('click', function() {
+        let arrButton = document.getElementsByClassName('.station-delete-button');
+        let stationSelector = document.getElementById('#line-start-station-selector');
+        let endStationSelector = document.getElementById('#line-end-station-selector');
+        let index = [].slice.call(arrButton).indexOf(deleteButton);
+        stationSelector.remove(index);
+        endStationSelector.remove(index);
+
+        deleteStationFromArray(index);
+
+        this.parentElement.parentElement.remove();
+    });
+}
