@@ -10,6 +10,12 @@ const SectionContainer = function () {
     const innerContents = createSectionTrs(sections);
     appendChildren(tbody, ...innerContents);
   };
+
+  this.changeManagementTitleText = (lineName) => {
+    const TitleElement = document.getElementById("line-management-title");
+    const newText = `${lineName} 관리`;
+    TitleElement.textContent = newText;
+  };
 };
 
 export const { changeTableBody } = new SectionContainer();
