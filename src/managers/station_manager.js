@@ -2,6 +2,7 @@ import {
   getFormattedLines,
   getFormattedStations,
   setStateAndLocalStorage,
+  isLineNameLengthBiggerThanOneWithoutSpace,
 } from "../common/function";
 import { removeTr } from "../creators/station_creator";
 
@@ -53,4 +54,15 @@ const StationManager = function () {
 
   this.isOverwritten = (inputValue) =>
     getFormattedStations().indexOf(inputValue) !== -1;
+
+  this.checkStationValidity = (inputValue) => {
+    const SMALLER_THAN_TWO =
+      "The Station name except space should be bigger than two.";
+    const OVERWRITTEN = "It's overwritten.";
+    if (!isLineNameLengthBiggerThanOneWithoutSpace(inputValue))
+      return { value: false, errorMessage: SMALLER_THAN_TWO };
+    if (this.isOverwritten(inputValue))
+      return { value: false, errorMessage: OVERWRITTEN };
+    return { value: true };
+  };
 };
