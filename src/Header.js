@@ -4,10 +4,8 @@ import {
   renderStationTable,
   putOptionsFromId,
   renderSectionSelector,
-  combineMap,
+  renderMapContent,
 } from "./utils/dom.js";
-import { getStateFromStorage } from "./utils/storage.js";
-import * as storageKey from "./constants/storageKey.js";
 
 const menuIds = [
   "station-manager-button",
@@ -44,7 +42,7 @@ export default class Header {
   renderContent(id) {
     const isMap = Boolean(id.match("map"));
     if (isMap) {
-      this.renderMapContent();
+      renderMapContent();
       return;
     }
     const isLine = Boolean(id.match("line"));
@@ -63,17 +61,5 @@ export default class Header {
     }
     const content = document.getElementById(id.replace("button", "content"));
     content.style.display = "block";
-  }
-
-  renderMapContent() {
-    const lines = getStateFromStorage(storageKey.LINES);
-    if (!lines) {
-      return;
-    }
-    const newEl = document.createElement("div");
-    newEl.setAttribute("class", "map");
-    newEl.innerHTML = Object.entries(lines).reduce(combineMap, "");
-    const contentEl = document.getElementById("content");
-    contentEl.appendChild(newEl);
   }
 }

@@ -184,3 +184,15 @@ export const combineMap = (acc, [line, section]) => {
     )}</ul>`
   );
 };
+
+export const renderMapContent = () => {
+  const lines = getStateFromStorage(storageKey.LINES);
+  if (!lines) {
+    return;
+  }
+  const newEl = document.createElement("div");
+  newEl.setAttribute("class", "map");
+  newEl.innerHTML = Object.entries(lines).reduce(combineMap, "");
+  const contentEl = document.getElementById("content");
+  contentEl.appendChild(newEl);
+};
