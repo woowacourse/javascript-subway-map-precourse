@@ -43,7 +43,6 @@ export const sectionText = {
   GUIDE_TEXT: '구간을 수정할 노선을 선택해주세요.',
   MENU_BUTTON_CLASS: 'section-line-menu-button',
   INPUT_ID: 'section-input',
-  SELECT_AREA_ID: 'section-select',
   TABLE_ID: 'section-table',
   MANAGE_TEXT: '관리',
   REGISTER_TEXT: '구간 등록',

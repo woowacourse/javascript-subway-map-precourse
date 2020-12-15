@@ -40,8 +40,9 @@ const createMenuButtons = sectionHeader => {
 };
 
 const clearInputs = () => {
+  console.log('clear inputs!');
   const sectionInputArea = document.getElementById(T.INPUT_ID);
-  const selectArea = document.getElementById(T.SELECT_AREA_ID);
+  const selectArea = document.getElementById(T.SELECTOR_ID);
   const sectionTable = document.getElementById(T.TABLE_ID);
 
   if (sectionInputArea && selectArea && sectionTable) {
