@@ -1,10 +1,19 @@
 import { DELETE_GUIDE } from "../constants/constants.js";
+
 export const displayShow = (dom) => {
   dom.style.display = "block";
 };
 
 export const displayHide = (dom) => {
   dom.style.display = "none";
+};
+
+export const display = (isShow, dom) => {
+  if (isShow) {
+    displayShow(dom);
+  } else {
+    displayHide(dom);
+  }
 };
 
 export const showErrors = (error) => {
@@ -59,8 +68,4 @@ export const addOptionTag = (selector, station) => {
 
 export const initSelector = (selector) => {
   selector.innerHTML = "";
-};
-
-export const showDOM = (dom) => {
-  dom.style.visibility = "visible";
 };

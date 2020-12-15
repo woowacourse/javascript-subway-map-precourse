@@ -1,6 +1,6 @@
 import { StationManagerInput } from "./StationManagerInput.js";
 import { StationManagerList } from "./StationManagerList.js";
-import { displayShow, displayHide } from "../../utils/handleDom.js";
+import { display } from "../../utils/handleDom.js";
 
 export class StationManager {
   id = "station-manager-container";
@@ -25,11 +25,7 @@ export class StationManager {
   };
 
   render = (props) => {
-    if (props.isShow) {
-      displayShow(this.manager);
-    } else {
-      displayHide(this.manager);
-    }
+    display(props.isShow, this.manager);
   };
 
   addNewStation = (stations) => {

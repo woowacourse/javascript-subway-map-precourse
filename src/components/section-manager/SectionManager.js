@@ -1,5 +1,5 @@
 import { SectionManagerHeaderButtons } from "./SectionManagerHeaderButtons.js";
-import { displayShow, displayHide } from "../../utils/handleDom.js";
+import { display, displayShow, displayHide } from "../../utils/handleDom.js";
 import { SectionManagerInput } from "./SectionManagerInput.js";
 import { SectionManagerList } from "./SectionManagerList.js";
 
@@ -44,11 +44,7 @@ export class SectionManager {
   };
 
   render = (props) => {
-    if (props.isShow) {
-      displayShow(this.manager);
-    } else {
-      displayHide(this.manager);
-    }
+    display(props.isShow, this.manager);
   };
 
   updateSectionManagerByLine = (lineName) => {

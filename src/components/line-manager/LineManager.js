@@ -1,6 +1,6 @@
 import { LineManagerInput } from "./LineManagerInput.js";
 import { LineManagerList } from "./LineManagerList.js";
-import { displayShow, displayHide } from "../../utils/handleDom.js";
+import { display } from "../../utils/handleDom.js";
 
 export class LineManager {
   id = "line-manager-container";
@@ -24,11 +24,7 @@ export class LineManager {
   };
 
   render = (props) => {
-    if (props.isShow) {
-      displayShow(this.manager);
-    } else {
-      displayHide(this.manager);
-    }
+    display(props.isShow, this.manager);
   };
 
   updateStations = () => {
