@@ -1,5 +1,7 @@
+import { getFormattedStations } from "../common/function.js";
 import {
   appendChildren,
+  createStationOptions,
   createTd,
   getAdvancedEle,
 } from "../common/visualization.js";
@@ -54,6 +56,18 @@ const SectionCreator = function () {
 
   this.createSectionAddTitle = () =>
     getAdvancedEle("h3", { id: "section-add-title" }, "구간 등록");
+
+  this.createSectionAddDIV = () => {
+    const div = document.createElement("div");
+    const select = this.createSectionAddSelect();
+    const stations = getFormattedStations();
+    const options = createStationOptions(stations);
+    const input = this.createSectionAddInput();
+    const button = this.createSectionAddButton();
+    appendChildren(select, ...options);
+    appendChildren(div, select, input, button);
+    return div;
+  };
 
   this.createLineSelectionButtons = (lineNames) =>
     lineNames.map((lineName, index) =>
