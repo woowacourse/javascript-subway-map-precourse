@@ -1,8 +1,25 @@
 export default class LineManagerModel {
-  static isValidName(line) {
-    return (!this.isDuplicated(line) && !this.isSpace(line) && !this.isEnglish(line)
-              && !this.isSpecialChar(line) && !this.isValidLength(line)
-                && !this.isSingleKoreanAlphabet(line));
+  static isValidInput(line, lineStart, lineEnd) {
+    let isValid = 1;
+    const validationCheckFunction = [
+      this.isValidLength(line),
+      this.isSpace(line),
+      this.isSingleKoreanAlphabet(line),
+      this.isEnglish(line),
+      this.isSpecialChar(line),
+      this.isDuplicated(line),
+      this.isSame(lineStart, lineEnd),
+    ];
+    validationCheckFunction.forEach((func, index) => {
+      if (func && isValid === 1) {
+        isValid = (-1) * index;
+      }
+    });
+    return isValid;
+  }
+
+  static isValidLength(line) {
+    return line.length < 2;
   }
 
   static isDuplicated(line) {
@@ -20,10 +37,6 @@ export default class LineManagerModel {
 
   static isSpecialChar(line) {
     return /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(line);
-  }
-
-  static isValidLength(line) {
-    return line.length < 2;
   }
 
   static isSingleKoreanAlphabet(line) {
@@ -47,8 +60,6 @@ export default class LineManagerModel {
     }
     localStorage.setItem('Lines', JSON.stringify(lines));
     localStorage.setItem('Stations', JSON.stringify(stations));
-    console.log(JSON.parse(localStorage.getItem('Lines')));
-    console.log(JSON.parse(localStorage.getItem('Stations')));
   }
 
   static isInLines(line) {

@@ -1,3 +1,5 @@
+import LineErrorMsg from './LineErrorMsg.js';
+
 export default class LineManagerView {
   static view() {
     document.getElementById('sub-view-container').innerHTML = `
@@ -48,8 +50,8 @@ export default class LineManagerView {
     </table>`;
   }
 
-  static alertNameError() {
-    alert('invalid Error');
+  static alertNameError(errorNum) {
+    alert(LineErrorMsg.error(errorNum));
   }
 
   static confirmDelete() {
