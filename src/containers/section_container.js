@@ -1,8 +1,13 @@
-import { getSelectedLineSections } from "../common/function.js";
+import {
+  getFormattedStations,
+  getSelectedLineSections,
+} from "../common/function.js";
 import { appendChildren } from "../common/visualization.js";
 import {
   createSectionTrs,
   createSpreadElements,
+  createInitialTitle,
+  createLineSelectionButtons,
 } from "../creators/section_creator.js";
 
 const SectionContainer = function () {
@@ -39,6 +44,12 @@ const SectionContainer = function () {
   this.clearSectionInputs = (sectionInput, orderInput) => {
     sectionInput.value = getFormattedStations()[0];
     orderInput.value = "";
+  };
+
+  this.appendInitialElements = (parent, lineNames) => {
+    const initialTitle = createInitialTitle();
+    const lineSelectionButtons = createLineSelectionButtons(lineNames);
+    appendChildren(parent, initialTitle, ...lineSelectionButtons);
   };
 };
 

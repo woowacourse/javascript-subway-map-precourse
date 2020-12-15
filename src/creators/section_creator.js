@@ -108,4 +108,9 @@ const SectionCreator = function () {
     getAdvancedEle("h2", null, "구간을 수정할 노선을 선택해주세요.");
 };
 
-export const { createSectionTrs, createSpreadElements } = new SectionCreator();
+export const {
+  createSectionTrs,
+  createSpreadElements,
+  createInitialTitle,
+  createLineSelectionButtons,
+} = new SectionCreator();
