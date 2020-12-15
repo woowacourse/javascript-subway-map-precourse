@@ -49,7 +49,7 @@ function inlineAlert(deleteTarget) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
 
-  subwayDatas.subwayStations.map((station, idx) => {
+  subwayDatas.subwayStations.forEach((station, idx) => {
     if (station.name === deleteTarget && subwayDatas.subwayStations[idx].line.length >= 1) {
       alertMsg = "노선에 포함된 역은 삭제할 수 없습니다.";
     }
@@ -68,7 +68,7 @@ function ununiqueLineNameAlert(inputValue) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
 
-  subwayDatas.lines.map((line) => {
+  subwayDatas.lines.forEach((line) => {
     if (line.name === inputValue) {
       alertMsg = "중복된 노선 이름을 입력하셨습니다.";
     }
@@ -87,7 +87,7 @@ function unUniqueLineAlert(startAndEndStations) {
   let subwayDatas = JSON.parse(localStorage.getItem("subwayDatas"));
   let alertMsg = "";
 
-  subwayDatas.lines.map((line) => {
+  subwayDatas.lines.forEach((line) => {
     if (line.stops[0] === startAndEndStations[0] && line.stops[line.stops.length - 1] === startAndEndStations[1]) {
       alertMsg = "상행, 하행 종점역이 중복되는 노선이 이미 존재합니다.";
     }

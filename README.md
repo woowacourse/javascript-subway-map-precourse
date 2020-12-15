@@ -42,6 +42,7 @@
   - handlers 컨벤션에 맞추어 validation depth줄이기 및 리팩토링 v
   - html tag 검토 v
   - input value 검토, 구간 type=number 삭제 후 숫자만 입력 가능하도록 검증 추가 v
+  - return값이 없는 map 메소드를 forEach로 수정 v
   - 상수화
   - css 검토
 

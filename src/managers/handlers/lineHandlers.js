@@ -49,7 +49,7 @@ function onDeleteLineHandler() {
   let deleteTarget = event.target.parentNode.parentNode.childNodes[1].outerText;
   let deleteTargetIdx = subwayDatas.lines.findIndex((line) => line.name === deleteTarget);
 
-  subwayDatas.subwayStations.map((station) => {
+  subwayDatas.subwayStations.forEach((station) => {
     station.line.splice(station.line.indexOf(deleteTarget), 1);
   });
   subwayDatas.lines.splice(deleteTargetIdx, 1);

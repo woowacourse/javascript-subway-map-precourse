@@ -3,7 +3,7 @@ function lineManagerPage(subwayDatas) {
   let table = ``;
 
   subwayDatas.lines &&
-    subwayDatas.lines.map(
+    subwayDatas.lines.forEach(
       (line) =>
         (table += `<tr>
             <td>${line.name}</td>

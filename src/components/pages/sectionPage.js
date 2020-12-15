@@ -5,7 +5,7 @@ function sectionManagerPage(subwayDatas) {
 
   // console.log("sectionn", subwayDatas);
   subwayDatas.lines &&
-    subwayDatas.lines.map(
+    subwayDatas.lines.forEach(
       (line) =>
         (lines += `<button class = ".section-line-menu-button">
             ${line.name}
@@ -24,9 +24,9 @@ function sectionManagerPage(subwayDatas) {
     let options = subwayDatas.subwayStations.map((station) => `<option value = "${station.name}">${station.name}</option>`);
     let table = ``;
 
-    subwayDatas.lines.map((line) => {
+    subwayDatas.lines.forEach((line) => {
       if (line.name === targetLine) {
-        line.stops.map((stop, idx) => {
+        line.stops.forEach((stop, idx) => {
           table += `<tr>
             <td>${idx}</td>
             <td>${stop}</td>

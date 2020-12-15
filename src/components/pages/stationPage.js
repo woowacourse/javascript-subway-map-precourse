@@ -3,7 +3,7 @@ function stationManagerPage(subwayDatas) {
 
   let stations = subwayDatas.subwayStations;
   stations &&
-    stations.map((station) => {
+    stations.forEach((station) => {
       table += `<tr>
       <td>${station.name}</td>
       <td>

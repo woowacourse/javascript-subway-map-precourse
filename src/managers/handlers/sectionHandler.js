@@ -59,7 +59,7 @@ function sectionDelete(deleteTarget, deleteTargetIdx) {
   let targetLineIdx = subwayDatas.lines.findIndex((line) => line.name === subwayDatas.targetLine);
   subwayDatas.lines[targetLineIdx].stops.splice(deleteTargetIdx, 1);
 
-  subwayDatas.subwayStations.map((station) => {
+  subwayDatas.subwayStations.forEach((station) => {
     if (station.name === deleteTarget) {
       station.line.splice(subwayDatas.subwayStations.indexOf(subwayDatas.targetLine), 1);
     }
