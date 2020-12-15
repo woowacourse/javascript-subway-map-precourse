@@ -73,4 +73,8 @@ const Visualization = function () {
     text ? this.getAdvancedEle("td", null, text) : document.createElement("td");
 };
 
-export const { getAdvancedEle } = new Visualization();
+export const {
+  getAdvancedEle,
+  createStationOptions,
+  appendChildren,
+} = new Visualization();

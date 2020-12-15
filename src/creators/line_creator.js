@@ -1,4 +1,9 @@
-import { getAdvancedEle } from "../common/visualization.js";
+import { getFormattedStations } from "../common/function.js";
+import {
+  getAdvancedEle,
+  createStationOptions,
+  appendChildren,
+} from "../common/visualization.js";
 
 const LineCreator = function () {
   this.createTitleOfSelect = (startOrEnd) =>
@@ -12,4 +17,14 @@ const LineCreator = function () {
     getAdvancedEle("select", {
       id: `line-${startOrEnd}-station-selector`,
     });
+
+  this.createStartOrEndStationDiv = (startOrEnd) => {
+    const startOrEndStationDiv = document.createElement("div");
+    const titleSpanOfSelector = this.createTitleOfSelect(startOrEnd);
+    const stationSelector = this.createStationSelector(startOrEnd);
+    const stationOptions = createStationOptions(getFormattedStations());
+    appendChildren(stationSelector, ...stationOptions);
+    appendChildren(startOrEndStationDiv, titleSpanOfSelector, stationSelector);
+    return startOrEndStationDiv;
+  };
 };
