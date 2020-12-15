@@ -1,0 +1,44 @@
+table, th, td {
+  border: 1px solid #bfbfbf;
+  border-collapse: collapse;
+}
+
+tr {
+  height: 25px;
+}
+
+td {
+  padding: 0 5px;
+}
+
+select {
+  width: 70px;
+}
+
+.hidden {
+  overflow: hidden;
+  position: absolute;
+  border: 0;
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+}
+
+.change-cursor-hover:hover {
+  cursor: pointer;
+}
+
+.managers {
+  margin-top: 20px;
+  display: none;
+}
+
+.station-list {
+  margin-top: 20px;
+}
+
+.line-select-header {
+  font-size:1.1rem;
+}

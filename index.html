@@ -3,10 +3,121 @@
   <head>
     <meta charset="UTF-8" />
     <title>지하철 노선도 관리</title>
+    <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
     <div id="app">
       <h1>🚇 지하철 노선도 관리 </h1>
+      <div id="menu-button-container">
+        <button id="station-manager-button" class="change-cursor-hover">
+          1. 역 관리
+        </button>
+        <button id="line-manager-button" class="change-cursor-hover">
+          2. 노선 관리
+        </button>
+        <button id="section-manager-button" class="change-cursor-hover">
+          3. 구간 관리
+        </button>
+        <button id="map-print-manager-button" class="change-cursor-hover">
+          4. 지하철 노선도 출력
+        </button>
+      </div>
+      <div id="station-manager" class="managers">
+        <label for="station-name-input">
+          역 이름<br />
+          <input type="text" id="station-name-input" placeholder="역 이름을 입력해주세요." />
+        </label>
+        <button id="station-add-button">역 추가</button>
+        <br />
+        <h2>🚉 지하철 역 목록</h2>
+        <table>
+          <captoin class="hidden">등록된 지하철 역 목록</captoin>
+          <colgroup>
+            <col width="80px" />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">역 이름</th>
+              <th scope="col">설정</th>
+            </tr>
+          </thead>
+          <tbody id="station-name-tbody"></tbody>
+        </table>
+        <div id="no-station-message" style="display: none">등록된 역이 없습니다.</div>
+      </div>
+      <div id="line-manager" class="managers">
+        <label for="line-name-input">
+          노선 이름<br/>
+          <input type="text" id="line-name-input" placeholder="노선 이름을 입력해주세요." />
+        </label>
+        <br />
+        <br />
+        <label for="line-start-station-selector">
+          상행 종점
+          <select id="line-start-station-selector"></select>
+        </label>
+        <br />
+        <label for="line-end-station-selector">
+          하행 종점
+          <select id="line-end-station-selector"></select>
+        </label>
+        <br />
+        <br />
+        <button id="line-add-button">노선 추가</button>
+        <br />
+        <h2>🚉 지하철 노선 목록</h2>
+        <table>
+          <captoin class="hidden">등록된 지하철 노선 목록</captoin>
+          <colgroup>
+            <col width="80px" />
+            <col width="100px" />
+            <col width="100px" />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">노선 이름</th>
+              <th scope="col">상행 종점역</th>
+              <th scope="col">하행 종점역</th>
+              <th scope="col">설정</th>
+            </tr>
+          </thead>
+          <tbody id="line-name-tbody"></tbody>
+        </table>
+        <div id="no-line-message" style="display: none">등록된 노선이 없습니다.</div>
+      </div>
+      <div id="section-manager" class="managers">
+        <h2 class="line-select-header">구간을 수정할 노선을 선택해주세요.</h2>
+        <div id="section-line-menu-buttons"></div>
+        <div id="selected-line-manager" style="display: none;">
+          <h3 id="selected-line-manager-header" class="line-select-header"></h3>
+          <h4>구간 등록</h4>
+          <select id="section-station-selector"></select>
+          <input type="number" id="section-order-input" placeholder="순서" />
+          <button id="section-add-button" data-line-index="">등록</button>
+          <br />
+          <table style="margin-top: 30px">
+            <captoin class="hidden">선택한 노선에 속한 구간 목록</captoin>
+            <colgroup>
+              <col width="40px" />
+              <col width="80px" />
+              <col />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">순서</th>
+                <th scope="col">이름</th>
+                <th scope="col">설정</th>
+              </tr>
+            </thead>
+            <tbody id="line-section-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div id="map-print-manager" class="managers">
+        지하철 노선도 출력
+      </div>
     </div>
     <script type="module" src="src/index.js"></script>
   </body>
