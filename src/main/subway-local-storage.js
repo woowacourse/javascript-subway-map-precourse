@@ -1,10 +1,6 @@
 class SubwayLocalStorage {
   getList(key) {
-    const list = JSON.parse(localStorage.getItem(key));
-
-    if (list) return list;
-
-    return [];
+    return JSON.parse(localStorage.getItem(key));
   }
 
   saveList(key, list) {

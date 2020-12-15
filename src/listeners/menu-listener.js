@@ -1,6 +1,8 @@
 import {MENU} from '../constants.js';
-import {handleStation} from '../handlers/station-handler.js';
-import {handleLine} from '../handlers/line-handler.js';
+import {handleInitStation} from '../handlers/station-handler.js';
+import {handleInitLine} from '../handlers/line-handler.js';
+import {handleInitSection} from '../handlers/section-handler.js';
+import {handleMap} from '../handlers/map-handler.js';
 
 export default class MenuListener {
   constructor() {
@@ -16,8 +18,10 @@ export default class MenuListener {
   }
 
   addEventListener() {
-    this.stationButton.addEventListener('click', handleStation);
-    this.lineButton.addEventListener('click', handleLine);
+    this.stationButton.addEventListener('click', handleInitStation);
+    this.lineButton.addEventListener('click', handleInitLine);
+    this.sectionButton.addEventListener('click', handleInitSection);
+    this.mapButton.addEventListener('click', handleMap);
   }
 }
 

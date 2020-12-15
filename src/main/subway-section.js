@@ -1,10 +1,10 @@
 import {SECTION, STORAGE} from '../constants.js';
-import {getStations, getLines} from './subway-local-storage.js';
+import {getList} from './subway-local-storage.js';
 
 export default class SubwaySection {
   constructor() {
-    this.stationList = getStations(STORAGE.STATION.KEY);
-    this.lineList = getLines(STORAGE.LINE.KEY);
+    this.stationList = getList(STORAGE.STATION.KEY) || [];
+    this.lineList = getList(STORAGE.LINE.KEY) || {};
     this.lineName = '';
   }
 
