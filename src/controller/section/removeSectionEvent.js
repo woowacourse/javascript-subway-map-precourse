@@ -33,16 +33,20 @@ function checkDeleteSection(target) {
   );
 }
 
-export default function removeSectionEvent() {
-  const $sectionDeleteButton = document.querySelectorAll(
-    '.section-delete-button',
-  );
+function checkDeleteTarget(target) {
+  if (window.confirm('정말로 노선에서 삭제하시겠습니까?')) {
+    checkDeleteSection(target);
+  }
+}
 
-  $sectionDeleteButton.forEach((button) =>
-    button.addEventListener('click', ({ target }) => {
-      if (window.confirm('정말로 노선에서 삭제하시겠습니까?')) {
-        checkDeleteSection(target);
-      }
-    }),
-  );
+function checkValidTarget({ target }) {
+  if (target.className === 'section-delete-button') {
+    checkDeleteTarget(target);
+  }
+}
+
+export default function removeSectionEvent() {
+  const $sectionManagerPage = document.querySelector('.section-manager-page');
+
+  $sectionManagerPage.addEventListener('click', checkValidTarget);
 }

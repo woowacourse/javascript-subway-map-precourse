@@ -1,6 +1,4 @@
 import renderSectionContainer from '../../render/section/renderSectionContainer.js';
-import addSectionEvent from './addSectionEvent.js';
-import removeSectionEvent from './removeSectionEvent.js';
 
 export default function updateSectionList(lineNumber) {
   renderSectionContainer();
@@ -11,6 +9,4 @@ export default function updateSectionList(lineNumber) {
       container.removeAttribute('hidden');
     }
   });
-  addSectionEvent();
-  removeSectionEvent();
 }

@@ -3,7 +3,6 @@ import addStationEvent from './station/addStationEvent.js';
 import addLineEvent from './line/addLineEvent.js';
 import selectLineEvent from './section/selectLineButtonEvent.js';
 import addSectionEvent from './section/addSectionEvent.js';
-import removeSectionEvent from './section/removeSectionEvent.js';
 
 export default function initEvent() {
   selectMenuButtonEvent();
@@ -11,5 +10,4 @@ export default function initEvent() {
   addLineEvent();
   selectLineEvent();
   addSectionEvent();
-  removeSectionEvent();
 }

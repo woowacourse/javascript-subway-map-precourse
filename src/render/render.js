@@ -13,13 +13,11 @@ function clearInputValue() {
 
 export default function render() {
   clearInputValue();
-  renderSelector();
 
+  renderSelector();
   renderStationList();
   renderLineList();
-
   renderLineSelector();
   renderSectionContainer();
-
   renderSubwayMap();
 }
