@@ -1,17 +1,22 @@
 import { createLineNameBtn } from './sectionElemGenerator.js';
+import { validateUserInput, checkDeleteAvailable } from './sectionValidator.js';
 
 import Subway from '../subwayManager.js';
 import { getLineName, getSelectedLineData } from '../line/lineDataHandler.js';
 import { setStationDataToOption } from '../line/lineElemGenerator.js';
 import { getStation } from '../station/stationDataHandler.js';
 import { printSection } from '../util/output.js';
-import { validateUserInput } from './sectionValidator.js';
-import { checkDeleteAvailable } from './sectionValidator.js';
 import { numInCondition } from '../util/constants.js';
 
 export const loadLineName = () => {
   const lineNames = getLineName();
   createLineNameBtn(lineNames);
+};
+
+export const loadSectionStationData = () => {
+  const stations = getStation();
+  const stationSelector = document.querySelector('#section-station-selector');
+  setStationDataToOption(stations, stationSelector);
 };
 
 export const updateLine = () => {
@@ -30,12 +35,6 @@ export const updateLine = () => {
   station.selectedIndex = 0;
 };
 
-export const loadSectionStationData = () => {
-  const stations = getStation();
-  const stationSelector = document.querySelector('#section-station-selector');
-  setStationDataToOption(stations, stationSelector);
-};
-
 export const deleteStationFromLine = (e) => {
   if (!Subway.confirmMessage(e.target.innerHTML)) {
     return;
@@ -43,7 +42,9 @@ export const deleteStationFromLine = (e) => {
   const station = e.target.dataset.station;
   const lineName = document.querySelector('#title').dataset.line;
   if (!checkDeleteAvailable(lineName)) {
-    return alert(`노선에 남아있는 역의 갯수가 ${numInCondition.MIN_LENGTH_LINE}개 이상이어야 합니다🚨`);
+    return alert(
+      `노선에 남아있는 역의 갯수가 ${numInCondition.MIN_LENGTH_LINE}개 이상이어야 합니다🚨`
+    );
   }
   let stations = getSelectedLineData(lineName);
   const idx = stations.indexOf(station);

@@ -1,9 +1,7 @@
 import Subway from '../subwayManager.js';
-import Station from '../station/station.js';
-import { deleteStation } from '../station/stationDataHandler.js';
-import Line from '../line/line.js';
-import { deleteLine } from '../line/lineDataHandler.js';
-import { showSectionManager } from '../section/sectionElemGenerator.js';
+import { createStation, deleteStation } from '../station/stationDataHandler.js';
+import { createLine, deleteLine } from '../line/lineDataHandler.js';
+import { showSectionModuleLower } from '../section/sectionElemGenerator.js';
 import {
   deleteStationFromLine,
   updateLine,
@@ -23,7 +21,7 @@ export const addEventToManagerBtn = () => {
 export const addEventToCreateStationBtn = () => {
   const createStationBtn = document.querySelector('#station-add-button');
   createStationBtn.addEventListener('click', () => {
-    Station.createStation();
+    createStation();
   });
 };
 
@@ -46,14 +44,14 @@ export const addEventToDeleteBtn = (tagId) => {
 export const addEventToCreateLineBtn = () => {
   const createLineBtn = document.querySelector('#line-add-button');
   createLineBtn.addEventListener('click', () => {
-    Line.createLine();
+    createLine();
   });
 };
 
 export const addEventToLineNameBtn = () => {
   const lineNameBtns = document.querySelectorAll('.section-line-menu-button');
   lineNameBtns.forEach((btn) => {
-    btn.addEventListener('click', (event) => showSectionManager(event));
+    btn.addEventListener('click', (event) => showSectionModuleLower(event));
   });
 };
 

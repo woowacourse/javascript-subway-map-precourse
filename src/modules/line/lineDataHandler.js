@@ -1,4 +1,5 @@
 import { setStationDataToOption } from './lineElemGenerator.js';
+import { validateUserInput } from './lineValidator.js';
 
 import Subway from '../subwayManager.js';
 import { getStation } from '../station/stationDataHandler.js';
@@ -17,7 +18,6 @@ export const loadStationData = () => {
 };
 
 export const setLine = (lineName, stations) => {
-  // const lineName = inputElem.value;
   localStorage.setItem(lineName, JSON.stringify(stations));
   setLineName(updateLineName(lineName));
   printLines();
@@ -25,6 +25,19 @@ export const setLine = (lineName, stations) => {
 
 export const getSelectedLineData = (lineName) => {
   return JSON.parse(localStorage.getItem(lineName));
+};
+
+export const createLine = () => {
+  const lineNameInput = document.querySelector('#line-name-input');
+  const startStation = document.querySelector('#line-start-station-selector')
+    .value;
+  const endStation = document.querySelector('#line-end-station-selector').value;
+  if (!validateUserInput(lineNameInput.value, startStation, endStation)) {
+    alert('노선과 역 이름을 다시 한 번 확인해주세요🚨');
+    return Subway.clearInput(lineNameInput);
+  }
+  setLine(lineNameInput.value, [startStation, endStation]);
+  Subway.clearInput(lineNameInput);
 };
 
 export const deleteLine = (e) => {

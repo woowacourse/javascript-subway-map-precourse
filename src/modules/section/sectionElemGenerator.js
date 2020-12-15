@@ -12,7 +12,10 @@ export const createLineNameBtn = (lineNames) => {
     lineNameBtn.className = 'section-line-menu-button';
     lineNameBtn.dataset.line = lineName;
     parentElem.appendChild(lineNameBtn);
-    lineNameBtn.insertAdjacentHTML('afterend', '<span class="space">&nbsp</span>');
+    lineNameBtn.insertAdjacentHTML(
+      'afterend',
+      '<span class="space">&nbsp</span>'
+    );
   });
   addEventToLineNameBtn();
 };
@@ -32,12 +35,12 @@ const deleteLineNameBtn = () => {
   }
 };
 
-export const refreshSectionModule = () => {
+export const refreshSectionModuleUpper = () => {
   deleteLineNameBtn();
   loadLineName();
 };
 
-export const showSectionManager = (e) => {
+export const showSectionModuleLower = (e) => {
   const line = e.target.dataset.line;
   const sectionManager = document.querySelector('#section-manager');
   if (document.querySelector('#title')) {
@@ -46,11 +49,11 @@ export const showSectionManager = (e) => {
   const title = `<h3 id="title" data-line="${line}">${line} 관리</h3>`;
   sectionManager.insertAdjacentHTML('afterbegin', title);
   sectionManager.style.display = 'block';
-  refreshSectionStationData();
+  refreshSectionModuleLower();
   printSection(line);
 };
 
-export const hideSectionManager = () => {
+export const hideSectionModuleLower = () => {
   const sectionManager = document.querySelector('#section-manager');
   sectionManager.style.display = 'none';
 };
@@ -59,7 +62,7 @@ export const clearTitle = (elem) => {
   elem.remove();
 };
 
-const refreshSectionStationData = () => {
+const refreshSectionModuleLower = () => {
   deleteOption();
   loadSectionStationData();
 };

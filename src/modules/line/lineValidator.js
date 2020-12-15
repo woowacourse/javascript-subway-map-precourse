@@ -25,26 +25,28 @@ const checkStartEnd = (start, end) => {
   return isSame;
 };
 
-const checkFirstFormat = (input) => {
+const checkFirstFormat = (input) => { // Format: $숫자 + 호선
+  let isRightFormat = false;
   if (!input.includes('호선')) {
-    return false;
+    return isRightFormat;
   }
   const [before, after] = input.split('호선');
   let num = parseInt(before);
-  console.log(num, typeof num);
   if (num && !after) {
-    return true;
+    isRightFormat = true;
   }
-  return false;
+  return isRightFormat;
 };
 
-const checkSecondFormat = (input) => {
+const checkSecondFormat = (input) => { // Format: $문자 + 선
+  let isRightFormat = false;
   if (!input.includes('선')) {
-    return false;
+    return isRightFormat;
   }
   const [before, after] = input.split('선');
   let num = parseInt(before);
   if (isNaN(num) && !after) {
-    return true;
+    isRightFormat = true;
   }
+  return isRightFormat;
 };

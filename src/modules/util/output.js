@@ -61,7 +61,7 @@ const clearMapData = () => {
 };
 
 export const printMapData = () => {
-  const map = drawDOM();
+  const map = addElementToDOM();
   let data = '';
   const lines = getLineName();
   lines.forEach((line) => {
@@ -75,10 +75,10 @@ export const printMapData = () => {
   map.innerHTML = data;
 };
 
-const drawDOM = () => {
+const addElementToDOM = () => {
   const mapSection = document.querySelector('#map-module');
   let map = document.createElement('div');
   map.className = 'map';
   mapSection.appendChild(map);
   return map;
-}
+};
