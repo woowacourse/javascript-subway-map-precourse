@@ -1,11 +1,10 @@
 import { errorMessage, confirmMessage } from "../utils/const.js";
+import Station from "../Models/Station.js";
 
 export default {
   isAddedEvent: false,
-  station: [],
   init(page) {
     this.page = page;
-    this.station = [];
     this.render();
     if (!this.isAddedEvent) {
       this.addEvents();
@@ -31,11 +30,11 @@ export default {
       $input.value = "";
       return;
     }
-    if (this.station.indexOf(name) > -1) {
+    if (Station.list().indexOf(name) > -1) {
       alert(ERROR_ALREADY_HAVE_STATION);
       return;
     }
-    this.station.push(name);
+    Station.add(name);
     this.render();
     $input.value = "";
   },
@@ -48,12 +47,11 @@ export default {
     if (!confirm(CONFIRM_DELETE_STATION)) {
       return;
     }
-    const stationIndex = this.station.indexOf(dataset.name);
-    this.station.splice(stationIndex, 1);
+    Station.delete(dataset.name);
     this.render();
   },
   render() {
-    const innerHTML = this.station.reduce((prevHTML, station) => {
+    const innerHTML = Station.list().reduce((prevHTML, station) => {
       return (
         prevHTML +
         `<tr>
