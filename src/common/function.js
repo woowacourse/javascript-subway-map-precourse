@@ -33,4 +33,6 @@ export const {
   clearResultDIV,
   getSelectedLineSections,
   isBiggerThanTwo,
+  isEmptyPage,
+  isAlreadyRenderedPage,
 } = new Function();
