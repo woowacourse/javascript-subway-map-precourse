@@ -35,6 +35,11 @@ const SectionContainer = function () {
     appendChildren(parent, managemenetTitle, addTitle, addDiv);
     parent.appendChild(sectionTable);
   };
+
+  this.clearSectionInputs = (sectionInput, orderInput) => {
+    sectionInput.value = getFormattedStations()[0];
+    orderInput.value = "";
+  };
 };
 
 export const { changeTableBody } = new SectionContainer();
