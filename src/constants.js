@@ -57,7 +57,8 @@ const CONSTANTS = {
     'ALERT': {
       'NOT_LAST': '종점 사이의 숫자를 입력해주세요',
       'DELETE': '구간을 정말로 삭제하시겠습니까?',
-      'NOT_DELETE': '더 이상 삭제할 수 없습니다.',
+      'NOT_DELETE': '더 이상 삭제할 수 없습니다',
+      'DUPLICATION': '이미 등록된 역입니다',
     },
     'DIV': {
       'CHOICE': {'ID': 'section-choice'},

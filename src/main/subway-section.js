@@ -13,8 +13,8 @@ export default class SubwaySection {
   }
 
   addSection = (station, order, cb) => {
-    if (!this.isValidOrder(order)) {
-      return cb(SECTION.ALERT.NOT_LAST);
+    if (!this.isValidSection(station, order)) {
+      return cb(this.alertMessage(order));
     }
 
     const line = this.lineList[this.lineName];
@@ -37,8 +37,8 @@ export default class SubwaySection {
     return cb(null, this.lineList, this.lineName);
   }
 
-  isValidOrder(order) {
-    return this.hasValidOrder(order);
+  isValidSection(station, order) {
+    return this.hasValidOrder(order) && !this.existStation(station);
   }
 
   hasValidOrder(order) {
@@ -50,5 +50,17 @@ export default class SubwaySection {
     };
 
     return true;
+  }
+
+  existStation(station) {
+    return this.lineList[this.lineName].some(currentStation =>
+      currentStation.name === station,
+    );
+  }
+
+  alertMessage(order) {
+    if (!this.hasValidOrder(order)) return SECTION.ALERT.NOT_LAST;
+
+    return SECTION.ALERT.DUPLICATION;
   }
 }
