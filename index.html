@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>지하철 노선도 관리</title>
+    <link rel="stylesheet" href="./index.css">
   </head>
   <body>
     <div id="app">
@@ -70,17 +71,17 @@
     </div>
     <div id="#section-manager" class="content">
       <h2>구간을 수정할 노선을 선택해주세요</h2>
-      <div class=".section-line-menu-button-list">
-        <button class=".section-line-menu-button">1호선</button>
-        <button class=".section-line-menu-button">2호선</button>
-        <button class=".section-line-menu-button">3호선</button>
+      <div class="section-line-menu-button-list">
+        <button class="section-line-menu-button">1호선</button>
+        <button class="section-line-menu-button">2호선</button>
+        <button class="section-line-menu-button">3호선</button>
       </div>
       <div class="station-register">
-        <h2>1호선 관리</h2>
+        <h2><span id="section-line-name">1호선</span> 관리</h2>
         <h3>구간 등록</h3>
-        <select id="#section-station-selector"></select>
-        <input id="#section-order-input" type="text" placeholder="등록" />
-        <button id="#section-add-button">등록</button>
+        <select id="section-station-selector"></select>
+        <input id="section-order-input" type="text" placeholder="등록" />
+        <button id="section-add-button">등록</button>
       </div>
       <table class="registerd-station-item-table">
         <thead>
@@ -92,7 +93,7 @@
           <tr>
             <td>0</td>
             <td>인천</td>
-            <td><button class=".section-delete-button">노선에서 제거</button></td>
+            <td><button class="section-delete-button">노선에서 제거</button></td>
           </tr>
         </tbody>
       </table>
