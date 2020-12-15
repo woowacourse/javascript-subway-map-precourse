@@ -163,6 +163,8 @@ export default class ManageSection {
   createNewSection() {
     if (this.checkSectionValidity() === this.IS_VALID) {
       this.updateAddToLocalStorage();
+      const line = this.getCurrentLineFromTitle();
+      this._privateTableUtils.refreshTableData(this.LINE_TABLE_SECTION, line);
       // this.addSection();
     }
     else {
@@ -248,17 +250,21 @@ export default class ManageSection {
     return document.getElementById('section-station-selector').value;
   }
 
-  addSection() {
-    const lineList = this._privateCommonUtils.getLocalStorageLine();
+  // addSection() {
+  //   const lineList = this._privateCommonUtils.getLocalStorageLine();
+  //   const line = this.getCurrentLineFromTitle();
+  //   const station = this.getSelectedStation();
+  //   const rowArray = [this._orderInput.value, station, this.SECTION_DELETE_TEXT, line];
 
-    const rowArray = [this._orderInput]
-  }
+  //   this._privateTableUtils.addRowAtIndex(rowArray, line, this.MANAGE_LINE_SECTION);
+    
+  // }
 
   /*
    * createManageLineSectionTable
    */
 
-    createManageLineSectionTable() {
+  createManageLineSectionTable() {
     this._privateCommonUtils.createDiv(this.MANAGE_LINE_SECTION, this.LINE_TABLE_SECTION);
     this._privateCommonUtils.insertEmptyline(this.LINE_TABLE_SECTION);
     this._privateCommonUtils.insertEmptyline(this.LINE_TABLE_SECTION);

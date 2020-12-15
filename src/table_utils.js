@@ -152,6 +152,15 @@ export default class TableUtils {
     this.addCellsAndButton(tableType, row, rowArray);
   }
 
+  addRowAtIndex(rowArray, line, tableType) {
+    const table = document.getElementById('sectionManageAreaTable');
+    const index = rowArray[0];
+    const row = table.insertRow(index);
+
+    this._privateDomUtils.addDataAttribute(row, rowArray);
+    this.addCellsAndButton(tableType, row, rowArray);
+  }
+
   addCellText(cell, text) {
     cell.innerHTML = text;
   }
