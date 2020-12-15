@@ -1,0 +1,19 @@
+#select-button {
+  margin-right: 5px;
+}
+
+#index {
+  text-align: center;
+}
+
+#section-list {
+  border: 1px solid black;
+}
+
+#table {
+  margin-top: 30px;
+}
+
+th, td {
+  border: 1px solid black;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>지하철 노선도 관리</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>🚇 지하철 노선도 관리 </h1>
+    </div>
+    <div>
+      <button type="button" id="station-manager-button" onclick="location.href='./station.html'">1. 역 관리</button>
+      <button type="button" id="line-manager-button" onclick="location.href='./line.html'">2. 노선 관리</button>
+      <button type="button" id="section-manager-button" onclick="location.href='./section.html'">3. 구간 관리</button>
+      <button type="button" id="map-print-manager-button" onclick="location.href='./map.html'">4. 지하철 노선도 출력</button>
+    </div>
+    <div class="map"></div>
+    <script type="module" src="../src/map/controller.js"></script>
+  </body>
+</html>

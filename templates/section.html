@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>지하철 노선도 관리</title>
+    <link rel="stylesheet" href="../css/section.css">
+  </head>
+  <body>
+    <div id="app">
+      <h1>🚇 지하철 노선도 관리 </h1>
+    </div>
+    <div>
+      <button type="button" id="station-manager-button" onclick="location.href='./station.html'">1. 역 관리</button>
+      <button type="button" id="line-manager-button" onclick="location.href='./line.html'">2. 노선 관리</button>
+      <button type="button" id="section-manager-button" onclick="location.href='./section.html'">3. 구간 관리</button>
+      <button type="button" id="map-print-manager-button" onclick="location.href='./map.html'">4. 지하철 노선도 출력</button>
+    </div>
+    <div id="select" style="margin-top: 30px;">
+      <h3>구간을 수정할 노선을 선택해주세요.</h3>
+    </div>
+    <div id="section">
+      <h4 id="line-text"></h4>
+      <h5>구간 등록</h5>
+      <select name="" id="section-station-selector"></select>
+      <input type="number" id="section-order-input" placeholder="순서">
+      <button type="button" id="section-add-button">등록</button>
+    </div>
+    <div id="table">
+      <table id="section-list">
+      </table>
+    </div>
+    <script type="module" src="../src/section/controller.js"></script>
+  </body>
+</html>
