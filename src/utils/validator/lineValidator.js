@@ -42,10 +42,10 @@ const isEqualLine = (startStationName, endStationName) => {
 };
 
 const isEqualReverseLine = (startStationName, endStationName) => {
-  const endStationsIds = getStartStationIds(startStationName);
-  const StartStationsIds = getEndStationIds(endStationName);
+  const startStationIds = getStartStationIds(endStationName);
+  const endStationIds = getEndStationIds(startStationName);
 
-  const equalLine = StartStationsIds.filter((station, index) => station && endStationsIds[index]);
+  const equalLine = startStationIds.filter((station, index) => station && endStationIds[index]);
   return equalLine.length !== 0 ? alert('동일한 종점을 가진 노선이 있습니다') : true;
 };
 
