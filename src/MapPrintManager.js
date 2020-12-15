@@ -19,8 +19,8 @@ export default class MapPrintManager {
   renderSection(section) {
     return `
       <ul>
-        ${section.map((stationName) => `
-          <li>${stationName}</li>
+        ${section.map((stationName, index) => `
+          <li data-order=${index}>${stationName}</li>
         `).join('')}
       </ul>
     `;
