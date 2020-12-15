@@ -1,23 +1,30 @@
 import {STATION} from '../constants.js';
+import {
+  handleAddStation, handlerDeleteStation,
+} from '../handlers/station-handler.js';
 
 export default class StationListener {
   constructor(subwayStation) {
     this.subwayStation = subwayStation;
-    this.setElement();
-    this.addEventListener();
+
+    this.addListenerToAddButton();
+    this.addListenerToResult();
   }
 
-  setElement() {
-    this.stationAddButton = document.getElementById(STATION.BUTTON.ADD.ID);
+  addListenerToAddButton() {
+    const stationAddButton = document.getElementById(STATION.BUTTON.ADD.ID);
+
+    stationAddButton.addEventListener('click', () => {
+      handleAddStation(this.subwayStation);
+    });
   }
 
-  addEventListener() {
-    this.stationAddButton
-        .addEventListener('click', this.subwayStation.addStation);
+  addListenerToResult() {
+    const result = document.getElementById(STATION.DIV.RESULT.ID);
 
-    document.addEventListener('click', (event)=>{
+    result.addEventListener('click', (event) => {
       if (event.target.className === STATION.BUTTON.DELETE.CLASS) {
-        this.subwayStation.deleteStation(event.target);
+        handlerDeleteStation(this.subwayStation, event.target);
       }
     });
   }

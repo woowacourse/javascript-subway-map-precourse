@@ -1,22 +1,22 @@
-import {REGISTER, RESULT, STATION} from '../constants.js';
-import StationRegisterComponent
-  from '../components/subway-station/station-register.js';
-import StationResultComponent
-  from '../components/subway-station/station-result.js';
-import StationList
-  from '../components/subway-station/station-list.js';
+import {MAIN, STATION} from '../constants.js';
+import {
+  registerTemplate, resultTemplate, listTemplate,
+} from '../components/station-component.js';
 
 class SubwayStationView {
   constructor() {
-    this.register = document.getElementById(REGISTER.ID);
-    this.result = document.getElementById(RESULT.ID);
+    this.main = document.getElementById(MAIN.ID);
   }
 
   renderSubWayStation = (stationList) => {
-    this.register.innerHTML = StationRegisterComponent.template();
-    this.result.innerHTML = StationResultComponent.template();
+    this.main.innerHTML = registerTemplate();
 
-    this.renderStationList(stationList);
+    this.result = document.getElementById(STATION.DIV.RESULT.ID);
+
+    if (stationList.length > 0) {
+      this.result.innerHTML = resultTemplate();
+      this.renderStationList(stationList);
+    }
   }
 
   renderStationList = (stationList) => {
@@ -25,24 +25,40 @@ class SubwayStationView {
     tbody.innerHTML = '';
 
     stationList.forEach((station, i)=>{
-      tbody.innerHTML += StationList.template(station, i);
+      tbody.innerHTML += listTemplate(station, i);
     });
   }
 
-  renderStation = (stationList) => {
-    const tbody = this.result.getElementsByTagName('tbody')[0];
+  renderAddStation = (station) => {
+    if (this.result.innerHTML === '') this.result.innerHTML = resultTemplate();
 
+    const tbody = this.result.getElementsByTagName('tbody')[0];
     document.getElementById(STATION.INPUT.ID).value = '';
 
-    tbody.innerHTML += StationList.template(
-        stationList[stationList.length - 1],
+    tbody.innerHTML += listTemplate(
+        station,
         tbody.rows.length,
     );
+  }
+
+  renderDeleteStation = (targetId) => {
+    const tbody = this.result.getElementsByTagName('tbody')[0];
+
+    tbody.removeChild(tbody.children[targetId]);
+
+    const deleteButtons
+    = this.result.getElementsByClassName(STATION.BUTTON.DELETE.CLASS);
+
+    Array.prototype.forEach.call(deleteButtons, (button, i) => {
+      button.dataset.stationId = i;
+    });
+
+    if (tbody.children.length === 0) this.result.innerHTML = '';
   }
 }
 
 export const {
   renderSubWayStation,
-  renderStationList,
-  renderStation,
+  renderAddStation,
+  renderDeleteStation,
 } = new SubwayStationView();

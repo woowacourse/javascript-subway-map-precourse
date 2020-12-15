@@ -1,40 +1,34 @@
 import {STATION, STORAGE} from '../constants.js';
-import {getList, saveList} from './subway-local-storage.js';
-import {
-  renderStationList, renderStation,
-} from '../views/subway-station-view.js';
+import {getStations, getLines} from './subway-local-storage.js';
 
 export default class SubwayStation {
   constructor() {
-    this.stationList = getList(STORAGE.STATION.KEY);
+    this.stationList = getStations(STORAGE.STATION.KEY);
+    this.lineList = getLines(STORAGE.LINE.KEY);
   }
 
-  addStation = () => {
-    const station = document.getElementById(STATION.INPUT.ID).value;
-
+  addStation = (station, cb) => {
     if (!this.isValidStation(station)) {
-      return this.alert(station);
+      return cb(this.alertMessage(station));
     }
 
     this.stationList.push(station);
 
-    saveList(STORAGE.STATION.KEY, this.stationList);
-    renderStation(this.stationList);
+    return cb(null, this.stationList);
   }
 
-  deleteStation = (target) => {
-    if (!this.deleteConfirm()) return;
+  deleteStation = (targetId, cb) => {
+    if (this.isRegisteredStation(targetId)) {
+      return cb(STATION.ALERT.REGISTERED);
+    }
 
-    const id = parseInt(target.dataset.stationId);
+    this.stationList.splice(targetId, 1);
 
-    this.stationList = this.stationList.filter((station, i) => i !== id);
-
-    saveList(STORAGE.STATION.KEY, this.stationList);
-    renderStationList(this.stationList);
+    return cb(null, this.stationList);
   }
 
-  deleteConfirm() {
-    return confirm(STATION.ALERT.DELETE);
+  isRegisteredStation(targetId) {
+    return this.hasRegisteredStation(targetId);
   }
 
   isValidStation(station) {
@@ -48,11 +42,23 @@ export default class SubwayStation {
     return true;
   }
 
-  alert(station) {
-    if (station.length < 2) {
-      return alert(STATION.ALERT.LENGTH);
+  hasRegisteredStation(targetId) {
+    const station = this.stationList[targetId];
+
+    for (const lineName in this.lineList) {
+      if (this.lineList[lineName].some(line => line.name === station)) {
+        return true;
+      }
     }
 
-    alert(STATION.ALERT.DUPLICATION);
+    return false;
+  }
+
+  alertMessage(station) {
+    if (station.length < 2) {
+      return STATION.ALERT.LENGTH;
+    }
+
+    return STATION.ALERT.DUPLICATION;
   }
 }
