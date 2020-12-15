@@ -16,4 +16,13 @@ const StationCreator = function () {
     getAdvancedEle("button", { id: "station-add-button" }, "역 추가");
 
   this.createTableTitle = () => getAdvancedEle("h2", null, "🚉 지하철 역 목록");
+
+  this.createAddDiv = () => {
+    const div = this.createAddWrapper();
+    const titleDiv = this.createAddTitle();
+    const input = this.createAddInput();
+    const button = this.createAddButton();
+    appendChildren(div, titleDiv, input, button);
+    return div;
+  };
 };
