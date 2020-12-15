@@ -47,8 +47,10 @@
 
 - 지하철 노선에 구간을 추가, 즉 지하철 노선 안의 두 역 사이에 새로운 역 끼워넣기(insert subway station in subway line)
   - :exclamation: 예외#6 - 끼워 넣으려는 역이 이미 노선 안에 있는 경우
+  - :exclamation: 예외#7 - 끼워넣으려는 역의 순서가 숫자로 표현되어 있지 않을 경우
 - 지하철 노선 구간 추가 가능성 여부 검사 (check if the subway station can be inserted)
   - :wrench: 해결(예외 #6) - 끼워 넣으려는 역이 이미 노선 안에 있는지 검사
+  - :wrench: 해결(예외 #7) - 끼워 넣으려는 역의 순서값이 숫자인지 검사
 
 <br/>
 
@@ -59,9 +61,9 @@
 ### 지하철 구간 삭제 기능
 
 - 지하철 노선에 구간을 삭제, 즉 지하철 노선 안에서 특정 역을 빼기 (pull out subway station in subway line)
-  - :exclamation: 예외#7 - 노선에 포함된 역을 삭제하려는 시점에 그 노선에 포함된 역이 두개 이하일 경우
+  - :exclamation: 예외#8 - 노선에 포함된 역을 삭제하려는 시점에 그 노선에 포함된 역이 두개 이하일 경우
 - 지하철 노선 구간 삭제 가능성 여부 검사 (check if the subway station can be pulled out)
-  - :wrench: 해결(예외 #7) - 삭제 후 그 노선에 포함된 역이 두개 미만인지를 검사
+  - :wrench: 해결(예외 #8) - 삭제 후 그 노선에 포함된 역이 두개 미만인지를 검사
 
 <br/>
 
