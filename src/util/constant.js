@@ -56,7 +56,7 @@ export const ErrorMessage = {
   // 노선 관리
   NAME_WHITE_SPACE: "공백이 아닌 노선 이름을 입력해 주세요.",
   SAME_START_END_STATION: "서로 다른 종점을 선택해 주세요.",
-  DUPLICATED_START_END_STATION: "기존 노선과 다른 상행, 하행 종점을 선택해 주세요.",
+  DUPLICATED_START_END_STATION: "기존 노선과 다른 상행, 하행 종점을 선택해 주세요.\n또한, 종점 방향만 다른 경우 동일한 노선으로 간주됩니다.",
   DUPLICATED_LINE_NAME: "중복되지 않은 노선 이름을 입력해 주세요.",
 
   // 구간 관리
