@@ -3,7 +3,7 @@ import renderSelector from './common/renderSelector.js';
 import renderLineList from './line/renderLineList.js';
 import renderLineSelector from './section/renderLineSelect.js';
 import renderSectionContainer from './section/renderSectionContainer.js';
-import renderSubwayMap from './station-map/renderSubwayMap.js';
+import renderSubwayMap from './subway-map/renderSubwayMap.js';
 
 function clearInputValue() {
   const $input = document.querySelectorAll('input');

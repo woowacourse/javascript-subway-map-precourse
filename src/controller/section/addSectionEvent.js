@@ -1,5 +1,5 @@
 import updateSectionList from './updateSectionList.js';
-import renderSubwayMap from '../../render/station-map/renderSubwayMap.js';
+import renderSubwayMap from '../../render/subway-map/renderSubwayMap.js';
 
 function addSection(targetLine, lineNumber) {
   const lineList = JSON.parse(localStorage.getItem('lines')).split(',');

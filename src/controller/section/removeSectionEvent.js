@@ -1,5 +1,5 @@
 import updateSectionList from './updateSectionList.js';
-import renderSubwayMap from '../../render/station-map/renderSubwayMap.js';
+import renderSubwayMap from '../../render/subway-map/renderSubwayMap.js';
 
 const MINIMUM_IN_LINE_SECTION = 2;
 
