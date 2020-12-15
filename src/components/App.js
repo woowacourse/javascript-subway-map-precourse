@@ -19,7 +19,10 @@ export default function App($app) {
   });
   this.lines = localStorageManager.getItem({
     key: STORAGE_KEY.line,
-    defaultValue: [],
+    defaultValue: [
+      { name: "8호선", stations: ["몽촌토성", "잠실"] },
+      { name: "9호선", stations: ["종합운동장", "봉은사"] },
+    ],
   });
 
   this.onAddStation = (stationName) => {

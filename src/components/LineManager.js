@@ -10,9 +10,18 @@ export default function LineManager({ $target, isShow, stations, lines }) {
   this.stations = stations;
   this.lines = lines;
 
+  this.isExistLineName = (lineName) => {
+    if (this.lines.find((line) => line.name === lineName)) {
+      return true;
+    }
+
+    return false;
+  };
+
   this.lineInput = new LineInput({
     $target: this.$container,
     stations: this.stations,
+    isExistLineName: this.isExistLineName,
   });
 
   this.lineList = new LineList({

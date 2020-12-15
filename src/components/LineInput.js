@@ -1,7 +1,7 @@
 import { isTextOverMinLength } from "../util/validation.js";
 import { ELEMENT_INFO, LINE_NAME_MIN_LENGTH, ERROR_MESSAGE } from "../util/constants.js";
 
-export default function LineInput({ $target, stations }) {
+export default function LineInput({ $target, stations, isExistLineName }) {
   this.$container = document.createElement("form");
   $target.append(this.$container);
 
@@ -23,6 +23,7 @@ export default function LineInput({ $target, stations }) {
     let result = true;
 
     result = this.isLineNameOverMinLength($lineNameInput.value);
+    result = this.isExistLineName($lineNameInput.value);
 
     if (!result) {
       $lineNameInput.value = "";
@@ -36,6 +37,16 @@ export default function LineInput({ $target, stations }) {
 
     if (!result) {
       alert(ERROR_MESSAGE.shortLineName);
+    }
+
+    return result;
+  };
+
+  this.isExistLineName = (lineName) => {
+    const result = isExistLineName(lineName);
+
+    if (!result) {
+      alert(ERROR_MESSAGE.duplicatedLineName);
     }
 
     return result;
