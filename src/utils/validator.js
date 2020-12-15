@@ -39,8 +39,8 @@ export const addSectionValidate = (index, station, lineName) => {
 
 export const deleteSectionValidate = (elem) => {
   let validate = true;
-  if (getStationsInLine(elem.dataset.name).length <= SECTION.MINIMUM_SECTION) {
+  if (getStationsInLine(elem.dataset.name).length <= SECTION.MINIMUM_SECTION)
     validate = false;
-  }
+
   return validate;
 };
