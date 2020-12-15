@@ -1,3 +1,8 @@
+import {
+  NoneLineMapHTML,
+  createLineListHTML,
+} from "../../utils/templates/mapPrintManagerTemplate.js";
+
 class MapPrintManager {
   constructor($target, { lineStore }) {
     this.$target = $target;
@@ -7,23 +12,11 @@ class MapPrintManager {
   }
 
   mountTemplate() {
-    this.$target.innerHTML = this.createLineListHTML(this.lineStore.lines);
-  }
+    const lines = this.lineStore.lines;
 
-  createLineListHTML(lines) {
-    return lines.reduce((html, line) => {
-      html += this.ListHTML(line);
-      return html;
-    }, ``);
-  }
-
-  ListHTML(line) {
-    return (
-      line.sections.reduce((html, station) => {
-        html += `<li>${station}</li>`;
-        return html;
-      }, `<p>${line.name}</p><ul>`) + `</ul>`
-    );
+    this.$target.innerHTML = lines.length
+      ? createLineListHTML(lines)
+      : NoneLineMapHTML;
   }
 
   render = () => {

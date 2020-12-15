@@ -1,9 +1,11 @@
-import { ID } from "../../utils/constants/dom.js";
-import { clearInput } from "../../utils/domUtil.js";
 import {
   isSameStation,
   isValidLineName,
 } from "../../utils/validations/lineValidation.js";
+import { createLineOptionsHTML } from "../../utils/templates/lineManagerTemplate.js";
+import { clearInput } from "../../utils/domUtil.js";
+
+import { ID } from "../../utils/constants/dom.js";
 
 class LineInput {
   constructor($target, { stationStore, lineStore }) {
@@ -22,29 +24,16 @@ class LineInput {
       <div>
         <span>상행 종점</span>
         <select id=${ID.LINE_START_SELECT}>
-        ${this.createOptionsHTML(this.stationStore.stations)}
+        ${createLineOptionsHTML(this.stationStore.stations)}
         </select>
-        </div>
-        <div>
+      </div>
+      <div>
         <span>하행 종점</span>
         <select id=${ID.LINE_END_SELECT}>
-        ${this.createOptionsHTML(this.stationStore.stations)}
+        ${createLineOptionsHTML(this.stationStore.stations)}
         </select>
       </div>
       <button id=${ID.LINE_ADD_BUTTON}>노선 추가</button>
-    `;
-  }
-
-  createOptionsHTML(stations) {
-    return stations.reduce((html, station) => {
-      html += this.OptionHTML(station);
-      return html;
-    }, ``);
-  }
-
-  OptionHTML(name) {
-    return `
-      <option value=${name}>${name}</option>
     `;
   }
 

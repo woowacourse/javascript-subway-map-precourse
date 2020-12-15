@@ -1,3 +1,7 @@
+import {
+  createSectionTableRowsHTML,
+  SectionTableHeaderHTML,
+} from "../../../utils/templates/sectionManagerTemplate.js";
 import { MESSAGE } from "../../../utils/constants/message.js";
 import { isRemovableSection } from "../../../utils/validations/sectionValidation.js";
 import { CLASS } from "../../../utils/constants/dom.js";
@@ -15,36 +19,13 @@ class InnerSectionTable {
   }
 
   mountTemplate() {
+    const line = this.lineStore.getLine(this.lineName);
+
     this.$target.innerHTML = `
       <table border="1" style="margin-top: 15px;">
-        <tr>
-          <th>순서</th>
-          <th>이름</th>
-          <th>설정</th>
-        </tr>
-        ${this.createTableRowsHTML(
-          this.lineStore.getLine(this.lineName)
-            ? this.lineStore.getLine(this.lineName).sections
-            : [],
-        )}
+        ${SectionTableHeaderHTML}
+        ${createSectionTableRowsHTML(line ? line.sections : [])}
       </table>`;
-  }
-
-  createTableRowsHTML(sections) {
-    return sections.reduce((html, station, idx) => {
-      html += this.TableRowHTML(idx, station);
-      return html;
-    }, ``);
-  }
-
-  TableRowHTML(idx, station) {
-    return `
-      <tr>
-        <td data-index=${idx}>${idx}</td>
-        <td data-name=${station}>${station}</td>
-        <td><button class=${CLASS.SECTION_DELETE_BUTTON}>노선에서 제거</button></td>
-      </tr>
-    `;
   }
 
   bindEvents() {

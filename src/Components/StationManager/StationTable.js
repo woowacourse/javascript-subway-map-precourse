@@ -1,3 +1,7 @@
+import {
+  createStationTableRowsHTML,
+  StationTableHeaderHTML,
+} from "../../utils/templates/stationManagerTemplate.js";
 import { isRemovableStation } from "../../utils/validations/stationValidation.js";
 
 import { MESSAGE } from "../../utils/constants/message.js";
@@ -19,28 +23,9 @@ class StationTable {
     this.$target.innerHTML = `
       <h3>🚉 지하철 역 목록</h3>
       <table border="1">
-        <tr>
-          <th>역 이름</th>
-          <th>설정</th>
-        </tr>
-        ${this.createTableRowsHTML(this.stationStore.stations)}
+        ${StationTableHeaderHTML}
+        ${createStationTableRowsHTML(this.stationStore.stations)}
       </table>
-    `;
-  }
-
-  createTableRowsHTML(names) {
-    return names.reduce((html, name) => {
-      html += this.TableRowHTML(name);
-      return html;
-    }, ``);
-  }
-
-  TableRowHTML(name) {
-    return `
-    <tr>
-      <td data-name="${name}">${name}</td>
-      <td ><button class=${CLASS.STATION_DELETE_BUTTON}>삭제</button></td>
-    </tr>
     `;
   }
 

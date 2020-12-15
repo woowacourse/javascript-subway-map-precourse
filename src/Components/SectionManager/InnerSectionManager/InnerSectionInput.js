@@ -1,3 +1,4 @@
+import { createSectionOptionsHTML } from "../../../utils/templates/sectionManagerTemplate.js";
 import { clearInput } from "../../../../src_old/utils/domUtil.js";
 import { isValidSectionNumber } from "../../../utils/validations/sectionValidation.js";
 import { ID } from "../../../utils/constants/dom.js";
@@ -17,22 +18,11 @@ class InnerSectionInput {
     this.$target.innerHTML = `
       <p>구간 등록</p>
       <select id="${ID.SECTION_STATION_SELECT}">
-      ${this.createOptionsHTML(this.stationStore.stations)}
+      ${createSectionOptionsHTML(this.stationStore.stations)}
       </select>
       <input type=number id="${ID.SECTION_ORDER_INPUT}" />
       <button id='${ID.SECTION_ADD_BUTTON}'>등록</button>    
     `;
-  }
-
-  createOptionsHTML(names) {
-    return names.reduce((html, name) => {
-      html += this.OptionHTML(name);
-      return html;
-    }, ``);
-  }
-
-  OptionHTML(name) {
-    return `<option value=${name}>${name}</option>`;
   }
 
   mountDOMs() {
