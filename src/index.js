@@ -145,3 +145,16 @@ function createLineHTML(newLine, lineName, firstStation, lastStation) {
     deleteLineFromTable(deleteButton, newLine);
     makeTableOfLine(newLine);
 }
+
+function addLineDeleteBtnOnTable(lineRow) {
+    //add delete button on the table
+    let lineDeleteBtn = document.createElement('button'); 
+    let lineDeleteBtnText = document.createTextNode('삭제');
+    let cell4 = lineRow.insertCell(3);
+    lineDeleteBtn.className = '.line-delete-button';
+    lineDeleteBtn.appendChild(lineDeleteBtnText);
+    document.body.appendChild(lineDeleteBtn);
+    cell4.appendChild(lineDeleteBtn);
+
+    return lineDeleteBtn;
+}
