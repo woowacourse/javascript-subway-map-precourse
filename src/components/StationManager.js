@@ -18,16 +18,37 @@ export default function StationManager({ $target, isShow }) {
     return this.stations.includes(stationName);
   };
 
-  this.components = [
-    new StationNameInput({
-      $target: this.$container,
-      isExistStationName: this.isExistStationName,
-    }),
-    new StationList({
-      $target: this.$container,
-      stations: this.stations,
-    }),
-  ];
+  this.onAddStation = (stationName) => {
+    const nextStations = [...this.stations, stationName];
+    this.setState({ nextStations });
+  };
+
+  this.stationNameInput = new StationNameInput({
+    $target: this.$container,
+    isExistStationName: this.isExistStationName,
+    onAddStation: this.onAddStation,
+  });
+  this.stationList = new StationList({
+    $target: this.$container,
+    stations: this.stations,
+  });
+
+  this.setState = ({ nextIsShow, nextStations }) => {
+    if (nextStations) {
+      this.stations = nextStations;
+      localStorageManager.setItem({
+        key: STORAGE_KEY.station,
+        item: nextStations,
+      });
+
+      this.stationList.setState({ nextStation: this.stations });
+    }
+
+    if (nextIsShow !== undefined) {
+      this.isShow = nextIsShow;
+      this.render();
+    }
+  };
 
   this.render = () => {
     this.$container.style.display = this.isShow ? "block" : "none";

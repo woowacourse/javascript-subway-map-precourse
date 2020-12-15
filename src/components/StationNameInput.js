@@ -1,11 +1,12 @@
 import { isTextOverMinLength } from "../util/validation.js";
 import { ELEMENT_INFO, STATION_NAME_MIN_LENGTH, ERROR_MESSAGE } from "../util/constants.js";
 
-export default function StationNameInput({ $target, isExistStationName }) {
+export default function StationNameInput({ $target, isExistStationName, onAddStation }) {
   this.$container = document.createElement("form");
   $target.append(this.$container);
 
   this.isExistStationName = isExistStationName;
+  this.onAddStation = onAddStation;
 
   const { stationNameInput, stationNameSubmit } = ELEMENT_INFO;
 
@@ -14,7 +15,7 @@ export default function StationNameInput({ $target, isExistStationName }) {
       const $stationNameInput = document.querySelector(`#${stationNameInput.id}`);
 
       if (this.isValidStationName($stationNameInput.value)) {
-        // TODO: 지하철 역 등록
+        this.onAddStation($stationNameInput.value);
       }
 
       $stationNameInput.value = "";

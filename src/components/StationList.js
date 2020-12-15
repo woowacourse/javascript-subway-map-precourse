@@ -8,6 +8,11 @@ export default function StationList({ $target, stations }) {
 
   const { stationDeleteButton } = ELEMENT_INFO;
 
+  this.setState = ({ nextStations }) => {
+    this.stations = nextStations;
+    this.render();
+  };
+
   this.createTableRowHTMLString = (stationName) => {
     return `
       <tr>
