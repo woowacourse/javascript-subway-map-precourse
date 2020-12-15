@@ -28,48 +28,6 @@ export const clearMangeContainer = () => {
   container.innerHTML = "";
 };
 
-// station
-export const addStation = () => {
-  const stationNameElem = document.getElementById("station-name-input");
-  if (addStationValidate(stationNameElem.value)) {
-    addLocalStorageByKey("stations", new Station(stationNameElem.value));
-    rendStationMangeDom();
-  } else {
-    alert(STATION.INPUT_ERROR_MESSAGE);
-  }
-  stationNameElem.value = "";
-};
-
-export const confirmStationDelete = (targetElem) => {
-  try {
-    if (deleteStationValidate(targetElem.dataset.index)) {
-      deleteDataByName("stations", targetElem.dataset.index, "name");
-      const removeElem = targetElem.parentNode.parentNode;
-      removeElem.parentNode.removeChild(removeElem);
-    } else {
-      alert(STATION.DELETE_ERROR_MESSAGE);
-    }
-  } catch (e) {}
-};
-
-export const setStationDeleteEvent = () => {
-  document.querySelectorAll(".station-delete-button").forEach((item) => {
-    item.addEventListener("click", (event) => {
-      event.preventDefault();
-      if (confirm(DELETE_CONFIRM_MESSAGE)) confirmStationDelete(event.target);
-    });
-  });
-};
-
-export const rendStationMangeDom = () => {
-  clearMangeContainer();
-  const container = document.getElementById("subway-manager-container");
-  const div = document.createElement("div");
-  div.innerHTML = stationMangeContainer();
-  container.appendChild(div);
-  setStationDeleteEvent();
-};
-
 //line
 export const addLine = () => {
   const lineNameElem = document.getElementById("line-name-input");
