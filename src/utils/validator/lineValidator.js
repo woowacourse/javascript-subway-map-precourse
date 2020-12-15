@@ -1,5 +1,5 @@
-import lineStorage from '../lineStorage.js';
-import stationStorage from '../stationStorage.js';
+import lineStorage from '../../storage/lineStorage.js';
+import stationStorage from '../../storage/stationStorage.js';
 
 const isEqualName = (lines, lineName) => {
   return lines.some((line) => line.name === lineName) ? alert('중복된 노선 이름입니다.') : true;
@@ -21,31 +21,29 @@ const isEqualPoints = (startStationName, endStationName) => {
     : true;
 };
 
-const isEqualLine = (startStationName, endStationName) => {
-  const startStationId = stationStorage().getStationIdByName(startStationName);
-  const endStationId = stationStorage().getStationIdByName(endStationName);
-
-  const startStationIds = lineStorage()
+const getStartStationIds = (stationName) => {
+  return lineStorage()
     .getStartPointsId()
-    .map((stationId) => stationId === parseInt(startStationId));
-  const endStationIds = lineStorage()
+    .map((stationId) => stationId === parseInt(stationStorage().getStationIdByName(stationName)));
+};
+
+const getEndStationIds = (stationName) => {
+  return lineStorage()
     .getEndPointsId()
-    .map((stationId) => stationId === parseInt(endStationId));
+    .map((stationId) => stationId === parseInt(stationStorage().getStationIdByName(stationName)));
+};
+
+const isEqualLine = (startStationName, endStationName) => {
+  const startStationIds = getStartStationIds(startStationName);
+  const endStationIds = getEndStationIds(endStationName);
 
   const equalLine = startStationIds.filter((station, index) => station && endStationIds[index]);
   return equalLine.length !== 0 ? alert('동일한 종점을 가진 노선이 있습니다') : true;
 };
 
 const isEqualReverseLine = (startStationName, endStationName) => {
-  const startStationId = stationStorage().getStationIdByName(startStationName);
-  const endStationId = stationStorage().getStationIdByName(endStationName);
-
-  const endStationsIds = lineStorage()
-    .getStartPointsId()
-    .map((stationId) => stationId === parseInt(startStationId));
-  const StartStationsIds = lineStorage()
-    .getEndPointsId()
-    .map((stationId) => stationId === parseInt(endStationId));
+  const endStationsIds = getStartStationIds(startStationName);
+  const StartStationsIds = getEndStationIds(endStationName);
 
   const equalLine = StartStationsIds.filter((station, index) => station && endStationsIds[index]);
   return equalLine.length !== 0 ? alert('동일한 종점을 가진 노선이 있습니다') : true;
