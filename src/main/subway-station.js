@@ -4,7 +4,7 @@ import {getList} from './subway-local-storage.js';
 export default class SubwayStation {
   constructor() {
     this.stationList = getList(STORAGE.STATION.KEY) || [];
-    this.lineList = getList(STORAGE.LINE.KEY) || [];
+    this.lineList = getList(STORAGE.LINE.KEY) || {};
   }
 
   addStation = (station, cb) => {
