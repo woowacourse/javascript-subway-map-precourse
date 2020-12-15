@@ -10,4 +10,10 @@ export default function StationManager({ $target, isShow }) {
 
   this.stationNameInput = new StationNameInput({ $target: this.$container });
   this.stationList = new StationList({ $target: this.$container });
+
+  this.render = () => {
+    this.$container.style.display = this.isShow ? "block" : "none";
+  };
+
+  this.render();
 }
