@@ -2,6 +2,7 @@ export const SAVED_STATION_ALERT = "이미 등록된 지하철역 입니다.";
 export const SAVED_STATION_IN_LINE_ALERT =
   "이미 노선에 등록된 지하철역 입니다.";
 export const UNDEFINED_STATION_ALERT = "등록된 지하철역이 없습니다.";
+export const UNDEFINED_LINE_ALERT = "등록된 노선이 없습니다.";
 export const SAVED_LINE_ALERT =
   "이미 등록된 노선입니다. 다른 이름을 입력해주세요.";
 export const STATION_IN_LINE_ALERT = "노선에 등록된 역은 삭제할 수 없습니다.";

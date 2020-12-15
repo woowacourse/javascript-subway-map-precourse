@@ -1,3 +1,5 @@
+import { UNDEFINED_LINE_ALERT } from "../constant/message.js";
+
 export default class MapPrintManager {
   constructor(line) {
     this._mapPrintContainer = document.querySelector("#map-print-container");
@@ -30,9 +32,22 @@ export default class MapPrintManager {
     this._mapPrintContainer.appendChild(lineContainer);
   };
 
+  _printNoLineMessage = () => {
+    const p = document.createElement("p");
+    p.textContent = UNDEFINED_LINE_ALERT;
+    this._mapPrintContainer.appendChild(p);
+  };
+
   _printLineList = () => {
     this._mapPrintContainer.innerHTML = "";
     const lineList = this._line.getLineList();
+
+    if (lineList.length === 0) {
+      this._printNoLineMessage();
+
+      return;
+    }
+
     lineList.forEach(line => {
       this._createLineListElements(line);
     });
