@@ -61,4 +61,9 @@ const SectionContainer = function () {
   };
 };
 
-export const { changeTableBody, clearSectionInputs } = new SectionContainer();
+export const {
+  changeTableBody,
+  clearSectionInputs,
+  appendSpreadElements,
+  rerenderOnlyChange,
+} = new SectionContainer();

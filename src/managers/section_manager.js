@@ -7,8 +7,10 @@ import {
 import {
   changeTableBody,
   clearSectionInputs,
+  rerenderOnlyChange,
+  appendSpreadElements,
 } from "../containers/section_container";
-import { state } from "../state";
+import { setState, state } from "../state";
 
 const SectionManager = function () {
   this.isExist = (sectionName, sections) =>
@@ -84,4 +86,16 @@ const SectionManager = function () {
     document
       .getElementById("section-add-button")
       .addEventListener("click", this.sectionAddClickFunction);
+
+  this.onLineSelectionButtonClick = ({ target }) => {
+    const { lineIndex, lineName } = target.dataset;
+    const wasItNull = state.selectedLineIndex === null;
+    setState("selectedLineIndex", lineIndex);
+    if (wasItNull) {
+      const resultDiv = target.parentElement;
+      appendSpreadElements(resultDiv, lineName);
+      this.setSectionAddButtonClickEvent();
+    } else rerenderOnlyChange(lineName);
+    this.setSectionDeleteButtonClickEvent();
+  };
 };
