@@ -18,6 +18,20 @@ git clone https://github.com/bwyoo1229/javascript-subway-map-precourse.git
 
 <hr />
 
+## 💻 프로그램 실행 결과
+
+### 역관리
+<img width="100%" src="/images/station_manager.gif">
+
+### 노선관리
+<img width="100%" src="/images/line_manager.gif">
+
+### 구간관리
+<img width="100%" src="/images/section_manager.gif">
+
+### 노선도 출력
+<img width="100%" src="/images/map_print_manager.gif">
+
 ## 🚀 기능 요구사항
 
 ### 지하철 역 관련 기능
