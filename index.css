@@ -1,0 +1,11 @@
+body {
+	font-family: sans-serif;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+#station-container, #line-container, #section-container, #map-container {
+	display: none;
+}
